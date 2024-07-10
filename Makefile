@@ -1,17 +1,21 @@
-# Definir el comando de R. Cambia esto si tu comando de R está en una ubicación diferente
-RSCRIPT = Rscript
-# Definir el archivo principal de RMarkdown
-MAIN_RMD = index.Rmd
-# Objetivo para generar el libro
-book:
-	$(RSCRIPT) -e "bookdown::render_book()"
+# Definir el shell
+SHELL=/bin/bash
 
-tesis.pdf: docs/index.Rmd
-	Rscript -e "bookdown::render_book('docs/index.Rmd', 'bookdown::pdf_book', output_dir = 'docs')"
+# Objetivo por defecto
+all: pdf web
 
-# Objetivo para limpiar los archivos generados
+# Generar tesis.pdf
+pdf:
+	Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
+
+# Generar el sitio web con Bookdown
+web:
+	Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
+
+# Limpiar archivos generados
 clean:
+	rm -rf _book
 	rm -rf _bookdown_files
-	rm -rf docs
+	rm -f tesis.pdf
 
-.PHONY: all book clean
+.PHONY: all pdf web clean
