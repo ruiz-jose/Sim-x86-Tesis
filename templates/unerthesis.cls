@@ -24,7 +24,7 @@
 %
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{templates/facsothesis}[2004/01/27 The Reed College Thesis Class]
+\ProvidesClass{templates/unerthesis}[2004/01/27 The Reed College Thesis Class]
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
 \LoadClass{book}
@@ -295,7 +295,7 @@
   \setbox0=\hbox{of the Requirements for the Degree}
 
   \begin{center}
-   \includegraphics[scale=0.25]{images/facso.png}
+   \includegraphics[scale=0.25]{images/uner.png}
     \setcounter{page}{1}
     \null\vfil
     \begin{Large}
