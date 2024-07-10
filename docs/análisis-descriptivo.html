@@ -4,24 +4,23 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.1 Análisis descriptivo | Título completo de la tesis o seminario de grado</title>
-  <meta name="description" content="4.1 Análisis descriptivo | Título completo de la tesis o seminario de grado" />
-  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+  <title>4.1 Análisis descriptivo | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="4.1 Análisis descriptivo | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.1 Análisis descriptivo | Título completo de la tesis o seminario de grado" />
+  <meta property="og:title" content="4.1 Análisis descriptivo | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
-  
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.1 Análisis descriptivo | Título completo de la tesis o seminario de grado" />
+  <meta name="twitter:title" content="4.1 Análisis descriptivo | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
 
-<meta name="author" content="Mi nombre" />
+<meta name="author" content="Ruiz Jose Maria" />
 
 
 
@@ -32,8 +31,8 @@
   
 <link rel="prev" href="análisis.html"/>
 <link rel="next" href="modelos.html"/>
-<script src="libs/header-attrs-2.3/header-attrs.js"></script>
-<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
@@ -49,30 +48,31 @@
 
 
 
-
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
 <style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
 }
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
+    border: none; pointer-events: all; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -81,9 +81,9 @@ pre.numberSource code > span > a:first-child::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {   }
+  {  }
 @media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+a.sourceLine::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -116,6 +116,11 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 
@@ -129,35 +134,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">tesisfacsodown</a></li>
+<li><a href="./">tesisunerdown</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Resumen</a></li>
 <li class="chapter" data-level="" data-path="agradecimientos.html"><a href="agradecimientos.html"><i class="fa fa-check"></i>Agradecimientos</a></li>
-<li class="chapter" data-level="1" data-path="introducción-tesisfacsodown.html"><a href="introducción-tesisfacsodown.html"><i class="fa fa-check"></i><b>1</b> Introducción: tesisfacsodown</a>
-<ul>
+<li class="chapter" data-level="1" data-path="introducción-tesisfacsodown.html"><a href="introducción-tesisfacsodown.html"><i class="fa fa-check"></i><b>1</b> Introducción: tesisfacsodown</a><ul>
 <li class="chapter" data-level="1.1" data-path="requisitos.html"><a href="requisitos.html"><i class="fa fa-check"></i><b>1.1</b> Requisitos</a></li>
 <li class="chapter" data-level="1.2" data-path="pasos.html"><a href="pasos.html"><i class="fa fa-check"></i><b>1.2</b> Pasos</a></li>
 <li class="chapter" data-level="1.3" data-path="algunos-detalles-adicionales.html"><a href="algunos-detalles-adicionales.html"><i class="fa fa-check"></i><b>1.3</b> Algunos detalles adicionales:</a></li>
 <li class="chapter" data-level="1.4" data-path="publicación-web-y-versionamiento.html"><a href="publicación-web-y-versionamiento.html"><i class="fa fa-check"></i><b>1.4</b> Publicación web y versionamiento</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="antecedentes-conceptuales-y-empíricos.html"><a href="antecedentes-conceptuales-y-empíricos.html"><i class="fa fa-check"></i><b>2</b> Antecedentes conceptuales y empíricos</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="concepto-principal-explanandum-objeto-de-estudio.html"><a href="concepto-principal-explanandum-objeto-de-estudio.html"><i class="fa fa-check"></i><b>2.1</b> (concepto principal - explanandum - objeto de estudio)</a></li>
-<li class="chapter" data-level="2.2" data-path="factores-asociados-a-objeto-de-estudio.html"><a href="factores-asociados-a-objeto-de-estudio.html"><i class="fa fa-check"></i><b>2.2</b> Factores asociados a objeto de estudio</a>
-<ul>
+<li class="chapter" data-level="2" data-path="antecedentes-conceptuales-y-empíricos.html"><a href="antecedentes-conceptuales-y-empíricos.html"><i class="fa fa-check"></i><b>2</b> Antecedentes conceptuales y empíricos</a><ul>
+<li class="chapter" data-level="2.1" data-path="concepto-principal---explanandum---objeto-de-estudio.html"><a href="concepto-principal---explanandum---objeto-de-estudio.html"><i class="fa fa-check"></i><b>2.1</b> (concepto principal - explanandum - objeto de estudio)</a></li>
+<li class="chapter" data-level="2.2" data-path="factores-asociados-a-objeto-de-estudio.html"><a href="factores-asociados-a-objeto-de-estudio.html"><i class="fa fa-check"></i><b>2.2</b> Factores asociados a objeto de estudio</a><ul>
 <li class="chapter" data-level="2.2.1" data-path="factores-asociados-a-objeto-de-estudio.html"><a href="factores-asociados-a-objeto-de-estudio.html#factor-1"><i class="fa fa-check"></i><b>2.2.1</b> Factor 1</a></li>
 <li class="chapter" data-level="2.2.2" data-path="factores-asociados-a-objeto-de-estudio.html"><a href="factores-asociados-a-objeto-de-estudio.html#factor-n"><i class="fa fa-check"></i><b>2.2.2</b> Factor N</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> Metodología</a>
-<ul>
+<li class="chapter" data-level="3" data-path="metodología.html"><a href="metodología.html"><i class="fa fa-check"></i><b>3</b> Metodología</a><ul>
 <li class="chapter" data-level="3.1" data-path="datos.html"><a href="datos.html"><i class="fa fa-check"></i><b>3.1</b> Datos</a></li>
 <li class="chapter" data-level="3.2" data-path="variables.html"><a href="variables.html"><i class="fa fa-check"></i><b>3.2</b> Variables</a></li>
 <li class="chapter" data-level="3.3" data-path="métodos.html"><a href="métodos.html"><i class="fa fa-check"></i><b>3.3</b> Métodos</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="análisis.html"><a href="análisis.html"><i class="fa fa-check"></i><b>4</b> Análisis</a>
-<ul>
+<li class="chapter" data-level="4" data-path="análisis.html"><a href="análisis.html"><i class="fa fa-check"></i><b>4</b> Análisis</a><ul>
 <li class="chapter" data-level="4.1" data-path="análisis-descriptivo.html"><a href="análisis-descriptivo.html"><i class="fa fa-check"></i><b>4.1</b> Análisis descriptivo</a></li>
 <li class="chapter" data-level="4.2" data-path="modelos.html"><a href="modelos.html"><i class="fa fa-check"></i><b>4.2</b> Modelos</a></li>
 </ul></li>
@@ -175,7 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Título completo de la tesis o seminario de grado</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</a>
           </h1>
         </div>
 
@@ -183,8 +183,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="análisis-descriptivo" class="section level2" number="4.1">
-<h2><span class="header-section-number">4.1</span> Análisis descriptivo</h2>
+<div id="análisis-descriptivo" class="section level2 hasAnchor">
+<h2><span class="header-section-number">4.1</span> Análisis descriptivo<a href="análisis-descriptivo.html#análisis-descriptivo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 </div>
             </section>
 
@@ -196,7 +196,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
 <script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
@@ -215,6 +214,7 @@ gitbook.start({
 "weibo": false,
 "instapaper": false,
 "vk": false,
+"whatsapp": false,
 "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
@@ -235,6 +235,10 @@ gitbook.start({
 "text": null
 },
 "download": ["tesis.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
 "toc": {
 "collapse": "subsection"
 }
