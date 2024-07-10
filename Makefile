@@ -6,6 +6,9 @@ MAIN_RMD = index.Rmd
 book:
 	$(RSCRIPT) -e "bookdown::render_book()"
 
+tesis.pdf: docs/index.Rmd
+	Rscript -e "bookdown::render_book('docs/index.Rmd', 'bookdown::pdf_book', output_dir = 'docs')"
+
 # Objetivo para limpiar los archivos generados
 clean:
 	rm -rf _bookdown_files
