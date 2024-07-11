@@ -2,7 +2,7 @@
 SHELL=/bin/bash
 
 # Objetivo por defecto
-all: pdf web
+all: pdf web serve
 
 # Generar tesis.pdf
 pdf:
