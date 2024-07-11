@@ -18,4 +18,9 @@ clean:
 	rm -rf _bookdown_files
 	rm -f tesis.pdf
 
+# Iniciar un servidor HTTP en el directorio docs
+serve:
+	python -m http.server --directory docs 8000
+
+
 .PHONY: all pdf web clean
