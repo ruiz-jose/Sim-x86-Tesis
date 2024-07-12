@@ -146,71 +146,156 @@ Por último, el estudio de la arquitectura de computadoras nos proporciona una b
 En conclusión, estudiar arquitectura de computadoras es fundamental para comprender el funcionamiento de los sistemas informáticos, resolver problemas de rendimiento y eficiencia, contribuir a la innovación tecnológica y acceder a una amplia gama de oportunidades laborales. Es una disciplina emocionante que impulsa la evolución de la tecnología y nos permite ser parte activa de este cambio.</p>
 <div id="arquitectura-x86" class="section level3 hasAnchor">
 <h3><span class="header-section-number">2.1.1</span> Arquitectura x86<a href="arquitectura-de-computadoras.html#arquitectura-x86" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La arquitectura x86 es una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores. Su historia se remonta a 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. Esta arquitectura evolucionó significativamente con la introducción del Intel 80386 en 1985, que marcó el inicio de la era de 32 bits (x86-32). Posteriormente, AMD amplió esta arquitectura a 64 bits con su AMD64, una extensión que Intel adoptó como Intel 64 [14, 16].</p>
+<p>La arquitectura x86 es una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores. Su historia se remonta a 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. Esta arquitectura evolucionó significativamente con la introducción del Intel 80386 en 1985, que marcó el inicio de la era de 32 bits (x86-32). Posteriormente, AMD amplió esta arquitectura a 64 bits con su AMD64, una extensión que Intel adoptó como Intel 64 <span class="citation">Intel (<a href="#ref-intel_64_2016">2016</a>)</span>, <span class="citation">AMD (<a href="#ref-amd_developer_2019">2019</a>)</span>.</p>
 <div id="contextualización-histórica-y-evolución-de-la-arquitectura-x86" class="section level4 hasAnchor">
 <h4><span class="header-section-number">2.1.1.1</span> Contextualización Histórica y Evolución de la Arquitectura x86<a href="arquitectura-de-computadoras.html#contextualización-histórica-y-evolución-de-la-arquitectura-x86" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>La compatibilidad hacia atrás de la arquitectura x86 ha sido un factor clave en su éxito, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Esta característica ha protegido las inversiones en aplicaciones y sistemas operativos desarrollados para la arquitectura x86, consolidando su relevancia en la industria [14,16].</p>
 <table>
+<caption><span id="tab:tabla-procesadores">Tabla 2.1: </span>Hitos procesadores x86</caption>
 <thead>
 <tr class="header">
-<th>Procesador</th>
-<th>Año de Lanzamiento</th>
-<th>Número de Bits</th>
-<th>Nuevas Características</th>
+<th align="left">Procesador</th>
+<th align="right">Año.de.Lanzamiento</th>
+<th align="right">Número.de.Bits</th>
+<th align="left">Nuevas.Características</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Intel 8086</td>
-<td>1978</td>
-<td>16</td>
-<td>Arquitectura inicial</td>
+<td align="left">Intel 8086</td>
+<td align="right">1978</td>
+<td align="right">16</td>
+<td align="left">Arquitectura inicial</td>
 </tr>
 <tr class="even">
-<td>Intel 80386</td>
-<td>1985</td>
-<td>32</td>
-<td>Memoria virtual</td>
+<td align="left">Intel 80386</td>
+<td align="right">1985</td>
+<td align="right">32</td>
+<td align="left">Memoria virtual</td>
 </tr>
 <tr class="odd">
-<td>AMD64</td>
-<td>2003</td>
-<td>64</td>
-<td>Extensiones de 64 bits</td>
+<td align="left">AMD64</td>
+<td align="right">2003</td>
+<td align="right">64</td>
+<td align="left">Extensiones de 64 bits</td>
 </tr>
 </tbody>
 </table>
 <p>La evolución de la arquitectura x86 ha estado marcada por una serie de hitos importantes que han impulsado la informática hacia nuevas alturas. Tras el Intel 8086, el lanzamiento del Intel 80286 en 1982 introdujo modos de operación adicionales que mejoraron la eficiencia y el manejo de memoria. Luego, en 1989, el Intel 80486 incorporó una unidad de punto flotante integrada y una mejor caché, lo que aumentó significativamente el rendimiento.
 La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles de rendimiento y eficiencia, incorporando características avanzadas como la ejecución superescalar y la predicción de saltos. Los avances continuaron con el Pentium Pro en 1995, que mejoró la arquitectura con ejecución fuera de orden y una caché L2 integrada.
 En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, que optimizó el rendimiento y la eficiencia energética. AMD también jugó un papel crucial con su serie Athlon y la introducción de AMD64, que llevó la arquitectura x86 a 64 bits, permitiendo un acceso a mayor memoria y mejorando el rendimiento en aplicaciones intensivas.</p>
-<p>library(knitr)</p>
-<p>evolucion_x86 &lt;- data.frame(
-Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
-Procesador = c(“Intel 8086”, “Intel 80286”, “Intel 80386”, “Intel 80486”, “Intel Pentium”, “Intel Pentium Pro”, “AMD64”, “Intel Core”),
-Innovación_Principal = c(
-“Introducción de la arquitectura x86, 16 bits”,
-“Modos de operación adicionales”,
-“Arquitectura de 32 bits, memoria virtual”,
-“Unidad de punto flotante integrada, mejor caché”,
-“Ejecución superescalar, predicción de saltos”,
-“Ejecución fuera de orden, caché L2 integrada”,
-“Extensiones a 64 bits, mayor acceso a memoria”,
-“Optimización de rendimiento y eficiencia energética”
-)
-)</p>
-<p>kable(evolucion_x86, format = “markdown”, caption = “Línea de Tiempo de la Evolución de la Arquitectura x86”)</p>
+<table>
+<caption><span id="tab:tabla-evolucion-x86">Tabla 2.2: </span>Línea de Tiempo de la Evolución de la Arquitectura x86</caption>
+<thead>
+<tr class="header">
+<th align="right">Año</th>
+<th align="left">Procesador</th>
+<th align="left">Innovación_Principal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1978</td>
+<td align="left">Intel 8086</td>
+<td align="left">Introducción de la arquitectura x86, 16 bits</td>
+</tr>
+<tr class="even">
+<td align="right">1982</td>
+<td align="left">Intel 80286</td>
+<td align="left">Modos de operación adicionales</td>
+</tr>
+<tr class="odd">
+<td align="right">1985</td>
+<td align="left">Intel 80386</td>
+<td align="left">Arquitectura de 32 bits, memoria virtual</td>
+</tr>
+<tr class="even">
+<td align="right">1989</td>
+<td align="left">Intel 80486</td>
+<td align="left">Unidad de punto flotante integrada, mejor caché</td>
+</tr>
+<tr class="odd">
+<td align="right">1993</td>
+<td align="left">Intel Pentium</td>
+<td align="left">Ejecución superescalar, predicción de saltos</td>
+</tr>
+<tr class="even">
+<td align="right">1995</td>
+<td align="left">Intel Pentium Pro</td>
+<td align="left">Ejecución fuera de orden, caché L2 integrada</td>
+</tr>
+<tr class="odd">
+<td align="right">2003</td>
+<td align="left">AMD64</td>
+<td align="left">Extensiones a 64 bits, mayor acceso a memoria</td>
+</tr>
+<tr class="even">
+<td align="right">2006</td>
+<td align="left">Intel Core</td>
+<td align="left">Optimización de rendimiento y eficiencia energética</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="comparación-con-otras-arquitecturas" class="section level4 hasAnchor">
 <h4><span class="header-section-number">2.1.1.2</span> Comparación con Otras Arquitecturas<a href="arquitectura-de-computadoras.html#comparación-con-otras-arquitecturas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM, MIPS y RISC-V nos permite entender mejor sus ventajas y desventajas.
-comparacion_arquitecturas &lt;- data.frame(
-Característica = c(“Eficiencia Energética”, “Complejidad ISA”, “Rendimiento”, “Compatibilidad”, “Áreas de Aplicación”),
-x86 = c(“Moderada”, “Alta”, “Alto”, “Alta (hacia atrás)”, “Escritorio, servidores”),
-ARM = c(“Alta”, “Baja”, “Moderado”, “Moderada”, “Dispositivos móviles”),
-MIPS = c(“Moderada”, “Moderada”, “Moderado”, “Moderada”, “Sistemas embebidos”),
-<code>RISC-V</code> = c(“Alta”, “Baja”, “Variable”, “Alta”, “Investigación, embebidos”)
-)
-kable(comparacion_arquitecturas, caption = “Comparación de Arquitecturas”)</p>
+<p>La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM, MIPS y RISC-V nos permite entender mejor sus ventajas y desventajas.</p>
+<table>
+<caption>(#tab:tabla-comparacion_arquitecturas)Comparación de Arquitecturas</caption>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="19%" />
+<col width="17%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Característica</th>
+<th align="left">x86</th>
+<th align="left">ARM</th>
+<th align="left">MIPS</th>
+<th align="left">RISC.V</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Eficiencia Energética</td>
+<td align="left">Moderada</td>
+<td align="left">Alta</td>
+<td align="left">Moderada</td>
+<td align="left">Alta</td>
+</tr>
+<tr class="even">
+<td align="left">Complejidad ISA</td>
+<td align="left">Alta</td>
+<td align="left">Baja</td>
+<td align="left">Moderada</td>
+<td align="left">Baja</td>
+</tr>
+<tr class="odd">
+<td align="left">Rendimiento</td>
+<td align="left">Alto</td>
+<td align="left">Moderado</td>
+<td align="left">Moderado</td>
+<td align="left">Variable</td>
+</tr>
+<tr class="even">
+<td align="left">Compatibilidad</td>
+<td align="left">Alta (hacia atrás)</td>
+<td align="left">Moderada</td>
+<td align="left">Moderada</td>
+<td align="left">Alta</td>
+</tr>
+<tr class="odd">
+<td align="left">Áreas de Aplicación</td>
+<td align="left">Escritorio, servidores</td>
+<td align="left">Dispositivos móviles</td>
+<td align="left">Sistemas embebidos</td>
+<td align="left">Investigación, embebidos</td>
+</tr>
+</tbody>
+</table>
 <p>La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas.</p>
 </div>
 <div id="aplicaciones-y-casos-de-uso-de-la-arquitectura-x86" class="section level4 hasAnchor">
@@ -257,6 +342,15 @@ Por ello, la enseñanza de la arquitectura x86 es de gran relevancia en la asign
 <li><code>JMP</code>: Salta a una dirección específica.</li>
 </ul>
 </div>
+</div>
+</div>
+<h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references">
+<div id="ref-amd_developer_2019">
+<p>AMD. 2019. “Developer Guides, Manuals &amp; ISA Documents.” <a href="https://developer.amd.com/resources/developer-guides-manuals/">https://developer.amd.com/resources/developer-guides-manuals/</a>.</p>
+</div>
+<div id="ref-intel_64_2016">
+<p>Intel. 2016. “64 and IA-32 Architectures Software Developers Manual.” <em>325462-060US</em> 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C and 3D: 4670. <a href="https://software.intel.com/en-us/articles/intel-sdm">https://software.intel.com/en-us/articles/intel-sdm</a>.</p>
 </div>
 </div>
             </section>

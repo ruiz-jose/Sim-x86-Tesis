@@ -13,29 +13,34 @@ Por último, el estudio de la arquitectura de computadoras nos proporciona una b
 En conclusión, estudiar arquitectura de computadoras es fundamental para comprender el funcionamiento de los sistemas informáticos, resolver problemas de rendimiento y eficiencia, contribuir a la innovación tecnológica y acceder a una amplia gama de oportunidades laborales. Es una disciplina emocionante que impulsa la evolución de la tecnología y nos permite ser parte activa de este cambio.
 
 ###   Arquitectura x86
-La arquitectura x86 es una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores. Su historia se remonta a 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. Esta arquitectura evolucionó significativamente con la introducción del Intel 80386 en 1985, que marcó el inicio de la era de 32 bits (x86-32). Posteriormente, AMD amplió esta arquitectura a 64 bits con su AMD64, una extensión que Intel adoptó como Intel 64 [14, 16].
+La arquitectura x86 es una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores. Su historia se remonta a 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. Esta arquitectura evolucionó significativamente con la introducción del Intel 80386 en 1985, que marcó el inicio de la era de 32 bits (Smith, 1984)
 
 ####   Contextualización Histórica y Evolución de la Arquitectura x86
 
 La compatibilidad hacia atrás de la arquitectura x86 ha sido un factor clave en su éxito, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Esta característica ha protegido las inversiones en aplicaciones y sistemas operativos desarrollados para la arquitectura x86, consolidando su relevancia en la industria [14,16].
 
-| Procesador | Año de Lanzamiento | Número de Bits | Nuevas Características |
-|------------|---------------------|----------------|------------------------|
-| Intel 8086 | 1978                | 16             | Arquitectura inicial   |
-| Intel 80386| 1985                | 32             | Memoria virtual        |
-| AMD64      | 2003                | 64             | Extensiones de 64 bits |
+```{r tabla-procesadores, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
 
+procesadores <- data.frame(
+  Procesador = c("Intel 8086", "Intel 80386", "AMD64"),
+  `Año de Lanzamiento` = c(1978, 1985, 2003),
+  `Número de Bits` = c(16, 32, 64),
+  `Nuevas Características` = c("Arquitectura inicial", "Memoria virtual", "Extensiones de 64 bits")
+)
 
+kable(procesadores, format = "markdown", caption = "Hitos procesadores x86")
+```
 La evolución de la arquitectura x86 ha estado marcada por una serie de hitos importantes que han impulsado la informática hacia nuevas alturas. Tras el Intel 8086, el lanzamiento del Intel 80286 en 1982 introdujo modos de operación adicionales que mejoraron la eficiencia y el manejo de memoria. Luego, en 1989, el Intel 80486 incorporó una unidad de punto flotante integrada y una mejor caché, lo que aumentó significativamente el rendimiento.
 La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles de rendimiento y eficiencia, incorporando características avanzadas como la ejecución superescalar y la predicción de saltos. Los avances continuaron con el Pentium Pro en 1995, que mejoró la arquitectura con ejecución fuera de orden y una caché L2 integrada.
 En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, que optimizó el rendimiento y la eficiencia energética. AMD también jugó un papel crucial con su serie Athlon y la introducción de AMD64, que llevó la arquitectura x86 a 64 bits, permitiendo un acceso a mayor memoria y mejorando el rendimiento en aplicaciones intensivas.
 
-
+```{r tabla-evolucion-x86, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
 evolucion_x86 <- data.frame(
   Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
-  Procesador = c("Intel 8086", "Intel 80286", "Intel 80386", "Intel 80486", "Intel Pentium", "Intel Pentium Pro", "AMD64", "Intel Core"),
+  Procesador = c("Intel 8086", "Intel 80286", "Intel 80386", "Intel 80486", "Intel Pentium", "Intel Pentium Pro", "AMD64", "Intel Core"), # nolint
   Innovación_Principal = c(
     "Introducción de la arquitectura x86, 16 bits",
     "Modos de operación adicionales",
@@ -49,10 +54,12 @@ evolucion_x86 <- data.frame(
 )
 
 kable(evolucion_x86, format = "markdown", caption = "Línea de Tiempo de la Evolución de la Arquitectura x86")
-
+```
 
 ####  Comparación con Otras Arquitecturas
 La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM, MIPS y RISC-V nos permite entender mejor sus ventajas y desventajas.
+
+```{r tabla-comparacion_arquitecturas, echo=FALSE, message=FALSE, warning=FALSE}
 comparacion_arquitecturas <- data.frame(
   Característica = c("Eficiencia Energética", "Complejidad ISA", "Rendimiento", "Compatibilidad", "Áreas de Aplicación"),
   x86 = c("Moderada", "Alta", "Alto", "Alta (hacia atrás)", "Escritorio, servidores"),
@@ -60,12 +67,16 @@ comparacion_arquitecturas <- data.frame(
   MIPS = c("Moderada", "Moderada", "Moderado", "Moderada", "Sistemas embebidos"),
   `RISC-V` = c("Alta", "Baja", "Variable", "Alta", "Investigación, embebidos")
 )
-kable(comparacion_arquitecturas, caption = "Comparación de Arquitecturas")
+kable(comparacion_arquitecturas, format = "markdown", caption = "Comparación de Arquitecturas")
+```
 
 La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas.
 
 ####  Aplicaciones y Casos de Uso de la Arquitectura x86
 La arquitectura x86 ha demostrado ser extremadamente versátil y ha encontrado aplicaciones en una amplia variedad de campos. Su capacidad para manejar tareas complejas y su compatibilidad hacia atrás han sido factores clave en su adopción.
+
+```{r tabla-procesadores, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
 
 casos_uso_x86 <- data.frame(
   `Casos de Uso` = c(
@@ -75,6 +86,7 @@ casos_uso_x86 <- data.frame(
   )
 )
 kable(casos_uso_x86, col.names = NULL, caption = "Casos de Uso Notables de la Arquitectura x86")
+```
 
 ####  Impacto de la Arquitectura x86 en la Industria del Software
 La arquitectura x86 ha tenido un impacto profundo en el desarrollo de software. Los sistemas operativos populares como Windows y Linux están optimizados para x86, lo que ha influido en el desarrollo y la optimización de aplicaciones para esta arquitectura.

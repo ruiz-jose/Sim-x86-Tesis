@@ -63,7 +63,6 @@
 
 
 \usepackage[]{natbib}
-%\usepackage[backend=biber,style=ieee]{biblatex}
 
 
 % Next line commented out by CII
@@ -163,8 +162,8 @@
 %
 \let\chaptername\relax
 \begin{document}
-%\bibliographystyle{apalike}
-\bibliographystyle{IEEEtran}
+\bibliographystyle{apalike}
+%\bibliographystyle{IEEEtran}
 
 % Everything below added by CII
   \maketitle
@@ -344,16 +343,21 @@ En conclusión, estudiar arquitectura de computadoras es fundamental para compre
 \hypertarget{arquitectura-x86}{%
 \subsection{Arquitectura x86}\label{arquitectura-x86}}
 
-La arquitectura x86 es una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores. Su historia se remonta a 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. Esta arquitectura evolucionó significativamente con la introducción del Intel 80386 en 1985, que marcó el inicio de la era de 32 bits (x86-32). Posteriormente, AMD amplió esta arquitectura a 64 bits con su AMD64, una extensión que Intel adoptó como Intel 64 {[}14, 16{]}.
+La arquitectura x86 es una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores. Su historia se remonta a 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. Esta arquitectura evolucionó significativamente con la introducción del Intel 80386 en 1985, que marcó el inicio de la era de 32 bits (x86-32). Posteriormente, AMD amplió esta arquitectura a 64 bits con su AMD64, una extensión que Intel adoptó como Intel 64 \protect\hyperlink{ref-intel_64_2016}{15}, \protect\hyperlink{ref-amd_developer_2019}{16}.
 
 \hypertarget{contextualizaciuxf3n-histuxf3rica-y-evoluciuxf3n-de-la-arquitectura-x86}{%
 \subsubsection{Contextualización Histórica y Evolución de la Arquitectura x86}\label{contextualizaciuxf3n-histuxf3rica-y-evoluciuxf3n-de-la-arquitectura-x86}}
 
 La compatibilidad hacia atrás de la arquitectura x86 ha sido un factor clave en su éxito, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Esta característica ha protegido las inversiones en aplicaciones y sistemas operativos desarrollados para la arquitectura x86, consolidando su relevancia en la industria {[}14,16{]}.
 
-\begin{longtable}[]{@{}llll@{}}
+\begin{longtable}[]{@{}lrrl@{}}
+\caption{\label{tab:tabla-procesadores}Hitos procesadores x86}\tabularnewline
 \toprule
-Procesador & Año de Lanzamiento & Número de Bits & Nuevas Características\tabularnewline
+Procesador & Año.de.Lanzamiento & Número.de.Bits & Nuevas.Características\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Procesador & Año.de.Lanzamiento & Número.de.Bits & Nuevas.Características\tabularnewline
 \midrule
 \endhead
 Intel 8086 & 1978 & 16 & Arquitectura inicial\tabularnewline
@@ -366,37 +370,119 @@ La evolución de la arquitectura x86 ha estado marcada por una serie de hitos im
 La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles de rendimiento y eficiencia, incorporando características avanzadas como la ejecución superescalar y la predicción de saltos. Los avances continuaron con el Pentium Pro en 1995, que mejoró la arquitectura con ejecución fuera de orden y una caché L2 integrada.
 En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, que optimizó el rendimiento y la eficiencia energética. AMD también jugó un papel crucial con su serie Athlon y la introducción de AMD64, que llevó la arquitectura x86 a 64 bits, permitiendo un acceso a mayor memoria y mejorando el rendimiento en aplicaciones intensivas.
 
-library(knitr)
-
-evolucion\_x86 \textless{}- data.frame(
-Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
-Procesador = c(``Intel 8086'', ``Intel 80286'', ``Intel 80386'', ``Intel 80486'', ``Intel Pentium'', ``Intel Pentium Pro'', ``AMD64'', ``Intel Core''),
-Innovación\_Principal = c(
-``Introducción de la arquitectura x86, 16 bits'',
-``Modos de operación adicionales'',
-``Arquitectura de 32 bits, memoria virtual'',
-``Unidad de punto flotante integrada, mejor caché'',
-``Ejecución superescalar, predicción de saltos'',
-``Ejecución fuera de orden, caché L2 integrada'',
-``Extensiones a 64 bits, mayor acceso a memoria'',
-``Optimización de rendimiento y eficiencia energética''
-)
-)
-
-kable(evolucion\_x86, format = ``markdown'', caption = ``Línea de Tiempo de la Evolución de la Arquitectura x86'')
+\begin{longtable}[]{@{}rll@{}}
+\caption{\label{tab:tabla-evolucion-x86}Línea de Tiempo de la Evolución de la Arquitectura x86}\tabularnewline
+\toprule
+Año & Procesador & Innovación\_Principal\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Año & Procesador & Innovación\_Principal\tabularnewline
+\midrule
+\endhead
+1978 & Intel 8086 & Introducción de la arquitectura x86, 16 bits\tabularnewline
+1982 & Intel 80286 & Modos de operación adicionales\tabularnewline
+1985 & Intel 80386 & Arquitectura de 32 bits, memoria virtual\tabularnewline
+1989 & Intel 80486 & Unidad de punto flotante integrada, mejor caché\tabularnewline
+1993 & Intel Pentium & Ejecución superescalar, predicción de saltos\tabularnewline
+1995 & Intel Pentium Pro & Ejecución fuera de orden, caché L2 integrada\tabularnewline
+2003 & AMD64 & Extensiones a 64 bits, mayor acceso a memoria\tabularnewline
+2006 & Intel Core & Optimización de rendimiento y eficiencia energética\tabularnewline
+\bottomrule
+\end{longtable}
 
 \hypertarget{comparaciuxf3n-con-otras-arquitecturas}{%
 \subsubsection{Comparación con Otras Arquitecturas}\label{comparaciuxf3n-con-otras-arquitecturas}}
 
 La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM, MIPS y RISC-V nos permite entender mejor sus ventajas y desventajas.
-comparacion\_arquitecturas \textless{}- data.frame(
-Característica = c(``Eficiencia Energética'', ``Complejidad ISA'', ``Rendimiento'', ``Compatibilidad'', ``Áreas de Aplicación''),
-x86 = c(``Moderada'', ``Alta'', ``Alto'', ``Alta (hacia atrás)'', ``Escritorio, servidores''),
-ARM = c(``Alta'', ``Baja'', ``Moderado'', ``Moderada'', ``Dispositivos móviles''),
-MIPS = c(``Moderada'', ``Moderada'', ``Moderado'', ``Moderada'', ``Sistemas embebidos''),
-\texttt{RISC-V} = c(``Alta'', ``Baja'', ``Variable'', ``Alta'', ``Investigación, embebidos'')
-)
-kable(comparacion\_arquitecturas, caption = ``Comparación de Arquitecturas'')
+
+\begin{longtable}[]{@{}lllll@{}}
+\caption{(\#tab:tabla-comparacion\_arquitecturas)Comparación de Arquitecturas}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.17\columnwidth}\raggedright
+Característica\strut
+\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright
+x86\strut
+\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright
+ARM\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright
+MIPS\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
+RISC.V\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.17\columnwidth}\raggedright
+Característica\strut
+\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright
+x86\strut
+\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright
+ARM\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright
+MIPS\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
+RISC.V\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Eficiencia Energética\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Alta\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Alta\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Complejidad ISA\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Alta\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Baja\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Baja\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Rendimiento\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Alto\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Moderado\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Moderado\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Variable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Compatibilidad\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Alta (hacia atrás)\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Alta\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Áreas de Aplicación\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Escritorio, servidores\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Dispositivos móviles\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Sistemas embebidos\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Investigación, embebidos\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
 La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas.
 
