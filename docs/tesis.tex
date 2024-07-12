@@ -63,6 +63,7 @@
 
 
 \usepackage[]{natbib}
+%\usepackage[backend=biber,style=ieee]{biblatex}
 
 
 % Next line commented out by CII
@@ -162,7 +163,9 @@
 %
 \let\chaptername\relax
 \begin{document}
-\bibliographystyle{apalike}
+%\bibliographystyle{apalike}
+\bibliographystyle{IEEEtran}
+
 % Everything below added by CII
   \maketitle
 
@@ -368,7 +371,7 @@ library(knitr)
 evolucion\_x86 \textless{}- data.frame(
 Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
 Procesador = c(``Intel 8086'', ``Intel 80286'', ``Intel 80386'', ``Intel 80486'', ``Intel Pentium'', ``Intel Pentium Pro'', ``AMD64'', ``Intel Core''),
-\texttt{Innovación\ Principal} = c(
+Innovación\_Principal = c(
 ``Introducción de la arquitectura x86, 16 bits'',
 ``Modos de operación adicionales'',
 ``Arquitectura de 32 bits, memoria virtual'',
@@ -380,7 +383,7 @@ Procesador = c(``Intel 8086'', ``Intel 80286'', ``Intel 80386'', ``Intel 80486''
 )
 )
 
-kable(evolucion\_x86, caption = ``Línea de Tiempo de la Evolución de la Arquitectura x86'')
+kable(evolucion\_x86, format = ``markdown'', caption = ``Línea de Tiempo de la Evolución de la Arquitectura x86'')
 
 \hypertarget{comparaciuxf3n-con-otras-arquitecturas}{%
 \subsubsection{Comparación con Otras Arquitecturas}\label{comparaciuxf3n-con-otras-arquitecturas}}

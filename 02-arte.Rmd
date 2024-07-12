@@ -30,13 +30,13 @@ La evolución de la arquitectura x86 ha estado marcada por una serie de hitos im
 La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles de rendimiento y eficiencia, incorporando características avanzadas como la ejecución superescalar y la predicción de saltos. Los avances continuaron con el Pentium Pro en 1995, que mejoró la arquitectura con ejecución fuera de orden y una caché L2 integrada.
 En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, que optimizó el rendimiento y la eficiencia energética. AMD también jugó un papel crucial con su serie Athlon y la introducción de AMD64, que llevó la arquitectura x86 a 64 bits, permitiendo un acceso a mayor memoria y mejorando el rendimiento en aplicaciones intensivas.
 
-library(knitr)
 
+library(knitr)
 
 evolucion_x86 <- data.frame(
   Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
   Procesador = c("Intel 8086", "Intel 80286", "Intel 80386", "Intel 80486", "Intel Pentium", "Intel Pentium Pro", "AMD64", "Intel Core"),
-  `Innovación Principal` = c(
+  Innovación_Principal = c(
     "Introducción de la arquitectura x86, 16 bits",
     "Modos de operación adicionales",
     "Arquitectura de 32 bits, memoria virtual",
@@ -48,7 +48,8 @@ evolucion_x86 <- data.frame(
   )
 )
 
-kable(evolucion_x86, caption = "Línea de Tiempo de la Evolución de la Arquitectura x86")
+kable(evolucion_x86, format = "markdown", caption = "Línea de Tiempo de la Evolución de la Arquitectura x86")
+
 
 ####  Comparación con Otras Arquitecturas
 La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM, MIPS y RISC-V nos permite entender mejor sus ventajas y desventajas.
