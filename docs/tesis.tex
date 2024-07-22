@@ -64,7 +64,6 @@
 
 \usepackage[]{natbib}
 
-
 % Next line commented out by CII
 %\usepackage{biblatex}
 %\usepackage{natbib}
@@ -162,8 +161,8 @@
 %
 \let\chaptername\relax
 \begin{document}
-\bibliographystyle{apalike}
-%\bibliographystyle{IEEEtran}
+%\bibliographystyle{apalike}
+\bibliographystyle{IEEEtran}
 
 % Everything below added by CII
   \maketitle
@@ -553,15 +552,15 @@ El repertorio de instrucciones x86 incluye una variedad de instrucciones para re
 \hypertarget{lenguaje-ensamblador}{%
 \section{Lenguaje ensamblador}\label{lenguaje-ensamblador}}
 
-Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador. Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso.
-El lenguaje ensamblador es un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones comprensibles por el procesador. A diferencia del lenguaje máquina, que utiliza secuencias de números binarios, el ensamblador emplea mnemónicos simbólicos que hacen que el código sea más legible y manejable para los humanos. Cada arquitectura de procesador tiene su propio lenguaje ensamblador que usualmente es definida por el fabricante de hardware, por lo tanto es específica de cierta arquitectura de la computadora física. Un programa llamado ensamblador es usado para traducir sentencias del lenguaje ensamblador al código de máquina de la computadora. El ensamblador realiza una traducción casi directa uno a uno desde las sentencias mnemónicas a las instrucciones y datos de máquina. Esto está en contraste con los lenguajes de alto nivel, en los cuales una sola declaración generalmente da lugar a muchas instrucciones de máquina.
-El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Si nos ubicamos en la arquitectura x86 encontraremos diferentes lenguajes ensambladores. De ahí los diferentes productos ofrecidos, entre ellos, TASM (Turbo Assembler), MASM (Microsoft Macro Assembler) y NASM (Netwide Assembler). Cada uno ofrece diferentes características y beneficios, adaptándose a diversas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86.
+Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador. Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso \protect\hyperlink{ref-irvine2011assembly}{22}.
+El lenguaje ensamblador es un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones comprensibles por el procesador. A diferencia del lenguaje máquina, que utiliza secuencias de números binarios, el ensamblador emplea mnemónicos simbólicos que hacen que el código sea más legible y manejable para los humanos. Cada arquitectura de procesador tiene su propio lenguaje ensamblador que usualmente es definida por el fabricante de hardware, por lo tanto es específica de cierta arquitectura de la computadora física. Un programa llamado ensamblador es usado para traducir sentencias del lenguaje ensamblador al código de máquina de la computadora. El ensamblador realiza una traducción casi directa uno a uno desde las sentencias mnemónicas a las instrucciones y datos de máquina. Esto está en contraste con los lenguajes de alto nivel, en los cuales una sola declaración generalmente da lugar a muchas instrucciones de máquina \protect\hyperlink{ref-stallings_computer_2013}{14}.
+El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Si nos ubicamos en la arquitectura x86 encontraremos diferentes lenguajes ensambladores. De ahí los diferentes productos ofrecidos, entre ellos, TASM (Turbo Assembler), MASM (Microsoft Macro Assembler) y NASM (Netwide Assembler). Cada uno ofrece diferentes características y beneficios, adaptándose a diversas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86 \protect\hyperlink{ref-hyde2010art}{23}.
 
 \hypertarget{simulaciuxf3n}{%
 \section{Simulación}\label{simulaciuxf3n}}
 
-La simulación es una herramienta esencial en múltiples campos como la medicina, el ámbito militar, el entretenimiento y la educación. Permite a los profesionales comprender el funcionamiento de un sistema, realizar análisis predictivos y responder preguntas del tipo ``qué pasaría si'', generando hipótesis sobre cómo o por qué ocurren ciertos fenómenos. Según Banks et al.~(2001), la simulación se define como el proceso de imitar el comportamiento de un sistema a lo largo del tiempo. Este proceso requiere primero desarrollar un modelo conceptual que capture las características y comportamientos del sistema real, mientras que la simulación representa la evolución de este modelo conforme el tiempo avanza. La capacidad de replicar y analizar sistemas complejos sin necesidad de intervenir directamente en ellos es lo que hace que la simulación sea una metodología indispensable para ingenieros, diseñadores y gerentes en el mundo digital actual {[}1,3{]}.
-Con los avances en el mundo digital, la simulación se ha convertido en una metodología de solución de problemas indispensables para ingenieros, docentes, diseñadores y gerentes. La complejidad intrínseca de los sistemas informáticos los hace difícil comprender y costosos de desarrollar sin utilizar simulación {[}3{]}.
+La simulación es una herramienta esencial en múltiples campos como la medicina, el ámbito militar, el entretenimiento y la educación. Permite a los profesionales comprender el funcionamiento de un sistema, realizar análisis predictivos y responder preguntas del tipo ``qué pasaría si'', generando hipótesis sobre cómo o por qué ocurren ciertos fenómenos. Según Banks \protect\hyperlink{ref-banks_discrete-event_2010}{2}, la simulación se define como el proceso de imitar el comportamiento de un sistema a lo largo del tiempo. Este proceso requiere primero desarrollar un modelo conceptual que capture las características y comportamientos del sistema real, mientras que la simulación representa la evolución de este modelo conforme el tiempo avanza. La capacidad de replicar y analizar sistemas complejos sin necesidad de intervenir directamente en ellos es lo que hace que la simulación sea una metodología indispensable para ingenieros, diseñadores y gerentes en el mundo digital actual \protect\hyperlink{ref-banks_discrete-event_2010}{2},\protect\hyperlink{ref-robinson_simulation_2014}{4}, \protect\hyperlink{ref-law_simulation_2015}{3}.
+Con los avances en el mundo digital, la simulación se ha convertido en una metodología de solución de problemas indispensables para ingenieros, docentes, diseñadores y gerentes. La complejidad intrínseca de los sistemas informáticos los hace difícil comprender y costosos de desarrollar sin utilizar simulación \protect\hyperlink{ref-law_simulation_2015}{3}.
 
 En la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Un modelo virtual del automóvil y sus componentes permite realizar pruebas de colisión y evaluar el rendimiento de los sistemas de seguridad sin la necesidad de llevar a cabo costosas pruebas físicas. Además, la simulación permite optimizar el diseño de motores, analizar el flujo aerodinámico y prever el comportamiento de los materiales en condiciones extremas.
 Ejemplo Adicional:
@@ -576,29 +575,39 @@ Herramientas como Simulink, Proteus, y Logisim permiten a los estudiantes intera
 \section{Simulación aplicada a la enseñanza de arquitectura de computadoras}\label{simulaciuxf3n-aplicada-a-la-enseuxf1anza-de-arquitectura-de-computadoras}}
 
 Los estudiantes de la asignatura Arquitectura de Computadoras deben no solo conocer la estructura y el funcionamiento interno de las computadoras, sino también tener una experiencia práctica activa con dicha arquitectura. Esta experiencia práctica es crucial para desarrollar competencias en el uso de herramientas y técnicas relacionadas con el hardware. Sin embargo, la implementación de laboratorios físicos con el hardware necesario puede ser costosa y requiere tiempo considerable para que los alumnos adquieran las habilidades necesarias.
-Para superar estas limitaciones, se han desarrollado numerosos simuladores que proporcionan experiencias de aprendizaje valiosas al replicar el funcionamiento y la estructura de las computadoras. Simuladores como SimpleScalar, SPIM y GEM5 permiten a los estudiantes experimentar con arquitecturas complejas y técnicas avanzadas como el pipelining y la ejecución fuera de orden. Estas herramientas facilitan la comprensión de los conceptos teóricos a través de la interacción práctica, proporcionando un entorno seguro y accesible para la exploración y el aprendizaje {[}17{]}.
-\#\#\# Uso de la Simulación para Enseñar Pipelining
+Para superar estas limitaciones, se han desarrollado numerosos simuladores que proporcionan experiencias de aprendizaje valiosas al replicar el funcionamiento y la estructura de las computadoras. Simuladores como SimpleScalar, SPIM y GEM5 permiten a los estudiantes experimentar con arquitecturas complejas y técnicas avanzadas como el pipelining y la ejecución fuera de orden. Estas herramientas facilitan la comprensión de los conceptos teóricos a través de la interacción práctica, proporcionando un entorno seguro y accesible para la exploración y el aprendizaje \protect\hyperlink{ref-skrien_cpu_2001}{18}.
+
+\hypertarget{uso-de-la-simulaciuxf3n-para-enseuxf1ar-pipelining}{%
+\subsection{Uso de la Simulación para Enseñar Pipelining}\label{uso-de-la-simulaciuxf3n-para-enseuxf1ar-pipelining}}
+
 El pipelining es una técnica utilizada en las CPUs modernas para mejorar el rendimiento. Utilizando simuladores como SimpleScalar, los estudiantes pueden visualizar cómo las instrucciones se ejecutan en diferentes etapas del pipeline, y cómo se manejan las dependencias de datos y los riesgos de control.
 
 \hypertarget{el-formalismo-devs-discrete-event-system-specification}{%
 \section{El Formalismo DEVS (Discrete Event System Specification)}\label{el-formalismo-devs-discrete-event-system-specification}}
 
-DEVS, la abreviación de Discrete Event System Specification, es un formalismo modular y jerárquico para el modelado y análisis de sistemas que pueden ser representados como sistemas de eventos discretos, sistemas de estado continuo o sistemas híbridos. Este formalismo, desarrollado por Bernard P. Zeigler en los años 70, extiende el concepto de las máquinas de Moore al proporcionar una estructura para modelar sistemas complejos mediante la utilización de eventos cronometrados.
-\#\#\# Descripción del Formalismo DEVS
+DEVS, la abreviación de Discrete Event System Specification, es un formalismo modular y jerárquico para el modelado y análisis de sistemas que pueden ser representados como sistemas de eventos discretos, sistemas de estado continuo o sistemas híbridos. Este formalismo, desarrollado por Bernard P. Zeigler en los años 70, extiende el concepto de las máquinas de Moore al proporcionar una estructura para modelar sistemas complejos mediante la utilización de eventos cronometrados \protect\hyperlink{ref-zeigler_theory_2000}{20}.
+
+\hypertarget{descripciuxf3n-del-formalismo-devs}{%
+\subsection{Descripción del Formalismo DEVS}\label{descripciuxf3n-del-formalismo-devs}}
+
 El formalismo DEVS define el comportamiento de un sistema real utilizando eventos de entrada y salida, y transiciones entre estados concretos. Un sistema en DEVS está compuesto por modelos atómicos y acoplados. Los modelos atómicos representan las unidades básicas de comportamiento, mientras que los modelos acoplados consisten en combinaciones de modelos atómicos y/o otros modelos acoplados. Esta estructura jerárquica facilita la gestión y análisis de sistemas complejos, permitiendo la prueba de subsistemas de manera aislada antes de integrarlos en el sistema completo.
 Bajo un punto de vista general, un modelo DEVS está caracterizado por generar eventos de salida Y , en relación con el estado en el que se encuentre S y las entradas recibidas X, cada cierto tiempo.
 
-Figura 3.4: Representación simple de un modelo DEVS
-\#\#\# Aplicaciones del Formalismo DEVS
+\hypertarget{aplicaciones-del-formalismo-devs}{%
+\subsection{Aplicaciones del Formalismo DEVS}\label{aplicaciones-del-formalismo-devs}}
+
 El formalismo DEVS es aplicable a una amplia gama de sistemas, desde redes de comunicación hasta procesos de manufactura. Por ejemplo, en una red de comunicación, un modelo DEVS puede simular el enrutamiento de paquetes de datos y la gestión de congestiones. En la manufactura, un modelo DEVS puede representar el flujo de materiales y el control de calidad en una línea de producción, ayudando a identificar cuellos de botella y optimizar procesos.
-\#\#\# Ejemplo de Modelo DEVS
+
+\hypertarget{ejemplo-de-modelo-devs}{%
+\subsection{Ejemplo de Modelo DEVS}\label{ejemplo-de-modelo-devs}}
+
 Consideremos un sistema de colas en un banco, donde los clientes llegan, esperan en la fila y son atendidos por cajeros. Un modelo DEVS puede representar los eventos de llegada de clientes, la asignación a los cajeros y el tiempo de servicio, permitiendo evaluar el tiempo de espera y la utilización de los recursos. Este ejemplo ilustra cómo DEVS puede ser utilizado para mejorar la eficiencia operativa y la satisfacción del cliente mediante la optimización del flujo de trabajo y la asignación de recursos.
 
 \hypertarget{aporte-pedaguxf3gico}{%
 \subsection{Aporte pedagógico}\label{aporte-pedaguxf3gico}}
 
-En el ámbito educativo, transmitir los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un desafío debido a la complejidad de los procesos involucrados. Los métodos tradicionales de enseñanza, como el uso de pizarras, libros de texto y diapositivas, a menudo tienen una capacidad limitada para representar estos conceptos de manera efectiva. Esto requiere que los estudiantes tengan un alto nivel de abstracción para desarrollar un modelo mental adecuado para capturar la organización y arquitectura interna de las computadoras {[}4,5{]}.
-La integración de nuevas tecnologías como recurso didáctico es crucial para facilitar el aprendizaje. Las herramientas de simulación permiten a los estudiantes relacionar conceptos abstractos con situaciones reales, situándose en un contexto que imita aspectos de la realidad. Este enfoque pedagógico facilita la detección de problemáticas y el desarrollo de habilidades a través del trabajo exploratorio, la inferencia y el aprendizaje por descubrimiento. Simuladores como Simulink, Proteus y Logisim juegan un papel esencial en la enseñanza de la arquitectura de computadoras, proporcionando una representación visual e interactiva que enriquece la comprensión teórica y práctica de los estudiantes {[}6,7{]}.
+En el ámbito educativo, transmitir los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un desafío debido a la complejidad de los procesos involucrados. Los métodos tradicionales de enseñanza, como el uso de pizarras, libros de texto y diapositivas, a menudo tienen una capacidad limitada para representar estos conceptos de manera efectiva. Esto requiere que los estudiantes tengan un alto nivel de abstracción para desarrollar un modelo mental adecuado para capturar la organización y arquitectura interna de las computadoras \protect\hyperlink{ref-lion_simuladores_2005}{5}, \protect\hyperlink{ref-contreras_uso_2010}{6}.
+La integración de nuevas tecnologías como recurso didáctico es crucial para facilitar el aprendizaje. Las herramientas de simulación permiten a los estudiantes relacionar conceptos abstractos con situaciones reales, situándose en un contexto que imita aspectos de la realidad. Este enfoque pedagógico facilita la detección de problemáticas y el desarrollo de habilidades a través del trabajo exploratorio, la inferencia y el aprendizaje por descubrimiento. Simuladores como Simulink, Proteus y Logisim juegan un papel esencial en la enseñanza de la arquitectura de computadoras, proporcionando una representación visual e interactiva que enriquece la comprensión teórica y práctica de los estudiantes \protect\hyperlink{ref-garcia-garcia_pbbcache_2020}{7}, \protect\hyperlink{ref-nova_tool_2013}{8}.
 El uso de herramientas de simulación en la enseñanza para procesos dinámicos complejos, como las operaciones intrínsecas de la computadora, que permiten representar de forma visual e interactiva la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento por parte de los alumnos y el desarrollo de los temas por parte del docente. En este contexto, los simuladores juegan una pieza clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, implicando abstracciones y haciendo más rica la labor docente.
 
 \hypertarget{comparativa-de-simuladores}{%
@@ -805,6 +814,12 @@ El objetivo principal de esta tesis es construir una herramienta de simulación 
 \leavevmode\hypertarget{ref-zeigler_theory_2018}{}%
 {[}21{]} B. P. Zeigler, A. Muzy, and E. Kofman, \emph{Theory of Modeling and Simulation: Discrete Event \& Iterative System Computational Foundations}. Academic Press, 2018.
 
+\leavevmode\hypertarget{ref-irvine2011assembly}{}%
+{[}22{]} K. R. Irvine and L. B. Das, \emph{Assembly language for x86 processors}. Prentice Hall, 2011.
+
+\leavevmode\hypertarget{ref-hyde2010art}{}%
+{[}23{]} R. Hyde, \emph{The art of assembly language}. No Starch Press, 2010.
+
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%% Bibliography                              %%%
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -813,6 +828,7 @@ El objetivo principal de esta tesis es construir una herramienta de simulación 
 % \phantomsection
 % \addcontentsline{toc}{chapter}{\protect\numberline{}{Bibliography}}
 \bibliography{tesis}
+
 
 %% All books from our library (SfS) are already in a BiBTeX file
 %% (Assbib). You can use Assbib combined with your personal BiBTeX file:
