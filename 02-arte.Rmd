@@ -1,15 +1,30 @@
 # Estado del arte
+
+En este capítulo se presenta un análisis detallado del estado del arte en el ámbito de la arquitectura de computadoras, con un enfoque particular en la arquitectura x86 y el uso de herramientas de simulación en la educación. Este análisis es fundamental para entender el contexto y la relevancia de los temas tratados en esta tesis.
+
+Luego, se discutirá el papel de las herramientas de simulación en la enseñanza de la arquitectura de computadoras. Estas herramientas no solo facilitan la comprensión de conceptos complejos, sino que también permiten a los estudiantes interactuar con sistemas simulados, proporcionando una experiencia práctica que de otro modo sería difícil de obtener. Se revisarán las herramientas de simulación más destacadas y su aplicación en entornos educativos, evaluando sus beneficios y limitaciones.
+
+Por último, se abordarán las tendencias actuales y futuras en la enseñanza de la arquitectura de computadoras, incluyendo innovaciones tecnológicas y metodológicas que están transformando la manera en que se enseña y se aprende este campo. Se explorarán enfoques pedagógicos innovadores y estrategias de enseñanza que aprovechan las herramientas digitales y la simulación para mejorar la comprensión y el rendimiento de los estudiantes.
+
 ## Arquitectura de computadoras
 
 La arquitectura de computadoras es el estudio y diseño de los componentes de hardware y software que componen una computadora, así como la interacción entre ellos. Este campo abarca desde el diseño de circuitos y componentes individuales hasta la integración de sistemas completos. La comprensión de estos fundamentos es crucial para el desarrollo de tecnologías eficientes y avanzadas.
-La arquitectura de computadoras es el campo que se encarga de diseñar y organizar los componentes fundamentales de un sistema informático, como la unidad central de procesamiento (CPU), la memoria y los dispositivos de entrada/salida. Estudiar esta disciplina nos brinda una comprensión profunda de cómo funcionan estos componentes y cómo se interconectan para formar un sistema informático.
+
+La arquitectura de computadoras es el campo que se encarga de diseñar y organizar los componentes fundamentales de un sistema informático, como la unidad central de procesamiento (CPU), la memoria y los dispositivos de entrada/salida. Estudiar esta disciplina nos brinda una comprensión profunda de cómo funcionan estos componentes y cómo se interconectan para formar un sistema informático. Además, su estudio es esencial para escribir programas y algoritmos que optimicen el uso de los recursos disponibles, lo cual es crucial en un mundo donde la eficiencia energética y el rendimiento son cada vez más importantes. 
 Una razón convincente para estudiar arquitectura de computadoras es que nos permite comprender cómo funcionan los sistemas informáticos desde el nivel más bajo. Nos proporciona una comprensión profunda de los principios fundamentales, las estructuras y los componentes clave de un sistema informático. Esta comprensión nos da una visión holística del funcionamiento de una computadora y nos permite aprovechar su potencial al máximo.
+
 Además, la arquitectura de computadoras está estrechamente relacionada con otros campos de la informática, como la programación y el desarrollo de software. Comprender la arquitectura del hardware nos permite escribir programas y algoritmos que aprovechen al máximo los recursos disponibles. Esto es especialmente importante en un mundo donde la optimización del rendimiento y la eficiencia energética son cada vez más relevantes.
+
 Además, la arquitectura de computadoras nos brinda una base sólida para comprender y aprovechar las nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el internet de las cosas. Estudiar esta disciplina nos prepara para ser parte de la innovación tecnológica y contribuir al desarrollo de soluciones avanzadas en estos campos.
+
 En resumen, estudiar arquitectura de computadoras nos proporciona un conocimiento profundo de los sistemas informáticos, nos capacita para diseñar sistemas eficientes y escalables, y nos prepara para aprovechar las últimas tendencias tecnológicas. Es una disciplina esencial para aquellos que desean seguir una carrera en el campo de la informática y la tecnología, y contribuir al avance de la sociedad digital en la que vivimos.
+
 Además, el estudio de la arquitectura de computadoras nos brinda una base sólida para comprender y resolver problemas de rendimiento y eficiencia en los sistemas informáticos. Al adentrarnos en los conceptos de paralelismo, pipelining, caché y optimización de código, aprendemos a diseñar sistemas más eficientes y a mejorar el rendimiento de las aplicaciones.
+
 Otro motivo relevante para estudiar arquitectura de computadoras es la capacidad de contribuir al desarrollo de nuevas tecnologías. La innovación en esta área ha sido constante, desde la miniaturización de componentes hasta el diseño de arquitecturas avanzadas como las basadas en computación cuántica. Al obtener conocimientos en arquitectura, podemos ser parte de esta evolución tecnológica y contribuir a la creación de sistemas más poderosos y eficientes.
+
 Por último, el estudio de la arquitectura de computadoras nos proporciona una base sólida para comprender otros campos relacionados, como la seguridad informática y los sistemas embebidos. Estos conocimientos son cada vez más demandados en la industria, lo que abre oportunidades laborales en empresas de desarrollo de software, fabricantes de hardware, centros de investigación y muchas otras áreas relacionadas con la tecnología.
+
 En conclusión, estudiar arquitectura de computadoras es fundamental para comprender el funcionamiento de los sistemas informáticos, resolver problemas de rendimiento y eficiencia, contribuir a la innovación tecnológica y acceder a una amplia gama de oportunidades laborales. Es una disciplina emocionante que impulsa la evolución de la tecnología y nos permite ser parte activa de este cambio.
 
 ###   Arquitectura x86
@@ -31,6 +46,7 @@ procesadores <- data.frame(
 
 kable(procesadores, format = "markdown", caption = "Hitos procesadores x86")
 ```
+
 La evolución de la arquitectura x86 ha estado marcada por una serie de hitos importantes que han impulsado la informática hacia nuevas alturas. Tras el Intel 8086, el lanzamiento del Intel 80286 en 1982 introdujo modos de operación adicionales que mejoraron la eficiencia y el manejo de memoria. Luego, en 1989, el Intel 80486 incorporó una unidad de punto flotante integrada y una mejor caché, lo que aumentó significativamente el rendimiento.
 La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles de rendimiento y eficiencia, incorporando características avanzadas como la ejecución superescalar y la predicción de saltos. Los avances continuaron con el Pentium Pro en 1995, que mejoró la arquitectura con ejecución fuera de orden y una caché L2 integrada.
 En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, que optimizó el rendimiento y la eficiencia energética. AMD también jugó un papel crucial con su serie Athlon y la introducción de AMD64, que llevó la arquitectura x86 a 64 bits, permitiendo un acceso a mayor memoria y mejorando el rendimiento en aplicaciones intensivas.
@@ -41,7 +57,7 @@ library(knitr)
 evolucion_x86 <- data.frame(
   Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
   Procesador = c("Intel 8086", "Intel 80286", "Intel 80386", "Intel 80486", "Intel Pentium", "Intel Pentium Pro", "AMD64", "Intel Core"), # nolint
-  Innovación_Principal = c(
+  `Innovación_Principal`  = c(
     "Introducción de la arquitectura x86, 16 bits",
     "Modos de operación adicionales",
     "Arquitectura de 32 bits, memoria virtual",
@@ -59,37 +75,33 @@ kable(evolucion_x86, format = "markdown", caption = "Línea de Tiempo de la Evol
 ####  Comparación con Otras Arquitecturas
 La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM, MIPS y RISC-V nos permite entender mejor sus ventajas y desventajas.
 
-```{r tabla-comparacion_arquitecturas, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tabla-comparacion-cpu, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
-comparacion_arquitecturas <- data.frame(
+comparacion_cpu <- data.frame(
   Característica = c("Eficiencia Energética", "Complejidad ISA", "Rendimiento", "Compatibilidad", "Áreas de Aplicación"), # nolint: line_length_linter.
   x86 = c("Moderada", "Alta", "Alto", "Alta (hacia atrás)", "Escritorio, servidores"),
   ARM = c("Alta", "Baja", "Moderado", "Moderada", "Dispositivos móviles"),
   MIPS = c("Moderada", "Moderada", "Moderado", "Moderada", "Sistemas embebidos"),
   `RISC-V` = c("Alta", "Baja", "Variable", "Alta", "Investigación, embebidos")
 )
-kable(comparacion_arquitecturas, format = "markdown", caption = "Comparación de Arquitecturas")
-```
 
+kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitecturas")
+```
 La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas.
 
 ####  Aplicaciones y Casos de Uso de la Arquitectura x86
 La arquitectura x86 ha demostrado ser extremadamente versátil y ha encontrado aplicaciones en una amplia variedad de campos. Su capacidad para manejar tareas complejas y su compatibilidad hacia atrás han sido factores clave en su adopción.
 
-```{r casos_uso_x86, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tabla-casos-uso-x86, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
-# Definir los casos de uso
 casos_uso_x86 <- data.frame(
-  `Casos de Uso` = c(
-    "Servidores: La arquitectura x86 domina el mercado de servidores debido a su capacidad para manejar grandes cargas de trabajo y su compatibilidad con una amplia gama de software empresarial.",
-    "Computadoras Personales: Desde su introducción, la arquitectura x86 ha sido la columna vertebral de las computadoras personales, proporcionando el rendimiento necesario para aplicaciones de productividad, juegos y multimedia.",
-    "Sistemas Embebidos: Con la miniaturización y la eficiencia mejorada, los procesadores x86 se han integrado en sistemas embebidos como dispositivos médicos, sistemas de control industrial y dispositivos de telecomunicaciones."
-  )
+  `Categoría` = c("Servidores", "Computadoras Personales", "Sistemas Embebidos" ),
+  `Descripción` = c("La arquitectura x86 domina el mercado de servidores debido a su capacidad para manejar grandes cargas de trabajo y su compatibilidad con una amplia gama de software empresarial.", "Desde su introducción, la arquitectura x86 ha sido la columna vertebral de las computadoras personales, proporcionando el rendimiento necesario para aplicaciones de productividad, juegos y multimedia.","Con la miniaturización y la eficiencia mejorada, los procesadores x86 se han integrado en sistemas embebidos como dispositivos médicos, sistemas de control industrial y dispositivos de telecomunicaciones.")
 )
 
-kable(casos_uso_x86, col.names = NULL, caption = "Casos de Uso Notables de la Arquitectura x86") 
+kable(casos_uso_x86, format = "markdown", caption = "Casos de Uso notables de la Arquitectura x86")
 ```
 
 ####  Impacto de la Arquitectura x86 en la Industria del Software
@@ -120,17 +132,18 @@ El repertorio de instrucciones x86 incluye una variedad de instrucciones para re
 - `JMP`: Salta a una dirección específica.
 
 ## Lenguaje ensamblador
-Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador. Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso @irvine2011assembly. 
-El lenguaje ensamblador es un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones comprensibles por el procesador. A diferencia del lenguaje máquina, que utiliza secuencias de números binarios, el ensamblador emplea mnemónicos simbólicos que hacen que el código sea más legible y manejable para los humanos. Cada arquitectura de procesador tiene su propio lenguaje ensamblador que usualmente es definida por el fabricante de hardware, por lo tanto es específica de cierta arquitectura de la computadora física. Un programa llamado ensamblador es usado para traducir sentencias del lenguaje ensamblador al código de máquina de la computadora. El ensamblador realiza una traducción casi directa uno a uno desde las sentencias mnemónicas a las instrucciones y datos de máquina. Esto está en contraste con los lenguajes de alto nivel, en los cuales una sola declaración generalmente da lugar a muchas instrucciones de máquina @stallings_computer_2013. 
+Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador.Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso @irvine2011assembly. 
+
+Para facilitar la programación de bajo nivel, se creó el lenguaje ensamblador, que es un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones comprensibles por el procesador. A diferencia del lenguaje máquina, que utiliza secuencias de números binarios, el ensamblador emplea mnemónicos simbólicos que hacen que el código sea más legible y manejable para los humanos. Cada arquitectura de procesador tiene su propio lenguaje ensamblador que usualmente es definida por el fabricante de hardware, por lo tanto es específica de cierta arquitectura de la computadora física. Un programa llamado ensamblador es usado para traducir sentencias del lenguaje ensamblador al código de máquina de la computadora. El ensamblador realiza una traducción casi directa uno a uno desde las sentencias mnemónicas a las instrucciones y datos de máquina. Esto está en contraste con los lenguajes de alto nivel, en los cuales una sola declaración generalmente da lugar a muchas instrucciones de máquina @stallings_computer_2013. 
+
 El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Si nos ubicamos en la arquitectura x86 encontraremos diferentes lenguajes ensambladores. De ahí los diferentes productos ofrecidos, entre ellos, TASM (Turbo Assembler), MASM (Microsoft Macro Assembler) y NASM (Netwide Assembler). Cada uno ofrece diferentes características y beneficios, adaptándose a diversas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86 @hyde2010art. 
 
 ##  Simulación
 La simulación es una herramienta esencial en múltiples campos como la medicina, el ámbito militar, el entretenimiento y la educación. Permite a los profesionales comprender el funcionamiento de un sistema, realizar análisis predictivos y responder preguntas del tipo "qué pasaría si", generando hipótesis sobre cómo o por qué ocurren ciertos fenómenos. Según Banks @banks_discrete-event_2010, la simulación se define como el proceso de imitar el comportamiento de un sistema a lo largo del tiempo. Este proceso requiere primero desarrollar un modelo conceptual que capture las características y comportamientos del sistema real, mientras que la simulación representa la evolución de este modelo conforme el tiempo avanza. La capacidad de replicar y analizar sistemas complejos sin necesidad de intervenir directamente en ellos es lo que hace que la simulación sea una metodología indispensable para ingenieros, diseñadores y gerentes en el mundo digital actual @banks_discrete-event_2010,@robinson_simulation_2014, @law_simulation_2015.
 Con los avances en el mundo digital, la simulación se ha convertido en una metodología de solución de problemas indispensables para ingenieros, docentes, diseñadores y gerentes. La complejidad intrínseca de los sistemas informáticos los hace difícil comprender y costosos de desarrollar sin utilizar simulación @law_simulation_2015.
 
-En la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Un modelo virtual del automóvil y sus componentes permite realizar pruebas de colisión y evaluar el rendimiento de los sistemas de seguridad sin la necesidad de llevar a cabo costosas pruebas físicas. Además, la simulación permite optimizar el diseño de motores, analizar el flujo aerodinámico y prever el comportamiento de los materiales en condiciones extremas.
-Ejemplo Adicional:
-En el campo de la aviación, la simulación se utiliza para entrenar pilotos en simuladores de vuelo que replican condiciones reales sin riesgos. También se emplea en el diseño de aeronaves para evaluar la aerodinámica y el rendimiento de nuevos diseños bajo diversas condiciones de vuelo. Estos ejemplos demuestran cómo la simulación puede reducir costos, mejorar la seguridad y acelerar el desarrollo de productos complejos.
+###  Aplicaciones de la Simulación en la Industria
+En la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Un modelo virtual del automóvil y sus componentes permite realizar pruebas de colisión y evaluar el rendimiento de los sistemas de seguridad sin la necesidad de llevar a cabo costosas pruebas físicas. Además, la simulación permite optimizar el diseño de motores, analizar el flujo aerodinámico y prever el comportamiento de los materiales en condiciones extremas.En el campo de la aviación, la simulación se utiliza para entrenar pilotos en simuladores de vuelo que replican condiciones reales sin riesgos. También se emplea en el diseño de aeronaves para evaluar la aerodinámica y el rendimiento de nuevos diseños bajo diversas condiciones de vuelo. Estos ejemplos demuestran cómo la simulación puede reducir costos, mejorar la seguridad y acelerar el desarrollo de productos complejos.
 
 ### Herramientas de Simulación en la Educación
 Herramientas como Simulink, Proteus, y Logisim permiten a los estudiantes interactuar con modelos virtuales de circuitos y sistemas informáticos, facilitando la comprensión de la arquitectura interna y las operaciones de una computadora.
