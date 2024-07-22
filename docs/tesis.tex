@@ -40,7 +40,22 @@
 %  \usepackage[spanish,es-tabla]{babel}
 %\fi
 %\usepackage[spanish]{babel}
-\usepackage[spanish,provide=*]{babel}
+%\usepackage[spanish,provide=*]{babel}
+
+
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{spanish}
+  % Tabla en lugar de cuadro
+  \gappto\captionsspanish{\renewcommand{\tablename}{Tabla}  
+          \renewcommand{\listtablename}{Índice de tablas}}
+\else
+  \usepackage[spanish,provide=*]{babel}
+\fi
+
+
+
+
 
 \usepackage{graphicx,latexsym}
 \usepackage{amsmath}
@@ -210,7 +225,7 @@ Los alumnos de la asignatura Arquitectura de Computadoras no solo deben conocer 
 
 Para brindar esta experiencia, es fundamental contar con un laboratorio equipado con el hardware necesario y dedicar el tiempo suficiente para que los alumnos adquieran competencia en el uso de herramientas prácticas. Por esta razón, se han desarrollado numerosos simuladores que ayudan a los estudiantes a comprender el funcionamiento y la estructura de las computadoras, proporcionando valiosas experiencias de aprendizaje.
 
-La presente tesis se enmarca dentro en la carrera Maestría en Sistemas de Información dictada en la Facultad de Ciencias de la Administración, se vincula directamente con el proyecto de investigación I/D novel PID-UNER 7065: ``Enseñanza/aprendizaje de asignatura Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputos'', llevado a cabo en la Facultad de Ciencias de la Administración de la Universidad Nacional de Entre Ríos \protect\hyperlink{ref-colombani_pid_2022}{1}.
+La presente tesis se enmarca dentro en la carrera Maestría en Sistemas de Información dictada en la Facultad de Ciencias de la Administración, se vincula directamente con el proyecto de investigación I/D novel PID-UNER 7065: ``Enseñanza/aprendizaje de asignatura Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputos'', llevado a cabo en la Facultad de Ciencias de la Administración de la Universidad Nacional de Entre Ríos {[}\protect\hyperlink{ref-colombani_pid_2022}{1}{]}.
 
 La asignatura arquitectura de computadoras forma parte del plan de estudios de la carrera Licenciatura en Sistemas de la Facultad de Ciencias de la Administración, Universidad Nacional de Entre Ríos. El objetivo de la asignatura Arquitectura de Computadoras es conocer la estructura y funcionamiento de las computadoras, entender la ejecución lógica de un programa a nivel de instrucciones máquinas.
 
@@ -224,7 +239,7 @@ Sin embargo, la utilización de simuladores permite afianzar los conocimientos d
 
 La simulación es un término de uso diario en muchos contextos: medicina, militar, entretenimiento, educación, etc., debido a que permite ayudar a comprender cómo funciona un sistema, responder preguntas como ``qué pasaría si'', con el fin de brindar hipótesis sobre cómo o por qué ocurren ciertos fenómenos.
 
-Para continuar, se define simulación como el proceso de imitar el funcionamiento de un sistema a medida que avanza en el tiempo. Entonces para llevar a cabo una simulación, es necesario desarrollar previamente un modelo conceptual que representa las características o comportamientos del sistema, mientras que la simulación representa la evolución del modelo a medida que avanza en el tiempo \protect\hyperlink{ref-banks_discrete-event_2010}{2}, \protect\hyperlink{ref-law_simulation_2015}{3}, \protect\hyperlink{ref-robinson_simulation_2014}{4}.
+Para continuar, se define simulación como el proceso de imitar el funcionamiento de un sistema a medida que avanza en el tiempo. Entonces para llevar a cabo una simulación, es necesario desarrollar previamente un modelo conceptual que representa las características o comportamientos del sistema, mientras que la simulación representa la evolución del modelo a medida que avanza en el tiempo {[}\protect\hyperlink{ref-banks_discrete-event_2010}{2}{]}{[}\protect\hyperlink{ref-law_simulation_2015}{3}{]}{[}\protect\hyperlink{ref-robinson_simulation_2014}{4}{]}.
 
 Con los avances en el mundo digital, la simulación se ha convertido en una metodología de solución de problemas indispensable para ingenieros, docentes, diseñadores y gerentes. La complejidad intrínseca de los sistemas informáticos los hace difícil comprender y costosos de desarrollar sin utilizar simulación \protect\hyperlink{ref-law_simulation_2015}{3}.
 

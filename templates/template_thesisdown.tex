@@ -40,7 +40,22 @@
 %  \usepackage[spanish,es-tabla]{babel}
 %\fi
 %\usepackage[spanish]{babel}
-\usepackage[spanish,provide=*]{babel}
+%\usepackage[spanish,provide=*]{babel}
+
+
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{spanish}
+  % Tabla en lugar de cuadro
+  \gappto\captionsspanish{\renewcommand{\tablename}{Tabla}  
+          \renewcommand{\listtablename}{Índice de tablas}}
+\else
+  \usepackage[spanish,provide=*]{babel}
+\fi
+
+
+
+
 
 \usepackage{graphicx,latexsym}
 \usepackage{amsmath}
