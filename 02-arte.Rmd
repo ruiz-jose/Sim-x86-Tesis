@@ -13,11 +13,11 @@ Por último, el estudio de la arquitectura de computadoras nos proporciona una b
 En conclusión, estudiar arquitectura de computadoras es fundamental para comprender el funcionamiento de los sistemas informáticos, resolver problemas de rendimiento y eficiencia, contribuir a la innovación tecnológica y acceder a una amplia gama de oportunidades laborales. Es una disciplina emocionante que impulsa la evolución de la tecnología y nos permite ser parte activa de este cambio.
 
 ###   Arquitectura x86
-La arquitectura x86 es una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores. Su historia se remonta a 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. Esta arquitectura evolucionó significativamente con la introducción del Intel 80386 en 1985, que marcó el inicio de la era de 32 bits (Smith, 1984)
+La arquitectura x86 es una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores. Su historia se remonta a 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. Esta arquitectura evolucionó significativamente con la introducción del Intel 80386 en 1985, que marcó el inicio de la era de 32 bits @intel_64_2016, @amd_developer_2019, @abel_ibm_2000.
 
 ####   Contextualización Histórica y Evolución de la Arquitectura x86
 
-La compatibilidad hacia atrás de la arquitectura x86 ha sido un factor clave en su éxito, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Esta característica ha protegido las inversiones en aplicaciones y sistemas operativos desarrollados para la arquitectura x86, consolidando su relevancia en la industria [14,16].
+La compatibilidad hacia atrás de la arquitectura x86 ha sido un factor clave en su éxito, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Esta característica ha protegido las inversiones en aplicaciones y sistemas operativos desarrollados para la arquitectura x86, consolidando su relevancia en la industria.
 
 ```{r tabla-procesadores, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -60,6 +60,8 @@ kable(evolucion_x86, format = "markdown", caption = "Línea de Tiempo de la Evol
 La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM, MIPS y RISC-V nos permite entender mejor sus ventajas y desventajas.
 
 ```{r tabla-comparacion_arquitecturas, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
 comparacion_arquitecturas <- data.frame(
   Característica = c("Eficiencia Energética", "Complejidad ISA", "Rendimiento", "Compatibilidad", "Áreas de Aplicación"),
   x86 = c("Moderada", "Alta", "Alto", "Alta (hacia atrás)", "Escritorio, servidores"),
@@ -75,7 +77,7 @@ La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularid
 ####  Aplicaciones y Casos de Uso de la Arquitectura x86
 La arquitectura x86 ha demostrado ser extremadamente versátil y ha encontrado aplicaciones en una amplia variedad de campos. Su capacidad para manejar tareas complejas y su compatibilidad hacia atrás han sido factores clave en su adopción.
 
-```{r tabla-procesadores, echo=FALSE, message=FALSE, warning=FALSE}
+```{r casos_uso_x86, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
 casos_uso_x86 <- data.frame(
@@ -121,8 +123,8 @@ El lenguaje ensamblador es un lenguaje de programación de bajo nivel que permit
 El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Si nos ubicamos en la arquitectura x86 encontraremos diferentes lenguajes ensambladores. De ahí los diferentes productos ofrecidos, entre ellos, TASM (Turbo Assembler), MASM (Microsoft Macro Assembler) y NASM (Netwide Assembler). Cada uno ofrece diferentes características y beneficios, adaptándose a diversas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86. 
 
 ##  Simulación
-La simulación es una herramienta esencial en múltiples campos como la medicina, el ámbito militar, el entretenimiento y la educación. Permite a los profesionales comprender el funcionamiento de un sistema, realizar análisis predictivos y responder preguntas del tipo "qué pasaría si", generando hipótesis sobre cómo o por qué ocurren ciertos fenómenos. Según Banks et al. (2001), la simulación se define como el proceso de imitar el comportamiento de un sistema a lo largo del tiempo. Este proceso requiere primero desarrollar un modelo conceptual que capture las características y comportamientos del sistema real, mientras que la simulación representa la evolución de este modelo conforme el tiempo avanza. La capacidad de replicar y analizar sistemas complejos sin necesidad de intervenir directamente en ellos es lo que hace que la simulación sea una metodología indispensable para ingenieros, diseñadores y gerentes en el mundo digital actual [1,3].
-Con los avances en el mundo digital, la simulación se ha convertido en una metodología de solución de problemas indispensables para ingenieros, docentes, diseñadores y gerentes. La complejidad intrínseca de los sistemas informáticos los hace difícil comprender y costosos de desarrollar sin utilizar simulación [3].
+La simulación es una herramienta esencial en múltiples campos como la medicina, el ámbito militar, el entretenimiento y la educación. Permite a los profesionales comprender el funcionamiento de un sistema, realizar análisis predictivos y responder preguntas del tipo "qué pasaría si", generando hipótesis sobre cómo o por qué ocurren ciertos fenómenos. Según Banks @banks_discrete-event_2010, la simulación se define como el proceso de imitar el comportamiento de un sistema a lo largo del tiempo. Este proceso requiere primero desarrollar un modelo conceptual que capture las características y comportamientos del sistema real, mientras que la simulación representa la evolución de este modelo conforme el tiempo avanza. La capacidad de replicar y analizar sistemas complejos sin necesidad de intervenir directamente en ellos es lo que hace que la simulación sea una metodología indispensable para ingenieros, diseñadores y gerentes en el mundo digital actual @banks_discrete-event_2010,@robinson_simulation_2014, @law_simulation_2015.
+Con los avances en el mundo digital, la simulación se ha convertido en una metodología de solución de problemas indispensables para ingenieros, docentes, diseñadores y gerentes. La complejidad intrínseca de los sistemas informáticos los hace difícil comprender y costosos de desarrollar sin utilizar simulación @law_simulation_2015.
 
 En la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Un modelo virtual del automóvil y sus componentes permite realizar pruebas de colisión y evaluar el rendimiento de los sistemas de seguridad sin la necesidad de llevar a cabo costosas pruebas físicas. Además, la simulación permite optimizar el diseño de motores, analizar el flujo aerodinámico y prever el comportamiento de los materiales en condiciones extremas.
 Ejemplo Adicional:
