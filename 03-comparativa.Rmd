@@ -1,7 +1,7 @@
 # Comparativa de simuladores
-Este capítulo compara los simuladores x86 que se podrían adaptar a la asignatura de Arquitectura de Computadoras de la Licenciatura en Sistemas. La selección y evaluación de estos simuladores se basa en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor apoyen el proceso de enseñanza-aprendizaje, facilitando tanto la comprensión teórica como la aplicación práctica de los conceptos de arquitectura de computadoras.
+Este capítulo compara diversos simuladores x86 que podrían integrarse en la asignatura de Arquitectura de Computadoras de la Licenciatura en Sistemas. La selección y evaluación de estos simuladores se basa en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor apoyen el proceso de enseñanza-aprendizaje, facilitando tanto la comprensión teórica como la aplicación práctica de los conceptos de arquitectura de computadoras.
 
-El resultado de esta comparativa fue publicado en el XVII Congreso de Tecnología en educación y Educación en Tecnología año 2022 bajo el título de "Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86" [@colombani_herramientas_2022]. 
+Los resultados de esta comparativa fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología en 2022, bajo el título 'Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86' [@colombani_herramientas_2022].
 
 ## Simuladores bajo analisis
 Un simulador de arquitectura es un software que imita una situación del mundo real y, en este contexto, puede imitar el hardware de un sistema de cómputo. El simulador se centra principalmente en la representación de los aspectos arquitectónicos y funciones del hardware simulado. El uso de herramientas de simulación permite realizar cambios, pruebas y ejecución de programas sin temor de dañar ningún componente o por falta de la computadora [@radivojevic_design_2011].
@@ -11,7 +11,7 @@ Algunos programas ofrecen una representación visual e interactiva de la organiz
 ## Simuladores similares
 Cabe destacar que existen estudios comparativos que evalúan diferentes simuladores aplicados a la enseñanza de los cursos de arquitectura de computadoras:
 “A survey and evaluation of simulators suitable for teaching courses in computer architecture and organization”, 2009  [@nikolic_survey_2009]: Otros estudios evalúan diferentes simuladores para abordar diferentes temas en el dictado de los cursos de Arquitectura de Computadoras, en general estos estudios evalúan simuladores en términos de dos categorías predefinidas: una referida a las características de la simulación, como ser granularidad, usabilidad, disponibilidad, presentación visual, flujo de simulación, etc., y otra sobre la cobertura de los contenidos preestablecidos en las currículas.
-“Survey and evaluation of simulators suitable for teaching for computer architecture and organization Supporting undergraduate students at Sir Syed University of Engineering & Technology”, 2012 [@hasan_survey_2012]: usabilidad, disponibilidad, fundamentos de arquitectura informática, jerarquía de sistemas de memoria, comunicación e interfaz y diseño de sistemas de procesadores.
+“Survey and evaluation of simulators suitable for teaching for computer architecture and organization Supporting undergraduate students at Sir Syed University of Engineering & Technology”, 2012 [@hasan_survey_2012]: Evalúa aspectos como usabilidad, disponibilidad, fundamentos de arquitectura informática, jerarquía de sistemas de memoria, comunicación e interfaz y diseño de sistemas de procesadores.
 
 Este trabajo se diferencia al proponer un enfoque diferente: evaluar los simuladores x86 bajo criterios de evaluación basados en características de simulación y en contenidos específicos de la asignatura Arquitectura de Computadoras de la carrera de Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos.
 
@@ -82,8 +82,8 @@ tabla_comparativa <- data.frame(
 kable(tabla_comparativa , format = "markdown", caption = "Comparativa según criterios de evaluación preestablecidos")
 ```
 
-##   Conclusiones del análisis
-Desde la asignatura se incentiva el uso de simuladores para dar apoyo a los proceso de enseñanza y aprendizaje, pero también se incentiva que los contenidos desarrollados puedan volcarse en máquinas reales, en este sentido consideramos que el enfoque planteado por la herramienta emu8086 es el más adecuado para la asignatura, ya que facilita mecanismos para implementar los programas en máquinas reales. Sin embargo presenta el inconveniente que genera ejecutables dependientes del sistema operativo MS-DOS, la mayoría de los sistemas operativos actuales no permiten la ejecución de dichos programas, obligando a la utilización de emuladores de MS-DOS para poder correrlos, siendo esto otro elemento más que se incorpora a los procesos de enseñanza y aprendizaje.
+##   Resultados
+Desde la asignatura se incentiva el uso de simuladores para apoyar los procesos de enseñanza y aprendizaje, pero también se fomenta que los contenidos desarrollados puedan trasladarse a máquinas reales. En este sentido, consideramos que el enfoque planteado por la herramienta Emu8086 es el más adecuado para la asignatura, ya que facilita la implementación de programas en máquinas reales. Sin embargo, presenta el inconveniente de generar ejecutables dependientes del sistema operativo MS-DOS, lo que dificulta su ejecución en sistemas operativos actuales. Esto obliga a utilizar emuladores de MS-DOS para poder ejecutarlos, lo que añade otra capa de complejidad a los procesos de enseñanza y aprendizaje.
 
 En la asignatura se utiliza la herramienta Emu8086 versión 4.08 desde el año 2018. En el análisis de la herramienta se observó que tiene un periodo de evaluación gratuito de 14 días, después del cual se debe adquirir la licencia para su uso. La herramienta presenta una licencia privativa, lo cual puede ser un inconveniente para su uso en la asignatura, ya que se busca que los estudiantes puedan acceder a las herramientas de forma libre y gratuita.
 
@@ -105,4 +105,5 @@ En cuanto al último criterio, ninguna de las herramientas evaluadas cubre todos
 
 ### Publicación
 El resultado de esta comparativa fue publicado en el XVII Congreso de Tecnología en educación y Educación en Tecnología año 2022 bajo el título de "Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86" [@colombani_herramientas_2022].
+
 Durante la elaboración de este análisis comparativo establecí contacto con uno de los docentes de la Universidad Nacional de la Plata (UNLP) que habían desarrollado un simulador web VonSim, con el acuerdo de docente se generó una solicitud de incorporación de cambios (pull request) en el repositorio de Github del simulador VonSim y en agosto-2023 salió una nueva versión donde se implementan animaciones de la ejecución de instrucciones y documentación on-line. 
