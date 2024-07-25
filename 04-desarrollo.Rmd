@@ -1,6 +1,18 @@
 # Diseño y construcción del simulador
 El objetivo principal de esta tesis es construir una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras. Para lograr este objetivo, se plantean los siguientes objetivos específicos: 
 
+1. Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a dar apoyo a la enseñanza de la arquitectura x86.
+2. Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir:
+    - Una visión global de la estructura y funcionamiento de la computadora.
+    - Generación y ejecución de programas en ensamblador.
+    - Repertorio de instrucciones x86 reducido y habilitado progresivamente.
+    - Simulación visual e interactiva de micropasos de instrucciones.
+    - Gestión de interrupciones y comunicación con periféricos.
+    - Medidas de rendimiento de ejecución de programas.
+
+Se cumplio con el primer objetivo se realizo una revisión exhaustiva de las herramientas de simulación actuales destinadas a dar apoyo a la enseñanza de la arquitectura x86. Se evaluo cada herramienta en función de sus capacidades para cumplir con los objetivos específicos de la tesis.
+Para cumplir con el segundo objetivo se construyo una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente:
+
 
 ### Requisitos de la Herramienta
 
@@ -18,10 +30,17 @@ La herramienta debe cumplir con los siguientes requisitos:
 
 **Comunicación con módulos de E/S y periféricos:** Incluir instrucciones IN y OUT, y un módulo de E/S simplificado basado en el modo 2 del Intel 8255.
 
-**Medidas de rendimiento:** Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa.
+**Medidas de rendimiento:** Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa. 
+
+La herramienta debe ofrecer una visión global de la estructura y funcionamiento de la computadora, permitir la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, y ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura. Además, la herramienta debe simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción, permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, permitir la comunicación con los módulos de entrada y salida e interacciones con los periféricos, y ofrecer medidas de rendimiento sobre la ejecución de un programa.
+Una vez que se hayan definido los requisitos, se puede comenzar a diseñar la herramienta. Se debe tener en cuenta la facilidad de uso para los estudiantes y profesores. La herramienta debe ser intuitiva y fácil de navegar. Se pueden utilizar gráficos y diagramas para ayudar a los estudiantes a comprender mejor la estructura y funcionamiento de la computadora.
+Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
+En resumen, para cumplir con el segundo objetivo específico, se debe diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores. Para lograr esto, se puede comenzar por definir los requisitos de la herramienta, diseñar la herramienta, construir y probar.
+Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir, se puede adpatar
+
+
 
 ### Desarrollo y Pruebas
-
 **Diseño de la Herramienta:** Comenzar con la definición detallada de los requisitos, seguido de un diseño centrado en la facilidad de uso para estudiantes y profesores. Se utilizarán gráficos y diagramas para mejorar la comprensión.
 
 **Construcción de la Herramienta:** Implementar la herramienta siguiendo las especificaciones de diseño, asegurando la integridad y funcionalidad de cada componente.
@@ -32,13 +51,15 @@ La herramienta debe cumplir con los siguientes requisitos:
 - Identificación y solución de problemas antes del lanzamiento.
 
 ### Portabilidad
-
 Para asegurar la portabilidad, el simulador se implementará como una aplicación web que puede ejecutarse en cualquier navegador web, garantizando su uso multiplataforma.
 
 ### Simplicidad
-
 La herramienta será diseñada con una interfaz intuitiva y fácil de navegar, minimizando la curva de aprendizaje para los usuarios.
 
 ### Mantenibilidad
-
 El código de la herramienta será modular y bien documentado, facilitando futuras actualizaciones y mantenimiento. Además, se implementarán prácticas de desarrollo sostenibles para asegurar su longevidad.
+
+### Escalabilidad
+
+
+
