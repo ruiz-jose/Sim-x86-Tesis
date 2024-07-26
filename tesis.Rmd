@@ -1,0 +1,662 @@
+---
+title: 'Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras'
+subtitle: "Tesis para optar al grado de Maestría en Sistemas de Información"
+author: "Ruiz Jose Maria"
+date: "2024" # o para fecha actual: "`r Sys.Date()`"
+institution: "Universidad de Nacional de Entre Rios"
+degree: "Maestría en Sistemas de Información"
+advisor: "Director: Colombani Marcelo Alberto"
+bibliography: [tesis.bib]
+#biblio-style: apalike
+biblio-style: ieeetr
+link-citations: yes
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+fontsize: 14pt
+lof: True
+lot: True
+---
+
+
+# Resumen {-}
+
+Existe un consenso creciente en el uso de herramientas de simulación en la enseñanza para procesos dinámicos complejos, como las operaciones intrínsecas de la computadora, que permiten representar de forma visual e interactiva la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento por parte de los alumnos y el desarrollo de los temas por parte del docente. En este contexto, los simuladores juegan una pieza clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, simpliﬁcando abstracciones y haciendo más rica la labor docente.
+La arquitectura x86 es ampliamente utilizada en computadoras de escritorio y servidores. Este documento pretende realizar una comparación de los simuladores x86 que más se adecuan en el dictado de la asignatura Arquitectura de Computadoras de la carrera Licenciatura en Sistemas, establecer los criterios de evaluación y evaluar los simuladores seleccionados de acuerdo con estos criterios.
+
+La presente investigación surge en el marco del proyecto de investigación I/D novel PID-UNER 7065: “Enseñanza/aprendizaje de asignatura Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputos”. El Proyecto es llevado a cabo en la Facultad de Ciencias de la Administración de la Universidad Nacional de Entre Ríos, se vincula directamente con la asignatura Arquitectura en Computadoras que se dicta en segundo año de la carrera Licenciatura en Sistemas perteneciente a la  Facultad de Ciencias de la Administración de la Universidad Nacional de Entre Ríos.
+
+Palabras clave: x86, simulador, aprendizaje, enseñanza, arquitectura de computadoras.
+
+
+
+# Agradecimientos {-}
+
+Agradecimientos aquí.
+
+<!--chapter:end:index.Rmd-->
+
+# Introducción
+En nuestra vida cotidiana, usamos dispositivos como computadoras de escritorio, teléfonos y relojes inteligentes, todos basados en arquitecturas específicas. Comprender su funcionamiento e interacciones nos permite diseñar y desarrollar aplicaciones más eficientes.
+
+Los estudiantes de Arquitectura de Computadoras deben conocer la estructura y el funcionamiento interno de una computadora, y adquirir experiencia práctica con esta. Para lograrlo, es fundamental disponer de un laboratorio bien equipado con el hardware adecuado y suficiente tiempo para que los estudiantes se familiaricen con las herramientas prácticas. En este contexto, se han desarrollado numerosos simuladores que facilitan la comprensión de la estructura y el funcionamiento de las computadoras, proporcionando valiosas experiencias de aprendizaje.
+
+Esta tesis, inscrita en la Maestría en Sistemas de Información de la Facultad de Ciencias de la Administración, está directamente vinculada con el proyecto de investigación I/D novel PID-UNER 7065: “Enseñanza/aprendizaje de Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputo”, desarrollado en la Facultad de Ciencias de la Administración de la Universidad Nacional de Entre Ríos [@colombani_pid_2022].
+
+La asignatura Arquitectura de Computadoras forma parte del plan de estudios de la carrera de Licenciatura en Sistemas, Universidad Nacional de Entre Ríos. Su objetivo es que los estudiantes comprendan la estructura y funcionamiento de las computadoras, y la ejecución lógica de un programa a nivel de instrucciones de máquina.
+
+El primer paso para comprender las computadoras es entender que son máquinas que toman datos del exterior, los procesan y almacenan los resultados en la memoria o los envían a dispositivos de entrada y salida.
+
+El procesamiento lo realiza por medio del procesador o CPU, y es allí donde radica la mayor complejidad para el estudiante y donde se pueden generar dificultades para comprender su funcionamiento.
+
+Aunque es posible explicar las partes del procesador, su funcionamiento y la interacción de cada componente, así como enseñar un lenguaje de programación ensamblador y realizar prácticas de programación, en general, se observa que los estudiantes no logran una comprensión completa del funcionamiento.
+
+Sin embargo, la utilización de simuladores permite afianzar los conocimientos de los temas vistos en las clases teóricas, a fin de evitar que los estudiantes desvíen su atención hacia el aprendizaje del simulador propiamente dicho, es necesario que estos sean de manejo simple, intuitivo y visualmente atractivo, simplificando su aprendizaje de su uso.
+
+La simulación es un término de uso diario en muchos contextos: medicina, militar, entretenimiento, educación, etc., debido a que permite ayudar a comprender cómo funciona un sistema, responder preguntas como "qué pasaría si", con el fin de brindar hipótesis sobre cómo o por qué ocurren ciertos fenómenos.
+
+Para continuar, se define simulación como el proceso de imitar el funcionamiento de un sistema a medida que avanza en el tiempo. Entonces para llevar a cabo una simulación, es necesario desarrollar previamente un modelo conceptual que representa las características o comportamientos del sistema, mientras que la simulación representa la evolución del modelo a medida que avanza en el tiempo [@banks_discrete-event_2010][@law_simulation_2015][@robinson_simulation_2014].
+
+Con los avances en el mundo digital, la simulación se ha convertido en una metodología de solución de problemas indispensable para ingenieros, docentes, diseñadores y gerentes. La complejidad intrínseca de los sistemas informáticos los hace difícil comprender y costosos de desarrollar sin utilizar simulación [@law_simulation_2015].
+
+Muchas veces en el ámbito educativo, resulta difícil transmitir fundamentos teóricos de la organización y arquitectura interna de las computadoras debido a la complejidad de los procesos involucrados. Si sólo incorporamos los medios de enseñanza tradicionales, como ser una pizarra, un libro de texto o diapositivas, los mismos tienen una capacidad limitada para representar estos fundamentos. En consecuencia, es imprescindible un alto nivel de abstracción por parte del estudiante para desarrollar un modelo mental adecuado para capturar la organización y arquitectura interna de las computadoras [@lion_simuladores_2005][@contreras_uso_2010][@garcia-garcia_pbbcache_2020].
+
+Es evidente la necesidad de utilizar nuevas tecnologías como recursos didácticos y medios de transferencia de conocimiento, ya que ayudan a los estudiantes a relacionar conceptos abstractos con realidades concretas. Estas tecnologías permiten situar al estudiante en un contexto que imita aspectos de la realidad, facilitando la detección de problemáticas similares a las que podrían ocurrir en situaciones reales. Este enfoque promueve un mejor entendimiento a través del trabajo exploratorio, la inferencia, el aprendizaje por descubrimiento y el desarrollo de habilidades [@nova_tool_2013][@mustafa_evaluating_2010].
+
+Un simulador de arquitectura es una herramienta que imita el hardware de un sistema, enfocándose en representar los aspectos arquitectónicos y las funciones del hardware simulado. Estas herramientas permiten realizar cambios, pruebas y ejecutar programas sin riesgo de dañar componentes ni depender de la disponibilidad de equipos físicos [@radivojevic_design_2011].
+
+Algunas herramientas ofrecen una representación en forma visual e interactiva de la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento. En este sentido, los simuladores juegan una pieza clave en el campo de la Arquitectura de Computadores, permitiendo conectar fundamentos teóricos con la experiencia práctica, simpliﬁcando abstracciones y facilitando la labor docente [@nikolic_survey_2009][@hasan_survey_2012][@hennessy_computer_2012][@stallings_computer_2013].
+
+El repertorio de instrucciones de la arquitectura x86 es el más utilizado en computadoras de escritorio y servidores a nivel mundial. Comenzó con el procesador Intel 8086 en 1978 como una arquitectura de 16 bits, y evolucionó a una arquitectura de 32 bits con el procesador Intel 80386 en 1985, conocido como i386 o x86-32. Posteriormente, AMD amplió esta arquitectura a 64 bits, y Intel adoptó las extensiones de 64 bits de AMD, denominadas AMD64 o Intel 64[@intel_64_2016][@amd_developer_2019].
+
+Un procesador x86-64 mantiene la compatibilidad con los modos x86 existentes de 16 y 32 bits, y permite ejecutar aplicaciones de 16 y 32 bits, como así también de 64 bits. Esta compatibilidad hacia atrás protege las principales inversiones en aplicaciones y sistemas operativos desarrollados para la arquitectura x86 [@intel_64_2016][@amd_developer_2019][@abel_ibm_2000].
+
+Por ello, la enseñanza de la arquitectura x86 es de gran relevancia en la asignatura Arquitecturas de Computadoras debido a los diferentes temas que aborda.
+
+Para brindar esta experiencia, es necesario un laboratorio equipado con el hardware adecuado y tiempo suficiente para que los estudiantes se familiaricen con las herramientas. Por este motivo, se han desarrollado muchos simuladores que facilitan la comprensión del funcionamiento y la estructura del computador, ofreciendo valiosas experiencias de aprendizaje [@skrien_cpu_2001]. 
+
+## Justificación
+Aunque ya existen simuladores de la arquitectura x86 que apoyan la enseñanza en los cursos de Arquitectura de Computadoras [@radivojevic_design_2011][@nikolic_survey_2009], estos suelen presentar una gran cantidad de contenidos preestablecidos. Si bien estos contenidos son relevantes, ofrecer toda la especificación de la arquitectura x86 desde el principio puede ser abrumador para los estudiantes y dificultar su comprensión. Sin embargo, desde esta tesis se propone un enfoque diferente: desarrollar una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de los contenidos específicos de la currícula de Arquitectura de Computadoras. Partiendo de una visión global de la estructura y funcionamiento de la computadora (CPU, memoria, módulo de E/S y buses), mostrando los micropasos necesarios para la realización del ciclo básico de una instrucción, ofreciendo un repertorio reducido de instrucciones que se habiliten las instrucciones a medida que se dictan en la asignatura, permitiendo la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, comunicación con los módulos de entrada y salida e interacciones con los periféricos, y por último, medidas de rendimiento sobre la ejecución de un programa.
+
+Con el objeto de ofrecer al estudiante un simulador bien diseñado, robusto, modular y por tanto flexible y sencillo de modificar o ampliar, se explorará la utilización de técnicas formales de modelización y simulación como las redes de Petri o DEVS (Discrete Event System Specification). Estas técnicas permiten separar conceptualmente las capas de modelización y simulación y ofrecen por ello una separación ortogonal de ambas, facilitando la comprensión y modificación del software. Además, permiten el escalado transparente de las simulaciones, pudiéndose ejecutar en entornos de cómputo paralelo o distribuido sin necesidad de modificar el modelo en sí, lo que aporta grandes ventajas de escalado [@peterson_petri_1981][@zeigler_theory_2000][@zeigler_theory_2018].
+
+## Objetivos
+
+El objetivo principal de esta tesis es construir una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras, enfocándose específicamente en los contenidos de la currícula de Arquitectura de Computadoras. Para lograr este objetivo, se plantean los siguientes objetivos específicos:
+
+1. Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a dar apoyo a la enseñanza de la arquitectura x86.
+2. Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir:
+    - Una visión global de la estructura y funcionamiento de la computadora.
+    - Generación y ejecución de programas en ensamblador.
+    - Repertorio de instrucciones x86 reducido y habilitado progresivamente.
+    - Simulación visual e interactiva de micropasos de instrucciones.
+    - Gestión de interrupciones y comunicación con periféricos.
+    - Medidas de rendimiento de ejecución de programas.
+
+
+## Metodología de Desarrollo
+Teniendo en cuenta los objetivos propuestos en la sección anterior, se pretende alcanzar los mismos a través de los pasos que se describen en esta sección.
+
+### Etapas de la Investigación
+  a. Análisis bibliográfico.
+  Se realizó una revisión continua de las publicaciones científicas y tecnológicas, libros e informes técnicos relacionados con el objeto de estudio.
+  b. Recopilación de simuladores.
+  Se realizó un relevamiento del estado actual y las actualizaciones de los simuladores aplicados a la enseñanza de arquitectura de computadoras.
+  c. Estudio de los simuladores.
+  En base a la documentación relevada de los simuladores se estudió en profundidad al menos 5 simuladores y se elaboró una comparativa de los simuladores seleccionados en cuanto a los contenidos que se imparten en la asignatura.
+  d. Construir el simulador.
+  A través de métodos y técnicas de ingeniería de software se construyó un simulador de la arquitectura x86 donde abarque los aspectos más relevantes de la asignatura Arquitectura de Computadoras, permitiendo desarrollar los contenidos en una plataforma unificada, evitando así la pérdida de tiempo y dificultad que supone para el estudiante habituarse a diferentes entornos. Se utilizarán para ello técnicas formales de modelización y simulación, que facilitan un desarrollo modular y enfocan el esfuerzo en la definición del modelo de la arquitectura x86 más que en el protocolo de simulación, permitiendo además el escalado a entornos de ejecución paralelos o distribuidos sin necesidad de modificar el modelo de la arquitectura simulada. 
+
+## Organización del Documento
+El resto de este documento se organiza de la siguiente manera: el capítulo 2 define formalmente las características y el set de instrucciones de la arquitectura. Luego, el capítulo 3 repasa y motiva el interesante rol que la simulación desde un punto de vista didáctico puede desempeñar para el dictado de la asignatura donde se abordan estos tópicos. El capítulo 4 comparativo de los simuladores estudiados según criterios preestablecidos. Finalmente, el capítulo 5 construcción de un simulador como soporte para el uso de la enseñanza y aprendizaje de arquitectura de computadora.
+
+<!--chapter:end:01-intro.Rmd-->
+
+# Estado del arte
+Este capítulo examina el estado del arte en la arquitectura de computadoras, enfocándose en la arquitectura x86 y el uso de herramientas de simulación en la educación. Este análisis es clave para comprender el contexto y la relevancia de los temas abordados en esta tesis.
+
+A continuación, se discutirá el papel de las herramientas de simulación en la enseñanza de la arquitectura de computadoras. Estas herramientas facilitan la comprensión de conceptos complejos y permiten a los estudiantes interactuar con sistemas simulados, proporcionando una experiencia práctica valiosa que de otro modo sería difícil de obtener. Se revisarán las herramientas de simulación más destacadas y su aplicación en entornos educativos, evaluando sus beneficios y limitaciones.
+
+Por último, se abordarán las tendencias actuales y futuras en la enseñanza de la arquitectura de computadoras, incluyendo innovaciones tecnológicas y metodológicas que están transformando la manera en que se enseña y se aprende este campo. Se explorarán enfoques pedagógicos innovadores y estrategias de enseñanza que aprovechan las herramientas digitales y la simulación para mejorar la comprensión y el rendimiento de los estudiantes.
+
+## Arquitectura de computadoras
+La arquitectura de computadoras se ocupa del estudio y diseño de los componentes de hardware y software de una computadora y su interacción. Este campo abarca desde el diseño de circuitos hasta la integración de sistemas completos, siendo crucial para el desarrollo de tecnologías eficientes y avanzadas. Estudiar arquitectura de computadoras permite comprender los sistemas informáticos desde su nivel más básico, ofreciendo una visión holística de su funcionamiento y estructura. Además, está estrechamente relacionada con la programación y el desarrollo de software, lo que permite optimizar el rendimiento y la eficiencia energética [@stallings_computer_2013][@hennessy_computer_2012].
+
+Además, la arquitectura de computadoras nos brinda una base sólida para comprender y aprovechar las nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el internet de las cosas. Estudiar esta disciplina nos prepara para ser parte de la innovación tecnológica y contribuir al desarrollo de soluciones avanzadas en estos campos.
+
+En resumen, estudiar arquitectura de computadoras nos proporciona un conocimiento profundo de los sistemas informáticos, nos capacita para diseñar sistemas eficientes y escalables, y nos prepara para aprovechar las últimas tendencias tecnológicas. Es una disciplina esencial para aquellos que desean seguir una carrera en el campo de la informática y la tecnología, y contribuir al avance de la sociedad digital en la que vivimos.
+
+Otro motivo relevante para estudiar arquitectura de computadoras es la capacidad de contribuir al desarrollo de nuevas tecnologías. La innovación en esta área ha sido constante, desde la miniaturización de componentes hasta el diseño de arquitecturas avanzadas como las basadas en computación cuántica. Al obtener conocimientos en arquitectura, podemos ser parte de esta evolución tecnológica y contribuir a la creación de sistemas más poderosos y eficientes.
+
+Por último, el estudio de la arquitectura de computadoras nos proporciona una base sólida para comprender otros campos relacionados, como la seguridad informática y los sistemas embebidos. Estos conocimientos son cada vez más demandados en la industria, lo que abre oportunidades laborales en empresas de desarrollo de software, fabricantes de hardware, centros de investigación y muchas otras áreas relacionadas con la tecnología.
+
+En conclusión, estudiar arquitectura de computadoras es fundamental para comprender el funcionamiento de los sistemas informáticos, resolver problemas de rendimiento y eficiencia, contribuir a la innovación tecnológica y acceder a una amplia gama de oportunidades laborales. Es una disciplina emocionante que impulsa la evolución de la tecnología y nos permite ser parte activa de este cambio.
+
+###   Arquitectura x86
+La arquitectura x86, una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores, comenzó su desarrollo en 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. La arquitectura x86 evolucionó significativamente con el Intel 80386 en 1985, marcando el inicio de la era de 32 bits. En 2003, AMD lanzó la arquitectura AMD64, extendiendo x86 a 64 bits, lo que permitió un mayor acceso a la memoria y mejor rendimiento en aplicaciones intensivas. Intel adoptó estas innovaciones, consolidando la arquitectura x86 como una de las más versátiles y potentes del mercado [@intel_64_2016][@amd_developer_2019][@abel_ibm_2000].
+
+####   Contextualización Histórica y Evolución de la Arquitectura x86
+La compatibilidad hacia atrás de la arquitectura x86 ha sido un factor clave en su éxito, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Esta característica ha protegido las inversiones en aplicaciones y sistemas operativos desarrollados para la arquitectura x86, consolidando su relevancia en la industria.
+
+```{r tabla-procesadores, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+procesadores <- data.frame(
+  Procesador = c("Intel 8086", "Intel 80386", "AMD64"),
+  `Año de Lanzamiento` = c(1978, 1985, 2003),
+  `Número de Bits` = c(16, 32, 64),
+  `Nuevas Características` = c("Arquitectura inicial", "Memoria virtual", "Extensiones de 64 bits")
+)
+
+kable(procesadores, format = "markdown", caption = "Hitos procesadores x86")
+```
+
+La evolución de la arquitectura x86 ha estado marcada por hitos importantes que han impulsado la informática hacia nuevas alturas. Tras el Intel 8086, el lanzamiento del Intel 80286 en 1982 introdujo modos de operación adicionales que mejoraron la eficiencia y el manejo de memoria. En 1989, el Intel 80486 incorporó una unidad de punto flotante integrada y una mejor caché, aumentando significativamente el rendimiento.
+
+La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles de rendimiento y eficiencia, con características avanzadas como la ejecución superescalar y la predicción de saltos. El Pentium Pro en 1995 mejoró la arquitectura con ejecución fuera de orden y una caché L2 integrada.
+
+En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, optimizando el rendimiento y la eficiencia energética. AMD también fue crucial con su serie Athlon y la introducción de AMD64, llevando la arquitectura x86 a 64 bits, permitiendo un mayor acceso a la memoria y mejorando el rendimiento en aplicaciones intensivas.
+
+
+```{r tabla-evolucion-x86, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+evolucion_x86 <- data.frame(
+  Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
+  Procesador = c("Intel 8086", "Intel 80286", "Intel 80386", "Intel 80486", "Intel Pentium", "Intel Pentium Pro", "AMD64", "Intel Core"), # nolint
+  `Innovación_Principal`  = c(
+    "Introducción de la arquitectura x86, 16 bits",
+    "Modos de operación adicionales",
+    "Arquitectura de 32 bits, memoria virtual",
+    "Unidad de punto flotante integrada, mejor caché",
+    "Ejecución superescalar, predicción de saltos",
+    "Ejecución fuera de orden, caché L2 integrada",
+    "Extensiones a 64 bits, mayor acceso a memoria",
+    "Optimización de rendimiento y eficiencia energética"
+  )
+)
+
+kable(evolucion_x86, format = "markdown", caption = "Línea de Tiempo de la Evolución de la Arquitectura x86")
+```
+
+####  Comparación con Otras Arquitecturas
+La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM [@patterson2016computer], MIPS [@hennessy_computer_2012] y RISC-V [@patterson_computer_2018] nos permite entender mejor sus ventajas y desventajas.
+
+```{r tabla-comparacion-cpu, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+comparacion_cpu <- data.frame(
+  Característica = c("Eficiencia Energética", "Complejidad ISA", "Rendimiento", "Compatibilidad", "Áreas de Aplicación"), # nolint: line_length_linter.
+  x86 = c("Moderada", "Alta", "Alto", "Alta (hacia atrás)", "Escritorio, servidores"),
+  ARM = c("Alta", "Baja", "Moderado", "Moderada", "Dispositivos móviles"),
+  MIPS = c("Moderada", "Moderada", "Moderado", "Moderada", "Sistemas embebidos"),
+  `RISC-V` = c("Alta", "Baja", "Variable", "Alta", "Investigación, embebidos")
+)
+
+kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitecturas")
+```
+
+La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas.
+
+####  Aplicaciones y Casos de Uso de la Arquitectura x86
+La arquitectura x86 ha demostrado ser extremadamente versátil y ha encontrado aplicaciones en una amplia variedad de campos. Su capacidad para manejar tareas complejas y su compatibilidad hacia atrás han sido factores clave en su adopción.
+
+```{r tabla-casos-uso-x86, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+casos_uso_x86 <- data.frame(
+  `Categoría` = c("Servidores", "Computadoras Personales", "Sistemas Embebidos" ),
+  `Descripción` = c("La arquitectura x86 domina el mercado de servidores debido a su capacidad para manejar grandes cargas de trabajo y su compatibilidad con una amplia gama de software empresarial.", "Desde su introducción, la arquitectura x86 ha sido la columna vertebral de las computadoras personales, proporcionando el rendimiento necesario para aplicaciones de productividad, juegos y multimedia.","Con la miniaturización y la eficiencia mejorada, los procesadores x86 se han integrado en sistemas embebidos como dispositivos médicos, sistemas de control industrial y dispositivos de telecomunicaciones.")
+)
+
+kable(casos_uso_x86, format = "markdown", caption = "Casos de Uso notables de la Arquitectura x86")
+```
+####  Impacto de la Arquitectura x86 en la Industria del Software
+La arquitectura x86 ha tenido un impacto profundo en el desarrollo de software. Los sistemas operativos populares como Windows y Linux están optimizados para x86, lo que ha influido en el desarrollo y la optimización de aplicaciones para esta arquitectura.
+Influencia en el Desarrollo de Software:
+Optimización del Rendimiento: Los desarrolladores de software han trabajado estrechamente con las características de la arquitectura x86 para optimizar el rendimiento de sus aplicaciones. Esto incluye el uso de instrucciones específicas de x86 y la optimización para cachés y pipelines.
+Compatibilidad y Soporte: La compatibilidad hacia atrás de x86 ha permitido la continuidad de aplicaciones y sistemas operativos, protegiendo las inversiones en software y facilitando las actualizaciones.
+Ecosistema de Desarrollo: Un amplio ecosistema de herramientas de desarrollo, bibliotecas y frameworks ha sido construido alrededor de la arquitectura x86, facilitando el desarrollo de aplicaciones de alto rendimiento y su depuración.
+
+####  Futuro de la Arquitectura x86
+La arquitectura x86 sigue evolucionando para enfrentar los desafíos de la computación moderna. Las tendencias emergentes como la computación cuántica, la inteligencia artificial y la computación en la nube presentan tanto oportunidades como desafíos para x86.
+Desafíos y Oportunidades Futuras:
+Computación Cuántica: Aunque aún en sus primeras etapas, la computación cuántica podría complementar las arquitecturas tradicionales como x86, especialmente en aplicaciones que requieren capacidades de procesamiento extremo.
+Inteligencia Artificial: La integración de aceleradores de IA y el soporte para operaciones de aprendizaje profundo en hardware x86 están siendo explorados para mejorar el rendimiento en aplicaciones de IA.
+Computación en la Nube: La arquitectura x86 sigue siendo relevante en la infraestructura de la nube, aunque enfrenta competencia de arquitecturas más eficientes como ARM.
+En resumen, la arquitectura x86 ha sido fundamental en la evolución de la informática, proporcionando una plataforma versátil y poderosa para una amplia variedad de aplicaciones. Su continua evolución y adaptación a las nuevas tecnologías aseguran su relevancia en el futuro.
+
+####  Repertorio de instrucciones x86
+El repertorio de instrucciones, o ISA (Instruction Set Architecture), es fundamental para la interacción entre el software y el hardware de una computadora. En el caso de la arquitectura x86, este conjunto de instrucciones ha evolucionado para incluir una amplia gama de operaciones que permiten un control detallado del hardware. La ISA x86 es conocida por su complejidad y flexibilidad, lo que la hace ideal para una variedad de aplicaciones.
+Por ello, la enseñanza de la arquitectura x86 es de gran relevancia en la asignatura Arquitecturas de Computadoras debido a los diferentes temas que aborda.
+
+#### Ejemplos de Instrucciones x86
+El repertorio de instrucciones x86 incluye una variedad de instrucciones para realizar operaciones aritméticas, lógicas, de control y de manejo de memoria. Algunos ejemplos son:
+
+- `MOV`: Mueve datos de una ubicación a otra.
+- `ADD`: Suma dos valores.
+- `SUB`: Resta un valor de otro.
+- `JMP`: Salta a una dirección específica.
+
+## Lenguaje ensamblador
+Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador.Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso [@irvine2011assembly]. 
+
+Para facilitar la programación de bajo nivel, se creó el lenguaje ensamblador, que es un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones comprensibles por el procesador. A diferencia del lenguaje máquina, que utiliza secuencias de números binarios, el ensamblador emplea mnemónicos simbólicos que hacen que el código sea más legible y manejable para los humanos. Cada arquitectura de procesador tiene su propio lenguaje ensamblador que usualmente es definida por el fabricante de hardware, por lo tanto es específica de cierta arquitectura de la computadora física. Un programa llamado ensamblador es usado para traducir sentencias del lenguaje ensamblador al código de máquina de la computadora. El ensamblador realiza una traducción casi directa uno a uno desde las sentencias mnemónicas a las instrucciones y datos de máquina. Esto está en contraste con los lenguajes de alto nivel, en los cuales una sola declaración generalmente da lugar a muchas instrucciones de máquina [@stallings_computer_2013]. 
+
+El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Si nos ubicamos en la arquitectura x86 encontraremos diferentes lenguajes ensambladores. De ahí los diferentes productos ofrecidos, entre ellos, TASM (Turbo Assembler), MASM (Microsoft Macro Assembler) y NASM (Netwide Assembler). Cada uno ofrece diferentes características y beneficios, adaptándose a diversas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86 [@hyde2010art]. 
+
+##  Simulación
+La simulación es una herramienta esencial en múltiples campos como la medicina, el ámbito militar, el entretenimiento y la educación. Permite comprender el funcionamiento de un sistema, generando hipótesis sobre cómo o por qué ocurren ciertos fenómenos, realizar análisis predictivos y responder preguntas del tipo "qué pasaría si". Según Banks [@banks_discrete-event_2010], la simulación se define como el proceso de imitar el comportamiento de un sistema a lo largo del tiempo, requiriendo desarrollar primero un modelo conceptual que capture las características y comportamientos del sistema real, mientras que la simulación representa la evolución de este modelo conforme el tiempo avanza. La capacidad de replicar y analizar sistemas complejos sin necesidad de intervenir directamente en ellos es lo que hace que la simulación sea una metodología indispensable para ingenieros, diseñadores y gerentes en el mundo digital actual [@banks_discrete-event_2010][@robinson_simulation_2014][@law_simulation_2015].
+
+Con los avances en el mundo digital, la simulación se ha convertido en una metodología de solución de problemas indispensables para ingenieros, docentes, diseñadores y gerentes. La complejidad intrínseca de los sistemas informáticos los hace difícil comprender y costosos de desarrollar sin utilizar simulación [@law_simulation_2015].
+
+###  Aplicaciones de la Simulación en la Industria
+En la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Un modelo virtual del automóvil y sus componentes permite realizar pruebas de colisión y evaluar el rendimiento de los sistemas de seguridad sin la necesidad de llevar a cabo costosas pruebas físicas. Además, la simulación permite optimizar el diseño de motores, analizar el flujo aerodinámico y prever el comportamiento de los materiales en condiciones extremas.En el campo de la aviación, la simulación se utiliza para entrenar pilotos en simuladores de vuelo que replican condiciones reales sin riesgos. También se emplea en el diseño de aeronaves para evaluar la aerodinámica y el rendimiento de nuevos diseños bajo diversas condiciones de vuelo. Estos ejemplos demuestran cómo la simulación puede reducir costos, mejorar la seguridad y acelerar el desarrollo de productos complejos.
+
+### Herramientas de Simulación en la Educación
+Herramientas como Simulink, Proteus, y Logisim permiten a los estudiantes interactuar con modelos virtuales de circuitos y sistemas informáticos, facilitando la comprensión de la arquitectura interna y las operaciones de una computadora.
+
+## Simulación aplicada a la enseñanza de arquitectura de computadoras
+Los estudiantes de la asignatura Arquitectura de Computadoras deben no solo conocer la estructura y el funcionamiento interno de las computadoras, sino también tener una experiencia práctica activa con dicha arquitectura. Esta experiencia práctica es crucial para desarrollar competencias en el uso de herramientas y técnicas relacionadas con el hardware. Sin embargo, la implementación de laboratorios físicos con el hardware necesario puede ser costosa y requiere tiempo considerable para que los alumnos adquieran las habilidades necesarias.
+
+Para superar estas limitaciones, se han desarrollado numerosos simuladores que proporcionan experiencias de aprendizaje valiosas al replicar el funcionamiento y la estructura de las computadoras. Simuladores como SimpleScalar, SPIM y GEM5 permiten a los estudiantes experimentar con arquitecturas complejas y técnicas avanzadas como el pipelining y la ejecución fuera de orden. Estas herramientas facilitan la comprensión de los conceptos teóricos a través de la interacción práctica, proporcionando un entorno seguro y accesible para la exploración y el aprendizaje [@skrien_cpu_2001].
+
+### Uso de la Simulación para Enseñar Pipelining
+El pipelining es una técnica utilizada en las CPUs modernas para mejorar el rendimiento. Utilizando simuladores como SimpleScalar, los estudiantes pueden visualizar cómo las instrucciones se ejecutan en diferentes etapas del pipeline, y cómo se manejan las dependencias de datos y los riesgos de control.
+
+## El Formalismo DEVS (Discrete Event System Specification)
+DEVS, la abreviación de Discrete Event System Specification, es un formalismo modular y jerárquico para el modelado y análisis de sistemas que pueden ser representados como sistemas de eventos discretos, sistemas de estado continuo o sistemas híbridos. Este formalismo, desarrollado por Bernard P. Zeigler en los años 70, extiende el concepto de las máquinas de Moore al proporcionar una estructura para modelar sistemas complejos mediante la utilización de eventos cronometrados [@zeigler_theory_2000].
+
+### Descripción del Formalismo DEVS
+El formalismo DEVS define el comportamiento de un sistema real utilizando eventos de entrada y salida, y transiciones entre estados concretos. Un sistema en DEVS está compuesto por modelos atómicos y acoplados. Los modelos atómicos representan las unidades básicas de comportamiento, mientras que los modelos acoplados consisten en combinaciones de modelos atómicos y/o otros modelos acoplados. Esta estructura jerárquica facilita la gestión y análisis de sistemas complejos, permitiendo la prueba de subsistemas de manera aislada antes de integrarlos en el sistema completo.
+Bajo un punto de vista general, un modelo DEVS está caracterizado por generar eventos de salida Y , en relación con el estado en el que se encuentre S y las entradas recibidas X, cada cierto tiempo.
+
+### Aplicaciones del Formalismo DEVS
+El formalismo DEVS es aplicable a una amplia gama de sistemas, desde redes de comunicación hasta procesos de manufactura. Por ejemplo, en una red de comunicación, un modelo DEVS puede simular el enrutamiento de paquetes de datos y la gestión de congestiones. En la manufactura, un modelo DEVS puede representar el flujo de materiales y el control de calidad en una línea de producción, ayudando a identificar cuellos de botella y optimizar procesos.
+
+### Ejemplo de Modelo DEVS
+Consideremos un sistema de colas en un banco, donde los clientes llegan, esperan en la fila y son atendidos por cajeros. Un modelo DEVS puede representar los eventos de llegada de clientes, la asignación a los cajeros y el tiempo de servicio, permitiendo evaluar el tiempo de espera y la utilización de los recursos. Este ejemplo ilustra cómo DEVS puede ser utilizado para mejorar la eficiencia operativa y la satisfacción del cliente mediante la optimización del flujo de trabajo y la asignación de recursos.
+
+### Aporte pedagógico
+En el ámbito educativo, transmitir los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un desafío debido a la complejidad de los procesos involucrados. Los métodos tradicionales de enseñanza, como el uso de pizarras, libros de texto y diapositivas, a menudo tienen una capacidad limitada para representar estos conceptos de manera efectiva. Esto requiere que los estudiantes tengan un alto nivel de abstracción para desarrollar un modelo mental adecuado para capturar la organización y arquitectura interna de las computadoras [@lion_simuladores_2005][@contreras_uso_2010].
+
+La integración de nuevas tecnologías como recurso didáctico es crucial para facilitar el aprendizaje. Las herramientas de simulación permiten a los estudiantes relacionar conceptos abstractos con situaciones reales, situándose en un contexto que imita aspectos de la realidad. Este enfoque pedagógico facilita la detección de problemáticas y el desarrollo de habilidades a través del trabajo exploratorio, la inferencia y el aprendizaje por descubrimiento. Simuladores como Simulink, Proteus y Logisim juegan un papel esencial en la enseñanza de la arquitectura de computadoras, proporcionando una representación visual e interactiva que enriquece la comprensión teórica y práctica de los estudiantes [@garcia-garcia_pbbcache_2020][@nova_tool_2013].
+
+El uso de herramientas de simulación en la enseñanza para procesos dinámicos complejos, como las operaciones intrínsecas de la computadora, que permiten representar de forma visual e interactiva la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento por parte de los alumnos y el desarrollo de los temas por parte del docente. En este contexto, los simuladores juegan una pieza clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, implicando abstracciones y haciendo más rica la labor docente.
+
+<!--chapter:end:02-arte.Rmd-->
+
+# Comparativa de simuladores
+En este capítulo, se comparan diversos simuladores x86 que podrían integrarse en la asignatura de Arquitectura de Computadoras de la Licenciatura en Sistemas. La selección y evaluación de estos simuladores se ha realizado según criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor apoyen el proceso de enseñanza y aprendizaje, facilitando tanto la comprensión teórica como la aplicación práctica de los conceptos de arquitectura de computadoras.
+
+Los resultados de esta comparativa fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología en 2022, bajo el título 'Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86' [@colombani_herramientas_2022].
+
+## Simuladores bajo analisis
+Un simulador de arquitectura es un software que imita una situación del mundo real y, en este contexto, puede imitar el hardware de un sistema de cómputo. El simulador se centra principalmente en la representación de los aspectos arquitectónicos y funciones del hardware simulado. El uso de herramientas de simulación permite realizar cambios, pruebas y ejecución de programas sin temor de dañar ningún componente o por falta de la computadora [@radivojevic_design_2011].
+
+Algunos programas ofrecen una representación visual e interactiva de la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento. Entre estos se encuentran los simuladores Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. En este sentido, los simuladores juegan un papel clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, simplificando abstracciones y facilitando la labor docente [@nikolic_survey_2009][@hasan_survey_2012][@hennessy_computer_2012][@stallings_computer_2013][@behrooz_computer_2005].
+
+## Simuladores similares
+Cabe destacar que existen estudios comparativos que evalúan diferentes simuladores aplicados a la enseñanza de los cursos de arquitectura de computadoras:
+  - “A survey and evaluation of simulators suitable for teaching courses in computer architecture and organization”, 2009  [@nikolic_survey_2009]: Otros estudios evalúan diferentes simuladores para abordar diferentes temas en el dictado de los cursos de Arquitectura de Computadoras, en general estos estudios evalúan simuladores en términos de dos categorías predefinidas: una referida a las características de la simulación, como ser granularidad, usabilidad, disponibilidad, presentación visual, flujo de simulación, etc., y otra sobre la cobertura de los contenidos preestablecidos en las currículas.
+  - “Survey and evaluation of simulators suitable for teaching for computer architecture and organization Supporting undergraduate students at Sir Syed University of Engineering & Technology”, 2012 [@hasan_survey_2012]: Evalúa aspectos como usabilidad, disponibilidad, fundamentos de arquitectura informática, jerarquía de sistemas de memoria, comunicación e interfaz y diseño de sistemas de procesadores.
+
+Este trabajo se diferencia al proponer un enfoque diferente: evaluar los simuladores x86 bajo criterios de evaluación basados en características de simulación y en contenidos específicos de la asignatura Arquitectura de Computadoras de la carrera de Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos.
+
+## Selección de simuladores
+A partir de una exhaustiva exploración en internet sobre herramientas de simulación de la arquitectura x86 utilizadas para la enseñanza, se identificaron los siguientes simuladores: Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim.
+
+De estos simuladores, se seleccionaron tres que a priori cubrían la mayor cantidad de contenidos curriculares establecidos en el criterio de evaluación “Cobertura de los contenidos preestablecidos en la currícula”: Emu8086, VonSim y Simple 8-bit Assembler Simulator.
+
+## Criterios de Evaluación
+Los criterios de evaluación se han definido cuidadosamente para asegurar una valoración integral de los simuladores. Estos criterios incluyen:
+
+- **Usabilidad**: Se refiere a la capacidad ser usado del producto. Escala (difícil-media-fácil).
+
+- **Editor**: Soporte para escribir y depuración de código en lenguaje ensamblador. Escala (baja-media-alta).
+
+- **Documentación**: Disponibilidad de soporte para el aprendizaje, repertorio de instrucciones, manual de usuario. Escala (mínima-media-completa).
+
+- **Ejecución de simulación**: Facilidad para controlar y observar el flujo de ejecución de sus programas. Escala (baja-media-alta).
+
+- **Nivel de especificación de la Organización y Arquitectura del sistema simulado**: La precisión con la que el simulador representa la arquitectura x86.Nivel de implementación del set de instrucciones, memoria, módulos de E/S, etc. Escala (mínima-media-completa).
+
+- **Características del desarrollo del producto software**: Aspectos como el tipo de licencia (open source o privativas), la fecha de última versión, y si es una aplicación web o de escritorio. Escala (mala-buena-muy buena).
+
+- **Cobertura de los contenidos preestablecidos en la currícula**: cobertura a los tópicos de la asignatura Arquitectura de Computadoras. Escala (baja-media-alta).
+
+## Análisis comparativo
+A continuación, se presenta un análisis detallado de los simuladores seleccionados basado en los criterios de evaluación definidos:
+
+### Simple 8-bit Assembler Simulator
+- **Usabilidad**: Nivel medio. Presenta todos los componentes en una sola pantalla, lo cual puede ser abrumador para usuarios principiantes.
+- **Editor**: Nivel bajo. Incluye aviso de errores de sintaxis al ensamblar, sin resaltado de sintaxis ni breakpoints. No permite guardar o cargar programas.
+- **Documentación**: Nivel mínimo. Consta solo de un manual de instrucciones implementadas.
+- **Ejecución de simulación**: Nivel medio. Permite configurar la velocidad del reloj de CPU y ofrece controles básicos de simulación.
+- **Nivel de especificación**: Nivel mínimo. Simplifica la arquitectura x86 en un CPU de 8 bits, con memoria de 256 bytes y sin soporte para IN y OUT.
+- **Desarrollo del producto**: Nivel bueno. Licencia MIT, última versión en 2015, desarrollado sobre plataforma web.
+- **Cobertura de contenidos**: Nivel bajo. No implementa memoria independiente para módulos de entrada y salida, rutinas de tratamiento de interrupciones ni ciclo de instrucción.
+
+### VonSim
+- **Usabilidad**: Nivel medio. Presenta componentes mediante solapas, lo cual puede ser abrumador para usuarios iniciales.
+- **Editor**: Nivel medio. Incluye aviso de errores de sintaxis, resaltado de sintaxis y breakpoints mediante interrupción por software.
+- **Documentación**: Nivel medio. Posee manual de uso y tutorial interactivo.
+- **Ejecución de simulación**: Nivel medio. Permite configurar la velocidad del reloj de CPU y ofrece controles básicos de simulación.
+- **Nivel de especificación**: Nivel medio. Representa una simplificación del procesador 8088 con arquitectura de 16 bits y memoria direccionable de 16 KiB.
+- **Desarrollo del producto**: Nivel muy bueno. Licencia GNU Affero General Public License v3.0, última versión en 2020, desarrollado sobre plataforma web con extensa evidencia de uso académico.
+- **Cobertura de contenidos**: Nivel medio. Implementa dispositivos internos y externos, pero no desarrolla contenidos visuales para ciclo de instrucción y medidas de rendimiento.
+
+### Emu8086
+- **Usabilidad**: Nivel fácil. Presenta inicialmente el editor y permite activar componentes del simulador a medida que se cargan programas.
+- **Editor**: Nivel alto. Incluye aviso de errores de sintaxis, resaltado de sintaxis y opciones de breakpoints. Permite guardar y cargar programas.
+- **Documentación**: Nivel completo. Incluye manual de instrucciones, tutorial de aprendizaje y manual de uso.
+- **Ejecución de simulación**: Nivel alto. Permite configurar la velocidad del reloj de CPU y ofrece controles avanzados de simulación, incluyendo "step back".
+- **Nivel de especificación**: Nivel completo. Representa detalladamente la arquitectura del procesador 8086 con memoria direccionable de 1 MiB y soporte para interrupciones por software y hardware.
+- **Desarrollo del producto**: Nivel bueno. Licencia privativa, última versión en 2023, desarrollado sobre plataforma de escritorio.
+- **Cobertura de contenidos**: Nivel alto. Soporta todos los modos de direccionamiento y permite emular el booteo de una IBM PC desde el floppy disk, entre otros.
+
+```{r tabla-comparativa-criterios, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+tabla_comparativa <- data.frame(
+  `Criterio de Evaluacion` = c("Usabilidad", "Editor", "Documentación", "Ejecución de simulación", 
+                             "Nivel de especificación x86", "Características del producto", 
+                             "Cobertura de contenidos"),
+  `Simple 8 bit Assembler Simulator` = c("Medio", "Bajo", "Mínima", "Medio", "Mínima", "Buena", "Baja"),
+  VonSim = c("Medio", "Medio", "Media", "Medio", "Media", "Muy buena", "Media"),
+  Emu8086 = c("Fácil", "Alto", "Completa", "Alta", "Completa", "Buena", "Alta")
+)
+
+kable(tabla_comparativa , format = "markdown", caption = "Comparativa según criterios de evaluación preestablecidos")
+```
+
+##   Resultados
+Desde la asignatura se promueve el uso de simuladores para apoyar los procesos de enseñanza y aprendizaje, con la meta de que los contenidos desarrollados puedan aplicarse en máquinas reales. Emu8086 se considera la herramienta más adecuada para esta finalidad, ya que facilita la implementación de programas en hardware real. Sin embargo, su dependencia del sistema operativo MS-DOS complica su ejecución en sistemas operativos actuales, requiriendo el uso de emuladores de MS-DOS, lo que añade complejidad al proceso de enseñanza y aprendizaje.
+
+En la asignatura se utiliza la herramienta Emu8086 versión 4.08 desde el año 2018. En el análisis de la herramienta se observó que tiene un periodo de evaluación gratuito de 14 días, después del cual se debe adquirir la licencia para su uso. La herramienta presenta una licencia privativa, lo cual puede ser un inconveniente para su uso en la asignatura, ya que se busca que los estudiantes puedan acceder a las herramientas de forma libre y gratuita.
+
+Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
+
+En el criterio de evaluación uno emu8086 se destaca del resto debido a que su interfaz se despliega solo si es necesaria para su uso, por ejemplo pila, flags, teclado, pantalla, etc. a medida que se usan. En cambio las otras herramientas muestran todos sus componentes en su interfaz.
+
+En el criterio de evaluación dos emu8086 se destaca del resto debido a que el editor presenta punto de ruptura, que permiten correr la ejecución del programa hasta cierto punto, además incluye la facilidad de guardar y recuperar un programa desde el propio editor.
+
+En el criterio de evaluación tres el emu8086 se destaca del resto debido a que ofrece los tres tipos de documentación establecidas en este criterio, un repertorio de instrucciones con ejemplos para cada tipo de instrucción, un manual que explica las partes de las herramientas y un tutorial para aprender a programar en ensamblador.
+
+En el criterio de evaluación cuatro el emu8086 se destaca del resto debido presenta una mayor cantidad de controladores para gestionar el flujo de ejecución, por ejemplo permite retroceder la ejecución de una instrucción, otra opción es de recargar el programa actual.
+
+En el criterio de evaluación cinco el emu8086 se destaca del resto debido a que ofrece una mayor especificidad de la arquitectura x86, además implementa interrupciones del sistema operativo MS-DOS, a través del cual se pueden ejecutar los programas en una máquina real.
+
+En el criterio de evaluación seis VonSim se destaca del resto debido a que es licencia libre y posee una comunidad que respalda el proyecto.
+
+En cuanto al último criterio, ninguna de las herramientas evaluadas cubre todos los contenidos que se pretende desarrollar con la ayuda de una herramienta, quedando excluido pasos del ciclo de instrucción y medidas de rendimientos (tiempo de CPU y CPI: ciclo por instrucción).
+
+### Publicación
+El resultado de esta comparativa fue publicado en el XVII Congreso de Tecnología en educación y Educación en Tecnología año 2022 bajo el título de "Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86" [@colombani_herramientas_2022].
+
+Durante la elaboración de este análisis comparativo establecí contacto con uno de los docentes de la Universidad Nacional de la Plata (UNLP) que habían desarrollado un simulador web VonSim, con el acuerdo de docente se generó una solicitud de incorporación de cambios (pull request) en el repositorio de Github del simulador VonSim y en agosto-2023 salió una nueva versión donde se implementan animaciones de la ejecución de instrucciones y documentación on-line. 
+
+<!--chapter:end:03-comparativa.Rmd-->
+
+# Diseño y construcción del simulador
+El objetivo principal de esta tesis es construir una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras. Para lograr este objetivo, se plantean los siguientes objetivos específicos: 
+
+1. Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a dar apoyo a la enseñanza de la arquitectura x86.
+2. Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir:
+    - Una visión global de la estructura y funcionamiento de la computadora.
+    - Generación y ejecución de programas en ensamblador.
+    - Repertorio de instrucciones x86 reducido y habilitado progresivamente.
+    - Simulación visual e interactiva de micropasos de instrucciones.
+    - Gestión de interrupciones y comunicación con periféricos.
+    - Medidas de rendimiento de ejecución de programas.
+
+Se cumplio con el primer objetivo se realizo una revisión exhaustiva de las herramientas de simulación actuales destinadas a dar apoyo a la enseñanza de la arquitectura x86. Se evaluo cada herramienta en función de sus capacidades para cumplir con los objetivos específicos de la tesis.
+Para cumplir con el segundo objetivo se construyo una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente:
+
+Para cumplir con el segundo objetivo específico, se debe diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores.
+Para lograr esto, se puede comenzar por definir los requisitos de la herramienta. La herramienta debe ofrecer una visión global de la estructura y funcionamiento de la computadora, permitir la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, y ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura. Además, la herramienta debe simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción, permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, permitir la comunicación con los módulos de entrada y salida e interacciones con los periféricos, y ofrecer medidas de rendimiento sobre la ejecución de un programa.
+Una vez que se hayan definido los requisitos, se puede comenzar a diseñar la herramienta. Se debe tener en cuenta la facilidad de uso para los estudiantes y profesores. La herramienta debe ser intuitiva y fácil de navegar. Se pueden utilizar gráficos y diagramas para ayudar a los estudiantes a comprender mejor la estructura y funcionamiento de la computadora.
+Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
+En resumen, para cumplir con el segundo objetivo específico, se debe diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores. Para lograr esto, se puede comenzar por definir los requisitos de la herramienta, diseñar la herramienta, construir y probar.
+
+### Requisitos de la Herramienta
+
+La herramienta debe cumplir con los siguientes requisitos:
+
+**Visión global de la computadora:** Debe mostrar la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, destacando componentes relevantes.
+
+**Generación y ejecución de programas en ensamblador:** Permitir tanto la ejecución paso a paso como completa, facilitando la comprensión de cada instrucción.
+
+**Repertorio de instrucciones x86 reducido:** Seleccionar un subconjunto esencial de instrucciones x86, habilitándolas progresivamente según avance el contenido de la asignatura.
+
+**Simulación visual e interactiva de micropasos:** Utilizar el lenguaje de transferencia entre registros (RTL) para describir el flujo de datos, facilitando la comprensión del ciclo básico de una instrucción.
+
+**Gestión de interrupciones:** Incorporar un vector de interrupción predefinido para interactuar con el teclado y monitor.
+
+**Comunicación con módulos de E/S y periféricos:** Incluir instrucciones IN y OUT, y un módulo de E/S simplificado basado en el modo 2 del Intel 8255.
+
+**Medidas de rendimiento:** Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa. 
+
+La herramienta debe ofrecer una visión global de la estructura y funcionamiento de la computadora, permitir la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, y ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura. Además, la herramienta debe simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción, permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, permitir la comunicación con los módulos de entrada y salida e interacciones con los periféricos, y ofrecer medidas de rendimiento sobre la ejecución de un programa.
+Una vez que se hayan definido los requisitos, se puede comenzar a diseñar la herramienta. Se debe tener en cuenta la facilidad de uso para los estudiantes y profesores. La herramienta debe ser intuitiva y fácil de navegar. Se pueden utilizar gráficos y diagramas para ayudar a los estudiantes a comprender mejor la estructura y funcionamiento de la computadora.
+Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
+En resumen, para cumplir con el segundo objetivo específico, se debe diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores. Para lograr esto, se puede comenzar por definir los requisitos de la herramienta, diseñar la herramienta, construir y probar.
+Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir, se puede adpatar
+
+
+
+### Desarrollo y Pruebas
+**Diseño de la Herramienta:** Comenzar con la definición detallada de los requisitos, seguido de un diseño centrado en la facilidad de uso para estudiantes y profesores. Se utilizarán gráficos y diagramas para mejorar la comprensión.
+
+**Construcción de la Herramienta:** Implementar la herramienta siguiendo las especificaciones de diseño, asegurando la integridad y funcionalidad de cada componente.
+
+**Pruebas Exhaustivas:** Realizar pruebas rigurosas para asegurar que la herramienta cumple con todos los requisitos. Las pruebas incluirán:
+- Validación de la funcionalidad completa de la herramienta.
+- Evaluación de la usabilidad por parte de estudiantes y profesores.
+- Identificación y solución de problemas antes del lanzamiento.
+
+### Portabilidad
+Para asegurar la portabilidad, el simulador se implementará como una aplicación web que puede ejecutarse en cualquier navegador web, garantizando su uso multiplataforma.
+
+### Simplicidad
+La herramienta será diseñada con una interfaz intuitiva y fácil de navegar, minimizando la curva de aprendizaje para los usuarios.
+
+### Mantenibilidad
+El código de la herramienta será modular y bien documentado, facilitando futuras actualizaciones y mantenimiento. Además, se implementarán prácticas de desarrollo sostenibles para asegurar su longevidad.
+
+### Escalabilidad
+
+Desde la asignatura se incentiva el uso de simuladores para dar apoyo a los proceso de enseñanza y aprendizaje, pero también se incentiva que los contenidos desarrollados puedan volcarse en máquinas reales, en este sentido consideramos que el enfoque planteado por la herramienta emu8086 es el más adecuado para la asignatura, ya que facilita mecanismos para implementar los programas en máquinas reales. Sin embargo presenta el inconveniente que genera ejecutables dependientes del sistema operativo MS-DOS, la mayoría de los sistemas operativos actuales no permiten la ejecución de dichos programas, obligando a la utilización de emuladores de MS-DOS para poder correrlos, siendo esto otro elemento más que se incorpora a los procesos de enseñanza y aprendizaje. 
+Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
+
+
+•	Ofrecer una visión global de la estructura y funcionamiento de la computadora.
+
+La idea de este objetivo es que el simulador brinde una visión global del sistema, que no ofrezca directamente en el arranque  los registros del CPU, contenido de memoria, editor. 
+El pretende que el simulador muestre la estructura de la computadora (CPU, bus, memoria y E/S), si es posible poder llegar a correr un programa y que se ilumine  cada componente durante la ejecución de un programa.
+
+•	Ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura.
+La idea para este objetivo es que el simulador ofrezca un repertorio de instrucciones reducido seleccionando las instrucciones x86 que permitan desarrollar los contenidos.
+
+X86-8 bits debido a que los registros son de 8 bits.
+
+Y86-64 es un ejemplo de  una implementación reducida del x86 y es en 64 bits.
+EL simulador Y86 implementa el lenguaje assembler de ATT.
+Sin embargo no implementa instrucción INT para el manejo de interrupciones y IN-OUT para comunicación con los módulos de E/S
+
+•	Simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción.
+Especificar los pasos mediante el lenguaje de transferencia entre registros (RTL) que se utiliza para describir el flujo de datos a nivel de transferencia de registros de una arquitectura.
+
+•	Permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla.
+El simulador deberá tener predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. 
+Para desarrollar el contenido del módulo de E-S el simulador deberá incorporar las instrucciones IN  y OUT para comunicación con los módulos.
+
+•	Ofrecer medidas de rendimiento sobre la ejecución de un programa.
+El simulador deberá brindar información sobre el tiempo de ciclo, tiempo de CPU y CPI de un programa.
+
+## Componentes arquitectónicos 
+
+ALU
+Operaciones de la ALU
+
+0 = dejar pasar R sin realizar operación, se utiliza en las instrucciones de transferencia reg ← reg.
+1 = dejar pasar MBR sin realizar operación, se utiliza en las instrucciones de carga a memoria.
+2 = Suma
+3 = Resta
+
+
+
+### Unidad de control
+
+### Memoria
+La memoria contiene 256 posiciones y cada una contiene un byte. Por lo tanto, el bus de direcciones y de datos son de 8 bits. 
+6.2 Repertorio de instrucciones propuesto
+El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento. Aunque el conjunto de instrucciones real de x86 es mucho más amplio y complejo, este enfoque básico sentará las bases para comprender el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
+
+
+Números de registros (r) 
+registro	binario	decimal
+AL	00	0
+BL	01	1
+CL	10	2
+DL	11	3
+
+Instrucciones	Operación	Nemónico	Acción
+Transferencia de datos        	⤎ Mover	MOV od, of	Copiar: operando-destino (od)  ← operando-fuente (of)
+
+Procesamiento de datos      	+  Sumar  
+₋   Restar
+＝ Comparar 	ADD  od, of
+SUB   od, of
+CMP  od, of  	od ← od + of  
+od ← od - of  
+od - of  
+
+Control de flujo	⥅ Salto incondicional 
+» Salto condicional
+× Detener 	JMP  d
+Jxx    d
+HLT 	Salto incondicional a dirección destino (d). 
+Saltos condicionales en base a las banderas (flags) a d.
+Detiene el CPU.
+
+
+6.2.1 Formato de Instrucciones y modos de direccionamiento
+El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado, podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
+
+Operando	tipo
+r	Registros del CPU
+[d]	Contenido de la dirección de memoria
+i	Valor inmediato
+[r]	Contenido de la dirección de memoria dada por el registro
+
+Transferencia MOV (COPIAR)
+
+
+MOV d, f
+
+Tipo de operandos d y f: pueden ser registros, dirección de memoria, dirección indirecta por registro (BL) o valor. El operando valor no puede ser destino.
+
+rf: registro fuente
+rd: registro destino
+
+Los 4 primeros bits de la instrucción se descompone en:
+Código operación 3 bis y 1 bit se corresponde al tipo de destino, si es cero representa registro y si es 1 representa memoria.
+
+
+Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
+byte 1	byte 2	byte 3			
+4	2	2					
+0=0000	rd	rf	-	-	MOV AL, BL	Copiar entre registros: rd ← rf  	registro-registro
+1=0001	0=00	rf	Dir	-	MOV [0x1], AL	Almacenar en memoria:
+0.	mem ← rf
+1.	mem[BL] ← rf
+2.mem[Dir + BL] ← rf
+3.0 mem ← valor
+3.1.mem[BL] ← valor  
+3.2.mem[Dir + BL] ← valor	
+0.	directo
+1.	indirecto
+2.	indirecto
+3.	0.inmediato
+3.1.inmediato
+3.2.inmediato
+
+1=0001	1=01	rf	-	-	MOV [BL], AL		
+1=0001	2=10	rf	Dir	-	MOV [[0x4 + BL], AL		
+1=0001	3=11	0=00	Dir	Valor	MOV [0x1], 0x1		
+1=0001	3=11	1=01	Valor	-	MOV [BL], 0x1		
+1=0001	3=11	2=10	Dir	Valor	MOV [0x4 + BL], 0x1		
+2=0010	rd	0=00	Dir	-	MOV AL, [0x1]	Cargar a registro:
+0.	rd ← mem
+1.	rd ← mem[BL] 
+2.	rd ← mem[Dir + BL]
+3.	rd ← valor   	
+0.	directo
+1.	indirecto
+2.	indirecto
+3.	inmediato
+2=0010	rd	1=01	-	-	MOV AL, [BL]		
+2=0010	rd	2=10	Dir	-	MOV AL, [0x4 + BL]		
+2=0010	rd	3=11	Valor	-	MOV AL, 0x2		
+
+
+
+
+Ciclo de la instrucción (Etapas de captación y ejecución)
+
+
+Captación:  (*)
+1.	MAR ← IP 
+2.	MDR ← read(Memoria[MAR])
+     IP ← IP + 1
+3.	IR  ← MDR
+
+
+
+
+Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
+byte 1	byte 2	byte 3			
+4	2	2					
+0=0000	rd	rf	-	-	MOV AL, BL	Copiar entre registros: rd ← rf  	registro-registro
+1=0001	0=00	rf	Dir	-	MOV [0x1], AL	Almacenar en memoria:
+0.	mem ← rf
+1.	mem[BL] ← rf
+2.mem[Dir + BL] ← rf
+3.0 mem ← valor
+3.1.mem[BL] ← valor  
+3.2.mem[Dir + BL] ← valor	
+0.	directo
+1.	indirecto
+2.	indirecto
+3.	0.inmediato
+3.1.inmediato
+3.2.inmediato
+
+1=0001	1=01	rf	-	-	MOV [BL], AL		
+1=0001	2=10	rf	Dir	-	MOV [[0x4 + BL], AL		
+1=0001	3=11	0=00	Dir	Valor	MOV [0x1], 0x1		
+1=0001	3=11	1=01	Valor	-	MOV [BL], 0x1		
+1=0001	3=11	2=10	Dir	Valor	MOV [0x4 + BL], 0x1		
+2=0010	rd	0=00	Dir	-	MOV AL, [0x1]	Cargar a registro:
+0.	rd ← mem
+1.	rd ← mem[BL] 
+2.	rd ← mem[Dir + BL]
+3.	rd ← valor   	
+0.	directo
+1.	indirecto
+2.	indirecto
+3.	inmediato
+2=0010	rd	1=01	-	-	MOV AL, [BL]		
+2=0010	rd	2=10	Dir	-	MOV AL, [0x4 + BL]		
+2=0010	rd	3=11	Valor	-	MOV AL, 0x2		
+
+
+
+
+<!--chapter:end:04-desarrollo.Rmd-->
+
+# Bibliografía {-}
+
+<!--chapter:end:05-biblio.Rmd-->
+
