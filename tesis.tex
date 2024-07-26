@@ -409,7 +409,7 @@ Año & Procesador & Innovación\_Principal\tabularnewline
 \hypertarget{comparaciuxf3n-con-otras-arquitecturas}{%
 \subsubsection{Comparación con Otras Arquitecturas}\label{comparaciuxf3n-con-otras-arquitecturas}}
 
-La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM {[}\protect\hyperlink{ref-patterson2016computer}{22}{]}, MIPS {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]} y RISC-V {[}\protect\hyperlink{ref-patterson_computer_2018}{23}{]} nos permite entender mejor sus ventajas y desventajas.
+La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM {[}\protect\hyperlink{ref-patterson2016computer}{22}{]}, MIPS {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]} y RISC-V {[}\protect\hyperlink{ref-waterman2014risc}{23}{]}{[}\protect\hyperlink{ref-patterson_computer_2017}{24}{]} nos permite entender mejor sus ventajas y desventajas.
 
 \begin{longtable}[]{@{}lllll@{}}
 \caption{\label{tab:tabla-comparacion-cpu}Comparación de Arquitecturas}\tabularnewline
@@ -587,11 +587,11 @@ El repertorio de instrucciones x86 incluye una variedad de instrucciones para re
 \hypertarget{lenguaje-ensamblador}{%
 \section{Lenguaje ensamblador}\label{lenguaje-ensamblador}}
 
-Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador.Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso {[}\protect\hyperlink{ref-irvine2011assembly}{24}{]}.
+Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador.Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso {[}\protect\hyperlink{ref-irvine2011assembly}{25}{]}.
 
 Para facilitar la programación de bajo nivel, se creó el lenguaje ensamblador, que es un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones comprensibles por el procesador. A diferencia del lenguaje máquina, que utiliza secuencias de números binarios, el ensamblador emplea mnemónicos simbólicos que hacen que el código sea más legible y manejable para los humanos. Cada arquitectura de procesador tiene su propio lenguaje ensamblador que usualmente es definida por el fabricante de hardware, por lo tanto es específica de cierta arquitectura de la computadora física. Un programa llamado ensamblador es usado para traducir sentencias del lenguaje ensamblador al código de máquina de la computadora. El ensamblador realiza una traducción casi directa uno a uno desde las sentencias mnemónicas a las instrucciones y datos de máquina. Esto está en contraste con los lenguajes de alto nivel, en los cuales una sola declaración generalmente da lugar a muchas instrucciones de máquina {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
 
-El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Si nos ubicamos en la arquitectura x86 encontraremos diferentes lenguajes ensambladores. De ahí los diferentes productos ofrecidos, entre ellos, TASM (Turbo Assembler), MASM (Microsoft Macro Assembler) y NASM (Netwide Assembler). Cada uno ofrece diferentes características y beneficios, adaptándose a diversas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86 {[}\protect\hyperlink{ref-hyde2010art}{25}{]}.
+El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Si nos ubicamos en la arquitectura x86 encontraremos diferentes lenguajes ensambladores. De ahí los diferentes productos ofrecidos, entre ellos, TASM (Turbo Assembler), MASM (Microsoft Macro Assembler) y NASM (Netwide Assembler). Cada uno ofrece diferentes características y beneficios, adaptándose a diversas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86 {[}\protect\hyperlink{ref-hyde2010art}{26}{]}.
 
 \hypertarget{simulaciuxf3n}{%
 \section{Simulación}\label{simulaciuxf3n}}
@@ -657,14 +657,14 @@ El uso de herramientas de simulación en la enseñanza para procesos dinámicos 
 
 En este capítulo, se comparan diversos simuladores x86 que podrían integrarse en la asignatura de Arquitectura de Computadoras de la Licenciatura en Sistemas. La selección y evaluación de estos simuladores se ha realizado según criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor apoyen el proceso de enseñanza y aprendizaje, facilitando tanto la comprensión teórica como la aplicación práctica de los conceptos de arquitectura de computadoras.
 
-Los resultados de esta comparativa fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología en 2022, bajo el título `Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86' {[}\protect\hyperlink{ref-colombani_herramientas_2022}{26}{]}.
+Los resultados de esta comparativa fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología en 2022, bajo el título `Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86' {[}\protect\hyperlink{ref-colombani_herramientas_2022}{27}{]}.
 
 \hypertarget{simuladores-bajo-analisis}{%
 \section{Simuladores bajo analisis}\label{simuladores-bajo-analisis}}
 
 Un simulador de arquitectura es un software que imita una situación del mundo real y, en este contexto, puede imitar el hardware de un sistema de cómputo. El simulador se centra principalmente en la representación de los aspectos arquitectónicos y funciones del hardware simulado. El uso de herramientas de simulación permite realizar cambios, pruebas y ejecución de programas sin temor de dañar ningún componente o por falta de la computadora {[}\protect\hyperlink{ref-radivojevic_design_2011}{10}{]}.
 
-Algunos programas ofrecen una representación visual e interactiva de la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento. Entre estos se encuentran los simuladores Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. En este sentido, los simuladores juegan un papel clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, simplificando abstracciones y facilitando la labor docente {[}\protect\hyperlink{ref-nikolic_survey_2009}{11}{]}{[}\protect\hyperlink{ref-hasan_survey_2012}{12}{]}{[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}{[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}{[}\protect\hyperlink{ref-behrooz_computer_2005}{27}{]}.
+Algunos programas ofrecen una representación visual e interactiva de la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento. Entre estos se encuentran los simuladores Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. En este sentido, los simuladores juegan un papel clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, simplificando abstracciones y facilitando la labor docente {[}\protect\hyperlink{ref-nikolic_survey_2009}{11}{]}{[}\protect\hyperlink{ref-hasan_survey_2012}{12}{]}{[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}{[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}{[}\protect\hyperlink{ref-behrooz_computer_2005}{28}{]}.
 
 \hypertarget{simuladores-similares}{%
 \section{Simuladores similares}\label{simuladores-similares}}
@@ -818,7 +818,7 @@ En cuanto al último criterio, ninguna de las herramientas evaluadas cubre todos
 \hypertarget{publicaciuxf3n}{%
 \subsection{Publicación}\label{publicaciuxf3n}}
 
-El resultado de esta comparativa fue publicado en el XVII Congreso de Tecnología en educación y Educación en Tecnología año 2022 bajo el título de ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86'' {[}\protect\hyperlink{ref-colombani_herramientas_2022}{26}{]}.
+El resultado de esta comparativa fue publicado en el XVII Congreso de Tecnología en educación y Educación en Tecnología año 2022 bajo el título de ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86'' {[}\protect\hyperlink{ref-colombani_herramientas_2022}{27}{]}.
 
 Durante la elaboración de este análisis comparativo establecí contacto con uno de los docentes de la Universidad Nacional de la Plata (UNLP) que habían desarrollado un simulador web VonSim, con el acuerdo de docente se generó una solicitud de incorporación de cambios (pull request) en el repositorio de Github del simulador VonSim y en agosto-2023 salió una nueva versión donde se implementan animaciones de la ejecución de instrucciones y documentación on-line.
 
@@ -949,7 +949,7 @@ El simulador deberá brindar información sobre el tiempo de ciclo, tiempo de CP
 ALU
 Operaciones de la ALU
 
-0 = dejar pasar R sin realizar operación, se utiliza en las instrucciones de transferencia reg ← reg.
+0 = dejar pasar R sin realizar operación, se utiliza en las instrucciones de transferencia reg reg.
 1 = dejar pasar MBR sin realizar operación, se utiliza en las instrucciones de carga a memoria.
 2 = Suma
 3 = Resta
@@ -972,14 +972,14 @@ CL 10 2
 DL 11 3
 
 Instrucciones Operación Nemónico Acción
-Transferencia de datos ⤎ Mover MOV od, of Copiar: operando-destino (od) ← operando-fuente (of)
+Transferencia de datos Mover MOV od, of Copiar: operando-destino (od) operando-fuente (of)
 
 Procesamiento de datos + Sumar\\
 ₋ Restar
 ＝ Comparar ADD od, of
 SUB od, of
-CMP od, of od ← od + of\\
-od ← od - of\\
+CMP od, of od = od + of\\
+od od - of\\
 od - of
 
 Control de flujo ⥅ Salto incondicional
@@ -1014,14 +1014,14 @@ Código operación 3 bis y 1 bit se corresponde al tipo de destino, si es cero r
 Formato instrucción MOV Ejemplo Acción Direccionamiento
 byte 1 byte 2 byte 3\\
 4 2 2\\
-0=0000 rd rf - - MOV AL, BL Copiar entre registros: rd ← rf registro-registro
+0=0000 rd rf - - MOV AL, BL Copiar entre registros: rd rf registro-registro
 1=0001 0=00 rf Dir - MOV {[}0x1{]}, AL Almacenar en memoria:
-0. mem ← rf
-1. mem{[}BL{]} ← rf
-2.mem{[}Dir + BL{]} ← rf
-3.0 mem ← valor
-3.1.mem{[}BL{]} ← valor\\
-3.2.mem{[}Dir + BL{]} ← valor\\
+0. mem rf
+1. mem{[}BL{]} rf
+2.mem{[}Dir + BL{]} rf
+3.0 mem valor
+3.1.mem{[}BL{]} valor\\
+3.2.mem{[}Dir + BL{]} valor\\
 0. directo
 1. indirecto
 2. indirecto
@@ -1035,10 +1035,10 @@ byte 1 byte 2 byte 3\\
 1=0001 3=11 1=01 Valor - MOV {[}BL{]}, 0x1\\
 1=0001 3=11 2=10 Dir Valor MOV {[}0x4 + BL{]}, 0x1\\
 2=0010 rd 0=00 Dir - MOV AL, {[}0x1{]} Cargar a registro:
-0. rd ← mem
-1. rd ← mem{[}BL{]}
-2. rd ← mem{[}Dir + BL{]}
-3. rd ← valor\\
+0. rd mem
+1. rd mem{[}BL{]}
+2. rd mem{[}Dir + BL{]}
+3. rd valor\\
 0. directo
 1. indirecto
 2. indirecto
@@ -1050,22 +1050,22 @@ byte 1 byte 2 byte 3\\
 Ciclo de la instrucción (Etapas de captación y ejecución)
 
 Captación: (*)
-1. MAR ← IP
-2. MDR ← read(Memoria{[}MAR{]})
-IP ← IP + 1
-3. IR ← MDR
+1. MAR = IP
+2. MDR = read(Memoria{[}MAR{]})
+IP = IP + 1
+3. IR = MDR
 
 Formato instrucción MOV Ejemplo Acción Direccionamiento
 byte 1 byte 2 byte 3\\
 4 2 2\\
-0=0000 rd rf - - MOV AL, BL Copiar entre registros: rd ← rf registro-registro
+0=0000 rd rf - - MOV AL, BL Copiar entre registros: rd = rf registro-registro
 1=0001 0=00 rf Dir - MOV {[}0x1{]}, AL Almacenar en memoria:
-0. mem ← rf
-1. mem{[}BL{]} ← rf
-2.mem{[}Dir + BL{]} ← rf
-3.0 mem ← valor
-3.1.mem{[}BL{]} ← valor\\
-3.2.mem{[}Dir + BL{]} ← valor\\
+0. mem = rf
+1. mem{[}BL{]} = rf
+2.mem{[}Dir + BL{]} = rf
+3.0 mem = valor
+3.1.mem{[}BL{]} = valor\\
+3.2.mem{[}Dir + BL{]} = valor\\
 0. directo
 1. indirecto
 2. indirecto
@@ -1079,10 +1079,10 @@ byte 1 byte 2 byte 3\\
 1=0001 3=11 1=01 Valor - MOV {[}BL{]}, 0x1\\
 1=0001 3=11 2=10 Dir Valor MOV {[}0x4 + BL{]}, 0x1\\
 2=0010 rd 0=00 Dir - MOV AL, {[}0x1{]} Cargar a registro:
-0. rd ← mem
-1. rd ← mem{[}BL{]}
-2. rd ← mem{[}Dir + BL{]}
-3. rd ← valor\\
+0. rd = mem
+1. rd = mem{[}BL{]}
+2. rd = mem{[}Dir + BL{]}
+3. rd = valor\\
 0. directo
 1. indirecto
 2. indirecto
@@ -1162,20 +1162,23 @@ byte 1 byte 2 byte 3\\
 \leavevmode\hypertarget{ref-patterson2016computer}{}%
 {[}22{]} D. A. Patterson and J. L. Hennessy, \emph{Computer organization and design arm edition: The hardware software interface}. Morgan kaufmann, 2016.
 
-\leavevmode\hypertarget{ref-patterson_computer_2018}{}%
-{[}23{]} D. A. Patterson and J. L. Hennessy, \emph{Computer organization and design: The hardware/software interface RISC-V}, RISC-V edition. Cambridge, Massachusetts: Morgan Kaufmann Publishers, an imprint of Elsevier, 2018.
+\leavevmode\hypertarget{ref-waterman2014risc}{}%
+{[}23{]} A. Waterman, Y. Lee, D. A. Patterson, and K. Asanovic, ``The risc-v instruction set manual, volume i: User-level isa,'' \emph{CS Division, EECE Department, University of California, Berkeley}, p. 28, 2014.
+
+\leavevmode\hypertarget{ref-patterson_computer_2017}{}%
+{[}24{]} D. A. Patterson and J. L. Hennessy, \emph{Computer organization and design risc-v edition: The hardware software interface}. Morgan Kaufmann, 2017.
 
 \leavevmode\hypertarget{ref-irvine2011assembly}{}%
-{[}24{]} K. R. Irvine and L. B. Das, \emph{Assembly language for x86 processors}. Prentice Hall, 2011.
+{[}25{]} K. R. Irvine and L. B. Das, \emph{Assembly language for x86 processors}. Prentice Hall, 2011.
 
 \leavevmode\hypertarget{ref-hyde2010art}{}%
-{[}25{]} R. Hyde, \emph{The art of assembly language}. No Starch Press, 2010.
+{[}26{]} R. Hyde, \emph{The art of assembly language}. No Starch Press, 2010.
 
 \leavevmode\hypertarget{ref-colombani_herramientas_2022}{}%
-{[}26{]} M. A. Colombani, J. M. Ruiz, A. G. Delduca, and M. A. Falappa, ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86,'' 2022. Accessed: Jul. 10, 2024. Available: \url{http://sedici.unlp.edu.ar/handle/10915/139908}
+{[}27{]} M. A. Colombani, J. M. Ruiz, A. G. Delduca, and M. A. Falappa, ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86,'' 2022. Accessed: Jul. 10, 2024. Available: \url{http://sedici.unlp.edu.ar/handle/10915/139908}
 
 \leavevmode\hypertarget{ref-behrooz_computer_2005}{}%
-{[}27{]} P. BEHROOZ, \emph{Computer Architecture: From Microprocessors to Supercomputers}. Oxford University Press Inc, 2005.
+{[}28{]} P. BEHROOZ, \emph{Computer Architecture: From Microprocessors to Supercomputers}. Oxford University Press Inc, 2005.
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%% Bibliography                              %%%

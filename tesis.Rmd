@@ -180,7 +180,7 @@ kable(evolucion_x86, format = "markdown", caption = "Línea de Tiempo de la Evol
 ```
 
 ####  Comparación con Otras Arquitecturas
-La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM [@patterson2016computer], MIPS [@hennessy_computer_2012] y RISC-V [@patterson_computer_2018] nos permite entender mejor sus ventajas y desventajas.
+La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM [@patterson2016computer], MIPS [@hennessy_computer_2012] y RISC-V [@waterman2014risc][@patterson_computer_2017] nos permite entender mejor sus ventajas y desventajas.
 
 ```{r tabla-comparacion-cpu, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -499,7 +499,7 @@ El simulador deberá brindar información sobre el tiempo de ciclo, tiempo de CP
 ALU
 Operaciones de la ALU
 
-0 = dejar pasar R sin realizar operación, se utiliza en las instrucciones de transferencia reg ← reg.
+0 = dejar pasar R sin realizar operación, se utiliza en las instrucciones de transferencia reg  reg.
 1 = dejar pasar MBR sin realizar operación, se utiliza en las instrucciones de carga a memoria.
 2 = Suma
 3 = Resta
@@ -522,14 +522,14 @@ CL	10	2
 DL	11	3
 
 Instrucciones	Operación	Nemónico	Acción
-Transferencia de datos        	⤎ Mover	MOV od, of	Copiar: operando-destino (od)  ← operando-fuente (of)
+Transferencia de datos        	 Mover	MOV od, of	Copiar: operando-destino (od)   operando-fuente (of)
 
 Procesamiento de datos      	+  Sumar  
 ₋   Restar
 ＝ Comparar 	ADD  od, of
 SUB   od, of
-CMP  od, of  	od ← od + of  
-od ← od - of  
+CMP  od, of  	od = od + of  
+od  od - of  
 od - of  
 
 Control de flujo	⥅ Salto incondicional 
@@ -567,14 +567,14 @@ Código operación 3 bis y 1 bit se corresponde al tipo de destino, si es cero r
 Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
 byte 1	byte 2	byte 3			
 4	2	2					
-0=0000	rd	rf	-	-	MOV AL, BL	Copiar entre registros: rd ← rf  	registro-registro
+0=0000	rd	rf	-	-	MOV AL, BL	Copiar entre registros: rd  rf  	registro-registro
 1=0001	0=00	rf	Dir	-	MOV [0x1], AL	Almacenar en memoria:
-0.	mem ← rf
-1.	mem[BL] ← rf
-2.mem[Dir + BL] ← rf
-3.0 mem ← valor
-3.1.mem[BL] ← valor  
-3.2.mem[Dir + BL] ← valor	
+0.	mem  rf
+1.	mem[BL]  rf
+2.mem[Dir + BL]  rf
+3.0 mem  valor
+3.1.mem[BL]  valor  
+3.2.mem[Dir + BL]  valor	
 0.	directo
 1.	indirecto
 2.	indirecto
@@ -588,10 +588,10 @@ byte 1	byte 2	byte 3
 1=0001	3=11	1=01	Valor	-	MOV [BL], 0x1		
 1=0001	3=11	2=10	Dir	Valor	MOV [0x4 + BL], 0x1		
 2=0010	rd	0=00	Dir	-	MOV AL, [0x1]	Cargar a registro:
-0.	rd ← mem
-1.	rd ← mem[BL] 
-2.	rd ← mem[Dir + BL]
-3.	rd ← valor   	
+0.	rd  mem
+1.	rd  mem[BL] 
+2.	rd  mem[Dir + BL]
+3.	rd  valor   	
 0.	directo
 1.	indirecto
 2.	indirecto
@@ -607,10 +607,10 @@ Ciclo de la instrucción (Etapas de captación y ejecución)
 
 
 Captación:  (*)
-1.	MAR ← IP 
-2.	MDR ← read(Memoria[MAR])
-     IP ← IP + 1
-3.	IR  ← MDR
+1.	MAR = IP 
+2.	MDR = read(Memoria[MAR])
+     IP = IP + 1
+3.	IR  = MDR
 
 
 
@@ -618,14 +618,14 @@ Captación:  (*)
 Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
 byte 1	byte 2	byte 3			
 4	2	2					
-0=0000	rd	rf	-	-	MOV AL, BL	Copiar entre registros: rd ← rf  	registro-registro
+0=0000	rd	rf	-	-	MOV AL, BL	Copiar entre registros: rd = rf  	registro-registro
 1=0001	0=00	rf	Dir	-	MOV [0x1], AL	Almacenar en memoria:
-0.	mem ← rf
-1.	mem[BL] ← rf
-2.mem[Dir + BL] ← rf
-3.0 mem ← valor
-3.1.mem[BL] ← valor  
-3.2.mem[Dir + BL] ← valor	
+0.	mem = rf
+1.	mem[BL] = rf
+2.mem[Dir + BL] = rf
+3.0 mem = valor
+3.1.mem[BL] = valor  
+3.2.mem[Dir + BL] = valor	
 0.	directo
 1.	indirecto
 2.	indirecto
@@ -639,10 +639,10 @@ byte 1	byte 2	byte 3
 1=0001	3=11	1=01	Valor	-	MOV [BL], 0x1		
 1=0001	3=11	2=10	Dir	Valor	MOV [0x4 + BL], 0x1		
 2=0010	rd	0=00	Dir	-	MOV AL, [0x1]	Cargar a registro:
-0.	rd ← mem
-1.	rd ← mem[BL] 
-2.	rd ← mem[Dir + BL]
-3.	rd ← valor   	
+0.	rd = mem
+1.	rd = mem[BL] 
+2.	rd = mem[Dir + BL]
+3.	rd = valor   	
 0.	directo
 1.	indirecto
 2.	indirecto
