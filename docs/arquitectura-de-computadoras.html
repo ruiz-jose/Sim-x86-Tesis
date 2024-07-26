@@ -125,6 +125,7 @@
 <li class="chapter" data-level="4.0.3" data-path="diseño-y-construcción-del-simulador.html"><a href="diseño-y-construcción-del-simulador.html#portabilidad"><i class="fa fa-check"></i><b>4.0.3</b> Portabilidad</a></li>
 <li class="chapter" data-level="4.0.4" data-path="diseño-y-construcción-del-simulador.html"><a href="diseño-y-construcción-del-simulador.html#simplicidad"><i class="fa fa-check"></i><b>4.0.4</b> Simplicidad</a></li>
 <li class="chapter" data-level="4.0.5" data-path="diseño-y-construcción-del-simulador.html"><a href="diseño-y-construcción-del-simulador.html#mantenibilidad"><i class="fa fa-check"></i><b>4.0.5</b> Mantenibilidad</a></li>
+<li class="chapter" data-level="4.0.6" data-path="diseño-y-construcción-del-simulador.html"><a href="diseño-y-construcción-del-simulador.html#escalabilidad"><i class="fa fa-check"></i><b>4.0.6</b> Escalabilidad</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografía.html"><a href="bibliografía.html"><i class="fa fa-check"></i>Bibliografía</a></li>
 <li class="divider"></li>
@@ -195,6 +196,10 @@
 <p>La evolución de la arquitectura x86 ha estado marcada por hitos importantes que han impulsado la informática hacia nuevas alturas. Tras el Intel 8086, el lanzamiento del Intel 80286 en 1982 introdujo modos de operación adicionales que mejoraron la eficiencia y el manejo de memoria. En 1989, el Intel 80486 incorporó una unidad de punto flotante integrada y una mejor caché, aumentando significativamente el rendimiento.</p>
 <p>La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles de rendimiento y eficiencia, con características avanzadas como la ejecución superescalar y la predicción de saltos. El Pentium Pro en 1995 mejoró la arquitectura con ejecución fuera de orden y una caché L2 integrada.</p>
 <p>En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, optimizando el rendimiento y la eficiencia energética. AMD también fue crucial con su serie Athlon y la introducción de AMD64, llevando la arquitectura x86 a 64 bits, permitiendo un mayor acceso a la memoria y mejorando el rendimiento en aplicaciones intensivas.</p>
+<p>La arquitectura x86 ha tenido un impacto profundo en el desarrollo de software. Los sistemas operativos populares como Windows y Linux están optimizados para x86, lo que ha influido en el desarrollo y la optimización de aplicaciones para esta arquitectura.
+- Influencia en el Desarrollo de Software: Optimización del Rendimiento: Los desarrolladores de software han trabajado estrechamente con las características de la arquitectura x86 para optimizar el rendimiento de sus aplicaciones. Esto incluye el uso de instrucciones específicas de x86 y la optimización para cachés y pipelines.
+- Compatibilidad y Soporte: La compatibilidad hacia atrás de x86 ha permitido la continuidad de aplicaciones y sistemas operativos, protegiendo las inversiones en software y facilitando las actualizaciones.
+- Ecosistema de Desarrollo: Un amplio ecosistema de herramientas de desarrollo, bibliotecas y frameworks ha sido construido alrededor de la arquitectura x86, facilitando el desarrollo de aplicaciones de alto rendimiento y su depuración.</p>
 <table>
 <caption><span id="tab:tabla-evolucion-x86">Tabla 2.2: </span>Línea de Tiempo de la Evolución de la Arquitectura x86</caption>
 <thead>
@@ -250,7 +255,7 @@
 </div>
 <div id="comparación-con-otras-arquitecturas" class="section level4 hasAnchor">
 <h4><span class="header-section-number">2.1.1.2</span> Comparación con Otras Arquitecturas<a href="arquitectura-de-computadoras.html#comparación-con-otras-arquitecturas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM, MIPS y RISC-V nos permite entender mejor sus ventajas y desventajas.</p>
+<p>La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM <span class="citation">(Patterson and Hennessy <a href="#ref-patterson2016computer">2016</a>)</span>, MIPS <span class="citation">(Hennessy and Patterson <a href="#ref-hennessy_computer_2012">2012</a>)</span> y RISC-V <span class="citation">(Waterman et al. <a href="#ref-waterman2014risc">2014</a>)</span> nos permite entender mejor sus ventajas y desventajas.</p>
 <table>
 <caption><span id="tab:tabla-comparacion-cpu">Tabla 2.3: </span>Comparación de Arquitecturas</caption>
 <colgroup>
@@ -307,63 +312,15 @@
 </tr>
 </tbody>
 </table>
-<p>La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas.</p>
-</div>
-<div id="aplicaciones-y-casos-de-uso-de-la-arquitectura-x86" class="section level4 hasAnchor">
-<h4><span class="header-section-number">2.1.1.3</span> Aplicaciones y Casos de Uso de la Arquitectura x86<a href="arquitectura-de-computadoras.html#aplicaciones-y-casos-de-uso-de-la-arquitectura-x86" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>La arquitectura x86 ha demostrado ser extremadamente versátil y ha encontrado aplicaciones en una amplia variedad de campos. Su capacidad para manejar tareas complejas y su compatibilidad hacia atrás han sido factores clave en su adopción.</p>
-<table>
-<caption><span id="tab:tabla-casos-uso-x86">Tabla 2.4: </span>Casos de Uso notables de la Arquitectura x86</caption>
-<colgroup>
-<col width="10%" />
-<col width="89%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Categoría</th>
-<th align="left">Descripción</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Servidores</td>
-<td align="left">La arquitectura x86 domina el mercado de servidores debido a su capacidad para manejar grandes cargas de trabajo y su compatibilidad con una amplia gama de software empresarial.</td>
-</tr>
-<tr class="even">
-<td align="left">Computadoras Personales</td>
-<td align="left">Desde su introducción, la arquitectura x86 ha sido la columna vertebral de las computadoras personales, proporcionando el rendimiento necesario para aplicaciones de productividad, juegos y multimedia.</td>
-</tr>
-<tr class="odd">
-<td align="left">Sistemas Embebidos</td>
-<td align="left">Con la miniaturización y la eficiencia mejorada, los procesadores x86 se han integrado en sistemas embebidos como dispositivos médicos, sistemas de control industrial y dispositivos de telecomunicaciones.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="impacto-de-la-arquitectura-x86-en-la-industria-del-software" class="section level4 hasAnchor">
-<h4><span class="header-section-number">2.1.1.4</span> Impacto de la Arquitectura x86 en la Industria del Software<a href="arquitectura-de-computadoras.html#impacto-de-la-arquitectura-x86-en-la-industria-del-software" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>La arquitectura x86 ha tenido un impacto profundo en el desarrollo de software. Los sistemas operativos populares como Windows y Linux están optimizados para x86, lo que ha influido en el desarrollo y la optimización de aplicaciones para esta arquitectura.
-Influencia en el Desarrollo de Software:
-Optimización del Rendimiento: Los desarrolladores de software han trabajado estrechamente con las características de la arquitectura x86 para optimizar el rendimiento de sus aplicaciones. Esto incluye el uso de instrucciones específicas de x86 y la optimización para cachés y pipelines.
-Compatibilidad y Soporte: La compatibilidad hacia atrás de x86 ha permitido la continuidad de aplicaciones y sistemas operativos, protegiendo las inversiones en software y facilitando las actualizaciones.
-Ecosistema de Desarrollo: Un amplio ecosistema de herramientas de desarrollo, bibliotecas y frameworks ha sido construido alrededor de la arquitectura x86, facilitando el desarrollo de aplicaciones de alto rendimiento y su depuración.</p>
-</div>
-<div id="futuro-de-la-arquitectura-x86" class="section level4 hasAnchor">
-<h4><span class="header-section-number">2.1.1.5</span> Futuro de la Arquitectura x86<a href="arquitectura-de-computadoras.html#futuro-de-la-arquitectura-x86" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>La arquitectura x86 sigue evolucionando para enfrentar los desafíos de la computación moderna. Las tendencias emergentes como la computación cuántica, la inteligencia artificial y la computación en la nube presentan tanto oportunidades como desafíos para x86.
-Desafíos y Oportunidades Futuras:
-Computación Cuántica: Aunque aún en sus primeras etapas, la computación cuántica podría complementar las arquitecturas tradicionales como x86, especialmente en aplicaciones que requieren capacidades de procesamiento extremo.
-Inteligencia Artificial: La integración de aceleradores de IA y el soporte para operaciones de aprendizaje profundo en hardware x86 están siendo explorados para mejorar el rendimiento en aplicaciones de IA.
-Computación en la Nube: La arquitectura x86 sigue siendo relevante en la infraestructura de la nube, aunque enfrenta competencia de arquitecturas más eficientes como ARM.
-En resumen, la arquitectura x86 ha sido fundamental en la evolución de la informática, proporcionando una plataforma versátil y poderosa para una amplia variedad de aplicaciones. Su continua evolución y adaptación a las nuevas tecnologías aseguran su relevancia en el futuro.</p>
+<p>La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas <span class="citation">(Patterson and Hennessy <a href="#ref-patterson_computer_2017">2017</a>)</span>.</p>
 </div>
 <div id="repertorio-de-instrucciones-x86" class="section level4 hasAnchor">
-<h4><span class="header-section-number">2.1.1.6</span> Repertorio de instrucciones x86<a href="arquitectura-de-computadoras.html#repertorio-de-instrucciones-x86" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>El repertorio de instrucciones, o ISA (Instruction Set Architecture), es fundamental para la interacción entre el software y el hardware de una computadora. En el caso de la arquitectura x86, este conjunto de instrucciones ha evolucionado para incluir una amplia gama de operaciones que permiten un control detallado del hardware. La ISA x86 es conocida por su complejidad y flexibilidad, lo que la hace ideal para una variedad de aplicaciones.
-Por ello, la enseñanza de la arquitectura x86 es de gran relevancia en la asignatura Arquitecturas de Computadoras debido a los diferentes temas que aborda.</p>
+<h4><span class="header-section-number">2.1.1.3</span> Repertorio de instrucciones x86<a href="arquitectura-de-computadoras.html#repertorio-de-instrucciones-x86" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>El repertorio de instrucciones, o ISA (Instruction Set Architecture), es fundamental para la interacción entre el software y el hardware de una computadora <span class="citation">(Stallings <a href="#ref-stallings_computer_2013">2013</a>)</span>.</p>
+<p>La arquitectura x86 ha desarrollado su ISA para abarcar una extensa variedad de operaciones, ofreciendo un control minucioso del hardware. Con instrucciones para operaciones aritméticas, lógicas, de control y manejo de memoria, la ISA x86 es conocida por su complejidad y flexibilidad, lo que la hace ideal para una amplia gama de aplicaciones.</p>
 </div>
 <div id="ejemplos-de-instrucciones-x86" class="section level4 hasAnchor">
-<h4><span class="header-section-number">2.1.1.7</span> Ejemplos de Instrucciones x86<a href="arquitectura-de-computadoras.html#ejemplos-de-instrucciones-x86" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">2.1.1.4</span> Ejemplos de Instrucciones x86<a href="arquitectura-de-computadoras.html#ejemplos-de-instrucciones-x86" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>El repertorio de instrucciones x86 incluye una variedad de instrucciones para realizar operaciones aritméticas, lógicas, de control y de manejo de memoria. Algunos ejemplos son:</p>
 <ul>
 <li><code>MOV</code>: Mueve datos de una ubicación a otra.</li>
@@ -388,8 +345,17 @@ Por ello, la enseñanza de la arquitectura x86 es de gran relevancia en la asign
 <div id="ref-intel_64_2016">
 <p>Intel. 2016. “64 and IA-32 Architectures Software Developers Manual.” <em>325462-060US</em> 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C and 3D: 4670. <a href="https://software.intel.com/en-us/articles/intel-sdm">https://software.intel.com/en-us/articles/intel-sdm</a>.</p>
 </div>
+<div id="ref-patterson2016computer">
+<p>Patterson, David A, and John L Hennessy. 2016. <em>Computer Organization and Design Arm Edition: The Hardware Software Interface</em>. Morgan kaufmann.</p>
+</div>
+<div id="ref-patterson_computer_2017">
+<p>Patterson, David A., and John L. Hennessy. 2017. <em>Computer Organization and Design Risc-V Edition: The Hardware Software Interface</em>. Morgan Kaufmann.</p>
+</div>
 <div id="ref-stallings_computer_2013">
 <p>Stallings, William. 2013. <em>Computer Organization and Architecture: Designing for Performance</em>. Eleventh Edition. Pearson.</p>
+</div>
+<div id="ref-waterman2014risc">
+<p>Waterman, Andrew, Yunsup Lee, David A Patterson, and Krste Asanovic. 2014. “The Risc-V Instruction Set Manual, Volume I: User-Level Isa.” <em>CS Division, EECE Department, University of California, Berkeley</em>, 28.</p>
 </div>
 </div>
             </section>

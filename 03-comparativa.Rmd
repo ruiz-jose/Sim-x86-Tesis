@@ -1,19 +1,21 @@
 # Comparativa de simuladores
-En este capítulo, se comparan diversos simuladores x86 que podrían integrarse en la asignatura de Arquitectura de Computadoras de la Licenciatura en Sistemas. La selección y evaluación de estos simuladores se ha realizado según criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor apoyen el proceso de enseñanza y aprendizaje, facilitando tanto la comprensión teórica como la aplicación práctica de los conceptos de arquitectura de computadoras.
+En este capítulo, se analizan y comparan varios simuladores x86 que podrían integrarse en la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas.
 
-Los resultados de esta comparativa fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología en 2022, bajo el título 'Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86' [@colombani_herramientas_2022].
+La selección y evaluación de estos simuladores se ha basado en criterios específicos diseñados para medir su efectividad en un entorno educativo, con el objetivo de identificar las herramientas que mejor apoyen el proceso de enseñanza y aprendizaje. Los criterios de evaluación incluyen aspectos como usabilidad, editor de código, documentación, ejecución de simulación, nivel de especificación de la arquitectura x86, características del producto y cobertura de los contenidos curriculares.
+
+Los resultados de esta comparativa se publicaron en el XVII Congreso de Tecnología en Educación y Educación en Tecnología en 2022, bajo el título 'Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86' [@colombani_herramientas_2022].
 
 ## Simuladores bajo analisis
-Un simulador de arquitectura es un software que imita una situación del mundo real y, en este contexto, puede imitar el hardware de un sistema de cómputo. El simulador se centra principalmente en la representación de los aspectos arquitectónicos y funciones del hardware simulado. El uso de herramientas de simulación permite realizar cambios, pruebas y ejecución de programas sin temor de dañar ningún componente o por falta de la computadora [@radivojevic_design_2011].
+Un simulador de arquitectura es un software que imita una situación del mundo real y, en este contexto, puede imitar el hardware de un sistema de cómputo. Estos simuladores se enfocan principalmente en representar los aspectos arquitectónicos y funcionales del hardware. El uso de herramientas de simulación permite realizar cambios, pruebas y ejecución de programas sin temor de dañar ningún componente o por falta de la computadora [@radivojevic_design_2011].
 
 Algunos programas ofrecen una representación visual e interactiva de la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento. Entre estos se encuentran los simuladores Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. En este sentido, los simuladores juegan un papel clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, simplificando abstracciones y facilitando la labor docente [@nikolic_survey_2009][@hasan_survey_2012][@hennessy_computer_2012][@stallings_computer_2013][@behrooz_computer_2005].
 
 ## Simuladores similares
-Cabe destacar que existen estudios comparativos que evalúan diferentes simuladores aplicados a la enseñanza de los cursos de arquitectura de computadoras:
+Cabe destacar que existen antecedentes de estudios comparativos que evalúan diferentes simuladores aplicados a la enseñanza de los cursos de arquitectura de computadoras:
   - “A survey and evaluation of simulators suitable for teaching courses in computer architecture and organization”, 2009  [@nikolic_survey_2009]: Otros estudios evalúan diferentes simuladores para abordar diferentes temas en el dictado de los cursos de Arquitectura de Computadoras, en general estos estudios evalúan simuladores en términos de dos categorías predefinidas: una referida a las características de la simulación, como ser granularidad, usabilidad, disponibilidad, presentación visual, flujo de simulación, etc., y otra sobre la cobertura de los contenidos preestablecidos en las currículas.
   - “Survey and evaluation of simulators suitable for teaching for computer architecture and organization Supporting undergraduate students at Sir Syed University of Engineering & Technology”, 2012 [@hasan_survey_2012]: Evalúa aspectos como usabilidad, disponibilidad, fundamentos de arquitectura informática, jerarquía de sistemas de memoria, comunicación e interfaz y diseño de sistemas de procesadores.
 
-Este trabajo se diferencia al proponer un enfoque diferente: evaluar los simuladores x86 bajo criterios de evaluación basados en características de simulación y en contenidos específicos de la asignatura Arquitectura de Computadoras de la carrera de Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos.
+Este trabajo se diferencia al proponer un enfoque diferente: evaluar los simuladores x86 bajo criterios de evaluación basados en características de simulación y en contenidos específicos de la asignatura Arquitectura de Computadoras de la carrera de Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos
 
 ## Selección de simuladores
 A partir de una exhaustiva exploración en internet sobre herramientas de simulación de la arquitectura x86 utilizadas para la enseñanza, se identificaron los siguientes simuladores: Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim.
@@ -23,19 +25,53 @@ De estos simuladores, se seleccionaron tres que a priori cubrían la mayor canti
 ## Criterios de Evaluación
 Los criterios de evaluación se han definido cuidadosamente para asegurar una valoración integral de los simuladores. Estos criterios incluyen:
 
-- **Usabilidad**: Se refiere a la capacidad ser usado del producto. Escala (difícil-media-fácil).
+- **Usabilidad**: Se refiere a la capacidad ser usado del producto.
+  - **Indicadores**: 
+    - Facilidad de aprendizaje: tiempo requerido para familiarizarse con la herramienta.
+    - Interfaz de usuario: claridad y organización.
+    - Documentación y ayuda: disponibilidad y accesibilidad de tutoriales y guías.
+  - **Escala**: difícil-media-fácil.
 
-- **Editor**: Soporte para escribir y depuración de código en lenguaje ensamblador. Escala (baja-media-alta).
+- **Editor**: Soporte para escribir y depuración de código en lenguaje ensamblador.
+  - **Indicadores**: 
+    - Capacidad de edición: funcionalidades como resaltado de sintaxis, puntos de interrupción (breakpoints).
+    - Errores de sintaxis: detección y aviso de errores.
+    - Almacenamiento: opciones para guardar y cargar programas.
+  - **Escala**: baja-media-alta.
 
-- **Documentación**: Disponibilidad de soporte para el aprendizaje, repertorio de instrucciones, manual de usuario. Escala (mínima-media-completa).
+- **Documentación**: Disponibilidad de soporte para el aprendizaje, repertorio de instrucciones, manual de usuario.
+  - **Indicadores**: 
+    - Manual de usuario: disponibilidad y calidad.
+    - Tutoriales: existencia y utilidad de tutoriales de aprendizaje.
+    - Repertorio de instrucciones: exhaustividad y claridad en la explicación de instrucciones.
+  - **Escala**: mínima-media-completa.
 
-- **Ejecución de simulación**: Facilidad para controlar y observar el flujo de ejecución de sus programas. Escala (baja-media-alta).
+- **Ejecución de simulación**: Facilidad para controlar y observar el flujo de ejecución de sus programas.
+  - **Indicadores**: 
+    - Control de la simulación: opciones para pausar, reanudar, y retroceder la ejecución.
+    - Visualización: claridad en la representación del flujo de ejecución.
+    - Configurabilidad: opciones para ajustar la velocidad del reloj de la CPU y otros parámetros.
+  - **Escala**: baja-media-alta.
 
-- **Nivel de especificación de la Organización y Arquitectura del sistema simulado**: La precisión con la que el simulador representa la arquitectura x86.Nivel de implementación del set de instrucciones, memoria, módulos de E/S, etc. Escala (mínima-media-completa).
+- **Nivel de especificación de la Organización y Arquitectura del sistema simulado**: Precisión con la que el simulador representa la arquitectura x86. Nivel de implementación del set de instrucciones, memoria, módulos de E/S, etc.
+  - **Indicadores**: 
+    - Precisión de la arquitectura: fidelidad en la representación de la arquitectura x86.
+    - Implementación del set de instrucciones: completitud y exactitud.
+    - Soporte de módulos: inclusión y funcionalidad de memoria, módulos de E/S, etc.
+  - **Escala**: mínima-media-completa.
 
-- **Características del desarrollo del producto software**: Aspectos como el tipo de licencia (open source o privativas), la fecha de última versión, y si es una aplicación web o de escritorio. Escala (mala-buena-muy buena).
+- **Características del desarrollo del producto software**: Tipo de licencia (open source o privativas),  la fecha de última versión, y si es una aplicación web o de escritorio.
+  - **Indicadores**: 
+    - Tipo de licencia: open source o privativa.
+    - Actualizaciones: frecuencia y fecha de la última versión.
+    - Plataforma: si es una aplicación web o de escritorio.
+  - **Escala**: mala-buena-muy buena.
 
-- **Cobertura de los contenidos preestablecidos en la currícula**: cobertura a los tópicos de la asignatura Arquitectura de Computadoras. Escala (baja-media-alta).
+- **Cobertura de los contenidos preestablecidos en la currícula**: Cobertura de los tópicos de la asignatura Arquitectura de Computadoras.
+  - **Indicadores**: 
+    - Correspondencia con el currículum: alineación con los tópicos de la asignatura Arquitectura de Computadoras.
+    - Profundidad de los temas: nivel de detalle en la cobertura de los contenidos curriculares.
+  - **Escala**: baja-media-alta.
 
 ## Análisis comparativo
 A continuación, se presenta un análisis detallado de los simuladores seleccionados basado en los criterios de evaluación definidos:

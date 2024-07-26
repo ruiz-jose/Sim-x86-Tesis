@@ -29,7 +29,7 @@ La herramienta debe cumplir con los siguientes requisitos:
 
 **Repertorio de instrucciones x86 reducido:** Seleccionar un subconjunto esencial de instrucciones x86, habilitándolas progresivamente según avance el contenido de la asignatura.
 
-**Simulación visual e interactiva de micropasos:** Utilizar el lenguaje de transferencia entre registros (RTL) para describir el flujo de datos, facilitando la comprensión del ciclo básico de una instrucción.
+**Simulación visual e interactiva de micropasos:** Utilizar el lenguaje de transferencia entre registros (RTL) para describir el flujo de datos, facilitando la comprensión del ciclo básico de una instrucción. Correr un programa y que se ilumine  cada componente durante la ejecución de un programa.
 
 **Gestión de interrupciones:** Incorporar un vector de interrupción predefinido para interactuar con el teclado y monitor.
 
@@ -42,8 +42,6 @@ Una vez que se hayan definido los requisitos, se puede comenzar a diseñar la he
 Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
 En resumen, para cumplir con el segundo objetivo específico, se debe diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores. Para lograr esto, se puede comenzar por definir los requisitos de la herramienta, diseñar la herramienta, construir y probar.
 Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir, se puede adpatar
-
-
 
 ### Desarrollo y Pruebas
 **Diseño de la Herramienta:** Comenzar con la definición detallada de los requisitos, seguido de un diseño centrado en la facilidad de uso para estudiantes y profesores. Se utilizarán gráficos y diagramas para mejorar la comprensión.
@@ -69,86 +67,11 @@ El código de la herramienta será modular y bien documentado, facilitando futur
 Desde la asignatura se incentiva el uso de simuladores para dar apoyo a los proceso de enseñanza y aprendizaje, pero también se incentiva que los contenidos desarrollados puedan volcarse en máquinas reales, en este sentido consideramos que el enfoque planteado por la herramienta emu8086 es el más adecuado para la asignatura, ya que facilita mecanismos para implementar los programas en máquinas reales. Sin embargo presenta el inconveniente que genera ejecutables dependientes del sistema operativo MS-DOS, la mayoría de los sistemas operativos actuales no permiten la ejecución de dichos programas, obligando a la utilización de emuladores de MS-DOS para poder correrlos, siendo esto otro elemento más que se incorpora a los procesos de enseñanza y aprendizaje. 
 Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
 
-
-•	Ofrecer una visión global de la estructura y funcionamiento de la computadora.
-
-La idea de este objetivo es que el simulador brinde una visión global del sistema, que no ofrezca directamente en el arranque  los registros del CPU, contenido de memoria, editor. 
-El pretende que el simulador muestre la estructura de la computadora (CPU, bus, memoria y E/S), si es posible poder llegar a correr un programa y que se ilumine  cada componente durante la ejecución de un programa.
-
-•	Ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura.
-La idea para este objetivo es que el simulador ofrezca un repertorio de instrucciones reducido seleccionando las instrucciones x86 que permitan desarrollar los contenidos.
-
-X86-8 bits debido a que los registros son de 8 bits.
-
-Y86-64 es un ejemplo de  una implementación reducida del x86 y es en 64 bits.
-EL simulador Y86 implementa el lenguaje assembler de ATT.
-Sin embargo no implementa instrucción INT para el manejo de interrupciones y IN-OUT para comunicación con los módulos de E/S
-
-•	Simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción.
-Especificar los pasos mediante el lenguaje de transferencia entre registros (RTL) que se utiliza para describir el flujo de datos a nivel de transferencia de registros de una arquitectura.
-
-•	Permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla.
-El simulador deberá tener predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. 
-Para desarrollar el contenido del módulo de E-S el simulador deberá incorporar las instrucciones IN  y OUT para comunicación con los módulos.
-
-•	Ofrecer medidas de rendimiento sobre la ejecución de un programa.
-El simulador deberá brindar información sobre el tiempo de ciclo, tiempo de CPU y CPI de un programa.
-
-## Componentes arquitectónicos 
-
-ALU
-Operaciones de la ALU
-
-0 = dejar pasar R sin realizar operación, se utiliza en las instrucciones de transferencia reg  reg.
-1 = dejar pasar MBR sin realizar operación, se utiliza en las instrucciones de carga a memoria.
-2 = Suma
-3 = Resta
-
-
-
-### Unidad de control
-
 ### Memoria
 La memoria contiene 256 posiciones y cada una contiene un byte. Por lo tanto, el bus de direcciones y de datos son de 8 bits. 
-6.2 Repertorio de instrucciones propuesto
+
+## Repertorio de instrucciones propuesto
 El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento. Aunque el conjunto de instrucciones real de x86 es mucho más amplio y complejo, este enfoque básico sentará las bases para comprender el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
-
-
-Números de registros (r) 
-registro	binario	decimal
-AL	00	0
-BL	01	1
-CL	10	2
-DL	11	3
-
-Instrucciones	Operación	Nemónico	Acción
-Transferencia de datos        	 Mover	MOV od, of	Copiar: operando-destino (od)   operando-fuente (of)
-
-Procesamiento de datos      	+  Sumar  
-₋   Restar
-＝ Comparar 	ADD  od, of
-SUB   od, of
-CMP  od, of  	od = od + of  
-od  od - of  
-od - of  
-
-Control de flujo	⥅ Salto incondicional 
-» Salto condicional
-× Detener 	JMP  d
-Jxx    d
-HLT 	Salto incondicional a dirección destino (d). 
-Saltos condicionales en base a las banderas (flags) a d.
-Detiene el CPU.
-
-
-6.2.1 Formato de Instrucciones y modos de direccionamiento
-El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado, podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
-
-Operando	tipo
-r	Registros del CPU
-[d]	Contenido de la dirección de memoria
-i	Valor inmediato
-[r]	Contenido de la dirección de memoria dada por el registro
 
 Transferencia MOV (COPIAR)
 
@@ -201,20 +124,6 @@ byte 1	byte 2	byte 3
 2=0010	rd	3=11	Valor	-	MOV AL, 0x2		
 
 
-
-
-Ciclo de la instrucción (Etapas de captación y ejecución)
-
-
-Captación:  (*)
-1.	MAR = IP 
-2.	MDR = read(Memoria[MAR])
-     IP = IP + 1
-3.	IR  = MDR
-
-
-
-
 Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
 byte 1	byte 2	byte 3			
 4	2	2					
@@ -251,5 +160,13 @@ byte 1	byte 2	byte 3
 2=0010	rd	2=10	Dir	-	MOV AL, [0x4 + BL]		
 2=0010	rd	3=11	Valor	-	MOV AL, 0x2		
 
+### Ciclo de la instrucción (Etapas de captación y ejecución)
+
+#### Captación
+    1.	MAR = IP 
+    2.	MDR = read(Memoria[MAR])
+        IP = IP + 1
+    3.	IR  = MDR
 
 
+#### Ejecución

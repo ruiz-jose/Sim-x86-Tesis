@@ -125,6 +125,7 @@
 <li class="chapter" data-level="4.0.3" data-path="diseño-y-construcción-del-simulador.html"><a href="diseño-y-construcción-del-simulador.html#portabilidad"><i class="fa fa-check"></i><b>4.0.3</b> Portabilidad</a></li>
 <li class="chapter" data-level="4.0.4" data-path="diseño-y-construcción-del-simulador.html"><a href="diseño-y-construcción-del-simulador.html#simplicidad"><i class="fa fa-check"></i><b>4.0.4</b> Simplicidad</a></li>
 <li class="chapter" data-level="4.0.5" data-path="diseño-y-construcción-del-simulador.html"><a href="diseño-y-construcción-del-simulador.html#mantenibilidad"><i class="fa fa-check"></i><b>4.0.5</b> Mantenibilidad</a></li>
+<li class="chapter" data-level="4.0.6" data-path="diseño-y-construcción-del-simulador.html"><a href="diseño-y-construcción-del-simulador.html#escalabilidad"><i class="fa fa-check"></i><b>4.0.6</b> Escalabilidad</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografía.html"><a href="bibliografía.html"><i class="fa fa-check"></i>Bibliografía</a></li>
 <li class="divider"></li>
@@ -149,20 +150,29 @@
             <section class="normal" id="section-">
 <div id="lenguaje-ensamblador" class="section level2 hasAnchor">
 <h2><span class="header-section-number">2.2</span> Lenguaje ensamblador<a href="lenguaje-ensamblador.html#lenguaje-ensamblador" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador.Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso <span class="citation">(Irvine and Das <a href="#ref-irvine2011assembly">2011</a>)</span>.</p>
+<p>Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador. Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso <span class="citation">(Irvine and Das <a href="#ref-irvine2011assembly">2011</a>)</span>.</p>
 <p>Para facilitar la programación de bajo nivel, se creó el lenguaje ensamblador, que es un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones comprensibles por el procesador. A diferencia del lenguaje máquina, que utiliza secuencias de números binarios, el ensamblador emplea mnemónicos simbólicos que hacen que el código sea más legible y manejable para los humanos. Cada arquitectura de procesador tiene su propio lenguaje ensamblador que usualmente es definida por el fabricante de hardware, por lo tanto es específica de cierta arquitectura de la computadora física. Un programa llamado ensamblador es usado para traducir sentencias del lenguaje ensamblador al código de máquina de la computadora. El ensamblador realiza una traducción casi directa uno a uno desde las sentencias mnemónicas a las instrucciones y datos de máquina. Esto está en contraste con los lenguajes de alto nivel, en los cuales una sola declaración generalmente da lugar a muchas instrucciones de máquina <span class="citation">(Stallings <a href="#ref-stallings_computer_2013">2013</a>)</span>.</p>
-<p>El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Si nos ubicamos en la arquitectura x86 encontraremos diferentes lenguajes ensambladores. De ahí los diferentes productos ofrecidos, entre ellos, TASM (Turbo Assembler), MASM (Microsoft Macro Assembler) y NASM (Netwide Assembler). Cada uno ofrece diferentes características y beneficios, adaptándose a diversas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86 <span class="citation">(Hyde <a href="#ref-hyde2010art">2010</a>)</span>.</p>
+<p>El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Dentro del contexto de la arquitectura x86, existen diversos lenguajes ensambladores como TASM (Turbo Assembler) <span class="citation">(International <a href="#ref-tasm">1993</a>)</span>, MASM (Microsoft Macro Assembler) <span class="citation">(Corporation <a href="#ref-masm">1992</a>)</span> y NASM (Netwide Assembler) <span class="citation">(The NASM Project <a href="#ref-nasm">2023</a>)</span>, cada uno con características y beneficios únicos que se adaptan a distintas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86 <span class="citation">(Hyde <a href="#ref-hyde2010art">2010</a>)</span>.</p>
 </div>
 <h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references">
+<div id="ref-masm">
+<p>Corporation, Microsoft. 1992. <em>Microsoft Macro Assembler 6.1 Reference</em>. Microsoft Press.</p>
+</div>
 <div id="ref-hyde2010art">
 <p>Hyde, Randall. 2010. <em>The Art of Assembly Language</em>. No Starch Press.</p>
+</div>
+<div id="ref-tasm">
+<p>International, Borland. 1993. <em>Turbo Assembler User’s Guide</em>. Borland International.</p>
 </div>
 <div id="ref-irvine2011assembly">
 <p>Irvine, Kip R, and Lyla B Das. 2011. <em>Assembly Language for X86 Processors</em>. Prentice Hall.</p>
 </div>
 <div id="ref-stallings_computer_2013">
 <p>Stallings, William. 2013. <em>Computer Organization and Architecture: Designing for Performance</em>. Eleventh Edition. Pearson.</p>
+</div>
+<div id="ref-nasm">
+<p>The NASM Project. 2023. <em>The Netwide Assembler (Nasm) Manual</em>.</p>
 </div>
 </div>
             </section>
