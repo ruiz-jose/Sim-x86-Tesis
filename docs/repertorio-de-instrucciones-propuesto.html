@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 3 Comparativa de simuladores | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="Capítulo 3 Comparativa de simuladores | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>4.1 Repertorio de instrucciones propuesto | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="4.1 Repertorio de instrucciones propuesto | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 3 Comparativa de simuladores | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="4.1 Repertorio de instrucciones propuesto | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 3 Comparativa de simuladores | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="4.1 Repertorio de instrucciones propuesto | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="el-formalismo-devs-discrete-event-system-specification.html"/>
-<link rel="next" href="estudios-similares.html"/>
+<link rel="prev" href="diseño-y-construcción-del-simulador.html"/>
+<link rel="next" href="bibliografía.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -153,25 +153,130 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="comparativa-de-simuladores" class="section level1 hasAnchor">
-<h1><span class="header-section-number">Capítulo 3</span> Comparativa de simuladores<a href="comparativa-de-simuladores.html#comparativa-de-simuladores" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>En este capítulo, se analizan y comparan varios simuladores x86 que podrían integrarse en la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas.</p>
-<p>La selección y evaluación de estos simuladores se ha basado en criterios específicos diseñados para medir su efectividad en un entorno educativo, con el objetivo de identificar las herramientas que mejor apoyen el proceso de enseñanza y aprendizaje. Los criterios de evaluación incluyen aspectos como usabilidad, editor de código, documentación, ejecución de simulación, nivel de especificación de la arquitectura x86, características del producto y cobertura de los contenidos curriculares.</p>
-<p>Los resultados de esta comparativa se publicaron en el XVII Congreso de Tecnología en Educación y Educación en Tecnología en 2022, bajo el título ‘Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86’ <span class="citation">(Colombani, Ruiz, et al. <a href="#ref-colombani_herramientas_2022">2022</a>)</span>.</p>
+<div id="repertorio-de-instrucciones-propuesto" class="section level2 hasAnchor">
+<h2><span class="header-section-number">4.1</span> Repertorio de instrucciones propuesto<a href="repertorio-de-instrucciones-propuesto.html#repertorio-de-instrucciones-propuesto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento. Aunque el conjunto de instrucciones real de x86 es mucho más amplio y complejo, este enfoque básico sentará las bases para comprender el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.</p>
+<p>Transferencia MOV (COPIAR)</p>
+<p>MOV d, f</p>
+<p>Tipo de operandos d y f: pueden ser registros, dirección de memoria, dirección indirecta por registro (BL) o valor. El operando valor no puede ser destino.</p>
+<p>rf: registro fuente
+rd: registro destino</p>
+<p>Los 4 primeros bits de la instrucción se descompone en:
+Código operación 3 bis y 1 bit se corresponde al tipo de destino, si es cero representa registro y si es 1 representa memoria.</p>
+<p>Formato instrucción MOV Ejemplo Acción Direccionamiento
+byte 1 byte 2 byte 3<br />
+4 2 2<br />
+0=0000 rd rf - - MOV AL, BL Copiar entre registros: rd rf registro-registro
+1=0001 0=00 rf Dir - MOV [0x1], AL Almacenar en memoria:
+0. mem rf
+1. mem[BL] rf
+2.mem[Dir + BL] rf
+3.0 mem valor
+3.1.mem[BL] valor<br />
+3.2.mem[Dir + BL] valor<br />
+0. directo
+1. indirecto
+2. indirecto
+3. 0.inmediato
+3.1.inmediato
+3.2.inmediato</p>
+<p>1=0001 1=01 rf - - MOV [BL], AL<br />
+1=0001 2=10 rf Dir - MOV [[0x4 + BL], AL<br />
+1=0001 3=11 0=00 Dir Valor MOV [0x1], 0x1<br />
+1=0001 3=11 1=01 Valor - MOV [BL], 0x1<br />
+1=0001 3=11 2=10 Dir Valor MOV [0x4 + BL], 0x1<br />
+2=0010 rd 0=00 Dir - MOV AL, [0x1] Cargar a registro:
+0. rd mem
+1. rd mem[BL]
+2. rd mem[Dir + BL]
+3. rd valor<br />
+0. directo
+1. indirecto
+2. indirecto
+3. inmediato
+2=0010 rd 1=01 - - MOV AL, [BL]<br />
+2=0010 rd 2=10 Dir - MOV AL, [0x4 + BL]<br />
+2=0010 rd 3=11 Valor - MOV AL, 0x2</p>
+<p>Formato instrucción MOV Ejemplo Acción Direccionamiento
+byte 1 byte 2 byte 3<br />
+4 2 2<br />
+0=0000 rd rf - - MOV AL, BL Copiar entre registros: rd = rf registro-registro
+1=0001 0=00 rf Dir - MOV [0x1], AL Almacenar en memoria:
+0. mem = rf
+1. mem[BL] = rf
+2.mem[Dir + BL] = rf
+3.0 mem = valor
+3.1.mem[BL] = valor<br />
+3.2.mem[Dir + BL] = valor<br />
+0. directo
+1. indirecto
+2. indirecto
+3. 0.inmediato
+3.1.inmediato
+3.2.inmediato</p>
+<p>1=0001 1=01 rf - - MOV [BL], AL<br />
+1=0001 2=10 rf Dir - MOV [[0x4 + BL], AL<br />
+1=0001 3=11 0=00 Dir Valor MOV [0x1], 0x1<br />
+1=0001 3=11 1=01 Valor - MOV [BL], 0x1<br />
+1=0001 3=11 2=10 Dir Valor MOV [0x4 + BL], 0x1<br />
+2=0010 rd 0=00 Dir - MOV AL, [0x1] Cargar a registro:
+0. rd = mem
+1. rd = mem[BL]
+2. rd = mem[Dir + BL]
+3. rd = valor<br />
+0. directo
+1. indirecto
+2. indirecto
+3. inmediato
+2=0010 rd 1=01 - - MOV AL, [BL]<br />
+2=0010 rd 2=10 Dir - MOV AL, [0x4 + BL]<br />
+2=0010 rd 3=11 Valor - MOV AL, 0x2</p>
+<div id="ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.1.1</span> Ciclo de la instrucción (Etapas de captación y ejecución)<a href="repertorio-de-instrucciones-propuesto.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="captación" class="section level4 hasAnchor">
+<h4><span class="header-section-number">4.1.1.1</span> Captación<a href="repertorio-de-instrucciones-propuesto.html#captación" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre><code>1.  MAR = IP 
+2.  MDR = read(Memoria[MAR])
+    IP = IP + 1
+3.  IR  = MDR</code></pre>
 </div>
-<h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references">
-<div id="ref-colombani_herramientas_2022">
-<p>Colombani, Marcelo A., José M. Ruiz, Amalia G. Delduca, and Marcelo Alejandro Falappa. 2022. “Herramientas de Software Para Dar Soporte En La Enseñanza Y Aprendizaje de La Arquitectura X86.” In. <a href="http://sedici.unlp.edu.ar/handle/10915/139908">http://sedici.unlp.edu.ar/handle/10915/139908</a>.</p>
+<div id="ejecución" class="section level4 hasAnchor">
+<h4><span class="header-section-number">4.1.1.2</span> Ejecución<a href="repertorio-de-instrucciones-propuesto.html#ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Instrucciones Operación Nemónico Acción
+Transferencia de datos Mover MOV od, of Copiar: operando-destino (od) operando-fuente (of)</p>
+<p>Procesamiento de datos + Sumar<br />
+- Restar
+Comparar ADD od, of
+SUB od, of
+CMP od, of od = od + of<br />
+od od - of<br />
+od - of</p>
+<p>Control de flujo Salto incondicional
+Salto condicional
+Detener JMP d
+Jxx d
+HLT Salto incondicional a dirección destino (d).
+Saltos condicionales en base a las banderas (flags) a d.
+Detiene el CPU.</p>
+<p>6.2.1 Formato de Instrucciones y modos de direccionamiento
+El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado, podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
+Operando tipo
+r Registros del CPU
+[d] Contenido de la dirección de memoria
+i Valor inmediato
+[r] Contenido de la dirección de memoria dada por el registro</p>
+
 </div>
 </div>
+</div>
+<!-- </div> -->
             </section>
 
           </div>
         </div>
       </div>
-<a href="el-formalismo-devs-discrete-event-system-specification.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="estudios-similares.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="diseño-y-construcción-del-simulador.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliografía.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -202,7 +307,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-comparativa.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-desarrollo.Rmd",
 "text": "Edit"
 },
 "history": {

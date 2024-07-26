@@ -170,3 +170,31 @@ byte 1	byte 2	byte 3
 
 
 #### Ejecución
+
+Instrucciones	Operación	Nemónico	Acción
+Transferencia de datos        	 Mover	MOV od, of	Copiar: operando-destino (od)   operando-fuente (of)
+
+Procesamiento de datos      	+  Sumar  
+- Restar
+Comparar 	ADD  od, of
+SUB   od, of
+CMP  od, of  	od = od + of  
+od  od - of  
+od - of  
+
+Control de flujo	 Salto incondicional 
+ Salto condicional
+ Detener 	JMP  d
+Jxx    d
+HLT 	Salto incondicional a dirección destino (d). 
+Saltos condicionales en base a las banderas (flags) a d.
+Detiene el CPU.
+
+
+6.2.1 Formato de Instrucciones y modos de direccionamiento
+El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado, podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
+Operando	tipo
+r	Registros del CPU
+[d]	Contenido de la dirección de memoria
+i	Valor inmediato
+[r]	Contenido de la dirección de memoria dada por el registro
