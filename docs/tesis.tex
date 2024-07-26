@@ -914,9 +914,10 @@ El objetivo principal de esta tesis es construir una herramienta de simulación 
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a dar apoyo a la enseñanza de la arquitectura x86.
+
+  Se cumplió el primer objetivo mediante una revisión exhaustiva de las herramientas de simulación actuales destinadas a apoyar la enseñanza de la arquitectura x86.
 \item
   Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir:
 
@@ -937,19 +938,16 @@ El objetivo principal de esta tesis es construir una herramienta de simulación 
   \end{itemize}
 \end{enumerate}
 
-Se cumplio con el primer objetivo se realizo una revisión exhaustiva de las herramientas de simulación actuales destinadas a dar apoyo a la enseñanza de la arquitectura x86. Se evaluo cada herramienta en función de sus capacidades para cumplir con los objetivos específicos de la tesis.
-Para cumplir con el segundo objetivo se construyo una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente:
+Para cumplir con el segundo objetivo, se diseñó y construyó una herramienta de apoyo que cumple con los requisitos previamente mencionados para impartir los contenidos de la asignatura Arquitectura de Computadoras.
 
-Para cumplir con el segundo objetivo específico, se debe diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores.
-Para lograr esto, se puede comenzar por definir los requisitos de la herramienta. La herramienta debe ofrecer una visión global de la estructura y funcionamiento de la computadora, permitir la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, y ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura. Además, la herramienta debe simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción, permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, permitir la comunicación con los módulos de entrada y salida e interacciones con los periféricos, y ofrecer medidas de rendimiento sobre la ejecución de un programa.
-Una vez que se hayan definido los requisitos, se puede comenzar a diseñar la herramienta. Se debe tener en cuenta la facilidad de uso para los estudiantes y profesores. La herramienta debe ser intuitiva y fácil de navegar. Se pueden utilizar gráficos y diagramas para ayudar a los estudiantes a comprender mejor la estructura y funcionamiento de la computadora.
-Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
-En resumen, para cumplir con el segundo objetivo específico, se debe diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores. Para lograr esto, se puede comenzar por definir los requisitos de la herramienta, diseñar la herramienta, construir y probar.
+Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir, se puede adpatar
+
+Para lograr esto, se comenzamos por definir los requisitos de la herramienta.
 
 \hypertarget{requisitos-de-la-herramienta}{%
-\subsection{Requisitos de la Herramienta}\label{requisitos-de-la-herramienta}}
+\subsection{Requisitos de la herramienta}\label{requisitos-de-la-herramienta}}
 
-La herramienta debe cumplir con los siguientes requisitos:
+Para cumplir con el segundo objetivo específico, la herramienta debe cumplir con los siguientes requisitos:
 
 \textbf{Visión global de la computadora:} Debe mostrar la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, destacando componentes relevantes.
 
@@ -965,11 +963,36 @@ La herramienta debe cumplir con los siguientes requisitos:
 
 \textbf{Medidas de rendimiento:} Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa.
 
+La herramienta debe ofrecer una visión global de la estructura y funcionamiento de la computadora, permitir la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, y ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura.
+
+Además, la herramienta debe simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción, permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, permitir la comunicación con los módulos de entrada y salida e interacciones con los periféricos, y ofrecer medidas de rendimiento sobre la ejecución de un programa.
+
+\textbf{Definición de Requisitos:}
+- Visión global de la estructura y funcionamiento de la computadora.
+- Generación y ejecución de programas en ensamblador.
+- Repertorio de instrucciones x86 reducido y habilitado progresivamente.
+- Simulación visual e interactiva de micropasos.
+- Gestión de interrupciones y comunicación con periféricos.
+- Medidas de rendimiento de ejecución de programas.
+
+\textbf{Diseño de la Herramienta:}
+- Considerar la facilidad de uso para estudiantes y profesores.
+- Utilizar gráficos y diagramas para mejorar la comprensión.
+
+\textbf{Construcción de la Herramienta:}
+- Implementar la herramienta siguiendo las especificaciones de diseño.
+- Realizar pruebas exhaustivas para asegurar que la herramienta cumple con todos los requisitos.
+- Solucionar cualquier problema identificado durante las pruebas antes del lanzamiento.
+
+Para cumplir con el segundo objetivo específico, es esencial diseñar y construir una herramienta de apoyo que sea fácil de usar para estudiantes y profesores, cumpliendo con los requisitos definidos, y realizar pruebas rigurosas para asegurar su funcionalidad y usabilidad.
+
 La herramienta debe ofrecer una visión global de la estructura y funcionamiento de la computadora, permitir la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, y ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura. Además, la herramienta debe simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción, permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, permitir la comunicación con los módulos de entrada y salida e interacciones con los periféricos, y ofrecer medidas de rendimiento sobre la ejecución de un programa.
+
 Una vez que se hayan definido los requisitos, se puede comenzar a diseñar la herramienta. Se debe tener en cuenta la facilidad de uso para los estudiantes y profesores. La herramienta debe ser intuitiva y fácil de navegar. Se pueden utilizar gráficos y diagramas para ayudar a los estudiantes a comprender mejor la estructura y funcionamiento de la computadora.
+
 Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
+
 En resumen, para cumplir con el segundo objetivo específico, se debe diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores. Para lograr esto, se puede comenzar por definir los requisitos de la herramienta, diseñar la herramienta, construir y probar.
-Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir, se puede adpatar
 
 \hypertarget{desarrollo-y-pruebas}{%
 \subsection{Desarrollo y Pruebas}\label{desarrollo-y-pruebas}}
@@ -1133,7 +1156,9 @@ HLT Salto incondicional a dirección destino (d).
 Saltos condicionales en base a las banderas (flags) a d.
 Detiene el CPU.
 
-6.2.1 Formato de Instrucciones y modos de direccionamiento
+\hypertarget{formato-de-instrucciones-y-modos-de-direccionamiento}{%
+\subsubsection{Formato de Instrucciones y modos de direccionamiento}\label{formato-de-instrucciones-y-modos-de-direccionamiento}}
+
 El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado, podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
 Operando tipo
 r Registros del CPU
