@@ -96,7 +96,7 @@ La memoria contiene 256 posiciones y cada una contiene un byte. Por lo tanto, el
 ## Repertorio de instrucciones propuesto
 El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento. Aunque el conjunto de instrucciones real de x86 es mucho más amplio y complejo, este enfoque básico sentará las bases para comprender el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
 
-Transferencia MOV (COPIAR)
+## Transferencia MOV (COPIAR)
 
 MOV d, f
 
@@ -109,41 +109,31 @@ Los 4 primeros bits de la instrucción se descompone en:
 Código operación 3 bis y 1 bit se corresponde al tipo de destino, si es cero representa registro y si es 1 representa memoria.
 
 Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
-byte 1	byte 2	byte 3			
-4	2	2					
-0=0000	rd	rf	-	-	MOV AL, BL	Copiar entre registros: rd  rf  	registro-registro
-1=0001	0=00	rf	Dir	-	MOV [0x1], AL	Almacenar en memoria:
-0.	mem  rf
-1.	mem[BL]  rf
-2.mem[Dir + BL]  rf
-3.0 mem  valor
-3.1.mem[BL]  valor  
-3.2.mem[Dir + BL]  valor	
-0.	directo
-1.	indirecto
-2.	indirecto
-3.	0.inmediato
-3.1.inmediato
-3.2.inmediato
 
-1=0001	1=01	rf	-	-	MOV [BL], AL		
-1=0001	2=10	rf	Dir	-	MOV [[0x4 + BL], AL		
-1=0001	3=11	0=00	Dir	Valor	MOV [0x1], 0x1		
-1=0001	3=11	1=01	Valor	-	MOV [BL], 0x1		
-1=0001	3=11	2=10	Dir	Valor	MOV [0x4 + BL], 0x1		
-2=0010	rd	0=00	Dir	-	MOV AL, [0x1]	Cargar a registro:
-0.	rd  mem
-1.	rd  mem[BL] 
-2.	rd  mem[Dir + BL]
-3.	rd  valor   	
-0.	directo
-1.	indirecto
-2.	indirecto
-3.	inmediato
-2=0010	rd	1=01	-	-	MOV AL, [BL]		
-2=0010	rd	2=10	Dir	-	MOV AL, [0x4 + BL]		
-2=0010	rd	3=11	Valor	-	MOV AL, 0x2		
 
+```{r inst-mov, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+library(dplyr) # o library(magrittr)
+
+data <- data.frame(
+  `Formato instrucción MOV` = c("byte 1", "", "4", "0=0000", "1=0001", "1=0001", "1=0001", "1=0001", "1=0001", "1=0001", "2=0010", "2=0010", "2=0010", "2=0010"),
+  `byte 1` = c("", "", "", "", "", "", "rd", "0=00", "1=01", "2=10", "3=11", "3=11", "3=11", "rd", "rd", "rd", "rd"),
+  `byte 2` = c("", "", "", "", "", "", "rf", "rf", "rf", "rf", "0=00", "1=01", "2=10", "0=00", "1=01", "2=10", "3=11"),
+  `byte 3` = c("", "", "", "", "", "", "-", "Dir", "-", "Dir", "Dir", "Valor", "Dir", "Dir", "-", "Dir", "Valor"),
+  `Ejemplo` = c("Ejemplo", "", "", "", "", "", "MOV AL, BL", "MOV [0x1], AL", "MOV [BL], AL", "MOV [[0x4 + BL], AL", "MOV [0x1], 0x1", "MOV [BL], 0x1", "MOV [0x4 + BL], 0x1", "MOV AL, [0x1]", "MOV AL, [BL]", "MOV AL, [0x4 + BL]", "MOV AL, 0x2"),
+  `Acción` = c("Acción", "", "", "", "", "", "Copiar entre registros: rd ← rf", "Almacenar en memoria: mem ← rf", "", "", "mem ← valor", "mem[BL] ← valor", "mem[Dir + BL] ← valor", "Cargar a registro: rd ← mem", "", "", "rd ← valor"),
+  `Direccionamiento` = c("Direccionamiento", "", "", "", "", "", "registro-registro", "0. directo", "1. indirecto", "2. indirecto", "3.0 inmediato", "3.1 inmediato", "3.2 inmediato", "0. directo", "1. indirecto", "2. indirecto", "3. inmediato"),
+  stringsAsFactors = FALSE
+)
+
+# Formatear la tabla con kable y kableExtra
+kable(data, "html", escape = FALSE, col.names = c("Formato instrucción MOV", "byte 1", "byte 2", "byte 3", "Ejemplo", "Acción", "Direccionamiento")) %>%
+  kable_styling("striped", full_width = F) %>%
+  column_spec(1, bold = TRUE, border_right = TRUE) %>%
+  column_spec(2:4, border_right = TRUE) %>%
+  column_spec(5:7, border_right = TRUE)
+```
 
 Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
 byte 1	byte 2	byte 3			
