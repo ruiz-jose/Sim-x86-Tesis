@@ -109,33 +109,6 @@ Los 4 primeros bits de la instrucción se descompone en:
 Código operación 3 bis y 1 bit se corresponde al tipo de destino, si es cero representa registro y si es 1 representa memoria.
 
 Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
-
-
-```{r inst-mov, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-library(dplyr) # o library(magrittr)
-
-data <- data.frame(
-  `Formato instrucción MOV` = c("byte 1", "", "4", "0=0000", "1=0001", "1=0001", "1=0001", "1=0001", "1=0001", "1=0001", "2=0010", "2=0010", "2=0010", "2=0010"),
-  `byte 1` = c("", "", "", "", "", "", "rd", "0=00", "1=01", "2=10", "3=11", "3=11", "3=11", "rd", "rd", "rd", "rd"),
-  `byte 2` = c("", "", "", "", "", "", "rf", "rf", "rf", "rf", "0=00", "1=01", "2=10", "0=00", "1=01", "2=10", "3=11"),
-  `byte 3` = c("", "", "", "", "", "", "-", "Dir", "-", "Dir", "Dir", "Valor", "Dir", "Dir", "-", "Dir", "Valor"),
-  `Ejemplo` = c("Ejemplo", "", "", "", "", "", "MOV AL, BL", "MOV [0x1], AL", "MOV [BL], AL", "MOV [[0x4 + BL], AL", "MOV [0x1], 0x1", "MOV [BL], 0x1", "MOV [0x4 + BL], 0x1", "MOV AL, [0x1]", "MOV AL, [BL]", "MOV AL, [0x4 + BL]", "MOV AL, 0x2"),
-  `Acción` = c("Acción", "", "", "", "", "", "Copiar entre registros: rd ← rf", "Almacenar en memoria: mem ← rf", "", "", "mem ← valor", "mem[BL] ← valor", "mem[Dir + BL] ← valor", "Cargar a registro: rd ← mem", "", "", "rd ← valor"),
-  `Direccionamiento` = c("Direccionamiento", "", "", "", "", "", "registro-registro", "0. directo", "1. indirecto", "2. indirecto", "3.0 inmediato", "3.1 inmediato", "3.2 inmediato", "0. directo", "1. indirecto", "2. indirecto", "3. inmediato"),
-  stringsAsFactors = FALSE
-)
-
-# Formatear la tabla con kable y kableExtra
-kable(data, "html", escape = FALSE, col.names = c("Formato instrucción MOV", "byte 1", "byte 2", "byte 3", "Ejemplo", "Acción", "Direccionamiento")) %>%
-  kable_styling("striped", full_width = F) %>%
-  column_spec(1, bold = TRUE, border_right = TRUE) %>%
-  column_spec(2:4, border_right = TRUE) %>%
-  column_spec(5:7, border_right = TRUE)
-```
-
-Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
 byte 1	byte 2	byte 3			
 4	2	2					
 0=0000	rd	rf	-	-	MOV AL, BL	Copiar entre registros: rd = rf  	registro-registro
@@ -206,3 +179,137 @@ r	Registros del CPU
 [d]	Contenido de la dirección de memoria
 i	Valor inmediato
 [r]	Contenido de la dirección de memoria dada por el registro
+
+
+
+# Procesador `OrgaSmall`
+
+`OrgaSmall` es un procesador diseñado e implementado sobre la herramienta *Logisim*.
+Este cuenta con las siguientes características:
+
+| ![Arquitectura Micro](img/arquitectura_micro.pdf) | **Características** |
+| --- | --- |
+| | - Arquitectura *von Neumann*, memoria de datos e instrucciones compartida. |
+| | - 8 registros de propósito general, `R0` a `R7`. |
+| | - 1 registro de propósito específico PC. |
+| | - Tamaño de palabra de 8 bits e instrucciones de 16 bits. |
+| | - Memoria de 256 palabras de 8 bits. |
+| | - Bus de 8 bits. |
+| | - Diseño microprogramado. |
+
+## Instrucciones
+
+Las instrucciones están codificadas en 16 bits. Los primeros 5 bits identifican el `opcode` de la instrucción, el resto de los bits indican los parámetros. Existen 4 posibles codificaciones de parámetros.
+
+| Caso | Codificación | Parámetros |
+| --- | --- | --- |
+| A | `OOOOO XXXYYY-----` | `XXX` = Registro X, `YYY` = Registro Y o inmediato |
+| B | `OOOOO XXX--------` | `XXX` = Registro X |
+| C | `OOOOO ---MMMMMMMM` | `MMMMMMMM` = Dirección de memoria o Inmediato |
+| D | `OOOOO XXXMMMMMMMM` | `XXX` = Registro X, `MMMMMMMM` = Dir. de memoria o Imm. |
+
+Considerando:
+
+- `Rx` o `Ry`: Índices de registros, número entre `0` y `7`.
+- `M`: Dirección de memoria o valor inmediato, número de 8 bits.
+- `t`: Valor inmediato de desplazamiento, número entre `0` y `7`. Se codifica como `YYY`.
+- En la columna de codificación, los bits indicados con `-` son reservados y deben valer cero.
+- Las instrucciones de `opcode`: 9, 10, 11, 12, 13, 14, 15, 28, 29 y 30 son instrucciones reservadas.
+
+Las instrucciones soportadas por la arquitectura son las siguientes:
+
+| Instrucción            | Acción                                                             | Codificación               |
+| ---                    | ---                                                                | ---                        |
+| `ADD  Rx, Ry`          | `Rx` $\leftarrow$ `Rx + Ry`                                        | `00001 XXXYYY-----`        |
+| `ADC  Rx, Ry`          | `Rx` $\leftarrow$ `Rx + Ry + flag_C`                               | `00010 XXXYYY-----`        |
+| `SUB  Rx, Ry`          | `Rx` $\leftarrow$ `Rx - Ry`                                        | `00011 XXXYYY-----`        |
+| `AND  Rx, Ry`          | `Rx` $\leftarrow$ `Rx and Ry`                                      | `00100 XXXYYY-----`        |
+| `OR   Rx, Ry`          | `Rx` $\leftarrow$ `Rx or Ry`                                       | `00101 XXXYYY-----`        |
+| `XOR  Rx, Ry`          | `Rx` $\leftarrow$ `Rx xor Ry`                                      | `00110 XXXYYY-----`        |
+| `CMP  Rx, Ry`          | Modifica *flags* de `Rx - Ry`                                      | `00111 XXXYYY-----`        |
+| `MOV  Rx, Ry`          | `Rx` $\leftarrow$ `Ry`                                             | `01000 XXXYYY-----`        |
+| `STR  [M], Rx`         | `Mem[M]` $\leftarrow$ `Rx`                                         | `10000 XXXMMMMMMMM`        |
+| `LOAD Rx, [M]`         | `Rx` $\leftarrow$ `Mem[M]`                                         | `10001 XXXMMMMMMMM`        |
+| `STR  [Rx], Ry`        | `Mem[Rx]` $\leftarrow$ `Ry`                                        | `10010 XXXYYY-----`        |
+| `LOAD Rx, [Ry]`        | `Rx` $\leftarrow$ `Mem[Ry]`                                        | `10011 XXXYYY-----`        |
+| `JMP M`                | `PC` $\leftarrow$ `M`                                              | `10100 ---MMMMMMMM`        |
+| `JC M`                 | Si `flag_C=1` entonces `PC` $\leftarrow$ `M`                       | `10101 ---MMMMMMMM`        |
+| `JZ M`                 | Si `flag_Z=1` entonces `PC` $\leftarrow$ `M`                       | `10110 ---MMMMMMMM`        |
+| `JN M`                 | Si `flag_N=1` entonces `PC` $\leftarrow$ `M`                       | `10111 ---MMMMMMMM`        |
+| `INC Rx`               | `Rx` $\leftarrow$ `Rx + 1`                                         | `11000 XXX--------`        |
+| `DEC Rx`               | `Rx` $\leftarrow$ `Rx - 1`                                         | `11001 XXX--------`        |
+| `SHR Rx, t`            | `Rx` $\leftarrow$ `Rx` << `t`                                      | `11010 XXXYYY-----`        |
+| `SHL Rx, t`            | `Rx` $\leftarrow$ `Rx` >> `t`                                      | `11011 XXXYYY-----`        |
+| `SET Rx, M`            | `Rx` $\leftarrow$ `M`                                              | `11111 XXXMMMMMMMM`        |
+
+## Componentes
+
+La arquitectura está compuesta por 6 componentes interconectados. El circuito identificado como `microOrgaSmall` los integra en un `dataPath` sobre el lado izquierdo del mismo. El lado derecho presenta la visualización del estado de los registros.
+
+Los componentes de la arquitectura son: `Registers` (Banco de Registros), `PC` (Contador de Programa), `ALU` (Unidad Aritmético Lógica), `Memory` (Memoria), `Decode` (Decodificador de Instrucciones) y `ControlUnit` (Unidad de Control).
+
+Cada uno de estos componentes es controlado por medio del conjunto de entradas y salidas descritas a continuación:
+
+### `Registers` (Banco de Registros)
+- `inData(8)` y `outData(8)`: Entrada y salida de datos.
+- `RB_enIn(1)` y `RB_enOut(1)`: Habilita entrada y salida.
+- `RB_inSelect(1)` y `RB_outSelect(1)`: Selecciona el índice de `X` y `Y`.
+
+### `PC` (Contador de Programa)
+- `inValue(8)` y `outValue(8)`: Entrada y salida del PC.
+- `PC_load(1)`: Carga un nuevo valor en el registro.
+- `PC_inc(1)`: Incrementa el valor actual.
+- `PC_enOut(1)`: Habilita la salida del valor.
+
+### `ALU` (Unidad Aritmético Lógica)
+- `A(8)`, `B(8)`, `out(8)` y `flags(3)`: Entradas y salidas de la ALU.
+- `ALU_enA(1)`, `ALU_enB(1)` y `ALU_enOut(1)`: Habilitación de entradas y salidas.
+- `ALU_opW(1)`: Indica si se deben escribir los *flags*.
+- `ALU_OP(4)`: Indica la operación a realizar por la ALU.
+
+### `Memory` (Memoria)
+- `inData(8)` y `outData(8)`: Entrada y salida de datos.
+- `MM_addr`: Dirección de memoria donde leer.
+- `MM_enOut`: Habilitación de la salida.
+- `MM_load`: Indica si leer o escribir.
+- `MM_enAddr`: Habilita cargar la dirección.
+
+### `Decode` (Decodificador de Inst.)
+- `halfInst(8)`: Entrada de datos (media instrucción).
+- `DE_loadL(8)` y `DE_loadH(8)`: Indica cargar la mitad alta o baja.
+- `opcode(5)`: Salida de Opcode decodificado.
+- `indexX(3)` y `indexY(3)`: Salidas de índices de registros.
+- `valueM(8)`: Salida de valor inmediato o dirección.
+
+### `ControlUnit` (Unidad de Control)
+- `inOpcode(5)`: Entrada de *Opcode*.
+- `flags(3)`: Entrada de *flags*.
+- `RB_enIn(1)` y `RB_enOut(1)`: Señales de habilitación para Registros.
+- `RB_inSelect(1)` y `RB_outSelect(1)`: Señales de selección para Registros.
+- `MM_enOut(1)` y `MM_load(1)`: Señales para la Memoria.
+- `MM_enAddr(1)`: Habilita cargar la dirección.
+- `ALU_enA(1)`, `ALU_enB(1)` y `ALU_enOut(1)`: Señales de habilitación de la ALU.
+- `ALU_opW(1)`, `ALU_OP(4)`: Señales de control de la ALU.
+- `PC_load(1)`, `PC_inc(1)` y `PC_enOut(1)`: Señales de control de PC.
+- `DE_loadL(1)` y `DE_loadH(1)`: Señales de control del Decodificador.
+
+## Ejecución de Instrucciones
+
+Las instrucciones en `OrgaSmall` se ejecutan en varios ciclos de reloj, donde cada ciclo implica una acción específica. A continuación, se describe la secuencia de acciones para la ejecución de las instrucciones de la arquitectura.
+
+1. **Ciclo de Búsqueda**: 
+   - `PC` envía la dirección actual al bus.
+   - `Memory` coloca la instrucción en el bus de datos.
+   - `Decode` carga la instrucción en sus registros internos.
+   - `PC` incrementa su valor.
+
+2. **Ciclo de Decodificación**:
+   - `Decode` divide la instrucción en `opcode`, registros e inmediato.
+   - `ControlUnit` interpreta el `opcode` y emite señales correspondientes.
+
+3. **Ciclo de Ejecución**:
+   - `ControlUnit` habilita y controla los componentes para ejecutar la instrucción.
+   - `ALU` realiza la operación aritmética o lógica.
+   - `Registers` y `Memory` realizan operaciones de lectura/escritura según sea necesario.
+
+Este flujo se repite para cada instrucción, permitiendo la ejecución de programas complejos en la arquitectura `OrgaSmall`.

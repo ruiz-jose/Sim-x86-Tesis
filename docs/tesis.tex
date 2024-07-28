@@ -145,6 +145,11 @@
 \makeatother
 
 %Added by @MyKo101, code provided by @GerbrichFerdinands
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
 
 \setlength\parindent{0pt}
 
@@ -1037,7 +1042,8 @@ La memoria contiene 256 posiciones y cada una contiene un byte. Por lo tanto, el
 
 El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento. Aunque el conjunto de instrucciones real de x86 es mucho más amplio y complejo, este enfoque básico sentará las bases para comprender el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
 
-Transferencia MOV (COPIAR)
+\hypertarget{transferencia-mov-copiar}{%
+\section{Transferencia MOV (COPIAR)}\label{transferencia-mov-copiar}}
 
 MOV d, f
 
@@ -1048,42 +1054,6 @@ rd: registro destino
 
 Los 4 primeros bits de la instrucción se descompone en:
 Código operación 3 bis y 1 bit se corresponde al tipo de destino, si es cero representa registro y si es 1 representa memoria.
-
-Formato instrucción MOV Ejemplo Acción Direccionamiento
-byte 1 byte 2 byte 3\\
-4 2 2\\
-0=0000 rd rf - - MOV AL, BL Copiar entre registros: rd rf registro-registro
-1=0001 0=00 rf Dir - MOV {[}0x1{]}, AL Almacenar en memoria:
-0. mem rf
-1. mem{[}BL{]} rf
-2.mem{[}Dir + BL{]} rf
-3.0 mem valor
-3.1.mem{[}BL{]} valor\\
-3.2.mem{[}Dir + BL{]} valor\\
-0. directo
-1. indirecto
-2. indirecto
-3. 0.inmediato
-3.1.inmediato
-3.2.inmediato
-
-1=0001 1=01 rf - - MOV {[}BL{]}, AL\\
-1=0001 2=10 rf Dir - MOV {[}{[}0x4 + BL{]}, AL\\
-1=0001 3=11 0=00 Dir Valor MOV {[}0x1{]}, 0x1\\
-1=0001 3=11 1=01 Valor - MOV {[}BL{]}, 0x1\\
-1=0001 3=11 2=10 Dir Valor MOV {[}0x4 + BL{]}, 0x1\\
-2=0010 rd 0=00 Dir - MOV AL, {[}0x1{]} Cargar a registro:
-0. rd mem
-1. rd mem{[}BL{]}
-2. rd mem{[}Dir + BL{]}
-3. rd valor\\
-0. directo
-1. indirecto
-2. indirecto
-3. inmediato
-2=0010 rd 1=01 - - MOV AL, {[}BL{]}\\
-2=0010 rd 2=10 Dir - MOV AL, {[}0x4 + BL{]}\\
-2=0010 rd 3=11 Valor - MOV AL, 0x2
 
 Formato instrucción MOV Ejemplo Acción Direccionamiento
 byte 1 byte 2 byte 3\\
@@ -1171,8 +1141,9 @@ i Valor inmediato
 \addcontentsline{toc}{chapter}{Bibliografía}
 
 \hypertarget{refs}{}
+\begin{cslreferences}
 \leavevmode\hypertarget{ref-colombani_pid_2022}{}%
-{[}1{]} M. A. Colombani, M. A. Falappa, A. G. Delduca, and J. M. Ruiz, ``PID novel 7065: Enseñanza/aprendizaje de asignatura Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputos.'' Feb. 2022. Accessed: Jul. 10, 2024. Available: \href{https://proyectos.uner.edu.ar/aplicacion.php?ah=st668e6d47663eb\&ai=gestion_extinv\%7C\%7C23000105}{https://proyectos.uner.edu.ar/aplicacion.php?ah=st668e6d47663eb\&ai=gestion\_extinv\textbar{}\textbar{}23000105}
+{[}1{]} M. A. Colombani, M. A. Falappa, A. G. Delduca, and J. M. Ruiz, ``PID novel 7065: Enseñanza/aprendizaje de asignatura Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputos.'' Feb. 2022. Accessed: Jul. 10, 2024. Available: \url{https://proyectos.uner.edu.ar/aplicacion.php?ah=st668e6d47663eb\&ai=gestion_extinv\%7C\%7C23000105}
 
 \leavevmode\hypertarget{ref-banks_discrete-event_2010}{}%
 {[}2{]} J. Banks, J. S. Carson, B. L. Nelson, and D. M. Nicol, \emph{Discrete-event system simulation}, 5th ed. Prentice Hall, 2010.
@@ -1263,6 +1234,7 @@ i Valor inmediato
 
 \leavevmode\hypertarget{ref-behrooz_computer_2005}{}%
 {[}31{]} P. BEHROOZ, \emph{Computer Architecture: From Microprocessors to Supercomputers}. Oxford University Press Inc, 2005.
+\end{cslreferences}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%% Bibliography                              %%%
