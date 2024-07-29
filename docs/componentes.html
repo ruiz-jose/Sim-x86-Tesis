@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Bibliografía | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="Bibliografía | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>4.5 Componentes | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="4.5 Componentes | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Bibliografía | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="4.5 Componentes | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bibliografía | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="4.5 Componentes | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ejecución-de-instrucciones.html"/>
-
+<link rel="prev" href="instrucciones.html"/>
+<link rel="next" href="ejecución-de-instrucciones.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -165,103 +165,71 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="bibliografía" class="section level1 unnumbered hasAnchor">
-<h1>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-
-<div id="refs" class="references">
-<div>
-<p>Abel, Peter. 2000. <em>IBM PC Assembly Language and Programming</em>. Fifth Edition. Upper Saddle River, NJ, USA: Prentice Hall PTR.</p>
+<div id="componentes" class="section level2 hasAnchor">
+<h2><span class="header-section-number">4.5</span> Componentes<a href="componentes.html#componentes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La arquitectura está compuesta por 6 componentes interconectados. El circuito identificado como <code>microOrgaSmall</code> los integra en un <code>dataPath</code> sobre el lado izquierdo del mismo. El lado derecho presenta la visualización del estado de los registros.</p>
+<p>Los componentes de la arquitectura son: <code>Registers</code> (Banco de Registros), <code>PC</code> (Contador de Programa), <code>ALU</code> (Unidad Aritmético Lógica), <code>Memory</code> (Memoria), <code>Decode</code> (Decodificador de Instrucciones) y <code>ControlUnit</code> (Unidad de Control).</p>
+<p>Cada uno de estos componentes es controlado por medio del conjunto de entradas y salidas descritas a continuación:</p>
+<div id="registers-banco-de-registros" class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.5.1</span> <code>Registers</code> (Banco de Registros)<a href="componentes.html#registers-banco-de-registros" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>inData(8)</code> y <code>outData(8)</code>: Entrada y salida de datos.</li>
+<li><code>RB_enIn(1)</code> y <code>RB_enOut(1)</code>: Habilita entrada y salida.</li>
+<li><code>RB_inSelect(1)</code> y <code>RB_outSelect(1)</code>: Selecciona el índice de <code>X</code> y <code>Y</code>.</li>
+</ul>
 </div>
-<div>
-<p>AMD. 2019. “Developer Guides, Manuals &amp; ISA Documents.” <a href="https://developer.amd.com/resources/developer-guides-manuals/">https://developer.amd.com/resources/developer-guides-manuals/</a>.</p>
+<div id="pc-contador-de-programa" class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.5.2</span> <code>PC</code> (Contador de Programa)<a href="componentes.html#pc-contador-de-programa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>inValue(8)</code> y <code>outValue(8)</code>: Entrada y salida del PC.</li>
+<li><code>PC_load(1)</code>: Carga un nuevo valor en el registro.</li>
+<li><code>PC_inc(1)</code>: Incrementa el valor actual.</li>
+<li><code>PC_enOut(1)</code>: Habilita la salida del valor.</li>
+</ul>
 </div>
-<div>
-<p>Banks, Jerry, John S. Carson, Barry L. Nelson, and David M. Nicol. 2010. <em>Discrete-Event System Simulation</em>. 5th ed. Prentice Hall.</p>
+<div id="alu-unidad-aritmético-lógica" class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.5.3</span> <code>ALU</code> (Unidad Aritmético Lógica)<a href="componentes.html#alu-unidad-aritmético-lógica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>A(8)</code>, <code>B(8)</code>, <code>out(8)</code> y <code>flags(3)</code>: Entradas y salidas de la ALU.</li>
+<li><code>ALU_enA(1)</code>, <code>ALU_enB(1)</code> y <code>ALU_enOut(1)</code>: Habilitación de entradas y salidas.</li>
+<li><code>ALU_opW(1)</code>: Indica si se deben escribir los <em>flags</em>.</li>
+<li><code>ALU_OP(4)</code>: Indica la operación a realizar por la ALU.</li>
+</ul>
 </div>
-<div>
-<p>BEHROOZ, PARHAMI. 2005. <em>Computer Architecture: From Microprocessors to Supercomputers</em>. Oxford University Press Inc.</p>
+<div id="memory-memoria" class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.5.4</span> <code>Memory</code> (Memoria)<a href="componentes.html#memory-memoria" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>inData(8)</code> y <code>outData(8)</code>: Entrada y salida de datos.</li>
+<li><code>MM_addr</code>: Dirección de memoria donde leer.</li>
+<li><code>MM_enOut</code>: Habilitación de la salida.</li>
+<li><code>MM_load</code>: Indica si leer o escribir.</li>
+<li><code>MM_enAddr</code>: Habilita cargar la dirección.</li>
+</ul>
 </div>
-<div>
-<p>Colombani, Marcelo A., Marcelo Alejandro Falappa, Amalia G. Delduca, and José M. Ruiz. 2022. “PID Novel 7065: Enseñanza/Aprendizaje de Asignatura Arquitectura de Computadoras Con Herramientas de Simulación de Sistemas de Cómputos.” <a href="https://proyectos.uner.edu.ar/aplicacion.php?ah=st668e6d47663eb&amp;ai=gestion_extinv||23000105">https://proyectos.uner.edu.ar/aplicacion.php?ah=st668e6d47663eb&amp;ai=gestion_extinv||23000105</a>.</p>
+<div id="decode-decodificador-de-inst." class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.5.5</span> <code>Decode</code> (Decodificador de Inst.)<a href="componentes.html#decode-decodificador-de-inst." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>halfInst(8)</code>: Entrada de datos (media instrucción).</li>
+<li><code>DE_loadL(8)</code> y <code>DE_loadH(8)</code>: Indica cargar la mitad alta o baja.</li>
+<li><code>opcode(5)</code>: Salida de Opcode decodificado.</li>
+<li><code>indexX(3)</code> y <code>indexY(3)</code>: Salidas de índices de registros.</li>
+<li><code>valueM(8)</code>: Salida de valor inmediato o dirección.</li>
+</ul>
 </div>
-<div>
-<p>Colombani, Marcelo A., José M. Ruiz, Amalia G. Delduca, and Marcelo Alejandro Falappa. 2022. “Herramientas de Software Para Dar Soporte En La Enseñanza Y Aprendizaje de La Arquitectura X86.” In. <a href="http://sedici.unlp.edu.ar/handle/10915/139908">http://sedici.unlp.edu.ar/handle/10915/139908</a>.</p>
-</div>
-<div>
-<p>Contreras, Gloria, Rosa García Torres, and María Soledad Ramírez Montoya. 2010. “Uso de Simuladores Como Recurso Digital Para La Transferencia de Conocimiento.” <em>Apertura: Revista de Innovación Educativa</em> 2 (1): 86–100.</p>
-</div>
-<div>
-<p>Corporation, Microsoft. 1992. <em>Microsoft Macro Assembler 6.1 Reference</em>. Microsoft Press.</p>
-</div>
-<div>
-<p>Garcia-Garcia, Adrian, Juan Carlos Saez, José Luis Risco-Martin, and Manuel Prieto-Matias. 2020. “PBBCache: An Open-Source Parallel Simulator for Rapid Prototyping and Evaluation of Cache-Partitioning and Cache-Clustering Policies.” <em>Journal of Computational Science</em> 42: 101102.</p>
-</div>
-<div>
-<p>Hasan, Raza, and Salman Mahmood. 2012. “Survey and Evaluation of Simulators Suitable for Teaching for Computer Architecture and Organization Supporting Undergraduate Students at Sir Syed University of Engineering &amp; Technology.” In <em>Control (CONTROL), 2012 UKACC International Conference on</em>, 1043–5. IEEE.</p>
-</div>
-<div>
-<p>Hennessy, John L, and David A Patterson. 2012. <em>Computer Architecture: A Quantitative Approach</em>. Fifth Edition. Elsevier.</p>
-</div>
-<div>
-<p>Hyde, Randall. 2010. <em>The Art of Assembly Language</em>. No Starch Press.</p>
-</div>
-<div>
-<p>Intel. 2016. “64 and IA-32 Architectures Software Developers Manual.” <em>325462-060US</em> 1, 2A, 2B, 2C, 2D, 3A, 3B, 3C and 3D: 4670. <a href="https://software.intel.com/en-us/articles/intel-sdm">https://software.intel.com/en-us/articles/intel-sdm</a>.</p>
-</div>
-<div>
-<p>International, Borland. 1993. <em>Turbo Assembler User’s Guide</em>. Borland International.</p>
-</div>
-<div>
-<p>Irvine, Kip R, and Lyla B Das. 2011. <em>Assembly Language for X86 Processors</em>. Prentice Hall.</p>
-</div>
-<div>
-<p>Law, Averill M. 2015. <em>Simulation Modeling &amp; Analysis</em>. 5th ed. New York, NY, USA: McGraw-Hill.</p>
-</div>
-<div>
-<p>Lion, Carina. 2005. “Los Simuladores. Su Potencial Para La Enseñanza Universitaria.” <em>Cuadernos de Investigación Educativa</em> 2 (12): 53–66.</p>
-</div>
-<div>
-<p>Mustafa, Besim. 2010. “Evaluating A System Simulator for Computer Architecture Teaching and Learning Support.” <em>Innovation in Teaching and Learning in Information and Computer Sciences</em> 9 (1): 100–104. <a href="https://doi.org/10.11120/ital.2010.09010100">https://doi.org/10.11120/ital.2010.09010100</a>.</p>
-</div>
-<div>
-<p>Nikolic, B., Z. Radivojevic, J. Djordjevic, and V. Milutinovic. 2009. “A Survey and Evaluation of Simulators Suitable for Teaching Courses in Computer Architecture and Organization.” <em>IEEE Transactions on Education</em> 52 (4): 449–58. <a href="https://doi.org/10.1109/TE.2008.930097">https://doi.org/10.1109/TE.2008.930097</a>.</p>
-</div>
-<div>
-<p>Nova, Bruno, Joao C Ferreira, and António Araújo. 2013. “Tool to Support Computer Architecture Teaching and Learning.” In <em>Engineering Education (CISPEE), 2013 1st International Conference of the Portuguese Society for</em>, 1–8. IEEE.</p>
-</div>
-<div>
-<p>Patterson, David A, and John L Hennessy. 2016. <em>Computer Organization and Design Arm Edition: The Hardware Software Interface</em>. Morgan kaufmann.</p>
-</div>
-<div>
-<p>Patterson, David A., and John L. Hennessy. 2017. <em>Computer Organization and Design Risc-V Edition: The Hardware Software Interface</em>. Morgan Kaufmann.</p>
-</div>
-<div>
-<p>Peterson, James Lyle. 1981. <em>Petri Net Theory and the Modeling of Systems</em>. Prentice Hall PTR.</p>
-</div>
-<div>
-<p>Radivojevic, Zaharije, Milos Cvetanovic, and Jovan Ðordevic. 2011. “Design of the Simulator for Teaching Computer Architecture and Organization.” In <em>2011 Second Eastern European Regional Conference on the Engineering of Computer Based Systems</em>, 124–30. IEEE.</p>
-</div>
-<div>
-<p>Robinson, Stewart. 2014. <em>Simulation: The Practice of Model Development and Use</em>. 2nd edition.</p>
-</div>
-<div>
-<p>Skrien, Dale. 2001. “CPU Sim 3.1: A Tool for Simulating Computer Architectures for Computer Organization Classes.” <em>Journal on Educational Resources in Computing (JERIC)</em>.</p>
-</div>
-<div>
-<p>Stallings, William. 2013. <em>Computer Organization and Architecture: Designing for Performance</em>. Eleventh Edition. Pearson.</p>
-</div>
-<div>
-<p>The NASM Project. 2023. <em>The Netwide Assembler (Nasm) Manual</em>.</p>
-</div>
-<div>
-<p>Waterman, Andrew, Yunsup Lee, David A Patterson, and Krste Asanovic. 2014. “The Risc-V Instruction Set Manual, Volume I: User-Level Isa.” <em>CS Division, EECE Department, University of California, Berkeley</em>, 28.</p>
-</div>
-<div>
-<p>Zeigler, Bernard P., Alexandre Muzy, and Ernesto Kofman. 2018. <em>Theory of Modeling and Simulation: Discrete Event &amp; Iterative System Computational Foundations</em>. Academic Press.</p>
-</div>
-<div>
-<p>Zeigler, Bernard, Herbert Prähofer, and Tag Gon Kim. 2000. “Theory of Modeling and Simulation: Integrating Discrete Event and Continuous Complex Dynamic Systems” 2 (January).</p>
-</div>
+<div id="controlunit-unidad-de-control" class="section level3 hasAnchor">
+<h3><span class="header-section-number">4.5.6</span> <code>ControlUnit</code> (Unidad de Control)<a href="componentes.html#controlunit-unidad-de-control" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>inOpcode(5)</code>: Entrada de <em>Opcode</em>.</li>
+<li><code>flags(3)</code>: Entrada de <em>flags</em>.</li>
+<li><code>RB_enIn(1)</code> y <code>RB_enOut(1)</code>: Señales de habilitación para Registros.</li>
+<li><code>RB_inSelect(1)</code> y <code>RB_outSelect(1)</code>: Señales de selección para Registros.</li>
+<li><code>MM_enOut(1)</code> y <code>MM_load(1)</code>: Señales para la Memoria.</li>
+<li><code>MM_enAddr(1)</code>: Habilita cargar la dirección.</li>
+<li><code>ALU_enA(1)</code>, <code>ALU_enB(1)</code> y <code>ALU_enOut(1)</code>: Señales de habilitación de la ALU.</li>
+<li><code>ALU_opW(1)</code>, <code>ALU_OP(4)</code>: Señales de control de la ALU.</li>
+<li><code>PC_load(1)</code>, <code>PC_inc(1)</code> y <code>PC_enOut(1)</code>: Señales de control de PC.</li>
+<li><code>DE_loadL(1)</code> y <code>DE_loadH(1)</code>: Señales de control del Decodificador.</li>
+</ul>
 </div>
 </div>
             </section>
@@ -269,8 +237,8 @@
           </div>
         </div>
       </div>
-<a href="ejecución-de-instrucciones.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="instrucciones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ejecución-de-instrucciones.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -301,7 +269,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/05-biblio.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-desarrollo.Rmd",
 "text": "Edit"
 },
 "history": {
