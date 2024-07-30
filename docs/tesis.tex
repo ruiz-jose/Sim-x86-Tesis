@@ -145,6 +145,11 @@
 \makeatother
 
 %Added by @MyKo101, code provided by @GerbrichFerdinands
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newenvironment{cslreferences}%
+  {}%
+  {\par}
 
 \setlength\parindent{0pt}
 
@@ -593,11 +598,6 @@ Bajo un punto de vista general, un modelo DEVS está caracterizado por generar e
 \subsubsection{Aplicaciones del Formalismo DEVS}\label{aplicaciones-del-formalismo-devs}}
 
 El formalismo DEVS es aplicable a una amplia gama de sistemas, desde redes de comunicación hasta procesos de manufactura. Por ejemplo, en una red de comunicación, un modelo DEVS puede simular el enrutamiento de paquetes de datos y la gestión de congestiones. En la manufactura, un modelo DEVS puede representar el flujo de materiales y el control de calidad en una línea de producción, ayudando a identificar cuellos de botella y optimizar procesos.
-
-\hypertarget{ejemplo-de-modelo-devs}{%
-\subsubsection{Ejemplo de Modelo DEVS}\label{ejemplo-de-modelo-devs}}
-
-Consideremos un sistema de colas en un banco, donde los clientes llegan, esperan en la fila y son atendidos por cajeros. Un modelo DEVS puede representar los eventos de llegada de clientes, la asignación a los cajeros y el tiempo de servicio, permitiendo evaluar el tiempo de espera y la utilización de los recursos. Este ejemplo ilustra cómo DEVS puede ser utilizado para mejorar la eficiencia operativa y la satisfacción del cliente mediante la optimización del flujo de trabajo y la asignación de recursos.
 
 \hypertarget{comparativa-de-simuladores}{%
 \chapter{Comparativa de simuladores}\label{comparativa-de-simuladores}}
@@ -1302,7 +1302,7 @@ Todas las instrucciones de procesamiento de datos tienen los mismos modos de dir
 \end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\centering
 \strut
 \end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
-\textbf{saltos/rutinas \emph{RE: el registro de estado contiene los siguientes flags o banderas: Z =cero C = acarreo (Carry) S = signo (sign) O = desbordamiento (Overflow) Incondicional: Sin condicional} 0. JMP: IP \(\uparrow\) IP + desp \emph{Condicional: Si se cumple la condición salta} 1. JZ/JE: Z == 1 2. JNZ/JNE: Z == 0 3. JC: Si C == 1 4. JNC: Si C == 0 5. JS: Si S == 1 6. JNS: Si S == 0 7. JO: Si O == 1 8. JNO: Si O == 0 9. JGE: Si S == O \{ (con signo)\} 10. JLE: Si Z == 1 o S \textless{}\textgreater{} O \{ (con signo)\} 11. JAE: Si C == 1 \{ (sin signo)\} 12. JBE: Si C == 1 o Z == 1 \{ (sin signo)\} }Saltar a IP \(\uparrow\) IP + \emph{desp} Above/Below\emph{: se refiere a valores sin signo.} **Great/Less\emph{: se refiere a valores con signo. Rutinas:} 13. CALL: \emph{Memoria\[SP\] \(\uparrow\) IP SP\(\uparrow\) SP - 1 Memoria\[SP\] \(\uparrow\) RE SP\(\uparrow\) SP - 1 IP \(\uparrow\) \[dirección\]} 14. RET: \emph{SP \(\uparrow\) SP + 1 RE \(\uparrow\) Memoria\[SP\] SP \(\uparrow\) SP +1 IP \(\uparrow\) Memoria\[SP\]}\strut
+\textbf{saltos/rutinas \emph{RE: el registro de estado contiene los siguientes flags o banderas: Z =cero C = acarreo (Carry) S = signo (sign) O = desbordamiento (Overflow) Incondicional: Sin condicional} 0. JMP: IP \(\uparrow\) IP + desp \emph{Condicional: Si se cumple la condición salta} 1. JZ/JE: Z == 1 2. JNZ/JNE: Z == 0 3. JC: Si C == 1 4. JNC: Si C == 0 5. JS: Si S == 1 6. JNS: Si S == 0 7. JO: Si O == 1 8. JNO: Si O == 0 9. JGE: Si S == O \{ (con signo)\} 10. JLE: Si Z == 1 o S \textless\textgreater{} O \{ (con signo)\} 11. JAE: Si C == 1 \{ (sin signo)\} 12. JBE: Si C == 1 o Z == 1 \{ (sin signo)\} }Saltar a IP \(\uparrow\) IP + \emph{desp} Above/Below\emph{: se refiere a valores sin signo.} **Great/Less\emph{: se refiere a valores con signo. Rutinas:} 13. CALL: \emph{Memoria\[SP\] \(\uparrow\) IP SP\(\uparrow\) SP - 1 Memoria\[SP\] \(\uparrow\) RE SP\(\uparrow\) SP - 1 IP \(\uparrow\) \[dirección\]} 14. RET: \emph{SP \(\uparrow\) SP + 1 RE \(\uparrow\) Memoria\[SP\] SP \(\uparrow\) SP +1 IP \(\uparrow\) Memoria\[SP\]}\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.14\columnwidth}\raggedright
 \textbf{PUSH / POP / OUT / IN}\strut
@@ -1622,23 +1622,13 @@ Las instrucciones en \texttt{OrgaSmall} se ejecutan en varios ciclos de reloj, d
   \begin{itemize}
   \tightlist
   \item
-    \texttt{PC} envía la dirección actual al bus.
+    \texttt{IP} se copia en el \texttt{MAR}.
   \item
-    \texttt{Memory} coloca la instrucción en el bus de datos.
-  \item
-    \texttt{Decode} carga la instrucción en sus registros internos.
+    \texttt{Memory} coloca la instrucción en el \texttt{MBR}.
   \item
     \texttt{PC} incrementa su valor.
-  \end{itemize}
-\item
-  \textbf{Ciclo de Decodificación}:
-
-  \begin{itemize}
-  \tightlist
   \item
-    \texttt{Decode} divide la instrucción en \texttt{opcode}, registros e inmediato.
-  \item
-    \texttt{ControlUnit} interpreta el \texttt{opcode} y emite señales correspondientes.
+    \texttt{MBR} se copia en el \texttt{IR}.
   \end{itemize}
 \item
   \textbf{Ciclo de Ejecución}:
@@ -1646,7 +1636,7 @@ Las instrucciones en \texttt{OrgaSmall} se ejecutan en varios ciclos de reloj, d
   \begin{itemize}
   \tightlist
   \item
-    \texttt{ControlUnit} habilita y controla los componentes para ejecutar la instrucción.
+    \texttt{ControlUnit} interpreta el \texttt{opcode} y emite señales correspondientes a los componentes para ejecutar la instrucción.
   \item
     \texttt{ALU} realiza la operación aritmética o lógica.
   \item
@@ -1661,8 +1651,9 @@ Este flujo se repite para cada instrucción, permitiendo la ejecución de progra
 \addcontentsline{toc}{chapter}{Bibliografía}
 
 \hypertarget{refs}{}
+\begin{cslreferences}
 \leavevmode\hypertarget{ref-colombani_pid_2022}{}%
-{[}1{]} M. A. Colombani, M. A. Falappa, A. G. Delduca, and J. M. Ruiz, ``PID novel 7065: Enseñanza/aprendizaje de asignatura Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputos.'' Feb. 2022. Accessed: Jul. 10, 2024. Available: \href{https://proyectos.uner.edu.ar/aplicacion.php?ah=st668e6d47663eb\&ai=gestion_extinv\%7C\%7C23000105}{https://proyectos.uner.edu.ar/aplicacion.php?ah=st668e6d47663eb\&ai=gestion\_extinv\textbar{}\textbar{}23000105}
+{[}1{]} M. A. Colombani, M. A. Falappa, A. G. Delduca, and J. M. Ruiz, ``PID novel 7065: Enseñanza/aprendizaje de asignatura Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputos.'' Feb. 2022. Accessed: Jul. 10, 2024. Available: \url{https://proyectos.uner.edu.ar/aplicacion.php?ah=st668e6d47663eb\&ai=gestion_extinv\%7C\%7C23000105}
 
 \leavevmode\hypertarget{ref-banks_discrete-event_2010}{}%
 {[}2{]} J. Banks, J. S. Carson, B. L. Nelson, and D. M. Nicol, \emph{Discrete-event system simulation}, 5th ed. Prentice Hall, 2010.
@@ -1753,6 +1744,7 @@ Este flujo se repite para cada instrucción, permitiendo la ejecución de progra
 
 \leavevmode\hypertarget{ref-behrooz_computer_2005}{}%
 {[}31{]} P. BEHROOZ, \emph{Computer Architecture: From Microprocessors to Supercomputers}. Oxford University Press Inc, 2005.
+\end{cslreferences}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %%% Bibliography                              %%%
