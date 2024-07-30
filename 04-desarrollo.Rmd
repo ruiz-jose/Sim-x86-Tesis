@@ -316,17 +316,13 @@ Cada uno de estos componentes es controlado por medio del conjunto de entradas y
 Las instrucciones en `OrgaSmall` se ejecutan en varios ciclos de reloj, donde cada ciclo implica una acción específica. A continuación, se describe la secuencia de acciones para la ejecución de las instrucciones de la arquitectura.
 
 1. **Ciclo de Búsqueda**: 
-   - `PC` envía la dirección actual al bus.
-   - `Memory` coloca la instrucción en el bus de datos.
-   - `Decode` carga la instrucción en sus registros internos.
+   - `IP` se copia en el `MAR`.
+   - `Memory` coloca la instrucción en el MBR`.
    - `PC` incrementa su valor.
-
-2. **Ciclo de Decodificación**:
-   - `Decode` divide la instrucción en `opcode`, registros e inmediato.
-   - `ControlUnit` interpreta el `opcode` y emite señales correspondientes.
+   -  `MBR` se copia en el `IR`.
 
 3. **Ciclo de Ejecución**:
-   - `ControlUnit` habilita y controla los componentes para ejecutar la instrucción.
+   - `ControlUnit` interpreta el `opcode` y emite señales correspondientes a los componentes para ejecutar la instrucción.
    - `ALU` realiza la operación aritmética o lógica.
    - `Registers` y `Memory` realizan operaciones de lectura/escritura según sea necesario.
 
