@@ -1,5 +1,5 @@
 # Estado del arte
-En este capítulo examina el estado del arte en la arquitectura de computadoras, enfocándose en la arquitectura x86 y el uso de herramientas de simulación en el ámbito educativo. Este análisis es clave para comprender el contexto y la relevancia de los temas abordados en esta tesis.
+En este capítulo se examina el estado del arte en la arquitectura de computadoras, enfocándose en la arquitectura x86 y el uso de herramientas de simulación en el ámbito educativo. Este análisis es clave para comprender el contexto y la relevancia de los temas abordados en esta tesis.
 
 A continuación, se abordará el papel fundamental que desempeñan las herramientas de simulación en la enseñanza de la arquitectura de computadoras. Estas herramientas facilitan la comprensión de conceptos complejos y permiten a los estudiantes interactuar con sistemas simulados, proporcionando una experiencia práctica valiosa que de otro modo sería difícil de obtener. Se examinarán las herramientas de simulación más destacadas y su aplicación en entornos educativos, evaluando sus beneficios y limitaciones.
 
@@ -8,7 +8,7 @@ Finalmente, se explorarán las tendencias actuales y futuras en la enseñanza de
 ## Arquitectura de computadoras
 La arquitectura de computadoras se ocupa del estudio y diseño de los componentes de hardware y software de una computadora y su interacción. Este campo abarca desde el diseño de circuitos hasta la integración de sistemas completos, siendo crucial para el desarrollo de tecnologías eficientes y avanzadas. Estudiar arquitectura de computadoras permite comprender los sistemas informáticos desde su nivel más básico, ofreciendo una visión holística de su funcionamiento y estructura. Además, está estrechamente relacionada con la programación y el desarrollo de software, lo que permite optimizar el rendimiento y la eficiencia energética [@stallings_computer_2013][@hennessy_computer_2012].
 
-Además, la arquitectura de computadoras nos brinda una base sólida para comprender y aprovechar las nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el internet de las cosas. Estudiar esta disciplina nos prepara para ser parte de la innovación tecnológica y contribuir al desarrollo de soluciones avanzadas en estos campos.
+La arquitectura de computadoras se ocupa del estudio y diseño de los componentes de hardware y software de una computadora y su interacción. Este campo abarca desde el diseño de circuitos hasta la integración de sistemas completos, siendo crucial para el desarrollo de tecnologías eficientes y avanzadas. Estudiar arquitectura de computadoras permite comprender los sistemas informáticos desde su nivel más básico, ofreciendo una visión holística de su funcionamiento y estructura. Además, está estrechamente relacionada con la programación y el desarrollo de software, lo que permite optimizar el rendimiento y la eficiencia energética. También brinda una base sólida para comprender y aprovechar nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el internet de las cosas, preparándonos para contribuir a la innovación tecnológica [@stallings_computer_2013][@hennessy_computer_2012].
 
 En resumen, estudiar arquitectura de computadoras nos proporciona un conocimiento profundo de los sistemas informáticos, nos capacita para diseñar sistemas eficientes y escalables, y nos prepara para aprovechar las últimas tendencias tecnológicas. Es una disciplina esencial para aquellos que desean seguir una carrera en el campo de la informática y la tecnología, y contribuir al avance de la sociedad digital en la que vivimos.
 
@@ -19,7 +19,7 @@ Por último, el estudio de la arquitectura de computadoras nos proporciona una b
 En conclusión, estudiar arquitectura de computadoras es fundamental para comprender el funcionamiento de los sistemas informáticos, resolver problemas de rendimiento y eficiencia, contribuir a la innovación tecnológica y acceder a una amplia gama de oportunidades laborales. Es una disciplina emocionante que impulsa la evolución de la tecnología y nos permite ser parte activa de este cambio.
 
 ###   Arquitectura x86
-La arquitectura x86, una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores, comenzó su desarrollo en 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. La arquitectura x86 evolucionó significativamente con el Intel 80386 en 1985, marcando el inicio de la era de 32 bits. En 2003, AMD lanzó la arquitectura AMD64, extendiendo x86 a 64 bits, lo que permitió un mayor acceso a la memoria y mejor rendimiento en aplicaciones intensivas. Intel adoptó estas innovaciones, consolidando la arquitectura x86 como una de las más versátiles y potentes del mercado [@intel_64_2016][@amd_developer_2019][@abel_ibm_2000].
+La arquitectura x86, una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores, comenzó su desarrollo en 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. La arquitectura x86 evolucionó significativamente con el Intel 80386 en 1985, marcando el inicio de la era de 32 bits. En 2003, AMD lanzó la arquitectura AMD64, extendiendo x86 a 64 bits, lo que permitió un mayor acceso a la memoria y un mejor rendimiento en aplicaciones intensivas. Intel adoptó estas innovaciones, consolidando la arquitectura x86 como una de las más versátiles y potentes del mercado [@intel_64_2016][@amd_developer_2019][@abel_ibm_2000].
 
 ####   Contextualización Histórica y Evolución de la Arquitectura x86
 La retrocompatibilidad de la arquitectura x86 ha sido un factor determinante en su éxito, permitiendo que aplicaciones de 16, 32 y 64 bits se ejecuten en el mismo sistema. Esta característica ha asegurado la continuidad y protección de las inversiones en software y sistemas operativos desarrollados para x86.
@@ -85,20 +85,24 @@ comparacion_cpu <- data.frame(
 
 kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitecturas")
 ```
-La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas [@patterson_computer_2017].
 
-####  Repertorio de instrucciones x86
+La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y en educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas [@patterson_computer_2017].
+
+###  Repertorio de instrucciones
 El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), es fundamental para la interacción entre el software y el hardware de una computadora [@stallings_computer_2013].
 
-La arquitectura x86 ha desarrollado su ISA para abarcar una extensa variedad de operaciones, ofreciendo un control minucioso del hardware. Con instrucciones para operaciones aritméticas, lógicas, de control y manejo de memoria, la ISA x86 es conocida por su complejidad y flexibilidad, lo que la hace ideal para una amplia gama de aplicaciones.
+#### Filosofías CISC y RISC
+La arquitectura x86 sigue la filosofía CISC (Complex Instruction Set Computer), la cual se caracteriza por tener un repertorio de instrucciones amplio y complejo. Esta filosofía busca reducir la cantidad de instrucciones por programa, a costa de aumentar la complejidad de cada instrucción individual. Esto contrasta con la filosofía RISC (Reduced Instruction Set Computer), que utiliza un repertorio de instrucciones más simple y optimiza el uso de registros y operaciones rápidas, aumentando el número de instrucciones necesarias por programa pero simplificando el diseño del hardware.
 
-#### Ejemplos de Instrucciones x86
+#### Instrucciones x86
 El repertorio de instrucciones x86 incluye una variedad de instrucciones para realizar operaciones aritméticas, lógicas, de control y de manejo de memoria. Algunos ejemplos son:
 
 - `MOV`: Mueve datos de una ubicación a otra.
 - `ADD`: Suma dos valores.
 - `SUB`: Resta un valor de otro.
 - `JMP`: Salta a una dirección específica.
+
+Además de estas, existen muchas otras instrucciones que permiten manipular registros, gestionar interrupciones y ejecutar operaciones en punto flotante, entre otras. La versatilidad y profundidad del ISA x86 la han convertido en una de las arquitecturas más utilizadas y estudiadas en el campo de la informática.
 
 ## Lenguaje ensamblador
 Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador. Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso [@irvine2011assembly]. 
@@ -143,5 +147,3 @@ Bajo un punto de vista general, un modelo DEVS está caracterizado por generar e
 #### Aplicaciones del Formalismo DEVS
 El formalismo DEVS es aplicable a una amplia gama de sistemas, desde redes de comunicación hasta procesos de manufactura. Por ejemplo, en una red de comunicación, un modelo DEVS puede simular el enrutamiento de paquetes de datos y la gestión de congestiones. En la manufactura, un modelo DEVS puede representar el flujo de materiales y el control de calidad en una línea de producción, ayudando a identificar cuellos de botella y optimizar procesos.
 
-#### Ejemplo de Modelo DEVS
-Consideremos un sistema de colas en un banco, donde los clientes llegan, esperan en la fila y son atendidos por cajeros. Un modelo DEVS puede representar los eventos de llegada de clientes, la asignación a los cajeros y el tiempo de servicio, permitiendo evaluar el tiempo de espera y la utilización de los recursos. Este ejemplo ilustra cómo DEVS puede ser utilizado para mejorar la eficiencia operativa y la satisfacción del cliente mediante la optimización del flujo de trabajo y la asignación de recursos.
