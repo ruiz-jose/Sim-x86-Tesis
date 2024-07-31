@@ -1,73 +1,45 @@
 # Diseño y construcción del simulador
-El objetivo principal de esta tesis es construir una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras. Para lograr este objetivo, se plantean los siguientes objetivos específicos: 
+El objetivo principal de esta tesis es construir una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras. Para lograr este objetivo, se plantean los siguientes objetivos específicos:
 
-1. Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a dar apoyo a la enseñanza de la arquitectura x86.
+## Objetivo 1: Evaluación de Herramientas Existentes
 
-    Se cumplió el primer objetivo mediante una revisión exhaustiva de las herramientas de simulación actuales destinadas a apoyar la enseñanza de la arquitectura x86.
+Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación actuales.
 
-2. Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir:
-    - Una visión global de la estructura y funcionamiento de la computadora.
-    - Generación y ejecución de programas en ensamblador.
-    - Repertorio de instrucciones x86 reducido y habilitado progresivamente.
-    - Simulación visual e interactiva de micropasos de instrucciones.
-    - Gestión de interrupciones y comunicación con periféricos.
-    - Medidas de rendimiento de ejecución de programas.
+## Objetivo 2: Desarrollo de una Nueva Herramienta de Simulación
+
+Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los siguientes requisitos:
+
+1. **Visión global de la estructura y funcionamiento de la computadora:**
+   - Mostrar la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, destacando componentes relevantes.
+
+2. **Generación y ejecución de programas en ensamblador:**
+   - Permitir tanto la ejecución paso a paso como completa, facilitando la comprensión de cada instrucción.
+
+3. **Repertorio de instrucciones x86 reducido y habilitado progresivamente:**
+   - Seleccionar un subconjunto esencial de instrucciones x86, habilitándolas progresivamente según avance el contenido de la asignatura.
+
+4. **Simulación visual e interactiva de micropasos de instrucciones:**
+    - Utilizar el lenguaje de transferencia entre registros (RTL) para describir el flujo de datos, facilitando la comprensión del ciclo básico de una instrucción. Correr un programa y que se ilumine  cada componente durante la ejecución de un programa.
+
+5. **Gestión de interrupciones y comunicación con periféricos:**
+    - Incorporar un vector de interrupción predefinido para interactuar con el teclado y monitor. Incluir instrucciones IN y OUT, y un módulo de E/S simplificado.
+
+6. **Medidas de rendimiento de ejecución de programas:**
+    - Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa. 
+
+Para lograr esto, se comenzamos por diseñar la herramienta. 
+
+## Diseño
+Para cumplir con el segundo objetivo específico, es esencial diseñar y construir una herramienta de apoyo que sea fácil de usar para estudiantes y profesores, cumpliendo con los requisitos definidos, y realizar pruebas rigurosas para asegurar su funcionalidad y usabilidad.
+
+Se debe tener en cuenta la facilidad de uso para los estudiantes y profesores. La herramienta debe ser intuitiva y fácil de navegar. Se pueden utilizar gráficos y diagramas para ayudar a los estudiantes a comprender mejor la estructura y funcionamiento de la computadora. La herramienta debe ofrecer una visión global de la estructura y funcionamiento de la computadora, permitir la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, y ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura. Además, la herramienta debe simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción, permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, permitir la comunicación con los módulos de entrada y salida e interacciones con los periféricos, y ofrecer medidas de rendimiento sobre la ejecución de un programa.
+
+## Desarrollo y Pruebas
+Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
+La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores. Para lograr esto, se puede comenzar por definir los requisitos de la herramienta, diseñar la herramienta, construir y probar.
 
 Para cumplir con el segundo objetivo, se diseñó y construyó una herramienta de apoyo que cumple con los requisitos previamente mencionados para impartir los contenidos de la asignatura Arquitectura de Computadoras.
 
-Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir, se puede adpatar
-
-Para lograr esto, se comenzamos por definir los requisitos de la herramienta. 
-
-## Requisitos de la herramienta
-Para cumplir con el segundo objetivo específico, la herramienta debe cumplir con los siguientes requisitos:
-
-- **Visión global de la computadora:** Debe mostrar la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, destacando componentes relevantes.
-
-- **Generación y ejecución de programas en ensamblador:** Permitir tanto la ejecución paso a paso como completa, facilitando la comprensión de cada instrucción.
-
-- **Repertorio de instrucciones x86 reducido:** Seleccionar un subconjunto esencial de instrucciones x86, habilitándolas progresivamente según avance el contenido de la asignatura.
-
-- **Simulación visual e interactiva de micropasos:** Utilizar el lenguaje de transferencia entre registros (RTL) para describir el flujo de datos, facilitando la comprensión del ciclo básico de una instrucción. Correr un programa y que se ilumine  cada componente durante la ejecución de un programa.
-
-- **Gestión de interrupciones:** Incorporar un vector de interrupción predefinido para interactuar con el teclado y monitor.
-
-- **Comunicación con módulos de E/S y periféricos:** Incluir instrucciones IN y OUT, y un módulo de E/S simplificado basado en el modo 2 del Intel 8255.
-
-- **Medidas de rendimiento:** Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa. 
-
-La herramienta debe ofrecer una visión global de la estructura y funcionamiento de la computadora, permitir la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, y ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura.
-
-Además, la herramienta debe simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción, permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, permitir la comunicación con los módulos de entrada y salida e interacciones con los periféricos, y ofrecer medidas de rendimiento sobre la ejecución de un programa.
-
-**Definición de Requisitos:** 
-    - Visión global de la estructura y funcionamiento de la computadora.
-    - Generación y ejecución de programas en ensamblador.
-    - Repertorio de instrucciones x86 reducido y habilitado progresivamente.
-    - Simulación visual e interactiva de micropasos.
-    - Gestión de interrupciones y comunicación con periféricos.
-    - Medidas de rendimiento de ejecución de programas.
-
-**Diseño de la Herramienta:** 
-    - Considerar la facilidad de uso para estudiantes y profesores.
-    - Utilizar gráficos y diagramas para mejorar la comprensión.
-
-**Construcción de la Herramienta:** 
-    - Implementar la herramienta siguiendo las especificaciones de diseño.
-    - Realizar pruebas exhaustivas para asegurar que la herramienta cumple con todos los requisitos.
-    - Solucionar cualquier problema identificado durante las pruebas antes del lanzamiento.
-
-Para cumplir con el segundo objetivo específico, es esencial diseñar y construir una herramienta de apoyo que sea fácil de usar para estudiantes y profesores, cumpliendo con los requisitos definidos, y realizar pruebas rigurosas para asegurar su funcionalidad y usabilidad.
-
-La herramienta debe ofrecer una visión global de la estructura y funcionamiento de la computadora, permitir la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, y ofrecer un repertorio de instrucciones x86 reducido donde se habiliten las instrucciones a medida que se desarrolle el contenido en la asignatura. Además, la herramienta debe simular de manera visual e interactiva los micropasos que conlleva el ciclo básico de una instrucción, permitir la gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, permitir la comunicación con los módulos de entrada y salida e interacciones con los periféricos, y ofrecer medidas de rendimiento sobre la ejecución de un programa.
-
-Una vez que se hayan definido los requisitos, se puede comenzar a diseñar la herramienta. Se debe tener en cuenta la facilidad de uso para los estudiantes y profesores. La herramienta debe ser intuitiva y fácil de navegar. Se pueden utilizar gráficos y diagramas para ayudar a los estudiantes a comprender mejor la estructura y funcionamiento de la computadora.
-
-Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
-
-En resumen, para cumplir con el segundo objetivo específico, se debe diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores. Para lograr esto, se puede comenzar por definir los requisitos de la herramienta, diseñar la herramienta, construir y probar.
-
-## Desarrollo y Pruebas
 - **Diseño de la Herramienta:** Comenzar con la definición detallada de los requisitos, seguido de un diseño centrado en la facilidad de uso para estudiantes y profesores. Se utilizarán gráficos y diagramas para mejorar la comprensión.
 
 - **Construcción de la Herramienta:** Implementar la herramienta siguiendo las especificaciones de diseño, asegurando la integridad y funcionalidad de cada componente.
@@ -77,26 +49,24 @@ En resumen, para cumplir con el segundo objetivo específico, se debe diseñar y
     - Evaluación de la usabilidad por parte de estudiantes y profesores.
     - Identificación y solución de problemas antes del lanzamiento.
 
-## Portabilidad
+### Portabilidad
 Para asegurar la portabilidad, el simulador se implementará como una aplicación web que puede ejecutarse en cualquier navegador web, garantizando su uso multiplataforma.
 
-## Simplicidad
+### Simplicidad
 La herramienta será diseñada con una interfaz intuitiva y fácil de navegar, minimizando la curva de aprendizaje para los usuarios.
 
-## Mantenibilidad
+### Mantenibilidad
 El código de la herramienta será modular y bien documentado, facilitando futuras actualizaciones y mantenimiento. Además, se implementarán prácticas de desarrollo sostenibles para asegurar su longevidad.
 
-## Escalabilidad
+### Escalabilidad
 Desde la asignatura se incentiva el uso de simuladores para dar apoyo a los proceso de enseñanza y aprendizaje, pero también se incentiva que los contenidos desarrollados puedan volcarse en máquinas reales, en este sentido consideramos que el enfoque planteado por la herramienta emu8086 es el más adecuado para la asignatura, ya que facilita mecanismos para implementar los programas en máquinas reales. Sin embargo presenta el inconveniente que genera ejecutables dependientes del sistema operativo MS-DOS, la mayoría de los sistemas operativos actuales no permiten la ejecución de dichos programas, obligando a la utilización de emuladores de MS-DOS para poder correrlos, siendo esto otro elemento más que se incorpora a los procesos de enseñanza y aprendizaje. 
 Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
 
-## Memoria
+### Memoria
 La memoria contiene 256 posiciones y cada una contiene un byte. Por lo tanto, el bus de direcciones y de datos son de 8 bits. 
 
-## Repertorio de instrucciones propuesto
+### Repertorio de instrucciones propuesto
 El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento. Aunque el conjunto de instrucciones real de x86 es mucho más amplio y complejo, este enfoque básico sentará las bases para comprender el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
-
-
 
 ## Repertorio de instrucciones
 El repertorio x86 es reducido (8 bits)
