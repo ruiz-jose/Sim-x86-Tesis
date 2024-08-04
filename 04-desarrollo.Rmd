@@ -92,7 +92,6 @@ El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la 
 
 ```{r data, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
-library(kableExtra)
 library(htmltools)
 
 # Crear los datos con HTML para las viñetas
@@ -114,7 +113,7 @@ data <- data.frame(
     "NOP / HLT {15}"
   ),
   Acción = c(
-    htmltools::HTML("<ul><li>Copiar entre registros</li><li>Almacenar en memoria</li><li>Cargar a registro</li></ul>"),
+    htmltools::HTML("- Copiar entre registros - Almacenar en memoria - Cargar a registro"),
     "Operación aritmética: operando1 <- operando1 OPE operando2; actualiza el destino.",
     "Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET.",
     "Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S.",
@@ -124,9 +123,8 @@ data <- data.frame(
 )
 
 # Convertir a HTML
-kable(data, escape = FALSE, align = "l", col.names = c("Instrucciones", "Código operación", "Acción"), 
-      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86") %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F)
+kable(data, format = "markdown", escape = FALSE, align = "l", col.names = c("Instrucciones", "Código operación", "Acción"), 
+      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
 ```
 
 ## Repertorio de instrucciones
