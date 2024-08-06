@@ -90,43 +90,6 @@ El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la 
 | **Manejo de interrupción**       | **INT / IRET {14}**         | Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET. |
 | **Control del CPU**              | **NOP / HLT {15}**          | No opera NOP. Detiene el CPU HLT.                                                            |
 
-```{r data, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(htmltools)
-
-# Crear los datos con HTML para las viñetas
-data <- data.frame(
-  Instrucciones = c(
-    "Transferencia de datos", 
-    "Procesamiento de datos", 
-    "Control de flujo", 
-    "Manejo de pila y E/S", 
-    "Manejo de interrupción", 
-    "Control del CPU"
-  ),
-  `Código operación` = c(
-    "MOV {0,1,2}", 
-    "ADD {3, 4, 5}", 
-    "JMP / Jxx / CALL / RET {12}", 
-    "PUSH / POP / OUT / IN {13}", 
-    "INT / IRET {14}", 
-    "NOP / HLT {15}"
-  ),
-  Acción = c(
-    htmltools::HTML("- Copiar entre registros - Almacenar en memoria - Cargar a registro"),
-    "Operación aritmética: operando1 <- operando1 OPE operando2; actualiza el destino.",
-    "Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET.",
-    "Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S.",
-    "Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET.",
-    "No opera NOP. Detiene el CPU HLT."
-  )
-)
-
-# Convertir a HTML
-kable(data, format = "markdown", escape = FALSE, align = "l", col.names = c("Instrucciones", "Código operación", "Acción"), 
-      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
-```
-
 ## Repertorio de instrucciones
 El repertorio x86 es reducido (8 bits)
 
