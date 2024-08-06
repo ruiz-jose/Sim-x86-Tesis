@@ -13,13 +13,7 @@ jobs:
       uses: r-lib/actions/setup-r@v2
     - name: Install dependencies
       run: |
-        Rscript -e 'install.packages("devtools")'
-        Rscript -e 'devtools::install_github("r-lib/usethis")'
-        Rscript -e 'devtools::install_github("r-lib/pkgdown")'
-        Rscript -e 'devtools::install_github("r-lib/rcmdcheck")'
-        Rscript -e 'devtools::install_github("r-lib/rversions")'
-        Rscript -e 'devtools::install_github("r-lib/urlchecker")'
-        Rscript -e 'devtools::install_github("rstudio/bookdown")'
+        Rscript -e 'install.packages("bookdown")'
         Rscript -e 'install.packages(c("kableExtra", "shiny", "learnr"))'
     - name: Render book to PDF
       run: Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
