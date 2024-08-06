@@ -15,6 +15,10 @@ jobs:
       run: |
         sudo apt-get install -y pandoc
         sudo apt-get install -y pandoc-citeproc
+    - name: Install TinyTeX
+      run: |
+        Rscript -e 'install.packages("tinytex")'
+        Rscript -e 'tinytex::install_tinytex()'
     - name: Install dependencies
       run: |
         Rscript -e 'install.packages("bookdown")'
