@@ -14,7 +14,8 @@ jobs:
     - name: Install dependencies
       run: |
         Rscript -e 'install.packages(c("bookdown", "rmarkdown", "devtools"))'
-        Rscript -e 'devtools::install_deps(dependencies = TRUE)'
+        Rscript -e 'devtools::install_github("rstudio/bookdown")'
+        Rscript -e 'install.packages(c("kableExtra", "shiny", "learnr"))'
     - name: Render book to PDF
       run: Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
     - name: Render book to HTML
