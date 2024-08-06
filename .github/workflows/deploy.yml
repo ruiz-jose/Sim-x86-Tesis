@@ -1,9 +1,9 @@
-name: Deploy Bookdown
+name: Deploy
 
 on:
   push:
     branches:
-      - main  # Cambia esto a la rama que prefieras
+      - main
 
 jobs:
   build:
@@ -18,19 +18,15 @@ jobs:
 
     - name: Install dependencies
       run: |
-        Rscript -e 'install.packages(c("bookdown", "rmarkdown"))'
-        Rscript -e 'if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")'
-        Rscript -e 'devtools::install_deps(dependencies = TRUE)'
+        R -e 'if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools")'
+        R -e 'devtools::install_github("rstudio/bookdown")'
+        R -e 'install.packages(c("bookdown", "kableExtra", "shiny", "learnr"))'
 
-    - name: Render book to PDF
-      run: Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
-
-    - name: Render book to HTML
-      run: Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
+    - name: Render book
+      run: Rscript -e 'bookdown::render_book("index.Rmd")'
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
-        publish_branch: gh-pages
+        publish_dir: ./_book
