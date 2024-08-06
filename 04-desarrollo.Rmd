@@ -110,26 +110,6 @@ El repertorio x86 es reducido (8 bits)
 | **Control del CPU**     |  **NOP / HLT {15}** | No opera NOP Detiene el CPU HLT |
 
 
-### Formato de la instrucción
-|   | Formato instrucción  |  |  |  | Acción |
-| ----- | :---: | :---: | :---: | :---: | ----- |
-|  | **Código op. byte 1** |  |  |  |  |
-|  | **4 bits** | **2 bits** |  | **2 bits** |  |
-| **MOV**    | **0** | *rd* |  | *rf* | **Registro a registro**: Copiar entre registros: rd $\leftarrow$ rf   |
-|  | **1** |   *{0,1,2,3}* |  | *rf / {0,1, 2}* | ** Registro/valor a memoria**: *mem $\leftarrow$ rf mem\[BL\] $\leftarrow$ rf mem\[Dir + BL\] $\leftarrow$  rf    3.0 mem $\leftarrow$ valor 1 mem\[BL\] $\leftarrow$ valor      3.2 mem\[Dir + BL\] $\leftarrow$ valor*   |
-|  | **2** | *rd* |  |   *{0,1,2,3}* | ** Memoria/valor a registro**: *0\. rd $\leftarrow$ mem rd $\leftarrow$ mem\[BL\]  rd $\leftarrow$ mem\[Dir + BL\] rd $\leftarrow$ valor*    |
-| **ADD /    SUB /    CMP** |  **{3..11}** | *rd* |  | *rf* | Todas las instrucciones de procesamiento de datos tienen los mismos modos de direccionamiento que la instrucción MOV. Operación aritmética:  **operando1  $\leftarrow$ operando1  OPE operando2**  ; actualiza el  destino Comparación:  **operando1 - *operando2***   ;realiza la operación de sustraer pero no actualiza el destino. Operando2 puede ser registro/memoria/valor inmediato Operando1 puede ser registro o memoria |
-|  |  |  |  |  |  |
-|  |  | *rr* |  |  |  |
-|  |  | *rd* |  | ` |  |
-|  **JMP/ Jxx /  CALL / RET**  | **12** |   *{0,1,2,3, 4,5,6,7,8,9,10,11,12,13,14}* |  |  | **saltos/rutinas  *RE: el registro de estado contiene los siguientes flags o banderas: Z \=cero C \= acarreo (Carry) S \= signo (sign) O \= desbordamiento (Overflow) Incondicional: Sin condicional* 0\. JMP:  IP $\uparrow$ IP \+ desp *Condicional: Si se cumple la condición salta* 1\. JZ/JE:  Z \== 1  2\. JNZ/JNE:  Z \== 0  3\. JC:  Si C \== 1 4\. JNC:  Si C \== 0 5\. JS:  Si S \== 1 6\. JNS:  Si S \== 0 7\. JO:  Si O \== 1 8\. JNO:  Si O \== 0 9\. JGE:  Si S \== O   {  (con signo)} 10\. JLE:  Si Z  \== 1 o S \<\> O  { (con signo)} 11\. JAE:  Si C \== 1 {  (sin signo)} 12\. JBE:  Si C \== 1 o Z \== 1 { (sin signo)}                  **Saltar a IP $\uparrow$ IP \+ *desp* Above/Below*: se refiere a valores sin signo.* **Great/Less*: se refiere a valores con signo. Rutinas:*  13\. CALL:  *Memoria\[SP\]  $\uparrow$ IP                     SP$\uparrow$ SP \- 1                        Memoria\[SP\] $\uparrow$ RE                         SP$\uparrow$ SP \- 1                        IP $\uparrow$ \[dirección\]* 14\. RET:    *SP $\uparrow$ SP \+ 1                    RE $\uparrow$  Memoria\[SP\]                      SP $\uparrow$ SP \+1                       IP $\uparrow$  Memoria\[SP\]*  |
-| **PUSH /  POP /  OUT / IN** | **13** | *{0,1, 2, 3}* |  | *rf/rd* | **Pila y E/S *0\.* PUSH *rf:  Memoria\[SP\]  $\uparrow$ rf                      SP $\uparrow$ SP \- 1 1\.* POP *rd:   SP $\uparrow$ SP \+ 1                      rd $\uparrow$  Memoria\[SP\]    2\.* E/S\[puerto\] $\uparrow$ DL    *3\.* DL $\uparrow$E/S\[puerto\] |
-|  |  |  |  |  |  |
-| **INT / IRET** | **14** |  |  *ID\_INT / \-* |  |  **Interrupción  *0\.* INT Nro\_INT*:  Memoria\[SP\]  $\uparrow$ IP                               SP $\uparrow$ SP \- 1                                  Memoria\[SP\] $\uparrow$ RE                               SP $\uparrow$ SP \- 1                                  IP $\uparrow$ \[dirección\]                                  IP $\uparrow$ Vector\_Interrupción\[ID\_INT\]                                  STI (Setear flag interrupción)*  *1\.* IRET*:   SP $\uparrow$ SP \+ 1                 RE $\uparrow$  Memoria\[SP\]                   SP $\uparrow$ SP \+1                   IP $\uparrow$  Memoria\[SP\]                   CLI (restablecer flag interrupción)* |
-|  |  |  |  |  |  |
-| **NOP /  HLT** | **15** | *\-* |  | **{0,1} | ** Control *0\.* NOP*:   IP $\uparrow$ IP \+ 1  1\.* HLT*:   Detiene el CPU*           |
-
-
 
 ### Registros (Banco de Registros)
 
@@ -159,23 +139,6 @@ La mayoría de las instrucciones básicas tienen solo las siguientes formas:
 * **MOV *reg, inm***  
 * **MOV *mem, reg***  
 * **MOV *mem, inm***
-
-### Transferencia MOV (COPIAR)
-
-MOV d, f
-
-Tipo de operandos d y f: pueden ser registros, dirección de memoria, dirección indirecta por registro (BL) o valor. El operando valor no puede ser destino.
-
-rf: registro fuente
-rd: registro destino
-
-Los 4 primeros bits de la instrucción se descompone en:
-Código operación 3 bis y 1 bit se corresponde al tipo de destino, si es cero representa registro y si es 1 representa memoria.
-
-Formato instrucción MOV	Ejemplo	Acción	Direccionamiento
-
-
-
 
 
 ### Ciclo de la instrucción (Etapas de captación y ejecución)
@@ -222,8 +185,8 @@ Este cuenta con las siguientes características:
 | Arquitectura CPU | **Características** |
 | --- | --- |
 | | - Arquitectura *von Neumann*, memoria de datos e instrucciones compartida. |
-| | - 8 registros de propósito general, `R0` a `R7`. |
-| | - 1 registro de propósito específico `IP`. |
+| | - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL`. |
+| | - 2 registros de propósito específico `IP` y `SP`. |
 | | - Tamaño de palabra de 8 bits e instrucciones de 16 bits. |
 | | - Memoria de 256 palabras de 8 bits. |
 | | - Bus de 8 bits. |
@@ -235,14 +198,13 @@ Las instrucciones están codificadas en 16 bits. Los primeros 5 bits identifican
 
 | Caso | Codificación | Parámetros |
 | --- | --- | --- |
-| A | `OOOO XXYY-----` | `XX` = Registro X, `YY` = Registro Y o inmediato |
-| B | `OOOO XX--------` | `XX` = Registro X |
+| A | `OOOO XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
+| B | `OOOO XXmm DDDDDDDD` | `XX` = Registro destino |
 | C | `OOOO ---MMMMMMMM` | `MMMMMMMM` = Dirección de memoria o Inmediato |
-| D | `OOOO XXMMMMMMMM` | `XXX` = Registro X, `MMMMMMMM` = Dir. de memoria o Imm. |
 
 Considerando:
 
-- `Rx` o `Ry`: Índices de registros, número entre `0` y `7`.
+- `Rx` o `Ry`: Índices de registros, número entre `0` y `3`.
 - `M`: Dirección de memoria o valor inmediato, número de 8 bits.
 - `t`: Valor inmediato de desplazamiento, número entre `0` y `7`. Se codifica como `YYY`.
 - En la columna de codificación, los bits indicados con `-` son reservados y deben valer cero.
@@ -252,12 +214,12 @@ Las instrucciones soportadas por la arquitectura son las siguientes:
 
 | Instrucción            | Acción                                                             | Codificación               |
 | ---                    | ---                                                                | ---                        |
-| `ADD  Rx, Ry`          | `Rx` $\leftarrow$ `Rx + Ry`                                        | `00001 XXXYYY-----`        |
-| `SUB  Rx, Ry`          | `Rx` $\leftarrow$ `Rx - Ry`                                        | `00011 XXXYYY-----`        |
-| `CMP  Rx, Ry`          | Modifica *flags* de `Rx - Ry`                                      | `00111 XXXYYY-----`        |
-| `MOV  Rx, Ry`          | `Rx` $\leftarrow$ `Ry`                                             | `01000 XXXYYY-----`        |
+| `MOV  Rx, Ry`          | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`               |
+| `ADD  Rx, Ry`          | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`               |
+| `SUB  Rx, Ry`          | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0100 XXYY`               |
+| `CMP  Rx, Ry`          | Modifica *flags* de `Rx - Ry`                                      | `0101 XXYY`               |
+| `MOV Rx, [M]`          | `Rx` $\leftarrow$ `Mem[M]`                                         | `0001 XX DDDDDDDD`        |
 | `MOV  [M], Rx`         | `Mem[M]` $\leftarrow$ `Rx`                                         | `10000 XXXMMMMMMMM`        |
-| `MOV Rx, [M]`          | `Rx` $\leftarrow$ `Mem[M]`                                         | `10001 XXXMMMMMMMM`        |
 | `MOV  [Rx], Ry`        | `Mem[Rx]` $\leftarrow$ `Ry`                                        | `10010 XXXYYY-----`        |
 | `MOV Rx, [Ry]`         | `Rx` $\leftarrow$ `Mem[Ry]`                                        | `10011 XXXYYY-----`        |
 | `JMP M`                | `PC` $\leftarrow$ `M`                                              | `10100 ---MMMMMMMM`        |
@@ -293,6 +255,43 @@ Las instrucciones soportadas por la arquitectura son las siguientes:
 | 01 | R1   | User data                     |
 | 10 | R2   | User data (output pins A0-A7) |
 | 11 | R3   | User data (output pins B0-B7) |
+
+
+```{r data, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+# Crear los datos
+data <- data.frame(
+  Instrucciones = c(
+    "Transferencia de datos", 
+    "Procesamiento de datos", 
+    "Control de flujo", 
+    "Manejo de pila y E/S", 
+    "Manejo de interrupción", 
+    "Control del CPU"
+  ),
+  `Código operación` = c(
+    "MOV {0,1,2}", 
+    "ADD {3, 4, 5}", 
+    "JMP / Jxx / CALL / RET {12}", 
+    "PUSH / POP / OUT / IN {13}", 
+    "INT / IRET {14}", 
+    "NOP / HLT {15}"
+  ),
+  Acción = c(
+    "- Copiar entre registros - Almacenar en memoria - Cargar a registro",
+    "Operación aritmética: operando1 <- operando1 OPE operando2; actualiza el destino.",
+    "Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET.",
+    "Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S.",
+    "Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET.",
+    "No opera NOP. Detiene el CPU HLT."
+  )
+)
+
+# Convertir a HTML
+kable(data, format = "markdown", align = "l", col.names = c("Instrucciones", "Código operación", "Acción"), 
+      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
+```
 
 
 ## Componentes
