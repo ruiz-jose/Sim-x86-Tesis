@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="repertorio-de-instrucciones-1.html"/>
-<link rel="next" href="assembler.html"/>
+<link rel="next" href="componentes.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -142,18 +142,16 @@
 <li class="chapter" data-level="4.4" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html"><i class="fa fa-check"></i><b>4.4</b> Repertorio de instrucciones</a>
 <ul>
 <li class="chapter" data-level="4.4.1" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#registros-banco-de-registros"><i class="fa fa-check"></i><b>4.4.1</b> Registros (Banco de Registros)</a></li>
-<li class="chapter" data-level="4.4.2" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#modos-de-direccionamientos"><i class="fa fa-check"></i><b>4.4.2</b> Modos de direccionamientos</a></li>
-<li class="chapter" data-level="4.4.3" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución"><i class="fa fa-check"></i><b>4.4.3</b> Ciclo de la instrucción (Etapas de captación y ejecución)</a></li>
+<li class="chapter" data-level="4.4.2" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución"><i class="fa fa-check"></i><b>4.4.2</b> Ciclo de la instrucción (Etapas de captación y ejecución)</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="procesador-o-cpu.html"><a href="procesador-o-cpu.html"><i class="fa fa-check"></i><b>4.5</b> Procesador o CPU</a>
 <ul>
 <li class="chapter" data-level="4.5.1" data-path="procesador-o-cpu.html"><a href="procesador-o-cpu.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>4.5.1</b> Formato de instrucciones</a></li>
 <li class="chapter" data-level="4.5.2" data-path="procesador-o-cpu.html"><a href="procesador-o-cpu.html#instrucciones-soportadas"><i class="fa fa-check"></i><b>4.5.2</b> Instrucciones soportadas</a></li>
+<li class="chapter" data-level="4.5.3" data-path="procesador-o-cpu.html"><a href="procesador-o-cpu.html#modos-de-direccionamientos"><i class="fa fa-check"></i><b>4.5.3</b> Modos de direccionamientos</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="assembler.html"><a href="assembler.html"><i class="fa fa-check"></i><b>4.6</b> Assembler</a></li>
-<li class="chapter" data-level="4.7" data-path="registros.html"><a href="registros.html"><i class="fa fa-check"></i><b>4.7</b> Registros</a></li>
-<li class="chapter" data-level="4.8" data-path="componentes.html"><a href="componentes.html"><i class="fa fa-check"></i><b>4.8</b> Componentes</a></li>
-<li class="chapter" data-level="4.9" data-path="ejecución-de-instrucciones.html"><a href="ejecución-de-instrucciones.html"><i class="fa fa-check"></i><b>4.9</b> Ejecución de Instrucciones</a></li>
+<li class="chapter" data-level="4.6" data-path="componentes.html"><a href="componentes.html"><i class="fa fa-check"></i><b>4.6</b> Componentes</a></li>
+<li class="chapter" data-level="4.7" data-path="ejecución-de-instrucciones.html"><a href="ejecución-de-instrucciones.html"><i class="fa fa-check"></i><b>4.7</b> Ejecución de Instrucciones</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografía.html"><a href="bibliografía.html"><i class="fa fa-check"></i>Bibliografía</a></li>
 <li class="divider"></li>
@@ -219,7 +217,7 @@
 </table>
 <div id="formato-de-instrucciones" class="section level3 hasAnchor" number="4.5.1">
 <h3><span class="header-section-number">4.5.1</span> Formato de instrucciones<a href="procesador-o-cpu.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el <code>opcode</code> de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes.
+<p>El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado. Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el <code>opcode</code> de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes.
 Existen 4 posibles codificaciones de parámetros.</p>
 <table>
 <colgroup>
@@ -271,12 +269,14 @@ Existen 4 posibles codificaciones de parámetros.</p>
 <p>Las instrucciones soportadas por la arquitectura son las siguientes:</p>
 <table>
 <colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
+<col width="10%" />
+<col width="30%" />
+<col width="30%" />
+<col width="30%" />
 </colgroup>
 <thead>
 <tr class="header">
+<th>#</th>
 <th>Instrucción</th>
 <th>Acción</th>
 <th>Codificación</th>
@@ -284,98 +284,217 @@ Existen 4 posibles codificaciones de parámetros.</p>
 </thead>
 <tbody>
 <tr class="odd">
+<td>0</td>
 <td><code>MOV Rx, Ry</code></td>
 <td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></td>
 <td><code>0000 XXYY</code></td>
 </tr>
 <tr class="even">
+<td>1</td>
 <td><code>MOV Rx, [BL]</code></td>
 <td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[BL]</code></td>
 <td><code>0001 00ZZ</code></td>
 </tr>
 <tr class="odd">
+<td>1</td>
 <td><code>MOV Rx, [M]</code></td>
 <td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[Dirección]</code></td>
 <td><code>0001 01ZZ DDDDDDDD</code></td>
 </tr>
 <tr class="even">
+<td>1</td>
 <td><code>MOV Rx, D</code></td>
 <td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Dato</code></td>
 <td><code>0001 10ZZ DDDDDDDD</code></td>
 </tr>
 <tr class="odd">
+<td>1</td>
 <td><code>MOV Rx, [BL + D]</code></td>
 <td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[BL + Dato]</code></td>
 <td><code>0001 11ZZ DDDDDDDD</code></td>
 </tr>
 <tr class="even">
+<td>2</td>
 <td><code>MOV [BL], Rx</code></td>
 <td><code>Mem[BL]</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code></td>
 <td><code>0010 00ZZ</code></td>
 </tr>
 <tr class="odd">
+<td>2</td>
 <td><code>MOV [M], Rx</code></td>
 <td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code></td>
 <td><code>0010 01ZZ DDDDDDDD</code></td>
 </tr>
 <tr class="even">
+<td>2</td>
 <td><code>MOV [M], D</code></td>
 <td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Dato</code></td>
 <td><code>0010 1000 DDDDDDDD DDDDDDDD</code></td>
 </tr>
 <tr class="odd">
+<td>2</td>
 <td><code>MOV [BL], D</code></td>
 <td><code>Mem[BL]</code> <span class="math inline">\(\leftarrow\)</span> <code>Dato</code></td>
 <td><code>0010 1001 DDDDDDDD</code></td>
 </tr>
 <tr class="even">
+<td>2</td>
 <td><code>MOV [BL + D], D</code></td>
 <td><code>Mem[BL + Dato]</code> <span class="math inline">\(\leftarrow\)</span> <code>Dato</code></td>
 <td><code>0010 1010 DDDDDDDD DDDDDDDD</code></td>
 </tr>
 <tr class="odd">
+<td>2</td>
 <td><code>MOV [BL + D], Rx</code></td>
 <td><code>Mem[BL + Dato]</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code></td>
 <td><code>0010 11ZZ DDDDDDDD</code></td>
 </tr>
 <tr class="even">
+<td>3</td>
 <td><code>ADD Rx, Ry</code></td>
 <td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx + Ry</code></td>
 <td><code>0011 XXYY</code></td>
 </tr>
 <tr class="odd">
+<td>4</td>
+<td><code>ADD --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>0100 ---- --------</code></td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td><code>ADD --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>0101 ---- -------- --------</code></td>
+</tr>
+<tr class="odd">
+<td>6</td>
 <td><code>SUB Rx, Ry</code></td>
 <td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx - Ry</code></td>
-<td><code>0100 XXYY</code></td>
+<td><code>0110 XXYY</code></td>
 </tr>
 <tr class="even">
+<td>7</td>
+<td><code>SUB --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>0111 ---- --------</code></td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td><code>SUB --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>1000 ---- -------- --------</code></td>
+</tr>
+<tr class="even">
+<td>9</td>
 <td><code>CMP Rx, Ry</code></td>
 <td>Modifica <em>flags</em> de <code>Rx - Ry</code></td>
-<td><code>0101 XXYY</code></td>
+<td><code>1001 XXYY</code></td>
 </tr>
 <tr class="odd">
-<td><code>ADD, SUB y CMP</code></td>
-<td>Poseen los mismos formato de instruccion que MOV por con su opcode</td>
-<td><code>---- ---- -------- --------</code></td>
+<td>A</td>
+<td><code>CMP --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>1010 ---- --------</code></td>
 </tr>
 <tr class="even">
+<td>B</td>
+<td><code>CMP --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>1011 ---- -------- --------</code></td>
+</tr>
+<tr class="odd">
+<td>C</td>
 <td><code>JMP M</code></td>
-<td><code>PC</code> <span class="math inline">\(\leftarrow\)</span> <code>M</code></td>
+<td><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
 <td><code>1100 0000 DDDDDDDD</code></td>
 </tr>
-<tr class="odd">
+<tr class="even">
+<td>C</td>
 <td><code>JC M</code></td>
-<td>Si <code>flag C=1</code> entonces <code>PC</code> <span class="math inline">\(\leftarrow\)</span> <code>M</code></td>
+<td>Si <code>flag C=1</code> entonces <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
 <td><code>1100 0001 DDDDDDDD</code></td>
 </tr>
-<tr class="even">
+<tr class="odd">
+<td>C</td>
 <td><code>JZ M</code></td>
-<td>Si <code>flag Z=1</code> entonces <code>PC</code> <span class="math inline">\(\leftarrow\)</span> <code>M</code></td>
+<td>Si <code>flag Z=1</code> entonces <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
 <td><code>1100 0011 DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>C</td>
+<td><code>Jxx M</code></td>
+<td>Se pueden implemementar más flags y CALL</td>
+<td><code>1100 xxxx --------</code></td>
 </tr>
 </tbody>
 </table>
-<p>Las instrucciones soportadas por la arquitectura son las siguientes:</p>
+</div>
+<div id="modos-de-direccionamientos" class="section level3 hasAnchor" number="4.5.3">
+<h3><span class="header-section-number">4.5.3</span> Modos de direccionamientos<a href="procesador-o-cpu.html#modos-de-direccionamientos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:</p>
+<ul>
+<li>Registro a registro: los operandos de la instrucción son registros.<br />
+</li>
+<li>Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.<br />
+</li>
+<li>Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro BL<br />
+</li>
+<li>Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.</li>
+</ul>
+<p>Podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
+Operando tipo
+- <code>Rx</code>,<code>Ry</code>: por Registros
+- <code>[M]</code>: Directo, se accede a un contenido de memoria
+- <code>D</code>: el operando fuente es un valor inmediato
+- <code>[R]</code>: indirecto por registro, Contenido de la dirección de memoria esta dada por el registro BL</p>
+<table>
+<caption><span id="tab:data">Tabla 4.1: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
+<colgroup>
+<col width="12%" />
+<col width="14%" />
+<col width="72%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Instrucciones</th>
+<th align="left">Código operación</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Transferencia de datos</td>
+<td align="left">MOV {0,1,2}</td>
+<td align="left">- Copiar entre registros - Almacenar en memoria - Cargar a registro</td>
+</tr>
+<tr class="even">
+<td align="left">Procesamiento de datos</td>
+<td align="left">ADD {3, 4, 5}</td>
+<td align="left">Operación aritmética: operando1 &lt;- operando1 OPE operando2; actualiza el destino.</td>
+</tr>
+<tr class="odd">
+<td align="left">Control de flujo</td>
+<td align="left">JMP / Jxx / CALL / RET {12}</td>
+<td align="left">Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET.</td>
+</tr>
+<tr class="even">
+<td align="left">Manejo de pila y E/S</td>
+<td align="left">PUSH / POP / OUT / IN {13}</td>
+<td align="left">Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S.</td>
+</tr>
+<tr class="odd">
+<td align="left">Manejo de interrupción</td>
+<td align="left">INT / IRET {14}</td>
+<td align="left">Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET.</td>
+</tr>
+<tr class="even">
+<td align="left">Control del CPU</td>
+<td align="left">NOP / HLT {15}</td>
+<td align="left">No opera NOP. Detiene el CPU HLT.</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
             </section>
@@ -384,7 +503,7 @@ Existen 4 posibles codificaciones de parámetros.</p>
         </div>
       </div>
 <a href="repertorio-de-instrucciones-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="assembler.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="componentes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -142,18 +142,16 @@
 <li class="chapter" data-level="4.4" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html"><i class="fa fa-check"></i><b>4.4</b> Repertorio de instrucciones</a>
 <ul>
 <li class="chapter" data-level="4.4.1" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#registros-banco-de-registros"><i class="fa fa-check"></i><b>4.4.1</b> Registros (Banco de Registros)</a></li>
-<li class="chapter" data-level="4.4.2" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#modos-de-direccionamientos"><i class="fa fa-check"></i><b>4.4.2</b> Modos de direccionamientos</a></li>
-<li class="chapter" data-level="4.4.3" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución"><i class="fa fa-check"></i><b>4.4.3</b> Ciclo de la instrucción (Etapas de captación y ejecución)</a></li>
+<li class="chapter" data-level="4.4.2" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución"><i class="fa fa-check"></i><b>4.4.2</b> Ciclo de la instrucción (Etapas de captación y ejecución)</a></li>
 </ul></li>
 <li class="chapter" data-level="4.5" data-path="procesador-o-cpu.html"><a href="procesador-o-cpu.html"><i class="fa fa-check"></i><b>4.5</b> Procesador o CPU</a>
 <ul>
 <li class="chapter" data-level="4.5.1" data-path="procesador-o-cpu.html"><a href="procesador-o-cpu.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>4.5.1</b> Formato de instrucciones</a></li>
 <li class="chapter" data-level="4.5.2" data-path="procesador-o-cpu.html"><a href="procesador-o-cpu.html#instrucciones-soportadas"><i class="fa fa-check"></i><b>4.5.2</b> Instrucciones soportadas</a></li>
+<li class="chapter" data-level="4.5.3" data-path="procesador-o-cpu.html"><a href="procesador-o-cpu.html#modos-de-direccionamientos"><i class="fa fa-check"></i><b>4.5.3</b> Modos de direccionamientos</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="assembler.html"><a href="assembler.html"><i class="fa fa-check"></i><b>4.6</b> Assembler</a></li>
-<li class="chapter" data-level="4.7" data-path="registros.html"><a href="registros.html"><i class="fa fa-check"></i><b>4.7</b> Registros</a></li>
-<li class="chapter" data-level="4.8" data-path="componentes.html"><a href="componentes.html"><i class="fa fa-check"></i><b>4.8</b> Componentes</a></li>
-<li class="chapter" data-level="4.9" data-path="ejecución-de-instrucciones.html"><a href="ejecución-de-instrucciones.html"><i class="fa fa-check"></i><b>4.9</b> Ejecución de Instrucciones</a></li>
+<li class="chapter" data-level="4.6" data-path="componentes.html"><a href="componentes.html"><i class="fa fa-check"></i><b>4.6</b> Componentes</a></li>
+<li class="chapter" data-level="4.7" data-path="ejecución-de-instrucciones.html"><a href="ejecución-de-instrucciones.html"><i class="fa fa-check"></i><b>4.7</b> Ejecución de Instrucciones</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografía.html"><a href="bibliografía.html"><i class="fa fa-check"></i>Bibliografía</a></li>
 <li class="divider"></li>
@@ -293,19 +291,6 @@
 </tr>
 </tbody>
 </table>
-</div>
-<div id="modos-de-direccionamientos" class="section level3 hasAnchor" number="4.4.2">
-<h3><span class="header-section-number">4.4.2</span> Modos de direccionamientos<a href="repertorio-de-instrucciones-1.html#modos-de-direccionamientos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:</p>
-<ul>
-<li>Registro a registro: los operandos de la instrucción son registros.<br />
-</li>
-<li>Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.<br />
-</li>
-<li>Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro BL<br />
-</li>
-<li>Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.</li>
-</ul>
 <p>La mayoría de las instrucciones básicas tienen solo las siguientes formas:</p>
 <ul>
 <li><strong>MOV <em>reg, reg</em></strong><br />
@@ -319,42 +304,17 @@
 <li><strong>MOV <em>mem, inm</em></strong></li>
 </ul>
 </div>
-<div id="ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="section level3 hasAnchor" number="4.4.3">
-<h3><span class="header-section-number">4.4.3</span> Ciclo de la instrucción (Etapas de captación y ejecución)<a href="repertorio-de-instrucciones-1.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="captación" class="section level4 hasAnchor" number="4.4.3.1">
-<h4><span class="header-section-number">4.4.3.1</span> Captación<a href="repertorio-de-instrucciones-1.html#captación" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Ciclo de la instrucción (Etapas de captación y ejecución)<a href="repertorio-de-instrucciones-1.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="captación" class="section level4 hasAnchor" number="4.4.2.1">
+<h4><span class="header-section-number">4.4.2.1</span> Captación<a href="repertorio-de-instrucciones-1.html#captación" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <pre><code>1.  MAR = IP 
 2.  MDR = read(Memoria[MAR])
     IP = IP + 1
 3.  IR  = MDR</code></pre>
 </div>
-<div id="ejecución" class="section level4 hasAnchor" number="4.4.3.2">
-<h4><span class="header-section-number">4.4.3.2</span> Ejecución<a href="repertorio-de-instrucciones-1.html#ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Instrucciones Operación Nemónico Acción
-Transferencia de datos Mover MOV od, of Copiar: operando-destino (od) operando-fuente (of)</p>
-<p>Procesamiento de datos + Sumar<br />
-- Restar
-Comparar ADD od, of
-SUB od, of
-CMP od, of od = od + of<br />
-od od - of<br />
-od - of</p>
-<p>Control de flujo Salto incondicional
-Salto condicional
-Detener JMP d
-Jxx d
-HLT Salto incondicional a dirección destino (d).
-Saltos condicionales en base a las banderas (flags) a d.
-Detiene el CPU.</p>
-</div>
-<div id="formato-de-instrucciones-y-modos-de-direccionamiento" class="section level4 hasAnchor" number="4.4.3.3">
-<h4><span class="header-section-number">4.4.3.3</span> Formato de Instrucciones y modos de direccionamiento<a href="repertorio-de-instrucciones-1.html#formato-de-instrucciones-y-modos-de-direccionamiento" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado, podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
-Operando tipo
-r Registros del CPU
-[d] Contenido de la dirección de memoria
-i Valor inmediato
-[r] Contenido de la dirección de memoria dada por el registro</p>
+<div id="ejecución" class="section level4 hasAnchor" number="4.4.2.2">
+<h4><span class="header-section-number">4.4.2.2</span> Ejecución<a href="repertorio-de-instrucciones-1.html#ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 </div>
 </div>
 </div>
