@@ -122,15 +122,6 @@ El repertorio x86 es reducido (8 bits)
 | DL | 11 | 3 |
 
 
-### Modos de direccionamientos
-
-Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:
-
-* Registro a registro: los operandos de la instrucción son registros.  
-* Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.  
-* Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro BL  
-* Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.   
-
 
 La mayoría de las instrucciones básicas tienen solo las siguientes formas:
 
@@ -150,32 +141,7 @@ La mayoría de las instrucciones básicas tienen solo las siguientes formas:
     3.	IR  = MDR
 
 #### Ejecución
-Instrucciones	Operación	Nemónico	Acción
-Transferencia de datos        	 Mover	MOV od, of	Copiar: operando-destino (od)   operando-fuente (of)
 
-Procesamiento de datos      	+  Sumar  
-- Restar
-Comparar 	ADD  od, of
-SUB   od, of
-CMP  od, of  	od = od + of  
-od  od - of  
-od - of  
-
-Control de flujo	 Salto incondicional 
- Salto condicional
- Detener 	JMP  d
-Jxx    d
-HLT 	Salto incondicional a dirección destino (d). 
-Saltos condicionales en base a las banderas (flags) a d.
-Detiene el CPU.
-
-#### Formato de Instrucciones y modos de direccionamiento
-El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado, podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
-Operando	tipo
-r	Registros del CPU
-[d]	Contenido de la dirección de memoria
-i	Valor inmediato
-[r]	Contenido de la dirección de memoria dada por el registro
 
 ## Procesador o CPU
 Procesador o CPU cuenta con las siguientes características:
@@ -191,8 +157,7 @@ Procesador o CPU cuenta con las siguientes características:
 | | - 16 instrucciones soportadas. |
 
 ### Formato de instrucciones
-
-Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el `opcode` de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes. 
+El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado. Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el `opcode` de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes. 
  Existen 4 posibles codificaciones de parámetros.
 
 | Caso | Codificación | Parámetros |
@@ -214,56 +179,49 @@ Considerando:
 ### Instrucciones soportadas
 Las instrucciones soportadas por la arquitectura son las siguientes:
 
-| Instrucción            | Acción                                                             | Codificación                  |
-| ---                    | ---                                                                | ---                           |
-| `MOV Rx, Ry`           | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`                   |
-| `MOV Rx, [BL]`         | `Rx` $\leftarrow$ `Mem[BL]`                                        | `0001 00ZZ`                   |
-| `MOV Rx, [M]`          | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 01ZZ DDDDDDDD`          |
-| `MOV Rx, D`            | `Rx` $\leftarrow$ `Dato`                                           | `0001 10ZZ DDDDDDDD`          |
-| `MOV Rx, [BL + D]`     | `Rx` $\leftarrow$ `Mem[BL + Dato]`                                 | `0001 11ZZ DDDDDDDD`          |
-| `MOV [BL], Rx`         | `Mem[BL]` $\leftarrow$ `Rx`                                        | `0010 00ZZ`                   |
-| `MOV [M], Rx`          | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 01ZZ DDDDDDDD`          |
-| `MOV [M], D`           | `Mem[Dirección]` $\leftarrow$ `Dato`                               | `0010 1000 DDDDDDDD DDDDDDDD` |
-| `MOV [BL], D`          | `Mem[BL]` $\leftarrow$ `Dato`                                      | `0010 1001 DDDDDDDD`          |
-| `MOV [BL + D], D`      | `Mem[BL + Dato]` $\leftarrow$ `Dato`                               | `0010 1010 DDDDDDDD DDDDDDDD` |
-| `MOV [BL + D], Rx`     | `Mem[BL + Dato]` $\leftarrow$ `Rx`                                 | `0010 11ZZ DDDDDDDD`          |
-| `ADD Rx, Ry`           | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`                   |
-| `SUB Rx, Ry`           | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0100 XXYY`                   |
-| `CMP Rx, Ry`           | Modifica *flags* de `Rx - Ry`                                      | `0101 XXYY`                   |
-| `ADD, SUB y CMP`       | Poseen los mismos formato de instruccion que MOV por con su opcode | `---- ---- -------- --------` |
-| `JMP M`                | `PC` $\leftarrow$ `M`                                              | `1100 0000 DDDDDDDD`          |
-| `JC M`                 | Si `flag C=1` entonces `PC` $\leftarrow$ `M`                       | `1100 0001 DDDDDDDD`          |
-| `JZ M`                 | Si `flag Z=1` entonces `PC` $\leftarrow$ `M`                       | `1100 0011 DDDDDDDD`          |
+| # | Instrucción        | Acción                                                             | Codificación                  |
+| - | ---                | ---                                                                | ---                           |
+| 0 | `MOV Rx, Ry`       | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`                   |
+| 1 | `MOV Rx, [BL]`     | `Rx` $\leftarrow$ `Mem[BL]`                                        | `0001 00ZZ`                   |
+| 1 | `MOV Rx, [M]`      | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 01ZZ DDDDDDDD`          |
+| 1 | `MOV Rx, D`        | `Rx` $\leftarrow$ `Dato`                                           | `0001 10ZZ DDDDDDDD`          |
+| 1 | `MOV Rx, [BL + D]` | `Rx` $\leftarrow$ `Mem[BL + Dato]`                                 | `0001 11ZZ DDDDDDDD`          |
+| 2 | `MOV [BL], Rx`     | `Mem[BL]` $\leftarrow$ `Rx`                                        | `0010 00ZZ`                   |
+| 2 | `MOV [M], Rx`      | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 01ZZ DDDDDDDD`          |
+| 2 | `MOV [M], D`       | `Mem[Dirección]` $\leftarrow$ `Dato`                               | `0010 1000 DDDDDDDD DDDDDDDD` |
+| 2 | `MOV [BL], D`      | `Mem[BL]` $\leftarrow$ `Dato`                                      | `0010 1001 DDDDDDDD`          |
+| 2 | `MOV [BL + D], D`  | `Mem[BL + Dato]` $\leftarrow$ `Dato`                               | `0010 1010 DDDDDDDD DDDDDDDD` |
+| 2 | `MOV [BL + D], Rx` | `Mem[BL + Dato]` $\leftarrow$ `Rx`                                 | `0010 11ZZ DDDDDDDD`          |
+| 3 | `ADD Rx, Ry`       | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`                   |
+| 4 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0100 ---- --------`          |
+| 5 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0101 ---- -------- --------` |
+| 6 | `SUB Rx, Ry`       | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0110 XXYY`                   |
+| 7 | `SUB --, --`       | Mismo direccionamientos que MOV                                    | `0111 ---- --------`          |
+| 8 | `SUB --, --`       | Mismo direccionamientos que MOV                                    | `1000 ---- -------- --------` |
+| 9 | `CMP Rx, Ry`       | Modifica *flags* de `Rx - Ry`                                      | `1001 XXYY`                   |
+| A | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1010 ---- --------`          |
+| B | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1011 ---- -------- --------` |
+| C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 DDDDDDDD`          |
+| C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 DDDDDDDD`          |
+| C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 DDDDDDDD`          |
+| C | `Jxx M`            | Se pueden implemementar más flags y CALL                           | `1100 xxxx --------`          |
 
 
-Las instrucciones soportadas por la arquitectura son las siguientes:
+### Modos de direccionamientos
 
-## Assembler
-| # | Mnemonics              | Action                       |
-| - | ---------------------- | ---------------------------- |
-| 0 | `MOV Rx, Ry`           | `Ra = Rb`                    |
-| 1 | `ADD Rx, Ry`           | `Ra += Rb`                   |
-| 2 | `SUB Rx, Ry`           | `Ra -= Rb`                   |
-| 3 | `CMP Rx, Ry`           | `Ra -= Rb`                   |
-| 4 | `MOV Rx, [Rb]`         | `Ra = Mem[Rb]`               |
-| 5 | `MOV [Rb], Rx`         | `Mem[Rb] = Ra`               |
-| 7 | `INP Ra`               | `Ra = Inp`                   |
-| 8 | `JEQ Ra, value\|label` | `PC = value\|label, Ra == 0` |
-| 9 | `JNE Ra, value\|label` | `PC = value\|label, Ra != 0` |
-| a | `JGT Ra, value\|label` | `PC = value\|label, Ra > 0`  |
-| b | `JLT Ra, value\|label` | `PC = value\|label, Ra < 0`  |
-| c | `MOV Ra, value\|label` | `Ra = Mem[value\|label]`     |
-| d | `MOV value\|label, Ra` | `Mem[value\|label] = Ra`     |
-| e | `MOV Ra, value\|label` | `Ra = value\|label`          |
-| f | `JMP value\|label`     | `PC = value\|label`          |
+Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:
 
-## Registros
-| ## | Name | Description                   |
-| -- | ---- | ----------------------------- |
-| 00 | R0   | User data                     |
-| 01 | R1   | User data                     |
-| 10 | R2   | User data (output pins A0-A7) |
-| 11 | R3   | User data (output pins B0-B7) |
+* Registro a registro: los operandos de la instrucción son registros.  
+* Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.  
+* Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro BL  
+* Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.   
+
+Podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
+Operando	tipo
+- `Rx`,`Ry`: por Registros
+- `[M]`:	Directo, se accede a un contenido de memoria
+- `D`: el operando fuente es un valor inmediato
+- `[R]`: indirecto por registro,	Contenido de la dirección de memoria esta dada por el registro BL
 
 
 ```{r data, echo=FALSE, message=FALSE, warning=FALSE}
