@@ -177,38 +177,42 @@ r	Registros del CPU
 i	Valor inmediato
 [r]	Contenido de la dirección de memoria dada por el registro
 
-## Procesador `VonSim8`
-
-`VonSim8` es un procesador diseñado e implementado sobre la herramienta *Logisim*.
-Este cuenta con las siguientes características:
+## Procesador o CPU
+Procesador o CPU cuenta con las siguientes características:
 
 | Arquitectura CPU | **Características** |
 | --- | --- |
-| | - Arquitectura *von Neumann*, memoria de datos e instrucciones compartida. |
-| | - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL`. |
+| | - Arquitectura *von Neumann*, memoria de datos e instrucciones compartidas. |
+| | - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits. |
 | | - 2 registros de propósito específico `IP` y `SP`. |
-| | - Tamaño de palabra de 8 bits e instrucciones de 16 bits. |
-| | - Memoria de 256 palabras de 8 bits. |
-| | - Bus de 8 bits. |
-| | - Diseño microprogramado. |
+| | - Memoria de 256 bytes. |
+| | - Bus de datos y direcciones de 8 bits. | 
+| | - Tamaño de instrucciones variable de 1, 2 y 3 bytes. | 
+| | - 16 instrucciones soportadas. |
 
-## Instrucciones
+## Formato de instrucciones
 
-Las instrucciones están codificadas en 16 bits. Los primeros 5 bits identifican el `opcode` de la instrucción, el resto de los bits indican los parámetros. Existen 4 posibles codificaciones de parámetros.
+Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el `opcode` de la instrucción, el resto de los bits indican los parámetros. Existen 4 posibles codificaciones de parámetros.
 
 | Caso | Codificación | Parámetros |
 | --- | --- | --- |
-| A | `OOOO XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
-| B | `OOOO XXmm DDDDDDDD` | `XX` = Registro destino |
-| C | `OOOO ---MMMMMMMM` | `MMMMMMMM` = Dirección de memoria o Inmediato |
+| A: registro | `OOOO XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
+| B: indirecto| `OOOO 00ZZ` | `ZZ` = Puede ser registro destino o fuente |
+| C: directo: memoria/inmediato a registro| `OOOO mmZZ DDDDDDDD` | `mm` = modo `D` = Dirección de memoria o Dato Inmediato  |
+| D: directo: inmediato a memoria| `OOOO  mmmm DDDDDDDD` | `DDDDDDDD` = Dirección de memoria o Inmediato |
+
+Las instruciones de transferencia y operaciones en la ALU soportan todos esos formatos de instrucicones. 
+Según los primeros 4 bits de la instrucción opcode es como se interpretan los 4 bits restantes.
 
 Considerando:
 
-- `Rx` o `Ry`: Índices de registros, número entre `0` y `3`.
-- `M`: Dirección de memoria o valor inmediato, número de 8 bits.
-- `t`: Valor inmediato de desplazamiento, número entre `0` y `7`. Se codifica como `YYY`.
+- `A` y `B`: son de 1 byte, `C` es de 2 bytes y `D` es de 3 bytes.
+- `XX` o `YY`: Índices de registros, número entre `0` y `3`.
+- `D`: Dirección de memoria o Dato inmediato, número de 8 bits.
+- `m`: especifica el modo de direccionamiento.
 - En la columna de codificación, los bits indicados con `-` son reservados y deben valer cero.
 - Las instrucciones de `opcode`: 9, 10, 11, 12, 13, 14, 15, 28, 29 y 30 son instrucciones reservadas.
+
 
 Las instrucciones soportadas por la arquitectura son las siguientes:
 
