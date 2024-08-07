@@ -1314,55 +1314,24 @@ Procesador o CPU cuenta con las siguientes características:
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-\begin{minipage}[b]{0.47\columnwidth}\raggedright
-Arquitectura CPU\strut
-\end{minipage} & \begin{minipage}[b]{0.47\columnwidth}\raggedright
-\textbf{Características}\strut
-\end{minipage}\tabularnewline
+Arquitectura CPU & \textbf{Características}\tabularnewline
 \midrule
 \endhead
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- Arquitectura \emph{von Neumann}, memoria de datos e instrucciones compartidas.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- 4 registros de propósito general, \texttt{AL}, \texttt{BL}, \texttt{DL} y \texttt{DL} de 8 bits.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- 2 registros de propósito específico \texttt{IP} y \texttt{SP}.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- Memoria de 256 bytes.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- Bus de datos y direcciones de 8 bits.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- Tamaño de instrucciones variable de 1, 2 y 3 bytes.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- 16 instrucciones soportadas.\strut
-\end{minipage}\tabularnewline
+Arquitectura & - \emph{von Neumann}, memoria de datos e instrucciones compartidas.\tabularnewline
+Registros & - 4 registros de propósito general, \texttt{AL}, \texttt{BL}, \texttt{DL} y \texttt{DL} de 8 bits.\tabularnewline
+& - 2 registros de propósito específico \texttt{IP} y \texttt{SP}.\tabularnewline
+Memoria & - Memoria de 256 bytes.\tabularnewline
+Buses & - Bus de datos y direcciones de 8 bits.\tabularnewline
+Instrucciones & - Tamaño de instrucciones variable de 1, 2 y 3 bytes.\tabularnewline
+& - 16 instrucciones soportadas.\tabularnewline
 \bottomrule
 \end{longtable}
 
 \hypertarget{formato-de-instrucciones}{%
-\section{Formato de instrucciones}\label{formato-de-instrucciones}}
+\subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
 
-Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el \texttt{opcode} de la instrucción, el resto de los bits indican los parámetros. Existen 4 posibles codificaciones de parámetros.
+Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el \texttt{opcode} de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes.
+Existen 4 posibles codificaciones de parámetros.
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
@@ -1390,61 +1359,173 @@ B: indirecto\strut
 \texttt{ZZ} = Puede ser registro destino o fuente\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.30\columnwidth}\raggedright
-C: directo: memoria/inmediato a registro\strut
+C: directo/inmediato: dirección/dato a registro\strut
 \end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
 \texttt{OOOO\ mmZZ\ DDDDDDDD}\strut
 \end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
 \texttt{mm} = modo \texttt{D} = Dirección de memoria o Dato Inmediato\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.30\columnwidth}\raggedright
-D: directo: inmediato a memoria\strut
+D: inmediato: dato a memoria\strut
 \end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{OOOO\ \ mmmm\ DDDDDDDD}\strut
+\texttt{OOOO\ \ mmmm\ DDDDDDDD\ DDDDDDDD}\strut
 \end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{DDDDDDDD} = Dirección de memoria o Inmediato\strut
+\texttt{D} = Dirección de memoria o Inmediato\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
-Las instruciones de transferencia y operaciones en la ALU soportan todos esos formatos de instrucicones.
-Según los primeros 4 bits de la instrucción opcode es como se interpretan los 4 bits restantes.
-
 Considerando:
+- \texttt{A} y \texttt{B}: son de 1 byte, \texttt{C} es de 2 bytes y \texttt{D} es de 3 bytes.
+- \texttt{OOOO}: Código de operación de la instrucción.
+- \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}.
+- \texttt{ZZ}: Puede ser registro destino o fuente.
+- \texttt{D}: Dirección de memoria o Dato inmediato, número de 8 bits.
+- \texttt{m}: especifica el modo de direccionamiento.
+- Las instruciones de transferencia y operaciones en la ALU soportan todos esos formatos de instrucciones.
 
-\begin{itemize}
-\tightlist
-\item
-  \texttt{A} y \texttt{B}: son de 1 byte, \texttt{C} es de 2 bytes y \texttt{D} es de 3 bytes.
-\item
-  \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}.
-\item
-  \texttt{D}: Dirección de memoria o Dato inmediato, número de 8 bits.
-\item
-  \texttt{m}: especifica el modo de direccionamiento.
-\item
-  En la columna de codificación, los bits indicados con \texttt{-} son reservados y deben valer cero.
-\item
-  Las instrucciones de \texttt{opcode}: 9, 10, 11, 12, 13, 14, 15, 28, 29 y 30 son instrucciones reservadas.
-\end{itemize}
+\hypertarget{instrucciones-soportadas}{%
+\subsection{Instrucciones soportadas}\label{instrucciones-soportadas}}
 
 Las instrucciones soportadas por la arquitectura son las siguientes:
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
-Instrucción & Acción & Codificación\tabularnewline
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+Instrucción\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Acción\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Codificación\strut
+\end{minipage}\tabularnewline
 \midrule
 \endhead
-\texttt{MOV\ \ Rx,\ Ry} & \texttt{Rx} \(\leftarrow\) \texttt{Ry} & \texttt{0000\ XXYY}\tabularnewline
-\texttt{ADD\ \ Rx,\ Ry} & \texttt{Rx} \(\leftarrow\) \texttt{Rx\ +\ Ry} & \texttt{0011\ XXYY}\tabularnewline
-\texttt{SUB\ \ Rx,\ Ry} & \texttt{Rx} \(\leftarrow\) \texttt{Rx\ -\ Ry} & \texttt{0100\ XXYY}\tabularnewline
-\texttt{CMP\ \ Rx,\ Ry} & Modifica \emph{flags} de \texttt{Rx\ -\ Ry} & \texttt{0101\ XXYY}\tabularnewline
-\texttt{MOV\ Rx,\ {[}M{]}} & \texttt{Rx} \(\leftarrow\) \texttt{Mem{[}M{]}} & \texttt{0001\ XX\ DDDDDDDD}\tabularnewline
-\texttt{MOV\ \ {[}M{]},\ Rx} & \texttt{Mem{[}M{]}} \(\leftarrow\) \texttt{Rx} & \texttt{10000\ XXXMMMMMMMM}\tabularnewline
-\texttt{MOV\ \ {[}Rx{]},\ Ry} & \texttt{Mem{[}Rx{]}} \(\leftarrow\) \texttt{Ry} & \texttt{10010\ XXXYYY-\/-\/-\/-\/-}\tabularnewline
-\texttt{MOV\ Rx,\ {[}Ry{]}} & \texttt{Rx} \(\leftarrow\) \texttt{Mem{[}Ry{]}} & \texttt{10011\ XXXYYY-\/-\/-\/-\/-}\tabularnewline
-\texttt{JMP\ M} & \texttt{PC} \(\leftarrow\) \texttt{M} & \texttt{10100\ -\/-\/-MMMMMMMM}\tabularnewline
-\texttt{JC\ M} & Si \texttt{flag\ C=1} entonces \texttt{PC} \(\leftarrow\) \texttt{M} & \texttt{10101\ -\/-\/-MMMMMMMM}\tabularnewline
-\texttt{JZ\ M} & Si \texttt{flag\ Z=1} entonces \texttt{PC} \(\leftarrow\) \texttt{M} & \texttt{10110\ -\/-\/-MMMMMMMM}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ Rx,\ Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Rx} \(\leftarrow\) \texttt{Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0000\ XXYY}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ Rx,\ {[}BL{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Rx} \(\leftarrow\) \texttt{Mem{[}BL{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0001\ 00ZZ}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ Rx,\ {[}M{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Rx} \(\leftarrow\) \texttt{Mem{[}Dirección{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0001\ 01ZZ\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ Rx,\ D}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Rx} \(\leftarrow\) \texttt{Dato}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0001\ 10ZZ\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ Rx,\ {[}BL\ +\ D{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Rx} \(\leftarrow\) \texttt{Mem{[}BL\ +\ Dato{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0001\ 11ZZ\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ {[}BL{]},\ Rx}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Mem{[}BL{]}} \(\leftarrow\) \texttt{Rx}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0010\ 00ZZ}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ {[}M{]},\ Rx}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Mem{[}Dirección{]}} \(\leftarrow\) \texttt{Rx}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0010\ 01ZZ\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ {[}M{]},\ D}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Mem{[}Dirección{]}} \(\leftarrow\) \texttt{Dato}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0010\ 1000\ DDDDDDDD\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ {[}BL{]},\ D}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Mem{[}BL{]}} \(\leftarrow\) \texttt{Dato}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0010\ 1001\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ {[}BL\ +\ D{]},\ D}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Mem{[}BL\ +\ Dato{]}} \(\leftarrow\) \texttt{Dato}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0010\ 1010\ DDDDDDDD\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{MOV\ {[}BL\ +\ D{]},\ Rx}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Mem{[}BL\ +\ Dato{]}} \(\leftarrow\) \texttt{Rx}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0010\ 11ZZ\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{ADD\ Rx,\ Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Rx} \(\leftarrow\) \texttt{Rx\ +\ Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0011\ XXYY}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{SUB\ Rx,\ Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{Rx} \(\leftarrow\) \texttt{Rx\ -\ Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0100\ XXYY}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{CMP\ Rx,\ Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Modifica \emph{flags} de \texttt{Rx\ -\ Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{0101\ XXYY}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{ADD,\ SUB\ y\ CMP}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Poseen los mismos formato de instruccion que MOV por con su opcode\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{-\/-\/-\/-\ -\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{JMP\ M}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{PC} \(\leftarrow\) \texttt{M}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{1100\ 0000\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{JC\ M}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Si \texttt{flag\ C=1} entonces \texttt{PC} \(\leftarrow\) \texttt{M}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{1100\ 0001\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{JZ\ M}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+Si \texttt{flag\ Z=1} entonces \texttt{PC} \(\leftarrow\) \texttt{M}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{1100\ 0011\ DDDDDDDD}\strut
+\end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
