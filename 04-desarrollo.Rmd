@@ -182,53 +182,58 @@ Procesador o CPU cuenta con las siguientes características:
 
 | Arquitectura CPU | **Características** |
 | --- | --- |
-| | - Arquitectura *von Neumann*, memoria de datos e instrucciones compartidas. |
-| | - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits. |
+| Arquitectura | -  *von Neumann*, memoria de datos e instrucciones compartidas. |
+|Registros | - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits. |
 | | - 2 registros de propósito específico `IP` y `SP`. |
-| | - Memoria de 256 bytes. |
-| | - Bus de datos y direcciones de 8 bits. | 
-| | - Tamaño de instrucciones variable de 1, 2 y 3 bytes. | 
+|Memoria | - Memoria de 256 bytes. |
+|Buses | - Bus de datos y direcciones de 8 bits. | 
+| Instrucciones| - Tamaño de instrucciones variable de 1, 2 y 3 bytes. | 
 | | - 16 instrucciones soportadas. |
 
-## Formato de instrucciones
+### Formato de instrucciones
 
-Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el `opcode` de la instrucción, el resto de los bits indican los parámetros. Existen 4 posibles codificaciones de parámetros.
+Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el `opcode` de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes. 
+ Existen 4 posibles codificaciones de parámetros.
 
 | Caso | Codificación | Parámetros |
 | --- | --- | --- |
 | A: registro | `OOOO XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
 | B: indirecto| `OOOO 00ZZ` | `ZZ` = Puede ser registro destino o fuente |
-| C: directo: memoria/inmediato a registro| `OOOO mmZZ DDDDDDDD` | `mm` = modo `D` = Dirección de memoria o Dato Inmediato  |
-| D: directo: inmediato a memoria| `OOOO  mmmm DDDDDDDD` | `DDDDDDDD` = Dirección de memoria o Inmediato |
-
-Las instruciones de transferencia y operaciones en la ALU soportan todos esos formatos de instrucicones. 
-Según los primeros 4 bits de la instrucción opcode es como se interpretan los 4 bits restantes.
+| C: directo/inmediato: dirección/dato a registro| `OOOO mmZZ DDDDDDDD` | `mm` = modo `D` = Dirección de memoria o Dato Inmediato  |
+| D: inmediato: dato a memoria| `OOOO  mmmm DDDDDDDD DDDDDDDD` | `D` = Dirección de memoria o Inmediato |
 
 Considerando:
-
 - `A` y `B`: son de 1 byte, `C` es de 2 bytes y `D` es de 3 bytes.
+- `OOOO`: Código de operación de la instrucción.
 - `XX` o `YY`: Índices de registros, número entre `0` y `3`.
+- `ZZ`: Puede ser registro destino o fuente.
 - `D`: Dirección de memoria o Dato inmediato, número de 8 bits.
 - `m`: especifica el modo de direccionamiento.
-- En la columna de codificación, los bits indicados con `-` son reservados y deben valer cero.
-- Las instrucciones de `opcode`: 9, 10, 11, 12, 13, 14, 15, 28, 29 y 30 son instrucciones reservadas.
+- Las instruciones de transferencia y operaciones en la ALU soportan todos esos formatos de instrucciones. 
 
-
+### Instrucciones soportadas
 Las instrucciones soportadas por la arquitectura son las siguientes:
 
-| Instrucción            | Acción                                                             | Codificación               |
-| ---                    | ---                                                                | ---                        |
-| `MOV  Rx, Ry`          | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`               |
-| `ADD  Rx, Ry`          | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`               |
-| `SUB  Rx, Ry`          | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0100 XXYY`               |
-| `CMP  Rx, Ry`          | Modifica *flags* de `Rx - Ry`                                      | `0101 XXYY`               |
-| `MOV Rx, [M]`          | `Rx` $\leftarrow$ `Mem[M]`                                         | `0001 XX DDDDDDDD`        |
-| `MOV  [M], Rx`         | `Mem[M]` $\leftarrow$ `Rx`                                         | `10000 XXXMMMMMMMM`        |
-| `MOV  [Rx], Ry`        | `Mem[Rx]` $\leftarrow$ `Ry`                                        | `10010 XXXYYY-----`        |
-| `MOV Rx, [Ry]`         | `Rx` $\leftarrow$ `Mem[Ry]`                                        | `10011 XXXYYY-----`        |
-| `JMP M`                | `PC` $\leftarrow$ `M`                                              | `10100 ---MMMMMMMM`        |
-| `JC M`                 | Si `flag C=1` entonces `PC` $\leftarrow$ `M`                       | `10101 ---MMMMMMMM`        |
-| `JZ M`                 | Si `flag Z=1` entonces `PC` $\leftarrow$ `M`                       | `10110 ---MMMMMMMM`        |
+| Instrucción            | Acción                                                             | Codificación                  |
+| ---                    | ---                                                                | ---                           |
+| `MOV Rx, Ry`           | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`                   |
+| `MOV Rx, [BL]`         | `Rx` $\leftarrow$ `Mem[BL]`                                        | `0001 00ZZ`                   |
+| `MOV Rx, [M]`          | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 01ZZ DDDDDDDD`          |
+| `MOV Rx, D`            | `Rx` $\leftarrow$ `Dato`                                           | `0001 10ZZ DDDDDDDD`          |
+| `MOV Rx, [BL + D]`     | `Rx` $\leftarrow$ `Mem[BL + Dato]`                                 | `0001 11ZZ DDDDDDDD`          |
+| `MOV [BL], Rx`         | `Mem[BL]` $\leftarrow$ `Rx`                                        | `0010 00ZZ`                   |
+| `MOV [M], Rx`          | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 01ZZ DDDDDDDD`          |
+| `MOV [M], D`           | `Mem[Dirección]` $\leftarrow$ `Dato`                               | `0010 1000 DDDDDDDD DDDDDDDD` |
+| `MOV [BL], D`          | `Mem[BL]` $\leftarrow$ `Dato`                                      | `0010 1001 DDDDDDDD`          |
+| `MOV [BL + D], D`      | `Mem[BL + Dato]` $\leftarrow$ `Dato`                               | `0010 1010 DDDDDDDD DDDDDDDD` |
+| `MOV [BL + D], Rx`     | `Mem[BL + Dato]` $\leftarrow$ `Rx`                                 | `0010 11ZZ DDDDDDDD`          |
+| `ADD Rx, Ry`           | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`                   |
+| `SUB Rx, Ry`           | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0100 XXYY`                   |
+| `CMP Rx, Ry`           | Modifica *flags* de `Rx - Ry`                                      | `0101 XXYY`                   |
+| `ADD, SUB y CMP`       | Poseen los mismos formato de instruccion que MOV por con su opcode | `---- ---- -------- --------` |
+| `JMP M`                | `PC` $\leftarrow$ `M`                                              | `1100 0000 DDDDDDDD`          |
+| `JC M`                 | Si `flag C=1` entonces `PC` $\leftarrow$ `M`                       | `1100 0001 DDDDDDDD`          |
+| `JZ M`                 | Si `flag Z=1` entonces `PC` $\leftarrow$ `M`                       | `1100 0011 DDDDDDDD`          |
 
 
 Las instrucciones soportadas por la arquitectura son las siguientes:
