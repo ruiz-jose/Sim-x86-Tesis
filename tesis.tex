@@ -519,7 +519,7 @@ El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture)
 \hypertarget{filosofuxedas-cisc-y-risc}{%
 \subsubsection{Filosofías CISC y RISC}\label{filosofuxedas-cisc-y-risc}}
 
-La arquitectura x86 sigue la filosofía CISC (Complex Instruction Set Computer), la cual se caracteriza por tener un repertorio de instrucciones amplio y complejo. Esta filosofía busca reducir la cantidad de instrucciones por programa, a costa de aumentar la complejidad de cada instrucción individual. Esto contrasta con la filosofía RISC (Reduced Instruction Set Computer), que utiliza un repertorio de instrucciones más simple y optimiza el uso de registros y operaciones rápidas, aumentando el número de instrucciones necesarias por programa pero simplificando el diseño del hardware.
+La arquitectura x86 sigue la filosofía CISC (Complex Instruction Set Computer), la cual se caracteriza por tener un repertorio de instrucciones amplio y complejo. Esta filosofía busca reducir la cantidad de instrucciones por programa, a costa de aumentar la complejidad de cada instrucción individual. Esto contrasta con la filosofía RISC (Reduced Instruction Set Computer), que utiliza un repertorio de instrucciones más simple y optimiza el uso de registros y operaciones rápidas, aumentando el número de instrucciones necesarias por programa pero simplificando el diseño del hardware {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
 
 \hypertarget{instrucciones-x86}{%
 \subsubsection{Instrucciones x86}\label{instrucciones-x86}}
@@ -1307,53 +1307,120 @@ r Registros del CPU
 i Valor inmediato
 {[}r{]} Contenido de la dirección de memoria dada por el registro
 
-\hypertarget{procesador-vonsim8}{%
-\section{\texorpdfstring{Procesador \texttt{VonSim8}}{Procesador VonSim8}}\label{procesador-vonsim8}}
+\hypertarget{procesador-o-cpu}{%
+\section{Procesador o CPU}\label{procesador-o-cpu}}
 
-\texttt{VonSim8} es un procesador diseñado e implementado sobre la herramienta \emph{Logisim}.
-Este cuenta con las siguientes características:
+Procesador o CPU cuenta con las siguientes características:
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-Arquitectura CPU & \textbf{Características}\tabularnewline
+\begin{minipage}[b]{0.47\columnwidth}\raggedright
+Arquitectura CPU\strut
+\end{minipage} & \begin{minipage}[b]{0.47\columnwidth}\raggedright
+\textbf{Características}\strut
+\end{minipage}\tabularnewline
 \midrule
 \endhead
-& - Arquitectura \emph{von Neumann}, memoria de datos e instrucciones compartida.\tabularnewline
-& - 4 registros de propósito general, \texttt{AL}, \texttt{BL}, \texttt{DL} y \texttt{DL}.\tabularnewline
-& - 2 registros de propósito específico \texttt{IP} y \texttt{SP}.\tabularnewline
-& - Tamaño de palabra de 8 bits e instrucciones de 16 bits.\tabularnewline
-& - Memoria de 256 palabras de 8 bits.\tabularnewline
-& - Bus de 8 bits.\tabularnewline
-& - Diseño microprogramado.\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+- Arquitectura \emph{von Neumann}, memoria de datos e instrucciones compartidas.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+- 4 registros de propósito general, \texttt{AL}, \texttt{BL}, \texttt{DL} y \texttt{DL} de 8 bits.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+- 2 registros de propósito específico \texttt{IP} y \texttt{SP}.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+- Memoria de 256 bytes.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+- Bus de datos y direcciones de 8 bits.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+- Tamaño de instrucciones variable de 1, 2 y 3 bytes.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+- 16 instrucciones soportadas.\strut
+\end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
-\hypertarget{instrucciones}{%
-\section{Instrucciones}\label{instrucciones}}
+\hypertarget{formato-de-instrucciones}{%
+\section{Formato de instrucciones}\label{formato-de-instrucciones}}
 
-Las instrucciones están codificadas en 16 bits. Los primeros 5 bits identifican el \texttt{opcode} de la instrucción, el resto de los bits indican los parámetros. Existen 4 posibles codificaciones de parámetros.
+Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el \texttt{opcode} de la instrucción, el resto de los bits indican los parámetros. Existen 4 posibles codificaciones de parámetros.
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
-Caso & Codificación & Parámetros\tabularnewline
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+Caso\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Codificación\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Parámetros\strut
+\end{minipage}\tabularnewline
 \midrule
 \endhead
-A & \texttt{OOOO\ XXYY} & \texttt{XX} = Registro destino, \texttt{YY} = Registro fuente\tabularnewline
-B & \texttt{OOOO\ XXmm\ DDDDDDDD} & \texttt{XX} = Registro destino\tabularnewline
-C & \texttt{OOOO\ -\/-\/-MMMMMMMM} & \texttt{MMMMMMMM} = Dirección de memoria o Inmediato\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+A: registro\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{OOOO\ XXYY}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{XX} = Registro destino, \texttt{YY} = Registro fuente\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+B: indirecto\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{OOOO\ 00ZZ}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{ZZ} = Puede ser registro destino o fuente\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+C: directo: memoria/inmediato a registro\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{OOOO\ mmZZ\ DDDDDDDD}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{mm} = modo \texttt{D} = Dirección de memoria o Dato Inmediato\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+D: directo: inmediato a memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{OOOO\ \ mmmm\ DDDDDDDD}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{DDDDDDDD} = Dirección de memoria o Inmediato\strut
+\end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
+
+Las instruciones de transferencia y operaciones en la ALU soportan todos esos formatos de instrucicones.
+Según los primeros 4 bits de la instrucción opcode es como se interpretan los 4 bits restantes.
 
 Considerando:
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{Rx} o \texttt{Ry}: Índices de registros, número entre \texttt{0} y \texttt{3}.
+  \texttt{A} y \texttt{B}: son de 1 byte, \texttt{C} es de 2 bytes y \texttt{D} es de 3 bytes.
 \item
-  \texttt{M}: Dirección de memoria o valor inmediato, número de 8 bits.
+  \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}.
 \item
-  \texttt{t}: Valor inmediato de desplazamiento, número entre \texttt{0} y \texttt{7}. Se codifica como \texttt{YYY}.
+  \texttt{D}: Dirección de memoria o Dato inmediato, número de 8 bits.
+\item
+  \texttt{m}: especifica el modo de direccionamiento.
 \item
   En la columna de codificación, los bits indicados con \texttt{-} son reservados y deben valer cero.
 \item
