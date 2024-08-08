@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.3 Arquitectura propuesta | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="4.3 Arquitectura propuesta | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.3 Arquitectura propuesta | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.3 Arquitectura propuesta | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  
+  
+  
+
+<meta name="author" content="Ruiz Jose Maria" />
+
+
+<meta name="date" content="2024-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="desarrollo-de-una-nueva-herramienta-de-simulación.html"/>
+<link rel="next" href="desarrollo-y-pruebas.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">tesisunerdown</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="" data-path="agradecimientos.html"><a href="agradecimientos.html"><i class="fa fa-check"></i>Agradecimientos</a></li>
+<li class="chapter" data-level="1" data-path="introducción.html"><a href="introducción.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="justificación.html"><a href="justificación.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="objetivos.html"><a href="objetivos.html"><i class="fa fa-check"></i><b>1.2</b> Objetivos</a></li>
+<li class="chapter" data-level="1.3" data-path="metodología-de-desarrollo.html"><a href="metodología-de-desarrollo.html"><i class="fa fa-check"></i><b>1.3</b> Metodología de Desarrollo</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="metodología-de-desarrollo.html"><a href="metodología-de-desarrollo.html#etapas-de-la-investigación"><i class="fa fa-check"></i><b>1.3.1</b> Etapas de la Investigación</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="organización-del-documento.html"><a href="organización-del-documento.html"><i class="fa fa-check"></i><b>1.4</b> Organización del Documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="estado-del-arte.html"><a href="estado-del-arte.html"><i class="fa fa-check"></i><b>2</b> Estado del arte</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="arquitectura-de-computadoras.html"><a href="arquitectura-de-computadoras.html"><i class="fa fa-check"></i><b>2.1</b> Arquitectura de computadoras</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="arquitectura-de-computadoras.html"><a href="arquitectura-de-computadoras.html#arquitectura-x86"><i class="fa fa-check"></i><b>2.1.1</b> Arquitectura x86</a></li>
+<li class="chapter" data-level="2.1.2" data-path="arquitectura-de-computadoras.html"><a href="arquitectura-de-computadoras.html#repertorio-de-instrucciones"><i class="fa fa-check"></i><b>2.1.2</b> Repertorio de instrucciones</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="lenguaje-ensamblador.html"><a href="lenguaje-ensamblador.html"><i class="fa fa-check"></i><b>2.2</b> Lenguaje ensamblador</a></li>
+<li class="chapter" data-level="2.3" data-path="simulación.html"><a href="simulación.html"><i class="fa fa-check"></i><b>2.3</b> Simulación</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="simulación.html"><a href="simulación.html#aplicaciones-de-la-simulación-en-la-industria"><i class="fa fa-check"></i><b>2.3.1</b> Aplicaciones de la Simulación en la Industria</a></li>
+<li class="chapter" data-level="2.3.2" data-path="simulación.html"><a href="simulación.html#simulación-en-la-educación"><i class="fa fa-check"></i><b>2.3.2</b> Simulación en la Educación</a></li>
+<li class="chapter" data-level="2.3.3" data-path="simulación.html"><a href="simulación.html#el-formalismo-devs-discrete-event-system-specification"><i class="fa fa-check"></i><b>2.3.3</b> El Formalismo DEVS (Discrete Event System Specification)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="comparativa-de-simuladores.html"><a href="comparativa-de-simuladores.html"><i class="fa fa-check"></i><b>3</b> Comparativa de simuladores</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="estudios-similares.html"><a href="estudios-similares.html"><i class="fa fa-check"></i><b>3.1</b> Estudios similares</a></li>
+<li class="chapter" data-level="3.2" data-path="simuladores-bajo-análisis.html"><a href="simuladores-bajo-análisis.html"><i class="fa fa-check"></i><b>3.2</b> Simuladores bajo análisis</a></li>
+<li class="chapter" data-level="3.3" data-path="criterios-de-evaluación.html"><a href="criterios-de-evaluación.html"><i class="fa fa-check"></i><b>3.3</b> Criterios de evaluación</a></li>
+<li class="chapter" data-level="3.4" data-path="selección-de-simuladores.html"><a href="selección-de-simuladores.html"><i class="fa fa-check"></i><b>3.4</b> Selección de simuladores</a></li>
+<li class="chapter" data-level="3.5" data-path="participantes-en-la-evaluación.html"><a href="participantes-en-la-evaluación.html"><i class="fa fa-check"></i><b>3.5</b> Participantes en la evaluación</a></li>
+<li class="chapter" data-level="3.6" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html"><i class="fa fa-check"></i><b>3.6</b> Análisis comparativo</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html#simple-8-bit-assembler-simulator"><i class="fa fa-check"></i><b>3.6.1</b> Simple 8-bit Assembler Simulator</a></li>
+<li class="chapter" data-level="3.6.2" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html#vonsim"><i class="fa fa-check"></i><b>3.6.2</b> VonSim</a></li>
+<li class="chapter" data-level="3.6.3" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html#emu8086"><i class="fa fa-check"></i><b>3.6.3</b> Emu8086</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="resultados.html"><a href="resultados.html"><i class="fa fa-check"></i><b>3.7</b> Resultados</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="resultados.html"><a href="resultados.html#publicación"><i class="fa fa-check"></i><b>3.7.1</b> Publicación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="diseño-y-construcción-del-simulador.html"><a href="diseño-y-construcción-del-simulador.html"><i class="fa fa-check"></i><b>4</b> Diseño y Construcción del Simulador</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="evaluación-de-herramientas-existentes.html"><a href="evaluación-de-herramientas-existentes.html"><i class="fa fa-check"></i><b>4.1</b> Evaluación de Herramientas Existentes</a></li>
+<li class="chapter" data-level="4.2" data-path="desarrollo-de-una-nueva-herramienta-de-simulación.html"><a href="desarrollo-de-una-nueva-herramienta-de-simulación.html"><i class="fa fa-check"></i><b>4.2</b> Desarrollo de una Nueva Herramienta de Simulación</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="desarrollo-de-una-nueva-herramienta-de-simulación.html"><a href="desarrollo-de-una-nueva-herramienta-de-simulación.html#requisitos-de-la-herramienta"><i class="fa fa-check"></i><b>4.2.1</b> Requisitos de la Herramienta</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="arquitectura-propuesta.html"><a href="arquitectura-propuesta.html"><i class="fa fa-check"></i><b>4.3</b> Arquitectura propuesta</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="arquitectura-propuesta.html"><a href="arquitectura-propuesta.html#componentes"><i class="fa fa-check"></i><b>4.3.1</b> Componentes</a></li>
+<li class="chapter" data-level="4.3.2" data-path="arquitectura-propuesta.html"><a href="arquitectura-propuesta.html#repertorio-de-instrucciones-propuesto"><i class="fa fa-check"></i><b>4.3.2</b> Repertorio de instrucciones propuesto</a></li>
+<li class="chapter" data-level="4.3.3" data-path="arquitectura-propuesta.html"><a href="arquitectura-propuesta.html#segunda-etapa"><i class="fa fa-check"></i><b>4.3.3</b> Segunda etapa</a></li>
+<li class="chapter" data-level="4.3.4" data-path="arquitectura-propuesta.html"><a href="arquitectura-propuesta.html#tercera-etapa"><i class="fa fa-check"></i><b>4.3.4</b> Tercera etapa</a></li>
+<li class="chapter" data-level="4.3.5" data-path="arquitectura-propuesta.html"><a href="arquitectura-propuesta.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución"><i class="fa fa-check"></i><b>4.3.5</b> Ciclo de la instrucción (Etapas de captación y ejecución)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="desarrollo-y-pruebas.html"><a href="desarrollo-y-pruebas.html"><i class="fa fa-check"></i><b>4.4</b> Desarrollo y Pruebas</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="desarrollo-y-pruebas.html"><a href="desarrollo-y-pruebas.html#portabilidad"><i class="fa fa-check"></i><b>4.4.1</b> Portabilidad</a></li>
+<li class="chapter" data-level="4.4.2" data-path="desarrollo-y-pruebas.html"><a href="desarrollo-y-pruebas.html#simplicidad"><i class="fa fa-check"></i><b>4.4.2</b> Simplicidad</a></li>
+<li class="chapter" data-level="4.4.3" data-path="desarrollo-y-pruebas.html"><a href="desarrollo-y-pruebas.html#mantenibilidad"><i class="fa fa-check"></i><b>4.4.3</b> Mantenibilidad</a></li>
+<li class="chapter" data-level="4.4.4" data-path="desarrollo-y-pruebas.html"><a href="desarrollo-y-pruebas.html#escalabilidad"><i class="fa fa-check"></i><b>4.4.4</b> Escalabilidad</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliografía.html"><a href="bibliografía.html"><i class="fa fa-check"></i>Bibliografía</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="arquitectura-propuesta" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Arquitectura propuesta<a href="arquitectura-propuesta.html#arquitectura-propuesta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La arquitectura es una simplificación de la arquitectura x86, con un repertorio de instrucciones reducido y un conjunto de componentes básicos. Se propone una arquitectura de 8 bits que pueda ser utilizada como apoyo para enseñar los conceptos de formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución. La arquitectura propuesta consta de los siguientes componentes:</p>
+<div id="componentes" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Componentes<a href="arquitectura-propuesta.html#componentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Procesador o CPU cuenta con las siguientes características:</p>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Arquitectura CPU</th>
+<th><strong>Características</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Arquitectura</td>
+<td>- <em>von Neumann</em>, memoria de datos e instrucciones compartidas.</td>
+</tr>
+<tr class="even">
+<td>Registros</td>
+<td>- 4 registros de propósito general, <code>AL</code>, <code>BL</code>, <code>DL</code> y <code>DL</code> de 8 bits.</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>- 2 registros de propósito específico <code>IP</code> y <code>SP</code>.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>- 1 registro de estado para las banderas <code>RS</code>.</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>- 2 registros Buffer entre CPU y memoria <code>MAR</code>:buffer de direcciones y <code>MBR</code>:buffer de datos.</td>
+</tr>
+<tr class="even">
+<td>Memoria</td>
+<td>- contiene 256 posiciones y cada una contiene un byte.</td>
+</tr>
+<tr class="odd">
+<td>Buses</td>
+<td>- Bus de datos y direcciones de 8 bits.</td>
+</tr>
+<tr class="even">
+<td>Instrucciones</td>
+<td>- Tamaño de instrucciones variable de 1, 2 y 3 bytes.</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>- 16 instrucciones soportadas.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="repertorio-de-instrucciones-propuesto" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Repertorio de instrucciones propuesto<a href="arquitectura-propuesta.html#repertorio-de-instrucciones-propuesto" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento.</p>
+<div id="primera-etapa" class="section level4 hasAnchor" number="4.3.2.1">
+<h4><span class="header-section-number">4.3.2.1</span> Primera etapa<a href="arquitectura-propuesta.html#primera-etapa" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En un primera instancia se presentaran solo algunas instrucciones necesarias para desarrollar los primeros contenidos de la asignatura:</p>
+<table>
+<caption><span id="tab:data">Tabla 4.1: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
+<colgroup>
+<col width="22%" />
+<col width="16%" />
+<col width="10%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Código operación</th>
+<th align="left">Instrucciones</th>
+<th align="left">nemónico</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">{0, 1, 2}</td>
+<td align="left">Transferencia de datos</td>
+<td align="left">MOV</td>
+<td align="left">1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria</td>
+</tr>
+<tr class="even">
+<td align="left">{3, 4, 5} {6, 7, 8} {9, 10, 11}</td>
+<td align="left">Procesamiento de datos</td>
+<td align="left">ADD, SUB, CMP</td>
+<td align="left">Operación aritmética sumar y restar. Comparación</td>
+</tr>
+<tr class="odd">
+<td align="left">{12}</td>
+<td align="left">Control de flujo</td>
+<td align="left">JMP, Jxx</td>
+<td align="left">Salto incondicional JMP. Saltos condicionales Jxx.</td>
+</tr>
+</tbody>
+</table>
+<div id="formato-de-instrucciones" class="section level5 hasAnchor" number="4.3.2.1.1">
+<h5><span class="header-section-number">4.3.2.1.1</span> Formato de instrucciones<a href="arquitectura-propuesta.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado.
+Primero veremos la codificaciones de 4 tipos de instrucciones.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Caso</th>
+<th>Codificación</th>
+<th>Parámetros</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A: entre registros</td>
+<td><code>---- XXYY</code></td>
+<td><code>XX</code> = Registro destino, <code>YY</code> = Registro fuente</td>
+</tr>
+<tr class="even">
+<td>B: Cargar a registro</td>
+<td><code>---- XX00 DDDDDDDD</code></td>
+<td><code>XX</code> = Registro destino, <code>D</code> = Dirección de memoria</td>
+</tr>
+<tr class="odd">
+<td>C: Almacenar en memoria</td>
+<td><code>---- 00YY DDDDDDDD</code></td>
+<td><code>YY</code> = Registro fuente, <code>D</code> = Dirección de memoria</td>
+</tr>
+<tr class="even">
+<td>D: control de flujo</td>
+<td><code>---- ffff DDDDDDDD</code></td>
+<td><code>ffff</code> = funcionalidad <code>D</code> = Dirección de memoria</td>
+</tr>
+</tbody>
+</table>
+<p>Considerando:
+- <code>A</code>: operaciones entre registros del procesador.</p>
+<ul>
+<li><p><code>B</code>: operaciones que cargan en registros del procesado.</p></li>
+<li><p><code>C</code>: operaciones que almacenan en memoria.</p></li>
+<li><p><code>D</code>: operaciones de control de flujo del programa.</p></li>
+<li><p><code>----</code>: Código de operación de la instrucción.</p></li>
+<li><p><code>XX</code> o <code>YY</code>: Índices de registros, número entre <code>0</code> y <code>3</code>.</p></li>
+<li><p><code>D</code>: Dirección de memoria, número de 8 bits.</p></li>
+<li><p><code>ffff</code>: representan el comportamiento de la instrucción.</p></li>
+<li><p>Las instruciones de transferencia y de procesamiento soportan los formatos <code>A</code>, <code>B</code> y <code>C</code>.</p></li>
+<li><p>Las instruciones de control de flujo soportan el formato <code>D</code>.</p></li>
+</ul>
+</div>
+</div>
+<div id="registros-banco-de-registros" class="section level4 hasAnchor" number="4.3.2.2">
+<h4><span class="header-section-number">4.3.2.2</span> Registros (Banco de Registros)<a href="arquitectura-propuesta.html#registros-banco-de-registros" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Números de registros (R)</th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>registro</strong></td>
+<td align="center"><strong>binario</strong></td>
+<td align="center"><strong>decimal</strong></td>
+</tr>
+<tr class="even">
+<td align="center">AL</td>
+<td align="center">00</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">BL</td>
+<td align="center">01</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center">CL</td>
+<td align="center">10</td>
+<td align="center">2</td>
+</tr>
+<tr class="odd">
+<td align="center">DL</td>
+<td align="center">11</td>
+<td align="center">3</td>
+</tr>
+</tbody>
+</table>
+<div id="modos-de-direccionamientos" class="section level5 hasAnchor" number="4.3.2.2.1">
+<h5><span class="header-section-number">4.3.2.2.1</span> Modos de direccionamientos<a href="arquitectura-propuesta.html#modos-de-direccionamientos" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:</p>
+<ul>
+<li><p>Registro a registro: los operandos de la instrucción son registros.</p></li>
+<li><p>Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.</p></li>
+</ul>
+<p>La mayoría de las instrucciones básicas tienen solo las siguientes formas:</p>
+<ul>
+<li><p><strong>MOV <em>Rx, Ry</em></strong></p></li>
+<li><p><strong>MOV <em>Rx, [M]</em></strong></p></li>
+<li><p><strong>MOV <em>[M], Ry</em></strong></p></li>
+<li><p><strong>JMP <em>M</em></strong></p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Operando</th>
+<th>tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Rx</code>,<code>Ry</code></td>
+<td>por Registros</td>
+</tr>
+<tr class="even">
+<td><code>[M]</code></td>
+<td>Directo, se accede a un contenido de memoria</td>
+</tr>
+<tr class="odd">
+<td><code>M</code></td>
+<td>Directo, se accede a una dirección de memoria</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="10%" />
+<col width="30%" />
+<col width="30%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Instrucción</th>
+<th>Acción</th>
+<th>Codificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td><code>MOV Rx, Ry</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></td>
+<td><code>0000 XXYY</code></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td><code>MOV Rx, [M]</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[Dirección]</code></td>
+<td><code>0001 00YY DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td><code>MOV [M], Ry</code></td>
+<td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code></td>
+<td><code>0010 XX00 DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td><code>ADD Rx, Ry</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx + Ry</code></td>
+<td><code>0011 XXYY</code></td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td><code>ADD Rx, [M]</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx + Mem[Dirección]</code></td>
+<td><code>0100 00YY DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td><code>ADD [M], Ry</code></td>
+<td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[Dirección] + Ry</code></td>
+<td><code>0101 XX00 DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td><code>SUB Rx, Ry</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx - Ry</code></td>
+<td><code>0110 XXYY</code></td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td><code>SUB Rx, [M]</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx - Mem[Dirección]</code></td>
+<td><code>0111 00YY DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td><code>SUB [M], Ry</code></td>
+<td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[Dirección] - Ry</code></td>
+<td><code>1000 XX00 DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td><code>CMP Rx, Ry</code></td>
+<td>Modifica <em>flags</em> de <code>Rx - Ry</code></td>
+<td><code>1001 XXYY</code></td>
+</tr>
+<tr class="odd">
+<td>A</td>
+<td><code>CMP Rx, [M]</code></td>
+<td>Modifica <em>flags</em> de <code>Rx - Mem[Dirección]</code></td>
+<td><code>1010 00YY DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td><code>CMP [M], Ry</code></td>
+<td>Modifica <em>flags</em> de <code>Mem[Dirección] - Ry</code></td>
+<td><code>1011 XX00 DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td><code>JMP M</code></td>
+<td><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
+<td><code>1100 0000 DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>C</td>
+<td><code>JC M</code></td>
+<td>Si <code>flag C=1</code> entonces <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
+<td><code>1100 0001 DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td><code>JZ M</code></td>
+<td>Si <code>flag Z=1</code> entonces <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
+<td><code>1100 0011 DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>C</td>
+<td><code>Jxx M</code></td>
+<td>Se pueden implemementar más flags</td>
+<td><code>1100 ffff DDDDDDDD</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="segunda-etapa" class="section level3 hasAnchor" number="4.3.3">
+<h3><span class="header-section-number">4.3.3</span> Segunda etapa<a href="arquitectura-propuesta.html#segunda-etapa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En un segunda instancia se amplian los modos de direccionamiento de las instrucciones y se incorporan nuevos formato de instrucciones y modos de direccionamiento.</p>
+<div id="modos-de-direccionamientos-1" class="section level4 hasAnchor" number="4.3.3.1">
+<h4><span class="header-section-number">4.3.3.1</span> Modos de direccionamientos<a href="arquitectura-propuesta.html#modos-de-direccionamientos-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Se incoporan los siguientes modos de direccionamiento:</p>
+<ul>
+<li><p>Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro <code>BL</code></p></li>
+<li><p>Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.</p></li>
+</ul>
+<p>Se incorpora los siguientes operandos a las instrucciones:
+* <strong>MOV <em>Rx, [BL]</em></strong></p>
+<ul>
+<li><p><strong>MOV <em>Rx, d</em></strong></p></li>
+<li><p><strong>MOV <em>Rx, [BL + d]</em></strong></p></li>
+<li><p><strong>MOV <em>[BL], Ry</em></strong></p></li>
+<li><p><strong>MOV <em>[BL + d], Ry</em></strong></p></li>
+<li><p><strong>MOV <em>[mem], [BL]</em></strong></p></li>
+<li><p><strong>MOV <em>[mem], d</em></strong></p></li>
+<li><p><strong>MOV <em>[mem], [BL + d]</em></strong></p></li>
+</ul>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operando</th>
+<th>tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>[BL]</code></td>
+<td>indirecto por registro, Contenido de la dirección de memoria esta dada por el registro <code>BL</code></td>
+</tr>
+<tr class="even">
+<td><code>D</code> o <code>d</code></td>
+<td>el operando fuente es un dato inmediato</td>
+</tr>
+<tr class="odd">
+<td><code>[BL + d]</code></td>
+<td>registro <code>BL</code> + dato inmediato</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="formato-de-instrucciones-1" class="section level4 hasAnchor" number="4.3.3.2">
+<h4><span class="header-section-number">4.3.3.2</span> Formato de instrucciones<a href="arquitectura-propuesta.html#formato-de-instrucciones-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el <code>opcode</code> de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Caso</th>
+<th>Codificación</th>
+<th>Parámetros</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A: entre registros</td>
+<td><code>---- XXYY</code></td>
+<td><code>XX</code> = Registro destino, <code>YY</code> = Registro fuente</td>
+</tr>
+<tr class="even">
+<td>B: Cargar a registro</td>
+<td><code>---- XXmm DDDDDDDD</code></td>
+<td><code>mm</code> = modo, <code>XX</code> = Registro destino, <code>D</code> = Dirección de memoria o Dato Inmediato</td>
+</tr>
+<tr class="odd">
+<td>C: Almacenar en memoria</td>
+<td><code>---- mmmm DDDDDDDD dddddddd</code></td>
+<td><code>mmmm</code> = modo ampliado, <code>D</code> = Dirección de memoria, <code>d</code> = Dato Inmediato</td>
+</tr>
+<tr class="even">
+<td>D: control de flujo</td>
+<td><code>---- ffff DDDDDDDD</code></td>
+<td><code>ffff</code> = funcionalidad <code>D</code> = Dirección de memoria</td>
+</tr>
+</tbody>
+</table>
+<p><code>d</code> = Dato Inmediato, no puede ser destino de la instrucción.</p>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Modo direccionamientos B: Cargar a registro</th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong><code>mm</code>= Modo</strong></td>
+<td align="center"><strong><code>Byte</code>= tamaño</strong></td>
+<td align="center"><strong>Interpretación</strong></td>
+</tr>
+<tr class="even">
+<td align="center">00</td>
+<td align="center">2</td>
+<td align="center">directo <code>D</code> = Dirección de memoria</td>
+</tr>
+<tr class="odd">
+<td align="center">01</td>
+<td align="center">1</td>
+<td align="center">indirecto utiliza como operando implicito el registro <code>BL</code> y no requiere operando <code>D</code></td>
+</tr>
+<tr class="even">
+<td align="center">10</td>
+<td align="center">2</td>
+<td align="center">Inmediato <code>D</code> = Dato Inmediato</td>
+</tr>
+<tr class="odd">
+<td align="center">11</td>
+<td align="center">2</td>
+<td align="center">Indirecto la dirección se calcula operando implicito <code>BL</code> + Dato Inmediato</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="33%" />
+<col width="33%" />
+<col width="33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Modo direccionamientos C: Almacenar en memoria</th>
+<th align="center"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong><code>mmmm</code>= Modo</strong></td>
+<td align="center"><strong><code>Byte</code>= tamaño</strong></td>
+<td align="center"><strong>Interpretación</strong></td>
+</tr>
+<tr class="even">
+<td align="center">00YY</td>
+<td align="center">2</td>
+<td align="center">directo <code>D</code> = Dirección de memoria, <code>YY</code> = Registro fuente</td>
+</tr>
+<tr class="odd">
+<td align="center">01YY</td>
+<td align="center">1</td>
+<td align="center">indirecto <code>BL</code>, <code>YY</code> = Registro fuente</td>
+</tr>
+<tr class="even">
+<td align="center">01YY</td>
+<td align="center">2</td>
+<td align="center">Indirecto la dirección se calcula operando implicito <code>BL</code> + Dato Inmediato</td>
+</tr>
+<tr class="odd">
+<td align="center">1100</td>
+<td align="center">3</td>
+<td align="center">Inmediato a memoria</td>
+</tr>
+<tr class="even">
+<td align="center">1101</td>
+<td align="center">2</td>
+<td align="center">Inmediato a memoria mediante indirecto <code>BL</code></td>
+</tr>
+<tr class="odd">
+<td align="center">1110</td>
+<td align="center">3</td>
+<td align="center">Inmediato a memoria mediante indirecto <code>BL</code>+ Dato Inmediato</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>#</th>
+<th>Instrucción</th>
+<th>Acción</th>
+<th>Codificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td><code>MOV Rx, Ry</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></td>
+<td><code>0000 XXYY</code></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td><code>MOV Rx, [M]</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[Dirección]</code></td>
+<td><code>0001 XX00 DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td><code>MOV Rx, [BL]</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[BL]</code></td>
+<td><code>0001 XX01</code></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td><code>MOV Rx, D</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Dato</code></td>
+<td><code>0001 XX10 DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td><code>MOV Rx, [BL + D]</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[BL + Dato]</code></td>
+<td><code>0001 XX11 DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>MOV [M], Ry</code></td>
+<td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code></td>
+<td><code>0010 00YY DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td><code>MOV [BL], Ry</code></td>
+<td><code>Mem[BL]</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code></td>
+<td><code>0010 01YY</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>MOV [BL + D], Ry</code></td>
+<td><code>Mem[BL + Dato]</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code></td>
+<td><code>0010 10YY DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td><code>MOV [M], D</code></td>
+<td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Dato</code></td>
+<td><code>0010 1100 DDDDDDDD dddddddd</code></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td><code>MOV [BL], D</code></td>
+<td><code>Mem[BL]</code> <span class="math inline">\(\leftarrow\)</span> <code>Dato</code></td>
+<td><code>0010 1101 DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td><code>MOV [BL + D], D</code></td>
+<td><code>Mem[BL + Dato]</code> <span class="math inline">\(\leftarrow\)</span> <code>Dato</code></td>
+<td><code>0010 1110 DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td><code>ADD Rx, Ry</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx + Ry</code></td>
+<td><code>0011 XXYY</code></td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td><code>ADD --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>0100 ---- --------</code></td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td><code>ADD --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>0101 ---- -------- --------</code></td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td><code>SUB Rx, Ry</code></td>
+<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx - Ry</code></td>
+<td><code>0110 XXYY</code></td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td><code>SUB --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>0111 ---- --------</code></td>
+</tr>
+<tr class="odd">
+<td>8</td>
+<td><code>SUB --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>1000 ---- -------- --------</code></td>
+</tr>
+<tr class="even">
+<td>9</td>
+<td><code>CMP Rx, Ry</code></td>
+<td>Modifica <em>flags</em> de <code>Rx - Ry</code></td>
+<td><code>1001 XXYY</code></td>
+</tr>
+<tr class="odd">
+<td>A</td>
+<td><code>CMP --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>1010 ---- --------</code></td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td><code>CMP --, --</code></td>
+<td>Mismo direccionamientos que MOV</td>
+<td><code>1011 ---- -------- --------</code></td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td><code>JMP M</code></td>
+<td><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
+<td><code>1100 0000 DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>C</td>
+<td><code>JC M</code></td>
+<td>Si <code>flag C=1</code> entonces <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
+<td><code>1100 0001 DDDDDDDD</code></td>
+</tr>
+<tr class="odd">
+<td>C</td>
+<td><code>JZ M</code></td>
+<td>Si <code>flag Z=1</code> entonces <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
+<td><code>1100 0011 DDDDDDDD</code></td>
+</tr>
+<tr class="even">
+<td>C</td>
+<td><code>Jxx M</code></td>
+<td>Se pueden implemementar más flags y CALL</td>
+<td><code>1100 ffff --------</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="tercera-etapa" class="section level3 hasAnchor" number="4.3.4">
+<h3><span class="header-section-number">4.3.4</span> Tercera etapa<a href="arquitectura-propuesta.html#tercera-etapa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se incorporan las instrucciones de manejo de pila y de manejo de interrupciones.</p>
+<table>
+<caption><span id="tab:isacompleta">Tabla 4.2: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
+<colgroup>
+<col width="15%" />
+<col width="11%" />
+<col width="9%" />
+<col width="64%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Código operación</th>
+<th align="left">Instrucciones</th>
+<th align="left">nemónico</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">{0, 1, 2}</td>
+<td align="left">Transferencia de datos</td>
+<td align="left">MOV</td>
+<td align="left">1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria</td>
+</tr>
+<tr class="even">
+<td align="left">{3, 4, 5} {6, 7, 8} {9, 10, 11}</td>
+<td align="left">Procesamiento de datos</td>
+<td align="left">ADD, SUB, CMP</td>
+<td align="left">Operación aritmética sumar y restar. Comparación</td>
+</tr>
+<tr class="odd">
+<td align="left">{12}</td>
+<td align="left">Control de flujo</td>
+<td align="left">JMP, Jxx,CALL, RET</td>
+<td align="left">Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET</td>
+</tr>
+<tr class="even">
+<td align="left">{13}</td>
+<td align="left">Manejo de pila y E/S</td>
+<td align="left">PUSH, POP, OUT, IN</td>
+<td align="left">Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S</td>
+</tr>
+<tr class="odd">
+<td align="left">{14}</td>
+<td align="left">Manejo de interrupción</td>
+<td align="left">INT , IRET</td>
+<td align="left">Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET</td>
+</tr>
+<tr class="even">
+<td align="left">{15}</td>
+<td align="left">Control del CPU</td>
+<td align="left">NOP , HLT</td>
+<td align="left">No opera NOP Detiene el CPU HLT</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="section level3 hasAnchor" number="4.3.5">
+<h3><span class="header-section-number">4.3.5</span> Ciclo de la instrucción (Etapas de captación y ejecución)<a href="arquitectura-propuesta.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="etapa-de-búsqueda" class="section level4 hasAnchor" number="4.3.5.1">
+<h4><span class="header-section-number">4.3.5.1</span> <strong>Etapa de Búsqueda</strong>:<a href="arquitectura-propuesta.html#etapa-de-búsqueda" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<pre><code>1.  MAR = IP 
+2.  MDR = read(Memoria[MAR])
+    IP = IP + 1
+3.  IR  = MDR</code></pre>
+</div>
+<div id="etapa-de-ejecución" class="section level4 hasAnchor" number="4.3.5.2">
+<h4><span class="header-section-number">4.3.5.2</span> <strong>Etapa de Ejecución</strong>:<a href="arquitectura-propuesta.html#etapa-de-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="desarrollo-de-una-nueva-herramienta-de-simulación.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="desarrollo-y-pruebas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-desarrollo.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["tesis.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
