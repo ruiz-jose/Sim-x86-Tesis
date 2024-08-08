@@ -47,7 +47,7 @@ Procesador o CPU cuenta con las siguientes características:
 | | - 16 instrucciones soportadas. |
 
 
-### Repertorio de instrucciones propuesto
+### Repertorio de instrucciones
 El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento.
 
 #### Primera etapa
@@ -170,7 +170,7 @@ La mayoría de las instrucciones básicas tienen solo las siguientes formas:
 | C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 DDDDDDDD`          |
 | C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 DDDDDDDD`          |
 | C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 DDDDDDDD`          |
-| C | `Jxx M`            | Se pueden implemementar más flags                                  | `1100 ffff DDDDDDDD`          |
+| C | `Jxx M`            | Se pueden implementar más flags                                  | `1100 ffff DDDDDDDD`          |
 
 ### Segunda etapa
 En un segunda instancia se amplian los modos de direccionamiento de las instrucciones y se incorporan nuevos formato de instrucciones y modos de direccionamiento.
@@ -322,6 +322,8 @@ kable(isacompleta, format = "markdown", align = "l", col.names = c("Código oper
     3.	IR  = MDR
 
 #### **Etapa de Ejecución**:
+- MOV Rx, Ry:
+    1.	Rx ← Ry
 
 
 
