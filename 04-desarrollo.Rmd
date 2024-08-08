@@ -1,49 +1,330 @@
 # Diseño y Construcción del Simulador
-
 El objetivo principal de esta tesis es construir una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras. Para lograr este objetivo, se plantean los siguientes objetivos específicos:
 
 ## Evaluación de Herramientas Existentes
-
 Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación actuales.
 
 ## Desarrollo de una Nueva Herramienta de Simulación
-
-Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras. La herramienta debe cumplir con los siguientes requisitos:
+Para cumplir con el segundo objetivo específico, es esencial diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, que sea intuitiva y fácil de usar para estudiantes y profesores.  
 
 ### Requisitos de la Herramienta
-
+La herramienta debe cumplir con los siguientes requisitos:
 1. **Visión global de la estructura y funcionamiento de la computadora:**
    - Mostrar la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, destacando componentes relevantes.
 
-2. **Generación y ejecución de programas en ensamblador:**
+2. **Generación y ejecución de programas escritos en ensamblador:**
    - Permitir tanto la ejecución paso a paso como completa, facilitando la comprensión de cada instrucción.
 
 3. **Repertorio de instrucciones x86 reducido y habilitado progresivamente:**
    - Seleccionar un subconjunto esencial de instrucciones x86, habilitándolas progresivamente según avance el contenido de la asignatura.
 
-4. **Simulación visual e interactiva de micropasos de instrucciones:**
+4. **Simulación visual e interactiva de micropasos de una instrucción:**
     - Utilizar el lenguaje de transferencia entre registros (RTL) para describir el flujo de datos, facilitando la comprensión del ciclo básico de una instrucción. Correr un programa y que se ilumine  cada componente durante la ejecución de un programa.
 
-5. **Gestión de interrupciones y comunicación con periféricos:**
+5. **Gestión básica de interrupciones y comunicación con periféricos:**
     - Incorporar un vector de interrupción predefinido para interactuar con el teclado y monitor. Incluir instrucciones IN y OUT, y un módulo de E/S simplificado.
 
-6. **Medidas de rendimiento de ejecución de programas:**
+6. **Medidas de rendimiento sobre la ejecución de un programa:**
     - Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa. 
 
-Para lograr esto, se comenzamos por diseñar la herramienta. 
+
+## Arquitectura propuesta
+La arquitectura es una simplificación de la arquitectura x86, con un repertorio de instrucciones reducido y un conjunto de componentes básicos. Se propone una arquitectura de 8 bits que pueda ser utilizada como apoyo para enseñar los conceptos de formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución. La arquitectura propuesta consta de los siguientes componentes:
+
+### Componentes
+Procesador o CPU cuenta con las siguientes características:
+
+| Arquitectura CPU | **Características** |
+| --- | --- |
+| Arquitectura | -  *von Neumann*, memoria de datos e instrucciones compartidas. |
+|Registros | - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits. |
+| | - 2 registros de propósito específico `IP` y `SP`. |
+| | - 1 registro de estado para las banderas `RS`. |
+| | - 2 registros Buffer entre CPU y memoria `MAR`:buffer de direcciones y `MBR`:buffer de datos. |
+|Memoria | - contiene 256 posiciones y cada una contiene un byte. |
+|Buses | - Bus de datos y direcciones de 8 bits. | 
+| Instrucciones| - Tamaño de instrucciones variable de 1, 2 y 3 bytes. | 
+| | - 16 instrucciones soportadas. |
 
 
-### Diseño
+### Repertorio de instrucciones propuesto
+El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento.
 
-Para cumplir con el segundo objetivo específico, es esencial diseñar y construir una herramienta de apoyo que sea fácil de usar para estudiantes y profesores. La herramienta debe ser intuitiva y fácil de navegar. Se pueden utilizar gráficos y diagramas para ayudar a los estudiantes a comprender mejor la estructura y funcionamiento de la computadora. 
+#### Primera etapa
+En un primera instancia se presentaran solo algunas instrucciones necesarias para desarrollar los primeros contenidos de la asignatura:
 
-La herramienta debe ofrecer:
-- Una visión global de la estructura y funcionamiento de la computadora.
-- La generación y ejecución de programas escritos en lenguaje ensamblador.
-- Un repertorio de instrucciones x86 reducido, habilitado progresivamente.
-- Simulación visual e interactiva de los micropasos de una instrucción.
-- Gestión básica de interrupciones e interacción con periféricos.
-- Medidas de rendimiento sobre la ejecución de un programa.
+```{r data, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+# Crear los datos
+data <- data.frame(
+    `Código operación` = c(
+    "{0, 1, 2}", 
+    "{3, 4, 5} {6, 7, 8} {9, 10, 11}", 
+    "{12}"
+  ),
+  Instrucciones = c(
+    "Transferencia de datos", 
+    "Procesamiento de datos", 
+    "Control de flujo"
+  ),
+  `Nemónico` = c(
+    "MOV ", 
+    "ADD, SUB,  CMP", 
+    "JMP, Jxx "
+  ),
+  Acción = c(
+    "1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria",
+    "Operación aritmética sumar y restar. Comparación",
+    "Salto incondicional JMP. Saltos condicionales Jxx."
+  )
+)
+
+# Convertir a HTML
+kable(data, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
+      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
+```
+
+##### Formato de instrucciones
+El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado. 
+Primero veremos la codificaciones de 4 tipos de instrucciones.
+
+| Caso | Codificación | Parámetros |
+| --- | --- | --- |
+| A: entre registros | `---- XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
+| B: Cargar a registro  | `---- XX00 DDDDDDDD` | `XX` = Registro destino, `D` = Dirección de memoria |
+| C: Almacenar en memoria | `---- 00YY DDDDDDDD` | `YY` = Registro fuente, `D` = Dirección de memoria |
+| D: control de flujo  | `---- ffff DDDDDDDD` | `ffff` = funcionalidad `D` = Dirección de memoria |
+
+Considerando:
+  - `A`: operaciones entre registros del procesador.
+
+  - `B`: operaciones que cargan en registros del procesado.
+
+  - `C`: operaciones que almacenan en memoria.
+
+  - `D`: operaciones de control de flujo del programa.
+
+  - `----`: Código de operación de la instrucción.
+
+  - `XX` o `YY`: Índices de registros, número entre `0` y `3`.
+
+  - `D`: Dirección de memoria, número de 8 bits.
+
+  - `ffff`: representan el comportamiento de la instrucción.
+
+  - Las instruciones de transferencia y de procesamiento soportan los formatos `A`, `B` y `C`.
+
+  - Las instruciones de control de flujo soportan el formato `D`. 
+
+#### Registros (Banco de Registros)
+
+| Números de registros (R)  |  |  |
+| :---: | :---: | :---: |
+| **registro** | **binario** | **decimal** |
+| AL | 00 | 0 |
+| BL | 01 | 1 |
+| CL | 10 | 2 |
+| DL | 11 | 3 |
+
+##### Modos de direccionamientos
+
+Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:
+
+  * Registro a registro: los operandos de la instrucción son registros. 
+
+  * Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.  
+
+
+La mayoría de las instrucciones básicas tienen solo las siguientes formas:
+
+  * **MOV *Rx, Ry***  
+
+  * **MOV *Rx, [M]***  
+
+  * **MOV *[M], Ry***  
+
+  * **JMP *M***  
+
+
+| Operando | tipo | 
+| --- | --- |
+| `Rx`,`Ry`| por Registros |
+| `[M]`|	Directo, se accede a un contenido de memoria |
+| `M`|	Directo, se accede a una dirección de memoria |
+
+| # | Instrucción        | Acción                                                             | Codificación                  |
+| - | ---                | ---                                                                | ---                           |
+| 0 | `MOV Rx, Ry`       | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`                   |
+| 1 | `MOV Rx, [M]`      | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 00YY DDDDDDDD`          |
+| 2 | `MOV [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 XX00 DDDDDDDD`          |
+| 3 | `ADD Rx, Ry`       | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`                   |
+| 4 | `ADD Rx, [M]`      | `Rx` $\leftarrow$ `Rx + Mem[Dirección]`                            | `0100 00YY DDDDDDDD`          |
+| 5 | `ADD [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Mem[Dirección] + Ry`                | `0101 XX00 DDDDDDDD`          |
+| 6 | `SUB Rx, Ry`       | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0110 XXYY`                   |
+| 7 | `SUB Rx, [M]`      | `Rx` $\leftarrow$ `Rx - Mem[Dirección]`                            | `0111 00YY DDDDDDDD`          |
+| 8 | `SUB [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Mem[Dirección] - Ry`                | `1000 XX00 DDDDDDDD`          |
+| 9 | `CMP Rx, Ry`       | Modifica *flags* de `Rx - Ry`                                      | `1001 XXYY`                   |
+| A | `CMP Rx, [M]`       | Modifica *flags* de `Rx - Mem[Dirección]`                         | `1010 00YY DDDDDDDD`          |
+| B | `CMP [M], Ry`       | Modifica *flags* de `Mem[Dirección] - Ry`                         | `1011 XX00 DDDDDDDD`          |
+| C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 DDDDDDDD`          |
+| C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 DDDDDDDD`          |
+| C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 DDDDDDDD`          |
+| C | `Jxx M`            | Se pueden implemementar más flags                                  | `1100 ffff DDDDDDDD`          |
+
+### Segunda etapa
+En un segunda instancia se amplian los modos de direccionamiento de las instrucciones y se incorporan nuevos formato de instrucciones y modos de direccionamiento.
+
+#### Modos de direccionamientos
+Se incoporan los siguientes modos de direccionamiento:
+
+  * Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro `BL`  
+
+  * Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.   
+
+
+Se incorpora los siguientes operandos a las instrucciones:
+  * **MOV *Rx, [BL]***  
+
+  * **MOV *Rx, d***  
+
+  * **MOV *Rx, [BL + d]***  
+
+  * **MOV *[BL], Ry***
+
+  * **MOV *[BL + d], Ry***
+
+  * **MOV *[mem], [BL]***
+
+  * **MOV *[mem], d***
+
+  * **MOV *[mem], [BL + d]***
+
+| Operando | tipo | 
+| --- | --- |
+| `[BL]`|	indirecto por registro,	Contenido de la dirección de memoria esta dada por el registro `BL`  |
+| `D` o `d`| el operando fuente es un dato inmediato |
+| `[BL + d]`|	registro `BL` + dato inmediato  |
+
+#### Formato de instrucciones
+Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el `opcode` de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes. 
+
+| Caso | Codificación | Parámetros |
+| --- | --- | --- |
+| A: entre registros | `---- XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
+| B: Cargar a registro  | `---- XXmm DDDDDDDD` | `mm` = modo, `XX` = Registro destino, `D` = Dirección de memoria o Dato Inmediato |
+| C: Almacenar en memoria | `---- mmmm DDDDDDDD dddddddd` | `mmmm` = modo ampliado, `D` = Dirección de memoria,  `d` = Dato Inmediato |
+| D: control de flujo  | `---- ffff DDDDDDDD` | `ffff` = funcionalidad `D` = Dirección de memoria |
+
+ `d` = Dato Inmediato, no puede ser destino de la instrucción.
+
+| Modo direccionamientos B: Cargar a registro  |  |  |
+| :---: | :---: | :---: |
+| **`mm`= Modo** | **`Byte`= tamaño** | **Interpretación** |
+| 00 |  2 |directo `D` = Dirección de memoria |
+| 01 |  1 |indirecto utiliza como operando implicito el registro `BL` y no requiere operando `D` |
+| 10 |  2 |Inmediato `D` = Dato Inmediato |
+| 11 |  2 |Indirecto la dirección se calcula operando implicito `BL` + Dato Inmediato|
+
+| Modo direccionamientos C: Almacenar en memoria  |  |  |
+| :---: | :---: | :---: |
+| **`mmmm`= Modo** | **`Byte`= tamaño** | **Interpretación** |
+| 00YY |  2 |directo `D` = Dirección de memoria, `YY` = Registro fuente |
+| 01YY |  1 |indirecto `BL`, `YY` = Registro fuente|
+| 01YY |  2 |Indirecto la dirección se calcula operando implicito `BL` + Dato Inmediato |
+| 1100 |  3 |Inmediato a memoria|
+| 1101 |  2 |Inmediato a memoria mediante indirecto `BL`|
+| 1110 |  3 |Inmediato a memoria mediante indirecto `BL`+ Dato Inmediato |
+
+
+| # | Instrucción        | Acción                                                             | Codificación                  |
+| - | ---                | ---                                                                | ---                           |
+| 0 | `MOV Rx, Ry`       | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`                   |
+| 1 | `MOV Rx, [M]`      | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 XX00 DDDDDDDD`          |
+| 1 | `MOV Rx, [BL]`     | `Rx` $\leftarrow$ `Mem[BL]`                                        | `0001 XX01`                   |
+| 1 | `MOV Rx, D`        | `Rx` $\leftarrow$ `Dato`                                           | `0001 XX10 DDDDDDDD`          |
+| 1 | `MOV Rx, [BL + D]` | `Rx` $\leftarrow$ `Mem[BL + Dato]`                                 | `0001 XX11 DDDDDDDD`          |
+| 2 | `MOV [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 00YY DDDDDDDD`          |
+| 2 | `MOV [BL], Ry`     | `Mem[BL]` $\leftarrow$ `Rx`                                        | `0010 01YY`                   |
+| 2 | `MOV [BL + D], Ry` | `Mem[BL + Dato]` $\leftarrow$ `Rx`                                 | `0010 10YY DDDDDDDD`          |
+| 2 | `MOV [M], D`       | `Mem[Dirección]` $\leftarrow$ `Dato`                               | `0010 1100 DDDDDDDD dddddddd` |
+| 2 | `MOV [BL], D`      | `Mem[BL]` $\leftarrow$ `Dato`                                      | `0010 1101 DDDDDDDD`          |
+| 2 | `MOV [BL + D], D`  | `Mem[BL + Dato]` $\leftarrow$ `Dato`                               | `0010 1110 DDDDDDDD`          |
+| 3 | `ADD Rx, Ry`       | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`                   |
+| 4 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0100 ---- --------`          |
+| 5 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0101 ---- -------- --------` |
+| 6 | `SUB Rx, Ry`       | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0110 XXYY`                   |
+| 7 | `SUB --, --`       | Mismo direccionamientos que MOV                                    | `0111 ---- --------`          |
+| 8 | `SUB --, --`       | Mismo direccionamientos que MOV                                    | `1000 ---- -------- --------` |
+| 9 | `CMP Rx, Ry`       | Modifica *flags* de `Rx - Ry`                                      | `1001 XXYY`                   |
+| A | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1010 ---- --------`          |
+| B | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1011 ---- -------- --------` |
+| C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 DDDDDDDD`          |
+| C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 DDDDDDDD`          |
+| C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 DDDDDDDD`          |
+| C | `Jxx M`            | Se pueden implemementar más flags y CALL                           | `1100 ffff --------`          |
+
+
+
+### Tercera etapa
+Se incorporan las instrucciones de manejo de pila y de manejo de interrupciones.
+
+```{r isacompleta, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+# Crear los datos
+isacompleta <- data.frame(
+    `Código operación` = c(
+    "{0, 1, 2}", 
+    "{3, 4, 5} {6, 7, 8} {9, 10, 11}", 
+    "{12}",
+    "{13}",
+    "{14}",
+    "{15}"
+  ),
+  Instrucciones = c(
+    "Transferencia de datos", 
+    "Procesamiento de datos", 
+    "Control de flujo",
+    "Manejo de pila y E/S",
+    "Manejo de interrupción",
+    "Control del CPU"
+  ),
+  `Nemónico` = c(
+    "MOV ", 
+    "ADD, SUB,  CMP", 
+    "JMP, Jxx,CALL, RET",
+    "PUSH, POP, OUT, IN",
+    "INT , IRET",
+    "NOP , HLT"
+  ),
+  Acción = c(
+    "1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria",
+    "Operación aritmética sumar y restar. Comparación",
+    "Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET ",
+    "Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S",
+    "Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET",
+    "No opera NOP Detiene el CPU HLT"
+  )
+)
+
+# Convertir a HTML
+kable(isacompleta, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
+      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
+```
+
+### Ciclo de la instrucción (Etapas de captación y ejecución)
+
+#### **Etapa de Búsqueda**: 
+    1.	MAR = IP 
+    2.	MDR = read(Memoria[MAR])
+        IP = IP + 1
+    3.	IR  = MDR
+
+#### **Etapa de Ejecución**:
+
+
+
 
 ## Desarrollo y Pruebas
 Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
@@ -72,216 +353,3 @@ El código de la herramienta será modular y bien documentado, facilitando futur
 ### Escalabilidad
 Desde la asignatura se incentiva el uso de simuladores para dar apoyo a los proceso de enseñanza y aprendizaje, pero también se incentiva que los contenidos desarrollados puedan volcarse en máquinas reales, en este sentido consideramos que el enfoque planteado por la herramienta emu8086 es el más adecuado para la asignatura, ya que facilita mecanismos para implementar los programas en máquinas reales. Sin embargo presenta el inconveniente que genera ejecutables dependientes del sistema operativo MS-DOS, la mayoría de los sistemas operativos actuales no permiten la ejecución de dichos programas, obligando a la utilización de emuladores de MS-DOS para poder correrlos, siendo esto otro elemento más que se incorpora a los procesos de enseñanza y aprendizaje. 
 Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
-
-### Memoria
-La memoria contiene 256 posiciones y cada una contiene un byte. Por lo tanto, el bus de direcciones y de datos son de 8 bits. 
-
-### Repertorio de instrucciones propuesto
-El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento. Aunque el conjunto de instrucciones real de x86 es mucho más amplio y complejo, este enfoque básico sentará las bases para comprender el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
-
-El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 es el siguiente:
-
-| Instrucciones                    | Código operación           | Acción                                                                                       |
-| -------------------------------- | -------------------------- | -------------------------------------------------------------------------------------------- |
-| **Transferencia de datos**       | **$\leftarrow$ MOV {0,1,2}** | 0. Copiar entre registros 1. Almacenar en memoria 2. Cargar a registro                        |
-| **Procesamiento de datos**       | **\+  ADD {3, 4, 5}**       | Operación aritmética: operando1 $\leftarrow$ operando1 OPE operando2; actualiza el destino.  |
-| **Control de flujo**             | **$\uparrow$\ JMP / Jxx / CALL/ RET {12}** | Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET.    |
-| **Manejo de pila y E/S**         | **PUSH / POP / OUT / IN {13}** | Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S. |
-| **Manejo de interrupción**       | **INT / IRET {14}**         | Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET. |
-| **Control del CPU**              | **NOP / HLT {15}**          | No opera NOP. Detiene el CPU HLT.                                                            |
-
-## Repertorio de instrucciones
-El repertorio x86 es reducido (8 bits)
-
-
-| Instrucciones | Código operación | Acción |
-| ----- | ----- | :---- |
-|  |  |  |
-| **Transferencia de datos**          |   **$\leftarrow$ MOV {0,1,2}** | 0. Copiar entre registros 1. Almacenar en memoria  2. Cargar a registro |
-|  |  |  |
-| **Procesamiento de datos**       | **\+  ADD {3, 4, 5}**               **\-  SUB {6, 7, 8}**              **\* CMP  {9, 10, 11}** | **Operación aritmética**:  operando1  $\leftarrow$ operando1  OPE operando2  ; actualiza el  destino **Comparación**:  operando1 \- operando2   ;realiza la operación de sustraer pero no actualiza el destino. |
-|  |  |  |
-| **Control de flujo**       |  **$\uparrow$\ JMP / Jxx /  CALL/ RET {12}** | Salto incondicional JMP Saltos condicionales Jxx Llamadas a rutinas CALL y retorno RET |
-|  |  |  |
-| **Manejo de pila y E/S**      | **PUSH / POP / OUT / IN {13}** | Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S |
-|  |  |  |
-| **Manejo de interrupción**     | **INT / IRET {14}** | Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET |
-|  |  |  |
-| **Control del CPU**     |  **NOP / HLT {15}** | No opera NOP Detiene el CPU HLT |
-
-
-
-### Registros (Banco de Registros)
-
-| Números de registros (r)  |  |  |
-| :---: | :---: | :---: |
-| **registro** | **binario** | **decimal** |
-| AL | 00 | 0 |
-| BL | 01 | 1 |
-| CL | 10 | 2 |
-| DL | 11 | 3 |
-
-
-
-La mayoría de las instrucciones básicas tienen solo las siguientes formas:
-
-* **MOV *reg, reg***  
-* **MOV *reg, mem***  
-* **MOV *reg, inm***  
-* **MOV *mem, reg***  
-* **MOV *mem, inm***
-
-
-### Ciclo de la instrucción (Etapas de captación y ejecución)
-
-#### Captación
-    1.	MAR = IP 
-    2.	MDR = read(Memoria[MAR])
-        IP = IP + 1
-    3.	IR  = MDR
-
-#### Ejecución
-
-
-## Procesador o CPU
-Procesador o CPU cuenta con las siguientes características:
-
-| Arquitectura CPU | **Características** |
-| --- | --- |
-| Arquitectura | -  *von Neumann*, memoria de datos e instrucciones compartidas. |
-|Registros | - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits. |
-| | - 2 registros de propósito específico `IP` y `SP`. |
-|Memoria | - Memoria de 256 bytes. |
-|Buses | - Bus de datos y direcciones de 8 bits. | 
-| Instrucciones| - Tamaño de instrucciones variable de 1, 2 y 3 bytes. | 
-| | - 16 instrucciones soportadas. |
-
-### Formato de instrucciones
-El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado. Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el `opcode` de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes. 
- Existen 4 posibles codificaciones de parámetros.
-
-| Caso | Codificación | Parámetros |
-| --- | --- | --- |
-| A: registro | `OOOO XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
-| B: indirecto| `OOOO 00ZZ` | `ZZ` = Puede ser registro destino o fuente |
-| C: directo/inmediato: dirección/dato a registro| `OOOO mmZZ DDDDDDDD` | `mm` = modo `D` = Dirección de memoria o Dato Inmediato  |
-| D: inmediato: dato a memoria| `OOOO  mmmm DDDDDDDD DDDDDDDD` | `D` = Dirección de memoria o Inmediato |
-
-Considerando:
-- `A` y `B`: son de 1 byte, `C` es de 2 bytes y `D` es de 3 bytes.
-- `OOOO`: Código de operación de la instrucción.
-- `XX` o `YY`: Índices de registros, número entre `0` y `3`.
-- `ZZ`: Puede ser registro destino o fuente.
-- `D`: Dirección de memoria o Dato inmediato, número de 8 bits.
-- `m`: especifica el modo de direccionamiento.
-- Las instruciones de transferencia y operaciones en la ALU soportan todos esos formatos de instrucciones. 
-
-### Instrucciones soportadas
-Las instrucciones soportadas por la arquitectura son las siguientes:
-
-| # | Instrucción        | Acción                                                             | Codificación                  |
-| - | ---                | ---                                                                | ---                           |
-| 0 | `MOV Rx, Ry`       | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`                   |
-| 1 | `MOV Rx, [BL]`     | `Rx` $\leftarrow$ `Mem[BL]`                                        | `0001 00ZZ`                   |
-| 1 | `MOV Rx, [M]`      | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 01ZZ DDDDDDDD`          |
-| 1 | `MOV Rx, D`        | `Rx` $\leftarrow$ `Dato`                                           | `0001 10ZZ DDDDDDDD`          |
-| 1 | `MOV Rx, [BL + D]` | `Rx` $\leftarrow$ `Mem[BL + Dato]`                                 | `0001 11ZZ DDDDDDDD`          |
-| 2 | `MOV [BL], Rx`     | `Mem[BL]` $\leftarrow$ `Rx`                                        | `0010 00ZZ`                   |
-| 2 | `MOV [M], Rx`      | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 01ZZ DDDDDDDD`          |
-| 2 | `MOV [M], D`       | `Mem[Dirección]` $\leftarrow$ `Dato`                               | `0010 1000 DDDDDDDD DDDDDDDD` |
-| 2 | `MOV [BL], D`      | `Mem[BL]` $\leftarrow$ `Dato`                                      | `0010 1001 DDDDDDDD`          |
-| 2 | `MOV [BL + D], D`  | `Mem[BL + Dato]` $\leftarrow$ `Dato`                               | `0010 1010 DDDDDDDD DDDDDDDD` |
-| 2 | `MOV [BL + D], Rx` | `Mem[BL + Dato]` $\leftarrow$ `Rx`                                 | `0010 11ZZ DDDDDDDD`          |
-| 3 | `ADD Rx, Ry`       | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`                   |
-| 4 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0100 ---- --------`          |
-| 5 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0101 ---- -------- --------` |
-| 6 | `SUB Rx, Ry`       | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0110 XXYY`                   |
-| 7 | `SUB --, --`       | Mismo direccionamientos que MOV                                    | `0111 ---- --------`          |
-| 8 | `SUB --, --`       | Mismo direccionamientos que MOV                                    | `1000 ---- -------- --------` |
-| 9 | `CMP Rx, Ry`       | Modifica *flags* de `Rx - Ry`                                      | `1001 XXYY`                   |
-| A | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1010 ---- --------`          |
-| B | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1011 ---- -------- --------` |
-| C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 DDDDDDDD`          |
-| C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 DDDDDDDD`          |
-| C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 DDDDDDDD`          |
-| C | `Jxx M`            | Se pueden implemementar más flags y CALL                           | `1100 xxxx --------`          |
-
-
-### Modos de direccionamientos
-
-Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:
-
-* Registro a registro: los operandos de la instrucción son registros.  
-* Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.  
-* Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro BL  
-* Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.   
-
-Podemos clasificar las instrucciones según los modos de direccionamientos que indica de donde proviene un operando:
-Operando	tipo
-- `Rx`,`Ry`: por Registros
-- `[M]`:	Directo, se accede a un contenido de memoria
-- `D`: el operando fuente es un valor inmediato
-- `[R]`: indirecto por registro,	Contenido de la dirección de memoria esta dada por el registro BL
-
-
-```{r data, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-
-# Crear los datos
-data <- data.frame(
-  Instrucciones = c(
-    "Transferencia de datos", 
-    "Procesamiento de datos", 
-    "Control de flujo", 
-    "Manejo de pila y E/S", 
-    "Manejo de interrupción", 
-    "Control del CPU"
-  ),
-  `Código operación` = c(
-    "MOV {0,1,2}", 
-    "ADD {3, 4, 5}", 
-    "JMP / Jxx / CALL / RET {12}", 
-    "PUSH / POP / OUT / IN {13}", 
-    "INT / IRET {14}", 
-    "NOP / HLT {15}"
-  ),
-  Acción = c(
-    "- Copiar entre registros - Almacenar en memoria - Cargar a registro",
-    "Operación aritmética: operando1 <- operando1 OPE operando2; actualiza el destino.",
-    "Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET.",
-    "Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S.",
-    "Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET.",
-    "No opera NOP. Detiene el CPU HLT."
-  )
-)
-
-# Convertir a HTML
-kable(data, format = "markdown", align = "l", col.names = c("Instrucciones", "Código operación", "Acción"), 
-      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
-```
-
-
-## Componentes
-
-La arquitectura está compuesta por 6 componentes interconectados. El circuito identificado como `microOrgaSmall` los integra en un `dataPath` sobre el lado izquierdo del mismo. El lado derecho presenta la visualización del estado de los registros.
-
-Los componentes de la arquitectura son: `Registers` (Banco de Registros), `PC` (Contador de Programa), `ALU` (Unidad Aritmético Lógica), `Memory` (Memoria), `Decode` (Decodificador de Instrucciones) y `ControlUnit` (Unidad de Control).
-
-Cada uno de estos componentes es controlado por medio del conjunto de entradas y salidas descritas a continuación:
-
-## Ejecución de Instrucciones
-
-Las instrucciones en `OrgaSmall` se ejecutan en varios ciclos de reloj, donde cada ciclo implica una acción específica. A continuación, se describe la secuencia de acciones para la ejecución de las instrucciones de la arquitectura.
-
-1. **Ciclo de Búsqueda**: 
-   - `IP` se copia en el `MAR`.
-   - `Memory` coloca la instrucción en el `MBR`.
-   - `PC` incrementa su valor.
-   - `MBR` se copia en el `IR`.
-
-2. **Ciclo de Ejecución**:
-   - `ControlUnit` interpreta el `opcode` y emite señales correspondientes a los componentes para ejecutar la instrucción.
-   - `ALU` realiza la operación aritmética o lógica.
-   - `Registers` y `Memory` realizan operaciones de lectura/escritura según sea necesario.
-
-Este flujo se repite para cada instrucción, permitiendo la ejecución de programas complejos en la arquitectura `OrgaSmall`.
