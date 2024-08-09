@@ -1,11 +1,15 @@
 # Diseño y Construcción del Simulador
+
+## Objetivo General
 El objetivo principal de esta tesis es construir una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras. Para lograr este objetivo, se plantean los siguientes objetivos específicos:
 
-## Evaluación de Herramientas Existentes
-Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación actuales.
+## Objetivos Específicos
+### Evaluación de Herramientas Existentes
+Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación disponibles.
 
-## Desarrollo de una Nueva Herramienta de Simulación
-Para cumplir con el segundo objetivo específico, es esencial diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, que sea intuitiva y fácil de usar para estudiantes y profesores.  
+
+### Desarrollo de una Nueva Herramienta de Simulación:
+Diseñar y construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, que sea intuitiva y fácil de usar para estudiantes y profesores.  
 
 ### Requisitos de la Herramienta
 La herramienta debe cumplir con los siguientes requisitos:
@@ -26,7 +30,6 @@ La herramienta debe cumplir con los siguientes requisitos:
 
 6. **Medidas de rendimiento sobre la ejecución de un programa:**
     - Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa. 
-
 
 ## Arquitectura propuesta
 La arquitectura es una simplificación de la arquitectura x86, con un repertorio de instrucciones reducido y un conjunto de componentes básicos. Se propone una arquitectura de 8 bits que pueda ser utilizada como apoyo para enseñar los conceptos de formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución. La arquitectura propuesta consta de los siguientes componentes:
@@ -64,19 +67,18 @@ data <- data.frame(
     "{12}"
   ),
   Instrucciones = c(
-    "Transferencia de datos", 
-    "Procesamiento de datos", 
-    "Control de flujo"
+    "🔄 Transferencia de datos", 
+    "➕ Procesamiento de datos", 
+    "⬆️ Control de flujo" 
   ),
   `Nemónico` = c(
     "MOV ", 
     "ADD, SUB,  CMP", 
     "JMP, Jxx "
   ),
-  Acción = c(
-    "1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria",
-    "Operación aritmética sumar y restar. Comparación",
-    "Salto incondicional JMP. Saltos condicionales Jxx."
+  Acción = c( "1- Copiar entre registros 2- Cargar a registro  3- Almacenar en memoria",
+    "1- Sumar  2- Restar 3- Comparar",
+    "- Saltos condicionales e incondicionales"
   )
 )
 
@@ -97,6 +99,7 @@ Primero veremos la codificaciones de 4 tipos de instrucciones.
 | D: control de flujo  | `---- ffff DDDDDDDD` | `ffff` = funcionalidad `D` = Dirección de memoria |
 
 Considerando:
+
   - `A`: operaciones entre registros del procesador.
 
   - `B`: operaciones que cargan en registros del procesado.
@@ -283,12 +286,12 @@ isacompleta <- data.frame(
     "{15}"
   ),
   Instrucciones = c(
-    "Transferencia de datos", 
-    "Procesamiento de datos", 
-    "Control de flujo",
-    "Manejo de pila y E/S",
-    "Manejo de interrupción",
-    "Control del CPU"
+    "🔄 Transferencia de datos", 
+    "➕ Procesamiento de datos", 
+    "⬆️ Control de flujo", 
+    "📦 Manejo de pila y E/S", 
+    "🚨 Manejo de interrupción", 
+    "⚙️ Control del CPU"
   ),
   `Nemónico` = c(
     "MOV ", 
