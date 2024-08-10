@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>4.1 Requisitos de la Herramienta | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="4.1 Requisitos de la Herramienta | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="4.1 Requisitos de la Herramienta | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="4.1 Requisitos de la Herramienta | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="agradecimientos.html"/>
+<link rel="prev" href="diseño-y-construcción-del-simulador.html"/>
+<link rel="next" href="arquitectura-propuesta.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -162,26 +162,41 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</h1>
-<h2 class="subtitle"><em>Tesis para optar al grado de Maestría en Sistemas de Información</em></h2>
-<p class="author"><em>Ruiz Jose Maria</em></p>
-<p class="date"><em>2024</em></p>
-</div>
-<div id="resumen" class="section level1 unnumbered hasAnchor" number="">
-<h1>Resumen<a href="index.html#resumen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Existe un consenso creciente en el uso de herramientas de simulación en la enseñanza para procesos dinámicos complejos, como las operaciones intrínsecas de la computadora, que permiten representar de forma visual e interactiva la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento por parte de los alumnos y el desarrollo de los temas por parte del docente. En este contexto, los simuladores juegan una pieza clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, simpliﬁcando abstracciones y haciendo más rica la labor docente.
-La arquitectura x86 es ampliamente utilizada en computadoras de escritorio y servidores. Este documento pretende realizar una comparación de los simuladores x86 que más se adecuan en el dictado de la asignatura Arquitectura de Computadoras de la carrera Licenciatura en Sistemas, establecer los criterios de evaluación y evaluar los simuladores seleccionados de acuerdo con estos criterios.</p>
-<p>La presente investigación surge en el marco del proyecto de investigación I/D novel PID-UNER 7065: “Enseñanza/aprendizaje de asignatura Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputos”. El Proyecto es llevado a cabo en la Facultad de Ciencias de la Administración de la Universidad Nacional de Entre Ríos, se vincula directamente con la asignatura Arquitectura en Computadoras que se dicta en segundo año de la carrera Licenciatura en Sistemas perteneciente a la Facultad de Ciencias de la Administración de la Universidad Nacional de Entre Ríos.</p>
-<p>Palabras clave: x86, simulador, aprendizaje, enseñanza, arquitectura de computadoras.</p>
+<div id="requisitos-de-la-herramienta" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Requisitos de la Herramienta<a href="requisitos-de-la-herramienta.html#requisitos-de-la-herramienta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>La herramienta debe cumplir con los siguientes requisitos:
+1. <strong>Visión global de la estructura y funcionamiento de la computadora:</strong>
+- Mostrar la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, destacando componentes relevantes.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Generación y ejecución de programas escritos en ensamblador:</strong>
+<ul>
+<li>Permitir tanto la ejecución paso a paso como completa, facilitando la comprensión de cada instrucción.</li>
+</ul></li>
+<li><strong>Repertorio de instrucciones x86 reducido y habilitado progresivamente:</strong>
+<ul>
+<li>Seleccionar un subconjunto esencial de instrucciones x86, habilitándolas progresivamente según avance el contenido de la asignatura.</li>
+</ul></li>
+<li><strong>Simulación visual e interactiva de micropasos de una instrucción:</strong>
+<ul>
+<li>Utilizar el lenguaje de transferencia entre registros (RTL) para describir el flujo de datos, facilitando la comprensión del ciclo básico de una instrucción. Correr un programa y que se ilumine cada componente durante la ejecución de un programa.</li>
+</ul></li>
+<li><strong>Gestión básica de interrupciones y comunicación con periféricos:</strong>
+<ul>
+<li>Incorporar un vector de interrupción predefinido para interactuar con el teclado y monitor. Incluir instrucciones IN y OUT, y un módulo de E/S simplificado.</li>
+</ul></li>
+<li><strong>Medidas de rendimiento sobre la ejecución de un programa:</strong>
+<ul>
+<li>Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa.</li>
+</ul></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="agradecimientos.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="diseño-y-construcción-del-simulador.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="arquitectura-propuesta.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -212,7 +227,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/rstudio/bookdown-demo/edit/master/index.Rmd",
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/04-desarrollo.Rmd",
 "text": "Edit"
 },
 "history": {
