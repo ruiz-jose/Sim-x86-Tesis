@@ -162,7 +162,8 @@
             <section class="normal" id="section-">
 <div id="arquitectura-propuesta" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Arquitectura propuesta<a href="arquitectura-propuesta.html#arquitectura-propuesta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La arquitectura es una simplificación de la arquitectura x86, con un repertorio de instrucciones reducido y un conjunto de componentes básicos. Se propone una arquitectura de 8 bits que pueda ser utilizada como apoyo para enseñar los conceptos de formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución. La arquitectura propuesta consta de los siguientes componentes:</p>
+<p>La arquitectura propuesta, de 8 bits, es una versión simplificada de la x86, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes fundamentales. Esta simplificación permite a los estudiantes comprender conceptos clave como el formato de instrucciones, modos de direccionamiento y el ciclo de búsqueda y ejecución. Este enfoque facilita un aprendizaje progresivo y accesible para los estudiantes.
+Consta de los siguientes componentes:</p>
 <div id="componentes" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Componentes<a href="arquitectura-propuesta.html#componentes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Procesador o CPU cuenta con las siguientes características:</p>
@@ -213,6 +214,56 @@
 <tr class="odd">
 <td></td>
 <td>- 16 instrucciones soportadas.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col width="15%" />
+<col width="84%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Arquitectura.CPU</th>
+<th align="left">Características</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Arquitectura</td>
+<td align="left">- <em>von Neumann</em>, memoria de datos e instrucciones compartidas.</td>
+</tr>
+<tr class="even">
+<td align="left">Registros</td>
+<td align="left">- 4 registros de propósito general, <code>AL</code>, <code>BL</code>, <code>DL</code> y <code>DL</code> de 8 bits.</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">- 2 registros de propósito específico <code>IP</code> y <code>SP</code>.</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">- 1 registro de estado para las banderas <code>RS</code>.</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">- 2 registros Buffer entre CPU y memoria <code>MAR</code>: buffer de direcciones y <code>MBR</code>: buffer de datos.</td>
+</tr>
+<tr class="even">
+<td align="left">Memoria</td>
+<td align="left">- contiene 256 posiciones y cada una contiene un byte.</td>
+</tr>
+<tr class="odd">
+<td align="left">Buses</td>
+<td align="left">- Bus de datos y direcciones de 8 bits.</td>
+</tr>
+<tr class="even">
+<td align="left">Instrucciones</td>
+<td align="left">- Tamaño de instrucciones variable de 1, 2 y 3 bytes.</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">- 16 instrucciones soportadas.</td>
 </tr>
 </tbody>
 </table>
