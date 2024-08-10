@@ -1,12 +1,7 @@
 # Diseño y Construcción del Simulador
-El objetivo principal de esta tesis es construir una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras. Para lograr este objetivo se plantearon objetivos específicos:
+Este capitulo se enfoca en el diseño y construcción de una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras. En el capitulo anterior, se Estudió y evaluó diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación disponibles y posterior publicación de los resultados.
 
-1. La evaluación de Herramientas Existentes se llevo a cabo en el capitulo anterior, donde se Estudió y evaluó diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación disponibles y posterior publicación de los resultados.
-
-
-2. Desarrollo de una Nueva Herramienta de Simulación: es este capitulo se centra en el Diseño y construcción de una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, que sea intuitiva y fácil de usar para estudiantes y profesores.  
-
-Como primer paso de define los requisitos que debe cumplir la herramienta, se presenta la arquitectura propuesta,..
+Para cumplir este objetivo especifico, la herramienta debe cumplir una serie de requisitos mencionados anteriormente que debe cumplir la herramienta, se diseña la arquitectura, construye y prueba. 
 
 ## Requisitos de la Herramienta
 La herramienta debe cumplir con los siguientes requisitos:
@@ -45,7 +40,6 @@ Procesador o CPU cuenta con las siguientes características:
 |Buses | - Bus de datos y direcciones de 8 bits. | 
 | Instrucciones| - Tamaño de instrucciones variable de 1, 2 y 3 bytes. | 
 | | - 16 instrucciones soportadas. |
-
 
 ### Repertorio de instrucciones
 El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento.
@@ -300,7 +294,7 @@ isacompleta <- data.frame(
   ),
   Acción = c(
     "1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria",
-    "Operación aritmética sumar y restar. Comparación",
+    "1- Sumar  2- Restar 3- Comparar",
     "Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET ",
     "Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S",
     "Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET",
@@ -328,15 +322,8 @@ kable(isacompleta, format = "markdown", align = "l", col.names = c("Código oper
 
 
 
-## Desarrollo y Pruebas
+### Pruebas
 Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
-La herramienta debe cumplir con los requisitos mencionados anteriormente y debe ser fácil de usar para los estudiantes y profesores. Para lograr esto, se puede comenzar por definir los requisitos de la herramienta, diseñar la herramienta, construir y probar.
-
-Para cumplir con el segundo objetivo, se diseñó y construyó una herramienta de apoyo que cumple con los requisitos previamente mencionados para impartir los contenidos de la asignatura Arquitectura de Computadoras.
-
-- **Diseño de la Herramienta:** Comenzar con la definición detallada de los requisitos, seguido de un diseño centrado en la facilidad de uso para estudiantes y profesores. Se utilizarán gráficos y diagramas para mejorar la comprensión.
-
-- **Construcción de la Herramienta:** Implementar la herramienta siguiendo las especificaciones de diseño, asegurando la integridad y funcionalidad de cada componente.
 
 - **Pruebas Exhaustivas:** Realizar pruebas rigurosas para asegurar que la herramienta cumple con todos los requisitos. Las pruebas incluirán:
     - Validación de la funcionalidad completa de la herramienta.
