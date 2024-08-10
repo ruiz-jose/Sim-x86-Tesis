@@ -1,7 +1,9 @@
 # Diseño y Construcción del Simulador
-Este capitulo se enfoca en el diseño y construcción de una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras. En el capitulo anterior, se Estudió y evaluó diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación disponibles y posterior publicación de los resultados.
+En este capítulo se describe el proceso de diseño y desarrollo de una herramienta de simulación específica para la arquitectura x86, destinada a facilitar la enseñanza de los principios de arquitectura de computadoras. Se detalla tanto la justificación del diseño como los pasos seguidos para su construcción y validación.
 
-Para cumplir este objetivo especifico, la herramienta debe cumplir una serie de requisitos mencionados anteriormente que debe cumplir la herramienta, se diseña la arquitectura, construye y prueba. 
+En el capitulo anterior, se Estudió y evaluó diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación disponibles y posterior publicación de los resultados.
+
+Para cumplir con este objetivo específico, la herramienta debe satisfacer una serie de requisitos previamente establecidos. A partir de estos, se diseña la arquitectura, se desarrolla el simulador, y se realizan pruebas exhaustivas para validar su funcionalidad.
 
 ## Requisitos de la Herramienta
 La herramienta debe cumplir con los siguientes requisitos:
@@ -24,7 +26,9 @@ La herramienta debe cumplir con los siguientes requisitos:
     - Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa. 
 
 ## Arquitectura propuesta
-La arquitectura es una simplificación de la arquitectura x86, con un repertorio de instrucciones reducido y un conjunto de componentes básicos. Se propone una arquitectura de 8 bits que pueda ser utilizada como apoyo para enseñar los conceptos de formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución. La arquitectura propuesta consta de los siguientes componentes:
+ 
+La arquitectura propuesta, de 8 bits, es una versión simplificada de la x86, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes fundamentales. Esta simplificación permite a los estudiantes comprender conceptos clave como el formato de instrucciones, modos de direccionamiento y el ciclo de búsqueda y ejecución. Este enfoque facilita un aprendizaje progresivo y accesible para los estudiantes.
+Consta de los siguientes componentes:
 
 ### Componentes
 Procesador o CPU cuenta con las siguientes características:
@@ -40,6 +44,37 @@ Procesador o CPU cuenta con las siguientes características:
 |Buses | - Bus de datos y direcciones de 8 bits. | 
 | Instrucciones| - Tamaño de instrucciones variable de 1, 2 y 3 bytes. | 
 | | - 16 instrucciones soportadas. |
+
+
+```{r arq, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+# Crear el data frame con los datos del cuadro
+arq <- data.frame(
+  `Arquitectura CPU` = c("Arquitectura", 
+                         "Registros", 
+                         "", 
+                         "", 
+                         "", 
+                         "Memoria", 
+                         "Buses", 
+                         "Instrucciones", 
+                         ""),
+  `Características` = c("- *von Neumann*, memoria de datos e instrucciones compartidas.",
+                        "- 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits.",
+                        "- 2 registros de propósito específico `IP` y `SP`.",
+                        "- 1 registro de estado para las banderas `RS`.",
+                        "- 2 registros Buffer entre CPU y memoria `MAR`: buffer de direcciones y `MBR`: buffer de datos.",
+                        "- contiene 256 posiciones y cada una contiene un byte.",
+                        "- Bus de datos y direcciones de 8 bits.",
+                        "- Tamaño de instrucciones variable de 1, 2 y 3 bytes.",
+                        "- 16 instrucciones soportadas."),
+  stringsAsFactors = FALSE
+)
+
+# Mostrar la tabla con kable
+kable(arq, align = c("l", "l"), escape = FALSE)
+```
 
 ### Repertorio de instrucciones
 El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento.
