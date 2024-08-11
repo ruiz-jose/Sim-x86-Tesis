@@ -994,29 +994,71 @@ Consta de los siguientes componentes:
 
 Procesador o CPU cuenta con las siguientes características:
 
-\begin{tabular}{l|l}
-\hline
-Arquitectura & Características\\
-\hline
-Arquitectura & - von Neumann, memoria de datos e instrucciones compartidas.\\
-\hline
-Registros & - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits.\\
-\hline
- & - 2 registros de propósito específico `IP` y `SP`.\\
-\hline
- & - 1 registro de estado para las banderas `RS`.\\
-\hline
- & - 2 registros Buffer entre CPU y memoria `MAR`: buffer de direcciones y `MBR`: buffer de datos.\\
-\hline
-Memoria & - contiene 256 posiciones y cada una contiene un byte.\\
-\hline
-Buses & - Bus de datos y direcciones de 8 bits.\\
-\hline
-Instrucciones & - Tamaño de instrucciones variable de 1, 2 y 3 bytes.\\
-\hline
- & - 16 instrucciones soportadas.\\
-\hline
-\end{tabular}
+\begin{longtable}[]{@{}ll@{}}
+\caption{\label{tab:arq}Arquitectura x86 propuesta}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.12\columnwidth}\raggedright
+Arquitectura\strut
+\end{minipage} & \begin{minipage}[b]{0.82\columnwidth}\raggedright
+Características\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.12\columnwidth}\raggedright
+Arquitectura\strut
+\end{minipage} & \begin{minipage}[b]{0.82\columnwidth}\raggedright
+Características\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Arquitectura\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- von Neumann, memoria de datos e instrucciones compartidas.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Registros\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 4 registros de propósito general, \texttt{AL}, \texttt{BL}, \texttt{DL} y \texttt{DL} de 8 bits.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 2 registros de propósito específico \texttt{IP} y \texttt{SP}.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 1 registro de estado para las banderas \texttt{RS}.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 2 registros Buffer entre CPU y memoria \texttt{MAR}: buffer de direcciones y \texttt{MBR}: buffer de datos.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- contiene 256 posiciones y cada una contiene un byte.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Buses\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- Bus de datos y direcciones de 8 bits.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Instrucciones\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- Tamaño de instrucciones variable de 1, 2 y 3 bytes.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 16 instrucciones soportadas.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \hypertarget{repertorio-de-instrucciones-1}{%
 \subsection{Repertorio de instrucciones}\label{repertorio-de-instrucciones-1}}
@@ -1031,11 +1073,11 @@ En un primera instancia se presentaran solo algunas instrucciones necesarias par
 \begin{longtable}[]{@{}llll@{}}
 \caption{\label{tab:setreducido}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\tabularnewline
 \toprule
-Código operación & Instrucciones & nemónico & Acción\tabularnewline
+Instrucciones & Código operación & nemónico & Acción\tabularnewline
 \midrule
 \endfirsthead
 \toprule
-Código operación & Instrucciones & nemónico & Acción\tabularnewline
+Instrucciones & Código operación & nemónico & Acción\tabularnewline
 \midrule
 \endhead
 Transferencia de datos & \{0, 1, 2\} & MOV & 0- Copiar entre registros\tabularnewline
@@ -1709,7 +1751,7 @@ No opera NOP Detiene el CPU HLT\strut
 \end{itemize}
 
 \hypertarget{pruebas}{%
-\subsection{Pruebas}\label{pruebas}}
+\section{Pruebas}\label{pruebas}}
 
 Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
 
@@ -1730,22 +1772,17 @@ Después de diseñar la herramienta, se debe construir y probar. Se deben realiz
 \end{itemize}
 
 \hypertarget{portabilidad}{%
-\subsection{Portabilidad}\label{portabilidad}}
+\section{Portabilidad}\label{portabilidad}}
 
 Para asegurar la portabilidad, el simulador se implementará como una aplicación web que puede ejecutarse en cualquier navegador web, garantizando su uso multiplataforma.
 
-\hypertarget{simplicidad}{%
-\subsection{Simplicidad}\label{simplicidad}}
-
-La herramienta será diseñada con una interfaz intuitiva y fácil de navegar, minimizando la curva de aprendizaje para los usuarios.
-
 \hypertarget{mantenibilidad}{%
-\subsection{Mantenibilidad}\label{mantenibilidad}}
+\section{Mantenibilidad}\label{mantenibilidad}}
 
 El código de la herramienta será modular y bien documentado, facilitando futuras actualizaciones y mantenimiento. Además, se implementarán prácticas de desarrollo sostenibles para asegurar su longevidad.
 
 \hypertarget{escalabilidad}{%
-\subsection{Escalabilidad}\label{escalabilidad}}
+\section{Escalabilidad}\label{escalabilidad}}
 
 Desde la asignatura se incentiva el uso de simuladores para dar apoyo a los proceso de enseñanza y aprendizaje, pero también se incentiva que los contenidos desarrollados puedan volcarse en máquinas reales, en este sentido consideramos que el enfoque planteado por la herramienta emu8086 es el más adecuado para la asignatura, ya que facilita mecanismos para implementar los programas en máquinas reales. Sin embargo presenta el inconveniente que genera ejecutables dependientes del sistema operativo MS-DOS, la mayoría de los sistemas operativos actuales no permiten la ejecución de dichos programas, obligando a la utilización de emuladores de MS-DOS para poder correrlos, siendo esto otro elemento más que se incorpora a los procesos de enseñanza y aprendizaje.
 Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
