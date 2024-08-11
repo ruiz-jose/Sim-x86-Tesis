@@ -176,69 +176,19 @@ La arquitectura x86 es notoriamente compleja, con un conjunto de instrucciones e
 <p>Procesador o CPU cuenta con las siguientes características:</p>
 <table>
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col width="12%" />
+<col width="87%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Arquitectura CPU</th>
-<th><strong>Características</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Arquitectura</td>
-<td>- <em>von Neumann</em>, memoria de datos e instrucciones compartidas.</td>
-</tr>
-<tr class="even">
-<td>Registros</td>
-<td>- 4 registros de propósito general, <code>AL</code>, <code>BL</code>, <code>DL</code> y <code>DL</code> de 8 bits.</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>- 2 registros de propósito específico <code>IP</code> y <code>SP</code>.</td>
-</tr>
-<tr class="even">
-<td></td>
-<td>- 1 registro de estado para las banderas <code>RS</code>.</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>- 2 registros Buffer entre CPU y memoria <code>MAR</code>:buffer de direcciones y <code>MBR</code>:buffer de datos.</td>
-</tr>
-<tr class="even">
-<td>Memoria</td>
-<td>- contiene 256 posiciones y cada una contiene un byte.</td>
-</tr>
-<tr class="odd">
-<td>Buses</td>
-<td>- Bus de datos y direcciones de 8 bits.</td>
-</tr>
-<tr class="even">
-<td>Instrucciones</td>
-<td>- Tamaño de instrucciones variable de 1, 2 y 3 bytes.</td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>- 16 instrucciones soportadas.</td>
-</tr>
-</tbody>
-</table>
-<table>
-<colgroup>
-<col width="15%" />
-<col width="84%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Arquitectura.CPU</th>
+<th align="left">Arquitectura</th>
 <th align="left">Características</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="left">Arquitectura</td>
-<td align="left">- <em>von Neumann</em>, memoria de datos e instrucciones compartidas.</td>
+<td align="left">- von Neumann, memoria de datos e instrucciones compartidas.</td>
 </tr>
 <tr class="even">
 <td align="left">Registros</td>
@@ -282,13 +232,7 @@ La arquitectura x86 es notoriamente compleja, con un conjunto de instrucciones e
 <h4><span class="header-section-number">4.2.2.1</span> Primera etapa<a href="arquitectura-propuesta.html#primera-etapa" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>En un primera instancia se presentaran solo algunas instrucciones necesarias para desarrollar los primeros contenidos de la asignatura:</p>
 <table>
-<caption><span id="tab:data">Tabla 4.1: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
-<colgroup>
-<col width="22%" />
-<col width="16%" />
-<col width="10%" />
-<col width="50%" />
-</colgroup>
+<caption><span id="tab:setreducido">Tabla 4.1: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
 <thead>
 <tr class="header">
 <th align="left">Código operación</th>
@@ -299,22 +243,52 @@ La arquitectura x86 es notoriamente compleja, con un conjunto de instrucciones e
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">{0, 1, 2}</td>
 <td align="left">Transferencia de datos</td>
+<td align="left">{0, 1, 2}</td>
 <td align="left">MOV</td>
-<td align="left">1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria</td>
+<td align="left">0- Copiar entre registros</td>
 </tr>
 <tr class="even">
-<td align="left">{3, 4, 5} {6, 7, 8} {9, 10, 11}</td>
-<td align="left">Pocesamiento de datos</td>
-<td align="left">ADD, SUB, CMP</td>
-<td align="left">1- Sumar 2- Restar 3- Comparar</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">1- Cargar a registro</td>
 </tr>
 <tr class="odd">
-<td align="left">{12}</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">2- Almacenar en memoria</td>
+</tr>
+<tr class="even">
+<td align="left">Pocesamiento de datos</td>
+<td align="left">{3, 4, 5}</td>
+<td align="left">ADD</td>
+<td align="left">3-4-5 Sumar</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">{6, 7, 8}</td>
+<td align="left">SUB</td>
+<td align="left">6-7-8 Restar</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">{9, 10, 11}</td>
+<td align="left">CMP</td>
+<td align="left">9-10-11 Comparar</td>
+</tr>
+<tr class="odd">
 <td align="left">Control de flujo</td>
-<td align="left">JMP, Jxx</td>
-<td align="left">- Saltos condicionales e incondicionales</td>
+<td align="left">{12}</td>
+<td align="left">JMP</td>
+<td align="left">12-a Saltos condicionales</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">Jxx</td>
+<td align="left">12-b Saltos incondicionales</td>
 </tr>
 </tbody>
 </table>

@@ -994,68 +994,11 @@ Consta de los siguientes componentes:
 
 Procesador o CPU cuenta con las siguientes características:
 
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\begin{minipage}[b]{0.47\columnwidth}\raggedright
-Arquitectura CPU\strut
-\end{minipage} & \begin{minipage}[b]{0.47\columnwidth}\raggedright
-\textbf{Características}\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-Arquitectura\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- \emph{von Neumann}, memoria de datos e instrucciones compartidas.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-Registros\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- 4 registros de propósito general, \texttt{AL}, \texttt{BL}, \texttt{DL} y \texttt{DL} de 8 bits.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- 2 registros de propósito específico \texttt{IP} y \texttt{SP}.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- 1 registro de estado para las banderas \texttt{RS}.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- 2 registros Buffer entre CPU y memoria \texttt{MAR}:buffer de direcciones y \texttt{MBR}:buffer de datos.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-Memoria\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- contiene 256 posiciones y cada una contiene un byte.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-Buses\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- Bus de datos y direcciones de 8 bits.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-Instrucciones\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- Tamaño de instrucciones variable de 1, 2 y 3 bytes.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.47\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
-- 16 instrucciones soportadas.\strut
-\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
 \begin{tabular}{l|l}
 \hline
-Arquitectura.CPU & Características\\
+Arquitectura & Características\\
 \hline
-Arquitectura & - *von Neumann*, memoria de datos e instrucciones compartidas.\\
+Arquitectura & - von Neumann, memoria de datos e instrucciones compartidas.\\
 \hline
 Registros & - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits.\\
 \hline
@@ -1086,58 +1029,23 @@ El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la 
 En un primera instancia se presentaran solo algunas instrucciones necesarias para desarrollar los primeros contenidos de la asignatura:
 
 \begin{longtable}[]{@{}llll@{}}
-\caption{\label{tab:data}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\tabularnewline
+\caption{\label{tab:setreducido}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\tabularnewline
 \toprule
-\begin{minipage}[b]{0.20\columnwidth}\raggedright
-Código operación\strut
-\end{minipage} & \begin{minipage}[b]{0.14\columnwidth}\raggedright
-Instrucciones\strut
-\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
-nemónico\strut
-\end{minipage} & \begin{minipage}[b]{0.45\columnwidth}\raggedright
-Acción\strut
-\end{minipage}\tabularnewline
+Código operación & Instrucciones & nemónico & Acción\tabularnewline
 \midrule
 \endfirsthead
 \toprule
-\begin{minipage}[b]{0.20\columnwidth}\raggedright
-Código operación\strut
-\end{minipage} & \begin{minipage}[b]{0.14\columnwidth}\raggedright
-Instrucciones\strut
-\end{minipage} & \begin{minipage}[b]{0.09\columnwidth}\raggedright
-nemónico\strut
-\end{minipage} & \begin{minipage}[b]{0.45\columnwidth}\raggedright
-Acción\strut
-\end{minipage}\tabularnewline
+Código operación & Instrucciones & nemónico & Acción\tabularnewline
 \midrule
 \endhead
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
-\{0, 1, 2\}\strut
-\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
-Transferencia de datos\strut
-\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
-MOV\strut
-\end{minipage} & \begin{minipage}[t]{0.45\columnwidth}\raggedright
-1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
-\{3, 4, 5\} \{6, 7, 8\} \{9, 10, 11\}\strut
-\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
-Pocesamiento de datos\strut
-\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
-ADD, SUB, CMP\strut
-\end{minipage} & \begin{minipage}[t]{0.45\columnwidth}\raggedright
-1- Sumar 2- Restar 3- Comparar\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.20\columnwidth}\raggedright
-\{12\}\strut
-\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
-Control de flujo\strut
-\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright
-JMP, Jxx\strut
-\end{minipage} & \begin{minipage}[t]{0.45\columnwidth}\raggedright
-- Saltos condicionales e incondicionales\strut
-\end{minipage}\tabularnewline
+Transferencia de datos & \{0, 1, 2\} & MOV & 0- Copiar entre registros\tabularnewline
+& & & 1- Cargar a registro\tabularnewline
+& & & 2- Almacenar en memoria\tabularnewline
+Pocesamiento de datos & \{3, 4, 5\} & ADD & 3-4-5 Sumar\tabularnewline
+& \{6, 7, 8\} & SUB & 6-7-8 Restar\tabularnewline
+& \{9, 10, 11\} & CMP & 9-10-11 Comparar\tabularnewline
+Control de flujo & \{12\} & JMP & 12-a Saltos condicionales\tabularnewline
+& & Jxx & 12-b Saltos incondicionales\tabularnewline
 \bottomrule
 \end{longtable}
 
