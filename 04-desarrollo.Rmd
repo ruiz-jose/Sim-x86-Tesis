@@ -72,8 +72,9 @@ arq <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Mostrar la tabla con kable
-kable(arq, align = c("l", "l"), escape = FALSE)
+# Convertir a HTML
+kable(arq, format = "markdown", align = "l", col.names = c("Arquitectura", "Características"), 
+      caption = "Arquitectura x86 propuesta", escape = FALSE)
 ```
 
 ### Repertorio de instrucciones
@@ -129,7 +130,7 @@ setreducido <- data.frame(
 )
 
 # Convertir a HTML
-kable(setreducido, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
+kable(setreducido, format = "markdown", align = "l", col.names = c("Instrucciones", "Código operación", "nemónico", "Acción"), 
       caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
 ```
 
@@ -377,7 +378,7 @@ kable(isacompleta, format = "markdown", align = "l", col.names = c("Código oper
 
 
 
-### Pruebas
+## Pruebas
 Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
 
 - **Pruebas Exhaustivas:** Realizar pruebas rigurosas para asegurar que la herramienta cumple con todos los requisitos. Las pruebas incluirán:
@@ -385,15 +386,12 @@ Después de diseñar la herramienta, se debe construir y probar. Se deben realiz
     - Evaluación de la usabilidad por parte de estudiantes y profesores.
     - Identificación y solución de problemas antes del lanzamiento.
 
-### Portabilidad
+## Portabilidad
 Para asegurar la portabilidad, el simulador se implementará como una aplicación web que puede ejecutarse en cualquier navegador web, garantizando su uso multiplataforma.
 
-### Simplicidad
-La herramienta será diseñada con una interfaz intuitiva y fácil de navegar, minimizando la curva de aprendizaje para los usuarios.
-
-### Mantenibilidad
+## Mantenibilidad
 El código de la herramienta será modular y bien documentado, facilitando futuras actualizaciones y mantenimiento. Además, se implementarán prácticas de desarrollo sostenibles para asegurar su longevidad.
 
-### Escalabilidad
+## Escalabilidad
 Desde la asignatura se incentiva el uso de simuladores para dar apoyo a los proceso de enseñanza y aprendizaje, pero también se incentiva que los contenidos desarrollados puedan volcarse en máquinas reales, en este sentido consideramos que el enfoque planteado por la herramienta emu8086 es el más adecuado para la asignatura, ya que facilita mecanismos para implementar los programas en máquinas reales. Sin embargo presenta el inconveniente que genera ejecutables dependientes del sistema operativo MS-DOS, la mayoría de los sistemas operativos actuales no permiten la ejecución de dichos programas, obligando a la utilización de emuladores de MS-DOS para poder correrlos, siendo esto otro elemento más que se incorpora a los procesos de enseñanza y aprendizaje. 
 Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
