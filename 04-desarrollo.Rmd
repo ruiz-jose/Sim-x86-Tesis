@@ -46,25 +46,12 @@ Consta de los siguientes componentes:
 ### Componentes
 Procesador o CPU cuenta con las siguientes características:
 
-| Arquitectura CPU | **Características** |
-| --- | --- |
-| Arquitectura | -  *von Neumann*, memoria de datos e instrucciones compartidas. |
-|Registros | - 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits. |
-| | - 2 registros de propósito específico `IP` y `SP`. |
-| | - 1 registro de estado para las banderas `RS`. |
-| | - 2 registros Buffer entre CPU y memoria `MAR`:buffer de direcciones y `MBR`:buffer de datos. |
-|Memoria | - contiene 256 posiciones y cada una contiene un byte. |
-|Buses | - Bus de datos y direcciones de 8 bits. | 
-| Instrucciones| - Tamaño de instrucciones variable de 1, 2 y 3 bytes. | 
-| | - 16 instrucciones soportadas. |
-
-
 ```{r arq, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
 # Crear el data frame con los datos del cuadro
 arq <- data.frame(
-  `Arquitectura CPU` = c("Arquitectura", 
+  `Arquitectura` = c("Arquitectura", 
                          "Registros", 
                          "", 
                          "", 
@@ -73,7 +60,7 @@ arq <- data.frame(
                          "Buses", 
                          "Instrucciones", 
                          ""),
-  `Características` = c("- *von Neumann*, memoria de datos e instrucciones compartidas.",
+  `Características` = c("- von Neumann, memoria de datos e instrucciones compartidas.",
                         "- 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits.",
                         "- 2 registros de propósito específico `IP` y `SP`.",
                         "- 1 registro de estado para las banderas `RS`.",
@@ -95,34 +82,54 @@ El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la 
 #### Primera etapa
 En un primera instancia se presentaran solo algunas instrucciones necesarias para desarrollar los primeros contenidos de la asignatura:
 
-```{r data, echo=FALSE, message=FALSE, warning=FALSE}
+```{r setreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
 # Crear los datos
-data <- data.frame(
-    `Código operación` = c(
-    "{0, 1, 2}", 
-    "{3, 4, 5} {6, 7, 8} {9, 10, 11}", 
-    "{12}"
-  ),
+setreducido <- data.frame(
   Instrucciones = c(
     "Transferencia de datos", 
-    "Pocesamiento de datos", 
-    "Control de flujo" 
+    "", 
+    "", 
+    "Pocesamiento de datos",
+    "", 
+    "", 
+    "Control de flujo",
+    ""  
+  ),
+  `Código operación` = c(
+    "{0, 1, 2}",
+    "", 
+    "", 
+    "{3, 4, 5}",
+    "{6, 7, 8}",
+    "{9, 10, 11}",
+    "{12}",
+    "" 
   ),
   `Nemónico` = c(
-    "MOV ", 
-    "ADD, SUB,  CMP", 
-    "JMP, Jxx "
+    "MOV ",
+    "",
+    "",
+    "ADD",
+    "SUB",
+    "CMP", 
+    "JMP", 
+    "Jxx "
   ),
-  Acción = c( "1- Copiar entre registros 2- Cargar a registro  3- Almacenar en memoria",
-    "1- Sumar  2- Restar 3- Comparar",
-    "- Saltos condicionales e incondicionales"
+  Acción = c( "0- Copiar entre registros",
+    "1- Cargar a registro",
+    "2- Almacenar en memoria",
+    "3-4-5 Sumar",
+    "6-7-8 Restar",
+    "9-10-11 Comparar",
+    "12-a Saltos condicionales",
+    "12-b Saltos incondicionales"
   )
 )
 
 # Convertir a HTML
-kable(data, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
+kable(setreducido, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
       caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
 ```
 
