@@ -141,13 +141,6 @@ kable(setreducido, format = "markdown", align = "l", col.names = c("Instruccione
 El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado. 
 Primero veremos la codificaciones de 4 tipos de instrucciones.
 
-| Caso | Codificación | Parámetros |
-| --- | --- | --- |
-| A: entre registros | `---- XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
-| B: Cargar a registro  | `---- XX00 DDDDDDDD` | `XX` = Registro destino, `D` = Dirección de memoria |
-| C: Almacenar en memoria | `---- 00YY DDDDDDDD` | `YY` = Registro fuente, `D` = Dirección de memoria |
-| D: control de flujo  | `---- ffff DDDDDDDD` | `ffff` = funcionalidad `D` = Dirección de memoria |
-
 ```{r codtreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
@@ -205,8 +198,6 @@ tabla_registros <- data.frame(
 # Imprimir la tabla en formato markdown
 kable(tabla_registros, format = "markdown", col.names = c("Número de registros (R)", "Binario", "Decimal"))
 ```
-
-
 ##### Modos de direccionamientos
 
 Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:
