@@ -282,13 +282,19 @@ La arquitectura x86 es notoriamente compleja, con un conjunto de instrucciones e
 <td align="left">Control de flujo</td>
 <td align="left">{12}</td>
 <td align="left">JMP</td>
-<td align="left">12-a Saltos condicionales</td>
+<td align="left">12-a Salto incondicional</td>
 </tr>
 <tr class="even">
 <td align="left"></td>
 <td align="left"></td>
-<td align="left">Jxx</td>
-<td align="left">12-b Saltos incondicionales</td>
+<td align="left">JZ</td>
+<td align="left">12-b Salto condicional si Z=1</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">JC</td>
+<td align="left">12-c Salto condicional si C=1</td>
 </tr>
 </tbody>
 </table>
@@ -297,6 +303,7 @@ La arquitectura x86 es notoriamente compleja, con un conjunto de instrucciones e
 <p>El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado.
 Primero veremos la codificaciones de 4 tipos de instrucciones.</p>
 <table>
+<caption><span id="tab:codtreducido">Tabla 4.3: </span>Tabla de codififación de instrucciones</caption>
 <colgroup>
 <col width="33%" />
 <col width="33%" />
@@ -332,6 +339,42 @@ Primero veremos la codificaciones de 4 tipos de instrucciones.</p>
 </tr>
 </tbody>
 </table>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="20%" />
+<col width="52%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Casos</th>
+<th align="left">Codificación</th>
+<th align="left">Parámetros</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">A: entre registros</td>
+<td align="left">—- XXYY</td>
+<td align="left">XX = Registro destino, YY = Registro fuente</td>
+</tr>
+<tr class="even">
+<td align="left">B: Cargar a registro</td>
+<td align="left">—- XX00 DDDDDDDD</td>
+<td align="left">XX = Registro destino, D = Dirección de memoria</td>
+</tr>
+<tr class="odd">
+<td align="left">C: Almacenar en memoria</td>
+<td align="left">—- 00YY DDDDDDDD</td>
+<td align="left">YY = Registro fuente, D = Dirección de memoria</td>
+</tr>
+<tr class="even">
+<td align="left">D: control de flujo</td>
+<td align="left">—- ffff DDDDDDDD</td>
+<td align="left">ffff = funcionalidad, D = Dirección de memoria</td>
+</tr>
+</tbody>
+</table>
 <p>Considerando:</p>
 <ul>
 <li><p><code>A</code>: operaciones entre registros del procesador.</p></li>
@@ -352,54 +395,42 @@ Primero veremos la codificaciones de 4 tipos de instrucciones.</p>
 <table>
 <thead>
 <tr class="header">
-<th align="center">Números de registros (R)</th>
-<th align="center"></th>
-<th align="center"></th>
+<th align="left">Número de registros (R)</th>
+<th align="left">Binario</th>
+<th align="right">Decimal</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center"><strong>registro</strong></td>
-<td align="center"><strong>binario</strong></td>
-<td align="center"><strong>decimal</strong></td>
+<td align="left">AL</td>
+<td align="left">00</td>
+<td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="center">AL</td>
-<td align="center">00</td>
-<td align="center">0</td>
+<td align="left">BL</td>
+<td align="left">01</td>
+<td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="center">BL</td>
-<td align="center">01</td>
-<td align="center">1</td>
+<td align="left">CL</td>
+<td align="left">10</td>
+<td align="right">2</td>
 </tr>
 <tr class="even">
-<td align="center">CL</td>
-<td align="center">10</td>
-<td align="center">2</td>
-</tr>
-<tr class="odd">
-<td align="center">DL</td>
-<td align="center">11</td>
-<td align="center">3</td>
+<td align="left">DL</td>
+<td align="left">11</td>
+<td align="right">3</td>
 </tr>
 </tbody>
 </table>
 <div id="modos-de-direccionamientos" class="section level5 hasAnchor" number="4.2.2.2.1">
 <h5><span class="header-section-number">4.2.2.2.1</span> Modos de direccionamientos<a href="arquitectura-propuesta.html#modos-de-direccionamientos" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:</p>
-<ul>
-<li><p>Registro a registro: los operandos de la instrucción son registros.</p></li>
-<li><p>Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.</p></li>
-</ul>
-<p>La mayoría de las instrucciones básicas tienen solo las siguientes formas:</p>
-<ul>
-<li><p><strong>MOV <em>Rx, Ry</em></strong></p></li>
-<li><p><strong>MOV <em>Rx, [M]</em></strong></p></li>
-<li><p><strong>MOV <em>[M], Ry</em></strong></p></li>
-<li><p><strong>JMP <em>M</em></strong></p></li>
-</ul>
 <table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th>Operando</th>
@@ -409,129 +440,118 @@ Primero veremos la codificaciones de 4 tipos de instrucciones.</p>
 <tbody>
 <tr class="odd">
 <td><code>Rx</code>,<code>Ry</code></td>
-<td>por Registros</td>
+<td>Registro a registro: los operandos de la instrucción son registros</td>
 </tr>
 <tr class="even">
 <td><code>[M]</code></td>
-<td>Directo, se accede a un contenido de memoria</td>
+<td>Directo: un operando de la instruccion es el contenido de una dirección de memoria, se accede a un contenido de memoria</td>
 </tr>
 <tr class="odd">
 <td><code>M</code></td>
-<td>Directo, se accede a una dirección de memoria</td>
+<td>Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción</td>
 </tr>
 </tbody>
 </table>
+<p>Se puede implementar las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:</p>
 <table>
-<colgroup>
-<col width="10%" />
-<col width="30%" />
-<col width="30%" />
-<col width="30%" />
-</colgroup>
 <thead>
 <tr class="header">
-<th>#</th>
-<th>Instrucción</th>
-<th>Acción</th>
-<th>Codificación</th>
+<th align="left">#</th>
+<th align="left">Instrucción</th>
+<th align="left">Acción</th>
+<th align="left">Codificación</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>0</td>
-<td><code>MOV Rx, Ry</code></td>
-<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></td>
-<td><code>0000 XXYY</code></td>
+<td align="left">0</td>
+<td align="left">MOV Rx, Ry</td>
+<td align="left">Rx ← Ry</td>
+<td align="left">0000 XXYY</td>
 </tr>
 <tr class="even">
-<td>1</td>
-<td><code>MOV Rx, [M]</code></td>
-<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[Dirección]</code></td>
-<td><code>0001 00YY DDDDDDDD</code></td>
+<td align="left">1</td>
+<td align="left">MOV Rx, [M]</td>
+<td align="left">Rx ← Mem[Dirección]</td>
+<td align="left">0001 00YY DDDDDDDD</td>
 </tr>
 <tr class="odd">
-<td>2</td>
-<td><code>MOV [M], Ry</code></td>
-<td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code></td>
-<td><code>0010 XX00 DDDDDDDD</code></td>
+<td align="left">2</td>
+<td align="left">MOV [M], Ry</td>
+<td align="left">Mem[Dirección] ← Rx</td>
+<td align="left">0010 XX00 DDDDDDDD</td>
 </tr>
 <tr class="even">
-<td>3</td>
-<td><code>ADD Rx, Ry</code></td>
-<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx + Ry</code></td>
-<td><code>0011 XXYY</code></td>
+<td align="left">3</td>
+<td align="left">ADD Rx, Ry</td>
+<td align="left">Rx ← Rx + Ry</td>
+<td align="left">0011 XXYY</td>
 </tr>
 <tr class="odd">
-<td>4</td>
-<td><code>ADD Rx, [M]</code></td>
-<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx + Mem[Dirección]</code></td>
-<td><code>0100 00YY DDDDDDDD</code></td>
+<td align="left">4</td>
+<td align="left">ADD Rx, [M]</td>
+<td align="left">Rx ← Rx + Mem[Dirección]</td>
+<td align="left">0100 00YY DDDDDDDD</td>
 </tr>
 <tr class="even">
-<td>5</td>
-<td><code>ADD [M], Ry</code></td>
-<td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[Dirección] + Ry</code></td>
-<td><code>0101 XX00 DDDDDDDD</code></td>
+<td align="left">5</td>
+<td align="left">ADD [M], Ry</td>
+<td align="left">Mem[Dirección] ← Mem[Dirección] + Ry</td>
+<td align="left">0101 XX00 DDDDDDDD</td>
 </tr>
 <tr class="odd">
-<td>6</td>
-<td><code>SUB Rx, Ry</code></td>
-<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx - Ry</code></td>
-<td><code>0110 XXYY</code></td>
+<td align="left">6</td>
+<td align="left">SUB Rx, Ry</td>
+<td align="left">Rx ← Rx - Ry</td>
+<td align="left">0110 XXYY</td>
 </tr>
 <tr class="even">
-<td>7</td>
-<td><code>SUB Rx, [M]</code></td>
-<td><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx - Mem[Dirección]</code></td>
-<td><code>0111 00YY DDDDDDDD</code></td>
+<td align="left">7</td>
+<td align="left">SUB Rx, [M]</td>
+<td align="left">Rx ← Rx - Mem[Dirección]</td>
+<td align="left">0111 00YY DDDDDDDD</td>
 </tr>
 <tr class="odd">
-<td>8</td>
-<td><code>SUB [M], Ry</code></td>
-<td><code>Mem[Dirección]</code> <span class="math inline">\(\leftarrow\)</span> <code>Mem[Dirección] - Ry</code></td>
-<td><code>1000 XX00 DDDDDDDD</code></td>
+<td align="left">8</td>
+<td align="left">SUB [M], Ry</td>
+<td align="left">Mem[Dirección] ← Mem[Dirección] - Ry</td>
+<td align="left">1000 XX00 DDDDDDDD</td>
 </tr>
 <tr class="even">
-<td>9</td>
-<td><code>CMP Rx, Ry</code></td>
-<td>Modifica <em>flags</em> de <code>Rx - Ry</code></td>
-<td><code>1001 XXYY</code></td>
+<td align="left">9</td>
+<td align="left">CMP Rx, Ry</td>
+<td align="left">Modifica flags de Rx - Ry</td>
+<td align="left">1001 XXYY</td>
 </tr>
 <tr class="odd">
-<td>A</td>
-<td><code>CMP Rx, [M]</code></td>
-<td>Modifica <em>flags</em> de <code>Rx - Mem[Dirección]</code></td>
-<td><code>1010 00YY DDDDDDDD</code></td>
+<td align="left">A</td>
+<td align="left">CMP Rx, [M]</td>
+<td align="left">Modifica flags de Rx - Mem[Dirección]</td>
+<td align="left">1010 00YY DDDDDDDD</td>
 </tr>
 <tr class="even">
-<td>B</td>
-<td><code>CMP [M], Ry</code></td>
-<td>Modifica <em>flags</em> de <code>Mem[Dirección] - Ry</code></td>
-<td><code>1011 XX00 DDDDDDDD</code></td>
+<td align="left">B</td>
+<td align="left">CMP [M], Ry</td>
+<td align="left">Modifica flags de Mem[Dirección] - Ry</td>
+<td align="left">1011 XX00 DDDDDDDD</td>
 </tr>
 <tr class="odd">
-<td>C</td>
-<td><code>JMP M</code></td>
-<td><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
-<td><code>1100 0000 DDDDDDDD</code></td>
+<td align="left">C</td>
+<td align="left">JMP M</td>
+<td align="left">IP ← Dirección</td>
+<td align="left">1100 0000 DDDDDDDD</td>
 </tr>
 <tr class="even">
-<td>C</td>
-<td><code>JC M</code></td>
-<td>Si <code>flag C=1</code> entonces <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
-<td><code>1100 0001 DDDDDDDD</code></td>
+<td align="left">C</td>
+<td align="left">JC M</td>
+<td align="left">Si flag C=1 entonces IP ← Dirección</td>
+<td align="left">1100 0001 DDDDDDDD</td>
 </tr>
 <tr class="odd">
-<td>C</td>
-<td><code>JZ M</code></td>
-<td>Si <code>flag Z=1</code> entonces <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>Dirección</code></td>
-<td><code>1100 0011 DDDDDDDD</code></td>
-</tr>
-<tr class="even">
-<td>C</td>
-<td><code>Jxx M</code></td>
-<td>Se pueden implementar más flags</td>
-<td><code>1100 ffff DDDDDDDD</code></td>
+<td align="left">C</td>
+<td align="left">JZ M</td>
+<td align="left">Si flag Z=1 entonces IP ← Dirección</td>
+<td align="left">1100 0011 DDDDDDDD</td>
 </tr>
 </tbody>
 </table>
@@ -545,8 +565,7 @@ Primero veremos la codificaciones de 4 tipos de instrucciones.</p>
 <h4><span class="header-section-number">4.2.3.1</span> Modos de direccionamientos<a href="arquitectura-propuesta.html#modos-de-direccionamientos-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Se incoporan los siguientes modos de direccionamiento:</p>
 <ul>
-<li><p>Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro <code>BL</code></p></li>
-<li><p>Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.</p></li>
+<li>Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro <code>BL</code></li>
 </ul>
 <p>Se incorpora los siguientes operandos a las instrucciones:
 * <strong>MOV <em>Rx, [BL]</em></strong></p>
@@ -880,7 +899,7 @@ Primero veremos la codificaciones de 4 tipos de instrucciones.</p>
 <h3><span class="header-section-number">4.2.4</span> Tercera etapa<a href="arquitectura-propuesta.html#tercera-etapa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Se incorporan las instrucciones de manejo de pila y de manejo de interrupciones.</p>
 <table>
-<caption><span id="tab:isacompleta">Tabla 4.3: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
+<caption><span id="tab:isacompleta">Tabla 4.4: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
 <colgroup>
 <col width="15%" />
 <col width="11%" />
@@ -976,7 +995,7 @@ Primero veremos la codificaciones de 4 tipos de instrucciones.</p>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": true,
+"github": "https://github.com/ruiz-jose/Sim-x86-Tesis",
 "facebook": false,
 "twitter": false,
 "linkedin": false,

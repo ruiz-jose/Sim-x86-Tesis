@@ -1086,8 +1086,9 @@ Transferencia de datos & \{0, 1, 2\} & MOV & 0- Copiar entre registros\tabularne
 Pocesamiento de datos & \{3, 4, 5\} & ADD & 3-4-5 Sumar\tabularnewline
 & \{6, 7, 8\} & SUB & 6-7-8 Restar\tabularnewline
 & \{9, 10, 11\} & CMP & 9-10-11 Comparar\tabularnewline
-Control de flujo & \{12\} & JMP & 12-a Saltos condicionales\tabularnewline
-& & Jxx & 12-b Saltos incondicionales\tabularnewline
+Control de flujo & \{12\} & JMP & 12-a Salto incondicional\tabularnewline
+& & JZ & 12-b Salto condicional si Z=1\tabularnewline
+& & JC & 12-c Salto condicional si C=1\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -1098,6 +1099,17 @@ El formato de las instrucciones propuesto para la enseñanza de la arquitectura 
 Primero veremos la codificaciones de 4 tipos de instrucciones.
 
 \begin{longtable}[]{@{}lll@{}}
+\caption{\label{tab:codtreducido}Tabla de codififación de instrucciones}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+Caso\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Codificación\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Parámetros\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
 \toprule
 \begin{minipage}[b]{0.30\columnwidth}\raggedright
 Caso\strut
@@ -1139,6 +1151,48 @@ D: control de flujo\strut
 \bottomrule
 \end{longtable}
 
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.24\columnwidth}\raggedright
+Casos\strut
+\end{minipage} & \begin{minipage}[b]{0.19\columnwidth}\raggedright
+Codificación\strut
+\end{minipage} & \begin{minipage}[b]{0.48\columnwidth}\raggedright
+Parámetros\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+A: entre registros\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+---- XXYY\strut
+\end{minipage} & \begin{minipage}[t]{0.48\columnwidth}\raggedright
+XX = Registro destino, YY = Registro fuente\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+B: Cargar a registro\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+---- XX00 DDDDDDDD\strut
+\end{minipage} & \begin{minipage}[t]{0.48\columnwidth}\raggedright
+XX = Registro destino, D = Dirección de memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+C: Almacenar en memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+---- 00YY DDDDDDDD\strut
+\end{minipage} & \begin{minipage}[t]{0.48\columnwidth}\raggedright
+YY = Registro fuente, D = Dirección de memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+D: control de flujo\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+---- ffff DDDDDDDD\strut
+\end{minipage} & \begin{minipage}[t]{0.48\columnwidth}\raggedright
+ffff = funcionalidad, D = Dirección de memoria\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
 Considerando:
 
 \begin{itemize}
@@ -1167,12 +1221,11 @@ Considerando:
 \hypertarget{registros-banco-de-registros}{%
 \subsubsection{Registros (Banco de Registros)}\label{registros-banco-de-registros}}
 
-\begin{longtable}[]{@{}ccc@{}}
+\begin{longtable}[]{@{}llr@{}}
 \toprule
-Números de registros (R) & &\tabularnewline
+Número de registros (R) & Binario & Decimal\tabularnewline
 \midrule
 \endhead
-\textbf{registro} & \textbf{binario} & \textbf{decimal}\tabularnewline
 AL & 00 & 0\tabularnewline
 BL & 01 & 1\tabularnewline
 CL & 10 & 2\tabularnewline
@@ -1185,194 +1238,55 @@ DL & 11 & 3\tabularnewline
 
 Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:
 
-\begin{itemize}
-\item
-  Registro a registro: los operandos de la instrucción son registros.
-\item
-  Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.
-\end{itemize}
-
-La mayoría de las instrucciones básicas tienen solo las siguientes formas:
-
-\begin{itemize}
-\item
-  \textbf{MOV \emph{Rx, Ry}}
-\item
-  \textbf{MOV \emph{Rx, {[}M{]}}}
-\item
-  \textbf{MOV \emph{{[}M{]}, Ry}}
-\item
-  \textbf{JMP \emph{M}}
-\end{itemize}
-
 \begin{longtable}[]{@{}ll@{}}
 \toprule
-Operando & tipo\tabularnewline
+\begin{minipage}[b]{0.47\columnwidth}\raggedright
+Operando\strut
+\end{minipage} & \begin{minipage}[b]{0.47\columnwidth}\raggedright
+tipo\strut
+\end{minipage}\tabularnewline
 \midrule
 \endhead
-\texttt{Rx},\texttt{Ry} & por Registros\tabularnewline
-\texttt{{[}M{]}} & Directo, se accede a un contenido de memoria\tabularnewline
-\texttt{M} & Directo, se accede a una dirección de memoria\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\texttt{Rx},\texttt{Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+Registro a registro: los operandos de la instrucción son registros\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\texttt{{[}M{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+Directo: un operando de la instruccion es el contenido de una dirección de memoria, se accede a un contenido de memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\texttt{M}\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción\strut
+\end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
 
+Se puede implementar las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
+
 \begin{longtable}[]{@{}llll@{}}
 \toprule
-\begin{minipage}[b]{0.09\columnwidth}\raggedright
-\#\strut
-\end{minipage} & \begin{minipage}[b]{0.27\columnwidth}\raggedright
-Instrucción\strut
-\end{minipage} & \begin{minipage}[b]{0.27\columnwidth}\raggedright
-Acción\strut
-\end{minipage} & \begin{minipage}[b]{0.27\columnwidth}\raggedright
-Codificación\strut
-\end{minipage}\tabularnewline
+\# & Instrucción & Acción & Codificación\tabularnewline
 \midrule
 \endhead
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-0\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{MOV\ Rx,\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Rx} \(\leftarrow\) \texttt{Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{0000\ XXYY}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-1\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{MOV\ Rx,\ {[}M{]}}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Rx} \(\leftarrow\) \texttt{Mem{[}Dirección{]}}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{0001\ 00YY\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-2\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{MOV\ {[}M{]},\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Mem{[}Dirección{]}} \(\leftarrow\) \texttt{Rx}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{0010\ XX00\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-3\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{ADD\ Rx,\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Rx} \(\leftarrow\) \texttt{Rx\ +\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{0011\ XXYY}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-4\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{ADD\ Rx,\ {[}M{]}}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Rx} \(\leftarrow\) \texttt{Rx\ +\ Mem{[}Dirección{]}}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{0100\ 00YY\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-5\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{ADD\ {[}M{]},\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Mem{[}Dirección{]}} \(\leftarrow\) \texttt{Mem{[}Dirección{]}\ +\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{0101\ XX00\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-6\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{SUB\ Rx,\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Rx} \(\leftarrow\) \texttt{Rx\ -\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{0110\ XXYY}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-7\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{SUB\ Rx,\ {[}M{]}}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Rx} \(\leftarrow\) \texttt{Rx\ -\ Mem{[}Dirección{]}}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{0111\ 00YY\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-8\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{SUB\ {[}M{]},\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Mem{[}Dirección{]}} \(\leftarrow\) \texttt{Mem{[}Dirección{]}\ -\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{1000\ XX00\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-9\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{CMP\ Rx,\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-Modifica \emph{flags} de \texttt{Rx\ -\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{1001\ XXYY}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-A\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{CMP\ Rx,\ {[}M{]}}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-Modifica \emph{flags} de \texttt{Rx\ -\ Mem{[}Dirección{]}}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{1010\ 00YY\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-B\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{CMP\ {[}M{]},\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-Modifica \emph{flags} de \texttt{Mem{[}Dirección{]}\ -\ Ry}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{1011\ XX00\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-C\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{JMP\ M}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{IP} \(\leftarrow\) \texttt{Dirección}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{1100\ 0000\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-C\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{JC\ M}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-Si \texttt{flag\ C=1} entonces \texttt{IP} \(\leftarrow\) \texttt{Dirección}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{1100\ 0001\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-C\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{JZ\ M}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-Si \texttt{flag\ Z=1} entonces \texttt{IP} \(\leftarrow\) \texttt{Dirección}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{1100\ 0011\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.09\columnwidth}\raggedright
-C\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{Jxx\ M}\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-Se pueden implementar más flags\strut
-\end{minipage} & \begin{minipage}[t]{0.27\columnwidth}\raggedright
-\texttt{1100\ ffff\ DDDDDDDD}\strut
-\end{minipage}\tabularnewline
+0 & MOV Rx, Ry & Rx ← Ry & 0000 XXYY\tabularnewline
+1 & MOV Rx, {[}M{]} & Rx ← Mem{[}Dirección{]} & 0001 00YY DDDDDDDD\tabularnewline
+2 & MOV {[}M{]}, Ry & Mem{[}Dirección{]} ← Rx & 0010 XX00 DDDDDDDD\tabularnewline
+3 & ADD Rx, Ry & Rx ← Rx + Ry & 0011 XXYY\tabularnewline
+4 & ADD Rx, {[}M{]} & Rx ← Rx + Mem{[}Dirección{]} & 0100 00YY DDDDDDDD\tabularnewline
+5 & ADD {[}M{]}, Ry & Mem{[}Dirección{]} ← Mem{[}Dirección{]} + Ry & 0101 XX00 DDDDDDDD\tabularnewline
+6 & SUB Rx, Ry & Rx ← Rx - Ry & 0110 XXYY\tabularnewline
+7 & SUB Rx, {[}M{]} & Rx ← Rx - Mem{[}Dirección{]} & 0111 00YY DDDDDDDD\tabularnewline
+8 & SUB {[}M{]}, Ry & Mem{[}Dirección{]} ← Mem{[}Dirección{]} - Ry & 1000 XX00 DDDDDDDD\tabularnewline
+9 & CMP Rx, Ry & Modifica flags de Rx - Ry & 1001 XXYY\tabularnewline
+A & CMP Rx, {[}M{]} & Modifica flags de Rx - Mem{[}Dirección{]} & 1010 00YY DDDDDDDD\tabularnewline
+B & CMP {[}M{]}, Ry & Modifica flags de Mem{[}Dirección{]} - Ry & 1011 XX00 DDDDDDDD\tabularnewline
+C & JMP M & IP ← Dirección & 1100 0000 DDDDDDDD\tabularnewline
+C & JC M & Si flag C=1 entonces IP ← Dirección & 1100 0001 DDDDDDDD\tabularnewline
+C & JZ M & Si flag Z=1 entonces IP ← Dirección & 1100 0011 DDDDDDDD\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -1387,10 +1301,9 @@ En un segunda instancia se amplian los modos de direccionamiento de las instrucc
 Se incoporan los siguientes modos de direccionamiento:
 
 \begin{itemize}
+\tightlist
 \item
   Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro \texttt{BL}
-\item
-  Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.
 \end{itemize}
 
 Se incorpora los siguientes operandos a las instrucciones:
