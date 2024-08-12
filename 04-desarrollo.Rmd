@@ -95,6 +95,7 @@ setreducido <- data.frame(
     "", 
     "", 
     "Control de flujo",
+    "",
     ""  
   ),
   `Código operación` = c(
@@ -105,6 +106,7 @@ setreducido <- data.frame(
     "{6, 7, 8}",
     "{9, 10, 11}",
     "{12}",
+    "",
     "" 
   ),
   `Nemónico` = c(
@@ -115,7 +117,8 @@ setreducido <- data.frame(
     "SUB",
     "CMP", 
     "JMP", 
-    "Jxx "
+    "JZ ",
+    "JC "
   ),
   Acción = c( "0- Copiar entre registros",
     "1- Cargar a registro",
@@ -123,8 +126,9 @@ setreducido <- data.frame(
     "3-4-5 Sumar",
     "6-7-8 Restar",
     "9-10-11 Comparar",
-    "12-a Saltos condicionales",
-    "12-b Saltos incondicionales"
+    "12-a Salto incondicional ",
+    "12-b Salto condicional si Z=1",
+    "12-c Salto condicional si C=1"
   )
 )
 
@@ -143,6 +147,26 @@ Primero veremos la codificaciones de 4 tipos de instrucciones.
 | B: Cargar a registro  | `---- XX00 DDDDDDDD` | `XX` = Registro destino, `D` = Dirección de memoria |
 | C: Almacenar en memoria | `---- 00YY DDDDDDDD` | `YY` = Registro fuente, `D` = Dirección de memoria |
 | D: control de flujo  | `---- ffff DDDDDDDD` | `ffff` = funcionalidad `D` = Dirección de memoria |
+
+```{r codtreducido, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+
+# Crear un dataframe con los datos
+codtreducido <- data.frame(
+  Caso = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
+  Codificación = c("---- XXYY", "---- XX00 DDDDDDDD", "---- 00YY DDDDDDDD", "---- ffff DDDDDDDD"),
+  Parámetros = c(
+    "XX = Registro destino, YY = Registro fuente",
+    "XX = Registro destino, D = Dirección de memoria",
+    "YY = Registro fuente, D = Dirección de memoria",
+    "ffff = funcionalidad, D = Dirección de memoria"
+  )
+)
+kable(codtreducido, format = "markdown", align = "l", col.names = c("Casos", "Codificación", "Parámetros"), 
+      caption = "Tabla de codififación de instrucciones")
+```
+
 
 Considerando:
 
@@ -168,58 +192,79 @@ Considerando:
 
 #### Registros (Banco de Registros)
 
-| Números de registros (R)  |  |  |
-| :---: | :---: | :---: |
-| **registro** | **binario** | **decimal** |
-| AL | 00 | 0 |
-| BL | 01 | 1 |
-| CL | 10 | 2 |
-| DL | 11 | 3 |
+```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+# Crear un dataframe con los datos
+tabla_registros <- data.frame(
+  Registro = c("AL", "BL", "CL", "DL"),
+  Binario = c("00", "01", "10", "11"),
+  Decimal = c(0, 1, 2, 3)
+)
+
+# Imprimir la tabla en formato markdown
+kable(tabla_registros, format = "markdown", col.names = c("Número de registros (R)", "Binario", "Decimal"))
+```
+
 
 ##### Modos de direccionamientos
 
 Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:
 
-  * Registro a registro: los operandos de la instrucción son registros. 
-
-  * Directo: en la instrucción se indica la dirección de memoria en la que está contenido el operando.  
-
-
-La mayoría de las instrucciones básicas tienen solo las siguientes formas:
-
-  * **MOV *Rx, Ry***  
-
-  * **MOV *Rx, [M]***  
-
-  * **MOV *[M], Ry***  
-
-  * **JMP *M***  
-
-
 | Operando | tipo | 
 | --- | --- |
-| `Rx`,`Ry`| por Registros |
-| `[M]`|	Directo, se accede a un contenido de memoria |
-| `M`|	Directo, se accede a una dirección de memoria |
+| `Rx`,`Ry`| Registro a registro: los operandos de la instrucción son registros |
+| `[M]`|	Directo: un operando de la instruccion es el contenido de una dirección de memoria, se accede a un contenido de memoria |
+| `M`|	Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción |
 
-| # | Instrucción        | Acción                                                             | Codificación                  |
-| - | ---                | ---                                                                | ---                           |
-| 0 | `MOV Rx, Ry`       | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`                   |
-| 1 | `MOV Rx, [M]`      | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 00YY DDDDDDDD`          |
-| 2 | `MOV [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 XX00 DDDDDDDD`          |
-| 3 | `ADD Rx, Ry`       | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`                   |
-| 4 | `ADD Rx, [M]`      | `Rx` $\leftarrow$ `Rx + Mem[Dirección]`                            | `0100 00YY DDDDDDDD`          |
-| 5 | `ADD [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Mem[Dirección] + Ry`                | `0101 XX00 DDDDDDDD`          |
-| 6 | `SUB Rx, Ry`       | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0110 XXYY`                   |
-| 7 | `SUB Rx, [M]`      | `Rx` $\leftarrow$ `Rx - Mem[Dirección]`                            | `0111 00YY DDDDDDDD`          |
-| 8 | `SUB [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Mem[Dirección] - Ry`                | `1000 XX00 DDDDDDDD`          |
-| 9 | `CMP Rx, Ry`       | Modifica *flags* de `Rx - Ry`                                      | `1001 XXYY`                   |
-| A | `CMP Rx, [M]`       | Modifica *flags* de `Rx - Mem[Dirección]`                         | `1010 00YY DDDDDDDD`          |
-| B | `CMP [M], Ry`       | Modifica *flags* de `Mem[Dirección] - Ry`                         | `1011 XX00 DDDDDDDD`          |
-| C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 DDDDDDDD`          |
-| C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 DDDDDDDD`          |
-| C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 DDDDDDDD`          |
-| C | `Jxx M`            | Se pueden implementar más flags                                  | `1100 ffff DDDDDDDD`          |
+Se puede implementar las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
+
+```{r tabla_instrucciones, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+# Crear un dataframe con los datos
+tabla_instrucciones <- data.frame(
+  `#` = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "C", "C"),
+  Instrucción = c("MOV Rx, Ry", "MOV Rx, [M]", "MOV [M], Ry", "ADD Rx, Ry", "ADD Rx, [M]", "ADD [M], Ry", "SUB Rx, Ry", "SUB Rx, [M]", "SUB [M], Ry", "CMP Rx, Ry", "CMP Rx, [M]", "CMP [M], Ry", "JMP M", "JC M", "JZ M"),
+  Acción = c(
+    "Rx ← Ry",
+    "Rx ← Mem[Dirección]",
+    "Mem[Dirección] ← Rx",
+    "Rx ← Rx + Ry",
+    "Rx ← Rx + Mem[Dirección]",
+    "Mem[Dirección] ← Mem[Dirección] + Ry",
+    "Rx ← Rx - Ry",
+    "Rx ← Rx - Mem[Dirección]",
+    "Mem[Dirección] ← Mem[Dirección] - Ry",
+    "Modifica flags de Rx - Ry",
+    "Modifica flags de Rx - Mem[Dirección]",
+    "Modifica flags de Mem[Dirección] - Ry",
+    "IP ← Dirección",
+    "Si flag C=1 entonces IP ← Dirección",
+    "Si flag Z=1 entonces IP ← Dirección"
+  ),
+  Codificación = c(
+    "0000 XXYY",
+    "0001 00YY DDDDDDDD",
+    "0010 XX00 DDDDDDDD",
+    "0011 XXYY",
+    "0100 00YY DDDDDDDD",
+    "0101 XX00 DDDDDDDD",
+    "0110 XXYY",
+    "0111 00YY DDDDDDDD",
+    "1000 XX00 DDDDDDDD",
+    "1001 XXYY",
+    "1010 00YY DDDDDDDD",
+    "1011 XX00 DDDDDDDD",
+    "1100 0000 DDDDDDDD",
+    "1100 0001 DDDDDDDD",
+    "1100 0011 DDDDDDDD"
+  )
+)
+
+# Imprimir la tabla en formato markdown
+kable(tabla_instrucciones, format = "markdown", col.names = c("#", "Instrucción", "Acción", "Codificación"))
+```
 
 ### Segunda etapa
 En un segunda instancia se amplian los modos de direccionamiento de las instrucciones y se incorporan nuevos formato de instrucciones y modos de direccionamiento.
@@ -229,7 +274,6 @@ Se incoporan los siguientes modos de direccionamiento:
 
   * Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro `BL`  
 
-  * Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción.   
 
 
 Se incorpora los siguientes operandos a las instrucciones:
