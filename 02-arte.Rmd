@@ -94,15 +94,33 @@ El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture)
 #### Filosofías CISC y RISC
 La arquitectura x86 sigue la filosofía CISC (Complex Instruction Set Computer), la cual se caracteriza por tener un repertorio de instrucciones amplio y complejo. Esta filosofía busca reducir la cantidad de instrucciones por programa, a costa de aumentar la complejidad de cada instrucción individual. Esto contrasta con la filosofía RISC (Reduced Instruction Set Computer), que utiliza un repertorio de instrucciones más simple y optimiza el uso de registros y operaciones rápidas, aumentando el número de instrucciones necesarias por programa pero simplificando el diseño del hardware [@stallings_computer_2013].
 
-#### Instrucciones x86
-El repertorio de instrucciones x86 incluye una variedad de instrucciones para realizar operaciones aritméticas, lógicas, de control y de manejo de memoria. Algunos ejemplos son:
 
-- `MOV`: Mueve datos de una ubicación a otra.
-- `ADD`: Suma dos valores.
-- `SUB`: Resta un valor de otro.
-- `JMP`: Salta a una dirección específica.
+#### Formato de las Instrucciones en la Arquitectura x86
+La arquitectura x86 es conocida por su complejidad y flexibilidad, características que se reflejan en su repertorio de instrucciones. Las instrucciones x86 pueden variar considerablemente en su longitud y estructura, lo que permite una gran diversidad de operaciones pero también añade una capa de complejidad en su decodificación y ejecución. Según Stallings [@stallings_computer_2013], el formato de las instrucciones en x86 incluye una variedad de campos que pueden estar presentes o no dependiendo del tipo de instrucción.
 
-Además de estas, existen muchas otras instrucciones que permiten manipular registros, gestionar interrupciones y ejecutar operaciones en punto flotante, entre otras. La versatilidad y profundidad del ISA x86 la han convertido en una de las arquitecturas más utilizadas y estudiadas en el campo de la informática.
+
+##### Estructura General de una Instrucción x86
+Una instrucción en la arquitectura x86 puede constar de los siguientes componentes:
+
+- Prefijos: Opcionalmente, una instrucción puede comenzar con uno o más bytes de prefijo, que modifican la operación de la instrucción principal. Estos prefijos pueden alterar aspectos como el tamaño del operando, el modo de operación, o activar ciertas funciones como las repeticiones.
+
+- Código de Operación (Opcode): El opcode indica la operación que debe realizarse. En x86, el opcode puede variar en longitud, desde un byte hasta varios bytes, lo que refleja la diversidad de operaciones que la arquitectura puede manejar.
+
+- Modificadores de Dirección (ModR/M y SIB): Estos campos se utilizan para especificar los registros y/o direcciones de memoria involucrados en la instrucción. El byte ModR/M se divide en tres partes: el campo mod, el campo reg, y el campo rm, que en conjunto determinan cómo se accederá a los operandos. En algunos casos, también se incluye un byte SIB (Scale-Index-Base) para proporcionar direcciones más complejas.
+
+- Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción.
+
+##### Complejidad en la Decodificación
+Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad no solo aumenta la complejidad de la decodificación, sino que también permite una gran flexibilidad en la programación. Sin embargo, este diseño también implica que la CPU debe ser capaz de manejar una lógica de decodificación bastante intrincada para interpretar correctamente cada instrucción.
+
+Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.
+
+Ejemplo de Instrucción x86
+Una instrucción simple en x86 podría ser:
+
+MOV AX, [BX+SI+16]
+
+En este caso, el opcode MOV se traduce a un byte específico, y el uso de registros y desplazamientos se codifica mediante el byte ModR/M y el posible uso de un byte SIB. Este ejemplo ilustra cómo la instrucción compacta se expande a múltiples bytes en la memoria, y cómo la CPU debe descomponer estos bytes para ejecutar la operación correctamente.
 
 ## Lenguaje ensamblador
 Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador. Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso [@irvine2011assembly]. 
