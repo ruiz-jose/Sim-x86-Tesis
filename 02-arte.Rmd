@@ -1,5 +1,5 @@
 # Estado del arte
-En este capítulo se examina el estado del arte en la arquitectura de computadoras, enfocándose en la arquitectura x86 y el uso de herramientas de simulación en el ámbito educativo. Este análisis es clave para comprender el contexto y la relevancia de los temas abordados en esta tesis.
+Este capítulo explora el estado del arte en la arquitectura de computadoras, con un enfoque especial en la evolución de la arquitectura x86 y el uso de herramientas de simulación en la educación. El análisis proporciona una visión integral de cómo estos elementos han influido en la enseñanza de la informática, mejorando la comprensión de conceptos complejos y la aplicación práctica en entornos educativos.
 
 A continuación, se abordará el papel fundamental que desempeñan las herramientas de simulación en la enseñanza de la arquitectura de computadoras. Estas herramientas facilitan la comprensión de conceptos complejos y permiten a los estudiantes interactuar con sistemas simulados, proporcionando una experiencia práctica valiosa que de otro modo sería difícil de obtener. Se examinarán las herramientas de simulación más destacadas y su aplicación en entornos educativos, evaluando sus beneficios y limitaciones.
 
@@ -8,7 +8,7 @@ Finalmente, se explorarán las tendencias actuales y futuras en la enseñanza de
 ## Arquitectura de computadoras
 La arquitectura de computadoras se ocupa del estudio y diseño de los componentes de hardware y software de una computadora y su interacción. Este campo abarca desde el diseño de circuitos hasta la integración de sistemas completos, siendo crucial para el desarrollo de tecnologías eficientes y avanzadas. Estudiar arquitectura de computadoras permite comprender los sistemas informáticos desde su nivel más básico, ofreciendo una visión holística de su funcionamiento y estructura. Además, está estrechamente relacionada con la programación y el desarrollo de software, lo que permite optimizar el rendimiento y la eficiencia energética [@stallings_computer_2013][@hennessy_computer_2012].
 
-La arquitectura de computadoras se ocupa del estudio y diseño de los componentes de hardware y software de una computadora y su interacción. Este campo abarca desde el diseño de circuitos hasta la integración de sistemas completos, siendo crucial para el desarrollo de tecnologías eficientes y avanzadas. Estudiar arquitectura de computadoras permite comprender los sistemas informáticos desde su nivel más básico, ofreciendo una visión holística de su funcionamiento y estructura. Además, está estrechamente relacionada con la programación y el desarrollo de software, lo que permite optimizar el rendimiento y la eficiencia energética. También brinda una base sólida para comprender y aprovechar nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el internet de las cosas, preparándonos para contribuir a la innovación tecnológica [@stallings_computer_2013][@hennessy_computer_2012].
+La arquitectura de computadoras se ocupa del estudio y diseño de los componentes de hardware y software de una computadora y su interacción. Abarca desde el diseño de circuitos hasta la integración de sistemas completos, siendo crucial para comprender y aprovechar nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el internet de las cosas, preparándonos para contribuir a la innovación tecnológica [@stallings_computer_2013][@hennessy_computer_2012].
 
 En resumen, estudiar arquitectura de computadoras nos proporciona un conocimiento profundo de los sistemas informáticos, nos capacita para diseñar sistemas eficientes y escalables, y nos prepara para aprovechar las últimas tendencias tecnológicas. Es una disciplina esencial para aquellos que desean seguir una carrera en el campo de la informática y la tecnología, y contribuir al avance de la sociedad digital en la que vivimos.
 
@@ -70,6 +70,8 @@ kable(evolucion_x86, format = "markdown", caption = "Línea de Tiempo de la Evol
 ```
 
 ####  Comparación con otras Arquitecturas
+Comparar la arquitectura x86 con otras como ARM, MIPS, y RISC-V es fundamental para comprender sus ventajas y limitaciones en diferentes contextos. Esta comparación permite a los desarrolladores y diseñadores de sistemas elegir la arquitectura más adecuada para sus necesidades, considerando factores como la eficiencia energética, la complejidad del hardware, y las aplicaciones específicas.
+
 La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM [@patterson2016computer], MIPS [@hennessy_computer_2012] y RISC-V [@waterman2014risc] nos permite entender mejor sus ventajas y desventajas.
 
 ```{r tabla-comparacion-cpu, echo=FALSE, message=FALSE, warning=FALSE}
@@ -92,26 +94,24 @@ La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularid
 El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), es fundamental para la interacción entre el software y el hardware de una computadora [@stallings_computer_2013].
 
 #### Filosofías CISC y RISC
-La arquitectura x86 sigue la filosofía CISC (Complex Instruction Set Computer), la cual se caracteriza por tener un repertorio de instrucciones amplio y complejo. Esta filosofía busca reducir la cantidad de instrucciones por programa, a costa de aumentar la complejidad de cada instrucción individual. Esto contrasta con la filosofía RISC (Reduced Instruction Set Computer), que utiliza un repertorio de instrucciones más simple y optimiza el uso de registros y operaciones rápidas, aumentando el número de instrucciones necesarias por programa pero simplificando el diseño del hardware [@stallings_computer_2013].
-
+La arquitectura x86 sigue la filosofía CISC (Complex Instruction Set Computer), caracterizada por un repertorio de instrucciones amplio y complejo. Este enfoque permite ejecutar tareas complejas mediante una única instrucción, reduciendo así la cantidad total de instrucciones en un programa. Sin embargo, esta ventaja se equilibra con una mayor complejidad en la decodificación y ejecución de cada instrucción. En contraste, la filosofía RISC (Reduced Instruction Set Computer) adopta un enfoque diferente, donde el repertorio de instrucciones es más simple y las operaciones se realizan en pasos más pequeños, lo que aumenta el número de instrucciones necesarias pero facilita el diseño y optimización del hardware. Por ejemplo, una operación como el cálculo de un desplazamiento de memoria, que en CISC podría resolverse con una sola instrucción, en RISC requeriría una secuencia de instrucciones más básicas pero más rápidas [@stallings_computer_2013].
 
 #### Formato de las Instrucciones en la Arquitectura x86
 La arquitectura x86 es conocida por su complejidad y flexibilidad, características que se reflejan en su repertorio de instrucciones. Las instrucciones x86 pueden variar considerablemente en su longitud y estructura, lo que permite una gran diversidad de operaciones pero también añade una capa de complejidad en su decodificación y ejecución. Según Stallings [@stallings_computer_2013], el formato de las instrucciones en x86 incluye una variedad de campos que pueden estar presentes o no dependiendo del tipo de instrucción.
 
-
 ##### Estructura General de una Instrucción x86
 Una instrucción en la arquitectura x86 puede constar de los siguientes componentes:
 
-- Prefijos: Opcionalmente, una instrucción puede comenzar con uno o más bytes de prefijo, que modifican la operación de la instrucción principal. Estos prefijos pueden alterar aspectos como el tamaño del operando, el modo de operación, o activar ciertas funciones como las repeticiones.
+- Prefijos: Opcionalmente, una instrucción puede comenzar con uno o más bytes de prefijo, que modifican la operación de la instrucción principal. Por ejemplo, el prefijo 0x66 se utiliza para cambiar el tamaño del operando de 32 bits a 16 bits.
 
-- Código de Operación (Opcode): El opcode indica la operación que debe realizarse. En x86, el opcode puede variar en longitud, desde un byte hasta varios bytes, lo que refleja la diversidad de operaciones que la arquitectura puede manejar.
+- Código de Operación (Opcode): El opcode indica la operación que debe realizarse. En x86, el opcode 0x89, por ejemplo, representa la instrucción MOV para mover datos entre registros o entre un registro y la memoria.
 
-- Modificadores de Dirección (ModR/M y SIB): Estos campos se utilizan para especificar los registros y/o direcciones de memoria involucrados en la instrucción. El byte ModR/M se divide en tres partes: el campo mod, el campo reg, y el campo rm, que en conjunto determinan cómo se accederá a los operandos. En algunos casos, también se incluye un byte SIB (Scale-Index-Base) para proporcionar direcciones más complejas.
+- Modificadores de Dirección (ModR/M y SIB): Estos campos se utilizan para especificar los registros y/o direcciones de memoria involucrados en la instrucción. Por ejemplo, un byte ModR/M con un valor de 0xC1 podría indicar que el registro ECX debe ser utilizado en la operación.
 
-- Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción.
+- Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción. Por ejemplo, un valor de desplazamiento de 0x10 podría indicar un desplazamiento de 16 bytes desde la dirección base.
 
 ##### Complejidad en la Decodificación
-Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad no solo aumenta la complejidad de la decodificación, sino que también permite una gran flexibilidad en la programación. Sin embargo, este diseño también implica que la CPU debe ser capaz de manejar una lógica de decodificación bastante intrincada para interpretar correctamente cada instrucción.
+Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. En los procesadores x86 modernos, se han implementado técnicas avanzadas como la decodificación anticipada (pre-decoding) y el uso de microcódigos para manejar esta complejidad. Estas técnicas permiten que el procesador convierta instrucciones complejas de múltiples bytes en microinstrucciones más simples y eficientes que pueden ser ejecutadas en paralelo, mejorando así el rendimiento general del sistema.
 
 Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.
 
@@ -164,4 +164,3 @@ Bajo un punto de vista general, un modelo DEVS está caracterizado por generar e
 
 #### Aplicaciones del Formalismo DEVS
 El formalismo DEVS es aplicable a una amplia gama de sistemas, desde redes de comunicación hasta procesos de manufactura. Por ejemplo, en una red de comunicación, un modelo DEVS puede simular el enrutamiento de paquetes de datos y la gestión de congestiones. En la manufactura, un modelo DEVS puede representar el flujo de materiales y el control de calidad en una línea de producción, ayudando a identificar cuellos de botella y optimizar procesos.
-
