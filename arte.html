@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.1 Justificación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="1.1 Justificación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>Capítulo 2 Estado del arte | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="Capítulo 2 Estado del arte | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.1 Justificación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="Capítulo 2 Estado del arte | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.1 Justificación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="Capítulo 2 Estado del arte | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="intro.html"/>
-<link rel="next" href="objetivos.html"/>
+<link rel="prev" href="organización-del-documento.html"/>
+<link rel="next" href="arquitectura-de-computadoras.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -160,36 +160,19 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="justificación" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Justificación<a href="justificación.html#justificación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Aunque ya existen simuladores de la arquitectura x86 que apoyan la enseñanza en los cursos de Arquitectura de Computadoras <span class="citation">(Radivojevic, Cvetanovic, and Ðordevic <a href="#ref-radivojevic_design_2011" role="doc-biblioref">2011</a>)</span><span class="citation">(Nikolic et al. <a href="#ref-nikolic_survey_2009" role="doc-biblioref">2009</a>)</span>, estos suelen presentar una gran cantidad de contenidos preestablecidos. Si bien estos contenidos son relevantes, ofrecer toda la especificación de la arquitectura x86 desde el principio puede ser abrumador para los estudiantes y dificultar su comprensión. Sin embargo, desde esta tesis se propone un enfoque diferente: desarrollar una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de los contenidos específicos de la currícula de Arquitectura de Computadoras. Partiendo de una visión global de la estructura y funcionamiento de la computadora (CPU, memoria, módulo de E/S y buses), mostrando los micropasos necesarios para la realización del ciclo básico de una instrucción, ofreciendo un repertorio reducido de instrucciones que se habiliten las instrucciones a medida que se dictan en la asignatura, permitiendo la generación y ejecución de programas escritos en lenguaje ensamblador, ya sea paso a paso por instrucción o completa, gestión básica de interrupciones permitiendo la interacción con el teclado y la pantalla, comunicación con los módulos de entrada y salida e interacciones con los periféricos, y por último, medidas de rendimiento sobre la ejecución de un programa.</p>
-<p>Con el objeto de ofrecer al estudiante un simulador bien diseñado, robusto, modular y por tanto flexible y sencillo de modificar o ampliar, se explorará la utilización de técnicas formales de modelización y simulación como las redes de Petri o DEVS (Discrete Event System Specification). Estas técnicas permiten separar conceptualmente las capas de modelización y simulación y ofrecen por ello una separación ortogonal de ambas, facilitando la comprensión y modificación del software. Además, permiten el escalado transparente de las simulaciones, pudiéndose ejecutar en entornos de cómputo paralelo o distribuido sin necesidad de modificar el modelo en sí, lo que aporta grandes ventajas de escalado <span class="citation">(Peterson <a href="#ref-peterson_petri_1981" role="doc-biblioref">1981</a>)</span><span class="citation">(Zeigler, Prähofer, and Kim <a href="#ref-zeigler_theory_2000" role="doc-biblioref">2000</a>)</span><span class="citation">(Zeigler, Muzy, and Kofman <a href="#ref-zeigler_theory_2018" role="doc-biblioref">2018</a>)</span>.</p>
-</div>
-<h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references hanging-indent">
-<div id="ref-nikolic_survey_2009">
-<p>Nikolic, B., Z. Radivojevic, J. Djordjevic, and V. Milutinovic. 2009. “A Survey and Evaluation of Simulators Suitable for Teaching Courses in Computer Architecture and Organization.” <em>IEEE Transactions on Education</em> 52 (4): 449–58. <a href="https://doi.org/10.1109/TE.2008.930097">https://doi.org/10.1109/TE.2008.930097</a>.</p>
-</div>
-<div id="ref-peterson_petri_1981">
-<p>Peterson, James Lyle. 1981. <em>Petri Net Theory and the Modeling of Systems</em>. Prentice Hall PTR.</p>
-</div>
-<div id="ref-radivojevic_design_2011">
-<p>Radivojevic, Zaharije, Milos Cvetanovic, and Jovan Ðordevic. 2011. “Design of the Simulator for Teaching Computer Architecture and Organization.” In <em>2011 Second Eastern European Regional Conference on the Engineering of Computer Based Systems</em>, 124–30. IEEE.</p>
-</div>
-<div id="ref-zeigler_theory_2018">
-<p>Zeigler, Bernard P., Alexandre Muzy, and Ernesto Kofman. 2018. <em>Theory of Modeling and Simulation: Discrete Event &amp; Iterative System Computational Foundations</em>. Academic Press.</p>
-</div>
-<div id="ref-zeigler_theory_2000">
-<p>Zeigler, Bernard, Herbert Prähofer, and Tag Gon Kim. 2000. “Theory of Modeling and Simulation: Integrating Discrete Event and Continuous Complex Dynamic Systems” 2 (January).</p>
-</div>
+<div id="arte" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Capítulo 2</span> Estado del arte<a href="arte.html#arte" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Este capítulo explora el estado del arte en la arquitectura de computadoras, con un enfoque especial en la evolución de la arquitectura x86 y el uso de herramientas de simulación en la educación. El análisis proporciona una visión integral de cómo estos elementos han influido en la enseñanza de la informática, mejorando la comprensión de conceptos complejos y la aplicación práctica en entornos educativos.</p>
+<p>A continuación, se abordará el papel fundamental que desempeñan las herramientas de simulación en la enseñanza de la arquitectura de computadoras. Estas herramientas facilitan la comprensión de conceptos complejos y permiten a los estudiantes interactuar con sistemas simulados, proporcionando una experiencia práctica valiosa que de otro modo sería difícil de obtener. Se examinarán las herramientas de simulación más destacadas y su aplicación en entornos educativos, evaluando sus beneficios y limitaciones.</p>
+<p>Finalmente, se explorarán las tendencias actuales y futuras en la enseñanza de la arquitectura de computadoras, destacando las innovaciones tecnológicas y metodológicas que están revolucionando las prácticas educativas en este campo. Se analizarán enfoques pedagógicos innovadores y estrategias de enseñanza que aprovechan las herramientas digitales y la simulación para mejorar la comprensión y el rendimiento de los estudiantes.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="intro.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="objetivos.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="organización-del-documento.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="arquitectura-de-computadoras.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -220,7 +203,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/01-intro.Rmd",
+"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/02-arte.Rmd",
 "text": "Edit"
 },
 "history": {
