@@ -91,12 +91,74 @@ kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitect
 La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y en educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas [@patterson_computer_2017].
 
 ###  Repertorio de instrucciones
-El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), es fundamental para la interacción entre el software y el hardware de una computadora [@stallings_computer_2013].
+El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), se define el conjunto de operaciones que la CPU puede ejecutar y cómo se codifican esas operaciones. Incluye instrucciones para operaciones aritméticas, lógicas, de control y de manipulación de datos, así como modos de direccionamiento y formatos de instrucciones. El diseño del repertorio de instrucciones tiene un impacto significativo en el rendimiento, la eficiencia y la flexibilidad de una arquitectura de computadoras [@stallings_computer_2013].
+
+Algunas de las características esenciales que se deben considerar al diseñar un repertorio de instrucciones incluyen:
+
+- **Tipos de Operandos**: Este aspecto se refiere a los diferentes tipos de datos que las instrucciones pueden manipular, como enteros, números de punto flotante, caracteres o direcciones de memoria.
+
+- **Tipos de Operaciones**: Incluye las operaciones que la CPU puede realizar, como aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y operaciones de manipulación de datos (movimiento de datos, almacenamiento, carga).
+
+- **Formato de las Instrucciones**: Es la estructura de las instrucciones, que incluye aspectos como la longitud de la instrucción, el número de operandos y el modo de direccionamiento. El formato puede variar entre diferentes arquitecturas y tiene un impacto significativo en la eficiencia del procesador.
+
+- **Modos de Direccionamiento**: Definen cómo se especifican los operandos en las instrucciones. Algunos modos comunes incluyen direccionamiento inmediato, directo, indirecto, y relativo. Cada modo ofrece diferentes ventajas en términos de flexibilidad y eficiencia.
+
+#### Funciones del Repertorio de Instrucciones
+El repertorio de instrucciones no solo define qué operaciones puede realizar una CPU, sino también cómo se organizan y ejecutan esas operaciones. Las funciones clave de un repertorio de instrucciones incluyen:
+
+**Control de la CPU**: A través de las instrucciones de control, se gestionan aspectos como la secuencia de ejecución de instrucciones, control de interrupciones, y la ejecución de llamadas a subrutinas.
+
+**Interacción con la Memoria**: Las instrucciones permiten que la CPU interactúe con la memoria, realizando operaciones de carga y almacenamiento. Estas interacciones son esenciales para la ejecución de programas, ya que permiten mover datos entre la CPU y la memoria principal.
+
+**Gestión de Datos**: El repertorio incluye instrucciones para la manipulación de datos, como operaciones aritméticas, lógicas y de comparación. Estas operaciones son fundamentales para la mayoría de los cálculos y procesos dentro de una CPU.
+
+**Optimización del Rendimiento**: El diseño del repertorio de instrucciones puede influir directamente en la eficiencia y velocidad del procesador. Un repertorio bien diseñado puede minimizar el número de instrucciones necesarias para ejecutar una tarea, reducir el consumo de energía y optimizar el uso de los recursos del sistema.
 
 #### Filosofías CISC y RISC
 La arquitectura x86 sigue la filosofía CISC (Complex Instruction Set Computer), caracterizada por un repertorio de instrucciones amplio y complejo. Este enfoque permite ejecutar tareas complejas mediante una única instrucción, reduciendo así la cantidad total de instrucciones en un programa. Sin embargo, esta ventaja se equilibra con una mayor complejidad en la decodificación y ejecución de cada instrucción. En contraste, la filosofía RISC (Reduced Instruction Set Computer) adopta un enfoque diferente, donde el repertorio de instrucciones es más simple y las operaciones se realizan en pasos más pequeños, lo que aumenta el número de instrucciones necesarias pero facilita el diseño y optimización del hardware. Por ejemplo, una operación como el cálculo de un desplazamiento de memoria, que en CISC podría resolverse con una sola instrucción, en RISC requeriría una secuencia de instrucciones más básicas pero más rápidas [@stallings_computer_2013].
 
-#### Formato de las Instrucciones en la Arquitectura x86
+#### Modos de Direccionamiento
+Los modos de direccionamiento definen cómo una instrucción identifica las ubicaciones de los operandos a los que hace referencia. En otras palabras, los modos de direccionamiento determinan cómo una CPU accede a los datos necesarios para ejecutar una instrucción. Los principales modos de direccionamiento son:
+
+
+```{r flujo, echo=FALSE, fig.cap="Modos de direccionamiento", fig.align = 'center', out.width = "80%"}
+knitr::include_graphics(path = "images/modosdireccionamiento.png")
+```
+
+Estos modos se ilustran en la ... En esta sección utilizaremos la siguiente notación:
+- A = contenido de un campo de dirección en la instrucción
+- R = contenido de un campo de dirección en la instrucción que referencia a un registro
+- EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
+- (X) = contenido de la posición de memoria X o del registro X
+
+
+a) **Inmediato**: En este modo, el operando está incrustado directamente en la instrucción. Es útil para valores constantes pequeños y proporciona una ejecución rápida ya que no requiere acceso a la memoria.
+
+b) **Directo**: La instrucción contiene la dirección de memoria del operando. Es sencillo y fácil de entender, pero limita el rango de direcciones que se pueden especificar directamente.
+
+c) **Indirecto**: La dirección de la memoria contenida en la instrucción apunta a otra dirección de memoria donde se encuentra el operando real. Esto permite acceder a un rango más amplio de direcciones de memoria, pero introduce un nivel adicional de indirection y, por lo tanto, puede ser más lento.
+
+d) **Registro**: Similar al direccionamiento directo, pero en lugar de una dirección de memoria, la instrucción especifica un registro que contiene el operando. Este modo es rápido y eficiente porque los accesos a registros son más rápidos que los accesos a memoria.
+
+e) **Registro Indirecto**: Similar al direccionamiento indirecto, pero la dirección del operando se encuentra en un registro en lugar de en la memoria. Proporciona flexibilidad y rapidez.
+
+f) **Con desplazamiento**: Combina una dirección base contenida en la instrucción o en un registro con un valor de desplazamiento (offset), permitiendo acceder a elementos de estructuras de datos como arrays.
+
+g) **Pila**: La dirección del operando se calcula como un desplazamiento relativo a la ubicación actual de la instrucción en ejecución. Este modo es útil para implementar saltos en el flujo de control del programa.
+
+
+#### Formato de las Instrucciones
+El formato de las instrucciones describe la estructura interna de las instrucciones, incluyendo los campos que contienen el código de operación (opcode), los operandos y cualquier información adicional necesaria. Los formatos de instrucciones tienen un impacto directo en la complejidad y eficiencia de la CPU.
+
+Longitud de la Instrucción: La longitud de una instrucción puede ser fija o variable. Las instrucciones de longitud fija son más simples de decodificar y ejecutar, lo que puede mejorar el rendimiento, pero a costa de flexibilidad. Las instrucciones de longitud variable pueden ser más eficientes en términos de espacio, ya que permiten utilizar instrucciones más cortas cuando sea posible.
+
+Cantidad de Operandos: Las instrucciones pueden tener diferentes cantidades de operandos, desde cero (como una instrucción NOP que no hace nada) hasta tres o más. Más operandos pueden hacer que una instrucción sea más potente y versátil, pero también pueden aumentar su complejidad y el espacio que ocupa.
+
+Campos de Instrucción: Las instrucciones típicamente contienen varios campos, como el opcode, que especifica la operación a realizar, y los campos de operandos, que identifican los datos sobre los que se opera. También pueden incluir campos adicionales como bits de modo de direccionamiento o flags de condición.
+
+Consideraciones de Diseño: El diseño del formato de instrucciones es un equilibrio entre simplicidad y potencia. Un formato más simple facilita el diseño de la CPU y puede mejorar la velocidad de ejecución, pero puede limitar las capacidades del procesador. Un formato más complejo puede ofrecer más flexibilidad, pero a costa de mayor complejidad en el diseño del hardware.
+
+###  Repertorio de instrucciones arquitectura x86
 La arquitectura x86 es conocida por su complejidad y flexibilidad, características que se reflejan en su repertorio de instrucciones. Las instrucciones x86 pueden variar considerablemente en su longitud y estructura, lo que permite una gran diversidad de operaciones pero también añade una capa de complejidad en su decodificación y ejecución. Según Stallings [@stallings_computer_2013], el formato de las instrucciones en x86 incluye una variedad de campos que pueden estar presentes o no dependiendo del tipo de instrucción.
 
 ##### Estructura General de una Instrucción x86
