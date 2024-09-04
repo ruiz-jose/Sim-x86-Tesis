@@ -18,11 +18,8 @@ La comprensión profunda de la arquitectura y organización de los computadores 
 
 En conclusión, estudiar la arquitectura de computadoras no solo es esencial para comprender el funcionamiento de los sistemas informáticos y resolver problemas de rendimiento y eficiencia, sino que también capacita a los profesionales para diseñar soluciones innovadoras en áreas como la inteligencia artificial, la ciberseguridad y los sistemas embebidos. Este conocimiento es fundamental para enfrentar los desafíos tecnológicos del futuro, abriendo un amplio espectro de oportunidades laborales en un mercado que valora la capacidad de crear y optimizar sistemas computacionales más poderosos y eficientes [@stallings_computer_2013].
 
+###  Tipos de arquitecturas
 
-####  Tipos de arquitecturas
-Comparar la arquitectura x86 con otras como ARM, MIPS, y RISC-V es fundamental para comprender sus ventajas y limitaciones en diferentes contextos. Esta comparación permite a los desarrolladores y diseñadores de sistemas elegir la arquitectura más adecuada para sus necesidades, considerando factores como la eficiencia energética, la complejidad del hardware, y las aplicaciones específicas.
-
-La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, pero existen otras arquitecturas importantes que también han tenido un impacto significativo en la informática. Comparar x86 con arquitecturas como ARM [@patterson2016computer], MIPS [@hennessy_computer_2012] y RISC-V [@waterman2014risc] nos permite entender mejor sus ventajas y desventajas.
 
 ```{r tabla-comparacion-cpu, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -40,7 +37,36 @@ kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitect
 
 La arquitectura ARM, conocida por su eficiencia energética, ha ganado popularidad en dispositivos móviles y sistemas embebidos. MIPS, aunque menos prominente en la actualidad, se ha utilizado en sistemas embebidos y en educación. RISC-V, una arquitectura abierta y libre, ha surgido como una alternativa flexible y eficiente, especialmente en investigación y aplicaciones embebidas [@patterson_computer_2017].
 
-###  Repertorio de instrucciones
+
+## Tipos de arquitecturas
+El estudio de diferentes arquitecturas de computadoras es fundamental para comprender sus ventajas y limitaciones en distintos contextos de aplicación. Esta comparación permite a los desarrolladores y diseñadores de sistemas elegir la arquitectura más adecuada para sus necesidades, considerando factores como la eficiencia energética, la complejidad del hardware, y las aplicaciones específicas.
+
+### Arquitectura x86
+La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, gracias a su capacidad para ofrecer un alto rendimiento y su amplia compatibilidad con software existente. La complejidad de su conjunto de instrucciones (ISA) permite una mayor flexibilidad, aunque a costa de una mayor complejidad en el diseño del hardware. Su eficiencia energética es moderada, lo que la hace menos adecuada para dispositivos móviles y más apropiada para entornos donde el rendimiento es la principal preocupación [@hennessy_computer_2012].
+
+### Arquitectura ARM
+La arquitectura ARM es conocida por su alta eficiencia energética, lo que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM utiliza un conjunto de instrucciones reducido (RISC), lo que simplifica el diseño del hardware y reduce el consumo de energía. Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es crucial [@patterson_computer_2014].
+
+### Arquitectura MIPS
+MIPS es otra arquitectura basada en RISC que ha sido ampliamente utilizada en sistemas embebidos y en la educación. Aunque ha perdido prominencia frente a otras arquitecturas como ARM, MIPS sigue siendo relevante en ciertos nichos debido a su simplicidad y efectividad. Su conjunto de instrucciones es moderadamente complejo, lo que permite un equilibrio entre rendimiento y eficiencia energética, aunque su compatibilidad y soporte en la industria son más limitados [@hennessy_computer_2012].
+
+### Arquitectura RISC-V
+RISC-V es una arquitectura emergente que ha ganado atención por ser una ISA abierta y libre, lo que permite a los desarrolladores y fabricantes adaptar y personalizar la arquitectura según sus necesidades. Al igual que ARM, RISC-V se basa en el paradigma RISC, lo que le otorga una alta eficiencia energética y una baja complejidad de hardware. Su flexibilidad la convierte en una opción atractiva para la investigación, la educación, y aplicaciones embebidas. Además, RISC-V ofrece una compatibilidad creciente gracias a su adopción por parte de la comunidad global de desarrolladores [@waterman_risc-v_2014].
+
+```{r tabla-comparacion-cpu, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+comparacion_cpu <- data.frame(
+  Característica = c("Eficiencia Energética", "Complejidad ISA", "Rendimiento", "Compatibilidad", "Áreas de Aplicación"), 
+  x86 = c("Moderada", "Alta", "Alto", "Alta (hacia atrás)", "Escritorio, servidores"),
+  ARM = c("Alta", "Baja", "Moderado", "Moderada", "Dispositivos móviles"),
+  MIPS = c("Moderada", "Moderada", "Moderado", "Moderada", "Sistemas embebidos"),
+  `RISC-V` = c("Alta", "Baja", "Variable", "Alta", "Investigación, embebidos")
+)
+
+kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitecturas")
+```
+##  Repertorio de instrucciones
 El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), se define el conjunto de operaciones que la CPU puede ejecutar y cómo se codifican esas operaciones. Incluye instrucciones para operaciones aritméticas, lógicas, de control y de manipulación de datos, así como modos de direccionamiento y formatos de instrucciones. El diseño del repertorio de instrucciones tiene un impacto significativo en el rendimiento, la eficiencia y la flexibilidad de una arquitectura de computadoras [@stallings_computer_2013].
 
 Algunas de las características esenciales que se deben considerar al diseñar un repertorio de instrucciones incluyen:
