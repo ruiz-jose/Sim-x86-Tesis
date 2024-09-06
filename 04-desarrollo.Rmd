@@ -399,18 +399,32 @@ kable(isacompleta, format = "markdown", align = "l", col.names = c("Código oper
 
 ### Ciclo de la instrucción (Etapas de captación y ejecución)
 
-#### **Etapa de Búsqueda**: 
-    1.	MAR = IP 
-    2.	MDR = read(Memoria[MAR])
-        IP = IP + 1
-    3.	IR  = MDR
+#### **Etapa de Captación**  (*): 
+    1.	MAR $\leftarrow$ IP 
+    2.	MDR $\leftarrow$ read(Memoria[MAR]); IP $\leftarrow$ IP + 1 
+    3.	IR  $\leftarrow$ MDR
+
+(*): Todas las instrucciones tienen los mismos pasos en la etapa de captación.
 
 #### **Etapa de Ejecución**:
-- MOV Rx, Ry:
-    1.	Rx ← Ry
+* 0: Copiar entre registros: `MOV Rx, Ry`
+  1.	Rx $\leftarrow$ Ry
 
+* 1: Cargar a registro:   
+  a) Directo: MOV Rx,  [Dirección] 
+      - MAR $\leftarrow$ IP
+      - MBR $\leftarrow$ read(Memoria[MAR]); IP $\leftarrow$ IP + 1        (Obtener byte 2)   
+      - MAR $\leftarrow$ MBR
+      - MBR $\leftarrow$ read(Memoria[MAR])        (Obtener operando)
+      - Rx  $\leftarrow$ MBR 
 
-
+* 2: Almacenar en memoria: 
+  a) MOV  [Dirección], Ry     
+      - MAR $\leftarrow$ IP
+      - MBR $\leftarrow$ read(Memoria[MAR]); IP $\leftarrow$ IP + 1      (Obtener byte 2)
+      - MAR $\leftarrow$ MBR
+      - MBR $\leftarrow$ Ry
+      - write(Memoria[MAR]) $\leftarrow$  MBR 
 
 ## Pruebas
 Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
