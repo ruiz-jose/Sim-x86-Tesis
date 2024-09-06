@@ -76,27 +76,24 @@ El repertorio de instrucciones no solo define qué operaciones puede realizar un
 ### Modos de direccionamiento
 Los modos de direccionamiento son fundamentales para definir cómo una CPU accede a los datos para ejecutar una instrucción [@stallings_computer_2013 ; @hennessy_computer_2012 ]. Algunos modos comunes incluyen:
 
-a) **Inmediato**: El operando está embebido en la propia instrucción, proporcionando acceso rápido a valores constantes pequeños.
-b) **Directo**: La dirección de memoria del operando está incluida en la instrucción. Es sencillo, pero limita el rango de direcciones accesibles directamente.
-c) **Indirecto**: La dirección de memoria apunta a otra dirección donde se encuentra el operando real, permitiendo un acceso más amplio, pero a un costo de tiempo.
-d) **Registro**: Utiliza un registro en lugar de una dirección de memoria, acelerando el acceso a datos.
-e) **Registro Indirecto**: Similar al modo indirecto, pero con la dirección almacenada en un registro.
-f) **Con Desplazamiento**: Combina una dirección base con un desplazamiento, útil en estructuras de datos como arrays.
-g) **Pila**: Calcula la dirección del operando en función de la ubicación actual en la pila, usado comúnmente en llamadas a subrutinas.
+  a) **Inmediato**: El operando está embebido en la propia instrucción, proporcionando acceso rápido a valores constantes pequeños.
+  b) **Directo**: La dirección de memoria del operando está incluida en la instrucción. Es sencillo, pero limita el rango de direcciones accesibles directamente.
+  c) **Indirecto**: La dirección de memoria apunta a otra dirección donde se encuentra el operando real, permitiendo un acceso más amplio, pero a un costo de tiempo.
+  d) **Registro**: Utiliza un registro en lugar de una dirección de memoria, acelerando el acceso a datos.
+  e) **Registro Indirecto**: Similar al modo indirecto, pero con la dirección almacenada en un registro.
+  f) **Con Desplazamiento**: Combina una dirección base con un desplazamiento, útil en estructuras de datos como arrays.
+  g) **Pila**: Calcula la dirección del operando en función de la ubicación actual en la pila, usado comúnmente en llamadas a subrutinas.
 
 Estos modos se ilustran en la figura \@ref(fig-ModDir):
-
-- A = contenido de un campo de dirección en la instrucción
-
-- R = contenido de un campo de dirección en la instrucción que referencia a un registro
-
-- EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
-
-- (X) = contenido de la posición de memoria X o del registro X
-
-```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento", fig.align = 'center', out.width = "80%"}
+```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento [@stallings_computer_2013]", fig.align = 'center', out.width = "80%"}
 knitr::include_graphics(path = "images/modosdireccionamiento.png")
 ```
+::: {note}
+- A = contenido de un campo de dirección en la instrucción
+- R = contenido de un campo de dirección en la instrucción que referencia a un registro
+- EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
+- (X) = contenido de la posición de memoria X o del registro X
+:::
 
 ### Formato de las instrucciones
 El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (**opcode**)[@hennessy_computer_2012 ; @tanenbaum_structured_2012]. El formato tiene un impacto directo en la complejidad del diseño del procesador:
@@ -215,7 +212,7 @@ Una instrucción en la arquitectura x86 puede constar de los siguientes componen
 
 Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.
 
-```{r FormatoInst, echo=FALSE, fig.cap="Formato de instrucciones x86", fig.align = 'center', out.width = "100%"}
+```{r FormatoInst, echo=FALSE, fig.cap="Formato de instrucciones x86 [@stallings_computer_2013]", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/formatoinstruccionx86.png")
 ```
 
