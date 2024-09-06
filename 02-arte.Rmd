@@ -47,10 +47,10 @@ comparacion_cpu <- data.frame(
 kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitecturas")
 ```
 
-Cada una de estas arquitecturas ofrece un conjunto único de características que las hace más o menos adecuadas para diferentes aplicaciones. La elección de la arquitectura correcta puede tener un impacto significativo en el éxito de un proyecto, ya sea en términos de rendimiento, eficiencia energética o compatibilidad [@patterson_computer_2017].
+Cada una de estas arquitecturas ofrece un conjunto único de características que las hace más o menos adecuadas para diferentes aplicaciones. La elección de la arquitectura correcta puede tener un impacto significativo en el éxito de un proyecto, ya sea en términos de rendimiento, eficiencia energética o compatibilidad [@patterson_computer_2014].
 
 ## Repertorio de Instrucciones
-El repertorio de instrucciones, conocido como **ISA (Instruction Set Architecture)**, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA tiene un impacto considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador [@hennessy_quantitative_2012; @null_essentials_2014; @stallings_computer_2013].
+El repertorio de instrucciones, conocido como **ISA (Instruction Set Architecture)**, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA tiene un impacto considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador [@hennessy_computer_2012; @null_essentials_2014; @stallings_computer_2013].
 
 Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes:
 
@@ -71,10 +71,10 @@ El repertorio de instrucciones no solo define qué operaciones puede realizar un
 
 - **Gestión de Datos**: Las operaciones aritméticas, lógicas y de comparación son esenciales para la manipulación de datos. El diseño adecuado del repertorio puede simplificar y acelerar estas operaciones.
 
-- **Optimización del Rendimiento**: Un repertorio de instrucciones eficiente minimiza el número de instrucciones para completar una tarea, mejorando el uso de energía y los recursos del sistema [@hennessy_quantitative_2012].
+- **Optimización del Rendimiento**: Un repertorio de instrucciones eficiente minimiza el número de instrucciones para completar una tarea, mejorando el uso de energía y los recursos del sistema [@hennessy_computer_2012].
 
 ### Modos de direccionamiento
-Los modos de direccionamiento son fundamentales para definir cómo una CPU accede a los datos para ejecutar una instrucción [@stallings_computer_2013 ; @hennessy_design_2014 ]. Algunos modos comunes incluyen:
+Los modos de direccionamiento son fundamentales para definir cómo una CPU accede a los datos para ejecutar una instrucción [@stallings_computer_2013 ; @hennessy_computer_2012 ]. Algunos modos comunes incluyen:
 
 a) **Inmediato**: El operando está embebido en la propia instrucción, proporcionando acceso rápido a valores constantes pequeños.
 
@@ -102,7 +102,7 @@ knitr::include_graphics(path = "images/modosdireccionamiento.png")
 ```
 
 ### Formato de las Instrucciones
-El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (**opcode**)[@hennessy_quantitative_2012; @tanenbaum_structured_2012]. El formato tiene un impacto directo en la complejidad del diseño del procesador:
+El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (**opcode**)[@hennessy_computer_2012; @tanenbaum_structured_2012]. El formato tiene un impacto directo en la complejidad del diseño del procesador:
 
 - **Longitud de la Instrucción**: Las instrucciones pueden ser de longitud fija o variable. Las instrucciones de longitud fija son más fáciles de decodificar, pero pueden desperdiciar espacio en casos donde no se necesite la flexibilidad de una instrucción larga.
 
@@ -112,17 +112,17 @@ El formato de las instrucciones determina cómo se estructuran las instrucciones
 
 
 #### Filosofías CISC y RISC
-Las arquitecturas del repertorio de instrucciones son un componente crucial en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son **CISC (Complex Instruction Set Computing)** y **RISC (Reduced Instruction Set Computing)**. Mientras que CISC busca minimizar la cantidad de instrucciones necesarias para realizar una tarea, RISC simplifica el conjunto de instrucciones para optimizar la velocidad y la eficiencia energética. Esta sección profundiza estos dos enfoques y sus implicaciones en el diseño de procesadores [@hennessy_quantitative_2012; @hennessy_organization_2014].
+Las arquitecturas del repertorio de instrucciones son un componente crucial en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son **CISC (Complex Instruction Set Computing)** y **RISC (Reduced Instruction Set Computing)**. Mientras que CISC busca minimizar la cantidad de instrucciones necesarias para realizar una tarea, RISC simplifica el conjunto de instrucciones para optimizar la velocidad y la eficiencia energética. Esta sección profundiza estos dos enfoques y sus implicaciones en el diseño de procesadores [@hennessy_computer_2012 ; @patterson_computer_2014].
 
 ### CISC: Reducción de Instrucciones, Aumento de Complejidad
 En las arquitecturas **CISC**, como la x86, el objetivo principal es reducir la cantidad de instrucciones necesarias para realizar operaciones complejas. Esto se logra implementando instrucciones que pueden realizar varias operaciones en un solo ciclo de instrucción, lo cual reduce el código que debe escribir un programador. Sin embargo, esta ventaja tiene un costo: la **decodificación** y **ejecución** de instrucciones CISC requiere un hardware más complejo. Además, las instrucciones de longitud variable, comunes en CISC, pueden incrementar el tiempo de decodificación, generando cuellos de botella en el pipeline.
 
-Por ejemplo, los procesadores **x86** han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en algunos contextos, pero sigue siendo una arquitectura más costosa en términos de diseño y energía [@hennessy_organization_2014].
+Por ejemplo, los procesadores **x86** han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en algunos contextos, pero sigue siendo una arquitectura más costosa en términos de diseño y energía [@patterson_computer_2014].
 
 ### RISC: Simplicidad para Mayor Velocidad y Eficiencia Energética
-Por otro lado, las arquitecturas **RISC** como **ARM** y **MIPS** se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite ejecutar instrucciones en un solo ciclo de reloj. Esta simplicidad también permite implementar técnicas avanzadas de **pipelining** y **predicción de ramas** con mayor facilidad, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC facilita la **optimización** y el uso de energía de manera más eficiente que CISC, lo que es especialmente importante en dispositivos móviles y embebidos [@hennessy_quantitative_2012].
+Por otro lado, las arquitecturas **RISC** como **ARM** y **MIPS** se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite ejecutar instrucciones en un solo ciclo de reloj. Esta simplicidad también permite implementar técnicas avanzadas de **pipelining** y **predicción de ramas** con mayor facilidad, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC facilita la **optimización** y el uso de energía de manera más eficiente que CISC, lo que es especialmente importante en dispositivos móviles y embebidos [@hennessy_computer_2012].
 
-La filosofía de diseño RISC ha permitido que procesadores como **ARM** dominen el mercado de dispositivos móviles, donde la eficiencia energética es crítica. El enfoque de RISC en operaciones simples y repetitivas, con un CPI (ciclos por instrucción) bajo, ha sido un factor clave para esta adopción [@hennessy_quantitative_2012].
+La filosofía de diseño RISC ha permitido que procesadores como **ARM** dominen el mercado de dispositivos móviles, donde la eficiencia energética es crítica. El enfoque de RISC en operaciones simples y repetitivas, con un CPI (ciclos por instrucción) bajo, ha sido un factor clave para esta adopción [@hennessy_computer_2012].
 
 ## Impacto del Formato de Instrucciones en el Rendimiento
 Una de las diferencias clave entre CISC y RISC radica en el formato de las instrucciones. En *Structured Computer Organization* de Tanenbaum se detalla cómo el **formato de longitud fija**, característico de las arquitecturas RISC, simplifica la **decodificación** y mejora el rendimiento general del procesador [@tanenbaum_structured_2013].
