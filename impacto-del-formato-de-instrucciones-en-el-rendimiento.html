@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 4 Diseño y Construcción del Simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="Capítulo 4 Diseño y Construcción del Simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>2.4 Impacto del Formato de Instrucciones en el Rendimiento | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="2.4 Impacto del Formato de Instrucciones en el Rendimiento | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 4 Diseño y Construcción del Simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="2.4 Impacto del Formato de Instrucciones en el Rendimiento | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 4 Diseño y Construcción del Simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="2.4 Impacto del Formato de Instrucciones en el Rendimiento | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="resultados.html"/>
-<link rel="next" href="requisitos-de-la-herramienta.html"/>
+<link rel="prev" href="repertorio-de-instrucciones.html"/>
+<link rel="next" href="ejemplos-prácticos-de-modos-de-direccionamiento.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -182,19 +182,32 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="desarrollo" class="section level1 hasAnchor" number="4">
-<h1><span class="header-section-number">Capítulo 4</span> Diseño y Construcción del Simulador<a href="desarrollo.html#desarrollo" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>En este capítulo se describe el proceso de diseño y desarrollo de una herramienta de simulación específica para la arquitectura x86, destinada a facilitar la enseñanza de los principios de arquitectura de computadoras. Se detalla tanto la justificación del diseño como los pasos seguidos para su construcción y validación.</p>
-<p>En el capitulo anterior, se Estudió y evaluó diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación disponibles y posterior publicación de los resultados.</p>
-<p>Para cumplir con este objetivo específico, la herramienta debe satisfacer una serie de requisitos previamente establecidos. A partir de estos, se diseña la arquitectura, se desarrolla el simulador, y se realizan pruebas exhaustivas para validar su funcionalidad.</p>
+<div id="impacto-del-formato-de-instrucciones-en-el-rendimiento" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Impacto del Formato de Instrucciones en el Rendimiento<a href="impacto-del-formato-de-instrucciones-en-el-rendimiento.html#impacto-del-formato-de-instrucciones-en-el-rendimiento" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Una de las diferencias clave entre CISC y RISC radica en el formato de las instrucciones. En <em>Structured Computer Organization</em> de Tanenbaum se detalla cómo el <strong>formato de longitud fija</strong>, característico de las arquitecturas RISC, simplifica la <strong>decodificación</strong> y mejora el rendimiento general del procesador <span class="citation">(Tanenbaum <a href="#ref-tanenbaum_structured_2013" role="doc-biblioref">2013</a>)</span>.</p>
+<div id="formato-de-longitud-fija-en-risc" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Formato de Longitud Fija en RISC<a href="impacto-del-formato-de-instrucciones-en-el-rendimiento.html#formato-de-longitud-fija-en-risc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En las arquitecturas <strong>RISC</strong>, todas las instrucciones tienen la misma longitud, lo que facilita la decodificación y permite que el procesador mantenga un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo que es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor <strong>utilización de la memoria caché</strong>, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.</p>
+</div>
+<div id="formato-de-longitud-variable-en-cisc" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Formato de Longitud Variable en CISC<a href="impacto-del-formato-de-instrucciones-en-el-rendimiento.html#formato-de-longitud-variable-en-cisc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Por el contrario, las arquitecturas <strong>CISC</strong> como <strong>x86</strong> utilizan un <strong>formato de longitud variable</strong> para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una variedad más amplia de operaciones con menos líneas de código. Sin embargo, la flexibilidad tiene un costo: las instrucciones de longitud variable requieren un tiempo de decodificación más largo y complican la implementación del pipeline, lo que afecta negativamente al rendimiento <span class="citation">(Tanenbaum <a href="#ref-tanenbaum_structured_2013" role="doc-biblioref">2013</a>)</span>.</p>
+<p>Por ejemplo, en un procesador x86, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, particularmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque esto se puede mitigar mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.</p>
+</div>
+</div>
+<h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references hanging-indent">
+<div id="ref-tanenbaum_structured_2013">
+<p>Tanenbaum, Andrew S. 2013. <em>Structured Computer Organization</em>. Pearson Education.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="resultados.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="requisitos-de-la-herramienta.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="repertorio-de-instrucciones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ejemplos-prácticos-de-modos-de-direccionamiento.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -225,7 +238,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/04-desarrollo.Rmd",
+"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/02-arte.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -233,7 +246,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/04-desarrollo.Rmd",
+"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/02-arte.Rmd",
 "text": null
 },
 "download": ["tesis.pdf"],

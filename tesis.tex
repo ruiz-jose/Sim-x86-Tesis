@@ -474,126 +474,155 @@ Investigación, embebidos\strut
 Cada una de estas arquitecturas ofrece un conjunto único de características que las hace más o menos adecuadas para diferentes aplicaciones. La elección de la arquitectura correcta puede tener un impacto significativo en el éxito de un proyecto, ya sea en términos de rendimiento, eficiencia energética o compatibilidad {[}\protect\hyperlink{ref-patterson_computer_2017}{26}{]}.
 
 \hypertarget{repertorio-de-instrucciones}{%
-\section{Repertorio de instrucciones}\label{repertorio-de-instrucciones}}
+\section{Repertorio de Instrucciones}\label{repertorio-de-instrucciones}}
 
-El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), se define el conjunto de operaciones que la CPU puede ejecutar y cómo se codifican esas operaciones. Incluye instrucciones para operaciones aritméticas, lógicas, de control y de manipulación de datos, así como modos de direccionamiento y formatos de instrucciones. El diseño del repertorio de instrucciones tiene un impacto significativo en el rendimiento, la eficiencia y la flexibilidad de una arquitectura de computadoras {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+El repertorio de instrucciones, conocido como \textbf{ISA (Instruction Set Architecture)}, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA tiene un impacto considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador {\textbf{???}}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}, {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}.
 
-Algunas de las características esenciales que se deben considerar al diseñar un repertorio de instrucciones incluyen:
+Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes:
 
 \begin{itemize}
 \item
-  \textbf{Tipos de Operandos}: Este aspecto se refiere a los diferentes tipos de datos que las instrucciones pueden manipular, como enteros, números de punto flotante, caracteres o direcciones de memoria.
+  \textbf{Tipos de Operandos}: Se refiere a los diversos tipos de datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres o direcciones de memoria. Es crucial diseñar un repertorio de instrucciones que soporte eficientemente diferentes tipos de operando.
 \item
-  \textbf{Tipos de Operaciones}: Incluye las operaciones que la CPU puede realizar, como aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y operaciones de manipulación de datos (movimiento de datos, almacenamiento, carga).
+  \textbf{Tipos de Operaciones}: Incluye las operaciones que el procesador puede realizar, como aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y operaciones de manipulación de datos (movimiento de datos, almacenamiento, carga).
 \item
-  \textbf{Formato de las Instrucciones}: Es la estructura de las instrucciones, que incluye aspectos como la longitud de la instrucción, el número de operandos y el modo de direccionamiento. El formato puede variar entre diferentes arquitecturas y tiene un impacto significativo en la eficiencia del procesador.
+  \textbf{Formato de las Instrucciones}: La estructura de una instrucción determina la longitud, el número de operandos y los modos de direccionamiento. Esto tiene un impacto directo en la eficiencia y la complejidad del procesador.
 \item
-  \textbf{Modos de Direccionamiento}: Definen cómo se especifican los operandos en las instrucciones. Algunos modos comunes incluyen direccionamiento inmediato, directo, indirecto, y relativo. Cada modo ofrece diferentes ventajas en términos de flexibilidad y eficiencia.
+  \textbf{Modos de Direccionamiento}: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo. Cada uno ofrece diferentes ventajas en términos de flexibilidad y eficiencia.
 \end{itemize}
 
 \hypertarget{funciones-del-repertorio-de-instrucciones}{%
-\subsubsection{Funciones del Repertorio de Instrucciones}\label{funciones-del-repertorio-de-instrucciones}}
+\subsection{Funciones del Repertorio de Instrucciones}\label{funciones-del-repertorio-de-instrucciones}}
 
-El repertorio de instrucciones no solo define qué operaciones puede realizar una CPU, sino también cómo se organizan y ejecutan esas operaciones. Las funciones clave de un repertorio de instrucciones incluyen:
+El repertorio de instrucciones no solo define qué operaciones puede realizar un procesador, sino también cómo se organizan y ejecutan {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. Las funciones principales incluyen:
 
-\textbf{Control de la CPU}: A través de las instrucciones de control, se gestionan aspectos como la secuencia de ejecución de instrucciones, control de interrupciones, y la ejecución de llamadas a subrutinas.
-
-\textbf{Interacción con la Memoria}: Las instrucciones permiten que la CPU interactúe con la memoria, realizando operaciones de carga y almacenamiento. Estas interacciones son esenciales para la ejecución de programas, ya que permiten mover datos entre la CPU y la memoria principal.
-
-\textbf{Gestión de Datos}: El repertorio incluye instrucciones para la manipulación de datos, como operaciones aritméticas, lógicas y de comparación. Estas operaciones son fundamentales para la mayoría de los cálculos y procesos dentro de una CPU.
-
-\textbf{Optimización del Rendimiento}: El diseño del repertorio de instrucciones puede influir directamente en la eficiencia y velocidad del procesador. Un repertorio bien diseñado puede minimizar el número de instrucciones necesarias para ejecutar una tarea, reducir el consumo de energía y optimizar el uso de los recursos del sistema.
-
-\hypertarget{filosofuxedas-cisc-y-risc}{%
-\subsubsection{Filosofías CISC y RISC}\label{filosofuxedas-cisc-y-risc}}
-
-La arquitectura x86 sigue la filosofía CISC (Complex Instruction Set Computer), caracterizada por un repertorio de instrucciones amplio y complejo. Este enfoque permite ejecutar tareas complejas mediante una única instrucción, reduciendo así la cantidad total de instrucciones en un programa. Sin embargo, esta ventaja se equilibra con una mayor complejidad en la decodificación y ejecución de cada instrucción. En contraste, la filosofía RISC (Reduced Instruction Set Computer) adopta un enfoque diferente, donde el repertorio de instrucciones es más simple y las operaciones se realizan en pasos más pequeños, lo que aumenta el número de instrucciones necesarias pero facilita el diseño y optimización del hardware. Por ejemplo, una operación como el cálculo de un desplazamiento de memoria, que en CISC podría resolverse con una sola instrucción, en RISC requeriría una secuencia de instrucciones más básicas pero más rápidas {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+\begin{itemize}
+\item
+  \textbf{Control de la CPU}: Instrucciones de control que gestionan la secuencia de ejecución, interrupciones y llamadas a subrutinas.
+\item
+  \textbf{Interacción con la Memoria}: Las instrucciones permiten que la CPU cargue y almacene datos desde y hacia la memoria principal, aspecto crítico para la ejecución de programas.
+\item
+  \textbf{Gestión de Datos}: Las operaciones aritméticas, lógicas y de comparación son esenciales para la manipulación de datos. El diseño adecuado del repertorio puede simplificar y acelerar estas operaciones.
+\item
+  \textbf{Optimización del Rendimiento}: Un repertorio de instrucciones eficiente minimiza el número de instrucciones para completar una tarea, mejorando el uso de energía y los recursos del sistema {\textbf{???}}.
+\end{itemize}
 
 \hypertarget{modos-de-direccionamiento}{%
-\subsubsection{Modos de Direccionamiento}\label{modos-de-direccionamiento}}
+\subsection{Modos de direccionamiento}\label{modos-de-direccionamiento}}
 
-Los modos de direccionamiento definen cómo una instrucción identifica las ubicaciones de los operandos a los que hace referencia. En otras palabras, los modos de direccionamiento determinan cómo una CPU accede a los datos necesarios para ejecutar una instrucción. Los principales modos de direccionamiento son:
+Los modos de direccionamiento son fundamentales para definir cómo una CPU accede a los datos para ejecutar una instrucción {\textbf{???}} , {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. Algunos modos comunes incluyen:
 
-\begin{figure}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\item
+  \textbf{Inmediato}: El operando está embebido en la propia instrucción, proporcionando acceso rápido a valores constantes pequeños.
+\item
+  \textbf{Directo}: La dirección de memoria del operando está incluida en la instrucción. Es sencillo, pero limita el rango de direcciones accesibles directamente.
+\item
+  \textbf{Indirecto}: La dirección de memoria apunta a otra dirección donde se encuentra el operando real, permitiendo un acceso más amplio, pero a un costo de tiempo.
+\item
+  \textbf{Registro}: Utiliza un registro en lugar de una dirección de memoria, acelerando el acceso a datos.
+\item
+  \textbf{Registro Indirecto}: Similar al modo indirecto, pero con la dirección almacenada en un registro.
+\item
+  \textbf{Con Desplazamiento}: Combina una dirección base con un desplazamiento, útil en estructuras de datos como arrays.
+\item
+  \textbf{Pila}: Calcula la dirección del operando en función de la ubicación actual en la pila, usado comúnmente en llamadas a subrutinas.
+\end{enumerate}
 
-{\centering \includegraphics[width=1\linewidth]{images/formatoinstruccionx86} 
-
-}
-
-\caption{Formato instrucción x86}\label{fig:flujo}
-\end{figure}
-
-Estos modos se ilustran en la \ldots{} En esta sección utilizaremos la siguiente notación:
+Estos modos se ilustran en la figura \ref{figFlujo} :
 - A = contenido de un campo de dirección en la instrucción
 - R = contenido de un campo de dirección en la instrucción que referencia a un registro
 - EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
 - (X) = contenido de la posición de memoria X o del registro X
 
-\begin{enumerate}
-\def\labelenumi{\alph{enumi})}
-\item
-  \textbf{Inmediato}: En este modo, el operando está incrustado directamente en la instrucción. Es útil para valores constantes pequeños y proporciona una ejecución rápida ya que no requiere acceso a la memoria.
-\item
-  \textbf{Directo}: La instrucción contiene la dirección de memoria del operando. Es sencillo y fácil de entender, pero limita el rango de direcciones que se pueden especificar directamente.
-\item
-  \textbf{Indirecto}: La dirección de la memoria contenida en la instrucción apunta a otra dirección de memoria donde se encuentra el operando real. Esto permite acceder a un rango más amplio de direcciones de memoria, pero introduce un nivel adicional de indirection y, por lo tanto, puede ser más lento.
-\item
-  \textbf{Registro}: Similar al direccionamiento directo, pero en lugar de una dirección de memoria, la instrucción especifica un registro que contiene el operando. Este modo es rápido y eficiente porque los accesos a registros son más rápidos que los accesos a memoria.
-\item
-  \textbf{Registro Indirecto}: Similar al direccionamiento indirecto, pero la dirección del operando se encuentra en un registro en lugar de en la memoria. Proporciona flexibilidad y rapidez.
-\item
-  \textbf{Con desplazamiento}: Combina una dirección base contenida en la instrucción o en un registro con un valor de desplazamiento (offset), permitiendo acceder a elementos de estructuras de datos como arrays.
-\item
-  \textbf{Pila}: La dirección del operando se calcula como un desplazamiento relativo a la ubicación actual de la instrucción en ejecución. Este modo es útil para implementar saltos en el flujo de control del programa.
-\end{enumerate}
+\{\#figFlujo\}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/modosdireccionamiento} 
+
+}
+
+\caption{Modos de direccionamiento}\label{fig:flujo}
+\end{figure}
 
 \hypertarget{formato-de-las-instrucciones}{%
-\subsubsection{Formato de las Instrucciones}\label{formato-de-las-instrucciones}}
+\subsection{Formato de las Instrucciones}\label{formato-de-las-instrucciones}}
 
-El formato de las instrucciones describe la estructura interna de las instrucciones, incluyendo los campos que contienen el código de operación (opcode), los operandos y cualquier información adicional necesaria. Los formatos de instrucciones tienen un impacto directo en la complejidad y eficiencia de la CPU.
-
-Longitud de la Instrucción: La longitud de una instrucción puede ser fija o variable. Las instrucciones de longitud fija son más simples de decodificar y ejecutar, lo que puede mejorar el rendimiento, pero a costa de flexibilidad. Las instrucciones de longitud variable pueden ser más eficientes en términos de espacio, ya que permiten utilizar instrucciones más cortas cuando sea posible.
-
-Cantidad de Operandos: Las instrucciones pueden tener diferentes cantidades de operandos, desde cero (como una instrucción NOP que no hace nada) hasta tres o más. Más operandos pueden hacer que una instrucción sea más potente y versátil, pero también pueden aumentar su complejidad y el espacio que ocupa.
-
-Campos de Instrucción: Las instrucciones típicamente contienen varios campos, como el opcode, que especifica la operación a realizar, y los campos de operandos, que identifican los datos sobre los que se opera. También pueden incluir campos adicionales como bits de modo de direccionamiento o flags de condición.
-
-Consideraciones de Diseño: El diseño del formato de instrucciones es un equilibrio entre simplicidad y potencia. Un formato más simple facilita el diseño de la CPU y puede mejorar la velocidad de ejecución, pero puede limitar las capacidades del procesador. Un formato más complejo puede ofrecer más flexibilidad, pero a costa de mayor complejidad en el diseño del hardware.
-
-\hypertarget{repertorio-de-instrucciones-arquitectura-x86}{%
-\subsection{Repertorio de instrucciones arquitectura x86}\label{repertorio-de-instrucciones-arquitectura-x86}}
-
-La arquitectura x86 es conocida por su complejidad y flexibilidad, características que se reflejan en su repertorio de instrucciones. Las instrucciones x86 pueden variar considerablemente en su longitud y estructura, lo que permite una gran diversidad de operaciones pero también añade una capa de complejidad en su decodificación y ejecución. Según Stallings {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}, el formato de las instrucciones en x86 incluye una variedad de campos que pueden estar presentes o no dependiendo del tipo de instrucción.
-
-\hypertarget{estructura-general-de-una-instrucciuxf3n-x86}{%
-\paragraph{Estructura General de una Instrucción x86}\label{estructura-general-de-una-instrucciuxf3n-x86}}
-
-Una instrucción en la arquitectura x86 puede constar de los siguientes componentes:
+El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (\textbf{opcode}){\textbf{???}}, {\textbf{???}}. El formato tiene un impacto directo en la complejidad del diseño del procesador:
 
 \begin{itemize}
 \item
-  Prefijos: Opcionalmente, una instrucción puede comenzar con uno o más bytes de prefijo, que modifican la operación de la instrucción principal. Por ejemplo, el prefijo 0x66 se utiliza para cambiar el tamaño del operando de 32 bits a 16 bits.
+  \textbf{Longitud de la Instrucción}: Las instrucciones pueden ser de longitud fija o variable. Las instrucciones de longitud fija son más fáciles de decodificar, pero pueden desperdiciar espacio en casos donde no se necesite la flexibilidad de una instrucción larga.
 \item
-  Código de Operación (Opcode): El opcode indica la operación que debe realizarse. En x86, el opcode 0x89, por ejemplo, representa la instrucción MOV para mover datos entre registros o entre un registro y la memoria.
+  \textbf{Cantidad de Operandos}: Dependiendo de la arquitectura, las instrucciones pueden manejar desde cero hasta tres o más operandos, impactando tanto la flexibilidad como la complejidad del procesador.
 \item
-  Modificadores de Dirección (ModR/M y SIB): Estos campos se utilizan para especificar los registros y/o direcciones de memoria involucrados en la instrucción. Por ejemplo, un byte ModR/M con un valor de 0xC1 podría indicar que el registro ECX debe ser utilizado en la operación.
-\item
-  Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción. Por ejemplo, un valor de desplazamiento de 0x10 podría indicar un desplazamiento de 16 bytes desde la dirección base.
+  \textbf{Campos de Instrucción}: Un campo común es el \textbf{opcode}, que indica la operación a realizar, mientras que los operandos pueden estar representados en campos adicionales. Otros campos pueden incluir modos de direccionamiento o flags de condición.
 \end{itemize}
 
-\hypertarget{complejidad-en-la-decodificaciuxf3n}{%
-\paragraph{Complejidad en la Decodificación}\label{complejidad-en-la-decodificaciuxf3n}}
+\hypertarget{filosofuxedas-cisc-y-risc}{%
+\subsubsection{Filosofías CISC y RISC}\label{filosofuxedas-cisc-y-risc}}
 
-Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. En los procesadores x86 modernos, se han implementado técnicas avanzadas como la decodificación anticipada (pre-decoding) y el uso de microcódigos para manejar esta complejidad. Estas técnicas permiten que el procesador convierta instrucciones complejas de múltiples bytes en microinstrucciones más simples y eficientes que pueden ser ejecutadas en paralelo, mejorando así el rendimiento general del sistema.
+Las arquitecturas del repertorio de instrucciones son un componente crucial en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son \textbf{CISC (Complex Instruction Set Computing)} y \textbf{RISC (Reduced Instruction Set Computing)}. Mientras que CISC busca minimizar la cantidad de instrucciones necesarias para realizar una tarea, RISC simplifica el conjunto de instrucciones para optimizar la velocidad y la eficiencia energética. Esta sección profundiza estos dos enfoques y sus implicaciones en el diseño de procesadores {\textbf{???}}, {\textbf{???}}.
 
-Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.
+\hypertarget{cisc-reducciuxf3n-de-instrucciones-aumento-de-complejidad}{%
+\subsection{CISC: Reducción de Instrucciones, Aumento de Complejidad}\label{cisc-reducciuxf3n-de-instrucciones-aumento-de-complejidad}}
 
-Ejemplo de Instrucción x86
-Una instrucción simple en x86 podría ser:
+En las arquitecturas \textbf{CISC}, como la x86, el objetivo principal es reducir la cantidad de instrucciones necesarias para realizar operaciones complejas. Esto se logra implementando instrucciones que pueden realizar varias operaciones en un solo ciclo de instrucción, lo cual reduce el código que debe escribir un programador. Sin embargo, esta ventaja tiene un costo: la \textbf{decodificación} y \textbf{ejecución} de instrucciones CISC requiere un hardware más complejo. Además, las instrucciones de longitud variable, comunes en CISC, pueden incrementar el tiempo de decodificación, generando cuellos de botella en el pipeline.
 
-MOV AX, {[}BX+SI+16{]}
+Por ejemplo, los procesadores \textbf{x86} han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en algunos contextos, pero sigue siendo una arquitectura más costosa en términos de diseño y energía {\textbf{???}}.
 
-En este caso, el opcode MOV se traduce a un byte específico, y el uso de registros y desplazamientos se codifica mediante el byte ModR/M y el posible uso de un byte SIB. Este ejemplo ilustra cómo la instrucción compacta se expande a múltiples bytes en la memoria, y cómo la CPU debe descomponer estos bytes para ejecutar la operación correctamente.
+\hypertarget{risc-simplicidad-para-mayor-velocidad-y-eficiencia-energuxe9tica}{%
+\subsection{RISC: Simplicidad para Mayor Velocidad y Eficiencia Energética}\label{risc-simplicidad-para-mayor-velocidad-y-eficiencia-energuxe9tica}}
+
+Por otro lado, las arquitecturas \textbf{RISC} como \textbf{ARM} y \textbf{MIPS} se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite ejecutar instrucciones en un solo ciclo de reloj. Esta simplicidad también permite implementar técnicas avanzadas de \textbf{pipelining} y \textbf{predicción de ramas} con mayor facilidad, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC facilita la \textbf{optimización} y el uso de energía de manera más eficiente que CISC, lo que es especialmente importante en dispositivos móviles y embebidos {\textbf{???}}.
+
+La filosofía de diseño RISC ha permitido que procesadores como \textbf{ARM} dominen el mercado de dispositivos móviles, donde la eficiencia energética es crítica. El enfoque de RISC en operaciones simples y repetitivas, con un CPI (ciclos por instrucción) bajo, ha sido un factor clave para esta adopción {\textbf{???}}.
+
+\hypertarget{impacto-del-formato-de-instrucciones-en-el-rendimiento}{%
+\section{Impacto del Formato de Instrucciones en el Rendimiento}\label{impacto-del-formato-de-instrucciones-en-el-rendimiento}}
+
+Una de las diferencias clave entre CISC y RISC radica en el formato de las instrucciones. En \emph{Structured Computer Organization} de Tanenbaum se detalla cómo el \textbf{formato de longitud fija}, característico de las arquitecturas RISC, simplifica la \textbf{decodificación} y mejora el rendimiento general del procesador {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
+
+\hypertarget{formato-de-longitud-fija-en-risc}{%
+\subsection{Formato de Longitud Fija en RISC}\label{formato-de-longitud-fija-en-risc}}
+
+En las arquitecturas \textbf{RISC}, todas las instrucciones tienen la misma longitud, lo que facilita la decodificación y permite que el procesador mantenga un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo que es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor \textbf{utilización de la memoria caché}, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.
+
+\hypertarget{formato-de-longitud-variable-en-cisc}{%
+\subsection{Formato de Longitud Variable en CISC}\label{formato-de-longitud-variable-en-cisc}}
+
+Por el contrario, las arquitecturas \textbf{CISC} como \textbf{x86} utilizan un \textbf{formato de longitud variable} para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una variedad más amplia de operaciones con menos líneas de código. Sin embargo, la flexibilidad tiene un costo: las instrucciones de longitud variable requieren un tiempo de decodificación más largo y complican la implementación del pipeline, lo que afecta negativamente al rendimiento {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
+
+Por ejemplo, en un procesador x86, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, particularmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque esto se puede mitigar mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.
+
+\hypertarget{ejemplos-pruxe1cticos-de-modos-de-direccionamiento}{%
+\section{Ejemplos Prácticos de Modos de Direccionamiento}\label{ejemplos-pruxe1cticos-de-modos-de-direccionamiento}}
+
+Los \textbf{modos de direccionamiento} permiten a los procesadores acceder a datos de manera eficiente y flexible. En \emph{Computer Organization and Architecture} de William Stallings, se analizan en detalle varios modos de direccionamiento, como el \textbf{inmediato}, \textbf{indirecto} y \textbf{relativo}. A continuación se incluyen ejemplos prácticos de cómo estos modos se utilizan en las arquitecturas \textbf{x86}, \textbf{ARM} y \textbf{MIPS}, y cómo afectan el rendimiento.
+
+\hypertarget{modo-inmediato-vs.-indirecto}{%
+\subsection{Modo Inmediato vs.~Indirecto}\label{modo-inmediato-vs.-indirecto}}
+
+En el modo de \textbf{direccionamiento inmediato}, el valor del operando está incrustado directamente en la instrucción, lo que permite un acceso rápido y eficiente. Por ejemplo, en ARM, este modo es común para operaciones aritméticas simples, donde se requiere velocidad en lugar de flexibilidad.
+
+\begin{verbatim}
+MOV R0, #10  ; Carga el valor inmediato 10 en el registro R0
+\end{verbatim}
+
+En contraste, el modo de direccionamiento indirecto utiliza una dirección almacenada en un registro para acceder a la memoria, lo que añade flexibilidad a costa de un mayor tiempo de acceso. En la arquitectura x86, este modo es frecuente en operaciones complejas de acceso a memoria.
+
+\begin{verbatim}
+MOV EAX, [EBX]  ; Carga en EAX el valor almacenado en la dirección apuntada por EBX
+\end{verbatim}
+
+\hypertarget{impacto-en-el-rendimiento}{%
+\subsection{Impacto en el Rendimiento}\label{impacto-en-el-rendimiento}}
+
+El uso de modos de direccionamiento como el indirecto, aunque más flexible, introduce una mayor latencia debido al acceso adicional a la memoria. En arquitecturas como x86, este impacto puede mitigarse parcialmente mediante el uso de cachés y técnicas de prefetching, pero sigue siendo un factor clave en el rendimiento general del sistema. En arquitecturas RISC como ARM o MIPS, se priorizan los modos de direccionamiento simples, lo que permite un acceso más rápido a los operandos y reduce la latencia del pipeline {\textbf{???}}.
+
+La elección entre CISC y RISC, así como el diseño del formato de instrucciones y los modos de direccionamiento, afecta profundamente el rendimiento y la eficiencia de un procesador. Mientras que CISC ofrece flexibilidad y un repertorio de instrucciones amplio a costa de una mayor complejidad, RISC prioriza la simplicidad y la velocidad. A medida que las arquitecturas de procesadores evolucionan, se observa una convergencia de ambas filosofías, donde las arquitecturas modernas integran características de ambos enfoques para maximizar el rendimiento y la eficiencia energética. Estos conceptos son fundamentales para entender el estado actual del diseño de procesadores y su evolución futura.
 
 \hypertarget{arquitectura-x86-1}{%
 \subsection{Arquitectura x86}\label{arquitectura-x86-1}}
@@ -652,6 +681,41 @@ Año & Procesador & Innovación\_Principal\tabularnewline
 2006 & Intel Core & Optimización de rendimiento y eficiencia energética\tabularnewline
 \bottomrule
 \end{longtable}
+
+\hypertarget{repertorio-de-instrucciones-arquitectura-x86}{%
+\subsection{Repertorio de instrucciones arquitectura x86}\label{repertorio-de-instrucciones-arquitectura-x86}}
+
+La arquitectura x86 es conocida por su complejidad y flexibilidad, características que se reflejan en su repertorio de instrucciones. Las instrucciones x86 pueden variar considerablemente en su longitud y estructura, lo que permite una gran diversidad de operaciones pero también añade una capa de complejidad en su decodificación y ejecución. Según Stallings {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}, el formato de las instrucciones en x86 incluye una variedad de campos que pueden estar presentes o no dependiendo del tipo de instrucción.
+
+\hypertarget{estructura-general-de-una-instrucciuxf3n-x86}{%
+\paragraph{Estructura General de una Instrucción x86}\label{estructura-general-de-una-instrucciuxf3n-x86}}
+
+Una instrucción en la arquitectura x86 puede constar de los siguientes componentes:
+
+\begin{itemize}
+\item
+  Prefijos: Opcionalmente, una instrucción puede comenzar con uno o más bytes de prefijo, que modifican la operación de la instrucción principal. Por ejemplo, el prefijo 0x66 se utiliza para cambiar el tamaño del operando de 32 bits a 16 bits.
+\item
+  Código de Operación (Opcode): El opcode indica la operación que debe realizarse. En x86, el opcode 0x89, por ejemplo, representa la instrucción MOV para mover datos entre registros o entre un registro y la memoria.
+\item
+  Modificadores de Dirección (ModR/M y SIB): Estos campos se utilizan para especificar los registros y/o direcciones de memoria involucrados en la instrucción. Por ejemplo, un byte ModR/M con un valor de 0xC1 podría indicar que el registro ECX debe ser utilizado en la operación.
+\item
+  Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción. Por ejemplo, un valor de desplazamiento de 0x10 podría indicar un desplazamiento de 16 bytes desde la dirección base.
+\end{itemize}
+
+\hypertarget{complejidad-en-la-decodificaciuxf3n}{%
+\paragraph{Complejidad en la Decodificación}\label{complejidad-en-la-decodificaciuxf3n}}
+
+Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. En los procesadores x86 modernos, se han implementado técnicas avanzadas como la decodificación anticipada (pre-decoding) y el uso de microcódigos para manejar esta complejidad. Estas técnicas permiten que el procesador convierta instrucciones complejas de múltiples bytes en microinstrucciones más simples y eficientes que pueden ser ejecutadas en paralelo, mejorando así el rendimiento general del sistema.
+
+Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.
+
+Ejemplo de Instrucción x86
+Una instrucción simple en x86 podría ser:
+
+MOV AX, {[}BX+SI+16{]}
+
+En este caso, el opcode MOV se traduce a un byte específico, y el uso de registros y desplazamientos se codifica mediante el byte ModR/M y el posible uso de un byte SIB. Este ejemplo ilustra cómo la instrucción compacta se expande a múltiples bytes en la memoria, y cómo la CPU debe descomponer estos bytes para ejecutar la operación correctamente.
 
 \hypertarget{lenguaje-ensamblador}{%
 \section{Lenguaje ensamblador}\label{lenguaje-ensamblador}}
@@ -1708,15 +1772,16 @@ No opera NOP Detiene el CPU HLT\strut
 \hypertarget{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}{%
 \subsection{Ciclo de la instrucción (Etapas de captación y ejecución)}\label{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}}
 
-\hypertarget{etapa-de-buxfasqueda}{%
-\subsubsection{\texorpdfstring{\textbf{Etapa de Búsqueda}:}{Etapa de Búsqueda:}}\label{etapa-de-buxfasqueda}}
+\hypertarget{etapa-de-captaciuxf3n}{%
+\subsubsection{\texorpdfstring{\textbf{Etapa de Captación} (*):}{Etapa de Captación (*):}}\label{etapa-de-captaciuxf3n}}
 
 \begin{verbatim}
-1.  MAR = IP 
-2.  MDR = read(Memoria[MAR])
-    IP = IP + 1
-3.  IR  = MDR
+1.  MAR $\leftarrow$ IP 
+2.  MDR $\leftarrow$ read(Memoria[MAR]); IP $\leftarrow$ IP + 1 
+3.  IR  $\leftarrow$ MDR
 \end{verbatim}
+
+(*): Todas las instrucciones tienen los mismos pasos en la etapa de captación.
 
 \hypertarget{etapa-de-ejecuciuxf3n}{%
 \subsubsection{\texorpdfstring{\textbf{Etapa de Ejecución}:}{Etapa de Ejecución:}}\label{etapa-de-ejecuciuxf3n}}
@@ -1724,13 +1789,59 @@ No opera NOP Detiene el CPU HLT\strut
 \begin{itemize}
 \tightlist
 \item
-  MOV Rx, Ry:
+  0: Copiar entre registros: \texttt{MOV\ Rx,\ Ry}
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \tightlist
   \item
-    Rx ← Ry
+    Rx \(\leftarrow\) Ry
+  \end{enumerate}
+\item
+  1: Cargar a registro:
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi})}
+  \tightlist
+  \item
+    Directo: MOV Rx, {[}Dirección{]}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      MAR \(\leftarrow\) IP
+    \item
+      MBR \(\leftarrow\) read(Memoria{[}MAR{]}); IP \(\leftarrow\) IP + 1 (Obtener byte 2)\\
+    \item
+      MAR \(\leftarrow\) MBR
+    \item
+      MBR \(\leftarrow\) read(Memoria{[}MAR{]}) (Obtener operando)
+    \item
+      Rx \(\leftarrow\) MBR
+    \end{itemize}
+  \end{enumerate}
+\item
+  2: Almacenar en memoria:
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi})}
+  \tightlist
+  \item
+    MOV {[}Dirección{]}, Ry
+
+    \begin{itemize}
+    \tightlist
+    \item
+      MAR \(\leftarrow\) IP
+    \item
+      MBR \(\leftarrow\) read(Memoria{[}MAR{]}); IP \(\leftarrow\) IP + 1 (Obtener byte 2)
+    \item
+      MAR \(\leftarrow\) MBR
+    \item
+      MBR \(\leftarrow\) Ry
+    \item
+      write(Memoria{[}MAR{]}) \(\leftarrow\) MBR
+    \end{itemize}
   \end{enumerate}
 \end{itemize}
 
