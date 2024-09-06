@@ -289,21 +289,16 @@
 <li><p>Modificadores de Dirección (ModR/M y SIB): Estos campos se utilizan para especificar los registros y/o direcciones de memoria involucrados en la instrucción. Por ejemplo, un byte ModR/M con un valor de 0xC1 podría indicar que el registro ECX debe ser utilizado en la operación.</p></li>
 <li><p>Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción. Por ejemplo, un valor de desplazamiento de 0x10 podría indicar un desplazamiento de 16 bytes desde la dirección base.</p></li>
 </ul>
+<p>Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:FormatoInst"></span>
-<img src="images/formatoinstruccionx86.png" alt="Formato de instrucciones x86" width="80%" />
+<img src="images/formatoinstruccionx86.png" alt="Formato de instrucciones x86" width="100%" />
 <p class="caption">
 Figura 2.2: Formato de instrucciones x86
 </p>
 </div>
-<div id="complejidad-en-la-decodificación" class="section level5 hasAnchor" number="2.5.2.1.1">
-<h5><span class="header-section-number">2.5.2.1.1</span> Complejidad en la Decodificación<a href="arquitectura-x86-1.html#complejidad-en-la-decodificación" class="anchor-section" aria-label="Anchor link to header"></a></h5>
-<p>Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. En los procesadores x86 modernos, se han implementado técnicas avanzadas como la decodificación anticipada (pre-decoding) y el uso de microcódigos para manejar esta complejidad. Estas técnicas permiten que el procesador convierta instrucciones complejas de múltiples bytes en microinstrucciones más simples y eficientes que pueden ser ejecutadas en paralelo, mejorando así el rendimiento general del sistema.</p>
-<p>Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.</p>
-<p>Ejemplo de Instrucción x86
-Una instrucción simple en x86 podría ser:</p>
+<p>Ejemplo de Instrucción x86:</p>
 <pre class="assembly"><code>MOV AX, [BX+SI+16] </code></pre>
 <p>En este caso, el opcode MOV se traduce a un byte específico, y el uso de registros y desplazamientos se codifica mediante el byte ModR/M y el posible uso de un byte SIB. Este ejemplo ilustra cómo la instrucción compacta se expande a múltiples bytes en la memoria, y cómo la CPU debe descomponer estos bytes para ejecutar la operación correctamente.</p>
-</div>
 </div>
 </div>
 </div>
