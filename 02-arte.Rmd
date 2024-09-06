@@ -213,17 +213,13 @@ Una instrucción en la arquitectura x86 puede constar de los siguientes componen
 
 - Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción. Por ejemplo, un valor de desplazamiento de 0x10 podría indicar un desplazamiento de 16 bytes desde la dirección base.
 
-```{r FormatoInst, echo=FALSE, fig.cap="Formato de instrucciones x86", fig.align = 'center', out.width = "80%"}
+Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.
+
+```{r FormatoInst, echo=FALSE, fig.cap="Formato de instrucciones x86", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/formatoinstruccionx86.png")
 ```
 
-##### Complejidad en la Decodificación
-Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. En los procesadores x86 modernos, se han implementado técnicas avanzadas como la decodificación anticipada (pre-decoding) y el uso de microcódigos para manejar esta complejidad. Estas técnicas permiten que el procesador convierta instrucciones complejas de múltiples bytes en microinstrucciones más simples y eficientes que pueden ser ejecutadas en paralelo, mejorando así el rendimiento general del sistema.
-
-Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.
-
-Ejemplo de Instrucción x86
-Una instrucción simple en x86 podría ser:
+Ejemplo de Instrucción x86:
 
 ```assembly
 MOV AX, [BX+SI+16] 
