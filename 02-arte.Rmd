@@ -5,7 +5,7 @@ A continuación, se abordará el papel fundamental que desempeñan las herramien
 
 Finalmente, se explorarán las tendencias actuales y futuras en la enseñanza de la arquitectura de computadoras, destacando las innovaciones tecnológicas y metodológicas que están revolucionando las prácticas educativas en este campo. Se analizarán enfoques pedagógicos innovadores y estrategias de enseñanza que aprovechan las herramientas digitales y la simulación para mejorar la comprensión y el rendimiento de los estudiantes.
 
-## Arquitectura de Computadoras
+## Arquitectura de computadoras
 La arquitectura de computadoras es el campo que se dedica al estudio y diseño detallado de los componentes físicos (hardware) y lógicos (software) de un sistema informático, con un enfoque particular en la optimización de su interacción para lograr sistemas más eficientes y de alto rendimiento. Este ámbito abarca desde el diseño de circuitos electrónicos hasta la integración de sistemas completos, siendo fundamental para el desarrollo de tecnologías avanzadas y sostenibles [@hennessy_computer_2012] [@stallings_computer_2013].
 
 Entender la arquitectura de una computadora implica conocer atributos del sistema visibles al programador, como el conjunto de instrucciones (por ejemplo, la arquitectura x86 o ARM), la cantidad de bits utilizados para representar datos (como en sistemas de 32 o 64 bits), los mecanismos de entrada/salida, las técnicas de direccionamiento (como direccionamiento directo o segmentado), y la gestión de la jerarquía de memoria [@null_essentials_2014]. Además, conceptos como el paralelismo y la eficiencia energética son cruciales para optimizar el rendimiento y el desarrollo de software y sistemas operativos eficientes [@hennessy_computer_2012] [@patterson_computer_2014].
@@ -49,29 +49,29 @@ kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitect
 
 Cada una de estas arquitecturas ofrece un conjunto único de características que las hace más o menos adecuadas para diferentes aplicaciones. La elección de la arquitectura correcta puede tener un impacto significativo en el éxito de un proyecto, ya sea en términos de rendimiento, eficiencia energética o compatibilidad [@patterson_computer_2014].
 
-## Repertorio de Instrucciones
+## Repertorio de instrucciones
 El repertorio de instrucciones, conocido como **ISA (Instruction Set Architecture)**, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA tiene un impacto considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador [@hennessy_computer_2012; @null_essentials_2014; @stallings_computer_2013].
 
 Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes:
 
-- **Tipos de Operandos**: Se refiere a los diversos tipos de datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres o direcciones de memoria. Es crucial diseñar un repertorio de instrucciones que soporte eficientemente diferentes tipos de operando.
+- **Tipos de operandos**: Se refiere a los diversos tipos de datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres o direcciones de memoria. Es crucial diseñar un repertorio de instrucciones que soporte eficientemente diferentes tipos de operando.
 
-- **Tipos de Operaciones**: Incluye las operaciones que el procesador puede realizar, como aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y operaciones de manipulación de datos (movimiento de datos, almacenamiento, carga).
+- **Tipos de operaciones**: Incluye las operaciones que el procesador puede realizar, como aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y operaciones de manipulación de datos (movimiento de datos, almacenamiento, carga).
 
-- **Formato de las Instrucciones**: La estructura de una instrucción determina la longitud, el número de operandos y los modos de direccionamiento. Esto tiene un impacto directo en la eficiencia y la complejidad del procesador.
+- **Formato de las instrucciones**: La estructura de una instrucción determina la longitud, el número de operandos y los modos de direccionamiento. Esto tiene un impacto directo en la eficiencia y la complejidad del procesador.
 
-- **Modos de Direccionamiento**: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo. Cada uno ofrece diferentes ventajas en términos de flexibilidad y eficiencia.
+- **Modos de direccionamiento**: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo. Cada uno ofrece diferentes ventajas en términos de flexibilidad y eficiencia.
 
-### Funciones del Repertorio de Instrucciones
+### Funciones del repertorio de instrucciones
 El repertorio de instrucciones no solo define qué operaciones puede realizar un procesador, sino también cómo se organizan y ejecutan [@stallings_computer_2013]. Las funciones principales incluyen:
 
 - **Control de la CPU**: Instrucciones de control que gestionan la secuencia de ejecución, interrupciones y llamadas a subrutinas.
 
-- **Interacción con la Memoria**: Las instrucciones permiten que la CPU cargue y almacene datos desde y hacia la memoria principal, aspecto crítico para la ejecución de programas.
+- **Interacción con la memoria**: Las instrucciones permiten que la CPU cargue y almacene datos desde y hacia la memoria principal, aspecto crítico para la ejecución de programas.
 
-- **Gestión de Datos**: Las operaciones aritméticas, lógicas y de comparación son esenciales para la manipulación de datos. El diseño adecuado del repertorio puede simplificar y acelerar estas operaciones.
+- **Gestión de datos**: Las operaciones aritméticas, lógicas y de comparación son esenciales para la manipulación de datos. El diseño adecuado del repertorio puede simplificar y acelerar estas operaciones.
 
-- **Optimización del Rendimiento**: Un repertorio de instrucciones eficiente minimiza el número de instrucciones para completar una tarea, mejorando el uso de energía y los recursos del sistema [@hennessy_computer_2012].
+- **Optimización del rendimiento**: Un repertorio de instrucciones eficiente minimiza el número de instrucciones para completar una tarea, mejorando el uso de energía y los recursos del sistema [@hennessy_computer_2012].
 
 ### Modos de direccionamiento
 Los modos de direccionamiento son fundamentales para definir cómo una CPU accede a los datos para ejecutar una instrucción [@stallings_computer_2013 ; @hennessy_computer_2012 ]. Algunos modos comunes incluyen:
@@ -98,40 +98,40 @@ Estos modos se ilustran en la figura \@ref(fig-ModDir):
 knitr::include_graphics(path = "images/modosdireccionamiento.png")
 ```
 
-### Formato de las Instrucciones
+### Formato de las instrucciones
 El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (**opcode**)[@hennessy_computer_2012 ; @tanenbaum_structured_2012]. El formato tiene un impacto directo en la complejidad del diseño del procesador:
 
-- **Longitud de la Instrucción**: Las instrucciones pueden ser de longitud fija o variable. Las instrucciones de longitud fija son más fáciles de decodificar, pero pueden desperdiciar espacio en casos donde no se necesite la flexibilidad de una instrucción larga.
+- **Longitud de la instrucción**: Las instrucciones pueden ser de longitud fija o variable. Las instrucciones de longitud fija son más fáciles de decodificar, pero pueden desperdiciar espacio en casos donde no se necesite la flexibilidad de una instrucción larga.
 
-- **Cantidad de Operandos**: Dependiendo de la arquitectura, las instrucciones pueden manejar desde cero hasta tres o más operandos, impactando tanto la flexibilidad como la complejidad del procesador.
+- **Cantidad de operandos**: Dependiendo de la arquitectura, las instrucciones pueden manejar desde cero hasta tres o más operandos, impactando tanto la flexibilidad como la complejidad del procesador.
 
-- **Campos de Instrucción**: Un campo común es el **opcode**, que indica la operación a realizar, mientras que los operandos pueden estar representados en campos adicionales. Otros campos pueden incluir modos de direccionamiento o flags de condición.
+- **Campos de instrucción**: Un campo común es el **opcode**, que indica la operación a realizar, mientras que los operandos pueden estar representados en campos adicionales. Otros campos pueden incluir modos de direccionamiento o flags de condición.
 
 
 ## Filosofías CISC y RISC
 Las arquitecturas del repertorio de instrucciones son un componente crucial en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son **CISC (Complex Instruction Set Computing)** y **RISC (Reduced Instruction Set Computing)**. Mientras que CISC busca minimizar la cantidad de instrucciones necesarias para realizar una tarea, RISC simplifica el conjunto de instrucciones para optimizar la velocidad y la eficiencia energética. Esta sección profundiza estos dos enfoques y sus implicaciones en el diseño de procesadores [@hennessy_computer_2012 ; @patterson_computer_2014].
 
-### CISC: Reducción de Instrucciones, Aumento de Complejidad
+### CISC
 En las arquitecturas **CISC**, como la x86, el objetivo principal es reducir la cantidad de instrucciones necesarias para realizar operaciones complejas. Esto se logra implementando instrucciones que pueden realizar varias operaciones en un solo ciclo de instrucción, lo cual reduce el código que debe escribir un programador. Sin embargo, esta ventaja tiene un costo: la **decodificación** y **ejecución** de instrucciones CISC requiere un hardware más complejo. Además, las instrucciones de longitud variable, comunes en CISC, pueden incrementar el tiempo de decodificación, generando cuellos de botella en el pipeline.
 
 Por ejemplo, los procesadores **x86** han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en algunos contextos, pero sigue siendo una arquitectura más costosa en términos de diseño y energía [@patterson_computer_2014].
 
-### RISC: Simplicidad para Mayor Velocidad y Eficiencia Energética
+### RISC
 Por otro lado, las arquitecturas **RISC** como **ARM** y **MIPS** se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite ejecutar instrucciones en un solo ciclo de reloj. Esta simplicidad también permite implementar técnicas avanzadas de **pipelining** y **predicción de ramas** con mayor facilidad, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC facilita la **optimización** y el uso de energía de manera más eficiente que CISC, lo que es especialmente importante en dispositivos móviles y embebidos [@hennessy_computer_2012].
 
 La filosofía de diseño RISC ha permitido que procesadores como **ARM** dominen el mercado de dispositivos móviles, donde la eficiencia energética es crítica. El enfoque de RISC en operaciones simples y repetitivas, con un CPI (ciclos por instrucción) bajo, ha sido un factor clave para esta adopción [@hennessy_computer_2012].
 
-### Impacto del Formato de Instrucciones entre CISC y RISC
+### Impacto del formato de instrucciones entre CISC y RISC
 En las arquitecturas **RISC**, todas las instrucciones tienen la misma longitud, lo que facilita la decodificación y permite que el procesador mantenga un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo que es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor **utilización de la memoria caché**, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.
 
 Por el contrario, las arquitecturas **CISC** como **x86** utilizan un **formato de longitud variable** para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una variedad más amplia de operaciones con menos líneas de código. Sin embargo, la flexibilidad tiene un costo: las instrucciones de longitud variable requieren un tiempo de decodificación más largo y complican la implementación del pipeline, lo que afecta negativamente al rendimiento [@tanenbaum_structured_2013]. 
 
 Por ejemplo, en un procesador x86, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, particularmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque esto se puede mitigar mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.
 
-### Ejemplos Prácticos de Modos de Direccionamiento entre CISC y RISC
+### Ejemplos prácticos de modos de direccionamiento entre CISC y RISC
 Los **modos de direccionamiento** permiten a los procesadores acceder a datos de manera eficiente y flexible [@stallings_computer_2013]. A continuación se incluyen ejemplos prácticos de cómo estos modos se utilizan en las arquitecturas **x86**, **ARM** y **MIPS**, y cómo afectan el rendimiento.
 
-#### Modo Inmediato vs. Indirecto
+#### Modo inmediato vs. indirecto
 En el modo de **direccionamiento inmediato**, el valor del operando está incrustado directamente en la instrucción, lo que permite un acceso rápido y eficiente. Por ejemplo, en ARM, este modo es común para operaciones aritméticas simples, donde se requiere velocidad en lugar de flexibilidad. 
 
 ```assembly
@@ -143,7 +143,7 @@ En contraste, el modo de direccionamiento indirecto utiliza una dirección almac
 MOV EAX, [EBX]  ; Carga en EAX el valor almacenado en la dirección apuntada por EBX
 ```
 
-#### Impacto en el Rendimiento
+#### Impacto en el rendimiento
 El uso de modos de direccionamiento como el indirecto, aunque más flexible, introduce una mayor latencia debido al acceso adicional a la memoria. En arquitecturas como x86, este impacto puede mitigarse parcialmente mediante el uso de cachés y técnicas de prefetching, pero sigue siendo un factor clave en el rendimiento general del sistema. En arquitecturas RISC como ARM o MIPS, se priorizan los modos de direccionamiento simples, lo que permite un acceso más rápido a los operandos y reduce la latencia del pipeline [@stallings_organization_2016].
 
 La elección entre CISC y RISC, así como el diseño del formato de instrucciones y los modos de direccionamiento, afecta profundamente el rendimiento y la eficiencia de un procesador. Mientras que CISC ofrece flexibilidad y un repertorio de instrucciones amplio a costa de una mayor complejidad, RISC prioriza la simplicidad y la velocidad. A medida que las arquitecturas de procesadores evolucionan, se observa una convergencia de ambas filosofías, donde las arquitecturas modernas integran características de ambos enfoques para maximizar el rendimiento y la eficiencia energética. Estos conceptos son fundamentales para entender el estado actual del diseño de procesadores y su evolución futura.
@@ -151,7 +151,7 @@ La elección entre CISC y RISC, así como el diseño del formato de instruccione
 ## Arquitectura x86
 La arquitectura x86, una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores, comenzó su desarrollo en 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. La arquitectura x86 evolucionó significativamente con el Intel 80386 en 1985, marcando el inicio de la era de 32 bits. En 2003, AMD lanzó la arquitectura AMD64, extendiendo x86 a 64 bits, lo que permitió un mayor acceso a la memoria y un mejor rendimiento en aplicaciones intensivas. Intel adoptó estas innovaciones, consolidando la arquitectura x86 como una de las más versátiles y potentes del mercado [@intel_64_2016][@amd_developer_2019][@abel_ibm_2000].
 
-### Evolución de la Arquitectura x86
+### Evolución de la arquitectura x86
 La retrocompatibilidad de la arquitectura x86 ha sido un factor determinante en su éxito, permitiendo que aplicaciones de 16, 32 y 64 bits se ejecuten en el mismo sistema. Esta característica ha asegurado la continuidad y protección de las inversiones en software y sistemas operativos desarrollados para x86.
 
 ```{r tabla-procesadores, echo=FALSE, message=FALSE, warning=FALSE}
@@ -202,7 +202,7 @@ kable(evolucion_x86, format = "markdown", caption = "Línea de Tiempo de la Evol
 ###  Repertorio de instrucciones x86
 La arquitectura x86 es conocida por su complejidad y flexibilidad, características que se reflejan en su repertorio de instrucciones. Las instrucciones x86 pueden variar considerablemente en su longitud y estructura, lo que permite una gran diversidad de operaciones pero también añade una capa de complejidad en su decodificación y ejecución. Según Stallings [@stallings_computer_2013], el formato de las instrucciones en x86 incluye una variedad de campos que pueden estar presentes o no dependiendo del tipo de instrucción.
 
-#### Estructura General de una Instrucción x86
+#### Estructura de una Instrucción x86
 Una instrucción en la arquitectura x86 puede constar de los siguientes componentes:
 
 - Prefijos: Opcionalmente, una instrucción puede comenzar con uno o más bytes de prefijo, que modifican la operación de la instrucción principal. Por ejemplo, el prefijo 0x66 se utiliza para cambiar el tamaño del operando de 32 bits a 16 bits.
@@ -212,6 +212,10 @@ Una instrucción en la arquitectura x86 puede constar de los siguientes componen
 - Modificadores de Dirección (ModR/M y SIB): Estos campos se utilizan para especificar los registros y/o direcciones de memoria involucrados en la instrucción. Por ejemplo, un byte ModR/M con un valor de 0xC1 podría indicar que el registro ECX debe ser utilizado en la operación.
 
 - Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción. Por ejemplo, un valor de desplazamiento de 0x10 podría indicar un desplazamiento de 16 bytes desde la dirección base.
+
+```{r FormatoInst, echo=FALSE, fig.cap="Formato de instrucciones x86", fig.align = 'center', out.width = "80%"}
+knitr::include_graphics(path = "images/formatoinstruccionx86.png")
+```
 
 ##### Complejidad en la Decodificación
 Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. En los procesadores x86 modernos, se han implementado técnicas avanzadas como la decodificación anticipada (pre-decoding) y el uso de microcódigos para manejar esta complejidad. Estas técnicas permiten que el procesador convierta instrucciones complejas de múltiples bytes en microinstrucciones más simples y eficientes que pueden ser ejecutadas en paralelo, mejorando así el rendimiento general del sistema.
