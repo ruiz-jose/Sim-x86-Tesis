@@ -532,32 +532,20 @@ Los modos de direccionamiento son fundamentales para definir cómo una CPU acced
 \end{enumerate}
 
 Estos modos se ilustran en la figura \ref{fig-ModDir}:
+\textbackslash begin\{figure\}
 
-\begin{itemize}
-\item
-  A = contenido de un campo de dirección en la instrucción
-\item
-  R = contenido de un campo de dirección en la instrucción que referencia a un registro
-\item
-  EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
-\item
-  \begin{enumerate}
-  \def\labelenumi{(\Alph{enumi})}
-  \setcounter{enumi}{23}
-  \tightlist
-  \item
-    = contenido de la posición de memoria X o del registro X
-  \end{enumerate}
-\end{itemize}
+\{\centering \includegraphics[width=0.8\linewidth]{images/modosdireccionamiento}
 
-\begin{figure}
+\}
 
-{\centering \includegraphics[width=0.8\linewidth]{images/modosdireccionamiento} 
-
-}
-
-\caption{Modos de direccionamiento}\label{fig:ModDir}
-\end{figure}
+\textbackslash caption\{Modos de direccionamiento {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}\}\label{fig:ModDir}
+\textbackslash end\{figure\}
+::: \{note\}
+- A = contenido de un campo de dirección en la instrucción
+- R = contenido de un campo de dirección en la instrucción que referencia a un registro
+- EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
+- (X) = contenido de la posición de memoria X o del registro X
+:::
 
 \hypertarget{formato-de-las-instrucciones}{%
 \subsection{Formato de las instrucciones}\label{formato-de-las-instrucciones}}
@@ -709,14 +697,14 @@ Una instrucción en la arquitectura x86 puede constar de los siguientes componen
 
 Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.
 
-\begin{figure}
+\textbackslash begin\{figure\}
 
-{\centering \includegraphics[width=1\linewidth]{images/formatoinstruccionx86} 
+\{\centering \includegraphics[width=1\linewidth]{images/formatoinstruccionx86}
 
-}
+\}
 
-\caption{Formato de instrucciones x86}\label{fig:FormatoInst}
-\end{figure}
+\textbackslash caption\{Formato de instrucciones x86 {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}\}\label{fig:FormatoInst}
+\textbackslash end\{figure\}
 
 Ejemplo de Instrucción x86:
 
