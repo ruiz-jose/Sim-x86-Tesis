@@ -84,8 +84,8 @@ Los modos de direccionamiento son fundamentales para definir cómo una CPU acced
   f) **Con Desplazamiento**: Combina una dirección base con un desplazamiento, útil en estructuras de datos como arrays.
   g) **Pila**: Calcula la dirección del operando en función de la ubicación actual en la pila, usado comúnmente en llamadas a subrutinas.
 
-Estos modos se ilustran en la figura \@ref(fig:ModDir):
-```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento [@stallings_computer_2013]", fig.align = 'center', out.width = "80%"}
+Estos modos se ilustran en la figura \@ref(fig:ModDir) según [@stallings_computer_2013]:
+```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento ", fig.align = 'center', out.width = "80%"}
 knitr::include_graphics(path = "images/modosdireccionamiento.png")
 ```
 
@@ -213,9 +213,9 @@ Una instrucción en la arquitectura x86 puede constar de los siguientes componen
 
 - Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción. Por ejemplo, un valor de desplazamiento de 0x10 podría indicar un desplazamiento de 16 bytes desde la dirección base.
 
-Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante.
+Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante. Según [@stallings_computer_2013] el formato de la instrucciones x86 es:
 
-```{r FormatoInst, echo=FALSE, fig.cap="Formato de instrucciones x86 [@stallings_computer_2013]", fig.align = 'center', out.width = "100%"}
+```{r FormatoInst, echo=FALSE, fig.cap="Formato de instrucciones x86", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/formatoinstruccionx86.png")
 ```
 
