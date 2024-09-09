@@ -223,10 +223,69 @@ Figura 2.1: Modos de direccionamiento
 <li><p>A = contenido de un campo de dirección en la instrucción</p></li>
 <li><p>R = contenido de un campo de dirección en la instrucción que referencia a un registro</p></li>
 <li><p>EA = dirección real (efectiva) de la posición que contiene el operando que se referencia</p></li>
-<li><ol start="24" style="list-style-type: upper-alpha">
-<li>= contenido de la posición de memoria X o del registro X</li>
-</ol></li>
 </ul>
+<p>La Tabla @ref(tab:data_algoritmo) indica el cálculo de la dirección realizado para cada modo de direccionamiento.</p>
+<table style="width:100%;">
+<caption>(#tab:data_algoritmo)Modos de direccionamiento básicos</caption>
+<colgroup>
+<col width="20%" />
+<col width="22%" />
+<col width="27%" />
+<col width="29%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Modo</th>
+<th align="left">Algoritmo</th>
+<th align="left">Principal.ventaja</th>
+<th align="left">Principal.desventaja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Inmediato</td>
+<td align="left">Operando ← A</td>
+<td align="left">No referencia a memoria</td>
+<td align="left">Operando de magnitud limitada</td>
+</tr>
+<tr class="even">
+<td align="left">Directo</td>
+<td align="left">EA ← A</td>
+<td align="left">Es sencillo</td>
+<td align="left">Espacio de direcciones limitado</td>
+</tr>
+<tr class="odd">
+<td align="left">Indirecto</td>
+<td align="left">EA ← (A)</td>
+<td align="left">Espacio de direcciones grande</td>
+<td align="left">Referencias múltiples a memoria</td>
+</tr>
+<tr class="even">
+<td align="left">Registro</td>
+<td align="left">EA ← R</td>
+<td align="left">No referencia a memoria</td>
+<td align="left">Número limitado de registros</td>
+</tr>
+<tr class="odd">
+<td align="left">Indirecto con registro</td>
+<td align="left">EA ← (R)</td>
+<td align="left">Espacio de direcciones grande</td>
+<td align="left">Referencia extra a memoria</td>
+</tr>
+<tr class="even">
+<td align="left">Con desplazamiento</td>
+<td align="left">EA ← A + (R)</td>
+<td align="left">Flexibilidad</td>
+<td align="left">Complejidad</td>
+</tr>
+<tr class="odd">
+<td align="left">Pila</td>
+<td align="left">EA ← cabecera de la pila</td>
+<td align="left">No referencia a memoria</td>
+<td align="left">Aplicabilidad limitada</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="formato-de-las-instrucciones" class="section level3 hasAnchor" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> Formato de las instrucciones<a href="repertorio-de-instrucciones.html#formato-de-las-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>

@@ -549,15 +549,101 @@ Estos modos se ilustran en la figura \ref{fig:ModDir} según {[}\protect\hyperli
   R = contenido de un campo de dirección en la instrucción que referencia a un registro
 \item
   EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
-\item
-  \begin{enumerate}
-  \def\labelenumi{(\Alph{enumi})}
-  \setcounter{enumi}{23}
-  \tightlist
-  \item
-    = contenido de la posición de memoria X o del registro X
-  \end{enumerate}
 \end{itemize}
+
+La Tabla @ref(tab:data\_algoritmo) indica el cálculo de la dirección realizado para cada modo de direccionamiento.
+
+\begin{longtable}[]{@{}llll@{}}
+\caption{(\#tab:data\_algoritmo)Modos de direccionamiento básicos}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.19\columnwidth}\raggedright
+Modo\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
+Algoritmo\strut
+\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\raggedright
+Principal.ventaja\strut
+\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
+Principal.desventaja\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.19\columnwidth}\raggedright
+Modo\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
+Algoritmo\strut
+\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\raggedright
+Principal.ventaja\strut
+\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
+Principal.desventaja\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Inmediato\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Operando ← A\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+No referencia a memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Operando de magnitud limitada\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Directo\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← A\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+Es sencillo\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Espacio de direcciones limitado\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Indirecto\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← (A)\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+Espacio de direcciones grande\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Referencias múltiples a memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Registro\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← R\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+No referencia a memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Número limitado de registros\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Indirecto con registro\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← (R)\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+Espacio de direcciones grande\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Referencia extra a memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Con desplazamiento\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← A + (R)\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+Flexibilidad\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Complejidad\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Pila\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← cabecera de la pila\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+No referencia a memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Aplicabilidad limitada\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \hypertarget{formato-de-las-instrucciones}{%
 \subsection{Formato de las instrucciones}\label{formato-de-las-instrucciones}}
