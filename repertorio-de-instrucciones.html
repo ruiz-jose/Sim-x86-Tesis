@@ -224,9 +224,9 @@ Figura 2.1: Modos de direccionamiento
 <li><p>R = contenido de un campo de dirección en la instrucción que referencia a un registro</p></li>
 <li><p>EA = dirección real (efectiva) de la posición que contiene el operando que se referencia</p></li>
 </ul>
-<p>La Tabla @ref(tab:data_algoritmo) indica el cálculo de la dirección realizado para cada modo de direccionamiento.</p>
+<p>La tabla <a href="repertorio-de-instrucciones.html#tab:tabModDir">2.2</a> indica el cálculo de la dirección realizado para cada modo de direccionamiento.</p>
 <table style="width:100%;">
-<caption>(#tab:data_algoritmo)Modos de direccionamiento básicos</caption>
+<caption><span id="tab:tabModDir">Tabla 2.2: </span>Modos de direccionamiento básicos</caption>
 <colgroup>
 <col width="20%" />
 <col width="22%" />
@@ -289,7 +289,7 @@ Figura 2.1: Modos de direccionamiento
 </div>
 <div id="formato-de-las-instrucciones" class="section level3 hasAnchor" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> Formato de las instrucciones<a href="repertorio-de-instrucciones.html#formato-de-las-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (<strong>opcode</strong>)<span class="citation">(Hennessy and Patterson <a href="#ref-hennessy_computer_2012" role="doc-biblioref">2012</a> ; Tanenbaum <a href="#ref-tanenbaum_structured_2013" role="doc-biblioref">2013</a>)</span>. El formato tiene un impacto directo en la complejidad del diseño del procesador:</p>
+<p>El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (<strong>opcode</strong>) <span class="citation">(Hennessy and Patterson <a href="#ref-hennessy_computer_2012" role="doc-biblioref">2012</a> ; Tanenbaum <a href="#ref-tanenbaum_structured_2013" role="doc-biblioref">2013</a>)</span>. El formato tiene un impacto directo en la complejidad del diseño del procesador:</p>
 <ul>
 <li><p><strong>Longitud de la instrucción</strong>: Las instrucciones pueden ser de longitud fija o variable. Las instrucciones de longitud fija son más fáciles de decodificar, pero pueden desperdiciar espacio en casos donde no se necesite la flexibilidad de una instrucción larga.</p></li>
 <li><p><strong>Cantidad de operandos</strong>: Dependiendo de la arquitectura, las instrucciones pueden manejar desde cero hasta tres o más operandos, impactando tanto la flexibilidad como la complejidad del procesador.</p></li>
