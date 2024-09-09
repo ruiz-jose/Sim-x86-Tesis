@@ -84,16 +84,20 @@ Los modos de direccionamiento son fundamentales para definir cómo una CPU acced
   f) **Con Desplazamiento**: Combina una dirección base con un desplazamiento, útil en estructuras de datos como arrays.
   g) **Pila**: Calcula la dirección del operando en función de la ubicación actual en la pila, usado comúnmente en llamadas a subrutinas.
 
-Estos modos se ilustran en la figura \@ref(fig-ModDir):
+Estos modos se ilustran en la figura \@ref(fig:ModDir):
 ```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento [@stallings_computer_2013]", fig.align = 'center', out.width = "80%"}
 knitr::include_graphics(path = "images/modosdireccionamiento.png")
 ```
-::: {note}
+
+```{block2, type='rmdimportant'}
 - A = contenido de un campo de dirección en la instrucción
+
 - R = contenido de un campo de dirección en la instrucción que referencia a un registro
+
 - EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
+
 - (X) = contenido de la posición de memoria X o del registro X
-:::
+```
 
 ### Formato de las instrucciones
 El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (**opcode**)[@hennessy_computer_2012 ; @tanenbaum_structured_2012]. El formato tiene un impacto directo en la complejidad del diseño del procesador:
@@ -103,7 +107,6 @@ El formato de las instrucciones determina cómo se estructuran las instrucciones
 - **Cantidad de operandos**: Dependiendo de la arquitectura, las instrucciones pueden manejar desde cero hasta tres o más operandos, impactando tanto la flexibilidad como la complejidad del procesador.
 
 - **Campos de instrucción**: Un campo común es el **opcode**, que indica la operación a realizar, mientras que los operandos pueden estar representados en campos adicionales. Otros campos pueden incluir modos de direccionamiento o flags de condición.
-
 
 ## Filosofías CISC y RISC
 Las arquitecturas del repertorio de instrucciones son un componente crucial en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son **CISC (Complex Instruction Set Computing)** y **RISC (Reduced Instruction Set Computing)**. Mientras que CISC busca minimizar la cantidad de instrucciones necesarias para realizar una tarea, RISC simplifica el conjunto de instrucciones para optimizar la velocidad y la eficiencia energética. Esta sección profundiza estos dos enfoques y sus implicaciones en el diseño de procesadores [@hennessy_computer_2012 ; @patterson_computer_2014].
