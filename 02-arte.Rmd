@@ -30,7 +30,7 @@ La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y s
 
 ### Arquitectura ARM
 
-La arquitectura ARM es conocida por su alta eficiencia energética, característica que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM utiliza el paradigma de conjunto de instrucciones reducidas (RISC), simplificando así el diseño del hardware y reduciendo el consumo de energía. Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es fundamental [@patterson_computer_2014].
+La arquitectura ARM es conocida por su alta eficiencia energética, característica que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM utiliza el paradigma de conjunto de instrucciones reducidas (RISC), simplificando así el diseño del hardware y reduciendo el consumo de energía, como se explica en la sección @ref(RISC). Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es fundamental [@patterson_computer_2014].
 
 ### Arquitectura MIPS
 
@@ -70,7 +70,7 @@ Entre las características clave que deben considerarse en el diseño de un repe
 
 - **Modos de direccionamiento**: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo, cada uno ofreciendo diferentes ventajas en términos de flexibilidad y eficiencia.
 
-```{r repInstCaracteristicas, echo=FALSE, fig.cap="Característas repertorio de instrucciones ", fig.align = 'center', out.width = "100%"}
+```{r repInstCaracteristicas, echo=FALSE, fig.cap="Características repertorio de instrucciones ", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/repInstCaracteristicas.jpg")
 ```
 
@@ -144,7 +144,7 @@ Las arquitecturas **CISC**, como la **x86**, tienen como objetivo minimizar el n
 
 Por ejemplo, los procesadores **x86** han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en ciertos contextos, aunque sigue siendo una arquitectura más costosa en términos de diseño y consumo energético [@patterson_computer_2014].
 
-### RISC
+### RISC {#RISC}
 
 Por otro lado, las arquitecturas **RISC**, como **ARM** y **MIPS**, se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite la ejecución de instrucciones en un solo ciclo de reloj. Esta simplicidad también facilita la implementación de técnicas avanzadas de **pipelining** y **predicción de ramas**, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC favorece la **optimización** y el uso eficiente de la energía, lo que resulta crucial en dispositivos móviles y embebidos [@hennessy_computer_2012].
 
