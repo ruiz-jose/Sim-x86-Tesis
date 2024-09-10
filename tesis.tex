@@ -491,44 +491,36 @@ Entre las características clave que deben considerarse en el diseño de un repe
   \textbf{Modos de direccionamiento}: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo, cada uno ofreciendo diferentes ventajas en términos de flexibilidad y eficiencia.
 \end{itemize}
 
-\hypertarget{funciones-del-repertorio-de-instrucciones}{%
-\subsection{Funciones del repertorio de instrucciones}\label{funciones-del-repertorio-de-instrucciones}}
+\begin{figure}
 
-El repertorio de instrucciones define las operaciones que un procesador puede realizar y cómo se ejecutan. Sus funciones principales incluyen {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}:
+{\centering \includegraphics[width=1\linewidth]{images/repInstCaracteristicas} 
 
-\begin{itemize}
-\item
-  \textbf{Control de la CPU}: Instrucciones de control que gestionan la secuencia de ejecución, interrupciones y llamadas a subrutinas, asegurando que el procesador funcione de manera ordenada y eficiente.
-\item
-  \textbf{Interacción con la memoria}: Las instrucciones permiten que la CPU cargue y almacene datos desde y hacia la memoria principal, un aspecto crítico para la ejecución de programas y la optimización del rendimiento global del sistema.
-\item
-  \textbf{Gestión de datos}: Las operaciones aritméticas, lógicas y de comparación son esenciales para la manipulación de datos. Un diseño adecuado del repertorio puede simplificar y acelerar estas operaciones, mejorando tanto el rendimiento como el consumo energético del sistema.
-\item
-  \textbf{Optimización del rendimiento}: Un repertorio de instrucciones eficiente minimiza el número de instrucciones necesarias para completar una tarea, lo que contribuye a un uso más eficaz de los recursos del sistema, tanto en términos de energía como de tiempo de procesamiento.
-\end{itemize}
+}
+
+\caption{Característas repertorio de instrucciones }\label{fig:repInstCaracteristicas}
+\end{figure}
 
 \hypertarget{modos-de-direccionamiento}{%
 \subsection{Modos de direccionamiento}\label{modos-de-direccionamiento}}
 
-Los modos de direccionamiento son fundamentales para definir cómo una CPU accede a los datos para ejecutar una instrucción {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. Algunos modos comunes incluyen:
+Los modos de direccionamiento son esenciales para especificar cómo la CPU accede a los datos necesarios para ejecutar una instrucción {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. Los modos más comunes incluyen:
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi})}
-\tightlist
 \item
-  \textbf{Inmediato}: El operando está embebido en la propia instrucción, proporcionando acceso rápido a valores constantes pequeños.
+  \textbf{Inmediato}: El operando está directamente incluido en la instrucción, lo que permite un acceso rápido a valores constantes, generalmente pequeños. Este modo es eficiente para operaciones simples, pero está limitado a operandos de tamaño reducido.
 \item
-  \textbf{Directo}: La dirección de memoria del operando está incluida en la instrucción. Es sencillo, pero limita el rango de direcciones accesibles directamente.
+  \textbf{Directo}: La instrucción contiene la dirección de memoria del operando. Este modo es fácil de usar y entender, pero tiene la desventaja de que el rango de direcciones accesibles está limitado por el tamaño de la instrucción.
 \item
-  \textbf{Indirecto}: La dirección de memoria apunta a otra dirección donde se encuentra el operando real, permitiendo un acceso más amplio, pero a un costo de tiempo.
+  \textbf{Indirecto}: La instrucción apunta a una dirección que, a su vez, contiene la dirección real del operando. Este modo ofrece una mayor flexibilidad al ampliar el rango de direcciones, aunque introduce una penalización en tiempo debido al acceso adicional a la memoria.
 \item
-  \textbf{Registro}: Utiliza un registro en lugar de una dirección de memoria, acelerando el acceso a datos.
+  \textbf{Registro}: El operando está ubicado en uno de los registros del procesador, lo que permite un acceso extremadamente rápido. Este modo es muy eficiente, ya que evita los accesos a la memoria, pero está limitado por el número de registros disponibles.
 \item
-  \textbf{Registro Indirecto}: Similar al modo indirecto, pero con la dirección almacenada en un registro.
+  \textbf{Registro Indirecto}: Similar al modo indirecto, pero en este caso la dirección del operando está almacenada en un registro. Esto combina la rapidez del acceso a registros con la flexibilidad del direccionamiento indirecto.
 \item
-  \textbf{Con Desplazamiento}: Combina una dirección base con un desplazamiento, útil en estructuras de datos como arrays.
+  \textbf{Con Desplazamiento}: Este modo combina una dirección base con un valor de desplazamiento, lo que resulta muy útil para trabajar con estructuras de datos como arrays. Permite un acceso eficiente a elementos contiguos en memoria.
 \item
-  \textbf{Pila}: Calcula la dirección del operando en función de la ubicación actual en la pila, usado comúnmente en llamadas a subrutinas.
+  \textbf{Pila}: El operando se encuentra en la parte superior de la pila, y su dirección es calculada en base al puntero de la pila. Este modo es fundamental para la gestión de llamadas a subrutinas y el paso de parámetros en muchos lenguajes de programación.
 \end{enumerate}
 
 Estos modos se ilustran en la figura \ref{fig:ModDir} según {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}:
@@ -648,16 +640,25 @@ Aplicabilidad limitada\strut
 \hypertarget{formato-de-las-instrucciones}{%
 \subsection{Formato de las instrucciones}\label{formato-de-las-instrucciones}}
 
-El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (\textbf{opcode}) {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}. El formato tiene un impacto directo en la complejidad del diseño del procesador:
+El \textbf{formato de las instrucciones} establece cómo se estructuran las instrucciones que un procesador debe ejecutar, lo que incluye su longitud, la cantidad de operandos y los campos adicionales como el código de operación (\textbf{opcode}) {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}. Este formato no solo afecta la rapidez con la que las instrucciones pueden ser decodificadas, sino también el grado de flexibilidad del conjunto de instrucciones y el aprovechamiento de los recursos del procesador.
 
 \begin{itemize}
 \item
-  \textbf{Longitud de la instrucción}: Las instrucciones pueden ser de longitud fija o variable. Las instrucciones de longitud fija son más fáciles de decodificar, pero pueden desperdiciar espacio en casos donde no se necesite la flexibilidad de una instrucción larga.
+  \textbf{Longitud de la instrucción}: Las instrucciones pueden tener una longitud fija o variable, y esta decisión afecta tanto al diseño como al rendimiento del procesador. Las instrucciones de longitud fija simplifican el proceso de decodificación, ya que todas tienen el mismo tamaño, lo que facilita el diseño del hardware. Sin embargo, esto puede resultar en un uso ineficiente de la memoria cuando se utilizan instrucciones más simples que no requieren tanto espacio. En contraste, las instrucciones de longitud variable permiten un uso más eficiente de la memoria, ya que el tamaño de cada instrucción puede ajustarse a las necesidades de la operación. No obstante, esta flexibilidad aumenta la complejidad en la decodificación, ya que el procesador debe determinar primero la longitud de la instrucción antes de ejecutarla.
 \item
-  \textbf{Cantidad de operandos}: Dependiendo de la arquitectura, las instrucciones pueden manejar desde cero hasta tres o más operandos, impactando tanto la flexibilidad como la complejidad del procesador.
+  \textbf{Cantidad de operandos}: Las instrucciones pueden trabajar con diferentes cantidades de operandos según la arquitectura del procesador, variando desde cero hasta tres o más. A mayor número de operandos, las instrucciones son más versátiles, permitiendo realizar operaciones más complejas en una única instrucción, lo que reduce el número total de instrucciones necesarias. Sin embargo, un mayor número de operandos también implica un aumento en la complejidad del procesador, ya que se necesitan más campos en la instrucción para especificar los operandos y más registros o direcciones de memoria para manejar los datos, lo cual puede incrementar la longitud de las instrucciones y el esfuerzo de decodificación.
 \item
-  \textbf{Campos de instrucción}: Un campo común es el \textbf{opcode}, que indica la operación a realizar, mientras que los operandos pueden estar representados en campos adicionales. Otros campos pueden incluir modos de direccionamiento o flags de condición.
+  \textbf{Campos de instrucción}: Entre los campos clave que componen una instrucción, el \textbf{opcode} es el más relevante, ya que especifica la operación que el procesador debe ejecutar, como suma, resta o saltos condicionales. Además, las instrucciones pueden incluir otros campos para indicar los operandos, los modos de direccionamiento, y en arquitecturas más avanzadas, flags de condición o características de optimización, como la predicción de saltos o la ejecución fuera de orden. La disposición y el tamaño de estos campos determinan cuántas y qué tipo de operaciones puede realizar el procesador en un ciclo de reloj, afectando directamente su rendimiento global. En arquitecturas más complejas, los campos adicionales permiten un mayor grado de optimización, mejorando el rendimiento en aplicaciones específicas, aunque a costa de un mayor esfuerzo en el diseño y la implementación del hardware.
 \end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/formatoInst} 
+
+}
+
+\caption{Formato de instrucciones }\label{fig:formatoInst}
+\end{figure}
 
 \hypertarget{filosofuxedas-cisc-y-risc}{%
 \section{Filosofías CISC y RISC}\label{filosofuxedas-cisc-y-risc}}
