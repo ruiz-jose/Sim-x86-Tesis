@@ -1,4 +1,5 @@
 # Estado del arte {#arte}
+
 Este capítulo explora el estado del arte en la arquitectura de computadoras, con un enfoque especial en la evolución de la arquitectura x86 y el uso de herramientas de simulación en la educación. El análisis proporciona una visión integral de cómo estos elementos han influido en la enseñanza de la informática, mejorando la comprensión de conceptos complejos y la aplicación práctica en entornos educativos.
 
 A continuación, se abordará el papel fundamental que desempeñan las herramientas de simulación en la enseñanza de la arquitectura de computadoras. Estas herramientas facilitan la comprensión de conceptos complejos y permiten a los estudiantes interactuar con sistemas simulados, proporcionando una experiencia práctica valiosa que de otro modo sería difícil de obtener. Se examinarán las herramientas de simulación más destacadas y su aplicación en entornos educativos, evaluando sus beneficios y limitaciones.
@@ -6,32 +7,38 @@ A continuación, se abordará el papel fundamental que desempeñan las herramien
 Finalmente, se explorarán las tendencias actuales y futuras en la enseñanza de la arquitectura de computadoras, destacando las innovaciones tecnológicas y metodológicas que están revolucionando las prácticas educativas en este campo. Se analizarán enfoques pedagógicos innovadores y estrategias de enseñanza que aprovechan las herramientas digitales y la simulación para mejorar la comprensión y el rendimiento de los estudiantes.
 
 ## Arquitectura de computadoras
-La arquitectura de computadoras es el campo que se dedica al estudio y diseño detallado de los componentes físicos (hardware) y lógicos (software) de un sistema informático, con un enfoque particular en la optimización de su interacción para lograr sistemas más eficientes y de alto rendimiento. Este ámbito abarca desde el diseño de circuitos electrónicos hasta la integración de sistemas completos, siendo fundamental para el desarrollo de tecnologías avanzadas y sostenibles [@hennessy_computer_2012] [@stallings_computer_2013].
 
-Entender la arquitectura de una computadora implica conocer atributos del sistema visibles al programador, como el conjunto de instrucciones (por ejemplo, la arquitectura x86 o ARM), la cantidad de bits utilizados para representar datos (como en sistemas de 32 o 64 bits), los mecanismos de entrada/salida, las técnicas de direccionamiento (como direccionamiento directo o segmentado), y la gestión de la jerarquía de memoria [@null_essentials_2014]. Además, conceptos como el paralelismo y la eficiencia energética son cruciales para optimizar el rendimiento y el desarrollo de software y sistemas operativos eficientes [@hennessy_computer_2012] [@patterson_computer_2014].
+La arquitectura de computadoras abarca el diseño y la especificación de los componentes de un sistema informático que son visibles para el programador, como el conjunto de instrucciones, la organización de la memoria y los mecanismos de entrada/salida. Su principal objetivo es optimizar tanto el rendimiento como la eficiencia del sistema. Esta disciplina se extiende desde la interacción entre el hardware y el software hasta la integración de sistemas completos, siendo fundamental para el avance de tecnologías modernas y sostenibles [@hennessy_computer_2012; @stallings_computer_2013].
 
-La arquitectura de computadoras se distingue de la organización interna del hardware. Mientras que la **arquitectura** define los atributos visibles al programador y las abstracciones necesarias para desarrollar software eficiente, la **organización** se refiere a cómo se implementa físicamente esa arquitectura: cómo se interconectan y operan los componentes físicos, incluyendo la disposición de la memoria, las señales de control y las unidades de procesamiento, para cumplir con los objetivos de rendimiento y funcionalidad del sistema [@tanenbaum_structured_2013] [@murdocca_principles_2000].
+Comprender la arquitectura de una computadora implica tener un conocimiento profundo de atributos claves como el repertorio de instrucciones (por ejemplo, arquitecturas x86 o ARM), la capacidad de procesamiento (32 o 64 bits), los mecanismos de entrada/salida, las técnicas de direccionamiento de memoria (directo o segmentado) y la gestión de la jerarquía de memoria [@null_essentials_2014]. Además, aspectos como el paralelismo y la eficiencia energética son esenciales para mejorar el rendimiento de los sistemas, así como para optimizar el desarrollo de software y sistemas operativos modernos [@hennessy_computer_2012; @patterson_computer_2014].
 
-Estudiar la arquitectura de computadoras permite no solo comprender el funcionamiento y la estructura de los sistemas informáticos desde su nivel más básico, sino también adaptar y optimizar estos sistemas para nuevas tendencias tecnológicas como la computación en la nube, la inteligencia artificial y el Internet de las cosas. La arquitectura efectiva es el cimiento que permite a estas tecnologías alcanzar su máximo potencial, contribuyendo activamente a la innovación tecnológica [@hennessy_computer_2012] [@stallings_computer_2013].
+Es esencial distinguir entre la **arquitectura de computadoras** y la **organización de computadoras**. Mientras que la arquitectura describe los componentes visibles al programador y las abstracciones necesarias para desarrollar software eficiente, la organización se refiere a la implementación física de esa arquitectura. Esto incluye cómo están dispuestos y coordinados los elementos del hardware, como la memoria, las señales de control y las unidades de procesamiento, para cumplir con los objetivos de rendimiento y funcionalidad [@tanenbaum_structured_2013; @murdocca_principles_2000].
 
-La comprensión profunda de la arquitectura y organización de los computadores es fundamental para cualquier profesional en el campo de la informática. No solo capacita para diseñar sistemas más eficientes y escalables, sino que también proporciona una base sólida para comprender otros campos relacionados, como la seguridad informática y los sistemas embebidos, que son cada vez más demandados en la industria [@patterson_computer_2014]. En última instancia, el estudio de la arquitectura de computadoras abre un amplio espectro de oportunidades laborales en diversas áreas tecnológicas, permitiendo a los profesionales ser parte activa en la evolución de la sociedad digital.
+El estudio de la arquitectura de computadoras no solo permite comprender el funcionamiento interno de los sistemas informáticos, sino que también facilita su adaptación y optimización para satisfacer las demandas de nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el Internet de las cosas. La arquitectura bien diseñada es el cimiento que permite a estas tecnologías alcanzar su máximo potencial, impulsando de manera significativa la innovación [@hennessy_computer_2012; @stallings_computer_2013].
 
-En conclusión, estudiar la arquitectura de computadoras no solo es esencial para comprender el funcionamiento de los sistemas informáticos y resolver problemas de rendimiento y eficiencia, sino que también capacita a los profesionales para diseñar soluciones innovadoras en áreas como la inteligencia artificial, la ciberseguridad y los sistemas embebidos. Este conocimiento es fundamental para enfrentar los desafíos tecnológicos del futuro, abriendo un amplio espectro de oportunidades laborales en un mercado que valora la capacidad de crear y optimizar sistemas computacionales más poderosos y eficientes [@stallings_computer_2013].
+Tener un conocimiento profundo de la arquitectura y la organización de los sistemas informáticos es vital para cualquier profesional en el campo de la informática. No solo habilita la creación de sistemas más eficientes y escalables, sino que también proporciona una base sólida para explorar áreas emergentes como la seguridad informática y los sistemas embebidos, sectores de creciente relevancia en la industria [@patterson_computer_2014]. El dominio de la arquitectura de computadoras abre un amplio abanico de oportunidades profesionales, permitiendo a los expertos participar activamente en la evolución de la sociedad digital.
+
+En resumen, el estudio de la arquitectura de computadoras es crucial no solo para entender cómo funcionan internamente los sistemas informáticos y resolver problemas de rendimiento, sino también para diseñar soluciones innovadoras en áreas clave como la inteligencia artificial, la ciberseguridad y los sistemas embebidos. Este conocimiento es esencial para abordar los retos tecnológicos del futuro y acceder a un mercado laboral que valora la capacidad de crear y optimizar sistemas cada vez más poderosos y eficientes [@stallings_computer_2013].
 
 ## Tipos de arquitecturas
+
 El estudio de diferentes arquitecturas de computadoras es fundamental para comprender sus ventajas y limitaciones en distintos contextos de aplicación. Esta comparación permite a los desarrolladores y diseñadores de sistemas elegir la arquitectura más adecuada para sus necesidades, considerando factores como la eficiencia energética, la complejidad del hardware, y las aplicaciones específicas.
 
 ### Arquitectura x86
+
 La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, gracias a su capacidad para ofrecer un alto rendimiento y su amplia compatibilidad con software existente. La complejidad de su conjunto de instrucciones (ISA) permite una mayor flexibilidad, aunque a costa de una mayor complejidad en el diseño del hardware. Su eficiencia energética es moderada, lo que la hace menos adecuada para dispositivos móviles y más apropiada para entornos donde el rendimiento es la principal preocupación [@hennessy_computer_2012].
 
 ### Arquitectura ARM
-La arquitectura ARM es conocida por su alta eficiencia energética, lo que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM utiliza un conjunto de instrucciones reducido (RISC), lo que simplifica el diseño del hardware y reduce el consumo de energía. Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es crucial [@patterson_computer_2014].
+
+La arquitectura ARM es conocida por su alta eficiencia energética, característica que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM utiliza el paradigma de conjunto de instrucciones reducidas (RISC), simplificando así el diseño del hardware y reduciendo el consumo de energía. Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es fundamental [@patterson_computer_2014].
 
 ### Arquitectura MIPS
+
 MIPS es otra arquitectura basada en RISC que ha sido ampliamente utilizada en sistemas embebidos y en la educación. Aunque ha perdido prominencia frente a otras arquitecturas como ARM, MIPS sigue siendo relevante en ciertos nichos debido a su simplicidad y efectividad. Su conjunto de instrucciones es moderadamente complejo, lo que permite un equilibrio entre rendimiento y eficiencia energética, aunque su compatibilidad y soporte en la industria son más limitados [@hennessy_computer_2012].
 
 ### Arquitectura RISC-V
-RISC-V es una arquitectura emergente que ha ganado atención por ser una ISA abierta y libre, lo que permite a los desarrolladores y fabricantes adaptar y personalizar la arquitectura según sus necesidades. Al igual que ARM, RISC-V se basa en el paradigma RISC, lo que le otorga una alta eficiencia energética y una baja complejidad de hardware. Su flexibilidad la convierte en una opción atractiva para la investigación, la educación, y aplicaciones embebidas. Además, RISC-V ofrece una compatibilidad creciente gracias a su adopción por parte de la comunidad global de desarrolladores [@waterman_risc-v_2014].
+
+RISC-V es una arquitectura emergente que ha ganado atención por ser una ISA abierta y libre, lo que permite a los desarrolladores y fabricantes adaptar y personalizar la arquitectura según sus necesidades. Al igual que ARM, RISC-V se basa en el paradigma RISC, lo que le otorga una alta eficiencia energética y una baja complejidad de hardware. Su flexibilidad la convierte en una opción atractiva para la investigación, la educación y aplicaciones embebidas. Además, RISC-V ofrece una compatibilidad creciente gracias a su adopción por parte de la comunidad global de desarrolladores [@waterman_risc-v_2014].
 
 ```{r tabla-comparacion-cpu, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -50,28 +57,30 @@ kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitect
 Cada una de estas arquitecturas ofrece un conjunto único de características que las hace más o menos adecuadas para diferentes aplicaciones. La elección de la arquitectura correcta puede tener un impacto significativo en el éxito de un proyecto, ya sea en términos de rendimiento, eficiencia energética o compatibilidad [@patterson_computer_2014].
 
 ## Repertorio de instrucciones
+
 El repertorio de instrucciones, conocido como **ISA (Instruction Set Architecture)**, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA tiene un impacto considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador [@hennessy_computer_2012; @null_essentials_2014; @stallings_computer_2013].
 
-Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes:
+Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes [@hennessy_computer_2012]:
 
 - **Tipos de operandos**: Se refiere a los diversos tipos de datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres o direcciones de memoria. Es crucial diseñar un repertorio de instrucciones que soporte eficientemente diferentes tipos de operando.
 
 - **Tipos de operaciones**: Incluye las operaciones que el procesador puede realizar, como aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y operaciones de manipulación de datos (movimiento de datos, almacenamiento, carga).
 
-- **Formato de las instrucciones**: La estructura de una instrucción determina la longitud, el número de operandos y los modos de direccionamiento. Esto tiene un impacto directo en la eficiencia y la complejidad del procesador.
+- **Formato de las instrucciones**: La estructura de una instrucción determina la longitud, el número de operandos y los modos de direccionamiento, lo que impacta directamente en la complejidad y eficiencia del procesador.
 
-- **Modos de direccionamiento**: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo. Cada uno ofrece diferentes ventajas en términos de flexibilidad y eficiencia.
+- **Modos de direccionamiento**: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo, cada uno ofreciendo diferentes ventajas en términos de flexibilidad y eficiencia.
 
 ### Funciones del repertorio de instrucciones
-El repertorio de instrucciones no solo define qué operaciones puede realizar un procesador, sino también cómo se organizan y ejecutan [@stallings_computer_2013]. Las funciones principales incluyen:
 
-- **Control de la CPU**: Instrucciones de control que gestionan la secuencia de ejecución, interrupciones y llamadas a subrutinas.
+El repertorio de instrucciones define las operaciones que un procesador puede realizar y cómo se ejecutan. Sus funciones principales incluyen [@stallings_computer_2013]:
 
-- **Interacción con la memoria**: Las instrucciones permiten que la CPU cargue y almacene datos desde y hacia la memoria principal, aspecto crítico para la ejecución de programas.
+- **Control de la CPU**: Instrucciones de control que gestionan la secuencia de ejecución, interrupciones y llamadas a subrutinas, asegurando que el procesador funcione de manera ordenada y eficiente.
 
-- **Gestión de datos**: Las operaciones aritméticas, lógicas y de comparación son esenciales para la manipulación de datos. El diseño adecuado del repertorio puede simplificar y acelerar estas operaciones.
+- **Interacción con la memoria**: Las instrucciones permiten que la CPU cargue y almacene datos desde y hacia la memoria principal, un aspecto crítico para la ejecución de programas y la optimización del rendimiento global del sistema.
 
-- **Optimización del rendimiento**: Un repertorio de instrucciones eficiente minimiza el número de instrucciones para completar una tarea, mejorando el uso de energía y los recursos del sistema [@hennessy_computer_2012].
+- **Gestión de datos**: Las operaciones aritméticas, lógicas y de comparación son esenciales para la manipulación de datos. Un diseño adecuado del repertorio puede simplificar y acelerar estas operaciones, mejorando tanto el rendimiento como el consumo energético del sistema.
+
+- **Optimización del rendimiento**: Un repertorio de instrucciones eficiente minimiza el número de instrucciones necesarias para completar una tarea, lo que contribuye a un uso más eficaz de los recursos del sistema, tanto en términos de energía como de tiempo de procesamiento.
 
 ### Modos de direccionamiento
 Los modos de direccionamiento son fundamentales para definir cómo una CPU accede a los datos para ejecutar una instrucción [@stallings_computer_2013 ; @hennessy_computer_2012 ]. Algunos modos comunes incluyen:
