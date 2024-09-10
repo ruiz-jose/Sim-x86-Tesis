@@ -663,30 +663,30 @@ El \textbf{formato de las instrucciones} establece cómo se estructuran las inst
 \hypertarget{filosofuxedas-cisc-y-risc}{%
 \section{Filosofías CISC y RISC}\label{filosofuxedas-cisc-y-risc}}
 
-Las arquitecturas del repertorio de instrucciones son un componente crucial en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son \textbf{CISC (Complex Instruction Set Computing)} y \textbf{RISC (Reduced Instruction Set Computing)}. Mientras que CISC busca minimizar la cantidad de instrucciones necesarias para realizar una tarea, RISC simplifica el conjunto de instrucciones para optimizar la velocidad y la eficiencia energética. Esta sección profundiza estos dos enfoques y sus implicaciones en el diseño de procesadores {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+Las arquitecturas de repertorio de instrucciones son componentes cruciales en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son \textbf{CISC (Complex Instruction Set Computing)} y \textbf{RISC (Reduced Instruction Set Computing)}. Mientras que CISC busca reducir la cantidad de instrucciones necesarias para realizar una tarea compleja, RISC simplifica el conjunto de instrucciones para optimizar la velocidad y la eficiencia energética. En esta sección se exploran estos dos enfoques y sus implicaciones en el diseño de procesadores {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
 
 \hypertarget{cisc}{%
 \subsection{CISC}\label{cisc}}
 
-En las arquitecturas \textbf{CISC}, como la x86, el objetivo principal es reducir la cantidad de instrucciones necesarias para realizar operaciones complejas. Esto se logra implementando instrucciones que pueden realizar varias operaciones en un solo ciclo de instrucción, lo cual reduce el código que debe escribir un programador. Sin embargo, esta ventaja tiene un costo: la \textbf{decodificación} y \textbf{ejecución} de instrucciones CISC requiere un hardware más complejo. Además, las instrucciones de longitud variable, comunes en CISC, pueden incrementar el tiempo de decodificación, generando cuellos de botella en el pipeline.
+Las arquitecturas \textbf{CISC}, como la \textbf{x86}, tienen como objetivo minimizar el número de instrucciones necesarias para llevar a cabo operaciones complejas. Esto se logra mediante la implementación de instrucciones que pueden realizar varias operaciones en un solo ciclo de instrucción, reduciendo así la cantidad de código que debe escribir un programador. Sin embargo, este enfoque conlleva un costo: la \textbf{decodificación} y \textbf{ejecución} de instrucciones CISC requieren hardware más complejo. Además, las instrucciones de longitud variable, comunes en CISC, pueden aumentar el tiempo de decodificación, generando cuellos de botella en el pipeline.
 
-Por ejemplo, los procesadores \textbf{x86} han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en algunos contextos, pero sigue siendo una arquitectura más costosa en términos de diseño y energía {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+Por ejemplo, los procesadores \textbf{x86} han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en ciertos contextos, aunque sigue siendo una arquitectura más costosa en términos de diseño y consumo energético {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
 
 \hypertarget{risc}{%
 \subsection{RISC}\label{risc}}
 
-Por otro lado, las arquitecturas \textbf{RISC} como \textbf{ARM} y \textbf{MIPS} se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite ejecutar instrucciones en un solo ciclo de reloj. Esta simplicidad también permite implementar técnicas avanzadas de \textbf{pipelining} y \textbf{predicción de ramas} con mayor facilidad, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC facilita la \textbf{optimización} y el uso de energía de manera más eficiente que CISC, lo que es especialmente importante en dispositivos móviles y embebidos {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
+Por otro lado, las arquitecturas \textbf{RISC}, como \textbf{ARM} y \textbf{MIPS}, se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite la ejecución de instrucciones en un solo ciclo de reloj. Esta simplicidad también facilita la implementación de técnicas avanzadas de \textbf{pipelining} y \textbf{predicción de ramas}, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC favorece la \textbf{optimización} y el uso eficiente de la energía, lo que resulta crucial en dispositivos móviles y embebidos {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
 
-La filosofía de diseño RISC ha permitido que procesadores como \textbf{ARM} dominen el mercado de dispositivos móviles, donde la eficiencia energética es crítica. El enfoque de RISC en operaciones simples y repetitivas, con un CPI (ciclos por instrucción) bajo, ha sido un factor clave para esta adopción {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
+La filosofía de diseño RISC ha permitido que procesadores como \textbf{ARM} dominen el mercado de dispositivos móviles, donde la eficiencia energética es primordial. El enfoque de RISC en operaciones simples y repetitivas, con un bajo CPI (ciclos por instrucción), ha sido un factor clave en esta adopción {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
 
 \hypertarget{impacto-del-formato-de-instrucciones-entre-cisc-y-risc}{%
 \subsection{Impacto del formato de instrucciones entre CISC y RISC}\label{impacto-del-formato-de-instrucciones-entre-cisc-y-risc}}
 
-En las arquitecturas \textbf{RISC}, todas las instrucciones tienen la misma longitud, lo que facilita la decodificación y permite que el procesador mantenga un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo que es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor \textbf{utilización de la memoria caché}, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.
+En las arquitecturas \textbf{RISC}, todas las instrucciones tienen la misma longitud, lo que simplifica la decodificación y permite al procesador mantener un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo cual es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor \textbf{utilización de la memoria caché}, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.
 
-Por el contrario, las arquitecturas \textbf{CISC} como \textbf{x86} utilizan un \textbf{formato de longitud variable} para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una variedad más amplia de operaciones con menos líneas de código. Sin embargo, la flexibilidad tiene un costo: las instrucciones de longitud variable requieren un tiempo de decodificación más largo y complican la implementación del pipeline, lo que afecta negativamente al rendimiento {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
+Por el contrario, las arquitecturas \textbf{CISC}, como \textbf{x86}, utilizan un \textbf{formato de longitud variable} para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una gama más amplia de operaciones con menos líneas de código. Sin embargo, esta flexibilidad tiene un costo: las instrucciones de longitud variable requieren más tiempo de decodificación y complican la implementación del pipeline, lo que puede afectar negativamente al rendimiento {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
 
-Por ejemplo, en un procesador x86, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, particularmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque esto se puede mitigar mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.
+Por ejemplo, en un procesador x86, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, especialmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque se pueden mitigar estos problemas mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.
 
 \hypertarget{ejemplos-pruxe1cticos-de-modos-de-direccionamiento-entre-cisc-y-risc}{%
 \subsection{Ejemplos prácticos de modos de direccionamiento entre CISC y RISC}\label{ejemplos-pruxe1cticos-de-modos-de-direccionamiento-entre-cisc-y-risc}}
@@ -711,9 +711,76 @@ MOV EAX, [EBX]  ; Carga en EAX el valor almacenado en la dirección apuntada por
 \hypertarget{impacto-en-el-rendimiento}{%
 \subsubsection{Impacto en el rendimiento}\label{impacto-en-el-rendimiento}}
 
-El uso de modos de direccionamiento como el indirecto, aunque más flexible, introduce una mayor latencia debido al acceso adicional a la memoria. En arquitecturas como x86, este impacto puede mitigarse parcialmente mediante el uso de cachés y técnicas de prefetching, pero sigue siendo un factor clave en el rendimiento general del sistema. En arquitecturas RISC como ARM o MIPS, se priorizan los modos de direccionamiento simples, lo que permite un acceso más rápido a los operandos y reduce la latencia del pipeline {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+El uso de modos de direccionamiento como el indirecto introduce una mayor latencia debido al acceso adicional a la memoria. En arquitecturas como x86, este impacto puede mitigarse parcialmente mediante el uso de cachés y técnicas de prefetching, pero sigue siendo un factor clave en el rendimiento general del sistema. En arquitecturas RISC como ARM o MIPS, se priorizan los modos de direccionamiento simples, lo que permite un acceso más rápido a los operandos y reduce la latencia del pipeline {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
 
-La elección entre CISC y RISC, así como el diseño del formato de instrucciones y los modos de direccionamiento, afecta profundamente el rendimiento y la eficiencia de un procesador. Mientras que CISC ofrece flexibilidad y un repertorio de instrucciones amplio a costa de una mayor complejidad, RISC prioriza la simplicidad y la velocidad. A medida que las arquitecturas de procesadores evolucionan, se observa una convergencia de ambas filosofías, donde las arquitecturas modernas integran características de ambos enfoques para maximizar el rendimiento y la eficiencia energética. Estos conceptos son fundamentales para entender el estado actual del diseño de procesadores y su evolución futura.
+La elección entre CISC y RISC, así como el diseño del formato de instrucciones y los modos de direccionamiento, afecta profundamente el rendimiento y la eficiencia de un procesador. Mientras que CISC ofrece flexibilidad y un repertorio de instrucciones amplio a costa de una mayor complejidad, RISC prioriza la simplicidad y la velocidad. A medida que las arquitecturas de procesadores evolucionan, se observa una convergencia de ambas filosofías, con arquitecturas modernas que integran características de ambos enfoques para maximizar el rendimiento y la eficiencia energética. Estos conceptos son fundamentales para entender el estado actual del diseño de procesadores y su evolución futura.
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{(\#tab:comparativa\_cisc\_risc)Comparativa entre CISC y RISC}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.13\columnwidth}\raggedright
+Aspecto\strut
+\end{minipage} & \begin{minipage}[b]{0.36\columnwidth}\raggedright
+CISC\strut
+\end{minipage} & \begin{minipage}[b]{0.43\columnwidth}\raggedright
+RISC\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.13\columnwidth}\raggedright
+Aspecto\strut
+\end{minipage} & \begin{minipage}[b]{0.36\columnwidth}\raggedright
+CISC\strut
+\end{minipage} & \begin{minipage}[b]{0.43\columnwidth}\raggedright
+RISC\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.13\columnwidth}\raggedright
+Objetivo principal\strut
+\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
+Minimizar el número de instrucciones para operaciones complejas\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
+Simplificar el conjunto de instrucciones para optimizar velocidad y eficiencia energética\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright
+Tipo de instrucciones\strut
+\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
+Instrucciones complejas, longitud variable\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
+Instrucciones simples, longitud fija\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright
+Decodificación y ejecución\strut
+\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
+Requiere hardware más complejo, posibles cuellos de botella en el pipeline\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
+Decodificación más sencilla, facilita el uso de técnicas avanzadas como pipelining\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright
+Longitud de instrucciones\strut
+\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
+Longitud variable, puede aumentar el tiempo de decodificación\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
+Longitud fija, simplifica la decodificación y mejora la predictibilidad del rendimiento\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright
+Eficiencia energética\strut
+\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
+Menor eficiencia energética en comparación con RISC\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
+Mayor eficiencia energética, especialmente en dispositivos móviles\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\raggedright
+Modos de direccionamiento\strut
+\end{minipage} & \begin{minipage}[t]{0.36\columnwidth}\raggedright
+Flexibilidad a costa de mayor latencia\strut
+\end{minipage} & \begin{minipage}[t]{0.43\columnwidth}\raggedright
+Acceso más rápido a los operandos, menor latencia\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
 
 \hypertarget{arquitectura-x86-1}{%
 \section{Arquitectura x86}\label{arquitectura-x86-1}}
