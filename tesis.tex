@@ -481,6 +481,7 @@ El repertorio de instrucciones, conocido como \textbf{ISA (Instruction Set Archi
 Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}:
 
 \begin{itemize}
+\tightlist
 \item
   \textbf{Tipos de operandos}: Se refiere a los diversos tipos de datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres o direcciones de memoria. Es crucial diseñar un repertorio de instrucciones que soporte eficientemente diferentes tipos de operando.
 \item
@@ -507,6 +508,7 @@ Los modos de direccionamiento son esenciales para especificar cómo la CPU acced
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi})}
+\tightlist
 \item
   \textbf{Inmediato}: El operando está directamente incluido en la instrucción, lo que permite un acceso rápido a valores constantes, generalmente pequeños. Este modo es eficiente para operaciones simples, pero está limitado a operandos de tamaño reducido.
 \item
@@ -535,6 +537,7 @@ Estos modos se ilustran en la figura \ref{fig:ModDir} según {[}\protect\hyperli
 \end{figure}
 
 \begin{itemize}
+\tightlist
 \item
   A = contenido de un campo de dirección en la instrucción
 \item
@@ -643,6 +646,7 @@ Aplicabilidad limitada\strut
 El \textbf{formato de las instrucciones} establece cómo se estructuran las instrucciones que un procesador debe ejecutar, lo que incluye su longitud, la cantidad de operandos y los campos adicionales como el código de operación (\textbf{opcode}) {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}. Este formato no solo afecta la rapidez con la que las instrucciones pueden ser decodificadas, sino también el grado de flexibilidad del conjunto de instrucciones y el aprovechamiento de los recursos del procesador.
 
 \begin{itemize}
+\tightlist
 \item
   \textbf{Longitud de la instrucción}: Las instrucciones pueden tener una longitud fija o variable, y esta decisión afecta tanto al diseño como al rendimiento del procesador. Las instrucciones de longitud fija simplifican el proceso de decodificación, ya que todas tienen el mismo tamaño, lo que facilita el diseño del hardware. Sin embargo, esto puede resultar en un uso ineficiente de la memoria cuando se utilizan instrucciones más simples que no requieren tanto espacio. En contraste, las instrucciones de longitud variable permiten un uso más eficiente de la memoria, ya que el tamaño de cada instrucción puede ajustarse a las necesidades de la operación. No obstante, esta flexibilidad aumenta la complejidad en la decodificación, ya que el procesador debe determinar primero la longitud de la instrucción antes de ejecutarla.
 \item
@@ -851,6 +855,7 @@ La arquitectura x86 es conocida por su complejidad y flexibilidad, característi
 Una instrucción en la arquitectura x86 puede constar de los siguientes componentes:
 
 \begin{itemize}
+\tightlist
 \item
   Prefijos: Opcionalmente, una instrucción puede comenzar con uno o más bytes de prefijo, que modifican la operación de la instrucción principal. Por ejemplo, el prefijo 0x66 se utiliza para cambiar el tamaño del operando de 32 bits a 16 bits.
 \item
