@@ -70,28 +70,27 @@ Entre las características clave que deben considerarse en el diseño de un repe
 
 - **Modos de direccionamiento**: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo, cada uno ofreciendo diferentes ventajas en términos de flexibilidad y eficiencia.
 
-### Funciones del repertorio de instrucciones
-
-El repertorio de instrucciones define las operaciones que un procesador puede realizar y cómo se ejecutan. Sus funciones principales incluyen [@stallings_computer_2013]:
-
-- **Control de la CPU**: Instrucciones de control que gestionan la secuencia de ejecución, interrupciones y llamadas a subrutinas, asegurando que el procesador funcione de manera ordenada y eficiente.
-
-- **Interacción con la memoria**: Las instrucciones permiten que la CPU cargue y almacene datos desde y hacia la memoria principal, un aspecto crítico para la ejecución de programas y la optimización del rendimiento global del sistema.
-
-- **Gestión de datos**: Las operaciones aritméticas, lógicas y de comparación son esenciales para la manipulación de datos. Un diseño adecuado del repertorio puede simplificar y acelerar estas operaciones, mejorando tanto el rendimiento como el consumo energético del sistema.
-
-- **Optimización del rendimiento**: Un repertorio de instrucciones eficiente minimiza el número de instrucciones necesarias para completar una tarea, lo que contribuye a un uso más eficaz de los recursos del sistema, tanto en términos de energía como de tiempo de procesamiento.
+```{r repInstCaracteristicas, echo=FALSE, fig.cap="Característas repertorio de instrucciones ", fig.align = 'center', out.width = "100%"}
+knitr::include_graphics(path = "images/repInstCaracteristicas.jpg")
+```
 
 ### Modos de direccionamiento
-Los modos de direccionamiento son fundamentales para definir cómo una CPU accede a los datos para ejecutar una instrucción [@stallings_computer_2013 ; @hennessy_computer_2012 ]. Algunos modos comunes incluyen:
 
-  a) **Inmediato**: El operando está embebido en la propia instrucción, proporcionando acceso rápido a valores constantes pequeños.
-  b) **Directo**: La dirección de memoria del operando está incluida en la instrucción. Es sencillo, pero limita el rango de direcciones accesibles directamente.
-  c) **Indirecto**: La dirección de memoria apunta a otra dirección donde se encuentra el operando real, permitiendo un acceso más amplio, pero a un costo de tiempo.
-  d) **Registro**: Utiliza un registro en lugar de una dirección de memoria, acelerando el acceso a datos.
-  e) **Registro Indirecto**: Similar al modo indirecto, pero con la dirección almacenada en un registro.
-  f) **Con Desplazamiento**: Combina una dirección base con un desplazamiento, útil en estructuras de datos como arrays.
-  g) **Pila**: Calcula la dirección del operando en función de la ubicación actual en la pila, usado comúnmente en llamadas a subrutinas.
+Los modos de direccionamiento son esenciales para especificar cómo la CPU accede a los datos necesarios para ejecutar una instrucción [@stallings_computer_2013 ; @hennessy_computer_2012]. Los modos más comunes incluyen:
+
+  a) **Inmediato**: El operando está directamente incluido en la instrucción, lo que permite un acceso rápido a valores constantes, generalmente pequeños. Este modo es eficiente para operaciones simples, pero está limitado a operandos de tamaño reducido.
+
+  b) **Directo**: La instrucción contiene la dirección de memoria del operando. Este modo es fácil de usar y entender, pero tiene la desventaja de que el rango de direcciones accesibles está limitado por el tamaño de la instrucción.
+
+  c) **Indirecto**: La instrucción apunta a una dirección que, a su vez, contiene la dirección real del operando. Este modo ofrece una mayor flexibilidad al ampliar el rango de direcciones, aunque introduce una penalización en tiempo debido al acceso adicional a la memoria.
+
+  d) **Registro**: El operando está ubicado en uno de los registros del procesador, lo que permite un acceso extremadamente rápido. Este modo es muy eficiente, ya que evita los accesos a la memoria, pero está limitado por el número de registros disponibles.
+
+  e) **Registro Indirecto**: Similar al modo indirecto, pero en este caso la dirección del operando está almacenada en un registro. Esto combina la rapidez del acceso a registros con la flexibilidad del direccionamiento indirecto.
+
+  f) **Con Desplazamiento**: Este modo combina una dirección base con un valor de desplazamiento, lo que resulta muy útil para trabajar con estructuras de datos como arrays. Permite un acceso eficiente a elementos contiguos en memoria.
+
+  g) **Pila**: El operando se encuentra en la parte superior de la pila, y su dirección es calculada en base al puntero de la pila. Este modo es fundamental para la gestión de llamadas a subrutinas y el paso de parámetros en muchos lenguajes de programación.
 
 Estos modos se ilustran en la figura \@ref(fig:ModDir) según [@stallings_computer_2013]:
 ```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento ", fig.align = 'center', out.width = "80%"}
@@ -121,28 +120,37 @@ kable(tabModDir, format = "markdown", caption = "Modos de direccionamiento bási
 ```
 
 ### Formato de las instrucciones
-El formato de las instrucciones determina cómo se estructuran las instrucciones en términos de longitud, número de operandos y campos adicionales como el código de operación (**opcode**) [@hennessy_computer_2012 ; @tanenbaum_structured_2013]. El formato tiene un impacto directo en la complejidad del diseño del procesador:
 
-- **Longitud de la instrucción**: Las instrucciones pueden ser de longitud fija o variable. Las instrucciones de longitud fija son más fáciles de decodificar, pero pueden desperdiciar espacio en casos donde no se necesite la flexibilidad de una instrucción larga.
+El **formato de las instrucciones** establece cómo se estructuran las instrucciones que un procesador debe ejecutar, lo que incluye su longitud, la cantidad de operandos y los campos adicionales como el código de operación (**opcode**) [@hennessy_computer_2012 ; @tanenbaum_structured_2013]. Este formato no solo afecta la rapidez con la que las instrucciones pueden ser decodificadas, sino también el grado de flexibilidad del conjunto de instrucciones y el aprovechamiento de los recursos del procesador.
 
-- **Cantidad de operandos**: Dependiendo de la arquitectura, las instrucciones pueden manejar desde cero hasta tres o más operandos, impactando tanto la flexibilidad como la complejidad del procesador.
+- **Longitud de la instrucción**: Las instrucciones pueden tener una longitud fija o variable, y esta decisión afecta tanto al diseño como al rendimiento del procesador. Las instrucciones de longitud fija simplifican el proceso de decodificación, ya que todas tienen el mismo tamaño, lo que facilita el diseño del hardware. Sin embargo, esto puede resultar en un uso ineficiente de la memoria cuando se utilizan instrucciones más simples que no requieren tanto espacio. En contraste, las instrucciones de longitud variable permiten un uso más eficiente de la memoria, ya que el tamaño de cada instrucción puede ajustarse a las necesidades de la operación. No obstante, esta flexibilidad aumenta la complejidad en la decodificación, ya que el procesador debe determinar primero la longitud de la instrucción antes de ejecutarla.
 
-- **Campos de instrucción**: Un campo común es el **opcode**, que indica la operación a realizar, mientras que los operandos pueden estar representados en campos adicionales. Otros campos pueden incluir modos de direccionamiento o flags de condición.
+- **Cantidad de operandos**: Las instrucciones pueden trabajar con diferentes cantidades de operandos según la arquitectura del procesador, variando desde cero hasta tres o más. A mayor número de operandos, las instrucciones son más versátiles, permitiendo realizar operaciones más complejas en una única instrucción, lo que reduce el número total de instrucciones necesarias. Sin embargo, un mayor número de operandos también implica un aumento en la complejidad del procesador, ya que se necesitan más campos en la instrucción para especificar los operandos y más registros o direcciones de memoria para manejar los datos, lo cual puede incrementar la longitud de las instrucciones y el esfuerzo de decodificación.
+
+- **Campos de instrucción**: Entre los campos clave que componen una instrucción, el **opcode** es el más relevante, ya que especifica la operación que el procesador debe ejecutar, como suma, resta o saltos condicionales. Además, las instrucciones pueden incluir otros campos para indicar los operandos, los modos de direccionamiento, y en arquitecturas más avanzadas, flags de condición o características de optimización, como la predicción de saltos o la ejecución fuera de orden. La disposición y el tamaño de estos campos determinan cuántas y qué tipo de operaciones puede realizar el procesador en un ciclo de reloj, afectando directamente su rendimiento global. En arquitecturas más complejas, los campos adicionales permiten un mayor grado de optimización, mejorando el rendimiento en aplicaciones específicas, aunque a costa de un mayor esfuerzo en el diseño y la implementación del hardware.
+
+```{r formatoInst, echo=FALSE, fig.cap="Formato de instrucciones ", fig.align = 'center', out.width = "100%"}
+knitr::include_graphics(path = "images/formatoInst.jpg")
+```
 
 ## Filosofías CISC y RISC
+
 Las arquitecturas del repertorio de instrucciones son un componente crucial en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son **CISC (Complex Instruction Set Computing)** y **RISC (Reduced Instruction Set Computing)**. Mientras que CISC busca minimizar la cantidad de instrucciones necesarias para realizar una tarea, RISC simplifica el conjunto de instrucciones para optimizar la velocidad y la eficiencia energética. Esta sección profundiza estos dos enfoques y sus implicaciones en el diseño de procesadores [@hennessy_computer_2012 ; @patterson_computer_2014].
 
 ### CISC
+
 En las arquitecturas **CISC**, como la x86, el objetivo principal es reducir la cantidad de instrucciones necesarias para realizar operaciones complejas. Esto se logra implementando instrucciones que pueden realizar varias operaciones en un solo ciclo de instrucción, lo cual reduce el código que debe escribir un programador. Sin embargo, esta ventaja tiene un costo: la **decodificación** y **ejecución** de instrucciones CISC requiere un hardware más complejo. Además, las instrucciones de longitud variable, comunes en CISC, pueden incrementar el tiempo de decodificación, generando cuellos de botella en el pipeline.
 
 Por ejemplo, los procesadores **x86** han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en algunos contextos, pero sigue siendo una arquitectura más costosa en términos de diseño y energía [@patterson_computer_2014].
 
 ### RISC
+
 Por otro lado, las arquitecturas **RISC** como **ARM** y **MIPS** se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite ejecutar instrucciones en un solo ciclo de reloj. Esta simplicidad también permite implementar técnicas avanzadas de **pipelining** y **predicción de ramas** con mayor facilidad, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC facilita la **optimización** y el uso de energía de manera más eficiente que CISC, lo que es especialmente importante en dispositivos móviles y embebidos [@hennessy_computer_2012].
 
 La filosofía de diseño RISC ha permitido que procesadores como **ARM** dominen el mercado de dispositivos móviles, donde la eficiencia energética es crítica. El enfoque de RISC en operaciones simples y repetitivas, con un CPI (ciclos por instrucción) bajo, ha sido un factor clave para esta adopción [@hennessy_computer_2012].
 
 ### Impacto del formato de instrucciones entre CISC y RISC
+
 En las arquitecturas **RISC**, todas las instrucciones tienen la misma longitud, lo que facilita la decodificación y permite que el procesador mantenga un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo que es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor **utilización de la memoria caché**, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.
 
 Por el contrario, las arquitecturas **CISC** como **x86** utilizan un **formato de longitud variable** para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una variedad más amplia de operaciones con menos líneas de código. Sin embargo, la flexibilidad tiene un costo: las instrucciones de longitud variable requieren un tiempo de decodificación más largo y complican la implementación del pipeline, lo que afecta negativamente al rendimiento [@tanenbaum_structured_2013]. 
@@ -150,9 +158,11 @@ Por el contrario, las arquitecturas **CISC** como **x86** utilizan un **formato 
 Por ejemplo, en un procesador x86, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, particularmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque esto se puede mitigar mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.
 
 ### Ejemplos prácticos de modos de direccionamiento entre CISC y RISC
+
 Los **modos de direccionamiento** permiten a los procesadores acceder a datos de manera eficiente y flexible [@stallings_computer_2013]. A continuación se incluyen ejemplos prácticos de cómo estos modos se utilizan en las arquitecturas **x86**, **ARM** y **MIPS**, y cómo afectan el rendimiento.
 
 #### Modo inmediato vs. indirecto
+
 En el modo de **direccionamiento inmediato**, el valor del operando está incrustado directamente en la instrucción, lo que permite un acceso rápido y eficiente. Por ejemplo, en ARM, este modo es común para operaciones aritméticas simples, donde se requiere velocidad en lugar de flexibilidad. 
 
 ```assembly
@@ -165,6 +175,7 @@ MOV EAX, [EBX]  ; Carga en EAX el valor almacenado en la dirección apuntada por
 ```
 
 #### Impacto en el rendimiento
+
 El uso de modos de direccionamiento como el indirecto, aunque más flexible, introduce una mayor latencia debido al acceso adicional a la memoria. En arquitecturas como x86, este impacto puede mitigarse parcialmente mediante el uso de cachés y técnicas de prefetching, pero sigue siendo un factor clave en el rendimiento general del sistema. En arquitecturas RISC como ARM o MIPS, se priorizan los modos de direccionamiento simples, lo que permite un acceso más rápido a los operandos y reduce la latencia del pipeline [@stallings_computer_2013].
 
 La elección entre CISC y RISC, así como el diseño del formato de instrucciones y los modos de direccionamiento, afecta profundamente el rendimiento y la eficiencia de un procesador. Mientras que CISC ofrece flexibilidad y un repertorio de instrucciones amplio a costa de una mayor complejidad, RISC prioriza la simplicidad y la velocidad. A medida que las arquitecturas de procesadores evolucionan, se observa una convergencia de ambas filosofías, donde las arquitecturas modernas integran características de ambos enfoques para maximizar el rendimiento y la eficiencia energética. Estos conceptos son fundamentales para entender el estado actual del diseño de procesadores y su evolución futura.
