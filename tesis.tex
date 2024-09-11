@@ -371,7 +371,7 @@ La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y s
 \hypertarget{arquitectura-arm}{%
 \subsection{Arquitectura ARM}\label{arquitectura-arm}}
 
-La arquitectura ARM es conocida por su alta eficiencia energética, característica que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM utiliza el paradigma de conjunto de instrucciones reducidas (RISC), simplificando así el diseño del hardware y reduciendo el consumo de energía, como se explica en la sección {\textbf{???}}(RISC). Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es fundamental {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+La arquitectura ARM es conocida por su alta eficiencia energética, característica que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM utiliza el paradigma de conjunto de instrucciones reducidas (RISC), simplificando así el diseño del hardware y reduciendo el consumo de energía, como se explica en la sección \ref{RISC}. Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es fundamental {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
 
 \hypertarget{arquitectura-mips}{%
 \subsection{Arquitectura MIPS}\label{arquitectura-mips}}
@@ -789,10 +789,12 @@ Acceso más rápido a los operandos, menor latencia\strut
 \hypertarget{arquitectura-x86-1}{%
 \section{Arquitectura x86}\label{arquitectura-x86-1}}
 
-La arquitectura x86, una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores, comenzó su desarrollo en 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. La arquitectura x86 evolucionó significativamente con el Intel 80386 en 1985, marcando el inicio de la era de 32 bits. En 2003, AMD lanzó la arquitectura AMD64, extendiendo x86 a 64 bits, lo que permitió un mayor acceso a la memoria y un mejor rendimiento en aplicaciones intensivas. Intel adoptó estas innovaciones, consolidando la arquitectura x86 como una de las más versátiles y potentes del mercado {[}\protect\hyperlink{ref-intel_64_2016}{15}{]}{[}\protect\hyperlink{ref-amd_developer_2019}{16}{]}{[}\protect\hyperlink{ref-abel_ibm_2000}{17}{]}.
+La arquitectura x86, una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores, comenzó su desarrollo en 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. La arquitectura x86 evolucionó significativamente con el Intel 80386 en 1985, marcando el inicio de la era de 32 bits. En 2003, AMD lanzó la arquitectura AMD64, extendiendo x86 a 64 bits, lo que permitió un mayor acceso a la memoria y un mejor rendimiento en aplicaciones intensivas. Intel adoptó estas innovaciones, consolidando la arquitectura x86 como una de las más versátiles y potentes del mercado {[}\protect\hyperlink{ref-stallings_computer_2013}{14}, p. @intel\_64\_2016{]}, {[}\protect\hyperlink{ref-amd_developer_2019}{16}{]}, {[}\protect\hyperlink{ref-abel_ibm_2000}{17}{]}.
 
 \hypertarget{evoluciuxf3n-de-la-arquitectura-x86}{%
 \subsection{Evolución de la arquitectura x86}\label{evoluciuxf3n-de-la-arquitectura-x86}}
+
+La retrocompatibilidad de la arquitectura x86 ha sido un factor determinante en su éxito, permitiendo que aplicaciones de 16, 32 y 64 bits se ejecuten en el mismo sistema. Esta característica ha asegurado la continuidad y protección de las inversiones en software y sistemas operativos desarrollados para x86.
 
 La retrocompatibilidad de la arquitectura x86 ha sido un factor determinante en su éxito, permitiendo que aplicaciones de 16, 32 y 64 bits se ejecuten en el mismo sistema. Esta característica ha asegurado la continuidad y protección de las inversiones en software y sistemas operativos desarrollados para x86.
 
@@ -819,9 +821,16 @@ La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles 
 En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, optimizando el rendimiento y la eficiencia energética. AMD también fue crucial con su serie Athlon y la introducción de AMD64, llevando la arquitectura x86 a 64 bits, permitiendo un mayor acceso a la memoria y mejorando el rendimiento en aplicaciones intensivas.
 
 La arquitectura x86 ha tenido un impacto profundo en el desarrollo de software. Los sistemas operativos populares como Windows y Linux están optimizados para x86, lo que ha influido en el desarrollo y la optimización de aplicaciones para esta arquitectura.
-- \textbf{Influencia en el desarrollo de software}: Optimización del Rendimiento: Los desarrolladores de software han trabajado estrechamente con las características de la arquitectura x86 para optimizar el rendimiento de sus aplicaciones. Esto incluye el uso de instrucciones específicas de x86 y la optimización para cachés y pipelines.
-- \textbf{Compatibilidad y soporte}: La compatibilidad hacia atrás de x86 ha permitido la continuidad de aplicaciones y sistemas operativos, protegiendo las inversiones en software y facilitando las actualizaciones.
-- \textbf{Ecosistema de desarrollo}: Un amplio ecosistema de herramientas de desarrollo, bibliotecas y frameworks ha sido construido alrededor de la arquitectura x86, facilitando el desarrollo de aplicaciones de alto rendimiento y su depuración.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Influencia en el desarrollo de software}: Los desarrolladores de software han trabajado estrechamente con las características de la arquitectura x86 para optimizar el rendimiento de sus aplicaciones. Esto incluye el uso de instrucciones específicas de x86 y la optimización para cachés y pipelines.
+\item
+  \textbf{Compatibilidad y soporte}: La compatibilidad hacia atrás de x86 ha permitido la continuidad de aplicaciones y sistemas operativos, protegiendo las inversiones en software y facilitando las actualizaciones.
+\item
+  \textbf{Ecosistema de desarrollo}: Un amplio ecosistema de herramientas de desarrollo, bibliotecas y frameworks ha sido construido alrededor de la arquitectura x86, facilitando el desarrollo de aplicaciones de alto rendimiento y su depuración.
+\end{itemize}
 
 \begin{longtable}[]{@{}rll@{}}
 \caption{\label{tab:tabla-evolucion-x86}Línea de Tiempo de la Evolución de la Arquitectura x86}\tabularnewline
@@ -847,26 +856,26 @@ Año & Procesador & Innovación\_Principal\tabularnewline
 \hypertarget{repertorio-de-instrucciones-x86}{%
 \subsection{Repertorio de instrucciones x86}\label{repertorio-de-instrucciones-x86}}
 
-La arquitectura x86 es conocida por su complejidad y flexibilidad, características que se reflejan en su repertorio de instrucciones. Las instrucciones x86 pueden variar considerablemente en su longitud y estructura, lo que permite una gran diversidad de operaciones pero también añade una capa de complejidad en su decodificación y ejecución. Según Stallings {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}, el formato de las instrucciones en x86 incluye una variedad de campos que pueden estar presentes o no dependiendo del tipo de instrucción.
+La arquitectura x86 se caracteriza por su notable \textbf{complejidad y flexibilidad}, reflejada en su extenso y variado repertorio de instrucciones. A diferencia de las arquitecturas RISC, que se distinguen por instrucciones de \textbf{longitud fija} y \textbf{decodificación sencilla}, el conjunto de instrucciones x86 es de \textbf{longitud variable}, lo que introduce una carga significativa en el proceso de decodificación {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}. Esta flexibilidad ha permitido que x86 evolucione y se adapte a una amplia gama de aplicaciones, desde dispositivos de bajo consumo hasta servidores de alto rendimiento. Sin embargo, también ha incrementado su \textbf{complejidad} tanto en términos de implementación como de eficiencia operativa.
 
 \hypertarget{estructura-de-una-instrucciuxf3n-x86}{%
 \subsubsection{Estructura de una Instrucción x86}\label{estructura-de-una-instrucciuxf3n-x86}}
 
-Una instrucción en la arquitectura x86 puede constar de los siguientes componentes:
+Las instrucciones en la arquitectura x86 son más complejas debido a la variedad de componentes opcionales que pueden formar parte de ellas. Una instrucción típica puede estar compuesta por los siguientes elementos {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}:
 
 \begin{itemize}
 \tightlist
 \item
-  Prefijos: Opcionalmente, una instrucción puede comenzar con uno o más bytes de prefijo, que modifican la operación de la instrucción principal. Por ejemplo, el prefijo 0x66 se utiliza para cambiar el tamaño del operando de 32 bits a 16 bits.
+  \textbf{Prefijos}: Algunas instrucciones pueden incluir uno o más bytes de prefijo, que alteran la operación de la instrucción principal. Por ejemplo, el prefijo \texttt{0x66} se utiliza para cambiar el tamaño del operando de 32 bits a 16 bits. Aunque los prefijos proporcionan una gran flexibilidad, también añaden complejidad a la decodificación, ya que el procesador debe interpretarlos antes de ejecutar la instrucción {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}. Esto contrasta con arquitecturas como MIPS o ARM, donde la longitud fija de las instrucciones simplifica la decodificación.
 \item
-  Código de Operación (Opcode): El opcode indica la operación que debe realizarse. En x86, el opcode 0x89, por ejemplo, representa la instrucción MOV para mover datos entre registros o entre un registro y la memoria.
+  \textbf{Código de Operación (Opcode)}: El \textbf{opcode} indica la operación que se va a realizar. En x86, el opcode \texttt{0x89} corresponde a la instrucción \texttt{MOV}, que mueve datos entre registros o entre un registro y la memoria. Debido a la vasta cantidad de instrucciones que soporta x86, el conjunto de opcodes es mucho más amplio en comparación con las arquitecturas RISC, que se enfocan en un conjunto más reducido y optimizado {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}.
 \item
-  Modificadores de Dirección (ModR/M y SIB): Estos campos se utilizan para especificar los registros y/o direcciones de memoria involucrados en la instrucción. Por ejemplo, un byte ModR/M con un valor de 0xC1 podría indicar que el registro ECX debe ser utilizado en la operación.
+  \textbf{Modificadores de Dirección (ModR/M y SIB)}: Estos campos especifican los registros o las direcciones de memoria involucrados en la operación. El byte \textbf{ModR/M} es clave para definir qué registros participan en la instrucción, como \texttt{0xC1}, que indica el uso del registro \texttt{ECX}. El byte \textbf{SIB} (Scale, Index, Base) añade flexibilidad en el direccionamiento, permitiendo combinaciones complejas de registros y escalas de índices para acceso eficiente a memoria, algo particularmente útil en operaciones de matrices y estructuras de datos más complejas {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
 \item
-  Desplazamiento y/o Inmediato: Dependiendo de la instrucción, puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato que se utiliza como operando directo en la instrucción. Por ejemplo, un valor de desplazamiento de 0x10 podría indicar un desplazamiento de 16 bytes desde la dirección base.
+  \textbf{Desplazamiento y/o Inmediato}: Dependiendo del tipo de instrucción, esta puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato como operando. Un desplazamiento de \texttt{0x10}, por ejemplo, representa un offset de 16 bytes desde la dirección base. La posibilidad de usar direccionamiento indirecto e inmediato incrementa la flexibilidad en el manejo de datos, aunque también añade complejidad a la ejecución {\textbf{???}}.
 \end{itemize}
 
-Una de las características distintivas del repertorio x86 es la variabilidad en la longitud de las instrucciones, que puede ir desde 1 byte hasta 15 bytes. Esta variabilidad incrementa significativamente la complejidad de la decodificación, ya que el procesador debe ser capaz de interpretar correctamente la longitud y los componentes de cada instrucción antes de su ejecución. Además, la inclusión de diferentes modos de direccionamiento y la posibilidad de emplear prefijos adicionales añade un nivel de dificultad en la interpretación de cada instrucción. Esto contrasta con arquitecturas más simples, donde las instrucciones tienen un formato fijo y una longitud constante. Según {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]} el formato de la instrucciones x86 es:
+Una característica distintiva de x86 es la \textbf{variabilidad en la longitud de sus instrucciones}, que puede oscilar entre \textbf{1 y 15 bytes}. Esta variabilidad hace que la decodificación sea mucho más complicada que en arquitecturas como ARM o MIPS, donde las instrucciones tienen una longitud constante {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}. En x86, el procesador debe identificar y decodificar los múltiples componentes de la instrucción, lo cual requiere más recursos y etapas en el pipeline de procesamiento.
 
 \begin{figure}
 
@@ -883,16 +892,56 @@ Ejemplo de Instrucción x86:
 MOV AX, [BX+SI+16] 
 \end{verbatim}
 
-En este caso, el opcode MOV se traduce a un byte específico, y el uso de registros y desplazamientos se codifica mediante el byte ModR/M y el posible uso de un byte SIB. Este ejemplo ilustra cómo la instrucción compacta se expande a múltiples bytes en la memoria, y cómo la CPU debe descomponer estos bytes para ejecutar la operación correctamente.
+En este caso, el opcode \texttt{MOV} se traduce a un byte específico, mientras que el uso de registros y desplazamientos se codifica mediante los bytes \textbf{ModR/M} y posiblemente \textbf{SIB}. Este ejemplo ilustra cómo una instrucción aparentemente compacta puede expandirse a múltiples bytes en memoria, y cómo el procesador debe descomponer estos bytes para ejecutar la operación correctamente. Este tipo de instrucciones, aunque versátiles, requieren de un pipeline avanzado y técnicas de optimización, como la paralelización y la predicción de saltos, para ser ejecutadas de manera eficiente en procesadores modernos {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
 
 \hypertarget{lenguaje-ensamblador}{%
 \section{Lenguaje ensamblador}\label{lenguaje-ensamblador}}
 
-Un procesador puede interpretar y ejecutar solo instrucciones máquina. Estas instrucciones son simplemente secuencias de números binarios almacenados en la computadora y son leídas por el procesador e interpretadas por él. Si un programador quisiera programar directamente en el lenguaje máquina, necesita introducir los programas como datos binarios. Esto requeriría escribir las sentencias que necesita realizar el procesador directamente en binarios, por lo tanto, conocer la secuencia de ceros y unos para cada operación escribiéndose ordenadamente, además de respetar la estructura de memoria y direccionamientos del procesador. Esto sin duda es un trabajo complejo, difícil, pesado y muy susceptible a errores. Adicionalmente, una vez que se requiera realizar modificaciones, su lectura implica ir traduciendo estas secuencias de ceros y unos a su correspondiente instrucción, lo que es doblemente dificultoso {[}\protect\hyperlink{ref-irvine2011assembly}{27}{]}.
+Un procesador solo puede interpretar y ejecutar instrucciones en \textbf{lenguaje máquina}, que son secuencias de números binarios almacenados en la memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador quisiera escribir código en lenguaje máquina, tendría que especificar manualmente las secuencias de ceros y unos para cada operación, respetando las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso es extremadamente tedioso y altamente propenso a errores, especialmente al momento de modificar el código, ya que requeriría traducir nuevamente las secuencias binarias a instrucciones comprensibles {[}\protect\hyperlink{ref-irvine2011assembly}{27}{]}.
 
-Para facilitar la programación de bajo nivel, se creó el lenguaje ensamblador, que es un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones comprensibles por el procesador. A diferencia del lenguaje máquina, que utiliza secuencias de números binarios, el ensamblador emplea mnemónicos simbólicos que hacen que el código sea más legible y manejable para los humanos. Cada arquitectura de procesador tiene su propio lenguaje ensamblador que usualmente es definida por el fabricante de hardware, por lo tanto es específica de cierta arquitectura de la computadora física. Un programa llamado ensamblador es usado para traducir sentencias del lenguaje ensamblador al código de máquina de la computadora. El ensamblador realiza una traducción casi directa uno a uno desde las sentencias mnemónicas a las instrucciones y datos de máquina. Esto está en contraste con los lenguajes de alto nivel, en los cuales una sola declaración generalmente da lugar a muchas instrucciones de máquina {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+Para hacer este proceso más accesible, se desarrolló el \textbf{lenguaje ensamblador}, un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones más legibles mediante el uso de mnemónicos simbólicos. A diferencia del lenguaje máquina, que se basa en secuencias binarias, el ensamblador emplea símbolos que representan directamente las instrucciones que el procesador debe ejecutar. Cada arquitectura de procesador cuenta con su propio lenguaje ensamblador, generalmente definido por el fabricante del hardware y adaptado a la arquitectura específica del procesador {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
 
-El código fuente generado en mnemotécnicos debe ser traducido a lenguaje máquina para poder ser ejecutado por la computadora. Este proceso lo realizan programas denominados ensambladores. Dentro del contexto de la arquitectura x86, existen diversos lenguajes ensambladores como TASM (Turbo Assembler) {[}\protect\hyperlink{ref-tasm}{28}{]}, MASM (Microsoft Macro Assembler) {[}\protect\hyperlink{ref-masm}{29}{]} y NASM (Netwide Assembler) {[}\protect\hyperlink{ref-nasm}{30}{]}, cada uno con características y beneficios únicos que se adaptan a distintas necesidades y preferencias de los programadores. Estos ensambladores convierten el código simbólico en código máquina, permitiendo su ejecución en el hardware específico de la arquitectura x86 {[}\protect\hyperlink{ref-hyde2010art}{31}{]}.
+\hypertarget{ensamblador}{%
+\subsection{Ensamblador}\label{ensamblador}}
+
+El ensamblador, como programa, es el encargado de traducir las instrucciones simbólicas (mnemónicos) escritas por los programadores a \textbf{lenguaje máquina}, es decir, a las secuencias de números binarios que el procesador puede interpretar y ejecutar. Esta traducción se realiza de manera casi directa, manteniendo una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. A diferencia de los lenguajes de programación de alto nivel, como C o Python, donde cada línea de código generalmente se traduce en múltiples instrucciones máquina, el ensamblador ofrece una relación más cercana entre el código fuente y las instrucciones ejecutadas.
+
+\hypertarget{ensambladores-x86}{%
+\subsubsection{Ensambladores x86}\label{ensambladores-x86}}
+
+El código fuente escrito en ensamblador debe ser procesado por un \textbf{ensamblador}, un programa que convierte el código simbólico en lenguaje máquina, permitiendo su ejecución por la computadora. En el contexto de la arquitectura \textbf{x86}, existen diversos ensambladores, como \textbf{TASM (Turbo Assembler)} {[}\protect\hyperlink{ref-tasm}{28}{]}, \textbf{MASM (Microsoft Macro Assembler)} {[}\protect\hyperlink{ref-masm}{29}{]} y \textbf{NASM (Netwide Assembler)} {[}\protect\hyperlink{ref-nasm}{30}{]}. Cada uno de estos ensambladores tiene características y sintaxis particulares, pero todos comparten el objetivo de traducir el código ensamblador en secuencias binarias ejecutables por el procesador x86 {[}\protect\hyperlink{ref-hyde2010art}{31}{]}.
+
+\hypertarget{ensambladores-x86-1}{%
+\subsubsection{Ensambladores x86}\label{ensambladores-x86-1}}
+
+\begin{table}
+
+\caption{\label{tab:tablaevolucionx86}Comparativa de Ensambladores x86}
+\centering
+\begin{tabular}[t]{l|l|l|l}
+\hline
+Característica & TASM & MASM & NASM\\
+\hline
+Desarrollador & Borland & Microsoft & Simon Tatham et al.\\
+\hline
+Año de lanzamiento & 1985 & 1981 & 1996\\
+\hline
+Sistema operativo & MS-DOS, Windows & MS-DOS, Windows & Multi-plataforma (Windows, Linux, macOS)\\
+\hline
+Sintaxis & Sintaxis similar a la de Intel, con extensiones propias & Sintaxis de Intel, con soporte extensivo de macros & Sintaxis de Intel, altamente modular y extensible\\
+\hline
+Soporte de macros & Extensas capacidades de macros y directivas & Extensas capacidades de macros y directivas & Soporte avanzado de macros y preprocesamiento\\
+\hline
+Compatibilidad & Compatible con versiones antiguas de x86 & Compatible con versiones antiguas de x86 & Compatible con x86, x86-64 y otros\\
+\hline
+Capacidades adicionales & Integración con herramientas Borland & Integración con el entorno de desarrollo Visual Studio & Soporte para múltiples formatos de salida (binario, ELF, etc.)\\
+\hline
+Licencia & Comercial & Comercial & Open source\\
+\hline
+Uso actual & Menos común, pero todavía en uso en entornos heredados & Ampliamente usado en aplicaciones Windows y desarrollo de software & Popular en el desarrollo de sistemas y software libre\\
+\hline
+\end{tabular}
+\end{table}
 
 \hypertarget{simulaciuxf3n}{%
 \section{Simulación}\label{simulaciuxf3n}}
