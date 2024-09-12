@@ -112,7 +112,6 @@ kable(tabModDir, format = "markdown", caption = "Modos de direccionamiento bási
 ```
 
 ### Formato de las instrucciones
-
 El **formato de las instrucciones** establece cómo se estructuran las instrucciones que un procesador debe ejecutar, lo que incluye su longitud, la cantidad de operandos y los campos adicionales como el código de operación (**opcode**) [@hennessy_computer_2012 ; @tanenbaum_structured_2013]. Este formato no solo afecta la rapidez con la que las instrucciones pueden ser decodificadas, sino también el grado de flexibilidad del conjunto de instrucciones y el aprovechamiento de los recursos del procesador.
 
 - **Longitud de la instrucción**: Las instrucciones pueden tener una longitud fija o variable, y esta decisión afecta tanto al diseño como al rendimiento del procesador. Las instrucciones de longitud fija simplifican el proceso de decodificación, ya que todas tienen el mismo tamaño, lo que facilita el diseño del hardware. Sin embargo, esto puede resultar en un uso ineficiente de la memoria cuando se utilizan instrucciones más simples que no requieren tanto espacio. En contraste, las instrucciones de longitud variable permiten un uso más eficiente de la memoria, ya que el tamaño de cada instrucción puede ajustarse a las necesidades de la operación. No obstante, esta flexibilidad aumenta la complejidad en la decodificación, ya que el procesador debe determinar primero la longitud de la instrucción antes de ejecutarla.
@@ -122,7 +121,6 @@ El **formato de las instrucciones** establece cómo se estructuran las instrucci
 ```{r formatoInst, echo=FALSE, fig.cap="Formato de instrucciones ", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/formatoInst.jpg")
 ```
-
 
 ## Filosofías CISC y RISC
 Las arquitecturas de repertorio de instrucciones son componentes cruciales en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son **CISC (Complex Instruction Set Computing)** y **RISC (Reduced Instruction Set Computing)**. Mientras que CISC busca reducir la cantidad de instrucciones necesarias para realizar una tarea compleja, RISC simplifica el conjunto de instrucciones para optimizar la velocidad y la eficiencia energética. En esta sección se exploran estos dos enfoques y sus implicaciones en el diseño de procesadores [@hennessy_computer_2012; @patterson_computer_2014].
