@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>1.2 Objetivos | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="1.2 Objetivos | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>2.2 Arquitecturas Von Neumann y Harvard | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="2.2 Arquitecturas Von Neumann y Harvard | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="1.2 Objetivos | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="2.2 Arquitecturas Von Neumann y Harvard | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="1.2 Objetivos | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="2.2 Arquitecturas Von Neumann y Harvard | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="justificación.html"/>
-<link rel="next" href="metodología-de-desarrollo.html"/>
+<link rel="prev" href="arquitectura-de-computadoras.html"/>
+<link rel="next" href="tipos-de-arquitecturas.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -195,29 +195,45 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="objetivos" class="section level2 hasAnchor" number="1.2">
-<h2><span class="header-section-number">1.2</span> Objetivos<a href="objetivos.html#objetivos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El objetivo principal de esta tesis es construir una herramienta de simulación de la arquitectura x86 para apoyar la enseñanza de arquitectura de computadoras, enfocándose específicamente en los contenidos de la currícula de Arquitectura de Computadoras. Para lograr este objetivo, se plantean los siguientes objetivos específicos:</p>
-<ol style="list-style-type: decimal">
-<li>Estudiar y evaluar diferentes herramientas actuales de simulación destinadas a dar apoyo a la enseñanza de la arquitectura x86.</li>
-<li>Construir una herramienta de apoyo para impartir los contenidos de la asignatura Arquitectura de Computadoras, para ello debe cumplir:
-<ul>
-<li>Una visión global de la estructura y funcionamiento de la computadora.</li>
-<li>Generación y ejecución de programas en ensamblador.</li>
-<li>Repertorio de instrucciones x86 reducido y habilitado progresivamente.</li>
-<li>Simulación visual e interactiva de micropasos de instrucciones.</li>
-<li>Gestión de interrupciones y comunicación con periféricos.</li>
-<li>Medidas de rendimiento de ejecución de programas.</li>
-</ul></li>
-</ol>
+<div id="arquitecturas-von-neumann-y-harvard" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Arquitecturas Von Neumann y Harvard<a href="arquitecturas-von-neumann-y-harvard.html#arquitecturas-von-neumann-y-harvard" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Para comprender las arquitecturas modernas, es fundamental conocer dos modelos históricos que sentaron las bases del diseño actual de sistemas: <strong>Von Neumann</strong> y <strong>Harvard</strong>. Estos dos paradigmas son esenciales para comprender las diferencias y ventajas de las arquitecturas contemporáneas.</p>
+<div id="arquitectura-von-neumann" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Arquitectura Von Neumann<a href="arquitecturas-von-neumann-y-harvard.html#arquitectura-von-neumann" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La <strong>arquitectura Von Neumann</strong>, formulada por John von Neumann en 1945, utiliza un único espacio de memoria para almacenar tanto los datos como las instrucciones, y un solo bus para transferir ambos tipos de información. Este diseño ha sido ampliamente adoptado debido a su simplicidad, pero introduce limitaciones como el “cuello de botella de Von Neumann”, donde el bus único se convierte en un factor limitante para la velocidad de procesamiento. Este fenómeno es especialmente relevante en sistemas donde el acceso simultáneo a datos e instrucciones es crítico. Aunque la arquitectura Von Neumann sigue siendo la base de muchas computadoras actuales, se han implementado diversas optimizaciones para mejorar su rendimiento en sistemas modernos <span class="citation">(Hennessy and Patterson <a href="#ref-hennessy_computer_2012" role="doc-biblioref">2012</a>; Stallings <a href="#ref-stallings_computer_2013" role="doc-biblioref">2013</a>)</span>.</p>
+</div>
+<div id="arquitectura-harvard" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Arquitectura Harvard<a href="arquitecturas-von-neumann-y-harvard.html#arquitectura-harvard" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Por otro lado, la <strong>arquitectura Harvard</strong> separa físicamente las memorias de datos y de instrucciones, permitiendo que el procesador acceda a ambas de manera simultánea. Este enfoque ofrece un rendimiento más eficiente al eliminar el cuello de botella de Von Neumann, siendo particularmente útil en sistemas embebidos y aplicaciones que requieren un alto rendimiento, como los procesadores de señal digital (DSP) <span class="citation">(Tanenbaum <a href="#ref-tanenbaum_structured_2013" role="doc-biblioref">2013</a>)</span>.</p>
+</div>
+<div id="comparación-y-aplicaciones-modernas" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Comparación y aplicaciones modernas<a href="arquitecturas-von-neumann-y-harvard.html#comparación-y-aplicaciones-modernas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Aunque la arquitectura Von Neumann sigue siendo ampliamente utilizada debido a su simplicidad y flexibilidad, la arquitectura Harvard ha ganado popularidad en sistemas donde la eficiencia y la velocidad son primordiales, como en dispositivos móviles y sistemas de tiempo real. Hoy en día, muchas arquitecturas modernas, como <strong>x86</strong>, <strong>ARM</strong> y <strong>RISC-V</strong>, adoptan una combinación de ambos modelos, Von Neumann y Harvard, para maximizar tanto el rendimiento como la eficiencia energética <span class="citation">(Null and Lobur <a href="#ref-null_essentials_2014" role="doc-biblioref">2014</a>)</span>.</p>
+<p>Esta integración de ambos enfoques permite a los diseñadores aprovechar lo mejor de cada arquitectura según las necesidades de la aplicación, optimizando la transferencia de datos y la ejecución de instrucciones. Esta dicotomía entre las dos arquitecturas sigue siendo un aspecto fundamental en la evolución de los sistemas modernos, donde se priorizan tanto el rendimiento como la eficiencia.</p>
+</div>
+</div>
+<h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references hanging-indent">
+<div id="ref-hennessy_computer_2012">
+<p>Hennessy, John L, and David A Patterson. 2012. <em>Computer Architecture: A Quantitative Approach</em>. Fifth Edition. Elsevier.</p>
+</div>
+<div id="ref-null_essentials_2014">
+<p>Null, Linda, and Julia Lobur. 2014. <em>Essentials of Computer Organization and Architecture</em>. Jones &amp; Bartlett Publishers.</p>
+</div>
+<div id="ref-stallings_computer_2013">
+<p>Stallings, William. 2013. <em>Computer Organization and Architecture: Designing for Performance</em>. Eleventh Edition. Pearson.</p>
+</div>
+<div id="ref-tanenbaum_structured_2013">
+<p>Tanenbaum, Andrew S. 2013. <em>Structured Computer Organization</em>. Pearson Education.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="justificación.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="metodología-de-desarrollo.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="arquitectura-de-computadoras.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tipos-de-arquitecturas.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -248,7 +264,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/01-intro.Rmd",
+"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/02-arte.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -256,7 +272,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/01-intro.Rmd",
+"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/02-arte.Rmd",
 "text": null
 },
 "download": ["tesis.pdf"],
