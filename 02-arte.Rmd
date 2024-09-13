@@ -14,15 +14,22 @@ Tener un conocimiento profundo de la arquitectura y la organización de los sist
 
 En resumen, el estudio de la arquitectura de computadoras es crucial no solo para entender cómo funcionan internamente los sistemas informáticos y resolver problemas de rendimiento, sino también para diseñar soluciones innovadoras en áreas clave como la inteligencia artificial, la ciberseguridad y los sistemas embebidos. Este conocimiento es esencial para abordar los retos tecnológicos del futuro y acceder a un mercado laboral que valora la capacidad de crear y optimizar sistemas cada vez más poderosos y eficientes [@stallings_computer_2013].
 
-
 ## Arquitecturas Von Neumann y Harvard
 Para entender las arquitecturas modernas, es esencial conocer dos modelos históricos que han sentado las bases del diseño actual de sistemas informáticos: **Von Neumann** y **Harvard**. Estos paradigmas no solo forman el cimiento de muchas arquitecturas contemporáneas, sino que también ayudan a comprender sus diferencias, ventajas y limitaciones.
 
 ### Arquitectura Von Neumann
 La **arquitectura Von Neumann**, propuesta por John von Neumann en 1945, se caracteriza por utilizar un único espacio de memoria para almacenar tanto los datos como las instrucciones, y un único bus para transferir ambos tipos de información. Esta simplicidad ha favorecido su adopción generalizada, pero también trae consigo una limitación importante: el **"cuello de botella de Von Neumann"**. Este fenómeno ocurre cuando el bus único se convierte en un factor restrictivo para la velocidad de procesamiento, especialmente en sistemas que requieren un acceso simultáneo a datos e instrucciones. Aunque esta arquitectura sigue siendo la base de muchas computadoras actuales, se han implementado optimizaciones y mejoras para mitigar sus limitaciones en los sistemas modernos [@hennessy_computer_2012; @stallings_computer_2013].
 
+```{r vonneumann, echo=FALSE, fig.cap="Arquitectura Von Neumann", fig.align = 'center', out.width = "100%"}
+knitr::include_graphics(path = "images/vonneumann.png")
+```
+
 ### Arquitectura Harvard
 En contraste, la **arquitectura Harvard** separa físicamente las memorias de datos y de instrucciones, permitiendo que el procesador acceda a ambas de forma simultánea. Este diseño elimina el cuello de botella de Von Neumann, logrando un rendimiento más eficiente, lo que la convierte en una opción preferida para sistemas que requieren un alto desempeño, como los sistemas embebidos y los procesadores de señal digital (DSP). La arquitectura Harvard es especialmente adecuada para aplicaciones donde el acceso rápido y eficiente a los datos es crucial [@tanenbaum_structured_2013].
+
+```{r harvard, echo=FALSE, fig.cap="Arquitectura Harvard", fig.align = 'center', out.width = "100%"}
+knitr::include_graphics(path = "images/harvard.png")
+```
 
 ### Comparación y aplicaciones modernas
 Si bien la simplicidad y flexibilidad de la arquitectura Von Neumann continúan siendo ventajas importantes para una amplia gama de sistemas, la arquitectura Harvard ha ganado popularidad en escenarios donde la eficiencia y la velocidad son prioritarias, como en dispositivos móviles y sistemas de tiempo real. Hoy en día, arquitecturas modernas como **x86**, **ARM** y **RISC-V** implementan una combinación de ambos modelos para maximizar tanto el rendimiento como la eficiencia energética [@null_essentials_2014].
@@ -70,7 +77,7 @@ Entre las características clave que deben considerarse en el diseño de un repe
   - **Formato de las instrucciones**: La estructura de una instrucción determina la longitud, el número de operandos y los modos de direccionamiento, lo que impacta directamente en la complejidad y eficiencia del procesador.
   - **Modos de direccionamiento**: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo, cada uno ofreciendo diferentes ventajas en términos de flexibilidad y eficiencia.
 
-```{r repInstCaracteristicas, echo=FALSE, fig.cap="Características repertorio de instrucciones ", fig.align = 'center', out.width = "100%"}
+```{r repInstCaracteristicas, echo=FALSE, fig.cap="Características repertorio de instrucciones", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/repInstCaracteristicas.jpg")
 ```
 
