@@ -364,10 +364,28 @@ Para entender las arquitecturas modernas, es esencial conocer dos modelos histó
 
 La \textbf{arquitectura Von Neumann}, propuesta por John von Neumann en 1945, se caracteriza por utilizar un único espacio de memoria para almacenar tanto los datos como las instrucciones, y un único bus para transferir ambos tipos de información. Esta simplicidad ha favorecido su adopción generalizada, pero también trae consigo una limitación importante: el \textbf{``cuello de botella de Von Neumann''}. Este fenómeno ocurre cuando el bus único se convierte en un factor restrictivo para la velocidad de procesamiento, especialmente en sistemas que requieren un acceso simultáneo a datos e instrucciones. Aunque esta arquitectura sigue siendo la base de muchas computadoras actuales, se han implementado optimizaciones y mejoras para mitigar sus limitaciones en los sistemas modernos {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
 
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/vonneumann} 
+
+}
+
+\caption{Arquitectura Von Neumann}\label{fig:vonneumann}
+\end{figure}
+
 \hypertarget{arquitectura-harvard}{%
 \subsection{Arquitectura Harvard}\label{arquitectura-harvard}}
 
 En contraste, la \textbf{arquitectura Harvard} separa físicamente las memorias de datos y de instrucciones, permitiendo que el procesador acceda a ambas de forma simultánea. Este diseño elimina el cuello de botella de Von Neumann, logrando un rendimiento más eficiente, lo que la convierte en una opción preferida para sistemas que requieren un alto desempeño, como los sistemas embebidos y los procesadores de señal digital (DSP). La arquitectura Harvard es especialmente adecuada para aplicaciones donde el acceso rápido y eficiente a los datos es crucial {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/harvard} 
+
+}
+
+\caption{Arquitectura Harvard}\label{fig:harvard}
+\end{figure}
 
 \hypertarget{comparaciuxf3n-y-aplicaciones-modernas}{%
 \subsection{Comparación y aplicaciones modernas}\label{comparaciuxf3n-y-aplicaciones-modernas}}
@@ -516,7 +534,7 @@ Entre las características clave que deben considerarse en el diseño de un repe
 
 }
 
-\caption{Características repertorio de instrucciones }\label{fig:repInstCaracteristicas}
+\caption{Características repertorio de instrucciones}\label{fig:repInstCaracteristicas}
 \end{figure}
 
 \hypertarget{modos-de-direccionamiento}{%
