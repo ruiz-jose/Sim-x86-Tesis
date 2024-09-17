@@ -56,10 +56,6 @@
   \usepackage[spanish,provide=*]{babel}
 \fi
 
-
-
-
-
 \usepackage{graphicx,latexsym}
 \usepackage{amsmath}
 \usepackage{amssymb,amsthm}
@@ -178,6 +174,33 @@
 
 }
 
+	% Paquetes adicionales
+ \usepackage{listings}
+ \usepackage{xcolor}
+ \usepackage[utf8]{inputenc}
+
+ % Configuración del paquete listings
+ \lstset{
+   basicstyle=\ttfamily\small,
+   breaklines=true,
+   frame=single,
+   language=[x86masm]Assembler,
+   keywordstyle=\color{blue},
+   commentstyle=\color{gray},
+   stringstyle=\color{red},
+   showstringspaces=false,
+   numbers=left,
+   numberstyle=\tiny\color{gray},
+   stepnumber=1,
+   numbersep=5pt,
+   tabsize=2,
+   captionpos=b,
+   breakatwhitespace=false,
+   showspaces=false,
+   showtabs=false,
+   columns=flexible,
+   keepspaces=true
+ }
 % End of CII addition
 %%
 %% End Preamble
@@ -750,9 +773,9 @@ MOV R0, #10  ; Carga el valor inmediato 10 en el registro R0
 
 En contraste, el modo de direccionamiento indirecto utiliza una dirección almacenada en un registro para acceder a la memoria, lo que añade flexibilidad a costa de un mayor tiempo de acceso. En la arquitectura x86, este modo es frecuente en operaciones complejas de acceso a memoria.
 
-\begin{verbatim}
-MOV EAX, [EBX]  ; Carga en EAX el valor almacenado en la dirección apuntada por EBX
-\end{verbatim}
+\begin{lstlisting}
+MOV EAX, [EBX]  
+\end{lstlisting}
 
 \hypertarget{impacto-en-el-rendimiento}{%
 \subsubsection{Impacto en el rendimiento}\label{impacto-en-el-rendimiento}}
