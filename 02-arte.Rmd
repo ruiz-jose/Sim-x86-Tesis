@@ -270,11 +270,12 @@ Una característica distintiva de x86 es la **variabilidad en la longitud de sus
 ```{r FormatoInst, echo=FALSE, fig.cap="Formato de instrucciones del Pentium x86", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/formatoinstruccionx86.png")
 ```
+
 Ejemplo de Instrucción x86:
 
-  ```assembly
-  MOV AX, [BX+SI+16] 
-  ```
+```assembly
+MOV AX, [BX+SI+16] 
+```
 
 En este caso, el opcode `MOV` se traduce a un byte específico, mientras que el uso de registros y desplazamientos se codifica mediante los bytes **ModR/M** y posiblemente **SIB**. Este ejemplo ilustra cómo una instrucción aparentemente compacta puede expandirse a múltiples bytes en memoria, y cómo el procesador debe descomponer estos bytes para ejecutar la operación correctamente. Este tipo de instrucciones, aunque versátiles, requieren de un pipeline avanzado y técnicas de optimización, como la paralelización y la predicción de saltos, para ser ejecutadas de manera eficiente en procesadores modernos [@patterson_computer_2014].
 
