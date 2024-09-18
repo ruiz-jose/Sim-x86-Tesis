@@ -156,9 +156,23 @@ Los **modos de direccionamiento** permiten a los procesadores acceder a datos de
 #### Modo inmediato vs. indirecto
 En el modo de **direccionamiento inmediato**, el valor del operando está incrustado directamente en la instrucción, lo que permite un acceso rápido y eficiente. Por ejemplo, en ARM, este modo es común para operaciones aritméticas simples, donde se requiere velocidad en lugar de flexibilidad. 
 
-```assembly
-MOV R0, #10  ; Carga el valor inmediato 10 en el registro R0
+```{r, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat('
+\\begin{lstlisting}
+; Carga el valor inmediato 10 en el registro R0
+MOV R0, #10  
+\\end{lstlisting}
+')
+} else {
+  cat('
+  ```assembly
+  MOV R0, #10   ; Carga el valor inmediato 10 en el registro R0
+  ```
+  ')
+}
 ```
+
 En contraste, el modo de direccionamiento indirecto utiliza una dirección almacenada en un registro para acceder a la memoria, lo que añade flexibilidad a costa de un mayor tiempo de acceso. En la arquitectura x86, este modo es frecuente en operaciones complejas de acceso a memoria.
 
 ```{r, results='asis', echo=FALSE}
@@ -171,8 +185,10 @@ MOV EAX, [EBX]
 ')
 } else {
   cat('
-MOV EAX, [EBX]  ; Carga en EAX el valor almacenado en la dirección apuntada por EBX
-')
+  ```assembly
+  MOV EAX, [EBX]  ; Carga en EAX el valor almacenado en la dirección apuntada por EBX
+  ```
+  ')
 }
 ```
 
@@ -284,8 +300,20 @@ knitr::include_graphics(path = "images/formatoinstruccionx86.png")
 
 Ejemplo de Instrucción x86:
 
-```assembly
-MOV AX, [BX+SI+16] 
+```{r, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat('
+\\begin{lstlisting}
+MOV AX, [BX+SI+16]  
+\\end{lstlisting}
+')
+} else {
+  cat('
+  ```assembly
+   MOV AX, [BX+SI+16] 
+  ```
+  ')
+}
 ```
 
 En este caso, el opcode `MOV` se traduce a un byte específico, mientras que el uso de registros y desplazamientos se codifica mediante los bytes **ModR/M** y posiblemente **SIB**. Este ejemplo ilustra cómo una instrucción aparentemente compacta puede expandirse a múltiples bytes en memoria, y cómo el procesador debe descomponer estos bytes para ejecutar la operación correctamente. Este tipo de instrucciones, aunque versátiles, requieren de un pipeline avanzado y técnicas de optimización, como la paralelización y la predicción de saltos, para ser ejecutadas de manera eficiente en procesadores modernos [@patterson_computer_2014].
