@@ -145,17 +145,6 @@ Por otro lado, las arquitecturas **RISC**, como **ARM** y **MIPS**, se centran e
 La filosofía de diseño RISC ha permitido que procesadores como **ARM** dominen el mercado de dispositivos móviles, donde la eficiencia energética es primordial. El enfoque de RISC en operaciones simples y repetitivas, con un bajo CPI (ciclos por instrucción), ha sido un factor clave en esta adopción [@hennessy_computer_2012].
 
 ### Comparativa entre CISC y RISC
-En las arquitecturas **RISC**, todas las instrucciones tienen la misma longitud, lo que simplifica la decodificación y mantiene un flujo continuo de instrucciones a través del pipeline. Esto no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, esencial para arquitecturas escalables y eficientes. Además, el formato simplificado de **RISC** permite una mejor **utilización de la memoria caché**, dado que las instrucciones ocupan menos espacio y permiten un acceso más rápido.
-
-Por el contrario, las arquitecturas **CISC**, como **x86**, utilizan un **formato de longitud variable** para ofrecer flexibilidad en las instrucciones. Esto permite a **CISC** proporcionar una gama más amplia de operaciones con menos líneas de código. Sin embargo, esta flexibilidad tiene un costo: las instrucciones de longitud variable requieren más tiempo para decodificarse y complican la implementación del pipeline, lo que puede afectar negativamente al rendimiento [@tanenbaum_structured_2013].
-
-Por ejemplo, en un procesador **x86**, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, especialmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque se pueden mitigar estos problemas mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.
-
-En las arquitecturas **RISC** como **ARM** o **MIPS**, se priorizan los modos de direccionamiento simples, permitiendo un acceso más rápido a los operandos y reduciendo la latencia del pipeline [@stallings_computer_2013]. En contraste, los modos de direccionamiento en **CISC** como **x86** añaden flexibilidad a costa de un mayor tiempo de acceso. Este impacto puede mitigarse parcialmente mediante el uso de cachés y técnicas de prefetching, pero sigue siendo un factor clave en el rendimiento general del sistema.
-
-
-
-### Comparativa entre CISC y RISC
 En las arquitecturas **RISC**, todas las instrucciones tienen la misma longitud, lo que simplifica la decodificación y permite al procesador mantener un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo cual es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor **utilización de la memoria caché**, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.
 
 Por el contrario, las arquitecturas **CISC**, como **x86**, utilizan un **formato de longitud variable** para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una gama más amplia de operaciones con menos líneas de código. Sin embargo, esta flexibilidad tiene un costo: las instrucciones de longitud variable requieren más tiempo de decodificación y complican la implementación del pipeline, lo que puede afectar negativamente al rendimiento [@tanenbaum_structured_2013].
@@ -364,6 +353,7 @@ El código fuente escrito en ensamblador debe ser procesado por un **ensamblador
 
 ```{r ensambladores, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
+library(kableExtra)
 
 # Crear un data frame con la información de los ensambladores
 ensambladores <- data.frame(
@@ -374,34 +364,48 @@ ensambladores <- data.frame(
   ),
   TASM = c(
     "Borland", "1985", "MS-DOS, Windows", 
-    "Sintaxis similar a la de Intel, con extensiones propias", 
-    "Extensas capacidades de macros y directivas", 
-    "Compatible con versiones antiguas de x86",
-    "Integración con herramientas Borland", "Comercial", 
-    "Menos común, pero todavía en uso en entornos heredados"
+    "Sintaxis similar a Intel con extensiones", 
+    "Macros y directivas avanzadas", 
+    "Compatibilidad con x86 antiguo", 
+    "Integración con herramientas Borland", 
+    "Comercial", 
+    "Menos común, usado en entornos heredados"
   ),
   MASM = c(
     "Microsoft", "1981", "MS-DOS, Windows", 
-    "Sintaxis de Intel, con soporte extensivo de macros", 
-    "Extensas capacidades de macros y directivas", 
-    "Compatible con versiones antiguas de x86",
-    "Integración con el entorno de desarrollo Visual Studio", 
-    "Comercial", "Ampliamente usado en aplicaciones Windows y desarrollo de software"
+    "Sintaxis de Intel con soporte avanzado", 
+    "Macros y directivas extensivas", 
+    "Compatibilidad con x86 antiguo", 
+    "Integración con Visual Studio", 
+    "Comercial", 
+    "Ampliamente usado en desarrollo Windows"
   ),
   NASM = c(
-    "Simon Tatham et al.", "1996", "Multi-plataforma (Windows, Linux, macOS)", 
-    "Sintaxis de Intel, altamente modular y extensible", 
-    "Soporte avanzado de macros y preprocesamiento", 
-    "Compatible con x86, x86-64 y otros",
-    "Soporte para múltiples formatos de salida (binario, ELF, etc.)", 
-    "Open source", 
-    "Popular en el desarrollo de sistemas y software libre"
+    "Simon Tatham et al.", "1996", "Multiplataforma (Windows, Linux, macOS)", 
+    "Sintaxis de Intel, modular y extensible", 
+    "Macros avanzadas y preprocesamiento", 
+    "Compatibilidad con x86, x86-64 y otros", 
+    "Soporte para múltiples formatos (binario, ELF, etc.)", 
+    "Código abierto", 
+    "Popular en sistemas y software libre"
   ),
   stringsAsFactors = FALSE
 )
 
-# Mostrar la tabla
-kable(ensambladores, caption = "Comparativa de Ensambladores x86")
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  kable(ensambladores, format = "latex", booktabs = TRUE, caption = "Comparativa de Ensambladores x86") %>%
+    kable_styling(latex_options = "scale_down") %>%
+    column_spec(1, width = "6cm") %>%  # Ajustar el ancho de la columna "Característica"
+    column_spec(2:4, width = "5cm") %>%  # Ajustar el ancho de las columnas "TASM", "MASM", "NASM"
+    row_spec(0, bold = TRUE, background = "#D3D3D3")
+} else {
+  kable(ensambladores, format = "html", table.attr = "class='table table-striped'", caption = "Comparativa de Ensambladores x86") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Característica"
+    column_spec(2:4, width = "15em") %>%  # Ajustar el ancho de las columnas "TASM", "MASM", "NASM"
+    row_spec(0, bold = TRUE, background = "#D3D3D3")
+}
 ```
 
 ##  Simulación
@@ -430,7 +434,7 @@ La asignatura **Arquitectura de Computadoras** de la carrera Licenciatura en Sis
   - Evaluar medidas de rendimiento y comparar arquitecturas.  
   - Analizar el impacto de la tecnología de las computadoras en contextos sociales y económicos.
 
-Transmitir los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un desafío debido a la complejidad de los procesos involucrados. Esto requiere que los alumno realicen un alto nivel de abstracción para desarrollar un modelo mental adecuado para capturar la organización y arquitectura interna de las computadoras.El uso de simuladores facilita la representación visual e interactiva de procesos complejos, permitiendo que los estudiantes comprendan mejor el funcionamiento de las computadoras y ofreciendo a los docentes herramientas poderosas para conectar teoría y práctica.
+Transmitir los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un desafío debido a la complejidad de los procesos involucrados. Esto requiere que los alumno realicen un alto nivel de abstracción para desarrollar un modelo mental adecuado para capturar la organización y arquitectura interna de las computadoras. El uso de simuladores facilita la representación visual e interactiva de procesos complejos, permitiendo que los estudiantes comprendan mejor el funcionamiento de las computadoras y ofreciendo a los docentes herramientas poderosas para conectar teoría y práctica.
 
 En la enseñanza de la arquitectura de computadoras, los simuladores son especialmente útiles para ilustrar el funcionamiento interno de los procesadores, la ejecución de instrucciones y el manejo de la memoria. Los alumnos pueden experimentar con diferentes configuraciones y parámetros, observar el impacto en el rendimiento y comprender cómo se aplican los conceptos teóricos en la práctica. La simulación también permite explorar escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin necesidad de hardware físico. En resumen, la simulación en la educación es una herramienta valiosa para mejorar la comprensión de los alumnos, fomentar la experimentación y promover el aprendizaje activo [@skrien_cpu_2001][@garcia-garcia_pbbcache_2020][@nova_tool_2013].
 
