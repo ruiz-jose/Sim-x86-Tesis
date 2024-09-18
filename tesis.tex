@@ -787,17 +787,6 @@ La filosofía de diseño RISC ha permitido que procesadores como \textbf{ARM} do
 \hypertarget{comparativa-entre-cisc-y-risc}{%
 \subsection{Comparativa entre CISC y RISC}\label{comparativa-entre-cisc-y-risc}}
 
-En las arquitecturas \textbf{RISC}, todas las instrucciones tienen la misma longitud, lo que simplifica la decodificación y mantiene un flujo continuo de instrucciones a través del pipeline. Esto no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, esencial para arquitecturas escalables y eficientes. Además, el formato simplificado de \textbf{RISC} permite una mejor \textbf{utilización de la memoria caché}, dado que las instrucciones ocupan menos espacio y permiten un acceso más rápido.
-
-Por el contrario, las arquitecturas \textbf{CISC}, como \textbf{x86}, utilizan un \textbf{formato de longitud variable} para ofrecer flexibilidad en las instrucciones. Esto permite a \textbf{CISC} proporcionar una gama más amplia de operaciones con menos líneas de código. Sin embargo, esta flexibilidad tiene un costo: las instrucciones de longitud variable requieren más tiempo para decodificarse y complican la implementación del pipeline, lo que puede afectar negativamente al rendimiento {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
-
-Por ejemplo, en un procesador \textbf{x86}, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, especialmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque se pueden mitigar estos problemas mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.
-
-En las arquitecturas \textbf{RISC} como \textbf{ARM} o \textbf{MIPS}, se priorizan los modos de direccionamiento simples, permitiendo un acceso más rápido a los operandos y reduciendo la latencia del pipeline {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. En contraste, los modos de direccionamiento en \textbf{CISC} como \textbf{x86} añaden flexibilidad a costa de un mayor tiempo de acceso. Este impacto puede mitigarse parcialmente mediante el uso de cachés y técnicas de prefetching, pero sigue siendo un factor clave en el rendimiento general del sistema.
-
-\hypertarget{comparativa-entre-cisc-y-risc-1}{%
-\subsection{Comparativa entre CISC y RISC}\label{comparativa-entre-cisc-y-risc-1}}
-
 En las arquitecturas \textbf{RISC}, todas las instrucciones tienen la misma longitud, lo que simplifica la decodificación y permite al procesador mantener un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo cual es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor \textbf{utilización de la memoria caché}, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.
 
 Por el contrario, las arquitecturas \textbf{CISC}, como \textbf{x86}, utilizan un \textbf{formato de longitud variable} para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una gama más amplia de operaciones con menos líneas de código. Sin embargo, esta flexibilidad tiene un costo: las instrucciones de longitud variable requieren más tiempo de decodificación y complican la implementación del pipeline, lo que puede afectar negativamente al rendimiento {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
@@ -982,32 +971,26 @@ El ensamblador, como programa, es el encargado de traducir las instrucciones sim
 El código fuente escrito en ensamblador debe ser procesado por un \textbf{ensamblador}, un programa que convierte el código simbólico en lenguaje máquina, permitiendo su ejecución por la computadora. En el contexto de la arquitectura \textbf{x86}, existen diversos ensambladores, como \textbf{TASM (Turbo Assembler)} {[}\protect\hyperlink{ref-tasm}{28}{]}, \textbf{MASM (Microsoft Macro Assembler)} {[}\protect\hyperlink{ref-masm}{29}{]} y \textbf{NASM (Netwide Assembler)} {[}\protect\hyperlink{ref-nasm}{30}{]}. Cada uno de estos ensambladores tiene características y sintaxis particulares, pero todos comparten el objetivo de traducir el código ensamblador en secuencias binarias ejecutables por el procesador x86 {[}\protect\hyperlink{ref-hyde2010art}{31}{]}.
 
 \begin{table}
-
+\centering
 \caption{\label{tab:ensambladores}Comparativa de Ensambladores x86}
 \centering
-\begin{tabular}[t]{l|l|l|l}
-\hline
-Característica & TASM & MASM & NASM\\
-\hline
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\toprule
+\cellcolor[HTML]{D3D3D3}{\textbf{Característica}} & \cellcolor[HTML]{D3D3D3}{\textbf{TASM}} & \cellcolor[HTML]{D3D3D3}{\textbf{MASM}} & \cellcolor[HTML]{D3D3D3}{\textbf{NASM}}\\
+\midrule
 Desarrollador & Borland & Microsoft & Simon Tatham et al.\\
-\hline
 Año de lanzamiento & 1985 & 1981 & 1996\\
-\hline
-Sistema operativo & MS-DOS, Windows & MS-DOS, Windows & Multi-plataforma (Windows, Linux, macOS)\\
-\hline
-Sintaxis & Sintaxis similar a la de Intel, con extensiones propias & Sintaxis de Intel, con soporte extensivo de macros & Sintaxis de Intel, altamente modular y extensible\\
-\hline
-Soporte de macros & Extensas capacidades de macros y directivas & Extensas capacidades de macros y directivas & Soporte avanzado de macros y preprocesamiento\\
-\hline
-Compatibilidad & Compatible con versiones antiguas de x86 & Compatible con versiones antiguas de x86 & Compatible con x86, x86-64 y otros\\
-\hline
-Capacidades adicionales & Integración con herramientas Borland & Integración con el entorno de desarrollo Visual Studio & Soporte para múltiples formatos de salida (binario, ELF, etc.)\\
-\hline
-Licencia & Comercial & Comercial & Open source\\
-\hline
-Uso actual & Menos común, pero todavía en uso en entornos heredados & Ampliamente usado en aplicaciones Windows y desarrollo de software & Popular en el desarrollo de sistemas y software libre\\
-\hline
-\end{tabular}
+Sistema operativo & MS-DOS, Windows & MS-DOS, Windows & Multiplataforma (Windows, Linux, macOS)\\
+Sintaxis & Sintaxis similar a Intel con extensiones & Sintaxis de Intel con soporte avanzado & Sintaxis de Intel, modular y extensible\\
+Soporte de macros & Macros y directivas avanzadas & Macros y directivas extensivas & Macros avanzadas y preprocesamiento\\
+\addlinespace
+Compatibilidad & Compatibilidad con x86 antiguo & Compatibilidad con x86 antiguo & Compatibilidad con x86, x86-64 y otros\\
+Capacidades adicionales & Integración con herramientas Borland & Integración con Visual Studio & Soporte para múltiples formatos (binario, ELF, etc.)\\
+Licencia & Comercial & Comercial & Código abierto\\
+Uso actual & Menos común, usado en entornos heredados & Ampliamente usado en desarrollo Windows & Popular en sistemas y software libre\\
+\bottomrule
+\end{tabular}}
 \end{table}
 
 \hypertarget{simulaciuxf3n}{%
@@ -1044,7 +1027,7 @@ La asignatura \textbf{Arquitectura de Computadoras} de la carrera Licenciatura e
 - Evaluar medidas de rendimiento y comparar arquitecturas.\\
 - Analizar el impacto de la tecnología de las computadoras en contextos sociales y económicos.
 
-Transmitir los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un desafío debido a la complejidad de los procesos involucrados. Esto requiere que los alumno realicen un alto nivel de abstracción para desarrollar un modelo mental adecuado para capturar la organización y arquitectura interna de las computadoras.El uso de simuladores facilita la representación visual e interactiva de procesos complejos, permitiendo que los estudiantes comprendan mejor el funcionamiento de las computadoras y ofreciendo a los docentes herramientas poderosas para conectar teoría y práctica.
+Transmitir los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un desafío debido a la complejidad de los procesos involucrados. Esto requiere que los alumno realicen un alto nivel de abstracción para desarrollar un modelo mental adecuado para capturar la organización y arquitectura interna de las computadoras. El uso de simuladores facilita la representación visual e interactiva de procesos complejos, permitiendo que los estudiantes comprendan mejor el funcionamiento de las computadoras y ofreciendo a los docentes herramientas poderosas para conectar teoría y práctica.
 
 En la enseñanza de la arquitectura de computadoras, los simuladores son especialmente útiles para ilustrar el funcionamiento interno de los procesadores, la ejecución de instrucciones y el manejo de la memoria. Los alumnos pueden experimentar con diferentes configuraciones y parámetros, observar el impacto en el rendimiento y comprender cómo se aplican los conceptos teóricos en la práctica. La simulación también permite explorar escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin necesidad de hardware físico. En resumen, la simulación en la educación es una herramienta valiosa para mejorar la comprensión de los alumnos, fomentar la experimentación y promover el aprendizaje activo {[}\protect\hyperlink{ref-skrien_cpu_2001}{18}{]}{[}\protect\hyperlink{ref-garcia-garcia_pbbcache_2020}{7}{]}{[}\protect\hyperlink{ref-nova_tool_2013}{8}{]}.
 

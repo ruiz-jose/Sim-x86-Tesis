@@ -120,7 +120,6 @@
 <li class="chapter" data-level="2.5.1" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#cisc"><i class="fa fa-check"></i><b>2.5.1</b> CISC</a></li>
 <li class="chapter" data-level="2.5.2" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#RISC"><i class="fa fa-check"></i><b>2.5.2</b> RISC</a></li>
 <li class="chapter" data-level="2.5.3" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#comparativa-entre-cisc-y-risc"><i class="fa fa-check"></i><b>2.5.3</b> Comparativa entre CISC y RISC</a></li>
-<li class="chapter" data-level="2.5.4" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#comparativa-entre-cisc-y-risc-1"><i class="fa fa-check"></i><b>2.5.4</b> Comparativa entre CISC y RISC</a></li>
 </ul></li>
 <li class="chapter" data-level="2.6" data-path="arquitectura-x86-1.html"><a href="arquitectura-x86-1.html"><i class="fa fa-check"></i><b>2.6</b> Arquitectura x86</a>
 <ul>
@@ -210,76 +209,152 @@
 <div id="ensambladores-x86" class="section level4 hasAnchor" number="2.7.1.1">
 <h4><span class="header-section-number">2.7.1.1</span> Ensambladores x86<a href="lenguaje-ensamblador.html#ensambladores-x86" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>El código fuente escrito en ensamblador debe ser procesado por un <strong>ensamblador</strong>, un programa que convierte el código simbólico en lenguaje máquina, permitiendo su ejecución por la computadora. En el contexto de la arquitectura <strong>x86</strong>, existen diversos ensambladores, como <strong>TASM (Turbo Assembler)</strong> <span class="citation">(International <a href="#ref-tasm" role="doc-biblioref">1993</a>)</span>, <strong>MASM (Microsoft Macro Assembler)</strong> <span class="citation">(Corporation <a href="#ref-masm" role="doc-biblioref">1992</a>)</span> y <strong>NASM (Netwide Assembler)</strong> <span class="citation">(The NASM Project <a href="#ref-nasm" role="doc-biblioref">2023</a>)</span>. Cada uno de estos ensambladores tiene características y sintaxis particulares, pero todos comparten el objetivo de traducir el código ensamblador en secuencias binarias ejecutables por el procesador x86 <span class="citation">(Hyde <a href="#ref-hyde2010art" role="doc-biblioref">2010</a>)</span>.</p>
-<table>
-<caption><span id="tab:ensambladores">Tabla 2.6: </span>Comparativa de Ensambladores x86</caption>
-<colgroup>
-<col width="11%" />
-<col width="26%" />
-<col width="31%" />
-<col width="30%" />
-</colgroup>
+<table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:ensambladores">Tabla 2.6: </span>Comparativa de Ensambladores x86
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Característica</th>
-<th align="left">TASM</th>
-<th align="left">MASM</th>
-<th align="left">NASM</th>
+<tr>
+<th style="text-align:left;font-weight: bold;background-color: rgba(211, 211, 211, 255) !important;">
+Característica
+</th>
+<th style="text-align:left;font-weight: bold;background-color: rgba(211, 211, 211, 255) !important;">
+TASM
+</th>
+<th style="text-align:left;font-weight: bold;background-color: rgba(211, 211, 211, 255) !important;">
+MASM
+</th>
+<th style="text-align:left;font-weight: bold;background-color: rgba(211, 211, 211, 255) !important;">
+NASM
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Desarrollador</td>
-<td align="left">Borland</td>
-<td align="left">Microsoft</td>
-<td align="left">Simon Tatham et al.</td>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Desarrollador
+</td>
+<td style="text-align:left;width: 15em; ">
+Borland
+</td>
+<td style="text-align:left;width: 15em; ">
+Microsoft
+</td>
+<td style="text-align:left;width: 15em; ">
+Simon Tatham et al. 
+</td>
 </tr>
-<tr class="even">
-<td align="left">Año de lanzamiento</td>
-<td align="left">1985</td>
-<td align="left">1981</td>
-<td align="left">1996</td>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Año de lanzamiento
+</td>
+<td style="text-align:left;width: 15em; ">
+1985
+</td>
+<td style="text-align:left;width: 15em; ">
+1981
+</td>
+<td style="text-align:left;width: 15em; ">
+1996
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Sistema operativo</td>
-<td align="left">MS-DOS, Windows</td>
-<td align="left">MS-DOS, Windows</td>
-<td align="left">Multi-plataforma (Windows, Linux, macOS)</td>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Sistema operativo
+</td>
+<td style="text-align:left;width: 15em; ">
+MS-DOS, Windows
+</td>
+<td style="text-align:left;width: 15em; ">
+MS-DOS, Windows
+</td>
+<td style="text-align:left;width: 15em; ">
+Multiplataforma (Windows, Linux, macOS)
+</td>
 </tr>
-<tr class="even">
-<td align="left">Sintaxis</td>
-<td align="left">Sintaxis similar a la de Intel, con extensiones propias</td>
-<td align="left">Sintaxis de Intel, con soporte extensivo de macros</td>
-<td align="left">Sintaxis de Intel, altamente modular y extensible</td>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Sintaxis
+</td>
+<td style="text-align:left;width: 15em; ">
+Sintaxis similar a Intel con extensiones
+</td>
+<td style="text-align:left;width: 15em; ">
+Sintaxis de Intel con soporte avanzado
+</td>
+<td style="text-align:left;width: 15em; ">
+Sintaxis de Intel, modular y extensible
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Soporte de macros</td>
-<td align="left">Extensas capacidades de macros y directivas</td>
-<td align="left">Extensas capacidades de macros y directivas</td>
-<td align="left">Soporte avanzado de macros y preprocesamiento</td>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Soporte de macros
+</td>
+<td style="text-align:left;width: 15em; ">
+Macros y directivas avanzadas
+</td>
+<td style="text-align:left;width: 15em; ">
+Macros y directivas extensivas
+</td>
+<td style="text-align:left;width: 15em; ">
+Macros avanzadas y preprocesamiento
+</td>
 </tr>
-<tr class="even">
-<td align="left">Compatibilidad</td>
-<td align="left">Compatible con versiones antiguas de x86</td>
-<td align="left">Compatible con versiones antiguas de x86</td>
-<td align="left">Compatible con x86, x86-64 y otros</td>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Compatibilidad
+</td>
+<td style="text-align:left;width: 15em; ">
+Compatibilidad con x86 antiguo
+</td>
+<td style="text-align:left;width: 15em; ">
+Compatibilidad con x86 antiguo
+</td>
+<td style="text-align:left;width: 15em; ">
+Compatibilidad con x86, x86-64 y otros
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Capacidades adicionales</td>
-<td align="left">Integración con herramientas Borland</td>
-<td align="left">Integración con el entorno de desarrollo Visual Studio</td>
-<td align="left">Soporte para múltiples formatos de salida (binario, ELF, etc.)</td>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Capacidades adicionales
+</td>
+<td style="text-align:left;width: 15em; ">
+Integración con herramientas Borland
+</td>
+<td style="text-align:left;width: 15em; ">
+Integración con Visual Studio
+</td>
+<td style="text-align:left;width: 15em; ">
+Soporte para múltiples formatos (binario, ELF, etc.)
+</td>
 </tr>
-<tr class="even">
-<td align="left">Licencia</td>
-<td align="left">Comercial</td>
-<td align="left">Comercial</td>
-<td align="left">Open source</td>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Licencia
+</td>
+<td style="text-align:left;width: 15em; ">
+Comercial
+</td>
+<td style="text-align:left;width: 15em; ">
+Comercial
+</td>
+<td style="text-align:left;width: 15em; ">
+Código abierto
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Uso actual</td>
-<td align="left">Menos común, pero todavía en uso en entornos heredados</td>
-<td align="left">Ampliamente usado en aplicaciones Windows y desarrollo de software</td>
-<td align="left">Popular en el desarrollo de sistemas y software libre</td>
+<tr>
+<td style="text-align:left;width: 20em; ">
+Uso actual
+</td>
+<td style="text-align:left;width: 15em; ">
+Menos común, usado en entornos heredados
+</td>
+<td style="text-align:left;width: 15em; ">
+Ampliamente usado en desarrollo Windows
+</td>
+<td style="text-align:left;width: 15em; ">
+Popular en sistemas y software libre
+</td>
 </tr>
 </tbody>
 </table>
