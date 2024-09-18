@@ -180,7 +180,6 @@
  \usepackage[utf8]{inputenc}
  \usepackage[T1]{fontenc}
 
- \usepackage{listings}
  \lstdefinelanguage{nasm}{
    morekeywords={section, global, extern, mov, add, sub, mul, div, inc, dec, push, pop, call, ret, jmp, je, jne, jz, jnz, loop, int},
    sensitive=false,
@@ -222,7 +221,7 @@
    showspaces=false,
    showtabs=false,
    columns=flexible,
-   keepspaces=true
+   keepspaces=true,
  }
 % End of CII addition
 %%
@@ -790,9 +789,10 @@ Los \textbf{modos de direccionamiento} permiten a los procesadores acceder a dat
 
 En el modo de \textbf{direccionamiento inmediato}, el valor del operando está incrustado directamente en la instrucción, lo que permite un acceso rápido y eficiente. Por ejemplo, en ARM, este modo es común para operaciones aritméticas simples, donde se requiere velocidad en lugar de flexibilidad.
 
-\begin{verbatim}
-MOV R0, #10  ; Carga el valor inmediato 10 en el registro R0
-\end{verbatim}
+\begin{lstlisting}
+; Carga el valor inmediato 10 en el registro R0
+MOV R0, #10  
+\end{lstlisting}
 
 En contraste, el modo de direccionamiento indirecto utiliza una dirección almacenada en un registro para acceder a la memoria, lo que añade flexibilidad a costa de un mayor tiempo de acceso. En la arquitectura x86, este modo es frecuente en operaciones complejas de acceso a memoria.
 
@@ -977,9 +977,9 @@ Una característica distintiva de x86 es la \textbf{variabilidad en la longitud 
 
 Ejemplo de Instrucción x86:
 
-\begin{verbatim}
-MOV AX, [BX+SI+16] 
-\end{verbatim}
+\begin{lstlisting}
+MOV AX, [BX+SI+16]  
+\end{lstlisting}
 
 En este caso, el opcode \texttt{MOV} se traduce a un byte específico, mientras que el uso de registros y desplazamientos se codifica mediante los bytes \textbf{ModR/M} y posiblemente \textbf{SIB}. Este ejemplo ilustra cómo una instrucción aparentemente compacta puede expandirse a múltiples bytes en memoria, y cómo el procesador debe descomponer estos bytes para ejecutar la operación correctamente. Este tipo de instrucciones, aunque versátiles, requieren de un pipeline avanzado y técnicas de optimización, como la paralelización y la predicción de saltos, para ser ejecutadas de manera eficiente en procesadores modernos {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
 
