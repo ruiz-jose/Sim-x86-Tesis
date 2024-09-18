@@ -156,15 +156,16 @@ Los **modos de direccionamiento** permiten a los procesadores acceder a datos de
 #### Modo inmediato vs. indirecto
 En el modo de **direccionamiento inmediato**, el valor del operando está incrustado directamente en la instrucción, lo que permite un acceso rápido y eficiente. Por ejemplo, en ARM, este modo es común para operaciones aritméticas simples, donde se requiere velocidad en lugar de flexibilidad. 
 
-  ```assembly
-  MOV R0, #10  ; Carga el valor inmediato 10 en el registro R0
-  ```
+```assembly
+MOV R0, #10  ; Carga el valor inmediato 10 en el registro R0
+```
 En contraste, el modo de direccionamiento indirecto utiliza una dirección almacenada en un registro para acceder a la memoria, lo que añade flexibilidad a costa de un mayor tiempo de acceso. En la arquitectura x86, este modo es frecuente en operaciones complejas de acceso a memoria.
 
 ```{r, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
   cat('
 \\begin{lstlisting}
+; Carga en EAX el valor almacenado en la dirección apuntada por EBX
 MOV EAX, [EBX]  
 \\end{lstlisting}
 ')

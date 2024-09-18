@@ -2,13 +2,36 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
 
-% Configuración del paquete listings
+\usepackage{listings}
+\lstdefinelanguage{nasm}{
+  morekeywords={section, global, extern, mov, add, sub, mul, div, inc, dec, push, pop, call, ret, jmp, je, jne, jz, jnz, loop, int},
+  sensitive=false,
+  morecomment=[l];,
+  morestring=[b]",
+}
+
+\lstset{literate=%
+    {á}{{\'a}}1
+    {é}{{\'e}}1
+    {í}{{\'i}}1
+    {ó}{{\'o}}1
+    {ú}{{\'u}}1
+    {Á}{{\'A}}1
+    {É}{{\'E}}1
+    {Í}{{\'I}}1
+    {Ó}{{\'O}}1
+    {Ú}{{\'U}}1
+    {ñ}{{\~n}}1
+    {Ñ}{{\~N}}1
+}
+
 \lstset{
   basicstyle=\ttfamily\small,
   breaklines=true,
   frame=single,
-  language=[x86masm]Assembler,
+  language=nasm,
   keywordstyle=\color{blue},
   commentstyle=\color{gray},
   stringstyle=\color{red},
