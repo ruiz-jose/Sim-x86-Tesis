@@ -1,0 +1,458 @@
+# Arquitectura {#arquitectura}
+En este capítulo se abordarán los aspectos fundamentales de la arquitectura de computadoras y su evolución, así como las tecnologías y filosofías que han dado forma al desarrollo de sistemas modernos. Se presentarán las arquitecturas más relevantes, el repertorio de instrucciones, y las filosofías de diseño, como CISC y RISC. Además, se discutirá la arquitectura x86 y el lenguaje ensamblador.
+
+## Arquitectura de computadoras
+La arquitectura de computadoras abarca el diseño y la especificación de los componentes de un sistema informático que son visibles para el programador, como el conjunto de instrucciones, la organización de la memoria y los mecanismos de entrada/salida. Su principal objetivo es optimizar tanto el rendimiento como la eficiencia del sistema. Esta disciplina se extiende desde la interacción entre el hardware y el software hasta la integración de sistemas completos, siendo fundamental para el avance de tecnologías modernas y sostenibles [@hennessy_computer_2012; @stallings_computer_2013].
+
+Comprender la arquitectura de una computadora implica tener un conocimiento profundo de atributos claves como el repertorio de instrucciones (por ejemplo, arquitecturas x86 o ARM), la capacidad de procesamiento (32 o 64 bits), los mecanismos de entrada/salida, las técnicas de direccionamiento de memoria (directo o segmentado) y la gestión de la jerarquía de memoria [@null_essentials_2014]. Además, aspectos como el paralelismo y la eficiencia energética son esenciales para mejorar el rendimiento de los sistemas, así como para optimizar el desarrollo de software y sistemas operativos modernos [@hennessy_computer_2012; @patterson_computer_2014].
+
+Es esencial distinguir entre la **arquitectura de computadoras** y la **organización de computadoras**. Mientras que la arquitectura describe los componentes visibles al programador y las abstracciones necesarias para desarrollar software eficiente, la organización se refiere a la implementación física de esa arquitectura. Esto incluye cómo están dispuestos y coordinados los elementos del hardware, como la memoria, las señales de control y las unidades de procesamiento, para cumplir con los objetivos de rendimiento y funcionalidad [@tanenbaum_structured_2013; @murdocca_principles_2000].
+
+El estudio de la arquitectura de computadoras no solo permite comprender el funcionamiento interno de los sistemas informáticos, sino que también facilita su adaptación y optimización para satisfacer las demandas de nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el Internet de las cosas. La arquitectura bien diseñada es el cimiento que permite a estas tecnologías alcanzar su máximo potencial, impulsando de manera significativa la innovación [@hennessy_computer_2012; @stallings_computer_2013].
+
+Tener un conocimiento profundo de la arquitectura y la organización de los sistemas informáticos es vital para cualquier profesional en el campo de la informática. No solo habilita la creación de sistemas más eficientes y escalables, sino que también proporciona una base sólida para explorar áreas emergentes como la seguridad informática y los sistemas embebidos, sectores de creciente relevancia en la industria [@patterson_computer_2014]. El dominio de la arquitectura de computadoras abre un amplio abanico de oportunidades profesionales, permitiendo a los expertos participar activamente en la evolución de la sociedad digital.
+
+En resumen, el estudio de la arquitectura de computadoras es crucial no solo para entender cómo funcionan internamente los sistemas informáticos y resolver problemas de rendimiento, sino también para diseñar soluciones innovadoras en áreas clave como la inteligencia artificial, la ciberseguridad y los sistemas embebidos. Este conocimiento es esencial para abordar los retos tecnológicos del futuro y acceder a un mercado laboral que valora la capacidad de crear y optimizar sistemas cada vez más poderosos y eficientes [@stallings_computer_2013].
+
+## Arquitecturas Von Neumann y Harvard
+Para entender las arquitecturas modernas, es esencial conocer dos modelos históricos que han sentado las bases del diseño actual de sistemas informáticos: **Von Neumann** y **Harvard**. Estos paradigmas no solo forman el cimiento de muchas arquitecturas contemporáneas, sino que también ayudan a comprender sus diferencias, ventajas y limitaciones.
+
+### Arquitectura Von Neumann
+La **arquitectura Von Neumann**, propuesta por John von Neumann en 1945, se caracteriza por utilizar un único espacio de memoria para almacenar tanto los datos como las instrucciones, y un único bus para transferir ambos tipos de información. Esta simplicidad ha favorecido su adopción generalizada, pero también trae consigo una limitación importante: el **"cuello de botella de Von Neumann"**. Este fenómeno ocurre cuando el bus único se convierte en un factor restrictivo para la velocidad de procesamiento, especialmente en sistemas que requieren un acceso simultáneo a datos e instrucciones. Aunque esta arquitectura sigue siendo la base de muchas computadoras actuales, se han implementado optimizaciones y mejoras para mitigar sus limitaciones en los sistemas modernos [@hennessy_computer_2012; @stallings_computer_2013].
+
+```{r vonneumann, echo=FALSE, fig.cap="Arquitectura Von Neumann", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/vonneumann.png")
+```
+
+### Arquitectura Harvard
+En contraste, la **arquitectura Harvard** separa físicamente las memorias de datos y de instrucciones, permitiendo que el procesador acceda a ambas de forma simultánea. Este diseño elimina el cuello de botella de Von Neumann, logrando un rendimiento más eficiente, lo que la convierte en una opción preferida para sistemas que requieren un alto desempeño, como los sistemas embebidos y los procesadores de señal digital (DSP). La arquitectura Harvard es especialmente adecuada para aplicaciones donde el acceso rápido y eficiente a los datos es crucial [@tanenbaum_structured_2013].
+
+```{r harvard, echo=FALSE, fig.cap="Arquitectura Harvard", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/harvard.png")
+```
+
+### Comparación y aplicaciones modernas
+Si bien la simplicidad y flexibilidad de la arquitectura Von Neumann continúan siendo ventajas importantes para una amplia gama de sistemas, la arquitectura Harvard ha ganado popularidad en escenarios donde la eficiencia y la velocidad son prioritarias, como en dispositivos móviles y sistemas de tiempo real. Hoy en día, arquitecturas modernas como **x86**, **ARM** y **RISC-V** implementan una combinación de ambos modelos para maximizar tanto el rendimiento como la eficiencia energética [@null_essentials_2014].
+
+Esta integración de los enfoques de Von Neumann y Harvard permite a los diseñadores aprovechar las mejores características de cada uno, adaptando los sistemas según las necesidades específicas de la aplicación. La dicotomía entre ambas arquitecturas sigue siendo clave en la evolución de los sistemas modernos, donde el rendimiento y la eficiencia son factores críticos para el desarrollo de nuevas tecnologías.
+
+## Tipos de arquitecturas
+El análisis de diversas arquitecturas de computadoras es esencial para comprender sus respectivas ventajas y limitaciones en diferentes contextos de aplicación. Esta evaluación comparativa permite a los diseñadores y desarrolladores de sistemas seleccionar la arquitectura más adecuada para sus necesidades, considerando factores clave como la eficiencia energética, la complejidad del hardware y las aplicaciones específicas en las que se utilizará cada una.
+
+### Arquitectura x86
+La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, gracias a su capacidad para ofrecer un alto rendimiento y su amplia compatibilidad con software existente. La complejidad de su conjunto de instrucciones (ISA) permite una mayor flexibilidad, aunque a costa de una mayor complejidad en el diseño del hardware. Su eficiencia energética es moderada, lo que la hace menos ideal para dispositivos móviles y más apropiada para entornos donde el rendimiento es la prioridad principal [@hennessy_computer_2012].
+
+### Arquitectura ARM
+La arquitectura ARM es conocida por su alta eficiencia energética, característica que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM se basa en el paradigma de conjunto de instrucciones reducidas (RISC), lo que simplifica el diseño del hardware y reduce el consumo energético, como se explica en la sección \@ref(RISC). Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es fundamental [@patterson_computer_2014].
+
+### Arquitectura MIPS
+MIPS es otra arquitectura basada en RISC que ha sido ampliamente utilizada en sistemas embebidos y en la educación. Aunque ha perdido prominencia frente a otras arquitecturas como ARM, MIPS sigue siendo relevante en ciertos nichos debido a su simplicidad y efectividad. Su conjunto de instrucciones presenta una complejidad moderada, lo que permite un equilibrio entre rendimiento y consumo energético, aunque su adopción y soporte en la industria son más limitados [@hennessy_computer_2012].
+
+### Arquitectura RISC-V
+RISC-V es una arquitectura emergente que ha atraído la atención global debido a su conjunto de instrucciones abierto y libre, lo que permite a desarrolladores y fabricantes adaptarla y personalizarla según sus necesidades. Al igual que ARM, RISC-V se basa en el paradigma RISC, lo que le otorga una alta eficiencia energética y una baja complejidad de hardware. Su flexibilidad la convierte en una opción atractiva para la investigación, la educación y aplicaciones embebidas. Además, RISC-V ofrece una compatibilidad creciente gracias a su adopción por parte de la comunidad global de desarrolladores [@waterman_risc-v_2014].
+
+### Compararativa de arquitecturas
+Cada una de estas arquitecturas ofrece un conjunto de características distintivas que las hace más o menos adecuadas para diferentes aplicaciones. La elección de la arquitectura correcta puede tener un impacto significativo en el éxito de un proyecto, ya sea en términos de rendimiento, eficiencia energética o compatibilidad [@patterson_computer_2014].
+
+```{r tabla-comparacion-cpu, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+comparacion_cpu <- data.frame(
+  Característica = c("Eficiencia Energética", "Complejidad ISA", "Rendimiento", "Compatibilidad", "Áreas de Aplicación"), # nolint: line_length_linter.
+  x86 = c("Moderada", "Alta", "Alto", "Alta (hacia atrás)", "Escritorio, servidores"),
+  ARM = c("Alta", "Baja", "Moderado", "Moderada", "Dispositivos móviles"),
+  MIPS = c("Moderada", "Moderada", "Moderado", "Moderada", "Sistemas embebidos"),
+  `RISC-V` = c("Alta", "Baja", "Variable", "Alta", "Investigación, embebidos")
+)
+
+kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitecturas")
+```
+
+## Repertorio de instrucciones
+El repertorio de instrucciones, conocido como **ISA (Instruction Set Architecture)**, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA tiene un impacto considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador [@hennessy_computer_2012; @null_essentials_2014; @stallings_computer_2013].
+
+Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes [@hennessy_computer_2012]:
+
+  - **Tipos de operandos**: Se refiere a los diversos tipos de datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres o direcciones de memoria. Es crucial diseñar un repertorio de instrucciones que soporte eficientemente diferentes tipos de operando.
+  - **Tipos de operaciones**: Incluye las operaciones que el procesador puede realizar, como aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y operaciones de manipulación de datos (movimiento de datos, almacenamiento, carga).
+  - **Formato de las instrucciones**: La estructura de una instrucción determina la longitud, el número de operandos y los modos de direccionamiento, lo que impacta directamente en la complejidad y eficiencia del procesador.
+  - **Modos de direccionamiento**: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo, cada uno ofreciendo diferentes ventajas en términos de flexibilidad y eficiencia.
+
+```{r repInstCaracteristicas, echo=FALSE, fig.cap="Características repertorio de instrucciones", fig.align = 'center', out.width = "100%"}
+knitr::include_graphics(path = "images/repInstCaracteristicas.jpg")
+```
+
+### Modos de direccionamiento
+
+Los modos de direccionamiento son esenciales para especificar cómo la CPU accede a los datos necesarios para ejecutar una instrucción [@stallings_computer_2013 ; @hennessy_computer_2012]. Los modos más comunes incluyen:
+
+  a) **Inmediato**: El operando está directamente incluido en la instrucción, lo que permite un acceso rápido a valores constantes, generalmente pequeños. Este modo es eficiente para operaciones simples, pero está limitado a operandos de tamaño reducido.
+  b) **Directo**: La instrucción contiene la dirección de memoria del operando. Este modo es fácil de usar y entender, pero tiene la desventaja de que el rango de direcciones accesibles está limitado por el tamaño de la instrucción.
+  c) **Indirecto**: La instrucción apunta a una dirección que, a su vez, contiene la dirección real del operando. Este modo ofrece una mayor flexibilidad al ampliar el rango de direcciones, aunque introduce una penalización en tiempo debido al acceso adicional a la memoria.
+  d) **Registro**: El operando está ubicado en uno de los registros del procesador, lo que permite un acceso extremadamente rápido. Este modo es muy eficiente, ya que evita los accesos a la memoria, pero está limitado por el número de registros disponibles.
+  e) **Registro Indirecto**: Similar al modo indirecto, pero en este caso la dirección del operando está almacenada en un registro. Esto combina la rapidez del acceso a registros con la flexibilidad del direccionamiento indirecto.
+  f) **Con Desplazamiento**: Este modo combina una dirección base con un valor de desplazamiento, lo que resulta muy útil para trabajar con estructuras de datos como arrays. Permite un acceso eficiente a elementos contiguos en memoria.
+  g) **Pila**: El operando se encuentra en la parte superior de la pila, y su dirección es calculada en base al puntero de la pila. Este modo es fundamental para la gestión de llamadas a subrutinas y el paso de parámetros en muchos lenguajes de programación.
+
+Estos modos se ilustran en la figura \@ref(fig:ModDir) según [@stallings_computer_2013]:
+```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento ", fig.align = 'center', out.width = "80%"}
+knitr::include_graphics(path = "images/modosdireccionamiento.png")
+```
+
+  - A = contenido de un campo de dirección en la instrucción
+  - R = contenido de un campo de dirección en la instrucción que referencia a un registro
+  - EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
+
+La tabla \@ref(tab:tabModDir) indica el cálculo de la dirección realizado para cada modo de direccionamiento.
+
+```{r tabModDir, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+# Crear los datos de la tabla
+tabModDir <- data.frame(
+  `Modo` = c("Inmediato", "Directo", "Indirecto", "Registro", "Indirecto con registro", "Con desplazamiento", "Pila"),
+  `Algoritmo` = c("Operando \u2190 A", "EA \u2190 A", "EA \u2190 (A)", "EA \u2190 R", "EA \u2190 (R)", "EA \u2190 A + (R)", "EA \u2190 cabecera de la pila"),
+  `Principal ventaja` = c("No referencia a memoria", "Es sencillo", "Espacio de direcciones grande", "No referencia a memoria", "Espacio de direcciones grande", "Flexibilidad", "No referencia a memoria"),
+  `Principal desventaja` = c("Operando de magnitud limitada", "Espacio de direcciones limitado", "Referencias múltiples a memoria", "Número limitado de registros", "Referencia extra a memoria", "Complejidad", "Aplicabilidad limitada")
+)
+
+kable(tabModDir, format = "markdown", caption = "Modos de direccionamiento básicos")
+```
+
+### Formato de las instrucciones
+El **formato de las instrucciones** establece cómo se estructuran las instrucciones que un procesador debe ejecutar, lo que incluye su longitud, la cantidad de operandos y los campos adicionales como el código de operación (**opcode**) [@hennessy_computer_2012 ; @tanenbaum_structured_2013]. Este formato no solo afecta la rapidez con la que las instrucciones pueden ser decodificadas, sino también el grado de flexibilidad del conjunto de instrucciones y el aprovechamiento de los recursos del procesador.
+
+- **Longitud de la instrucción**: Las instrucciones pueden tener una longitud fija o variable, y esta decisión afecta tanto al diseño como al rendimiento del procesador. Las instrucciones de longitud fija simplifican el proceso de decodificación, ya que todas tienen el mismo tamaño, lo que facilita el diseño del hardware. Sin embargo, esto puede resultar en un uso ineficiente de la memoria cuando se utilizan instrucciones más simples que no requieren tanto espacio. En contraste, las instrucciones de longitud variable permiten un uso más eficiente de la memoria, ya que el tamaño de cada instrucción puede ajustarse a las necesidades de la operación. No obstante, esta flexibilidad aumenta la complejidad en la decodificación, ya que el procesador debe determinar primero la longitud de la instrucción antes de ejecutarla.
+- **Cantidad de operandos**: Las instrucciones pueden trabajar con diferentes cantidades de operandos según la arquitectura del procesador, variando desde cero hasta tres o más. A mayor número de operandos, las instrucciones son más versátiles, permitiendo realizar operaciones más complejas en una única instrucción, lo que reduce el número total de instrucciones necesarias. Sin embargo, un mayor número de operandos también implica un aumento en la complejidad del procesador, ya que se necesitan más campos en la instrucción para especificar los operandos y más registros o direcciones de memoria para manejar los datos, lo cual puede incrementar la longitud de las instrucciones y el esfuerzo de decodificación.
+- **Campos de instrucción**: Entre los campos clave que componen una instrucción, el **opcode** es el más relevante, ya que especifica la operación que el procesador debe ejecutar, como suma, resta o saltos condicionales. Además, las instrucciones pueden incluir otros campos para indicar los operandos, los modos de direccionamiento, y en arquitecturas más avanzadas, flags de condición o características de optimización, como la predicción de saltos o la ejecución fuera de orden. La disposición y el tamaño de estos campos determinan cuántas y qué tipo de operaciones puede realizar el procesador en un ciclo de reloj, afectando directamente su rendimiento global. En arquitecturas más complejas, los campos adicionales permiten un mayor grado de optimización, mejorando el rendimiento en aplicaciones específicas, aunque a costa de un mayor esfuerzo en el diseño y la implementación del hardware.
+
+```{r formatoInst, echo=FALSE, fig.cap="Formato de instrucciones ", fig.align = 'center', out.width = "100%"}
+knitr::include_graphics(path = "images/formatoInst.jpg")
+```
+
+## Filosofías CISC y RISC
+Las arquitecturas de repertorio de instrucciones son componentes cruciales en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son **CISC (Complex Instruction Set Computing)** y **RISC (Reduced Instruction Set Computing)**. Mientras que **CISC** busca reducir el número de instrucciones necesarias para realizar tareas complejas mediante instrucciones multifuncionales, **RISC** simplifica el conjunto de instrucciones para maximizar la velocidad y la eficiencia energética. Esta sección explora estos dos enfoques y sus implicaciones en el diseño de procesadores [@hennessy_computer_2012; @patterson_computer_2014].
+
+### CISC
+Las arquitecturas **CISC**, como la **x86**, tienen como objetivo minimizar el número de instrucciones necesarias para llevar a cabo operaciones complejas. Esto se logra mediante la implementación de instrucciones que pueden realizar varias operaciones en un solo ciclo de instrucción, reduciendo así la cantidad de código que debe escribir un programador. Sin embargo, este enfoque conlleva un costo: la **decodificación** y **ejecución** de instrucciones CISC requieren hardware más complejo. Además, las instrucciones de longitud variable, comunes en CISC, pueden aumentar el tiempo de decodificación, generando cuellos de botella en el pipeline.
+
+Por ejemplo, los procesadores **x86** han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en ciertos contextos, aunque sigue siendo una arquitectura más costosa en términos de diseño y consumo energético [@patterson_computer_2014].
+
+
+### RISC {#RISC}
+Por otro lado, las arquitecturas **RISC**, como **ARM** y **MIPS**, se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite la ejecución de instrucciones en un solo ciclo de reloj. Esta simplicidad también facilita la implementación de técnicas avanzadas de **pipelining** y **predicción de ramas**, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC favorece la **optimización** y el uso eficiente de la energía, lo que resulta crucial en dispositivos móviles y embebidos [@hennessy_computer_2012].
+
+La filosofía de diseño RISC ha permitido que procesadores como **ARM** dominen el mercado de dispositivos móviles, donde la eficiencia energética es primordial. El enfoque de RISC en operaciones simples y repetitivas, con un bajo CPI (ciclos por instrucción), ha sido un factor clave en esta adopción [@hennessy_computer_2012].
+
+### Comparativa entre CISC y RISC
+En las arquitecturas **RISC**, todas las instrucciones tienen la misma longitud, lo que simplifica la decodificación y permite al procesador mantener un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo cual es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor **utilización de la memoria caché**, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.
+
+Por el contrario, las arquitecturas **CISC**, como **x86**, utilizan un **formato de longitud variable** para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una gama más amplia de operaciones con menos líneas de código. Sin embargo, esta flexibilidad tiene un costo: las instrucciones de longitud variable requieren más tiempo de decodificación y complican la implementación del pipeline, lo que puede afectar negativamente al rendimiento [@tanenbaum_structured_2013].
+
+Por ejemplo, en un procesador x86, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, especialmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque se pueden mitigar estos problemas mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.
+
+En arquitecturas RISC como ARM o MIPS, se priorizan los modos de direccionamiento simples, lo que permite un acceso más rápido a los operandos y reduce la latencia del pipeline [@stallings_computer_2013]. En contraste, los modos de direccionamiento en las arquitecturas CISC como x86, añaden flexibilidad a costa de un mayor tiempo de acceso, este impacto puede mitigarse parcialmente mediante el uso de cachés y técnicas de prefetching, pero sigue siendo un factor clave en el rendimiento general del sistema. 
+
+Un ejemplo de cada enfoque se muestra a continuación, con instrucciones para cargar dos valores de memoria, sumarlos y almacenar el resultado en una de las direcciones de memoria.
+
+RISC:
+
+```{r, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat('
+\\begin{lstlisting}
+; Carga el valor inmediato 10 en el registro R0
+LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
+LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
+ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
+STORE R3, [mem1]   # Guardar el resultado en mem1
+\\end{lstlisting}
+')
+} else {
+  cat('
+  ```assembly
+LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
+LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
+ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
+STORE R3, [mem1]   # Guardar el resultado en mem1
+  ```
+  ')
+}
+```
+
+CISC:
+
+```{r, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat('
+\\begin{lstlisting}
+MOV EAX, [mem1]    ; Cargar el valor de mem1 en el registro EAX
+ADD EAX, [mem2]    ; Sumar el valor de mem2 con EAX
+MOV [mem1], EAX    ; Guardar el resultado de la suma de vuelta en mem1
+\\end{lstlisting}
+')
+} else {
+  cat('
+  ```assembly
+MOV EAX, [mem1]    ; Cargar el valor de mem1 en el registro EAX
+ADD EAX, [mem2]    ; Sumar el valor de mem2 con EAX
+MOV [mem1], EAX    ; Guardar el resultado de la suma de vuelta en mem1
+  ```
+  ')
+}
+```
+
+La tabla \@ref(tab:comparativaciscrisc) muestra las aspectos principales que diferencian estos dos enfoques en el diseño del repqertorio de instrucciones.
+
+```{r comparativaciscrisc, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear un data frame con la información comparativa
+comparativaciscrisc <- data.frame(
+  Aspecto = c("Objetivo principal", "Tipo de instrucciones", "Decodificación y ejecución", "Longitud de instrucciones", "Eficiencia energética", "Modos de direccionamiento"),
+  CISC = c(
+    "Minimizar el número de instrucciones para operaciones complejas",
+    "Instrucciones complejas, longitud variable",
+    "Requiere hardware más complejo, posibles cuellos de botella en el pipeline",
+    "Longitud variable, puede aumentar el tiempo de decodificación",
+    "Menor eficiencia energética en comparación con RISC",
+    "Flexibilidad a costa de mayor latencia"
+  ),
+  RISC = c(
+    "Simplificar el conjunto de instrucciones para optimizar velocidad y eficiencia energética",
+    "Instrucciones simples, longitud fija",
+    "Decodificación más sencilla, facilita el uso de técnicas avanzadas como pipelining",
+    "Longitud fija, simplifica la decodificación y mejora la predictibilidad del rendimiento",
+    "Mayor eficiencia energética, especialmente en dispositivos móviles",
+    "Acceso más rápido a los operandos, menor latencia"
+  )
+)
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  kable(comparativaciscrisc, format = "latex", booktabs = TRUE, caption = "Comparativa entre CISC y RISC") %>%
+    kable_styling(latex_options = "scale_down") %>%
+    column_spec(1, width = "6cm") %>%  # Ajustar el ancho de la columna "Aspecto"
+    column_spec(2, width = "5cm") %>%  # Ajustar el ancho de la columna "CISC"
+    column_spec(3, width = "5cm") %>%  # Ajustar el ancho de la columna "RISC"
+    row_spec(1:6, extra_latex_after = "\\addlinespace[10pt]") # Agregar interlineado entre filas
+} else {
+  kable(comparativaciscrisc, format = "html", table.attr = "class='table table-striped'", caption = "Comparativa entre CISC y RISC") %>%
+    kable_styling(full_width = FALSE) %>%
+    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Aspecto"
+    column_spec(2, width = "15em") %>%  # Ajustar el ancho de la columna "CISC"
+    column_spec(3, width = "15em")      # Ajustar el ancho de la columna "RISC"
+}
+```
+
+La elección entre CISC y RISC, así como el diseño del formato de instrucciones y los modos de direccionamiento, afecta profundamente el rendimiento y la eficiencia de un procesador. Mientras que CISC ofrece flexibilidad y un repertorio de instrucciones amplio a costa de una mayor complejidad, RISC prioriza la simplicidad y la velocidad. A medida que las arquitecturas de procesadores evolucionan, se observa una convergencia de ambas filosofías, con arquitecturas modernas que integran características de ambos enfoques para maximizar el rendimiento y la eficiencia energética. Estos conceptos son fundamentales para entender el estado actual del diseño de procesadores y su evolución futura.
+
+## Arquitectura x86
+La arquitectura x86, una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores, comenzó su desarrollo en 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. La arquitectura x86 evolucionó significativamente con el Intel 80386 en 1985, marcando el inicio de la era de 32 bits. En 2003, AMD lanzó la arquitectura AMD64, extendiendo x86 a 64 bits, lo que permitió un mayor acceso a la memoria y un mejor rendimiento en aplicaciones intensivas. Intel adoptó estas innovaciones, consolidando la arquitectura x86 como una de las más versátiles y potentes del mercado [@stallings_computer_2013, @intel_64_2016; @amd_developer_2019; @abel_ibm_2000].
+
+### Evolución de la arquitectura x86
+La retrocompatibilidad de la arquitectura x86 ha sido un factor determinante en su éxito, permitiendo que aplicaciones de 16, 32 y 64 bits se ejecuten en el mismo sistema. Esta característica ha asegurado la continuidad y protección de las inversiones en software y sistemas operativos desarrollados para x86.
+
+La retrocompatibilidad de la arquitectura x86 ha sido un factor determinante en su éxito, permitiendo que aplicaciones de 16, 32 y 64 bits se ejecuten en el mismo sistema. Esta característica ha asegurado la continuidad y protección de las inversiones en software y sistemas operativos desarrollados para x86.
+
+```{r tabla-procesadores, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+procesadores <- data.frame(
+  Procesador = c("Intel 8086", "Intel 80386", "AMD64"),
+  `Año de Lanzamiento` = c(1978, 1985, 2003),
+  `Número de Bits` = c(16, 32, 64),
+  `Nuevas Características` = c("Arquitectura inicial", "Memoria virtual", "Extensiones de 64 bits")
+)
+
+kable(procesadores, format = "markdown", caption = "Hitos procesadores x86")
+```
+
+La evolución de la arquitectura x86 ha estado marcada por hitos importantes que han impulsado la informática hacia nuevas alturas. Tras el Intel 8086, el lanzamiento del Intel 80286 en 1982 introdujo modos de operación adicionales que mejoraron la eficiencia y el manejo de memoria. En 1989, el Intel 80486 incorporó una unidad de punto flotante integrada y una mejor caché, aumentando significativamente el rendimiento.
+
+La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles de rendimiento y eficiencia, con características avanzadas como la ejecución superescalar y la predicción de saltos. El Pentium Pro en 1995 mejoró la arquitectura con ejecución fuera de orden y una caché L2 integrada.
+
+En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, optimizando el rendimiento y la eficiencia energética. AMD también fue crucial con su serie Athlon y la introducción de AMD64, llevando la arquitectura x86 a 64 bits, permitiendo un mayor acceso a la memoria y mejorando el rendimiento en aplicaciones intensivas.
+
+La arquitectura x86 ha tenido un impacto profundo en el desarrollo de software. Los sistemas operativos populares como Windows y Linux están optimizados para x86, lo que ha influido en el desarrollo y la optimización de aplicaciones para esta arquitectura.
+
+  - **Influencia en el desarrollo de software**: Los desarrolladores de software han trabajado estrechamente con las características de la arquitectura x86 para optimizar el rendimiento de sus aplicaciones. Esto incluye el uso de instrucciones específicas de x86 y la optimización para cachés y pipelines.
+  - **Compatibilidad y soporte**: La compatibilidad hacia atrás de x86 ha permitido la continuidad de aplicaciones y sistemas operativos, protegiendo las inversiones en software y facilitando las actualizaciones.
+  - **Ecosistema de desarrollo**: Un amplio ecosistema de herramientas de desarrollo, bibliotecas y frameworks ha sido construido alrededor de la arquitectura x86, facilitando el desarrollo de aplicaciones de alto rendimiento y su depuración.
+
+```{r tabla-evolucion-x86, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+evolucion_x86 <- data.frame(
+  Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
+  Procesador = c("Intel 8086", "Intel 80286", "Intel 80386", "Intel 80486", "Intel Pentium", "Intel Pentium Pro", "AMD64", "Intel Core"), # nolint
+  `Innovación_Principal`  = c(
+    "Introducción de la arquitectura x86, 16 bits",
+    "Modos de operación adicionales",
+    "Arquitectura de 32 bits, memoria virtual",
+    "Unidad de punto flotante integrada, mejor caché",
+    "Ejecución superescalar, predicción de saltos",
+    "Ejecución fuera de orden, caché L2 integrada",
+    "Extensiones a 64 bits, mayor acceso a memoria",
+    "Optimización de rendimiento y eficiencia energética"
+  )
+)
+
+kable(evolucion_x86, format = "markdown", caption = "Línea de Tiempo de la Evolución de la Arquitectura x86")
+```
+
+###  Repertorio de instrucciones x86
+La arquitectura x86 se caracteriza por su notable **complejidad y flexibilidad**, reflejada en su extenso y variado repertorio de instrucciones. A diferencia de las arquitecturas RISC, que se distinguen por instrucciones de **longitud fija** y **decodificación sencilla**, el conjunto de instrucciones x86 es de **longitud variable**, lo que introduce una carga significativa en el proceso de decodificación [@hennessy_computer_2012]. Esta flexibilidad ha permitido que x86 evolucione y se adapte a una amplia gama de aplicaciones, desde dispositivos de bajo consumo hasta servidores de alto rendimiento. Sin embargo, también ha incrementado su **complejidad** tanto en términos de implementación como de eficiencia operativa.
+
+#### Estructura de una Instrucción x86
+Las instrucciones en la arquitectura x86 son más complejas debido a la variedad de componentes opcionales que pueden formar parte de ellas. Una instrucción típica puede estar compuesta por los siguientes elementos [@stallings_computer_2013]:
+
+  - **Prefijos**: Algunas instrucciones pueden incluir uno o más bytes de prefijo, que alteran la operación de la instrucción principal. Por ejemplo, el prefijo `0x66` se utiliza para cambiar el tamaño del operando de 32 bits a 16 bits. Aunque los prefijos proporcionan una gran flexibilidad, también añaden complejidad a la decodificación, ya que el procesador debe interpretarlos antes de ejecutar la instrucción [@patterson_computer_2014]. Esto contrasta con arquitecturas como MIPS o ARM, donde la longitud fija de las instrucciones simplifica la decodificación.
+  - **Código de Operación (Opcode)**: El **opcode** indica la operación que se va a realizar. En x86, el opcode `0x89` corresponde a la instrucción `MOV`, que mueve datos entre registros o entre un registro y la memoria. Debido a la vasta cantidad de instrucciones que soporta x86, el conjunto de opcodes es mucho más amplio en comparación con las arquitecturas RISC, que se enfocan en un conjunto más reducido y optimizado [@null_essentials_2014].
+  - **Modificadores de Dirección (ModR/M y SIB)**: Estos campos especifican los registros o las direcciones de memoria involucrados en la operación. El byte **ModR/M** es clave para definir qué registros participan en la instrucción, como `0xC1`, que indica el uso del registro `ECX`. El byte **SIB** (Scale, Index, Base) añade flexibilidad en el direccionamiento, permitiendo combinaciones complejas de registros y escalas de índices para acceso eficiente a memoria, algo particularmente útil en operaciones de matrices y estructuras de datos más complejas [@stallings_computer_2013].
+  - **Desplazamiento y/o Inmediato**: Dependiendo del tipo de instrucción, esta puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato como operando. Un desplazamiento de `0x10`, por ejemplo, representa un offset de 16 bytes desde la dirección base. La posibilidad de usar direccionamiento indirecto e inmediato incrementa la flexibilidad en el manejo de datos, aunque también añade complejidad a la ejecución [@tanenbaum_structured_2013].
+
+Una característica distintiva de x86 es la **variabilidad en la longitud de sus instrucciones**, que puede oscilar entre **1 y 15 bytes**. Esta variabilidad hace que la decodificación sea mucho más complicada que en arquitecturas como ARM o MIPS, donde las instrucciones tienen una longitud constante [@null_essentials_2014]. En x86, el procesador debe identificar y decodificar los múltiples componentes de la instrucción, lo cual requiere más recursos y etapas en el pipeline de procesamiento.
+
+
+```{r FormatoInst, echo=FALSE, fig.cap="Formato de instrucciones del Pentium x86", fig.align = 'center', out.width = "100%"}
+knitr::include_graphics(path = "images/formatoinstruccionx86.png")
+```
+
+Ejemplo de Instrucción x86:
+
+```{r, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat('
+\\begin{lstlisting}
+MOV AX, [BX+SI+16]  
+\\end{lstlisting}
+')
+} else {
+  cat('
+  ```assembly
+   MOV AX, [BX+SI+16] 
+  ```
+  ')
+}
+```
+
+En este caso, el opcode `MOV` se traduce a un byte específico, mientras que el uso de registros y desplazamientos se codifica mediante los bytes **ModR/M** y posiblemente **SIB**. Este ejemplo ilustra cómo una instrucción aparentemente compacta puede expandirse a múltiples bytes en memoria, y cómo el procesador debe descomponer estos bytes para ejecutar la operación correctamente. Este tipo de instrucciones, aunque versátiles, requieren de un pipeline avanzado y técnicas de optimización, como la paralelización y la predicción de saltos, para ser ejecutadas de manera eficiente en procesadores modernos [@patterson_computer_2014].
+
+## Lenguaje ensamblador
+Un procesador solo puede interpretar y ejecutar instrucciones en **lenguaje máquina**, que son secuencias de números binarios almacenados en la memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador quisiera escribir código en lenguaje máquina, tendría que especificar manualmente las secuencias de ceros y unos para cada operación, respetando las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso es extremadamente tedioso y altamente propenso a errores, especialmente al momento de modificar el código, ya que requeriría traducir nuevamente las secuencias binarias a instrucciones comprensibles [@irvine2011assembly].
+
+Para hacer este proceso más accesible, se desarrolló el **lenguaje ensamblador**, un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones más legibles mediante el uso de mnemónicos simbólicos. A diferencia del lenguaje máquina, que se basa en secuencias binarias, el ensamblador emplea símbolos que representan directamente las instrucciones que el procesador debe ejecutar. Cada arquitectura de procesador cuenta con su propio lenguaje ensamblador, generalmente definido por el fabricante del hardware y adaptado a la arquitectura específica del procesador [@stallings_computer_2013].
+
+### Ensamblador
+El ensamblador, como programa, es el encargado de traducir las instrucciones simbólicas (mnemónicos) escritas por los programadores a **lenguaje máquina**, es decir, a las secuencias de números binarios que el procesador puede interpretar y ejecutar. Esta traducción se realiza de manera casi directa, manteniendo una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina [@stallings_computer_2013]. A diferencia de los lenguajes de programación de alto nivel, como C o Python, donde cada línea de código generalmente se traduce en múltiples instrucciones máquina, el ensamblador ofrece una relación más cercana entre el código fuente y las instrucciones ejecutadas.
+
+#### Ensambladores x86
+El código fuente escrito en ensamblador debe ser procesado por un **ensamblador**, un programa que convierte el código simbólico en lenguaje máquina, permitiendo su ejecución por la computadora. En el contexto de la arquitectura **x86**, existen diversos ensambladores, como **TASM (Turbo Assembler)** [@tasm], **MASM (Microsoft Macro Assembler)** [@masm] y **NASM (Netwide Assembler)** [@nasm]. Cada uno de estos ensambladores tiene características y sintaxis particulares, pero todos comparten el objetivo de traducir el código ensamblador en secuencias binarias ejecutables por el procesador x86 [@hyde2010art].
+
+```{r ensambladores, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear un data frame con la información de los ensambladores
+ensambladores <- data.frame(
+  Característica = c(
+    "Desarrollador", "Año de lanzamiento", "Sistema operativo", 
+    "Sintaxis", "Soporte de macros", "Compatibilidad", 
+    "Capacidades adicionales", "Licencia", "Uso actual"
+  ),
+  TASM = c(
+    "Borland", "1985", "MS-DOS, Windows", 
+    "Sintaxis similar a Intel con extensiones", 
+    "Macros y directivas avanzadas", 
+    "Compatibilidad con x86 antiguo", 
+    "Integración con herramientas Borland", 
+    "Comercial", 
+    "Menos común, usado en entornos heredados"
+  ),
+  MASM = c(
+    "Microsoft", "1981", "MS-DOS, Windows", 
+    "Sintaxis de Intel con soporte avanzado", 
+    "Macros y directivas extensivas", 
+    "Compatibilidad con x86 antiguo", 
+    "Integración con Visual Studio", 
+    "Comercial", 
+    "Ampliamente usado en desarrollo Windows"
+  ),
+  NASM = c(
+    "Simon Tatham et al.", "1996", "Multiplataforma (Windows, Linux, macOS)", 
+    "Sintaxis de Intel, modular y extensible", 
+    "Macros avanzadas y preprocesamiento", 
+    "Compatibilidad con x86, x86-64 y otros", 
+    "Soporte para múltiples formatos (binario, ELF, etc.)", 
+    "Código abierto", 
+    "Popular en sistemas y software libre"
+  ),
+  stringsAsFactors = FALSE
+)
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  kable(ensambladores, format = "latex", booktabs = TRUE, caption = "Comparativa de Ensambladores x86") %>%
+    kable_styling(latex_options = "scale_down") %>%
+    column_spec(1, width = "6cm") %>%  # Ajustar el ancho de la columna "Característica"
+    column_spec(2:4, width = "5cm") %>%  # Ajustar el ancho de las columnas "TASM", "MASM", "NASM"
+    row_spec(0, bold = TRUE, background = "#D3D3D3")
+} else {
+  kable(ensambladores, format = "html", table.attr = "class='table table-striped'", caption = "Comparativa de Ensambladores x86") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Característica"
+    column_spec(2:4, width = "15em") %>%  # Ajustar el ancho de las columnas "TASM", "MASM", "NASM"
+    row_spec(0, bold = TRUE, background = "#D3D3D3")
+}
+```
+
+## Simulación
+La simulación es una herramienta esencial en una amplia variedad de campos, como la medicina, el ámbito militar, el entretenimiento y la educación. Su valor radica en su capacidad para **facilitar la comprensión** de sistemas complejos, generar hipótesis, realizar análisis predictivos y explorar escenarios de forma segura y eficiente.
+
+Banks [@banks_discrete-event_2010] define la simulación como el proceso de replicar el comportamiento de un sistema a lo largo del tiempo mediante un modelo conceptual que refleja sus características y dinámicas. A medida que este modelo simulado evoluciona, ofrece una representación detallada de cómo se desarrolla y responde el sistema real ante distintas variables [@banks_discrete-event_2010; @robinson_simulation_2014].
+
+La capacidad de replicar y analizar sistemas complejos sin la necesidad de intervenir directamente en ellos convierte a la simulación en una metodología indispensable para ingenieros, diseñadores y gerentes en el contexto digital actual. Permite evaluar el rendimiento de sistemas, prever su comportamiento en escenarios diversos y optimizar su diseño antes de implementarlos. Con los avances tecnológicos, la simulación ha ganado relevancia como una herramienta crucial, ya que la creciente complejidad de los sistemas informáticos no solo dificulta su comprensión, sino que también incrementa los costos de su desarrollo sin el apoyo de técnicas de simulación [@law_simulation_2015; @zeigler_theory_2000].
+
+### Aplicaciones de la Simulación en la Industria
+En la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Mediante el uso de modelos virtuales del automóvil y sus componentes, es posible realizar pruebas de colisión y evaluar el rendimiento de los sistemas de seguridad sin recurrir a costosas pruebas físicas. Además, permite optimizar el diseño de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales bajo condiciones extremas, lo que contribuye significativamente a la mejora de la eficiencia y seguridad del vehículo [@stork_towards_2008].
+
+En la aviación, la simulación se utiliza tanto para entrenar pilotos mediante simuladores de vuelo que replican condiciones reales sin riesgo, como para diseñar aeronaves. En el proceso de diseño, la simulación permite evaluar la aerodinámica y el rendimiento de nuevos modelos en diversas condiciones de vuelo, lo que agiliza el desarrollo y mejora la seguridad. Estos ejemplos subrayan cómo la simulación no solo reduce costos y tiempos de desarrollo, sino que también incrementa la seguridad en la creación de productos complejos [@jentsch_simulation_2017].
+
+## Simulación en la educación
+En el ámbito educativo, la simulación se ha convertido en una herramienta clave para la enseñanza de conceptos complejos y el fomento del aprendizaje activo. Mediante el uso de simuladores, los alumnos tienen la posibilidad de interactuar con sistemas virtuales y explorar escenarios realistas, lo que facilita no solo la comprensión de ideas abstractas, sino también la aplicación práctica de conocimientos teóricos en contextos significativos [@lion_simuladores_2005].
+
+A diferencia de los métodos tradicionales como pizarras, libros de texto y diapositivas, las herramientas de simulación permiten integrar nuevas tecnologías que vinculan conceptos abstractos con situaciones reales. Esta inmersión en entornos simulados promueve una metodología pedagógica más interactiva, que incentiva tanto la resolución de problemas como el desarrollo de habilidades mediante la exploración, la inferencia y el aprendizaje por descubrimiento [@contreras_uso_2010].
+
+En definitiva, la simulación no solo enriquece la comprensión de los alumnos, sino que también potencia su capacidad para experimentar y participar activamente en su proceso de aprendizaje, transformando así la enseñanza en una experiencia más dinámica y enriquecedora.
+
+### El rol de la simulación en la enseñanza de Arquitectura de Computadoras
+En la carrera de Licenciatura en Sistemas, la asignatura **Arquitectura de Computadoras** tiene varios objetivos clave:
+- Comprender la estructura y funcionamiento de las computadoras.
+- Conocer las diferentes arquitecturas de sistemas microprocesadores.
+- Evaluar medidas de rendimiento y comparar arquitecturas.
+- Analizar el impacto de la tecnología de las computadoras en contextos sociales y económicos.
+
+Enseñar los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un reto debido a la complejidad de los procesos involucrados. Los estudiantes deben desarrollar un alto nivel de abstracción para construir un modelo mental que capture los conceptos principales. Los simuladores facilitan esta tarea al proporcionar representaciones visuales e interactivas de procesos complejos, como el funcionamiento interno de los procesadores, la ejecución de instrucciones y la gestión de memoria. 
+
+Estas herramientas permiten a los alumnos experimentar con distintas configuraciones y parámetros, observar cómo afectan el rendimiento, y ofrecer a los docentes recursos efectivos para conectar teoría y práctica. Además, la simulación posibilita explorar escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin necesidad de hardware físico. En resumen, la simulación es una herramienta valiosa en la educación para mejorar la comprensión de los estudiantes, fomentar la experimentación y promover un aprendizaje activo [@skrien_cpu_2001; @garcia-garcia_pbbcache_2020; @nova_tool_2013].
+
+## El Formalismo DEVS (Discrete Event System Specification)
+DEVS es un formalismo modular y jerárquico para el modelado y análisis de sistemas que pueden ser representados como sistemas de eventos discretos, sistemas de estado continuo o sistemas híbridos. Este formalismo, desarrollado por Bernard P. Zeigler en los años 70, extiende el concepto de las máquinas de Moore al proporcionar una estructura para modelar sistemas complejos mediante la utilización de eventos cronometrados [@zeigler_theory_2000].
+
+El formalismo DEVS define el comportamiento de un sistema real utilizando eventos de entrada y salida, y transiciones entre estados concretos. Un sistema en DEVS está compuesto por modelos atómicos y acoplados. Los modelos atómicos representan las unidades básicas de comportamiento, mientras que los modelos acoplados consisten en combinaciones de modelos atómicos y/o otros modelos acoplados. Esta estructura jerárquica facilita la gestión y análisis de sistemas complejos, permitiendo la prueba de subsistemas de manera aislada antes de integrarlos en el sistema completo.
+
+### Aplicaciones del formalismo DEVS
+El formalismo DEVS se aplica a una amplia variedad de sistemas, desde redes de comunicación hasta procesos de manufactura. Por ejemplo, en el ámbito de las redes de comunicación, un modelo DEVS puede simular el enrutamiento de paquetes de datos y la gestión de congestiones en la red. En la manufactura, un modelo DEVS puede representar el flujo de materiales y el control de calidad en una línea de producción, ayudando a identificar cuellos de botella y optimizar los procesos. Estos ejemplos ilustran cómo DEVS puede ser utilizado para mejorar la eficiencia y la efectividad en diversos contextos.
+
+### DEVS Aplicado a la enseñanza de la Arquitectura de Computadoras
+El uso de un entorno de simulación basado en DEVS  para la enseñanza de la arquitectura de computadores ofrece a los estudiantes la posibilidad de:
+
+- **Representación Visual**: Ofrece una visualización clara de los procesos complejos, permitiendo a los estudiantes observar el funcionamiento interno de los sistemas computacionales.
+
+- **Interactividad**: Permite experimentar con diferentes configuraciones y parámetros, lo que ayuda a comprender el impacto de estas variables en el rendimiento del sistema.
+
+- **Exploración de Escenarios**: Facilita la simulación de escenarios hipotéticos y la evaluación del comportamiento de sistemas complejos sin necesidad de hardware físico.
+
+Estas características contribuyen a un aprendizaje activo y a la conexión entre teoría y práctica, promoviendo una comprensión más sólida de los conceptos de arquitectura de computadoras [@calvo_valdes_simulador_2010].
