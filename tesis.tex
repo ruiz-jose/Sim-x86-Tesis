@@ -223,6 +223,20 @@
    columns=flexible,
    keepspaces=true,
  }
+	\usepackage{booktabs}
+ \usepackage{longtable}
+ \usepackage{array}
+ \usepackage{multirow}
+ \usepackage{wrapfig}
+ \usepackage{float}
+ \usepackage{colortbl}
+ \usepackage{pdflscape}
+ \usepackage{tabu}
+ \usepackage{threeparttable}
+ \usepackage{threeparttablex}
+ \usepackage[normalem]{ulem}
+ \usepackage{makecell}
+ \usepackage{xcolor}
 % End of CII addition
 %%
 %% End Preamble
@@ -395,9 +409,1849 @@ El resto de este documento se estructura de la siguiente manera:
   Finalmente, en el Capítulo (\ref{desarrollo}), se describe el desarrollo de un simulador específico que se ajusta a los objetivos de enseñanza y aprendizaje de la arquitectura x86 en el contexto de la currícula. Este simulador está diseñado como una herramienta práctica y accesible para facilitar la comprensión de conceptos complejos en la asignatura.
 \end{itemize}
 
+\hypertarget{arquitectura}{%
+\chapter{Arquitectura}\label{arquitectura}}
+
+En este capítulo se abordarán los aspectos fundamentales de la arquitectura de computadoras y su evolución, así como las tecnologías y filosofías que han dado forma al desarrollo de sistemas modernos. Se presentarán las arquitecturas más relevantes, el repertorio de instrucciones, y las filosofías de diseño, como CISC y RISC. Además, se discutirá la arquitectura x86 y el lenguaje ensamblador.
+
+\hypertarget{arquitectura-de-computadoras}{%
+\section{Arquitectura de computadoras}\label{arquitectura-de-computadoras}}
+
+La arquitectura de computadoras abarca el diseño y la especificación de los componentes de un sistema informático que son visibles para el programador, como el conjunto de instrucciones, la organización de la memoria y los mecanismos de entrada/salida. Su principal objetivo es optimizar tanto el rendimiento como la eficiencia del sistema. Esta disciplina se extiende desde la interacción entre el hardware y el software hasta la integración de sistemas completos, siendo fundamental para el avance de tecnologías modernas y sostenibles {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+
+Comprender la arquitectura de una computadora implica tener un conocimiento profundo de atributos claves como el repertorio de instrucciones (por ejemplo, arquitecturas x86 o ARM), la capacidad de procesamiento (32 o 64 bits), los mecanismos de entrada/salida, las técnicas de direccionamiento de memoria (directo o segmentado) y la gestión de la jerarquía de memoria {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}. Además, aspectos como el paralelismo y la eficiencia energética son esenciales para mejorar el rendimiento de los sistemas, así como para optimizar el desarrollo de software y sistemas operativos modernos {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+
+Es esencial distinguir entre la \textbf{arquitectura de computadoras} y la \textbf{organización de computadoras}. Mientras que la arquitectura describe los componentes visibles al programador y las abstracciones necesarias para desarrollar software eficiente, la organización se refiere a la implementación física de esa arquitectura. Esto incluye cómo están dispuestos y coordinados los elementos del hardware, como la memoria, las señales de control y las unidades de procesamiento, para cumplir con los objetivos de rendimiento y funcionalidad {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}, {[}\protect\hyperlink{ref-murdocca_principles_2000}{25}{]}.
+
+El estudio de la arquitectura de computadoras no solo permite comprender el funcionamiento interno de los sistemas informáticos, sino que también facilita su adaptación y optimización para satisfacer las demandas de nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el Internet de las cosas. La arquitectura bien diseñada es el cimiento que permite a estas tecnologías alcanzar su máximo potencial, impulsando de manera significativa la innovación {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+
+Tener un conocimiento profundo de la arquitectura y la organización de los sistemas informáticos es vital para cualquier profesional en el campo de la informática. No solo habilita la creación de sistemas más eficientes y escalables, sino que también proporciona una base sólida para explorar áreas emergentes como la seguridad informática y los sistemas embebidos, sectores de creciente relevancia en la industria {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}. El dominio de la arquitectura de computadoras abre un amplio abanico de oportunidades profesionales, permitiendo a los expertos participar activamente en la evolución de la sociedad digital.
+
+En resumen, el estudio de la arquitectura de computadoras es crucial no solo para entender cómo funcionan internamente los sistemas informáticos y resolver problemas de rendimiento, sino también para diseñar soluciones innovadoras en áreas clave como la inteligencia artificial, la ciberseguridad y los sistemas embebidos. Este conocimiento es esencial para abordar los retos tecnológicos del futuro y acceder a un mercado laboral que valora la capacidad de crear y optimizar sistemas cada vez más poderosos y eficientes {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+
+\hypertarget{arquitecturas-von-neumann-y-harvard}{%
+\section{Arquitecturas Von Neumann y Harvard}\label{arquitecturas-von-neumann-y-harvard}}
+
+Para entender las arquitecturas modernas, es esencial conocer dos modelos históricos que han sentado las bases del diseño actual de sistemas informáticos: \textbf{Von Neumann} y \textbf{Harvard}. Estos paradigmas no solo forman el cimiento de muchas arquitecturas contemporáneas, sino que también ayudan a comprender sus diferencias, ventajas y limitaciones.
+
+\hypertarget{arquitectura-von-neumann}{%
+\subsection{Arquitectura Von Neumann}\label{arquitectura-von-neumann}}
+
+La \textbf{arquitectura Von Neumann}, propuesta por John von Neumann en 1945, se caracteriza por utilizar un único espacio de memoria para almacenar tanto los datos como las instrucciones, y un único bus para transferir ambos tipos de información. Esta simplicidad ha favorecido su adopción generalizada, pero también trae consigo una limitación importante: el \textbf{``cuello de botella de Von Neumann''}. Este fenómeno ocurre cuando el bus único se convierte en un factor restrictivo para la velocidad de procesamiento, especialmente en sistemas que requieren un acceso simultáneo a datos e instrucciones. Aunque esta arquitectura sigue siendo la base de muchas computadoras actuales, se han implementado optimizaciones y mejoras para mitigar sus limitaciones en los sistemas modernos {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/vonneumann} 
+
+}
+
+\caption{Arquitectura Von Neumann}\label{fig:vonneumann}
+\end{figure}
+
+\hypertarget{arquitectura-harvard}{%
+\subsection{Arquitectura Harvard}\label{arquitectura-harvard}}
+
+En contraste, la \textbf{arquitectura Harvard} separa físicamente las memorias de datos y de instrucciones, permitiendo que el procesador acceda a ambas de forma simultánea. Este diseño elimina el cuello de botella de Von Neumann, logrando un rendimiento más eficiente, lo que la convierte en una opción preferida para sistemas que requieren un alto desempeño, como los sistemas embebidos y los procesadores de señal digital (DSP). La arquitectura Harvard es especialmente adecuada para aplicaciones donde el acceso rápido y eficiente a los datos es crucial {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/harvard} 
+
+}
+
+\caption{Arquitectura Harvard}\label{fig:harvard}
+\end{figure}
+
+\hypertarget{comparaciuxf3n-y-aplicaciones-modernas}{%
+\subsection{Comparación y aplicaciones modernas}\label{comparaciuxf3n-y-aplicaciones-modernas}}
+
+Si bien la simplicidad y flexibilidad de la arquitectura Von Neumann continúan siendo ventajas importantes para una amplia gama de sistemas, la arquitectura Harvard ha ganado popularidad en escenarios donde la eficiencia y la velocidad son prioritarias, como en dispositivos móviles y sistemas de tiempo real. Hoy en día, arquitecturas modernas como \textbf{x86}, \textbf{ARM} y \textbf{RISC-V} implementan una combinación de ambos modelos para maximizar tanto el rendimiento como la eficiencia energética {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}.
+
+Esta integración de los enfoques de Von Neumann y Harvard permite a los diseñadores aprovechar las mejores características de cada uno, adaptando los sistemas según las necesidades específicas de la aplicación. La dicotomía entre ambas arquitecturas sigue siendo clave en la evolución de los sistemas modernos, donde el rendimiento y la eficiencia son factores críticos para el desarrollo de nuevas tecnologías.
+
+\hypertarget{tipos-de-arquitecturas}{%
+\section{Tipos de arquitecturas}\label{tipos-de-arquitecturas}}
+
+El análisis de diversas arquitecturas de computadoras es esencial para comprender sus respectivas ventajas y limitaciones en diferentes contextos de aplicación. Esta evaluación comparativa permite a los diseñadores y desarrolladores de sistemas seleccionar la arquitectura más adecuada para sus necesidades, considerando factores clave como la eficiencia energética, la complejidad del hardware y las aplicaciones específicas en las que se utilizará cada una.
+
+\hypertarget{arquitectura-x86}{%
+\subsection{Arquitectura x86}\label{arquitectura-x86}}
+
+La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, gracias a su capacidad para ofrecer un alto rendimiento y su amplia compatibilidad con software existente. La complejidad de su conjunto de instrucciones (ISA) permite una mayor flexibilidad, aunque a costa de una mayor complejidad en el diseño del hardware. Su eficiencia energética es moderada, lo que la hace menos ideal para dispositivos móviles y más apropiada para entornos donde el rendimiento es la prioridad principal {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
+
+\hypertarget{arquitectura-arm}{%
+\subsection{Arquitectura ARM}\label{arquitectura-arm}}
+
+La arquitectura ARM es conocida por su alta eficiencia energética, característica que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM se basa en el paradigma de conjunto de instrucciones reducidas (RISC), lo que simplifica el diseño del hardware y reduce el consumo energético, como se explica en la sección \ref{RISC}. Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es fundamental {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+
+\hypertarget{arquitectura-mips}{%
+\subsection{Arquitectura MIPS}\label{arquitectura-mips}}
+
+MIPS es otra arquitectura basada en RISC que ha sido ampliamente utilizada en sistemas embebidos y en la educación. Aunque ha perdido prominencia frente a otras arquitecturas como ARM, MIPS sigue siendo relevante en ciertos nichos debido a su simplicidad y efectividad. Su conjunto de instrucciones presenta una complejidad moderada, lo que permite un equilibrio entre rendimiento y consumo energético, aunque su adopción y soporte en la industria son más limitados {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
+
+\hypertarget{arquitectura-risc-v}{%
+\subsection{Arquitectura RISC-V}\label{arquitectura-risc-v}}
+
+RISC-V es una arquitectura emergente que ha atraído la atención global debido a su conjunto de instrucciones abierto y libre, lo que permite a desarrolladores y fabricantes adaptarla y personalizarla según sus necesidades. Al igual que ARM, RISC-V se basa en el paradigma RISC, lo que le otorga una alta eficiencia energética y una baja complejidad de hardware. Su flexibilidad la convierte en una opción atractiva para la investigación, la educación y aplicaciones embebidas. Además, RISC-V ofrece una compatibilidad creciente gracias a su adopción por parte de la comunidad global de desarrolladores {[}\protect\hyperlink{ref-waterman_risc-v_2014}{26}{]}.
+
+\hypertarget{compararativa-de-arquitecturas}{%
+\subsection{Compararativa de arquitecturas}\label{compararativa-de-arquitecturas}}
+
+Cada una de estas arquitecturas ofrece un conjunto de características distintivas que las hace más o menos adecuadas para diferentes aplicaciones. La elección de la arquitectura correcta puede tener un impacto significativo en el éxito de un proyecto, ya sea en términos de rendimiento, eficiencia energética o compatibilidad {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+
+\begin{longtable}[]{@{}lllll@{}}
+\caption{\label{tab:tabla-comparacion-cpu}Comparación de Arquitecturas}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.17\columnwidth}\raggedright
+Característica\strut
+\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright
+x86\strut
+\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright
+ARM\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright
+MIPS\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
+RISC.V\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.17\columnwidth}\raggedright
+Característica\strut
+\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright
+x86\strut
+\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright
+ARM\strut
+\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright
+MIPS\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
+RISC.V\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Eficiencia Energética\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Alta\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Alta\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Complejidad ISA\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Alta\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Baja\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Baja\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Rendimiento\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Alto\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Moderado\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Moderado\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Variable\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Compatibilidad\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Alta (hacia atrás)\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Moderada\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Alta\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.17\columnwidth}\raggedright
+Áreas de Aplicación\strut
+\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
+Escritorio, servidores\strut
+\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
+Dispositivos móviles\strut
+\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
+Sistemas embebidos\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Investigación, embebidos\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{repertorio-de-instrucciones}{%
+\section{Repertorio de instrucciones}\label{repertorio-de-instrucciones}}
+
+El repertorio de instrucciones, conocido como \textbf{ISA (Instruction Set Architecture)}, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA tiene un impacto considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}, {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}.
+
+Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Tipos de operandos}: Se refiere a los diversos tipos de datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres o direcciones de memoria. Es crucial diseñar un repertorio de instrucciones que soporte eficientemente diferentes tipos de operando.
+\item
+  \textbf{Tipos de operaciones}: Incluye las operaciones que el procesador puede realizar, como aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y operaciones de manipulación de datos (movimiento de datos, almacenamiento, carga).
+\item
+  \textbf{Formato de las instrucciones}: La estructura de una instrucción determina la longitud, el número de operandos y los modos de direccionamiento, lo que impacta directamente en la complejidad y eficiencia del procesador.
+\item
+  \textbf{Modos de direccionamiento}: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo, cada uno ofreciendo diferentes ventajas en términos de flexibilidad y eficiencia.
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/repInstCaracteristicas} 
+
+}
+
+\caption{Características repertorio de instrucciones}\label{fig:repInstCaracteristicas}
+\end{figure}
+
+\hypertarget{modos-de-direccionamiento}{%
+\subsection{Modos de direccionamiento}\label{modos-de-direccionamiento}}
+
+Los modos de direccionamiento son esenciales para especificar cómo la CPU accede a los datos necesarios para ejecutar una instrucción {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. Los modos más comunes incluyen:
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi})}
+\tightlist
+\item
+  \textbf{Inmediato}: El operando está directamente incluido en la instrucción, lo que permite un acceso rápido a valores constantes, generalmente pequeños. Este modo es eficiente para operaciones simples, pero está limitado a operandos de tamaño reducido.
+\item
+  \textbf{Directo}: La instrucción contiene la dirección de memoria del operando. Este modo es fácil de usar y entender, pero tiene la desventaja de que el rango de direcciones accesibles está limitado por el tamaño de la instrucción.
+\item
+  \textbf{Indirecto}: La instrucción apunta a una dirección que, a su vez, contiene la dirección real del operando. Este modo ofrece una mayor flexibilidad al ampliar el rango de direcciones, aunque introduce una penalización en tiempo debido al acceso adicional a la memoria.
+\item
+  \textbf{Registro}: El operando está ubicado en uno de los registros del procesador, lo que permite un acceso extremadamente rápido. Este modo es muy eficiente, ya que evita los accesos a la memoria, pero está limitado por el número de registros disponibles.
+\item
+  \textbf{Registro Indirecto}: Similar al modo indirecto, pero en este caso la dirección del operando está almacenada en un registro. Esto combina la rapidez del acceso a registros con la flexibilidad del direccionamiento indirecto.
+\item
+  \textbf{Con Desplazamiento}: Este modo combina una dirección base con un valor de desplazamiento, lo que resulta muy útil para trabajar con estructuras de datos como arrays. Permite un acceso eficiente a elementos contiguos en memoria.
+\item
+  \textbf{Pila}: El operando se encuentra en la parte superior de la pila, y su dirección es calculada en base al puntero de la pila. Este modo es fundamental para la gestión de llamadas a subrutinas y el paso de parámetros en muchos lenguajes de programación.
+\end{enumerate}
+
+Estos modos se ilustran en la figura \ref{fig:ModDir} según {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}:
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.8\linewidth]{images/modosdireccionamiento} 
+
+}
+
+\caption{Modos de direccionamiento }\label{fig:ModDir}
+\end{figure}
+
+\begin{itemize}
+\tightlist
+\item
+  A = contenido de un campo de dirección en la instrucción
+\item
+  R = contenido de un campo de dirección en la instrucción que referencia a un registro
+\item
+  EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
+\end{itemize}
+
+La tabla \ref{tab:tabModDir} indica el cálculo de la dirección realizado para cada modo de direccionamiento.
+
+\begin{longtable}[]{@{}llll@{}}
+\caption{\label{tab:tabModDir}Modos de direccionamiento básicos}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.19\columnwidth}\raggedright
+Modo\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
+Algoritmo\strut
+\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\raggedright
+Principal.ventaja\strut
+\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
+Principal.desventaja\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.19\columnwidth}\raggedright
+Modo\strut
+\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
+Algoritmo\strut
+\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\raggedright
+Principal.ventaja\strut
+\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
+Principal.desventaja\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Inmediato\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+Operando ← A\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+No referencia a memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Operando de magnitud limitada\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Directo\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← A\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+Es sencillo\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Espacio de direcciones limitado\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Indirecto\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← (A)\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+Espacio de direcciones grande\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Referencias múltiples a memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Registro\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← R\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+No referencia a memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Número limitado de registros\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Indirecto con registro\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← (R)\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+Espacio de direcciones grande\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Referencia extra a memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Con desplazamiento\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← A + (R)\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+Flexibilidad\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Complejidad\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\raggedright
+Pila\strut
+\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
+EA ← cabecera de la pila\strut
+\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
+No referencia a memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
+Aplicabilidad limitada\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{formato-de-las-instrucciones}{%
+\subsection{Formato de las instrucciones}\label{formato-de-las-instrucciones}}
+
+El \textbf{formato de las instrucciones} establece cómo se estructuran las instrucciones que un procesador debe ejecutar, lo que incluye su longitud, la cantidad de operandos y los campos adicionales como el código de operación (\textbf{opcode}) {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}. Este formato no solo afecta la rapidez con la que las instrucciones pueden ser decodificadas, sino también el grado de flexibilidad del conjunto de instrucciones y el aprovechamiento de los recursos del procesador.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Longitud de la instrucción}: Las instrucciones pueden tener una longitud fija o variable, y esta decisión afecta tanto al diseño como al rendimiento del procesador. Las instrucciones de longitud fija simplifican el proceso de decodificación, ya que todas tienen el mismo tamaño, lo que facilita el diseño del hardware. Sin embargo, esto puede resultar en un uso ineficiente de la memoria cuando se utilizan instrucciones más simples que no requieren tanto espacio. En contraste, las instrucciones de longitud variable permiten un uso más eficiente de la memoria, ya que el tamaño de cada instrucción puede ajustarse a las necesidades de la operación. No obstante, esta flexibilidad aumenta la complejidad en la decodificación, ya que el procesador debe determinar primero la longitud de la instrucción antes de ejecutarla.
+\item
+  \textbf{Cantidad de operandos}: Las instrucciones pueden trabajar con diferentes cantidades de operandos según la arquitectura del procesador, variando desde cero hasta tres o más. A mayor número de operandos, las instrucciones son más versátiles, permitiendo realizar operaciones más complejas en una única instrucción, lo que reduce el número total de instrucciones necesarias. Sin embargo, un mayor número de operandos también implica un aumento en la complejidad del procesador, ya que se necesitan más campos en la instrucción para especificar los operandos y más registros o direcciones de memoria para manejar los datos, lo cual puede incrementar la longitud de las instrucciones y el esfuerzo de decodificación.
+\item
+  \textbf{Campos de instrucción}: Entre los campos clave que componen una instrucción, el \textbf{opcode} es el más relevante, ya que especifica la operación que el procesador debe ejecutar, como suma, resta o saltos condicionales. Además, las instrucciones pueden incluir otros campos para indicar los operandos, los modos de direccionamiento, y en arquitecturas más avanzadas, flags de condición o características de optimización, como la predicción de saltos o la ejecución fuera de orden. La disposición y el tamaño de estos campos determinan cuántas y qué tipo de operaciones puede realizar el procesador en un ciclo de reloj, afectando directamente su rendimiento global. En arquitecturas más complejas, los campos adicionales permiten un mayor grado de optimización, mejorando el rendimiento en aplicaciones específicas, aunque a costa de un mayor esfuerzo en el diseño y la implementación del hardware.
+\end{itemize}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/formatoInst} 
+
+}
+
+\caption{Formato de instrucciones }\label{fig:formatoInst}
+\end{figure}
+
+\hypertarget{filosofuxedas-cisc-y-risc}{%
+\section{Filosofías CISC y RISC}\label{filosofuxedas-cisc-y-risc}}
+
+Las arquitecturas de repertorio de instrucciones son componentes cruciales en el diseño de procesadores. Dos de las filosofías de diseño más influyentes en este ámbito son \textbf{CISC (Complex Instruction Set Computing)} y \textbf{RISC (Reduced Instruction Set Computing)}. Mientras que \textbf{CISC} busca reducir el número de instrucciones necesarias para realizar tareas complejas mediante instrucciones multifuncionales, \textbf{RISC} simplifica el conjunto de instrucciones para maximizar la velocidad y la eficiencia energética. Esta sección explora estos dos enfoques y sus implicaciones en el diseño de procesadores {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+
+\hypertarget{cisc}{%
+\subsection{CISC}\label{cisc}}
+
+Las arquitecturas \textbf{CISC}, como la \textbf{x86}, tienen como objetivo minimizar el número de instrucciones necesarias para llevar a cabo operaciones complejas. Esto se logra mediante la implementación de instrucciones que pueden realizar varias operaciones en un solo ciclo de instrucción, reduciendo así la cantidad de código que debe escribir un programador. Sin embargo, este enfoque conlleva un costo: la \textbf{decodificación} y \textbf{ejecución} de instrucciones CISC requieren hardware más complejo. Además, las instrucciones de longitud variable, comunes en CISC, pueden aumentar el tiempo de decodificación, generando cuellos de botella en el pipeline.
+
+Por ejemplo, los procesadores \textbf{x86} han evolucionado hacia una arquitectura híbrida, utilizando microcódigo para descomponer las instrucciones CISC en operaciones más simples, similares a las de una arquitectura RISC. Esto mejora la eficiencia de ejecución en ciertos contextos, aunque sigue siendo una arquitectura más costosa en términos de diseño y consumo energético {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+
+\hypertarget{RISC}{%
+\subsection{RISC}\label{RISC}}
+
+Por otro lado, las arquitecturas \textbf{RISC}, como \textbf{ARM} y \textbf{MIPS}, se centran en un conjunto de instrucciones más reducido y de longitud fija, lo que simplifica la decodificación y permite la ejecución de instrucciones en un solo ciclo de reloj. Esta simplicidad también facilita la implementación de técnicas avanzadas de \textbf{pipelining} y \textbf{predicción de ramas}, mejorando el rendimiento en operaciones básicas. A nivel de hardware, RISC favorece la \textbf{optimización} y el uso eficiente de la energía, lo que resulta crucial en dispositivos móviles y embebidos {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
+
+La filosofía de diseño RISC ha permitido que procesadores como \textbf{ARM} dominen el mercado de dispositivos móviles, donde la eficiencia energética es primordial. El enfoque de RISC en operaciones simples y repetitivas, con un bajo CPI (ciclos por instrucción), ha sido un factor clave en esta adopción {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
+
+\hypertarget{comparativa-entre-cisc-y-risc}{%
+\subsection{Comparativa entre CISC y RISC}\label{comparativa-entre-cisc-y-risc}}
+
+En las arquitecturas \textbf{RISC}, todas las instrucciones tienen la misma longitud, lo que simplifica la decodificación y permite al procesador mantener un flujo continuo de instrucciones a través del pipeline. Este enfoque no solo reduce la latencia, sino que también mejora la predictibilidad del rendimiento, lo cual es esencial para arquitecturas altamente escalables y eficientes. Además, este formato simplificado permite una mejor \textbf{utilización de la memoria caché}, ya que las instrucciones ocupan menos espacio en la memoria y permiten un acceso más rápido.
+
+Por el contrario, las arquitecturas \textbf{CISC}, como \textbf{x86}, utilizan un \textbf{formato de longitud variable} para proporcionar flexibilidad en las instrucciones. Esto permite que las arquitecturas CISC ofrezcan una gama más amplia de operaciones con menos líneas de código. Sin embargo, esta flexibilidad tiene un costo: las instrucciones de longitud variable requieren más tiempo de decodificación y complican la implementación del pipeline, lo que puede afectar negativamente al rendimiento {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
+
+Por ejemplo, en un procesador x86, la decodificación de instrucciones de longitud variable puede ser un cuello de botella, especialmente cuando el pipeline se interrumpe debido a errores de predicción de ramas. Aunque se pueden mitigar estos problemas mediante técnicas avanzadas como la predicción dinámica de saltos y el prefetching, el impacto en el rendimiento sigue siendo significativo.
+
+En arquitecturas RISC como ARM o MIPS, se priorizan los modos de direccionamiento simples, lo que permite un acceso más rápido a los operandos y reduce la latencia del pipeline {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. En contraste, los modos de direccionamiento en las arquitecturas CISC como x86, añaden flexibilidad a costa de un mayor tiempo de acceso, este impacto puede mitigarse parcialmente mediante el uso de cachés y técnicas de prefetching, pero sigue siendo un factor clave en el rendimiento general del sistema.
+
+Un ejemplo de cada enfoque se muestra a continuación, con instrucciones para cargar dos valores de memoria, sumarlos y almacenar el resultado en una de las direcciones de memoria.
+
+RISC:
+
+\begin{lstlisting}
+; Carga el valor inmediato 10 en el registro R0
+LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
+LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
+ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
+STORE R3, [mem1]   # Guardar el resultado en mem1
+\end{lstlisting}
+
+CISC:
+
+\begin{lstlisting}
+MOV EAX, [mem1]    ; Cargar el valor de mem1 en el registro EAX
+ADD EAX, [mem2]    ; Sumar el valor de mem2 con EAX
+MOV [mem1], EAX    ; Guardar el resultado de la suma de vuelta en mem1
+\end{lstlisting}
+
+La tabla \ref{tab:comparativaciscrisc} muestra las aspectos principales que diferencian estos dos enfoques en el diseño del repqertorio de instrucciones.
+
+\begin{table}
+\centering
+\caption{\label{tab:comparativaciscrisc}Comparativa entre CISC y RISC}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\toprule
+Aspecto & CISC & RISC\\
+\midrule
+Objetivo principal & Minimizar el número de instrucciones para operaciones complejas & Simplificar el conjunto de instrucciones para optimizar velocidad y eficiencia energética\\
+\addlinespace[10pt]\\
+Tipo de instrucciones & Instrucciones complejas, longitud variable & Instrucciones simples, longitud fija\\
+\addlinespace[10pt]\\
+Decodificación y ejecución & Requiere hardware más complejo, posibles cuellos de botella en el pipeline & Decodificación más sencilla, facilita el uso de técnicas avanzadas como pipelining\\
+\addlinespace[10pt]\\
+Longitud de instrucciones & Longitud variable, puede aumentar el tiempo de decodificación & Longitud fija, simplifica la decodificación y mejora la predictibilidad del rendimiento\\
+\addlinespace[10pt]\\
+Eficiencia energética & Menor eficiencia energética en comparación con RISC & Mayor eficiencia energética, especialmente en dispositivos móviles\\
+\addlinespace[10pt]\\
+\addlinespace
+Modos de direccionamiento & Flexibilidad a costa de mayor latencia & Acceso más rápido a los operandos, menor latencia\\
+\addlinespace[10pt]\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+La elección entre CISC y RISC, así como el diseño del formato de instrucciones y los modos de direccionamiento, afecta profundamente el rendimiento y la eficiencia de un procesador. Mientras que CISC ofrece flexibilidad y un repertorio de instrucciones amplio a costa de una mayor complejidad, RISC prioriza la simplicidad y la velocidad. A medida que las arquitecturas de procesadores evolucionan, se observa una convergencia de ambas filosofías, con arquitecturas modernas que integran características de ambos enfoques para maximizar el rendimiento y la eficiencia energética. Estos conceptos son fundamentales para entender el estado actual del diseño de procesadores y su evolución futura.
+
+\hypertarget{arquitectura-x86-1}{%
+\section{Arquitectura x86}\label{arquitectura-x86-1}}
+
+La arquitectura x86, una de las más influyentes y ampliamente utilizadas en el ámbito de las computadoras de escritorio y servidores, comenzó su desarrollo en 1978 con el lanzamiento del procesador Intel 8086, que introdujo una arquitectura de 16 bits. La arquitectura x86 evolucionó significativamente con el Intel 80386 en 1985, marcando el inicio de la era de 32 bits. En 2003, AMD lanzó la arquitectura AMD64, extendiendo x86 a 64 bits, lo que permitió un mayor acceso a la memoria y un mejor rendimiento en aplicaciones intensivas. Intel adoptó estas innovaciones, consolidando la arquitectura x86 como una de las más versátiles y potentes del mercado {[}\protect\hyperlink{ref-stallings_computer_2013}{14}, p. @intel\_64\_2016{]}, {[}\protect\hyperlink{ref-amd_developer_2019}{16}{]}, {[}\protect\hyperlink{ref-abel_ibm_2000}{17}{]}.
+
+\hypertarget{evoluciuxf3n-de-la-arquitectura-x86}{%
+\subsection{Evolución de la arquitectura x86}\label{evoluciuxf3n-de-la-arquitectura-x86}}
+
+La retrocompatibilidad de la arquitectura x86 ha sido un factor determinante en su éxito, permitiendo que aplicaciones de 16, 32 y 64 bits se ejecuten en el mismo sistema. Esta característica ha asegurado la continuidad y protección de las inversiones en software y sistemas operativos desarrollados para x86.
+
+La retrocompatibilidad de la arquitectura x86 ha sido un factor determinante en su éxito, permitiendo que aplicaciones de 16, 32 y 64 bits se ejecuten en el mismo sistema. Esta característica ha asegurado la continuidad y protección de las inversiones en software y sistemas operativos desarrollados para x86.
+
+\begin{longtable}[]{@{}lrrl@{}}
+\caption{\label{tab:tabla-procesadores}Hitos procesadores x86}\tabularnewline
+\toprule
+Procesador & Año.de.Lanzamiento & Número.de.Bits & Nuevas.Características\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Procesador & Año.de.Lanzamiento & Número.de.Bits & Nuevas.Características\tabularnewline
+\midrule
+\endhead
+Intel 8086 & 1978 & 16 & Arquitectura inicial\tabularnewline
+Intel 80386 & 1985 & 32 & Memoria virtual\tabularnewline
+AMD64 & 2003 & 64 & Extensiones de 64 bits\tabularnewline
+\bottomrule
+\end{longtable}
+
+La evolución de la arquitectura x86 ha estado marcada por hitos importantes que han impulsado la informática hacia nuevas alturas. Tras el Intel 8086, el lanzamiento del Intel 80286 en 1982 introdujo modos de operación adicionales que mejoraron la eficiencia y el manejo de memoria. En 1989, el Intel 80486 incorporó una unidad de punto flotante integrada y una mejor caché, aumentando significativamente el rendimiento.
+
+La serie Pentium, iniciada en 1993, llevó la arquitectura x86 a nuevos niveles de rendimiento y eficiencia, con características avanzadas como la ejecución superescalar y la predicción de saltos. El Pentium Pro en 1995 mejoró la arquitectura con ejecución fuera de orden y una caché L2 integrada.
+
+En la década de 2000, la arquitectura x86 se adaptó a las demandas de la computación moderna con la introducción del Intel Core, optimizando el rendimiento y la eficiencia energética. AMD también fue crucial con su serie Athlon y la introducción de AMD64, llevando la arquitectura x86 a 64 bits, permitiendo un mayor acceso a la memoria y mejorando el rendimiento en aplicaciones intensivas.
+
+La arquitectura x86 ha tenido un impacto profundo en el desarrollo de software. Los sistemas operativos populares como Windows y Linux están optimizados para x86, lo que ha influido en el desarrollo y la optimización de aplicaciones para esta arquitectura.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Influencia en el desarrollo de software}: Los desarrolladores de software han trabajado estrechamente con las características de la arquitectura x86 para optimizar el rendimiento de sus aplicaciones. Esto incluye el uso de instrucciones específicas de x86 y la optimización para cachés y pipelines.
+\item
+  \textbf{Compatibilidad y soporte}: La compatibilidad hacia atrás de x86 ha permitido la continuidad de aplicaciones y sistemas operativos, protegiendo las inversiones en software y facilitando las actualizaciones.
+\item
+  \textbf{Ecosistema de desarrollo}: Un amplio ecosistema de herramientas de desarrollo, bibliotecas y frameworks ha sido construido alrededor de la arquitectura x86, facilitando el desarrollo de aplicaciones de alto rendimiento y su depuración.
+\end{itemize}
+
+\begin{longtable}[]{@{}rll@{}}
+\caption{\label{tab:tabla-evolucion-x86}Línea de Tiempo de la Evolución de la Arquitectura x86}\tabularnewline
+\toprule
+Año & Procesador & Innovación\_Principal\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Año & Procesador & Innovación\_Principal\tabularnewline
+\midrule
+\endhead
+1978 & Intel 8086 & Introducción de la arquitectura x86, 16 bits\tabularnewline
+1982 & Intel 80286 & Modos de operación adicionales\tabularnewline
+1985 & Intel 80386 & Arquitectura de 32 bits, memoria virtual\tabularnewline
+1989 & Intel 80486 & Unidad de punto flotante integrada, mejor caché\tabularnewline
+1993 & Intel Pentium & Ejecución superescalar, predicción de saltos\tabularnewline
+1995 & Intel Pentium Pro & Ejecución fuera de orden, caché L2 integrada\tabularnewline
+2003 & AMD64 & Extensiones a 64 bits, mayor acceso a memoria\tabularnewline
+2006 & Intel Core & Optimización de rendimiento y eficiencia energética\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{repertorio-de-instrucciones-x86}{%
+\subsection{Repertorio de instrucciones x86}\label{repertorio-de-instrucciones-x86}}
+
+La arquitectura x86 se caracteriza por su notable \textbf{complejidad y flexibilidad}, reflejada en su extenso y variado repertorio de instrucciones. A diferencia de las arquitecturas RISC, que se distinguen por instrucciones de \textbf{longitud fija} y \textbf{decodificación sencilla}, el conjunto de instrucciones x86 es de \textbf{longitud variable}, lo que introduce una carga significativa en el proceso de decodificación {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}. Esta flexibilidad ha permitido que x86 evolucione y se adapte a una amplia gama de aplicaciones, desde dispositivos de bajo consumo hasta servidores de alto rendimiento. Sin embargo, también ha incrementado su \textbf{complejidad} tanto en términos de implementación como de eficiencia operativa.
+
+\hypertarget{estructura-de-una-instrucciuxf3n-x86}{%
+\subsubsection{Estructura de una Instrucción x86}\label{estructura-de-una-instrucciuxf3n-x86}}
+
+Las instrucciones en la arquitectura x86 son más complejas debido a la variedad de componentes opcionales que pueden formar parte de ellas. Una instrucción típica puede estar compuesta por los siguientes elementos {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Prefijos}: Algunas instrucciones pueden incluir uno o más bytes de prefijo, que alteran la operación de la instrucción principal. Por ejemplo, el prefijo \texttt{0x66} se utiliza para cambiar el tamaño del operando de 32 bits a 16 bits. Aunque los prefijos proporcionan una gran flexibilidad, también añaden complejidad a la decodificación, ya que el procesador debe interpretarlos antes de ejecutar la instrucción {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}. Esto contrasta con arquitecturas como MIPS o ARM, donde la longitud fija de las instrucciones simplifica la decodificación.
+\item
+  \textbf{Código de Operación (Opcode)}: El \textbf{opcode} indica la operación que se va a realizar. En x86, el opcode \texttt{0x89} corresponde a la instrucción \texttt{MOV}, que mueve datos entre registros o entre un registro y la memoria. Debido a la vasta cantidad de instrucciones que soporta x86, el conjunto de opcodes es mucho más amplio en comparación con las arquitecturas RISC, que se enfocan en un conjunto más reducido y optimizado {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}.
+\item
+  \textbf{Modificadores de Dirección (ModR/M y SIB)}: Estos campos especifican los registros o las direcciones de memoria involucrados en la operación. El byte \textbf{ModR/M} es clave para definir qué registros participan en la instrucción, como \texttt{0xC1}, que indica el uso del registro \texttt{ECX}. El byte \textbf{SIB} (Scale, Index, Base) añade flexibilidad en el direccionamiento, permitiendo combinaciones complejas de registros y escalas de índices para acceso eficiente a memoria, algo particularmente útil en operaciones de matrices y estructuras de datos más complejas {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+\item
+  \textbf{Desplazamiento y/o Inmediato}: Dependiendo del tipo de instrucción, esta puede incluir un valor de desplazamiento para direccionamiento indirecto o un valor inmediato como operando. Un desplazamiento de \texttt{0x10}, por ejemplo, representa un offset de 16 bytes desde la dirección base. La posibilidad de usar direccionamiento indirecto e inmediato incrementa la flexibilidad en el manejo de datos, aunque también añade complejidad a la ejecución {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}.
+\end{itemize}
+
+Una característica distintiva de x86 es la \textbf{variabilidad en la longitud de sus instrucciones}, que puede oscilar entre \textbf{1 y 15 bytes}. Esta variabilidad hace que la decodificación sea mucho más complicada que en arquitecturas como ARM o MIPS, donde las instrucciones tienen una longitud constante {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}. En x86, el procesador debe identificar y decodificar los múltiples componentes de la instrucción, lo cual requiere más recursos y etapas en el pipeline de procesamiento.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/formatoinstruccionx86} 
+
+}
+
+\caption{Formato de instrucciones del Pentium x86}\label{fig:FormatoInst}
+\end{figure}
+
+Ejemplo de Instrucción x86:
+
+\begin{lstlisting}
+MOV AX, [BX+SI+16]  
+\end{lstlisting}
+
+En este caso, el opcode \texttt{MOV} se traduce a un byte específico, mientras que el uso de registros y desplazamientos se codifica mediante los bytes \textbf{ModR/M} y posiblemente \textbf{SIB}. Este ejemplo ilustra cómo una instrucción aparentemente compacta puede expandirse a múltiples bytes en memoria, y cómo el procesador debe descomponer estos bytes para ejecutar la operación correctamente. Este tipo de instrucciones, aunque versátiles, requieren de un pipeline avanzado y técnicas de optimización, como la paralelización y la predicción de saltos, para ser ejecutadas de manera eficiente en procesadores modernos {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+
+\hypertarget{lenguaje-ensamblador}{%
+\section{Lenguaje ensamblador}\label{lenguaje-ensamblador}}
+
+Un procesador solo puede interpretar y ejecutar instrucciones en \textbf{lenguaje máquina}, que son secuencias de números binarios almacenados en la memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador quisiera escribir código en lenguaje máquina, tendría que especificar manualmente las secuencias de ceros y unos para cada operación, respetando las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso es extremadamente tedioso y altamente propenso a errores, especialmente al momento de modificar el código, ya que requeriría traducir nuevamente las secuencias binarias a instrucciones comprensibles {[}\protect\hyperlink{ref-irvine2011assembly}{27}{]}.
+
+Para hacer este proceso más accesible, se desarrolló el \textbf{lenguaje ensamblador}, un lenguaje de programación de bajo nivel que permite a los programadores escribir instrucciones más legibles mediante el uso de mnemónicos simbólicos. A diferencia del lenguaje máquina, que se basa en secuencias binarias, el ensamblador emplea símbolos que representan directamente las instrucciones que el procesador debe ejecutar. Cada arquitectura de procesador cuenta con su propio lenguaje ensamblador, generalmente definido por el fabricante del hardware y adaptado a la arquitectura específica del procesador {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+
+\hypertarget{ensamblador}{%
+\subsection{Ensamblador}\label{ensamblador}}
+
+El ensamblador, como programa, es el encargado de traducir las instrucciones simbólicas (mnemónicos) escritas por los programadores a \textbf{lenguaje máquina}, es decir, a las secuencias de números binarios que el procesador puede interpretar y ejecutar. Esta traducción se realiza de manera casi directa, manteniendo una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. A diferencia de los lenguajes de programación de alto nivel, como C o Python, donde cada línea de código generalmente se traduce en múltiples instrucciones máquina, el ensamblador ofrece una relación más cercana entre el código fuente y las instrucciones ejecutadas.
+
+\hypertarget{ensambladores-x86}{%
+\subsubsection{Ensambladores x86}\label{ensambladores-x86}}
+
+El código fuente escrito en ensamblador debe ser procesado por un \textbf{ensamblador}, un programa que convierte el código simbólico en lenguaje máquina, permitiendo su ejecución por la computadora. En el contexto de la arquitectura \textbf{x86}, existen diversos ensambladores, como \textbf{TASM (Turbo Assembler)} {[}\protect\hyperlink{ref-tasm}{28}{]}, \textbf{MASM (Microsoft Macro Assembler)} {[}\protect\hyperlink{ref-masm}{29}{]} y \textbf{NASM (Netwide Assembler)} {[}\protect\hyperlink{ref-nasm}{30}{]}. Cada uno de estos ensambladores tiene características y sintaxis particulares, pero todos comparten el objetivo de traducir el código ensamblador en secuencias binarias ejecutables por el procesador x86 {[}\protect\hyperlink{ref-hyde2010art}{31}{]}.
+
+\begin{table}
+\centering
+\caption{\label{tab:ensambladores}Comparativa de Ensambladores x86}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\toprule
+\cellcolor[HTML]{D3D3D3}{\textbf{Característica}} & \cellcolor[HTML]{D3D3D3}{\textbf{TASM}} & \cellcolor[HTML]{D3D3D3}{\textbf{MASM}} & \cellcolor[HTML]{D3D3D3}{\textbf{NASM}}\\
+\midrule
+Desarrollador & Borland & Microsoft & Simon Tatham et al.\\
+Año de lanzamiento & 1985 & 1981 & 1996\\
+Sistema operativo & MS-DOS, Windows & MS-DOS, Windows & Multiplataforma (Windows, Linux, macOS)\\
+Sintaxis & Sintaxis similar a Intel con extensiones & Sintaxis de Intel con soporte avanzado & Sintaxis de Intel, modular y extensible\\
+Soporte de macros & Macros y directivas avanzadas & Macros y directivas extensivas & Macros avanzadas y preprocesamiento\\
+\addlinespace
+Compatibilidad & Compatibilidad con x86 antiguo & Compatibilidad con x86 antiguo & Compatibilidad con x86, x86-64 y otros\\
+Capacidades adicionales & Integración con herramientas Borland & Integración con Visual Studio & Soporte para múltiples formatos (binario, ELF, etc.)\\
+Licencia & Comercial & Comercial & Código abierto\\
+Uso actual & Menos común, usado en entornos heredados & Ampliamente usado en desarrollo Windows & Popular en sistemas y software libre\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\hypertarget{simulaciuxf3n}{%
+\section{Simulación}\label{simulaciuxf3n}}
+
+La simulación es una herramienta esencial en una amplia variedad de campos, como la medicina, el ámbito militar, el entretenimiento y la educación. Su valor radica en su capacidad para \textbf{facilitar la comprensión} de sistemas complejos, generar hipótesis, realizar análisis predictivos y explorar escenarios de forma segura y eficiente.
+
+Banks {[}\protect\hyperlink{ref-banks_discrete-event_2010}{2}{]} define la simulación como el proceso de replicar el comportamiento de un sistema a lo largo del tiempo mediante un modelo conceptual que refleja sus características y dinámicas. A medida que este modelo simulado evoluciona, ofrece una representación detallada de cómo se desarrolla y responde el sistema real ante distintas variables {[}\protect\hyperlink{ref-banks_discrete-event_2010}{2}{]}, {[}\protect\hyperlink{ref-robinson_simulation_2014}{4}{]}.
+
+La capacidad de replicar y analizar sistemas complejos sin la necesidad de intervenir directamente en ellos convierte a la simulación en una metodología indispensable para ingenieros, diseñadores y gerentes en el contexto digital actual. Permite evaluar el rendimiento de sistemas, prever su comportamiento en escenarios diversos y optimizar su diseño antes de implementarlos. Con los avances tecnológicos, la simulación ha ganado relevancia como una herramienta crucial, ya que la creciente complejidad de los sistemas informáticos no solo dificulta su comprensión, sino que también incrementa los costos de su desarrollo sin el apoyo de técnicas de simulación {[}\protect\hyperlink{ref-law_simulation_2015}{3}{]}, {[}\protect\hyperlink{ref-zeigler_theory_2000}{20}{]}.
+
+\hypertarget{aplicaciones-de-la-simulaciuxf3n-en-la-industria}{%
+\subsection{Aplicaciones de la Simulación en la Industria}\label{aplicaciones-de-la-simulaciuxf3n-en-la-industria}}
+
+En la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Mediante el uso de modelos virtuales del automóvil y sus componentes, es posible realizar pruebas de colisión y evaluar el rendimiento de los sistemas de seguridad sin recurrir a costosas pruebas físicas. Además, permite optimizar el diseño de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales bajo condiciones extremas, lo que contribuye significativamente a la mejora de la eficiencia y seguridad del vehículo {[}\protect\hyperlink{ref-stork_towards_2008}{32}{]}.
+
+En la aviación, la simulación se utiliza tanto para entrenar pilotos mediante simuladores de vuelo que replican condiciones reales sin riesgo, como para diseñar aeronaves. En el proceso de diseño, la simulación permite evaluar la aerodinámica y el rendimiento de nuevos modelos en diversas condiciones de vuelo, lo que agiliza el desarrollo y mejora la seguridad. Estos ejemplos subrayan cómo la simulación no solo reduce costos y tiempos de desarrollo, sino que también incrementa la seguridad en la creación de productos complejos {[}\protect\hyperlink{ref-jentsch_simulation_2017}{33}{]}.
+
+\hypertarget{simulaciuxf3n-en-la-educaciuxf3n}{%
+\section{Simulación en la educación}\label{simulaciuxf3n-en-la-educaciuxf3n}}
+
+En el ámbito educativo, la simulación se ha convertido en una herramienta clave para la enseñanza de conceptos complejos y el fomento del aprendizaje activo. Mediante el uso de simuladores, los alumnos tienen la posibilidad de interactuar con sistemas virtuales y explorar escenarios realistas, lo que facilita no solo la comprensión de ideas abstractas, sino también la aplicación práctica de conocimientos teóricos en contextos significativos {[}\protect\hyperlink{ref-lion_simuladores_2005}{5}{]}.
+
+A diferencia de los métodos tradicionales como pizarras, libros de texto y diapositivas, las herramientas de simulación permiten integrar nuevas tecnologías que vinculan conceptos abstractos con situaciones reales. Esta inmersión en entornos simulados promueve una metodología pedagógica más interactiva, que incentiva tanto la resolución de problemas como el desarrollo de habilidades mediante la exploración, la inferencia y el aprendizaje por descubrimiento {[}\protect\hyperlink{ref-contreras_uso_2010}{6}{]}.
+
+En definitiva, la simulación no solo enriquece la comprensión de los alumnos, sino que también potencia su capacidad para experimentar y participar activamente en su proceso de aprendizaje, transformando así la enseñanza en una experiencia más dinámica y enriquecedora.
+
+\hypertarget{el-rol-de-la-simulaciuxf3n-en-la-enseuxf1anza-de-arquitectura-de-computadoras}{%
+\subsection{El rol de la simulación en la enseñanza de Arquitectura de Computadoras}\label{el-rol-de-la-simulaciuxf3n-en-la-enseuxf1anza-de-arquitectura-de-computadoras}}
+
+En la carrera de Licenciatura en Sistemas, la asignatura \textbf{Arquitectura de Computadoras} tiene varios objetivos clave:
+- Comprender la estructura y funcionamiento de las computadoras.
+- Conocer las diferentes arquitecturas de sistemas microprocesadores.
+- Evaluar medidas de rendimiento y comparar arquitecturas.
+- Analizar el impacto de la tecnología de las computadoras en contextos sociales y económicos.
+
+Enseñar los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un reto debido a la complejidad de los procesos involucrados. Los estudiantes deben desarrollar un alto nivel de abstracción para construir un modelo mental que capture los conceptos principales. Los simuladores facilitan esta tarea al proporcionar representaciones visuales e interactivas de procesos complejos, como el funcionamiento interno de los procesadores, la ejecución de instrucciones y la gestión de memoria.
+
+Estas herramientas permiten a los alumnos experimentar con distintas configuraciones y parámetros, observar cómo afectan el rendimiento, y ofrecer a los docentes recursos efectivos para conectar teoría y práctica. Además, la simulación posibilita explorar escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin necesidad de hardware físico. En resumen, la simulación es una herramienta valiosa en la educación para mejorar la comprensión de los estudiantes, fomentar la experimentación y promover un aprendizaje activo {[}\protect\hyperlink{ref-garcia-garcia_pbbcache_2020}{7}{]}, {[}\protect\hyperlink{ref-nova_tool_2013}{8}{]}, {[}\protect\hyperlink{ref-skrien_cpu_2001}{18}{]}.
+
+\hypertarget{el-formalismo-devs-discrete-event-system-specification}{%
+\section{El Formalismo DEVS (Discrete Event System Specification)}\label{el-formalismo-devs-discrete-event-system-specification}}
+
+DEVS es un formalismo modular y jerárquico para el modelado y análisis de sistemas que pueden ser representados como sistemas de eventos discretos, sistemas de estado continuo o sistemas híbridos. Este formalismo, desarrollado por Bernard P. Zeigler en los años 70, extiende el concepto de las máquinas de Moore al proporcionar una estructura para modelar sistemas complejos mediante la utilización de eventos cronometrados {[}\protect\hyperlink{ref-zeigler_theory_2000}{20}{]}.
+
+El formalismo DEVS define el comportamiento de un sistema real utilizando eventos de entrada y salida, y transiciones entre estados concretos. Un sistema en DEVS está compuesto por modelos atómicos y acoplados. Los modelos atómicos representan las unidades básicas de comportamiento, mientras que los modelos acoplados consisten en combinaciones de modelos atómicos y/o otros modelos acoplados. Esta estructura jerárquica facilita la gestión y análisis de sistemas complejos, permitiendo la prueba de subsistemas de manera aislada antes de integrarlos en el sistema completo.
+
+\hypertarget{aplicaciones-del-formalismo-devs}{%
+\subsection{Aplicaciones del formalismo DEVS}\label{aplicaciones-del-formalismo-devs}}
+
+El formalismo DEVS se aplica a una amplia variedad de sistemas, desde redes de comunicación hasta procesos de manufactura. Por ejemplo, en el ámbito de las redes de comunicación, un modelo DEVS puede simular el enrutamiento de paquetes de datos y la gestión de congestiones en la red. En la manufactura, un modelo DEVS puede representar el flujo de materiales y el control de calidad en una línea de producción, ayudando a identificar cuellos de botella y optimizar los procesos. Estos ejemplos ilustran cómo DEVS puede ser utilizado para mejorar la eficiencia y la efectividad en diversos contextos.
+
+\hypertarget{devs-aplicado-a-la-enseuxf1anza-de-la-arquitectura-de-computadoras}{%
+\subsection{DEVS Aplicado a la enseñanza de la Arquitectura de Computadoras}\label{devs-aplicado-a-la-enseuxf1anza-de-la-arquitectura-de-computadoras}}
+
+El uso de un entorno de simulación basado en DEVS para la enseñanza de la arquitectura de computadores ofrece a los estudiantes la posibilidad de:
+
+\begin{itemize}
+\item
+  \textbf{Representación Visual}: Ofrece una visualización clara de los procesos complejos, permitiendo a los estudiantes observar el funcionamiento interno de los sistemas computacionales.
+\item
+  \textbf{Interactividad}: Permite experimentar con diferentes configuraciones y parámetros, lo que ayuda a comprender el impacto de estas variables en el rendimiento del sistema.
+\item
+  \textbf{Exploración de Escenarios}: Facilita la simulación de escenarios hipotéticos y la evaluación del comportamiento de sistemas complejos sin necesidad de hardware físico.
+\end{itemize}
+
+Estas características contribuyen a un aprendizaje activo y a la conexión entre teoría y práctica, promoviendo una comprensión más sólida de los conceptos de arquitectura de computadoras {[}\protect\hyperlink{ref-calvo_valdes_simulador_2010}{34}{]}.
+
+\hypertarget{simulacion}{%
+\chapter{Simulación}\label{simulacion}}
+
+En este capítulo se explora el papel de la simulación desde una perspectiva didáctica, enfatizando su valor como herramienta de apoyo en la enseñanza de Arquitectura de Computadoras. Aquí se revisan los beneficios de los simuladores en la enseñanza y los desafíos que ayudan a resolver en la formación de los estudiantes.
+
+\hypertarget{simulaciuxf3n-1}{%
+\section{Simulación}\label{simulaciuxf3n-1}}
+
+La simulación es una herramienta esencial en una amplia variedad de campos, como la medicina, el ámbito militar, el entretenimiento y la educación. Su valor radica en su capacidad para \textbf{facilitar la comprensión} de sistemas complejos, generar hipótesis, realizar análisis predictivos y explorar escenarios de forma segura y eficiente.
+
+Banks {[}\protect\hyperlink{ref-banks_discrete-event_2010}{2}{]} define la simulación como el proceso de replicar el comportamiento de un sistema a lo largo del tiempo mediante un modelo conceptual que refleja sus características y dinámicas. A medida que este modelo simulado evoluciona, ofrece una representación detallada de cómo se desarrolla y responde el sistema real ante distintas variables {[}\protect\hyperlink{ref-banks_discrete-event_2010}{2}{]}, {[}\protect\hyperlink{ref-robinson_simulation_2014}{4}{]}.
+
+La capacidad de replicar y analizar sistemas complejos sin la necesidad de intervenir directamente en ellos convierte a la simulación en una metodología indispensable para ingenieros, diseñadores y gerentes en el contexto digital actual. Permite evaluar el rendimiento de sistemas, prever su comportamiento en escenarios diversos y optimizar su diseño antes de implementarlos. Con los avances tecnológicos, la simulación ha ganado relevancia como una herramienta crucial, ya que la creciente complejidad de los sistemas informáticos no solo dificulta su comprensión, sino que también incrementa los costos de su desarrollo sin el apoyo de técnicas de simulación {[}\protect\hyperlink{ref-law_simulation_2015}{3}{]}, {[}\protect\hyperlink{ref-zeigler_theory_2000}{20}{]}.
+
+\hypertarget{aplicaciones-de-la-simulaciuxf3n-en-la-industria-1}{%
+\subsection{Aplicaciones de la Simulación en la Industria}\label{aplicaciones-de-la-simulaciuxf3n-en-la-industria-1}}
+
+En la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Mediante el uso de modelos virtuales del automóvil y sus componentes, es posible realizar pruebas de colisión y evaluar el rendimiento de los sistemas de seguridad sin recurrir a costosas pruebas físicas. Además, permite optimizar el diseño de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales bajo condiciones extremas, lo que contribuye significativamente a la mejora de la eficiencia y seguridad del vehículo {[}\protect\hyperlink{ref-stork_towards_2008}{32}{]}.
+
+En la aviación, la simulación se utiliza tanto para entrenar pilotos mediante simuladores de vuelo que replican condiciones reales sin riesgo, como para diseñar aeronaves. En el proceso de diseño, la simulación permite evaluar la aerodinámica y el rendimiento de nuevos modelos en diversas condiciones de vuelo, lo que agiliza el desarrollo y mejora la seguridad. Estos ejemplos subrayan cómo la simulación no solo reduce costos y tiempos de desarrollo, sino que también incrementa la seguridad en la creación de productos complejos {[}\protect\hyperlink{ref-jentsch_simulation_2017}{33}{]}.
+
+\hypertarget{simulaciuxf3n-en-la-educaciuxf3n-1}{%
+\section{Simulación en la educación}\label{simulaciuxf3n-en-la-educaciuxf3n-1}}
+
+En el ámbito educativo, la simulación se ha convertido en una herramienta clave para la enseñanza de conceptos complejos y el fomento del aprendizaje activo. Mediante el uso de simuladores, los alumnos tienen la posibilidad de interactuar con sistemas virtuales y explorar escenarios realistas, lo que facilita no solo la comprensión de ideas abstractas, sino también la aplicación práctica de conocimientos teóricos en contextos significativos {[}\protect\hyperlink{ref-lion_simuladores_2005}{5}{]}.
+
+A diferencia de los métodos tradicionales como pizarras, libros de texto y diapositivas, las herramientas de simulación permiten integrar nuevas tecnologías que vinculan conceptos abstractos con situaciones reales. Esta inmersión en entornos simulados promueve una metodología pedagógica más interactiva, que incentiva tanto la resolución de problemas como el desarrollo de habilidades mediante la exploración, la inferencia y el aprendizaje por descubrimiento {[}\protect\hyperlink{ref-contreras_uso_2010}{6}{]}.
+
+En definitiva, la simulación no solo enriquece la comprensión de los alumnos, sino que también potencia su capacidad para experimentar y participar activamente en su proceso de aprendizaje, transformando así la enseñanza en una experiencia más dinámica y enriquecedora.
+
+\hypertarget{el-rol-de-la-simulaciuxf3n-en-la-enseuxf1anza-de-arquitectura-de-computadoras-1}{%
+\subsection{El rol de la simulación en la enseñanza de Arquitectura de Computadoras}\label{el-rol-de-la-simulaciuxf3n-en-la-enseuxf1anza-de-arquitectura-de-computadoras-1}}
+
+En la carrera de Licenciatura en Sistemas, la asignatura \textbf{Arquitectura de Computadoras} tiene varios objetivos clave:
+- Comprender la estructura y funcionamiento de las computadoras.
+- Conocer las diferentes arquitecturas de sistemas microprocesadores.
+- Evaluar medidas de rendimiento y comparar arquitecturas.
+- Analizar el impacto de la tecnología de las computadoras en contextos sociales y económicos.
+
+Enseñar los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un reto debido a la complejidad de los procesos involucrados. Los estudiantes deben desarrollar un alto nivel de abstracción para construir un modelo mental que capture los conceptos principales. Los simuladores facilitan esta tarea al proporcionar representaciones visuales e interactivas de procesos complejos, como el funcionamiento interno de los procesadores, la ejecución de instrucciones y la gestión de memoria.
+
+Estas herramientas permiten a los alumnos experimentar con distintas configuraciones y parámetros, observar cómo afectan el rendimiento, y ofrecer a los docentes recursos efectivos para conectar teoría y práctica. Además, la simulación posibilita explorar escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin necesidad de hardware físico. En resumen, la simulación es una herramienta valiosa en la educación para mejorar la comprensión de los estudiantes, fomentar la experimentación y promover un aprendizaje activo {[}\protect\hyperlink{ref-garcia-garcia_pbbcache_2020}{7}{]}, {[}\protect\hyperlink{ref-nova_tool_2013}{8}{]}, {[}\protect\hyperlink{ref-skrien_cpu_2001}{18}{]}.
+
+\hypertarget{el-formalismo-devs-discrete-event-system-specification-1}{%
+\section{El Formalismo DEVS (Discrete Event System Specification)}\label{el-formalismo-devs-discrete-event-system-specification-1}}
+
+DEVS es un formalismo modular y jerárquico para el modelado y análisis de sistemas que pueden ser representados como sistemas de eventos discretos, sistemas de estado continuo o sistemas híbridos. Este formalismo, desarrollado por Bernard P. Zeigler en los años 70, extiende el concepto de las máquinas de Moore al proporcionar una estructura para modelar sistemas complejos mediante la utilización de eventos cronometrados {[}\protect\hyperlink{ref-zeigler_theory_2000}{20}{]}.
+
+El formalismo DEVS define el comportamiento de un sistema real utilizando eventos de entrada y salida, y transiciones entre estados concretos. Un sistema en DEVS está compuesto por modelos atómicos y acoplados. Los modelos atómicos representan las unidades básicas de comportamiento, mientras que los modelos acoplados consisten en combinaciones de modelos atómicos y/o otros modelos acoplados. Esta estructura jerárquica facilita la gestión y análisis de sistemas complejos, permitiendo la prueba de subsistemas de manera aislada antes de integrarlos en el sistema completo.
+
+\hypertarget{aplicaciones-del-formalismo-devs-1}{%
+\subsection{Aplicaciones del formalismo DEVS}\label{aplicaciones-del-formalismo-devs-1}}
+
+El formalismo DEVS se aplica a una amplia variedad de sistemas, desde redes de comunicación hasta procesos de manufactura. Por ejemplo, en el ámbito de las redes de comunicación, un modelo DEVS puede simular el enrutamiento de paquetes de datos y la gestión de congestiones en la red. En la manufactura, un modelo DEVS puede representar el flujo de materiales y el control de calidad en una línea de producción, ayudando a identificar cuellos de botella y optimizar los procesos. Estos ejemplos ilustran cómo DEVS puede ser utilizado para mejorar la eficiencia y la efectividad en diversos contextos.
+
+\hypertarget{devs-aplicado-a-la-enseuxf1anza-de-la-arquitectura-de-computadoras-1}{%
+\subsection{DEVS Aplicado a la enseñanza de la Arquitectura de Computadoras}\label{devs-aplicado-a-la-enseuxf1anza-de-la-arquitectura-de-computadoras-1}}
+
+El uso de un entorno de simulación basado en DEVS para la enseñanza de la arquitectura de computadores ofrece a los estudiantes la posibilidad de:
+
+\begin{itemize}
+\item
+  \textbf{Representación Visual}: Ofrece una visualización clara de los procesos complejos, permitiendo a los estudiantes observar el funcionamiento interno de los sistemas computacionales.
+\item
+  \textbf{Interactividad}: Permite experimentar con diferentes configuraciones y parámetros, lo que ayuda a comprender el impacto de estas variables en el rendimiento del sistema.
+\item
+  \textbf{Exploración de Escenarios}: Facilita la simulación de escenarios hipotéticos y la evaluación del comportamiento de sistemas complejos sin necesidad de hardware físico.
+\end{itemize}
+
+Estas características contribuyen a un aprendizaje activo y a la conexión entre teoría y práctica, promoviendo una comprensión más sólida de los conceptos de arquitectura de computadoras {[}\protect\hyperlink{ref-calvo_valdes_simulador_2010}{34}{]}.
+
+\hypertarget{comparativa}{%
+\chapter{Comparativa de simuladores}\label{comparativa}}
+
+En este capítulo, se analizan y comparan varios simuladores x86 que podrían integrarse en la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas.
+
+La selección y evaluación de estos simuladores se ha basado en criterios específicos diseñados para medir su efectividad en un entorno educativo, con el objetivo de identificar las herramientas que mejor apoyen el proceso de enseñanza y aprendizaje. Los criterios de evaluación incluyen aspectos como usabilidad, editor de código, documentación, ejecución de simulación, nivel de especificación de la arquitectura x86, características del producto y cobertura de los contenidos curriculares.
+
+Los resultados de esta comparativa se publicaron en el XVII Congreso de Tecnología en Educación y Educación en Tecnología en 2022, bajo el título `Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86' {[}\protect\hyperlink{ref-colombani_herramientas_2022}{35}{]}.
+
+\hypertarget{estudios-similares}{%
+\section{Estudios similares}\label{estudios-similares}}
+
+Cabe destacar que existen antecedentes de estudios comparativos que evalúan diferentes simuladores aplicados a la enseñanza de los cursos de arquitectura de computadoras:
+- ``A survey and evaluation of simulators suitable for teaching courses in computer architecture and organization'', 2009 {[}\protect\hyperlink{ref-nikolic_survey_2009}{11}{]}: Otros estudios evalúan diferentes simuladores para abordar diferentes temas en el dictado de los cursos de Arquitectura de Computadoras, en general estos estudios evalúan simuladores en términos de dos categorías predefinidas: una referida a las características de la simulación, como ser granularidad, usabilidad, disponibilidad, presentación visual, flujo de simulación, etc., y otra sobre la cobertura de los contenidos preestablecidos en las currículas.
+- ``Survey and evaluation of simulators suitable for teaching for computer architecture and organization Supporting undergraduate students at Sir Syed University of Engineering \& Technology'', 2012 {[}\protect\hyperlink{ref-hasan_survey_2012}{12}{]}: Evalúa aspectos como usabilidad, disponibilidad, fundamentos de arquitectura informática, jerarquía de sistemas de memoria, comunicación e interfaz y diseño de sistemas de procesadores.
+
+Este trabajo se diferencia al proponer un enfoque diferente: evaluar los simuladores x86 bajo criterios de evaluación basados en características de simulación y en contenidos específicos de la asignatura Arquitectura de Computadoras de la carrera de Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos
+
+\hypertarget{simuladores-bajo-anuxe1lisis}{%
+\section{Simuladores bajo análisis}\label{simuladores-bajo-anuxe1lisis}}
+
+Un simulador de arquitectura es un software que imita una situación del mundo real y, en este contexto, puede imitar el hardware de un sistema de cómputo. Estos simuladores se enfocan principalmente en representar los aspectos arquitectónicos y funcionales del hardware. El uso de simuladores permite realizar cambios, pruebas y ejecución de programas sin temor a dañar ningún componente o por falta de la computadora. {[}\protect\hyperlink{ref-radivojevic_design_2011}{10}{]}.
+
+Algunos programas ofrecen una representación visual e interactiva de la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento. Entre estos se encuentran los simuladores Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. En este sentido, los simuladores juegan un papel clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, simplificando abstracciones y facilitando la labor docente {[}\protect\hyperlink{ref-nikolic_survey_2009}{11}{]}{[}\protect\hyperlink{ref-hasan_survey_2012}{12}{]}{[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}{[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}{[}\protect\hyperlink{ref-behrooz_computer_2005}{36}{]}.
+
+\hypertarget{criterios-de-evaluaciuxf3n}{%
+\section{Criterios de evaluación}\label{criterios-de-evaluaciuxf3n}}
+
+Los criterios de evaluación se han definido cuidadosamente para asegurar una valoración integral de los simuladores. Estos criterios incluyen:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Usabilidad}: Se refiere a la capacidad ser usado del producto.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Indicadores}:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Facilidad de aprendizaje: tiempo requerido para familiarizarse con la herramienta.
+    \item
+      Interfaz de usuario: claridad y organización.
+    \item
+      Documentación y ayuda: disponibilidad y accesibilidad de tutoriales y guías.
+    \end{itemize}
+  \item
+    \textbf{Escala}: difícil-media-fácil.
+  \end{itemize}
+\item
+  \textbf{Editor}: Funcionalidades que ofrece el editor para escribir y depuración de código en lenguaje ensamblador.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Indicadores}:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Capacidad de edición: funcionalidades como resaltado de sintaxis, puntos de interrupción (breakpoints).
+    \item
+      Errores de sintaxis: detección y aviso de errores.
+    \item
+      Almacenamiento: opciones para guardar y cargar programas.
+    \end{itemize}
+  \item
+    \textbf{Escala}: baja-media-alta.
+  \end{itemize}
+\item
+  \textbf{Documentación}: Disponibilidad de la documentacion para dar soporte al aprendizaje.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Indicadores}:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Manual de usuario: disponibilidad y calidad.
+    \item
+      Tutoriales: existencia y utilidad de tutoriales de aprendizaje.
+    \item
+      Repertorio de instrucciones: exhaustividad y claridad en la explicación de instrucciones.
+    \end{itemize}
+  \item
+    \textbf{Escala}: mínima-media-completa.
+  \end{itemize}
+\item
+  \textbf{Ejecución de simulación}: Facilidad para controlar y observar el flujo de ejecución de sus programas.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Indicadores}:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Control de la simulación: opciones para pausar, reanudar, y retroceder la ejecución.
+    \item
+      Visualización: claridad en la representación del flujo de ejecución.
+    \item
+      Configurabilidad: opciones para ajustar la velocidad del reloj de la CPU y otros parámetros.
+    \end{itemize}
+  \item
+    \textbf{Escala}: baja-media-alta.
+  \end{itemize}
+\item
+  \textbf{Nivel de especificación de la Organización y Arquitectura del sistema simulado}: Precisión con la que el simulador representa la arquitectura x86. Nivel de implementación del set de instrucciones, memoria, módulos de E/S, etc.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Indicadores}:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Precisión de la arquitectura: fidelidad en la representación de la arquitectura x86.
+    \item
+      Implementación del set de instrucciones: completitud y exactitud.
+    \item
+      Soporte de módulos: inclusión y funcionalidad de memoria, módulos de E/S, etc.
+    \end{itemize}
+  \item
+    \textbf{Escala}: mínima-media-completa.
+  \end{itemize}
+\item
+  \textbf{Características del desarrollo del producto software}: se basa en las características propias del producto software.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Indicadores}:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Tipo de licencia: open source o privativa.
+    \item
+      Actualizaciones: frecuencia y fecha de la última versión.
+    \item
+      Plataforma: si es una aplicación web o de escritorio.
+    \end{itemize}
+  \item
+    \textbf{Escala}: mala-buena-muy buena.
+  \end{itemize}
+\item
+  \textbf{Cobertura de los contenidos preestablecidos en la currícula}: Cobertura de los tópicos de la asignatura Arquitectura de Computadoras.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Indicadores}:
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Correspondencia con el currículum: alineación con los tópicos de la asignatura Arquitectura de Computadoras.
+    \item
+      Profundidad de los temas: nivel de detalle en la cobertura de los contenidos curriculares.
+    \end{itemize}
+  \item
+    \textbf{Escala}: baja-media-alta.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{selecciuxf3n-de-simuladores}{%
+\section{Selección de simuladores}\label{selecciuxf3n-de-simuladores}}
+
+A partir de una exhaustiva exploración en internet sobre herramientas de simulación de la arquitectura x86 utilizadas para la enseñanza, se identificaron los siguientes simuladores: Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim.
+
+La selección se basa en una evaluación preliminar que considera se seleccionaron tres considerando el tiempo de evaluación de cada uno y la cantidad de criterios cumplidos por cada simulador, buscando aquellos que ofrecen un balance adecuado entre funcionalidad, usabilidad, documentación y alineación con los contenidos curriculares de la asignatura Arquitectura de Computadoras. De estos simuladores, se seleccionaron tres que, a priori, contemplaban la mayor cantidad de criterios a evaluar: Emu8086, VonSim y Simple 8-bit Assembler Simulator.
+
+\hypertarget{participantes-en-la-evaluaciuxf3n}{%
+\section{Participantes en la evaluación}\label{participantes-en-la-evaluaciuxf3n}}
+
+La evaluación de los simuladores aplicando los criterios preestablecidos fue llevada a cabo por 3 docentes de la asignatura arquitectura de computadoras {[}Marcelo A. Colombani, José M. Ruiz, Amalia G. Delduca{]}, quienes aportaron su experiencia en el uso de simuladores y su aplicabilidad en la enseñanza de arquitectura de computadoras. Además, se contó con la colaboración de 1 asesor externo {[}Marcelo A. Falappa{]}, quienes ofrecieron una visión externa y validaron el proceso de evaluación y los resultados obtenidos.
+
+\hypertarget{anuxe1lisis-comparativo}{%
+\section{Análisis comparativo}\label{anuxe1lisis-comparativo}}
+
+A continuación, se presenta un análisis detallado de los simuladores seleccionados basado en los criterios de evaluación definidos:
+
+\hypertarget{simple-8-bit-assembler-simulator}{%
+\subsection{Simple 8-bit Assembler Simulator}\label{simple-8-bit-assembler-simulator}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Usabilidad}: Nivel medio. Presenta todos los componentes en una sola pantalla, lo cual puede ser abrumador para usuarios principiantes.
+\item
+  \textbf{Editor}: Nivel bajo. Incluye aviso de errores de sintaxis al ensamblar, sin resaltado de sintaxis ni breakpoints. No permite guardar o cargar programas.
+\item
+  \textbf{Documentación}: Nivel mínimo. Consta solo de un manual de instrucciones implementadas.
+\item
+  \textbf{Ejecución de simulación}: Nivel medio. Permite configurar la velocidad del reloj de CPU y ofrece controles básicos de simulación.
+\item
+  \textbf{Nivel de especificación}: Nivel mínimo. Simplifica la arquitectura x86 en un CPU de 8 bits, con memoria de 256 bytes y sin soporte para IN y OUT.
+\item
+  \textbf{Desarrollo del producto}: Nivel bueno. Licencia MIT, última versión en 2015, desarrollado sobre plataforma web.
+\item
+  \textbf{Cobertura de contenidos}: Nivel bajo. No implementa memoria independiente para módulos de entrada y salida, rutinas de tratamiento de interrupciones ni ciclo de instrucción.
+\end{itemize}
+
+\hypertarget{vonsim}{%
+\subsection{VonSim}\label{vonsim}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Usabilidad}: Nivel medio. Presenta componentes mediante solapas, lo cual puede ser abrumador para usuarios iniciales.
+\item
+  \textbf{Editor}: Nivel medio. Incluye aviso de errores de sintaxis, resaltado de sintaxis y breakpoints mediante interrupción por software.
+\item
+  \textbf{Documentación}: Nivel medio. Posee manual de uso y tutorial interactivo.
+\item
+  \textbf{Ejecución de simulación}: Nivel medio. Permite configurar la velocidad del reloj de CPU y ofrece controles básicos de simulación.
+\item
+  \textbf{Nivel de especificación}: Nivel medio. Representa una simplificación del procesador 8088 con arquitectura de 16 bits y memoria direccionable de 16 KiB.
+\item
+  \textbf{Desarrollo del producto}: Nivel muy bueno. Licencia GNU Affero General Public License v3.0, última versión en 2020, desarrollado sobre plataforma web con extensa evidencia de uso académico.
+\item
+  \textbf{Cobertura de contenidos}: Nivel medio. Implementa dispositivos internos y externos, pero no desarrolla contenidos visuales para ciclo de instrucción y medidas de rendimiento.
+\end{itemize}
+
+\hypertarget{emu8086}{%
+\subsection{Emu8086}\label{emu8086}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Usabilidad}: Nivel fácil. Presenta inicialmente el editor y permite activar componentes del simulador a medida que se cargan programas.
+\item
+  \textbf{Editor}: Nivel alto. Incluye aviso de errores de sintaxis, resaltado de sintaxis y opciones de breakpoints. Permite guardar y cargar programas.
+\item
+  \textbf{Documentación}: Nivel completo. Incluye manual de instrucciones, tutorial de aprendizaje y manual de uso.
+\item
+  \textbf{Ejecución de simulación}: Nivel alto. Permite configurar la velocidad del reloj de CPU y ofrece controles avanzados de simulación, incluyendo ``step back''.
+\item
+  \textbf{Nivel de especificación}: Nivel completo. Representa detalladamente la arquitectura del procesador 8086 con memoria direccionable de 1 MiB y soporte para interrupciones por software y hardware.
+\item
+  \textbf{Desarrollo del producto}: Nivel bueno. Licencia privativa, última versión en 2023, desarrollado sobre plataforma de escritorio.
+\item
+  \textbf{Cobertura de contenidos}: Nivel alto. Soporta todos los modos de direccionamiento y permite emular el booteo de una IBM PC desde el floppy disk, entre otros.
+\end{itemize}
+
+\begin{longtable}[]{@{}llll@{}}
+\caption{\label{tab:tabla-comparativa-criterios}Comparativa según criterios de evaluación preestablecidos}\tabularnewline
+\toprule
+Criterio.de.Evaluacion & Simple.8.bit.Assembler.Simulator & VonSim & Emu8086\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Criterio.de.Evaluacion & Simple.8.bit.Assembler.Simulator & VonSim & Emu8086\tabularnewline
+\midrule
+\endhead
+Usabilidad & Medio & Medio & Fácil\tabularnewline
+Editor & Bajo & Medio & Alto\tabularnewline
+Documentación & Mínima & Media & Completa\tabularnewline
+Ejecución de simulación & Medio & Medio & Alta\tabularnewline
+Nivel de especificación x86 & Mínima & Media & Completa\tabularnewline
+Características del producto & Buena & Muy buena & Buena\tabularnewline
+Cobertura de contenidos & Baja & Media & Alta\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{resultados}{%
+\section{Resultados}\label{resultados}}
+
+La asignatura promueve el uso de simuladores para apoyar la enseñanza y el aprendizaje, permitiendo aplicar los contenidos desarrollados en máquinas reales. Emu8086 es la herramienta más adecuada para esta finalidad, ya que facilita la implementación de programas en hardware real. Sin embargo, su dependencia de MS-DOS complica su ejecución en sistemas operativos actuales, requiriendo el uso de emuladores de MS-DOS, lo que añade complejidad al proceso de enseñanza y aprendizaje.
+
+Desde 2018, la asignatura utiliza la versión 4.08 de Emu8086. La herramienta tiene un periodo de evaluación gratuito de 14 días, después del cual se debe adquirir una licencia. Esto es un inconveniente, ya que se busca que los estudiantes puedan acceder a las herramientas de forma libre y gratuita.
+
+Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
+
+Emu8086 destaca por su interfaz dinámica, que muestra componentes como la pila, flags, teclado y pantalla solo cuando son necesarios, a diferencia de otros simuladores que presentan todos sus componentes desde el inicio.
+
+En el criterio de evaluación dos, Emu8086 se destaca por su editor, que incluye puntos de ruptura para detener la ejecución del programa en un punto específico y retroceder a la intruccion anterior. Además, permite guardar y recuperar programas directamente desde el editor.
+
+En el criterio de evaluación tres, Emu8086 se destaca por ofrecer tres tipos de documentación: un repertorio de instrucciones con ejemplos para cada tipo de instrucción, un manual que explica las partes de la herramienta y un tutorial para aprender a programar en ensamblador.
+
+En el criterio de evaluación cuatro, Emu8086 se destaca por ofrecer una mayor cantidad de controladores para gestionar el flujo de ejecución, como la capacidad de retroceder la ejecución de una instrucción y recargar el programa actual.
+
+En el criterio de evaluación cinco el emu8086 se destaca del resto debido a que ofrece una mayor especificidad de la arquitectura x86, además implementa interrupciones del sistema operativo MS-DOS, a través del cual se pueden ejecutar los programas en una máquina real.
+
+En el criterio de evaluación seis VonSim se destaca del resto debido a que es licencia libre y posee una comunidad que respalda el proyecto.
+
+En cuanto al último criterio, ninguna de las herramientas evaluadas cubre todos los contenidos que se pretende desarrollar con la ayuda de una herramienta, quedando excluido pasos del ciclo de instrucción y medidas de rendimientos (tiempo de CPU y CPI: ciclo por instrucción).
+
+En resumen:
+- Emu8086 se destaca por su alta usabilidad, documentación completa, y precisión en la simulación de la arquitectura para la enseñanza de la arquitectura x86. Sin embargo, su licencia privativa y dependencia de MS-DOS representan desafíos importantes.
+- VonSim ofrece una buena solución con licencia libre y una interfaz más amigable, pero su nivel de especificación y cobertura de contenidos es medio, lo cual podría limitar su efectividad en el curso.
+- Simple 8-bit Assembler Simulator tiene limitaciones significativas en usabilidad, documentación, y especificación, lo que lo hace menos adecuado para una enseñanza completa de la arquitectura x86.
+
+Del análisis realizado, se concluye que, aunque todos los simuladores evaluados presentan ventajas y desventajas, ninguno de los simuladores analizados parece adecuado para la asignatura sugiere que los simuladores actuales no cumplen completamente con los requisitos de complejidad y cobertura necesarios para la enseñanza exhaustiva de la arquitectura x86. Se recomienda usar Emu8086 mientras se desarrolla un simulador que combine sus mejores características con una licencia libre, con soporte para sistemas operativos modernos y una mayor cobertura de contenidos curriculares para la asignatura..
+
+\hypertarget{publicaciuxf3n}{%
+\subsection{Publicación}\label{publicaciuxf3n}}
+
+El resultado de esta comparativa fue publicado en el XVII Congreso de Tecnología en educación y Educación en Tecnología año 2022 bajo el título de ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86'' {[}\protect\hyperlink{ref-colombani_herramientas_2022}{35}{]}.
+
+Durante la elaboración de este análisis comparativo establecí contacto con uno de los docentes de la Universidad Nacional de la Plata (UNLP) que habían desarrollado un simulador web VonSim, con el acuerdo de docente se generó una solicitud de incorporación de cambios (pull request) en el repositorio de Github del simulador VonSim y en agosto-2023 salió una nueva versión donde se implementan animaciones de la ejecución de instrucciones y documentación on-line.
+
 \hypertarget{bibliografuxeda}{%
 \chapter*{Bibliografía}\label{bibliografuxeda}}
 \addcontentsline{toc}{chapter}{Bibliografía}
+
+\hypertarget{desarrollo}{%
+\chapter{Diseño y Construcción del Simulador}\label{desarrollo}}
+
+En este capítulo se describe el proceso de diseño y desarrollo de una herramienta de simulación específica para la arquitectura x86, destinada a facilitar la enseñanza de los principios de arquitectura de computadoras. Se detalla tanto la justificación del diseño como los pasos seguidos para su construcción y validación.
+
+En el capitulo anterior, se Estudió y evaluó diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación disponibles y posterior publicación de los resultados.
+
+Para cumplir con este objetivo específico, la herramienta debe satisfacer una serie de requisitos previamente establecidos. A partir de estos, se diseña la arquitectura, se desarrolla el simulador, y se realizan pruebas exhaustivas para validar su funcionalidad.
+
+\hypertarget{requisitos-de-la-herramienta}{%
+\section{Requisitos de la Herramienta}\label{requisitos-de-la-herramienta}}
+
+La herramienta debe cumplir con los siguientes requisitos:
+1. \textbf{Visión global de la estructura y funcionamiento de la computadora:}
+- Mostrar la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, destacando componentes relevantes.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Generación y ejecución de programas escritos en ensamblador:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Permitir tanto la ejecución paso a paso como completa, facilitando la comprensión de cada instrucción.
+  \end{itemize}
+\item
+  \textbf{Repertorio de instrucciones x86 reducido y habilitado progresivamente:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Seleccionar un subconjunto esencial de instrucciones x86, habilitándolas progresivamente según avance el contenido de la asignatura.
+  \end{itemize}
+\item
+  \textbf{Simulación visual e interactiva de micropasos de una instrucción:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Utilizar el lenguaje de transferencia entre registros (RTL) para describir el flujo de datos, facilitando la comprensión del ciclo básico de una instrucción. Correr un programa y que se ilumine cada componente durante la ejecución de un programa.
+  \end{itemize}
+\item
+  \textbf{Gestión básica de interrupciones y comunicación con periféricos:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Incorporar un vector de interrupción predefinido para interactuar con el teclado y monitor. Incluir instrucciones IN y OUT, y un módulo de E/S simplificado.
+  \end{itemize}
+\item
+  \textbf{Medidas de rendimiento sobre la ejecución de un programa:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa.
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{arquitectura-propuesta}{%
+\section{Arquitectura propuesta}\label{arquitectura-propuesta}}
+
+La arquitectura propuesta, de 8 bits, es una versión simplificada de la x86, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes fundamentales. Esta simplificación permite a los estudiantes comprender conceptos clave como el formato de instrucciones, modos de direccionamiento y el ciclo de búsqueda y ejecución. Este enfoque facilita un aprendizaje progresivo y accesible para los estudiantes.
+La decisión de simplificar el conjunto de instrucciones y la arquitectura del simulador desarrollado para este proyecto se fundamenta en principios pedagógicos que buscan facilitar el aprendizaje de conceptos fundamentales de la arquitectura x86.
+La arquitectura x86 es notoriamente compleja, con un conjunto de instrucciones extenso y diversas características avanzadas que pueden resultar abrumadoras para los estudiantes que se inician en el estudio de la arquitectura de computadoras. Al simplificar el conjunto de instrucciones y reducir la complejidad de la arquitectura en el simulador, se busca disminuir la carga cognitiva que los estudiantes deben manejar, permitiéndoles enfocarse en entender los principios básicos sin distracciones innecesarias.
+
+La simplificación permite que el simulador se centre en los aspectos esenciales de la arquitectura x86, como el ciclo de instrucción, la interacción entre los distintos componentes de la CPU, y el flujo básico de datos dentro del sistema. Al eliminar instrucciones y características avanzadas que no son cruciales para la comprensión de estos fundamentos, los estudiantes pueden desarrollar una comprensión sólida de los conceptos clave antes de abordar las complejidades adicionales de la arquitectura x86 completa.
+
+El diseño del simulador también está alineado con un enfoque de aprendizaje progresivo, en el cual los estudiantes pueden comenzar con un conjunto de instrucciones reducido y una arquitectura simplificada, y luego avanzar hacia simuladores y herramientas más complejas que modelan la arquitectura x86 en su totalidad. Esta progresión gradual es pedagógicamente sólida, ya que permite a los estudiantes construir sobre conocimientos previos y asimilar conceptos más avanzados a medida que se sienten más cómodos con los fundamentos.
+
+Un conjunto de instrucciones simplificado facilita la implementación de ejercicios y prácticas que los estudiantes pueden completar en un tiempo razonable y con un nivel de esfuerzo que es manejable. Esto es crucial para el aprendizaje práctico, ya que los estudiantes pueden experimentar con el simulador, cometer errores, y aprender de ellos sin enfrentarse a la frustración que podría derivarse de una complejidad excesiva.
+
+Finalmente, al utilizar un simulador con una arquitectura simplificada, se fomenta el pensamiento crítico entre los estudiantes, ya que estos pueden cuestionar y analizar las diferencias entre el modelo simplificado y la arquitectura x86 real. Este contraste impulsa a los estudiantes a reflexionar sobre las razones detrás de las características más complejas de la arquitectura x86, lo que enriquece su comprensión y les permite apreciar mejor la sofisticación de los sistemas reales.
+
+En resumen, la simplificación del conjunto de instrucciones y la arquitectura en el simulador no es un sacrificio de precisión, sino una estrategia pedagógica deliberada para mejorar la comprensión de los estudiantes. Estas decisiones de diseño están orientadas a hacer que los conceptos fundamentales sean más accesibles y comprensibles, lo cual es esencial para establecer una base sólida en la arquitectura x86 antes de abordar su complejidad total.
+
+Consta de los siguientes componentes:
+
+\hypertarget{componentes}{%
+\subsection{Componentes}\label{componentes}}
+
+Procesador o CPU cuenta con las siguientes características:
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{\label{tab:arq}Arquitectura x86 propuesta}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.12\columnwidth}\raggedright
+Arquitectura\strut
+\end{minipage} & \begin{minipage}[b]{0.82\columnwidth}\raggedright
+Características\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.12\columnwidth}\raggedright
+Arquitectura\strut
+\end{minipage} & \begin{minipage}[b]{0.82\columnwidth}\raggedright
+Características\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Arquitectura\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- von Neumann, memoria de datos e instrucciones compartidas.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Registros\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 4 registros de propósito general, \texttt{AL}, \texttt{BL}, \texttt{DL} y \texttt{DL} de 8 bits.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 2 registros de propósito específico \texttt{IP} y \texttt{SP}.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 1 registro de estado para las banderas \texttt{RS}.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 2 registros Buffer entre CPU y memoria \texttt{MAR}: buffer de direcciones y \texttt{MBR}: buffer de datos.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- contiene 256 posiciones y cada una contiene un byte.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Buses\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- Bus de datos y direcciones de 8 bits.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+Instrucciones\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- Tamaño de instrucciones variable de 1, 2 y 3 bytes.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.12\columnwidth}\raggedright
+\strut
+\end{minipage} & \begin{minipage}[t]{0.82\columnwidth}\raggedright
+- 16 instrucciones soportadas.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{repertorio-de-instrucciones-1}{%
+\subsection{Repertorio de instrucciones}\label{repertorio-de-instrucciones-1}}
+
+El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento.
+
+\hypertarget{primera-etapa}{%
+\subsubsection{Primera etapa}\label{primera-etapa}}
+
+En un primera instancia se presentaran solo algunas instrucciones necesarias para desarrollar los primeros contenidos de la asignatura:
+
+\begin{longtable}[]{@{}llll@{}}
+\caption{\label{tab:setreducido}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\tabularnewline
+\toprule
+Instrucciones & Código operación & nemónico & Acción\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+Instrucciones & Código operación & nemónico & Acción\tabularnewline
+\midrule
+\endhead
+Transferencia de datos & \{0, 1, 2\} & MOV & 0- Copiar entre registros\tabularnewline
+& & & 1- Cargar a registro\tabularnewline
+& & & 2- Almacenar en memoria\tabularnewline
+Pocesamiento de datos & \{3, 4, 5\} & ADD & 3-4-5 Sumar\tabularnewline
+& \{6, 7, 8\} & SUB & 6-7-8 Restar\tabularnewline
+& \{9, 10, 11\} & CMP & 9-10-11 Comparar\tabularnewline
+Control de flujo & \{12\} & JMP & 12-a Salto incondicional\tabularnewline
+& & JZ & 12-b Salto condicional si Z=1\tabularnewline
+& & JC & 12-c Salto condicional si C=1\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{formato-de-instrucciones}{%
+\paragraph{Formato de instrucciones}\label{formato-de-instrucciones}}
+
+El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado.
+Primero veremos la codificaciones de 4 tipos de instrucciones.
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{\label{tab:codtreducido}Tabla de codififación de instrucciones}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.24\columnwidth}\raggedright
+Casos\strut
+\end{minipage} & \begin{minipage}[b]{0.19\columnwidth}\raggedright
+Codificación\strut
+\end{minipage} & \begin{minipage}[b]{0.48\columnwidth}\raggedright
+Parámetros\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.24\columnwidth}\raggedright
+Casos\strut
+\end{minipage} & \begin{minipage}[b]{0.19\columnwidth}\raggedright
+Codificación\strut
+\end{minipage} & \begin{minipage}[b]{0.48\columnwidth}\raggedright
+Parámetros\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+A: entre registros\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+---- XXYY\strut
+\end{minipage} & \begin{minipage}[t]{0.48\columnwidth}\raggedright
+XX = Registro destino, YY = Registro fuente\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+B: Cargar a registro\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+---- XX00 DDDDDDDD\strut
+\end{minipage} & \begin{minipage}[t]{0.48\columnwidth}\raggedright
+XX = Registro destino, D = Dirección de memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+C: Almacenar en memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+---- 00YY DDDDDDDD\strut
+\end{minipage} & \begin{minipage}[t]{0.48\columnwidth}\raggedright
+YY = Registro fuente, D = Dirección de memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.24\columnwidth}\raggedright
+D: control de flujo\strut
+\end{minipage} & \begin{minipage}[t]{0.19\columnwidth}\raggedright
+---- ffff DDDDDDDD\strut
+\end{minipage} & \begin{minipage}[t]{0.48\columnwidth}\raggedright
+ffff = funcionalidad, D = Dirección de memoria\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+Considerando:
+
+\begin{itemize}
+\item
+  \texttt{A}: operaciones entre registros del procesador.
+\item
+  \texttt{B}: operaciones que cargan en registros del procesado.
+\item
+  \texttt{C}: operaciones que almacenan en memoria.
+\item
+  \texttt{D}: operaciones de control de flujo del programa.
+\item
+  \texttt{-\/-\/-\/-}: Código de operación de la instrucción.
+\item
+  \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}.
+\item
+  \texttt{D}: Dirección de memoria, número de 8 bits.
+\item
+  \texttt{ffff}: representan el comportamiento de la instrucción.
+\item
+  Las instruciones de transferencia y de procesamiento soportan los formatos \texttt{A}, \texttt{B} y \texttt{C}.
+\item
+  Las instruciones de control de flujo soportan el formato \texttt{D}.
+\end{itemize}
+
+\hypertarget{registros-banco-de-registros}{%
+\subsubsection{Registros (Banco de Registros)}\label{registros-banco-de-registros}}
+
+\begin{longtable}[]{@{}llr@{}}
+\toprule
+Número de registros (R) & Binario & Decimal\tabularnewline
+\midrule
+\endhead
+AL & 00 & 0\tabularnewline
+BL & 01 & 1\tabularnewline
+CL & 10 & 2\tabularnewline
+DL & 11 & 3\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{modos-de-direccionamientos}{%
+\paragraph{Modos de direccionamientos}\label{modos-de-direccionamientos}}
+
+Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.47\columnwidth}\raggedright
+Operando\strut
+\end{minipage} & \begin{minipage}[b]{0.47\columnwidth}\raggedright
+tipo\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\texttt{Rx},\texttt{Ry}\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+Registro a registro: los operandos de la instrucción son registros\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\texttt{{[}M{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+Directo: un operando de la instruccion es el contenido de una dirección de memoria, se accede a un contenido de memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\texttt{M}\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+Se puede implementar las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\# & Instrucción & Acción & Codificación\tabularnewline
+\midrule
+\endhead
+0 & MOV Rx, Ry & Rx ← Ry & 0000 XXYY\tabularnewline
+1 & MOV Rx, {[}M{]} & Rx ← Mem{[}Dirección{]} & 0001 00YY DDDDDDDD\tabularnewline
+2 & MOV {[}M{]}, Ry & Mem{[}Dirección{]} ← Rx & 0010 XX00 DDDDDDDD\tabularnewline
+3 & ADD Rx, Ry & Rx ← Rx + Ry & 0011 XXYY\tabularnewline
+4 & ADD Rx, {[}M{]} & Rx ← Rx + Mem{[}Dirección{]} & 0100 00YY DDDDDDDD\tabularnewline
+5 & ADD {[}M{]}, Ry & Mem{[}Dirección{]} ← Mem{[}Dirección{]} + Ry & 0101 XX00 DDDDDDDD\tabularnewline
+6 & SUB Rx, Ry & Rx ← Rx - Ry & 0110 XXYY\tabularnewline
+7 & SUB Rx, {[}M{]} & Rx ← Rx - Mem{[}Dirección{]} & 0111 00YY DDDDDDDD\tabularnewline
+8 & SUB {[}M{]}, Ry & Mem{[}Dirección{]} ← Mem{[}Dirección{]} - Ry & 1000 XX00 DDDDDDDD\tabularnewline
+9 & CMP Rx, Ry & Modifica flags de Rx - Ry & 1001 XXYY\tabularnewline
+A & CMP Rx, {[}M{]} & Modifica flags de Rx - Mem{[}Dirección{]} & 1010 00YY DDDDDDDD\tabularnewline
+B & CMP {[}M{]}, Ry & Modifica flags de Mem{[}Dirección{]} - Ry & 1011 XX00 DDDDDDDD\tabularnewline
+C & JMP M & IP ← Dirección & 1100 0000 DDDDDDDD\tabularnewline
+C & JC M & Si flag C=1 entonces IP ← Dirección & 1100 0001 DDDDDDDD\tabularnewline
+C & JZ M & Si flag Z=1 entonces IP ← Dirección & 1100 0011 DDDDDDDD\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{segunda-etapa}{%
+\subsection{Segunda etapa}\label{segunda-etapa}}
+
+En un segunda instancia se amplian los modos de direccionamiento de las instrucciones y se incorporan nuevos formato de instrucciones y modos de direccionamiento.
+
+\hypertarget{modos-de-direccionamientos-1}{%
+\subsubsection{Modos de direccionamientos}\label{modos-de-direccionamientos-1}}
+
+Se incoporan los siguientes modos de direccionamiento:
+
+\begin{itemize}
+\tightlist
+\item
+  Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro \texttt{BL}
+\end{itemize}
+
+Se incorpora los siguientes operandos a las instrucciones:
+* \textbf{MOV \emph{Rx, {[}BL{]}}}
+
+\begin{itemize}
+\item
+  \textbf{MOV \emph{Rx, d}}
+\item
+  \textbf{MOV \emph{Rx, {[}BL + d{]}}}
+\item
+  \textbf{MOV \emph{{[}BL{]}, Ry}}
+\item
+  \textbf{MOV \emph{{[}BL + d{]}, Ry}}
+\item
+  \textbf{MOV \emph{{[}mem{]}, {[}BL{]}}}
+\item
+  \textbf{MOV \emph{{[}mem{]}, d}}
+\item
+  \textbf{MOV \emph{{[}mem{]}, {[}BL + d{]}}}
+\end{itemize}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[b]{0.47\columnwidth}\raggedright
+Operando\strut
+\end{minipage} & \begin{minipage}[b]{0.47\columnwidth}\raggedright
+tipo\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\texttt{{[}BL{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+indirecto por registro, Contenido de la dirección de memoria esta dada por el registro \texttt{BL}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\texttt{D} o \texttt{d}\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+el operando fuente es un dato inmediato\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.47\columnwidth}\raggedright
+\texttt{{[}BL\ +\ d{]}}\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright
+registro \texttt{BL} + dato inmediato\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{formato-de-instrucciones-1}{%
+\subsubsection{Formato de instrucciones}\label{formato-de-instrucciones-1}}
+
+Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el \texttt{opcode} de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\raggedright
+Caso\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Codificación\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
+Parámetros\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+A: entre registros\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{-\/-\/-\/-\ XXYY}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{XX} = Registro destino, \texttt{YY} = Registro fuente\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+B: Cargar a registro\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{-\/-\/-\/-\ XXmm\ DDDDDDDD}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{mm} = modo, \texttt{XX} = Registro destino, \texttt{D} = Dirección de memoria o Dato Inmediato\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+C: Almacenar en memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{-\/-\/-\/-\ mmmm\ DDDDDDDD\ dddddddd}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{mmmm} = modo ampliado, \texttt{D} = Dirección de memoria, \texttt{d} = Dato Inmediato\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\raggedright
+D: control de flujo\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{-\/-\/-\/-\ ffff\ DDDDDDDD}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
+\texttt{ffff} = funcionalidad \texttt{D} = Dirección de memoria\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\texttt{d} = Dato Inmediato, no puede ser destino de la instrucción.
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\centering
+Modo direccionamientos B: Cargar a registro\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\centering
+\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\centering
+\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\centering
+\textbf{\texttt{mm}= Modo}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+\textbf{\texttt{Byte}= tamaño}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+\textbf{Interpretación}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+00\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+directo \texttt{D} = Dirección de memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+01\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+indirecto utiliza como operando implicito el registro \texttt{BL} y no requiere operando \texttt{D}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+10\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+Inmediato \texttt{D} = Dato Inmediato\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+11\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+Indirecto la dirección se calcula operando implicito \texttt{BL} + Dato Inmediato\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+\begin{minipage}[b]{0.30\columnwidth}\centering
+Modo direccionamientos C: Almacenar en memoria\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\centering
+\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\centering
+\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.30\columnwidth}\centering
+\textbf{\texttt{mmmm}= Modo}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+\textbf{\texttt{Byte}= tamaño}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+\textbf{Interpretación}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+00YY\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+directo \texttt{D} = Dirección de memoria, \texttt{YY} = Registro fuente\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+01YY\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+1\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+indirecto \texttt{BL}, \texttt{YY} = Registro fuente\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+01YY\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+Indirecto la dirección se calcula operando implicito \texttt{BL} + Dato Inmediato\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+1100\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+Inmediato a memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+1101\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+2\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+Inmediato a memoria mediante indirecto \texttt{BL}\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.30\columnwidth}\centering
+1110\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+3\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+Inmediato a memoria mediante indirecto \texttt{BL}+ Dato Inmediato\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule
+\# & Instrucción & Acción & Codificación\tabularnewline
+\midrule
+\endhead
+0 & \texttt{MOV\ Rx,\ Ry} & \texttt{Rx} \(\leftarrow\) \texttt{Ry} & \texttt{0000\ XXYY}\tabularnewline
+1 & \texttt{MOV\ Rx,\ {[}M{]}} & \texttt{Rx} \(\leftarrow\) \texttt{Mem{[}Dirección{]}} & \texttt{0001\ XX00\ DDDDDDDD}\tabularnewline
+1 & \texttt{MOV\ Rx,\ {[}BL{]}} & \texttt{Rx} \(\leftarrow\) \texttt{Mem{[}BL{]}} & \texttt{0001\ XX01}\tabularnewline
+1 & \texttt{MOV\ Rx,\ D} & \texttt{Rx} \(\leftarrow\) \texttt{Dato} & \texttt{0001\ XX10\ DDDDDDDD}\tabularnewline
+1 & \texttt{MOV\ Rx,\ {[}BL\ +\ D{]}} & \texttt{Rx} \(\leftarrow\) \texttt{Mem{[}BL\ +\ Dato{]}} & \texttt{0001\ XX11\ DDDDDDDD}\tabularnewline
+2 & \texttt{MOV\ {[}M{]},\ Ry} & \texttt{Mem{[}Dirección{]}} \(\leftarrow\) \texttt{Rx} & \texttt{0010\ 00YY\ DDDDDDDD}\tabularnewline
+2 & \texttt{MOV\ {[}BL{]},\ Ry} & \texttt{Mem{[}BL{]}} \(\leftarrow\) \texttt{Rx} & \texttt{0010\ 01YY}\tabularnewline
+2 & \texttt{MOV\ {[}BL\ +\ D{]},\ Ry} & \texttt{Mem{[}BL\ +\ Dato{]}} \(\leftarrow\) \texttt{Rx} & \texttt{0010\ 10YY\ DDDDDDDD}\tabularnewline
+2 & \texttt{MOV\ {[}M{]},\ D} & \texttt{Mem{[}Dirección{]}} \(\leftarrow\) \texttt{Dato} & \texttt{0010\ 1100\ DDDDDDDD\ dddddddd}\tabularnewline
+2 & \texttt{MOV\ {[}BL{]},\ D} & \texttt{Mem{[}BL{]}} \(\leftarrow\) \texttt{Dato} & \texttt{0010\ 1101\ DDDDDDDD}\tabularnewline
+2 & \texttt{MOV\ {[}BL\ +\ D{]},\ D} & \texttt{Mem{[}BL\ +\ Dato{]}} \(\leftarrow\) \texttt{Dato} & \texttt{0010\ 1110\ DDDDDDDD}\tabularnewline
+3 & \texttt{ADD\ Rx,\ Ry} & \texttt{Rx} \(\leftarrow\) \texttt{Rx\ +\ Ry} & \texttt{0011\ XXYY}\tabularnewline
+4 & \texttt{ADD\ -\/-,\ -\/-} & Mismo direccionamientos que MOV & \texttt{0100\ -\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-}\tabularnewline
+5 & \texttt{ADD\ -\/-,\ -\/-} & Mismo direccionamientos que MOV & \texttt{0101\ -\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-}\tabularnewline
+6 & \texttt{SUB\ Rx,\ Ry} & \texttt{Rx} \(\leftarrow\) \texttt{Rx\ -\ Ry} & \texttt{0110\ XXYY}\tabularnewline
+7 & \texttt{SUB\ -\/-,\ -\/-} & Mismo direccionamientos que MOV & \texttt{0111\ -\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-}\tabularnewline
+8 & \texttt{SUB\ -\/-,\ -\/-} & Mismo direccionamientos que MOV & \texttt{1000\ -\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-}\tabularnewline
+9 & \texttt{CMP\ Rx,\ Ry} & Modifica \emph{flags} de \texttt{Rx\ -\ Ry} & \texttt{1001\ XXYY}\tabularnewline
+A & \texttt{CMP\ -\/-,\ -\/-} & Mismo direccionamientos que MOV & \texttt{1010\ -\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-}\tabularnewline
+B & \texttt{CMP\ -\/-,\ -\/-} & Mismo direccionamientos que MOV & \texttt{1011\ -\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-\ -\/-\/-\/-\/-\/-\/-\/-}\tabularnewline
+C & \texttt{JMP\ M} & \texttt{IP} \(\leftarrow\) \texttt{Dirección} & \texttt{1100\ 0000\ DDDDDDDD}\tabularnewline
+C & \texttt{JC\ M} & Si \texttt{flag\ C=1} entonces \texttt{IP} \(\leftarrow\) \texttt{Dirección} & \texttt{1100\ 0001\ DDDDDDDD}\tabularnewline
+C & \texttt{JZ\ M} & Si \texttt{flag\ Z=1} entonces \texttt{IP} \(\leftarrow\) \texttt{Dirección} & \texttt{1100\ 0011\ DDDDDDDD}\tabularnewline
+C & \texttt{Jxx\ M} & Se pueden implemementar más flags y CALL & \texttt{1100\ ffff\ -\/-\/-\/-\/-\/-\/-\/-}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{tercera-etapa}{%
+\subsection{Tercera etapa}\label{tercera-etapa}}
+
+Se incorporan las instrucciones de manejo de pila y de manejo de interrupciones.
+
+\begin{longtable}[]{@{}llll@{}}
+\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.14\columnwidth}\raggedright
+Código operación\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+Instrucciones\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+nemónico\strut
+\end{minipage} & \begin{minipage}[b]{0.57\columnwidth}\raggedright
+Acción\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.14\columnwidth}\raggedright
+Código operación\strut
+\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
+Instrucciones\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
+nemónico\strut
+\end{minipage} & \begin{minipage}[b]{0.57\columnwidth}\raggedright
+Acción\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\{0, 1, 2\}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+Transferencia de datos\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+MOV\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\{3, 4, 5\} \{6, 7, 8\} \{9, 10, 11\}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+Procesamiento de datos\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+ADD, SUB, CMP\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+1- Sumar 2- Restar 3- Comparar\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\{12\}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+Control de flujo\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+JMP, Jxx,CALL, RET\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\{13\}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+Manejo de pila y E/S\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+PUSH, POP, OUT, IN\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\{14\}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+Manejo de interrupción\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+INT , IRET\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright
+\{15\}\strut
+\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
+Control del CPU\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
+NOP , HLT\strut
+\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
+No opera NOP Detiene el CPU HLT\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}{%
+\subsection{Ciclo de la instrucción (Etapas de captación y ejecución)}\label{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}}
+
+\hypertarget{etapa-de-captaciuxf3n}{%
+\subsubsection{\texorpdfstring{\textbf{Etapa de Captación} (*):}{Etapa de Captación (*):}}\label{etapa-de-captaciuxf3n}}
+
+\begin{verbatim}
+1.  MAR $\leftarrow$ IP 
+2.  MDR $\leftarrow$ read(Memoria[MAR]); IP $\leftarrow$ IP + 1 
+3.  IR  $\leftarrow$ MDR
+\end{verbatim}
+
+(*): Todas las instrucciones tienen los mismos pasos en la etapa de captación.
+
+\hypertarget{etapa-de-ejecuciuxf3n}{%
+\subsubsection{\texorpdfstring{\textbf{Etapa de Ejecución}:}{Etapa de Ejecución:}}\label{etapa-de-ejecuciuxf3n}}
+
+\begin{itemize}
+\tightlist
+\item
+  0: Copiar entre registros: \texttt{MOV\ Rx,\ Ry}
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Rx \(\leftarrow\) Ry
+  \end{enumerate}
+\item
+  1: Cargar a registro:
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi})}
+  \tightlist
+  \item
+    Directo: MOV Rx, {[}Dirección{]}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      MAR \(\leftarrow\) IP
+    \item
+      MBR \(\leftarrow\) read(Memoria{[}MAR{]}); IP \(\leftarrow\) IP + 1 (Obtener byte 2)\\
+    \item
+      MAR \(\leftarrow\) MBR
+    \item
+      MBR \(\leftarrow\) read(Memoria{[}MAR{]}) (Obtener operando)
+    \item
+      Rx \(\leftarrow\) MBR
+    \end{itemize}
+  \end{enumerate}
+\item
+  2: Almacenar en memoria:
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi})}
+  \tightlist
+  \item
+    MOV {[}Dirección{]}, Ry
+
+    \begin{itemize}
+    \tightlist
+    \item
+      MAR \(\leftarrow\) IP
+    \item
+      MBR \(\leftarrow\) read(Memoria{[}MAR{]}); IP \(\leftarrow\) IP + 1 (Obtener byte 2)
+    \item
+      MAR \(\leftarrow\) MBR
+    \item
+      MBR \(\leftarrow\) Ry
+    \item
+      write(Memoria{[}MAR{]}) \(\leftarrow\) MBR
+    \end{itemize}
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{pruebas}{%
+\section{Pruebas}\label{pruebas}}
+
+Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Pruebas Exhaustivas:} Realizar pruebas rigurosas para asegurar que la herramienta cumple con todos los requisitos. Las pruebas incluirán:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Validación de la funcionalidad completa de la herramienta.
+  \item
+    Evaluación de la usabilidad por parte de estudiantes y profesores.
+  \item
+    Identificación y solución de problemas antes del lanzamiento.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{portabilidad}{%
+\section{Portabilidad}\label{portabilidad}}
+
+Para asegurar la portabilidad, el simulador se implementará como una aplicación web que puede ejecutarse en cualquier navegador web, garantizando su uso multiplataforma.
+
+\hypertarget{mantenibilidad}{%
+\section{Mantenibilidad}\label{mantenibilidad}}
+
+El código de la herramienta será modular y bien documentado, facilitando futuras actualizaciones y mantenimiento. Además, se implementarán prácticas de desarrollo sostenibles para asegurar su longevidad.
+
+\hypertarget{escalabilidad}{%
+\section{Escalabilidad}\label{escalabilidad}}
+
+Desde la asignatura se incentiva el uso de simuladores para dar apoyo a los proceso de enseñanza y aprendizaje, pero también se incentiva que los contenidos desarrollados puedan volcarse en máquinas reales, en este sentido consideramos que el enfoque planteado por la herramienta emu8086 es el más adecuado para la asignatura, ya que facilita mecanismos para implementar los programas en máquinas reales. Sin embargo presenta el inconveniente que genera ejecutables dependientes del sistema operativo MS-DOS, la mayoría de los sistemas operativos actuales no permiten la ejecución de dichos programas, obligando a la utilización de emuladores de MS-DOS para poder correrlos, siendo esto otro elemento más que se incorpora a los procesos de enseñanza y aprendizaje.
+Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
 
 \hypertarget{refs}{}
 \begin{cslreferences}
@@ -463,6 +2317,51 @@ El resto de este documento se estructura de la siguiente manera:
 
 \leavevmode\hypertarget{ref-zeigler_theory_2018}{}%
 {[}21{]} B. P. Zeigler, A. Muzy, and E. Kofman, \emph{Theory of Modeling and Simulation: Discrete Event \& Iterative System Computational Foundations}. Academic Press, 2018.
+
+\leavevmode\hypertarget{ref-null_essentials_2014}{}%
+{[}22{]} L. Null and J. Lobur, \emph{Essentials of computer organization and architecture}. Jones \& Bartlett Publishers, 2014.
+
+\leavevmode\hypertarget{ref-patterson_computer_2014}{}%
+{[}23{]} Patterson and others, \emph{Computer organization and design: The hardware/software interface-5th}. Morgan Kaufmann, 2014.
+
+\leavevmode\hypertarget{ref-tanenbaum_structured_2013}{}%
+{[}24{]} A. S. Tanenbaum, \emph{Structured computer organization}. Pearson Education, 2013.
+
+\leavevmode\hypertarget{ref-murdocca_principles_2000}{}%
+{[}25{]} M. J. Murdocca and V. Heuring, \emph{Principles of computer architecture}. Pearson Education, 2000.
+
+\leavevmode\hypertarget{ref-waterman_risc-v_2014}{}%
+{[}26{]} A. Waterman, Y. Lee, D. A. Patterson, and K. Asanovic, ``The risc-v instruction set manual, volume i: User-level isa,'' \emph{CS Division, EECE Department, University of California, Berkeley}, p. 28, 2014.
+
+\leavevmode\hypertarget{ref-irvine2011assembly}{}%
+{[}27{]} K. R. Irvine and L. B. Das, \emph{Assembly language for x86 processors}. Prentice Hall, 2011.
+
+\leavevmode\hypertarget{ref-tasm}{}%
+{[}28{]} B. International, \emph{Turbo assembler user's guide}. Borland International, 1993.
+
+\leavevmode\hypertarget{ref-masm}{}%
+{[}29{]} M. Corporation, \emph{Microsoft macro assembler 6.1 reference}. Microsoft Press, 1992.
+
+\leavevmode\hypertarget{ref-nasm}{}%
+{[}30{]} The NASM Project, \emph{The netwide assembler (nasm) manual}. 2023.
+
+\leavevmode\hypertarget{ref-hyde2010art}{}%
+{[}31{]} R. Hyde, \emph{The art of assembly language}. No Starch Press, 2010.
+
+\leavevmode\hypertarget{ref-stork_towards_2008}{}%
+{[}32{]} A. Stork, C.-A. Thole, S. Klimenko, I. Nikitin, L. Nikitina, and Y. Astakhov, ``Towards interactive simulation in automotive design,'' \emph{The Visual Computer}, vol. 24, pp. 947--953, 2008.
+
+\leavevmode\hypertarget{ref-jentsch_simulation_2017}{}%
+{[}33{]} F. Jentsch and M. Curtis, \emph{Simulation in aviation training}. Routledge, 2017.
+
+\leavevmode\hypertarget{ref-calvo_valdes_simulador_2010}{}%
+{[}34{]} F. A. Calvo Valdés, J. F. Roldán Ramírez, and A. San Miguel Sánchez, ``Simulador del procesador MIPS sobre el formalismo DEVS,'' 2010, Accessed: Sep. 19, 2024. Available: \url{https://hdl.handle.net/20.500.14352/46063}
+
+\leavevmode\hypertarget{ref-colombani_herramientas_2022}{}%
+{[}35{]} M. A. Colombani, J. M. Ruiz, A. G. Delduca, and M. A. Falappa, ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86,'' 2022. Accessed: Jul. 10, 2024. Available: \url{http://sedici.unlp.edu.ar/handle/10915/139908}
+
+\leavevmode\hypertarget{ref-behrooz_computer_2005}{}%
+{[}36{]} P. BEHROOZ, \emph{Computer Architecture: From Microprocessors to Supercomputers}. Oxford University Press Inc, 2005.
 \end{cslreferences}
 
 % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
