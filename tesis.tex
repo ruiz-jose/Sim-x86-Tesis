@@ -2073,15 +2073,23 @@ No opera NOP Detiene el CPU HLT\strut
 \hypertarget{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}{%
 \subsection{Ciclo de la instrucción (Etapas de captación y ejecución)}\label{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}}
 
+Para describir la secuencias de microoperaciones que se llevan a caba dentro de la computadora utilizaremos la siguiente lenguaje de transferencia entre los registros.
+
+\texttt{destino} \(\leftarrow\) \texttt{origen}
+
 \hypertarget{etapa-de-captaciuxf3n}{%
 \subsubsection{\texorpdfstring{\textbf{Etapa de Captación} (*):}{Etapa de Captación (*):}}\label{etapa-de-captaciuxf3n}}
 
-Se describen los pasos de la etapa de captación de instrucciones mediante la transferencia entre diferentes componentes de la computadoras:
-\textbar{} \# \textbar{} Pasos \textbar{}
-\textbar{} - \textbar{} --- \textbar{}
-\textbar{} 1 \textbar{} \texttt{MAR} \(\leftarrow\) \texttt{IP} \textbar{}
-\textbar{} 2 \textbar{} \texttt{MDR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]});\ IP\ \$\textbackslash{}leftarrow\$\ IP\ +\ 1} \textbar{}
-\textbar{} 3 \textbar{} \texttt{IR} \(\leftarrow\) \texttt{MDR} \textbar{}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \texttt{MAR} \(\leftarrow\) \texttt{IP}
+\item
+  \texttt{MDR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]});}IP\texttt{\$\textbackslash{}leftarrow\$}IP` + 1
+\item
+  \texttt{IR} \(\leftarrow\) \texttt{MDR}
+\end{enumerate}
 
 (*): Todas las instrucciones tienen los mismos pasos en la etapa de captación.
 
@@ -2091,13 +2099,13 @@ Se describen los pasos de la etapa de captación de instrucciones mediante la tr
 \begin{itemize}
 \tightlist
 \item
-  0: Copiar entre registros: \texttt{MOV\ Rx,\ Ry}
+  0: Copiar entre registros: MOV \texttt{Rx}, \texttt{Ry}
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \tightlist
   \item
-    Rx \(\leftarrow\) Ry
+    \texttt{Rx} \(\leftarrow\) \texttt{Ry}
   \end{enumerate}
 \item
   1: Cargar a registro:
@@ -2106,20 +2114,20 @@ Se describen los pasos de la etapa de captación de instrucciones mediante la tr
   \def\labelenumi{\alph{enumi})}
   \tightlist
   \item
-    Directo: MOV Rx, {[}Dirección{]}
+    Directo: MOV \texttt{Rx}, \texttt{{[}Dirección{]}}
 
     \begin{itemize}
     \tightlist
     \item
-      MAR \(\leftarrow\) IP
+      \texttt{MAR} \(\leftarrow\) \texttt{IP}
     \item
-      MBR \(\leftarrow\) read(Memoria{[}MAR{]}); IP \(\leftarrow\) IP + 1 (Obtener byte 2)\\
+      \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1 (Obtener byte 2)\\
     \item
-      MAR \(\leftarrow\) MBR
+      \texttt{MAR} \(\leftarrow\) \texttt{MBR}
     \item
-      MBR \(\leftarrow\) read(Memoria{[}MAR{]}) (Obtener operando)
+      \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} (Obtener operando)
     \item
-      Rx \(\leftarrow\) MBR
+      \texttt{Rx} \(\leftarrow\) \texttt{MBR}
     \end{itemize}
   \end{enumerate}
 \item
@@ -2129,20 +2137,20 @@ Se describen los pasos de la etapa de captación de instrucciones mediante la tr
   \def\labelenumi{\alph{enumi})}
   \tightlist
   \item
-    MOV {[}Dirección{]}, Ry
+    MOV \texttt{{[}Dirección{]}}, \texttt{Ry}
 
     \begin{itemize}
     \tightlist
     \item
-      MAR \(\leftarrow\) IP
+      \texttt{MAR} \(\leftarrow\) \texttt{IP}
     \item
-      MBR \(\leftarrow\) read(Memoria{[}MAR{]}); IP \(\leftarrow\) IP + 1 (Obtener byte 2)
+      \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1 (Obtener byte 2)
     \item
-      MAR \(\leftarrow\) MBR
+      \texttt{MAR} \(\leftarrow\) \texttt{MBR}
     \item
-      MBR \(\leftarrow\) Ry
+      \texttt{MBR} \(\leftarrow\) \texttt{Ry}
     \item
-      write(Memoria{[}MAR{]}) \(\leftarrow\) MBR
+      \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}
     \end{itemize}
   \end{enumerate}
 \end{itemize}

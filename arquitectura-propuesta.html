@@ -960,44 +960,45 @@ Primero veremos la codificaciones de 4 tipos de instrucciones.</p>
 </div>
 <div id="ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="section level3 hasAnchor" number="5.2.5">
 <h3><span class="header-section-number">5.2.5</span> Ciclo de la instrucción (Etapas de captación y ejecución)<a href="arquitectura-propuesta.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Para describir la secuencias de microoperaciones que se llevan a caba dentro de la computadora utilizaremos la siguiente lenguaje de transferencia entre los registros.</p>
+<p><code>destino</code> <span class="math inline">\(\leftarrow\)</span> <code>origen</code></p>
 <div id="etapa-de-captación" class="section level4 hasAnchor" number="5.2.5.1">
 <h4><span class="header-section-number">5.2.5.1</span> <strong>Etapa de Captación</strong> (*):<a href="arquitectura-propuesta.html#etapa-de-captación" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Se describen los pasos de la etapa de captación de instrucciones mediante la transferencia entre diferentes componentes de la computadoras:
-| # | Pasos |
-| - | — |
-| 1 | <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> |
-| 2 | <code>MDR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR]); IP $\leftarrow$ IP + 1</code> |
-| 3 | <code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MDR</code> |</p>
+<ol style="list-style-type: decimal">
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></li>
+<li><code>MDR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR]);</code>IP<code>$\leftarrow$</code>IP` + 1</li>
+<li><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MDR</code></li>
+</ol>
 <p>(*): Todas las instrucciones tienen los mismos pasos en la etapa de captación.</p>
 </div>
 <div id="etapa-de-ejecución" class="section level4 hasAnchor" number="5.2.5.2">
 <h4><span class="header-section-number">5.2.5.2</span> <strong>Etapa de Ejecución</strong>:<a href="arquitectura-propuesta.html#etapa-de-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li>0: Copiar entre registros: <code>MOV Rx, Ry</code>
+<li>0: Copiar entre registros: MOV <code>Rx</code>, <code>Ry</code>
 <ol style="list-style-type: decimal">
-<li>Rx <span class="math inline">\(\leftarrow\)</span> Ry</li>
+<li><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></li>
 </ol></li>
 <li>1: Cargar a registro:
 <ol style="list-style-type: lower-alpha">
-<li>Directo: MOV Rx, [Dirección]
+<li>Directo: MOV <code>Rx</code>, <code>[Dirección]</code>
 <ul>
-<li>MAR <span class="math inline">\(\leftarrow\)</span> IP</li>
-<li>MBR <span class="math inline">\(\leftarrow\)</span> read(Memoria[MAR]); IP <span class="math inline">\(\leftarrow\)</span> IP + 1 (Obtener byte 2)<br />
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></li>
+<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1 (Obtener byte 2)<br />
 </li>
-<li>MAR <span class="math inline">\(\leftarrow\)</span> MBR</li>
-<li>MBR <span class="math inline">\(\leftarrow\)</span> read(Memoria[MAR]) (Obtener operando)</li>
-<li>Rx <span class="math inline">\(\leftarrow\)</span> MBR</li>
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
+<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> (Obtener operando)</li>
+<li><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
 </ul></li>
 </ol></li>
 <li>2: Almacenar en memoria:
 <ol style="list-style-type: lower-alpha">
-<li>MOV [Dirección], Ry
+<li>MOV <code>[Dirección]</code>, <code>Ry</code>
 <ul>
-<li>MAR <span class="math inline">\(\leftarrow\)</span> IP</li>
-<li>MBR <span class="math inline">\(\leftarrow\)</span> read(Memoria[MAR]); IP <span class="math inline">\(\leftarrow\)</span> IP + 1 (Obtener byte 2)</li>
-<li>MAR <span class="math inline">\(\leftarrow\)</span> MBR</li>
-<li>MBR <span class="math inline">\(\leftarrow\)</span> Ry</li>
-<li>write(Memoria[MAR]) <span class="math inline">\(\leftarrow\)</span> MBR</li>
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></li>
+<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1 (Obtener byte 2)</li>
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
+<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></li>
+<li><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
 </ul></li>
 </ol></li>
 </ul>
