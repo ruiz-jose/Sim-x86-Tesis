@@ -479,27 +479,27 @@ El análisis de diversas arquitecturas de computadoras es esencial para comprend
 \hypertarget{arquitectura-x86}{%
 \subsection{Arquitectura x86}\label{arquitectura-x86}}
 
-La arquitectura x86 ha dominado el mercado de las computadoras de escritorio y servidores durante décadas, gracias a su capacidad para ofrecer un alto rendimiento y su amplia compatibilidad con software existente. La complejidad de su conjunto de instrucciones (ISA) permite una mayor flexibilidad, aunque a costa de una mayor complejidad en el diseño del hardware. Su eficiencia energética es moderada, lo que la hace menos ideal para dispositivos móviles y más apropiada para entornos donde el rendimiento es la prioridad principal {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
+La arquitectura x86 ha liderado el mercado de computadoras de escritorio y servidores durante décadas, destacándose por su alto rendimiento y amplia compatibilidad con software existente. La complejidad de su conjunto de instrucciones (ISA) permite una mayor flexibilidad, aunque a costa de una mayor complejidad en el diseño del hardware. Su eficiencia energética es moderada, lo que la hace menos ideal para dispositivos móviles y más apropiada para entornos donde el rendimiento es la prioridad principal {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
 
 \hypertarget{arquitectura-arm}{%
 \subsection{Arquitectura ARM}\label{arquitectura-arm}}
 
-La arquitectura ARM es conocida por su alta eficiencia energética, característica que la ha hecho muy popular en dispositivos móviles, como smartphones y tablets, y en sistemas embebidos. ARM se basa en el paradigma de conjunto de instrucciones reducidas (RISC), lo que simplifica el diseño del hardware y reduce el consumo energético, como se explica en la sección \ref{RISC}. Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es fundamental {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+La arquitectura ARM es conocida por su alta eficiencia energética, siendo ampliamente utilizada en dispositivos móviles, como smartphones y tablets, así como en sistemas embebidos. ARM se basa en el paradigma de conjunto de instrucciones reducidas (RISC), lo que simplifica el diseño del hardware y reduce el consumo energético, como se explica en la sección \ref{RISC}. Aunque su rendimiento es moderado en comparación con x86, la arquitectura ARM es ideal para aplicaciones donde la eficiencia energética es fundamental {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
 
 \hypertarget{arquitectura-mips}{%
 \subsection{Arquitectura MIPS}\label{arquitectura-mips}}
 
-MIPS es otra arquitectura basada en RISC que ha sido ampliamente utilizada en sistemas embebidos y en la educación. Aunque ha perdido prominencia frente a otras arquitecturas como ARM, MIPS sigue siendo relevante en ciertos nichos debido a su simplicidad y efectividad. Su conjunto de instrucciones presenta una complejidad moderada, lo que permite un equilibrio entre rendimiento y consumo energético, aunque su adopción y soporte en la industria son más limitados {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
+MIPS es otra arquitectura basada en RISC que ha sido ampliamente utilizada en sistemas embebidos y en la educación. Aunque ha perdido prominencia frente a otras arquitecturas como ARM, MIPS sigue siendo relevante en ciertos nichos por su simplicidad y efectividad. Su conjunto de instrucciones presenta una complejidad moderada, logrando un equilibrio entre rendimiento y consumo energético, aunque su adopción y soporte en la industria son más limitados {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}.
 
 \hypertarget{arquitectura-risc-v}{%
 \subsection{Arquitectura RISC-V}\label{arquitectura-risc-v}}
 
-RISC-V es una arquitectura emergente que ha atraído la atención global debido a su conjunto de instrucciones abierto y libre, lo que permite a desarrolladores y fabricantes adaptarla y personalizarla según sus necesidades. Al igual que ARM, RISC-V se basa en el paradigma RISC, lo que le otorga una alta eficiencia energética y una baja complejidad de hardware. Su flexibilidad la convierte en una opción atractiva para la investigación, la educación y aplicaciones embebidas. Además, RISC-V ofrece una compatibilidad creciente gracias a su adopción por parte de la comunidad global de desarrolladores {[}\protect\hyperlink{ref-waterman_risc-v_2014}{26}{]}.
+RISC-V es una arquitectura emergente que ha atraído la atención global debido a su conjunto de instrucciones abierto y libre, lo que permite a desarrolladores y fabricantes adaptarla y personalizarla según sus necesidades. Al igual que ARM, RISC-V se basa en el paradigma RISC, lo que le otorga alta eficiencia energética y baja complejidad de hardware. Su flexibilidad la convierte en una opción atractiva para la investigación, la educación y aplicaciones embebidas. Además, la creciente adopción de RISC-V por la comunidad global de desarrolladores está ampliando su compatibilidad y su ecosistema {[}\protect\hyperlink{ref-waterman_risc-v_2014}{26}{]}.
 
 \hypertarget{compararativa-de-arquitecturas}{%
 \subsection{Compararativa de arquitecturas}\label{compararativa-de-arquitecturas}}
 
-Cada una de estas arquitecturas ofrece un conjunto de características distintivas que las hace más o menos adecuadas para diferentes aplicaciones. La elección de la arquitectura correcta puede tener un impacto significativo en el éxito de un proyecto, ya sea en términos de rendimiento, eficiencia energética o compatibilidad {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
+Cada una de estas arquitecturas ofrece características distintivas que las hacen más o menos adecuadas para distintas aplicaciones. La selección de la arquitectura apropiada puede impactar significativamente en el éxito de un proyecto, ya sea en términos de rendimiento, eficiencia energética o compatibilidad {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
 
 \begin{longtable}[]{@{}lllll@{}}
 \caption{\label{tab:tabla-comparacion-cpu}Comparación de Arquitecturas}\tabularnewline
@@ -592,20 +592,20 @@ Investigación, embebidos\strut
 \hypertarget{repertorio-de-instrucciones}{%
 \section{Repertorio de instrucciones}\label{repertorio-de-instrucciones}}
 
-El repertorio de instrucciones, conocido como \textbf{ISA (Instruction Set Architecture)}, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA tiene un impacto considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}, {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}.
+El repertorio de instrucciones, conocido como \textbf{ISA (Instruction Set Architecture)}, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y manipulación de datos, además de los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA influye considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}, {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}.
 
 Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Tipos de operandos}: Se refiere a los diversos tipos de datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres o direcciones de memoria. Es crucial diseñar un repertorio de instrucciones que soporte eficientemente diferentes tipos de operando.
+  \textbf{Tipos de operandos}: los tipos de datos que las instrucciones pueden manipular, tales como enteros, números en punto flotante, caracteres y direcciones de memoria. Un ISA bien diseñado soporta eficientemente diversos tipos de operandos.
 \item
-  \textbf{Tipos de operaciones}: Incluye las operaciones que el procesador puede realizar, como aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y operaciones de manipulación de datos (movimiento de datos, almacenamiento, carga).
+  \textbf{Tipos de operaciones}: las operaciones que el procesador es capaz de realizar, incluyendo aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y manipulación de datos (movimiento de datos, almacenamiento, carga).
 \item
-  \textbf{Formato de las instrucciones}: La estructura de una instrucción determina la longitud, el número de operandos y los modos de direccionamiento, lo que impacta directamente en la complejidad y eficiencia del procesador.
+  \textbf{Modos de direccionamiento}: los métodos para especificar operandos en las instrucciones, como inmediato, directo, indirecto y relativo, cada uno con ventajas en términos de flexibilidad y eficiencia.
 \item
-  \textbf{Modos de direccionamiento}: Definen cómo se especifican los operandos en las instrucciones. Modos comunes incluyen inmediato, directo, indirecto y relativo, cada uno ofreciendo diferentes ventajas en términos de flexibilidad y eficiencia.
+  \textbf{Formato de las instrucciones}: la estructura de una instrucción, que define su longitud, número de operandos y modos de direccionamiento. Este aspecto impacta directamente en la complejidad y eficiencia del procesador.
 \end{itemize}
 
 \begin{figure}
