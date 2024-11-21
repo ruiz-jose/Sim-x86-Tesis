@@ -592,20 +592,23 @@ Investigación, embebidos\strut
 \hypertarget{repertorio-de-instrucciones}{%
 \section{Repertorio de instrucciones}\label{repertorio-de-instrucciones}}
 
-El repertorio de instrucciones, conocido como \textbf{ISA (Instruction Set Architecture)}, define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y manipulación de datos, además de los modos de direccionamiento y formatos de las instrucciones. El diseño de un ISA influye considerable en el rendimiento, la eficiencia energética y la flexibilidad de la arquitectura de un procesador {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}, {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}.
+El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y manipulación de datos, además de los modos de direccionamiento y los formatos de las instrucciones. El diseño del ISA tiene un impacto directo en el rendimiento, la eficiencia energética y la flexibilidad del procesador, lo que lo convierte en un componente clave en la arquitectura de computadoras {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}, {[}\protect\hyperlink{ref-null_essentials_2014}{22}{]}.
 
-Entre las características clave que deben considerarse en el diseño de un repertorio de instrucciones están las siguientes {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}:
+\hypertarget{caracteruxedsticas-clave-del-isa}{%
+\subsection{Características clave del ISA}\label{caracteruxedsticas-clave-del-isa}}
+
+Entre las características fundamentales a considerar en el diseño de un repertorio de instrucciones se encuentran las siguientes {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Tipos de operandos}: los tipos de datos que las instrucciones pueden manipular, tales como enteros, números en punto flotante, caracteres y direcciones de memoria. Un ISA bien diseñado soporta eficientemente diversos tipos de operandos.
+  \textbf{Tipos de operandos}: representan los datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres y direcciones de memoria. Un ISA eficiente debe soportar una amplia variedad de operandos para maximizar su versatilidad.
 \item
-  \textbf{Tipos de operaciones}: las operaciones que el procesador es capaz de realizar, incluyendo aritmética (suma, resta), lógica (AND, OR), control (saltos, llamadas a subrutinas) y manipulación de datos (movimiento de datos, almacenamiento, carga).
+  \textbf{Tipos de operaciones}: incluyen las operaciones que el procesador puede realizar, como aritméticas (suma, resta), lógicas (AND, OR), de control (saltos, llamadas a subrutinas) y de manipulación de datos (almacenamiento, carga). Un repertorio bien diseñado debe equilibrar funcionalidad y simplicidad.
 \item
-  \textbf{Modos de direccionamiento}: los métodos para especificar operandos en las instrucciones, como inmediato, directo, indirecto y relativo, cada uno con ventajas en términos de flexibilidad y eficiencia.
+  \textbf{Modos de direccionamiento}: determinan cómo se especifican los operandos en las instrucciones. Modos como inmediato, directo, indirecto y relativo ofrecen diferentes niveles de flexibilidad y eficiencia.
 \item
-  \textbf{Formato de las instrucciones}: la estructura de una instrucción, que define su longitud, número de operandos y modos de direccionamiento. Este aspecto impacta directamente en la complejidad y eficiencia del procesador.
+  \textbf{Formato de las instrucciones}: define la estructura de una instrucción, incluyendo su longitud, el número de operandos y los modos de direccionamiento. Este aspecto influye tanto en la complejidad del procesador como en su rendimiento.
 \end{itemize}
 
 \begin{figure}
@@ -620,25 +623,25 @@ Entre las características clave que deben considerarse en el diseño de un repe
 \hypertarget{modos-de-direccionamiento}{%
 \subsection{Modos de direccionamiento}\label{modos-de-direccionamiento}}
 
-Los modos de direccionamiento son esenciales para especificar cómo la CPU accede a los datos necesarios para ejecutar una instrucción {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}. Los modos más comunes incluyen:
+Los modos de direccionamiento son esenciales para determinar cómo el procesador accede a los datos necesarios para ejecutar una instrucción. Los modos más comunes incluyen {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}:
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi})}
 \tightlist
 \item
-  \textbf{Inmediato}: El operando está directamente incluido en la instrucción, lo que permite un acceso rápido a valores constantes, generalmente pequeños. Este modo es eficiente para operaciones simples, pero está limitado a operandos de tamaño reducido.
+  \textbf{Inmediato}: el operando está directamente incluido en la instrucción, permitiendo acceso rápido a valores constantes. Es eficiente para operaciones simples, aunque limitado a operandos pequeños.
 \item
-  \textbf{Directo}: La instrucción contiene la dirección de memoria del operando. Este modo es fácil de usar y entender, pero tiene la desventaja de que el rango de direcciones accesibles está limitado por el tamaño de la instrucción.
+  \textbf{Directo}: la instrucción contiene la dirección de memoria del operando. Es fácil de usar, pero está restringido por el rango de direcciones accesibles.
 \item
-  \textbf{Indirecto}: La instrucción apunta a una dirección que, a su vez, contiene la dirección real del operando. Este modo ofrece una mayor flexibilidad al ampliar el rango de direcciones, aunque introduce una penalización en tiempo debido al acceso adicional a la memoria.
+  \textbf{Indirecto}: la instrucción apunta a una dirección que contiene la ubicación real del operando, lo que amplía el rango de direcciones a costa de un acceso adicional a memoria.
 \item
-  \textbf{Registro}: El operando está ubicado en uno de los registros del procesador, lo que permite un acceso extremadamente rápido. Este modo es muy eficiente, ya que evita los accesos a la memoria, pero está limitado por el número de registros disponibles.
+  \textbf{Registro}: el operando se encuentra en un registro del procesador, proporcionando acceso extremadamente rápido, pero limitado por la cantidad de registros disponibles.
 \item
-  \textbf{Registro Indirecto}: Similar al modo indirecto, pero en este caso la dirección del operando está almacenada en un registro. Esto combina la rapidez del acceso a registros con la flexibilidad del direccionamiento indirecto.
+  \textbf{Registro Indirecto}: similar al modo indirecto, pero la dirección se almacena en un registro, combinando rapidez y flexibilidad.
 \item
-  \textbf{Con Desplazamiento}: Este modo combina una dirección base con un valor de desplazamiento, lo que resulta muy útil para trabajar con estructuras de datos como arrays. Permite un acceso eficiente a elementos contiguos en memoria.
+  \textbf{Con Desplazamiento}: combina una dirección base con un valor de desplazamiento, ideal para estructuras como arrays y matrices.
 \item
-  \textbf{Pila}: El operando se encuentra en la parte superior de la pila, y su dirección es calculada en base al puntero de la pila. Este modo es fundamental para la gestión de llamadas a subrutinas y el paso de parámetros en muchos lenguajes de programación.
+  \textbf{Pila}: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.
 \end{enumerate}
 
 Estos modos se ilustran en la figura \ref{fig:ModDir} según {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}:
@@ -662,7 +665,7 @@ Estos modos se ilustran en la figura \ref{fig:ModDir} según {[}\protect\hyperli
   EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
 \end{itemize}
 
-La tabla \ref{tab:tabModDir} indica el cálculo de la dirección realizado para cada modo de direccionamiento.
+La tabla \ref{tab:tabModDir} detalla el cálculo de la dirección para cada modo de direccionamiento.
 
 \begin{longtable}[]{@{}llll@{}}
 \caption{\label{tab:tabModDir}Modos de direccionamiento básicos}\tabularnewline
@@ -759,17 +762,19 @@ Aplicabilidad limitada\strut
 \hypertarget{formato-de-las-instrucciones}{%
 \subsection{Formato de las instrucciones}\label{formato-de-las-instrucciones}}
 
-El \textbf{formato de las instrucciones} establece cómo se estructuran las instrucciones que un procesador debe ejecutar, lo que incluye su longitud, la cantidad de operandos y los campos adicionales como el código de operación (\textbf{opcode}) {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}. Este formato no solo afecta la rapidez con la que las instrucciones pueden ser decodificadas, sino también el grado de flexibilidad del conjunto de instrucciones y el aprovechamiento de los recursos del procesador.
+El formato de las instrucciones define su estructura, incluyendo longitud, cantidad de operandos y campos adicionales como el opcode. Este formato afecta la rapidez de decodificación y la eficiencia general del procesador {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Longitud de la instrucción}: Las instrucciones pueden tener una longitud fija o variable, y esta decisión afecta tanto al diseño como al rendimiento del procesador. Las instrucciones de longitud fija simplifican el proceso de decodificación, ya que todas tienen el mismo tamaño, lo que facilita el diseño del hardware. Sin embargo, esto puede resultar en un uso ineficiente de la memoria cuando se utilizan instrucciones más simples que no requieren tanto espacio. En contraste, las instrucciones de longitud variable permiten un uso más eficiente de la memoria, ya que el tamaño de cada instrucción puede ajustarse a las necesidades de la operación. No obstante, esta flexibilidad aumenta la complejidad en la decodificación, ya que el procesador debe determinar primero la longitud de la instrucción antes de ejecutarla.
+  \textbf{Longitud de la instrucción}: puede ser fija o variable. La longitud fija simplifica el diseño del hardware, mientras que la variable optimiza el uso de memoria, aunque incrementa la complejidad de decodificación.
 \item
-  \textbf{Cantidad de operandos}: Las instrucciones pueden trabajar con diferentes cantidades de operandos según la arquitectura del procesador, variando desde cero hasta tres o más. A mayor número de operandos, las instrucciones son más versátiles, permitiendo realizar operaciones más complejas en una única instrucción, lo que reduce el número total de instrucciones necesarias. Sin embargo, un mayor número de operandos también implica un aumento en la complejidad del procesador, ya que se necesitan más campos en la instrucción para especificar los operandos y más registros o direcciones de memoria para manejar los datos, lo cual puede incrementar la longitud de las instrucciones y el esfuerzo de decodificación.
+  \textbf{Cantidad de operandos}: las instrucciones pueden trabajar con diferentes números de operandos (de 0 a 3 o más). Más operandos ofrecen mayor versatilidad, pero aumentan la complejidad y longitud de las instrucciones.
 \item
-  \textbf{Campos de instrucción}: Entre los campos clave que componen una instrucción, el \textbf{opcode} es el más relevante, ya que especifica la operación que el procesador debe ejecutar, como suma, resta o saltos condicionales. Además, las instrucciones pueden incluir otros campos para indicar los operandos, los modos de direccionamiento, y en arquitecturas más avanzadas, flags de condición o características de optimización, como la predicción de saltos o la ejecución fuera de orden. La disposición y el tamaño de estos campos determinan cuántas y qué tipo de operaciones puede realizar el procesador en un ciclo de reloj, afectando directamente su rendimiento global. En arquitecturas más complejas, los campos adicionales permiten un mayor grado de optimización, mejorando el rendimiento en aplicaciones específicas, aunque a costa de un mayor esfuerzo en el diseño y la implementación del hardware.
+  \textbf{Campos de instrucción}: incluyen el opcode y campos adicionales como operandos, modos de direccionamiento y flags de condición. Estos campos determinan cuántas y qué tipo de operaciones puede ejecutar el procesador en un ciclo de reloj.
 \end{itemize}
+
+La Figura {\textbf{???}}(fig:formatoInst) ilustra un esquema típico de formato de instrucciones:
 
 \begin{figure}
 
