@@ -1,51 +1,67 @@
 # Simulación {#simulacion}
-En este capítulo se explora el papel de la simulación desde una perspectiva didáctica, enfatizando su valor como herramienta de apoyo en la enseñanza de Arquitectura de Computadoras. Aquí se revisan los beneficios de los simuladores en la enseñanza y los desafíos que ayudan a resolver en la formación de los estudiantes.
+En este capítulo se analiza el papel de la simulación desde una perspectiva didáctica, destacando su relevancia como herramienta de apoyo en la enseñanza de Arquitectura de Computadoras. Se abordan los beneficios que ofrecen los simuladores en el proceso educativo y los desafíos que ayudan a superar en la formación de los estudiantes.
 
 ## Introducción a la simulación
-La simulación es una herramienta esencial en una amplia variedad de campos, como la medicina, el ámbito militar, el entretenimiento y la educación. Su valor radica en su capacidad para facilitar la comprensión de sistemas complejos, generar hipótesis, realizar análisis predictivos y explorar escenarios de forma segura y eficiente.
+La simulación es una herramienta esencial en una amplia variedad de campos, como la medicina, el ámbito militar, el entretenimiento y la educación. Su principal valor radica en su capacidad para modelar sistemas complejos, generar hipótesis, realizar análisis predictivos y explorar escenarios de manera segura y eficiente.
 
-Banks [@banks_discrete-event_2010] define la simulación como el proceso de replicar el comportamiento de un sistema a lo largo del tiempo mediante un modelo conceptual que representa sus características y dinámicas. A medida que este modelo simulado evoluciona, ofrece una representación detallada de cómo se desarrolla y responde el sistema real ante distintas variables [@robinson_simulation_2014].
+Banks define la simulación como el proceso de replicar el comportamiento de un sistema a lo largo del tiempo mediante un modelo conceptual que representa sus características y dinámicas principales [@banks_discrete-event_2010]. Estos modelos evolucionan simulando las interacciones entre sus componentes, lo que permite estudiar su respuesta ante diferentes variables y escenarios [@robinson_simulation_2014].
 
-La capacidad de replicar y analizar sistemas complejos sin la necesidad de intervenir directamente en ellos convierte a la simulación en una metodología indispensable para ingenieros, diseñadores y gerentes en el contexto digital actual. Permite evaluar el rendimiento de sistemas, prever su comportamiento en escenarios diversos y optimizar su diseño antes de implementarlos. Con los avances tecnológicos, la simulación ha ganado relevancia como una herramienta crucial, ya que la creciente complejidad de los sistemas informáticos no solo dificulta su comprensión, sino que también incrementa los costos de su desarrollo sin el apoyo de técnicas de simulación [@law_simulation_2015; @zeigler_theory_2000].
+La posibilidad de analizar sistemas complejos sin intervenir directamente en ellos convierte a la simulación en una herramienta indispensable en el contexto actual, marcado por el avance de la tecnología y la creciente complejidad de los sistemas. Además, la simulación permite optimizar diseños, prever comportamientos y reducir los costos de desarrollo antes de implementar soluciones reales [@law_simulation_2015; @zeigler_theory_2000].
 
-### Aplicaciones de la Simulación en la Industria
-En la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como los airbags y los frenos. Mediante el uso de modelos virtuales del automóvil y sus componentes, es posible realizar pruebas de colisión y evaluar el rendimiento de los sistemas de seguridad sin recurrir a costosas pruebas físicas. Además, permite optimizar el diseño de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales bajo condiciones extremas, lo que contribuye significativamente a la mejora de la eficiencia y seguridad del vehículo [@stork_towards_2008].
+### Aplicaciones de la simulación en la industria
+En sectores como la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Gracias a modelos virtuales, se realizan pruebas de colisión y análisis de rendimiento sin necesidad de recurrir a costosas pruebas físicas. Asimismo, la simulación permite optimizar diseños de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales en condiciones extremas, contribuyendo a mejorar tanto la eficiencia como la seguridad de los vehículos [@stork_towards_2008].
 
-En la aviación, la simulación se utiliza tanto para entrenar pilotos mediante simuladores de vuelo que replican condiciones reales sin riesgo, como para diseñar aeronaves. En el proceso de diseño, la simulación permite evaluar la aerodinámica y el rendimiento de nuevos modelos en diversas condiciones de vuelo, lo que agiliza el desarrollo y mejora la seguridad. Estos ejemplos subrayan cómo la simulación no solo reduce costos y tiempos de desarrollo, sino que también incrementa la seguridad en la creación de productos complejos [@jentsch_simulation_2017].
+En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad [@jentsch_simulation_2017].
+
+Estos ejemplos destacan cómo la simulación no solo optimiza procesos industriales, sino que también asegura una mayor eficacia y seguridad en el diseño de productos complejos.
 
 ## Simulación en la educación
-En el ámbito educativo, la simulación se ha convertido en una herramienta clave para la enseñanza de conceptos complejos y el fomento del aprendizaje activo. Mediante el uso de simuladores, los alumnos tienen la posibilidad de interactuar con sistemas virtuales y explorar escenarios realistas, lo que facilita no solo la comprensión de ideas abstractas, sino también la aplicación práctica de conocimientos teóricos en contextos significativos [@lion_simuladores_2005].
+En el ámbito educativo, la simulación ha emergido como una herramienta poderosa para facilitar la enseñanza de conceptos complejos y fomentar el aprendizaje activo. A través de simuladores, los estudiantes pueden interactuar con sistemas virtuales y experimentar escenarios realistas, lo que mejora la comprensión de ideas abstractas y favorece la aplicación práctica de conocimientos teóricos [@lion_simuladores_2005].
 
-A diferencia de los métodos tradicionales,  como el uso de pizarras, libros de texto y diapositivas, las herramientas de simulación permiten integrar nuevas tecnologías que vinculan conceptos abstractos con situaciones reales. Esta inmersión en entornos simulados promueve una metodología pedagógica más interactiva, que incentiva tanto la resolución de problemas como el desarrollo de habilidades mediante la exploración, la inferencia y el aprendizaje por descubrimiento [@contreras_uso_2010].
+A diferencia de los métodos tradicionales, como el uso de libros de texto o diapositivas, las herramientas de simulación integran tecnologías que vinculan conceptos teóricos con situaciones reales. Esto promueve una pedagogía interactiva, basada en la resolución de problemas y el aprendizaje por descubrimiento, estimulando la exploración y el razonamiento inferencial [@contreras_uso_2010].
 
-En definitiva, la simulación no solo enriquece la comprensión de los alumnos, sino que también potencia su capacidad para experimentar y participar activamente en su proceso de aprendizaje, transformando así la enseñanza en una experiencia más dinámica y enriquecedora.
+En definitiva, la simulación enriquece la experiencia de aprendizaje al proporcionar una plataforma dinámica y participativa que facilita tanto la experimentación como la asimilación profunda de los contenidos.
 
 ### El rol de la simulación en la enseñanza de Arquitectura de Computadoras
-En el contexto de la carrera de Licenciatura en Sistemas, la asignatura Arquitectura de Computadoras tiene varios objetivos clave:
+En la carrera de Licenciatura en Sistemas, la asignatura Arquitectura de Computadoras persigue varios objetivos esenciales:
 - Comprender la estructura y funcionamiento de las computadoras.
 - Conocer las diferentes arquitecturas de sistemas microprocesadores.
 - Evaluar medidas de rendimiento y comparar arquitecturas.
 - Analizar el impacto de la tecnología de las computadoras en contextos sociales y económicos.
 
-Enseñar los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un reto debido a la complejidad de los procesos involucrados. Los estudiantes deben desarrollar un alto nivel de abstracción para construir un modelo mental que capture los conceptos principales. Los simuladores facilitan esta tarea al proporcionar representaciones visuales e interactivas de procesos complejos, como el funcionamiento interno de los procesadores, la ejecución de instrucciones y la gestión de memoria. 
+Enseñar los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un reto debido a la complejidad de los procesos involucrados. Los estudiantes necesitan desarrollar altos niveles de abstracción para construir modelos mentales que les permitan entender conceptos como la ejecución de instrucciones, la gestión de memoria o la interacción entre componentes del sistema.
 
-Estas herramientas permiten a los alumnos experimentar con distintas configuraciones y parámetros, observar cómo afectan el rendimiento, y ofrecer a los docentes recursos efectivos para conectar teoría y práctica. Además, la simulación posibilita explorar escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin necesidad de hardware físico. En resumen, la simulación es una herramienta valiosa en la educación para mejorar la comprensión de los estudiantes, fomentar la experimentación y promover un aprendizaje activo [@skrien_cpu_2001; @garcia-garcia_pbbcache_2020; @nova_tool_2013].
+Los simuladores desempeñan un papel crucial en este contexto al ofrecer representaciones visuales e interactivas de procesos complejos. Estas herramientas permiten a los alumnos experimentar con configuraciones y parámetros, observar su impacto en el rendimiento del sistema y explorar escenarios hipotéticos sin necesidad de hardware físico.
+
+Además, la simulación actúa como un puente entre la teoría y la práctica, facilitando que los docentes refuercen conceptos abstractos con experiencias concretas. En conjunto, estas ventajas hacen de la simulación una metodología pedagógica invaluable, promoviendo la experimentación y el aprendizaje activo en la enseñanza de Arquitectura de Computadoras [@skrien_cpu_2001; @garcia-garcia_pbbcache_2020; @nova_tool_2013].
 
 ## El Formalismo DEVS (Discrete Event System Specification)
-El formalismo DEVS es modular y jerárquico, adecuado para el modelado y análisis de sistemas que pueden ser representados como sistemas de eventos discretos, sistemas de estado continuo o sistemas híbridos. Este formalismo, desarrollado por Bernard P. Zeigler en los años 70, extiende el concepto de las máquinas de Moore al proporcionar una estructura para modelar sistemas complejos mediante la utilización de eventos cronometrados [@zeigler_theory_2000].
+El formalismo DEVS es una metodología modular y jerárquica que permite modelar y analizar sistemas representables como sistemas de eventos discretos, continuos o híbridos. Desarrollado por Bernard P. Zeigler en la década de 1970, este enfoque amplía el concepto de las máquinas de Moore al incorporar una estructura capaz de modelar sistemas complejos mediante eventos cronometrados y transiciones de estados [@zeigler_theory_2000].
 
-El formalismo DEVS define el comportamiento de un sistema real utilizando eventos de entrada y salida, y transiciones entre estados concretos. Un sistema en DEVS está compuesto por modelos atómicos y acoplados. Los modelos atómicos representan las unidades básicas de comportamiento, mientras que los modelos acoplados consisten en combinaciones de modelos atómicos y/o otros modelos acoplados. Esta estructura jerárquica facilita la gestión y análisis de sistemas complejos, permitiendo la prueba de subsistemas de manera aislada antes de integrarlos en el sistema completo.
+### Estructura del formalismo DEVS
+DEVS describe el comportamiento de un sistema real utilizando eventos de entrada y salida, así como transiciones entre estados definidos. Un sistema en este formalismo se compone de dos tipos principales de modelos:
+
+- **Modelos atómicos**: representan las unidades fundamentales de comportamiento.
+- **Modelos acoplados**: integran modelos atómicos y/o otros modelos acoplados, permitiendo la construcción jerárquica de sistemas más complejos.
+
+Esta organización modular facilita el análisis y la gestión de sistemas, permitiendo probar subsistemas de manera aislada antes de integrarlos en un modelo completo.
 
 ### Aplicaciones del formalismo DEVS
-El formalismo DEVS se aplica a una amplia variedad de sistemas, desde redes de comunicación hasta procesos de manufactura. Por ejemplo, en el ámbito de las redes de comunicación, los modelos DEVS pueden simular el enrutamiento de paquetes de datos y la gestión de congestión en redes. En la manufactura, un modelo DEVS puede representar el flujo de materiales y el control de calidad en una línea de producción, ayudando a identificar cuellos de botella y optimizar los procesos. Estos ejemplos ilustran cómo DEVS puede ser utilizado para mejorar la eficiencia y la efectividad en diversos contextos.
+El formalismo DEVS encuentra aplicación en diversos ámbitos:
 
-### DEVS Aplicado a la enseñanza de la Arquitectura de Computadoras
-El uso de un entorno de simulación basado en DEVS para la enseñanza de la arquitectura de computadores ofrece a los estudiantes la posibilidad de:
+- **Redes de comunicación**: permite simular el enrutamiento de paquetes de datos, gestionar la congestión y optimizar protocolos de transmisión.
+- **Manufactura**: modela el flujo de materiales, el control de calidad y los procesos en líneas de producción, identificando cuellos de botella y áreas para mejora.
+- **Sistemas de transporte**: simula el comportamiento de flujos de tráfico o redes de transporte público para mejorar la eficiencia y reducir costos operativos.
 
-- Representación visual: ofrece una visualización clara de los procesos complejos, permitiendo a los estudiantes observar el funcionamiento interno de los sistemas computacionales.
+Estas aplicaciones destacan su versatilidad para optimizar sistemas complejos en escenarios del mundo real.
 
-- Interactividad: permite experimentar con diferentes configuraciones y parámetros, lo que ayuda a comprender el impacto de estas variables en el rendimiento del sistema.
+### DEVS en la enseñanza de la Arquitectura de Computadoras
+La implementación de entornos de simulación basados en DEVS en la enseñanza de arquitectura de computadoras aporta múltiples ventajas que enriquecen el proceso de aprendizaje:
 
-- Exploración de escenarios: permite la simulación de escenarios hipotéticos y la evaluación del comportamiento de sistemas complejos sin necesidad de hardware físico.
+- **Representación visual**: ofrece diagramas y representaciones dinámicas que ayudan a los estudiantes a visualizar y comprender procesos internos, como la ejecución de instrucciones y la gestión de recursos.
+- **Interactividad**: permite modificar configuraciones y parámetros, fomentando la experimentación y mostrando el impacto directo de estas variables en el rendimiento del sistema.
+- **Exploración de escenarios**: posibilita simular escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin la necesidad de hardware físico.
 
-Estas características contribuyen a un aprendizaje activo y a la conexión entre teoría y práctica, promoviendo una comprensión más sólida de los conceptos de arquitectura de computadoras [@calvo_valdes_simulador_2010].
+Estas características transforman la experiencia de aprendizaje, al vincular teoría con práctica y promover un enfoque activo en la comprensión de conceptos clave de arquitectura de computadoras. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras [@calvo_valdes_simulador_2010].
+
+En conclusión, el formalismo DEVS no solo es una herramienta valiosa para el modelado y análisis de sistemas, sino que también representa un recurso poderoso para facilitar la enseñanza de conceptos complejos, como los que se encuentran en la arquitectura de computadoras.
