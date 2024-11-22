@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.1 Estudios similares | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="4.1 Estudios similares | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>5.3 Componentes del simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="5.3 Componentes del simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.1 Estudios similares | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="5.3 Componentes del simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.1 Estudios similares | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="5.3 Componentes del simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="comparativa.html"/>
-<link rel="next" href="simuladores-bajo-análisis.html"/>
+<link rel="prev" href="arquitectura-propuesta.html"/>
+<link rel="next" href="primera-etapa.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -217,20 +217,66 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="estudios-similares" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Estudios similares<a href="estudios-similares.html#estudios-similares" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Cabe destacar que existen antecedentes de estudios comparativos que evalúan diferentes simuladores aplicados a la enseñanza de los cursos de arquitectura de computadoras:
-- “A survey and evaluation of simulators suitable for teaching courses in computer architecture and organization”, 2009 <span class="citation">(Nikolic et al. <a href="#ref-nikolic_survey_2009" role="doc-biblioref">2009</a>)</span>: Otros estudios evalúan diferentes simuladores para abordar diferentes temas en el dictado de los cursos de Arquitectura de Computadoras, en general estos estudios evalúan simuladores en términos de dos categorías predefinidas: una referida a las características de la simulación, como ser granularidad, usabilidad, disponibilidad, presentación visual, flujo de simulación, etc., y otra sobre la cobertura de los contenidos preestablecidos en las currículas.
-- “Survey and evaluation of simulators suitable for teaching for computer architecture and organization Supporting undergraduate students at Sir Syed University of Engineering &amp; Technology”, 2012 <span class="citation">(Hasan and Mahmood <a href="#ref-hasan_survey_2012" role="doc-biblioref">2012</a>)</span>: Evalúa aspectos como usabilidad, disponibilidad, fundamentos de arquitectura informática, jerarquía de sistemas de memoria, comunicación e interfaz y diseño de sistemas de procesadores.</p>
-<p>Este trabajo se diferencia al proponer un enfoque diferente: evaluar los simuladores x86 bajo criterios de evaluación basados en características de simulación y en contenidos específicos de la asignatura Arquitectura de Computadoras de la carrera de Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos</p>
+<div id="componentes-del-simulador" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Componentes del simulador<a href="componentes-del-simulador.html#componentes-del-simulador" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="procesador-o-cpu" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Procesador o CPU<a href="componentes-del-simulador.html#procesador-o-cpu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El procesador diseñado para este simulador cuenta con las siguientes características principales:</p>
+<table>
+<caption><span id="tab:arq">Tabla 5.1: </span>Arquitectura x86 propuesta</caption>
+<colgroup>
+<col width="10%" />
+<col width="89%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Arquitectura</th>
+<th align="left">Características</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Arquitectura</td>
+<td align="left">- von Neumann, con memoria compartida para datos e instrucciones.</td>
+</tr>
+<tr class="even">
+<td align="left">Registros</td>
+<td align="left">- 4 registros de propósito general (<code>AL</code>, <code>BL</code>, <code>DL</code> y <code>DL</code>) de 8 bits cada uno.</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">- 3 registros de propósito específico: <code>IP</code> (Instruction Pointer), <code>IR</code>(Instruction Register) y <code>SP</code>(Stack Pointer).</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">- 1 registro de estado (<code>RS</code>) para las banderas.</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">- 2 registros intermedios (<code>MAR</code>: buffer de direcciones y <code>MBR</code>: buffer de datos) para comunicación entre CPU y memoria.</td>
+</tr>
+<tr class="even">
+<td align="left">Memoria</td>
+<td align="left">- Memoria de 256 posiciones, con una capacidad de un byte por posición.</td>
+</tr>
+<tr class="odd">
+<td align="left">Buses</td>
+<td align="left">- Bus de datos y direcciones de 8 bits.</td>
+</tr>
+<tr class="even">
+<td align="left">Instrucciones</td>
+<td align="left">- Longitud variable (1, 2 y 3 bytes).</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">- Soporta un conjunto de 16 instrucciones.</td>
+</tr>
+</tbody>
+</table>
 </div>
-<h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references hanging-indent">
-<div id="ref-hasan_survey_2012">
-<p>Hasan, Raza, and Salman Mahmood. 2012. “Survey and Evaluation of Simulators Suitable for Teaching for Computer Architecture and Organization Supporting Undergraduate Students at Sir Syed University of Engineering &amp; Technology.” In <em>Control (CONTROL), 2012 UKACC International Conference on</em>, 1043–5. IEEE.</p>
-</div>
-<div id="ref-nikolic_survey_2009">
-<p>Nikolic, B., Z. Radivojevic, J. Djordjevic, and V. Milutinovic. 2009. “A Survey and Evaluation of Simulators Suitable for Teaching Courses in Computer Architecture and Organization.” <em>IEEE Transactions on Education</em> 52 (4): 449–58. <a href="https://doi.org/10.1109/TE.2008.930097">https://doi.org/10.1109/TE.2008.930097</a>.</p>
+<div id="repertorio-de-instrucciones-1" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Repertorio de instrucciones<a href="componentes-del-simulador.html#repertorio-de-instrucciones-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El repertorio propuesto para el simulador es una simplificación de la arquitectura x86, diseñada para facilitar la enseñanza y el aprendizaje. Este conjunto ficticio opera con instrucciones de 8 bits para una mejor comprensión.</p>
 </div>
 </div>
             </section>
@@ -238,8 +284,8 @@
           </div>
         </div>
       </div>
-<a href="comparativa.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="simuladores-bajo-análisis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="arquitectura-propuesta.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="primera-etapa.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -270,7 +316,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/04-comparativa.Rmd",
+"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/05-desarrollo.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -278,7 +324,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/04-comparativa.Rmd",
+"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/05-desarrollo.Rmd",
 "text": null
 },
 "download": ["tesis.pdf"],

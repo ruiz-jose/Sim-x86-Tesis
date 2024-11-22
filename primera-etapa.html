@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.1 Estudios similares | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="4.1 Estudios similares | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>5.4 Primera etapa | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="5.4 Primera etapa | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.1 Estudios similares | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="5.4 Primera etapa | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.1 Estudios similares | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="5.4 Primera etapa | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="comparativa.html"/>
-<link rel="next" href="simuladores-bajo-análisis.html"/>
+<link rel="prev" href="componentes-del-simulador.html"/>
+<link rel="next" href="segunda-etapa.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -217,20 +217,294 @@
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="estudios-similares" class="section level2 hasAnchor" number="4.1">
-<h2><span class="header-section-number">4.1</span> Estudios similares<a href="estudios-similares.html#estudios-similares" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Cabe destacar que existen antecedentes de estudios comparativos que evalúan diferentes simuladores aplicados a la enseñanza de los cursos de arquitectura de computadoras:
-- “A survey and evaluation of simulators suitable for teaching courses in computer architecture and organization”, 2009 <span class="citation">(Nikolic et al. <a href="#ref-nikolic_survey_2009" role="doc-biblioref">2009</a>)</span>: Otros estudios evalúan diferentes simuladores para abordar diferentes temas en el dictado de los cursos de Arquitectura de Computadoras, en general estos estudios evalúan simuladores en términos de dos categorías predefinidas: una referida a las características de la simulación, como ser granularidad, usabilidad, disponibilidad, presentación visual, flujo de simulación, etc., y otra sobre la cobertura de los contenidos preestablecidos en las currículas.
-- “Survey and evaluation of simulators suitable for teaching for computer architecture and organization Supporting undergraduate students at Sir Syed University of Engineering &amp; Technology”, 2012 <span class="citation">(Hasan and Mahmood <a href="#ref-hasan_survey_2012" role="doc-biblioref">2012</a>)</span>: Evalúa aspectos como usabilidad, disponibilidad, fundamentos de arquitectura informática, jerarquía de sistemas de memoria, comunicación e interfaz y diseño de sistemas de procesadores.</p>
-<p>Este trabajo se diferencia al proponer un enfoque diferente: evaluar los simuladores x86 bajo criterios de evaluación basados en características de simulación y en contenidos específicos de la asignatura Arquitectura de Computadoras de la carrera de Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos</p>
+<div id="primera-etapa" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Primera etapa<a href="primera-etapa.html#primera-etapa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En la primera fase, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:</p>
+<table>
+<caption><span id="tab:setreducido">Tabla 5.2: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
+<thead>
+<tr class="header">
+<th align="left">Instrucciones</th>
+<th align="left">Código operación</th>
+<th align="left">nemónico</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Transferencia de datos</td>
+<td align="left">{0, 1, 2}</td>
+<td align="left">MOV</td>
+<td align="left">0- Copiar entre registros</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">1- Cargar a registro</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">2- Almacenar en memoria</td>
+</tr>
+<tr class="even">
+<td align="left">Pocesamiento de datos</td>
+<td align="left">{3, 4, 5}</td>
+<td align="left">ADD</td>
+<td align="left">3-4-5 Sumar</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">{6, 7, 8}</td>
+<td align="left">SUB</td>
+<td align="left">6-7-8 Restar</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">{9, 10, 11}</td>
+<td align="left">CMP</td>
+<td align="left">9-10-11 Comparar</td>
+</tr>
+<tr class="odd">
+<td align="left">Control de flujo</td>
+<td align="left">{12}</td>
+<td align="left">JMP</td>
+<td align="left">12-a Salto incondicional</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">JZ</td>
+<td align="left">12-b Salto condicional si Z=1</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">JC</td>
+<td align="left">12-c Salto condicional si C=1</td>
+</tr>
+</tbody>
+</table>
+<div id="formato-de-instrucciones" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Formato de instrucciones<a href="primera-etapa.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El formato de las instrucciones contempla los siguientes casos:</p>
+<table>
+<caption><span id="tab:codtreducido">Tabla 5.3: </span>Tabla de codififación de instrucciones</caption>
+<colgroup>
+<col width="24%" />
+<col width="19%" />
+<col width="15%" />
+<col width="39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Tipo</th>
+<th align="left">Casos</th>
+<th align="left">Codificación</th>
+<th align="left">Parámetros</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Transferencia y procesamiento</td>
+<td align="left">A: entre registros</td>
+<td align="left">—- XXYY</td>
+<td align="left">XX = Registro destino, YY = Registro fuente</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left">B: Cargar a registro</td>
+<td align="left">—- XX00 DDDDDDDD</td>
+<td align="left">XX = Registro destino, M = Dirección de memoria</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left">C: Almacenar en memoria</td>
+<td align="left">—- 00YY DDDDDDDD</td>
+<td align="left">YY = Registro fuente, M = Dirección de memoria</td>
+</tr>
+<tr class="even">
+<td align="left">Control</td>
+<td align="left">D: control de flujo</td>
+<td align="left">—- ffff DDDDDDDD</td>
+<td align="left">ffff = funcionalidad, M = Dirección de memoria</td>
+</tr>
+</tbody>
+</table>
+<p>Considerando:</p>
+<ul>
+<li><p><code>A</code>: operaciones entre registros del procesador.</p></li>
+<li><p><code>B</code>: operaciones que cargan en registros del procesado.</p></li>
+<li><p><code>C</code>: operaciones que almacenan en memoria.</p></li>
+<li><p><code>D</code>: operaciones de control de flujo del programa.</p></li>
+<li><p><code>----</code>: Código de operación de la instrucción.</p></li>
+<li><p><code>XX</code> o <code>YY</code>: Índices de registros, número entre <code>0</code> y <code>3</code>.</p></li>
+<li><p><code>M</code>: Dirección de memoria, número de 8 bits.</p></li>
+<li><p><code>ffff</code>: representan el comportamiento de la instrucción.</p></li>
+<li><p>Las instruciones de transferencia y de procesamiento soportan los formatos <code>A</code>, <code>B</code> y <code>C</code>.</p></li>
+<li><p>Las instruciones de control de flujo soportan el formato <code>D</code>.</p></li>
+</ul>
 </div>
-<h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references hanging-indent">
-<div id="ref-hasan_survey_2012">
-<p>Hasan, Raza, and Salman Mahmood. 2012. “Survey and Evaluation of Simulators Suitable for Teaching for Computer Architecture and Organization Supporting Undergraduate Students at Sir Syed University of Engineering &amp; Technology.” In <em>Control (CONTROL), 2012 UKACC International Conference on</em>, 1043–5. IEEE.</p>
+<div id="banco-de-registros" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Banco de registros<a href="primera-etapa.html#banco-de-registros" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Número de registros (R)</th>
+<th align="left">Binario</th>
+<th align="right">Decimal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AL</td>
+<td align="left">00</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">BL</td>
+<td align="left">01</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">CL</td>
+<td align="left">10</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">DL</td>
+<td align="left">11</td>
+<td align="right">3</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="ref-nikolic_survey_2009">
-<p>Nikolic, B., Z. Radivojevic, J. Djordjevic, and V. Milutinovic. 2009. “A Survey and Evaluation of Simulators Suitable for Teaching Courses in Computer Architecture and Organization.” <em>IEEE Transactions on Education</em> 52 (4): 449–58. <a href="https://doi.org/10.1109/TE.2008.930097">https://doi.org/10.1109/TE.2008.930097</a>.</p>
+<div id="modos-de-direccionamiento-1" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Modos de direccionamiento<a href="primera-etapa.html#modos-de-direccionamiento-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los modos de direccionamiento definidos en esta etapa son:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Operando</th>
+<th>tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Rx</code>,<code>Ry</code></td>
+<td>Registro a registro: operandos son registros del procesador.</td>
+</tr>
+<tr class="even">
+<td><code>[M]</code></td>
+<td>Directo: operando es el contenido de una dirección de memoria.</td>
+</tr>
+</tbody>
+</table>
+<p>En esta primera etapa se implementan las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">#</th>
+<th align="left">Instrucción</th>
+<th align="left">Acción</th>
+<th align="left">Codificación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="left">MOV Rx, Ry</td>
+<td align="left">Rx ← Ry</td>
+<td align="left">0000 XXYY</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">MOV Rx, [M]</td>
+<td align="left">Rx ← Mem[Dirección]</td>
+<td align="left">0001 00YY MMMMMMMM</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">MOV [M], Ry</td>
+<td align="left">Mem[Dirección] ← Rx</td>
+<td align="left">0010 XX00 MMMMMMMM</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">ADD Rx, Ry</td>
+<td align="left">Rx ← Rx + Ry</td>
+<td align="left">0011 XXYY</td>
+</tr>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">ADD Rx, [M]</td>
+<td align="left">Rx ← Rx + Mem[Dirección]</td>
+<td align="left">0100 00YY MMMMMMMM</td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="left">ADD [M], Ry</td>
+<td align="left">Mem[Dirección] ← Mem[Dirección] + Ry</td>
+<td align="left">0101 XX00 MMMMMMMM</td>
+</tr>
+<tr class="odd">
+<td align="left">6</td>
+<td align="left">SUB Rx, Ry</td>
+<td align="left">Rx ← Rx - Ry</td>
+<td align="left">0110 XXYY</td>
+</tr>
+<tr class="even">
+<td align="left">7</td>
+<td align="left">SUB Rx, [M]</td>
+<td align="left">Rx ← Rx - Mem[Dirección]</td>
+<td align="left">0111 00YY MMMMMMMM</td>
+</tr>
+<tr class="odd">
+<td align="left">8</td>
+<td align="left">SUB [M], Ry</td>
+<td align="left">Mem[Dirección] ← Mem[Dirección] - Ry</td>
+<td align="left">1000 XX00 MMMMMMMM</td>
+</tr>
+<tr class="even">
+<td align="left">9</td>
+<td align="left">CMP Rx, Ry</td>
+<td align="left">Modifica flags de Rx - Ry</td>
+<td align="left">1001 XXYY</td>
+</tr>
+<tr class="odd">
+<td align="left">A</td>
+<td align="left">CMP Rx, [M]</td>
+<td align="left">Modifica flags de Rx - Mem[Dirección]</td>
+<td align="left">1010 00YY MMMMMMMM</td>
+</tr>
+<tr class="even">
+<td align="left">B</td>
+<td align="left">CMP [M], Ry</td>
+<td align="left">Modifica flags de Mem[Dirección] - Ry</td>
+<td align="left">1011 XX00 MMMMMMMM</td>
+</tr>
+<tr class="odd">
+<td align="left">C</td>
+<td align="left">JMP M</td>
+<td align="left">IP ← Dirección</td>
+<td align="left">1100 0000 MMMMMMMM</td>
+</tr>
+<tr class="even">
+<td align="left">C</td>
+<td align="left">JC M</td>
+<td align="left">Si flag C=1 entonces IP ← Dirección</td>
+<td align="left">1100 0001 MMMMMMMM</td>
+</tr>
+<tr class="odd">
+<td align="left">C</td>
+<td align="left">JZ M</td>
+<td align="left">Si flag Z=1 entonces IP ← Dirección</td>
+<td align="left">1100 0011 MMMMMMMM</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
             </section>
@@ -238,8 +512,8 @@
           </div>
         </div>
       </div>
-<a href="comparativa.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="simuladores-bajo-análisis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="componentes-del-simulador.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="segunda-etapa.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -270,7 +544,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/04-comparativa.Rmd",
+"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/05-desarrollo.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -278,7 +552,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/04-comparativa.Rmd",
+"link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/05-desarrollo.Rmd",
 "text": null
 },
 "download": ["tesis.pdf"],
