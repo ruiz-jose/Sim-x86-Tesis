@@ -69,7 +69,7 @@ arq <- data.frame(
                          ""),
   `Características` = c("- von Neumann, con memoria compartida para datos e instrucciones.",
                         "- 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.",
-                        "- 2 registros de propósito específico: `IP` (Instruction Pointer) y `SP`(Stack Pointer).",
+                        "- 3 registros de propósito específico: `IP` (Instruction Pointer), `IR`(Instruction Register) y `SP`(Stack Pointer).",
                         "- 1 registro de estado (`RS`) para las banderas.",
                         "- 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.",
                         "- Memoria de 256 posiciones, con una capacidad de un byte por posición.",
@@ -288,9 +288,9 @@ Las instrucciones ahora se codifican con 1, 2 o 3 bytes dependiendo del modo:
 | Modo direccionamiento B: Cargar a registro  |  |  |
 | :---: | :---: | :---: |
 | **`ff`= funcionalidad** | **`Byte`= tamaño** | **Interpretación** |
-| 00 |  2 |directo `D` = Dirección de memoria |
-| 01 |  1 |indirecto utiliza como operando implicito el registro `BL` y no requiere operando `D` |
-| 10 |  2 |Inmediato `D` = Dato Inmediato |
+| 00 |  2 |directo `M` = Dirección de memoria |
+| 01 |  1 |indirecto utiliza como operando implicito el registro `BL` y no requiere operando `M` |
+| 10 |  2 |Inmediato `d` = Dato Inmediato |
 | 11 |  2 |Indirecto la dirección se calcula operando implicito `BL` + Dato Inmediato|
 
 | Modo direccionamientos C: Almacenar en memoria  |  |  |
@@ -326,9 +326,9 @@ Las instrucciones ahora se codifican con 1, 2 o 3 bytes dependiendo del modo:
 | 9 | `CMP Rx, Ry`       | Modifica *flags* de `Rx - Ry`                                      | `1001 XXYY`                   |
 | A | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1010 ---- --------`          |
 | B | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1011 ---- -------- --------` |
-| C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 DDDDDDDD`          |
-| C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 DDDDDDDD`          |
-| C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 DDDDDDDD`          |
+| C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 MMMMMMMM`          |
+| C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 MMMMMMMM`          |
+| C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 MMMMMMMM`          |
 | C | `Jxx M`            | Se pueden implemementar más flags y CALL                           | `1100 ffff --------`          |
 
 ## Tercera etapa
@@ -379,39 +379,75 @@ kable(isacompleta, format = "markdown", align = "l", col.names = c("Código oper
       caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
 ```
 
-### Ciclo de la instrucción: Etapas de captación y ejecución
-El ciclo de la instrucción describe las secuencias de microoperaciones que ocurren en la computadora durante la ejecución de una instrucción. Para expresar estas operaciones, se utiliza un lenguaje de transferencia entre registros:
+## Ciclo de la instrucción: Etapas de captación y ejecución
+Este apartado describe en detalle el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los siguientes aspectos:
+
+- Secuencia de pasos.
+- Registros involucrados en cada etapa del proceso.
+- Uso de los buses de datos, direcciones y control.
+- Señales de control generadas.
+
+El ciclo de la instrucción se define como la secuencia de microoperaciones que tienen lugar durante la ejecución de una instrucción en el sistema. Estas operaciones se describen utilizando un lenguaje de transferencia entre registros, de la forma:
 
 `destino` $\leftarrow$ `origen` 
 
-#### **Etapa de Captación**  (*): 
+#### Etapa de Captación: 
+En esta etapa, común a todas las instrucciones, se realiza la lectura de la instrucción desde la memoria.
 
-1.	`MAR` $\leftarrow$ `IP` 
-2.	`MDR` $\leftarrow$ `read(Memoria[MAR]); `IP` $\leftarrow$ `IP` + 1 
-3.	`IR`  $\leftarrow$ `MDR`
+  1. **`MAR` $\leftarrow$ `IP`**:
+  El contenido del registro puntero de instrucciones `IP` se transfiere al registro de direcciones de memoria `MAR`. La UC genera la señal necesaria para seleccionar el valor del `IP` y copiarlo en el `MAR`.
+  2. **`MDR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**:
+  La UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del `MAR` como dirección. El dato leído se transfiere al Registro de Datos de Memoria `MBR` a través del bus de datos. Simultáneamente, el `IP` se incrementa en 1 para apuntar al siguiente byte.
+  3. **`IR` $\leftarrow$ `MBR`**:
+  El contenido del `MBR` se transfiere al Registro de Instrucciones `IR`, completando la etapa de captación. 
 
-(*): Todas las instrucciones tienen los mismos pasos en la etapa de captación.
+#### Etapa de Ejecución:
+En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
 
-#### **Etapa de Ejecución**:
-La etapa de ejecución depende del tipo de instrucción. A continuación, se detalla cómo se ejecutan algunas instrucciones específicas:
-* 0: Copiar entre registros: MOV `Rx`, `Ry`
-  1.	`Rx` $\leftarrow$ `Ry`
+* MOV `Rx`, `Ry` (Copiar entre registros)
+  1. **`Rx` $\leftarrow$ `Ry`**:
+  El contenido del registro `Ry` se copia en el registro `Rx`.
 
-* 1: Cargar a registro:   
-  a) Directo: MOV `Rx`,  `[Dirección]`
-      - `MAR` $\leftarrow$ `IP`
-      - `MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1        (Obtener byte 2)   
-      - `MAR` $\leftarrow$ `MBR`
-      - `MBR` $\leftarrow$ `read(Memoria[MAR])`        (Obtener operando)
-      - `Rx`  $\leftarrow$ `MBR` 
+* MOV `Rx`, `[Dirección]` (Cargar a registro)
+  1. **`MAR` $\leftarrow$ `IP`**:
+  El valor del `IP` se transfiere a `MAR`.
+  2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
+  Se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
+  3. **`MAR` $\leftarrow$ `MBR`**:
+  El contenido de `MBR` se transfiere a `MAR`.
+  4. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**:
+  Se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
+  5. **`Rx`  $\leftarrow$ `MBR`**:
+  El contenido del `MBR` se copia al registro `Rx`.
 
-* 2: Almacenar en memoria: 
-  a) MOV  `[Dirección]`, `Ry`     
-      - `MAR` $\leftarrow$ `IP`
-      - `MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1      (Obtener byte 2)
-      - `MAR` $\leftarrow$ `MBR`
-      - `MBR` $\leftarrow$ `Ry`
-      - `write(Memoria[MAR])` $\leftarrow$ `MBR` 
+* MOV `[Dirección]`, `Ry` (Almacenar en memoria)     
+  1, 2, 3. Igual que MOV `Rx`, `[Dirección]`.
+  4. **`MBR` $\leftarrow$ `Ry`**:
+  El contenido de `Ry` se transfiere a `MBR`.
+  5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
+  El contenido de `MBR` se escribe (write) en memoria en la dirección apuntada por el `MAR`.
+
+* ADD  `Rx`, `[Dirección]` (Sumar a registro)
+  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
+  5. **`Rx`  $\leftarrow$ `Rx` + `MBR`**:
+  La Unidad Aritmético-Lógica (ALU) realiza la suma entre `Rx` y `MBR`, almacenando el resultado en `Rx`. El Registro de Estado `RS` se actualiza con los indicadores correspondientes.
+
+* SUB `[Dirección]`, `Ry` (Restar a memoria)
+  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
+  5. **`MBR` $\leftarrow$ `Ry` - `MBR`**: 
+  La ALU resta el contenido de `MBR` al de `Ry`, almacenando el resultado en `MBR`. El `RS` se actualiza.
+  6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
+  El contenido de `MBR` se escribe en memoria en la dirección apuntada por el `MAR`.
+
+* CMP `Rx`,  `[Dirección]` (Comparar a registro)
+  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
+  5. **`Rx` - `MBR`**: 
+  La ALU realiza la resta entre el contenido de `Rx` y `MBR`. Aunque el resultado no se almacena, el `RS` se actualiza con los indicadores de comparación.
+
+* JMP  `Dirección` (Salto incondicional)
+  1, 2. Igual que MOV `Rx`, `[Dirección]`.
+  3. **`IP` $\leftarrow$ `MBR`**:
+  El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
 
 ## Pruebas
 Una vez diseñada la herramienta, es fundamental construirla y someterla a pruebas exhaustivas para garantizar que cumpla con los requisitos definidos y sea fácil de usar. Durante esta fase, se identifican y corrigen los posibles problemas antes de su implementación definitiva.
