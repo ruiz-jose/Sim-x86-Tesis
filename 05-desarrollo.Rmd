@@ -1,49 +1,57 @@
 # Diseño y Construcción del Simulador {#desarrollo}
-En este capítulo se describe el proceso de diseño y desarrollo de una herramienta de simulación específica para la arquitectura x86, destinada a facilitar la enseñanza de los principios de arquitectura de computadoras. Se detalla tanto la justificación del diseño como los pasos seguidos para su construcción y validación.
+En este capítulo se describe el diseño y desarrollo de una herramienta de simulación específica para la arquitectura x86, orientada a facilitar la enseñanza de los principios de arquitectura de computadoras. Se detalla la justificación del diseño, los pasos seguidos para su construcción y los métodos utilizados para validar su funcionalidad.
 
-En el capitulo anterior, se Estudió y evaluó diferentes herramientas actuales de simulación destinadas a apoyar la enseñanza de la arquitectura x86. Este objetivo se cumplió mediante una revisión exhaustiva de las herramientas de simulación disponibles y posterior publicación de los resultados.
+En el capítulo anterior se analizaron y evaluaron las herramientas de simulación existentes para la arquitectura x86. Esta revisión exhaustiva permitió identificar las limitaciones de las soluciones actuales y fundamentar la necesidad de desarrollar una herramienta específica, cuyos resultados fueron publicados posteriormente.
 
-Para cumplir con este objetivo específico, la herramienta debe satisfacer una serie de requisitos previamente establecidos. A partir de estos, se diseña la arquitectura, se desarrolla el simulador, y se realizan pruebas exhaustivas para validar su funcionalidad.
+Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de requisitos establecidos que guían su desarrollo, validación y alineación con los objetivos pedagógicos. 
 
-## Requisitos de la Herramienta
-La herramienta debe cumplir con los siguientes requisitos:
-1. **Visión global de la estructura y funcionamiento de la computadora:**
-   - Mostrar la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, destacando componentes relevantes.
+## Requisitos de la herramienta
+La herramienta de simulación está diseñada para cumplir los siguientes requisitos:
+1. **Representación global de la estructura y funcionamiento de la computadora:**
+   - Mostrar de manera visual la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, resaltando relevantes.
 
-2. **Generación y ejecución de programas escritos en ensamblador:**
-   - Permitir tanto la ejecución paso a paso como completa, facilitando la comprensión de cada instrucción.
+2. **Soporte para la generación y ejecución de programas en ensamblador:**
+   - Facilitar la ejecución de programas en ensamblador paso a paso como completa, promoviendo la comprensión detallada de cada instrucción.
 
-3. **Repertorio de instrucciones x86 reducido y habilitado progresivamente:**
-   - Seleccionar un subconjunto esencial de instrucciones x86, habilitándolas progresivamente según avance el contenido de la asignatura.
+3. **Repertorio de instrucciones reducido y habilitación progresiva:**
+   - Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes.
 
-4. **Simulación visual e interactiva de micropasos de una instrucción:**
-    - Utilizar el lenguaje de transferencia entre registros (RTL) para describir el flujo de datos, facilitando la comprensión del ciclo básico de una instrucción. Correr un programa y que se ilumine  cada componente durante la ejecución de un programa.
+4. **Simulación visual e interactiva de micropasos de instrucciones:**
+    - Representar el flujo de datos con el lenguaje de transferencia entre registros (RTL), destacando visualmente cada componente involucrado en la ejecución de un programa.
+    
+5. **Gestión básica de interrupciones y periféricos:**
+    - Incorporar un vector de interrupción predefinido para interactuar con dispositivos como teclado y monitor. También incluir instrucciones IN y OUT, junto con un módulo simplificado de entrada/salida.
 
-5. **Gestión básica de interrupciones y comunicación con periféricos:**
-    - Incorporar un vector de interrupción predefinido para interactuar con el teclado y monitor. Incluir instrucciones IN y OUT, y un módulo de E/S simplificado.
-
-6. **Medidas de rendimiento sobre la ejecución de un programa:**
-    - Proveer información sobre tiempo de ciclo, tiempo de CPU y CPI de un programa. 
+6. **Métricas de rendimiento:**
+    - Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas.
 
 ## Arquitectura propuesta
-La arquitectura propuesta, de 8 bits, es una versión simplificada de la x86, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes fundamentales. Esta simplificación permite a los estudiantes comprender conceptos clave como el formato de instrucciones, modos de direccionamiento y el ciclo de búsqueda y ejecución. Este enfoque facilita un aprendizaje progresivo y accesible para los estudiantes.
-La decisión de simplificar el conjunto de instrucciones y la arquitectura del simulador desarrollado para este proyecto se fundamenta en principios pedagógicos que buscan facilitar el aprendizaje de conceptos fundamentales de la arquitectura x86.
-La arquitectura x86 es notoriamente compleja, con un conjunto de instrucciones extenso y diversas características avanzadas que pueden resultar abrumadoras para los estudiantes que se inician en el estudio de la arquitectura de computadoras. Al simplificar el conjunto de instrucciones y reducir la complejidad de la arquitectura en el simulador, se busca disminuir la carga cognitiva que los estudiantes deben manejar, permitiéndoles enfocarse en entender los principios básicos sin distracciones innecesarias.
+La arquitectura propuesta es una versión simplificada de **8 bits** de la arquitectura **x86**, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. Este diseño simplificado facilita que los estudiantes comprendan conceptos fundamentales como el formato de instrucciones, modos de direccionamiento y el ciclo de búsqueda y ejecución.
 
-La simplificación permite que el simulador se centre en los aspectos esenciales de la arquitectura x86, como el ciclo de instrucción, la interacción entre los distintos componentes de la CPU, y el flujo básico de datos dentro del sistema. Al eliminar instrucciones y características avanzadas que no son cruciales para la comprensión de estos fundamentos, los estudiantes pueden desarrollar una comprensión sólida de los conceptos clave antes de abordar las complejidades adicionales de la arquitectura x86 completa.
+### Justificación de la simplificación
+La arquitectura x86 se caracteriza por su complejidad, con un extenso repertorio de instrucciones y características avanzadas que pueden resultar desafiantes para estudiantes principiantes. Por ello, el simulador se desarrolla con un enfoque pedagógico centrado en:
 
-El diseño del simulador también está alineado con un enfoque de aprendizaje progresivo, en el cual los estudiantes pueden comenzar con un conjunto de instrucciones reducido y una arquitectura simplificada, y luego avanzar hacia simuladores y herramientas más complejas que modelan la arquitectura x86 en su totalidad. Esta progresión gradual es pedagógicamente sólida, ya que permite a los estudiantes construir sobre conocimientos previos y asimilar conceptos más avanzados a medida que se sienten más cómodos con los fundamentos.
+- **Reducir la carga cognitiva**: Al limitar la complejidad del repertorio de instrucciones y los componentes del simulador, los estudiantes pueden concentrarse en entender los principios fundamentales sin distracciones innecesarias.
+- **Fomentar un aprendizaje progresivo**: Se adopta una aproximación escalonada, donde los estudiantes comienzan trabajando con un simulador simplificado antes de avanzar a herramientas que representen de forma completa la arquitectura x86. Este enfoque les permite construir conocimientos de manera incremental, fortaleciendo su comprensión a medida que enfrentan conceptos más avanzados.
+- **Priorizar la claridad pedagógica**: Un conjunto reducido de instrucciones y una arquitectura simplificada permiten realizar prácticas manejables en tiempo y esfuerzo, lo cual es crucial para evitar frustraciones y reforzar el aprendizaje práctico.
 
-Un conjunto de instrucciones simplificado facilita la implementación de ejercicios y prácticas que los estudiantes pueden completar en un tiempo razonable y con un nivel de esfuerzo que es manejable. Esto es crucial para el aprendizaje práctico, ya que los estudiantes pueden experimentar con el simulador, cometer errores, y aprender de ellos sin enfrentarse a la frustración que podría derivarse de una complejidad excesiva.
+### Beneficios de la simplificación
+El diseño del simulador con una arquitectura simplificada permite a los estudiantes:
 
-Finalmente, al utilizar un simulador con una arquitectura simplificada, se fomenta el pensamiento crítico entre los estudiantes, ya que estos pueden cuestionar y analizar las diferencias entre el modelo simplificado y la arquitectura x86 real. Este contraste impulsa a los estudiantes a reflexionar sobre las razones detrás de las características más complejas de la arquitectura x86, lo que enriquece su comprensión y les permite apreciar mejor la sofisticación de los sistemas reales.
+- **Entender los fundamentos**: Se enfocan en aspectos esenciales como el ciclo de instrucción, la interacción entre componentes de la CPU y el flujo básico de datos en el sistema.
+- **Comparar y reflexionar**: Analizan las diferencias entre el modelo simplificado y la arquitectura x86 real, fomentando el pensamiento crítico y el entendimiento profundo de las características más complejas de la arquitectura real.
+- **Aprender de manera práctica**: Realizan experimentos y resuelven ejercicios que les permiten explorar, equivocarse y aprender, en un entorno controlado y accesible.
 
-En resumen, la simplificación del conjunto de instrucciones y la arquitectura en el simulador no es un sacrificio de precisión, sino una estrategia pedagógica deliberada para mejorar la comprensión de los estudiantes. Estas decisiones de diseño están orientadas a hacer que los conceptos fundamentales sean más accesibles y comprensibles, lo cual es esencial para establecer una base sólida en la arquitectura x86 antes de abordar su complejidad total.
+### Alineación con los objetivos pedagógicos
+La herramienta no busca sacrificar precisión, sino adoptar una estrategia educativa que optimice la comprensión de los estudiantes. Este enfoque permite:
 
-Consta de los siguientes componentes:
+- Conectar teoría y práctica, facilitando la transición desde conceptos abstractos hacia aplicaciones concretas.
+- Proveer una base sólida para abordar simuladores más avanzados que representen con fidelidad la complejidad de la arquitectura x86.
+- Enriquecer la experiencia de aprendizaje al integrar componentes interactivos y visuales que complementan los materiales teóricos.
 
-### Componentes
-Procesador o CPU cuenta con las siguientes características:
+## Componentes del simulador
+### Procesador o CPU
+El procesador diseñado para este simulador cuenta con las siguientes características principales:
 
 ```{r arq, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -59,15 +67,15 @@ arq <- data.frame(
                          "Buses", 
                          "Instrucciones", 
                          ""),
-  `Características` = c("- von Neumann, memoria de datos e instrucciones compartidas.",
-                        "- 4 registros de propósito general, `AL`, `BL`, `DL` y `DL` de 8 bits.",
-                        "- 2 registros de propósito específico `IP` y `SP`.",
-                        "- 1 registro de estado para las banderas `RS`.",
-                        "- 2 registros Buffer entre CPU y memoria `MAR`: buffer de direcciones y `MBR`: buffer de datos.",
-                        "- contiene 256 posiciones y cada una contiene un byte.",
+  `Características` = c("- von Neumann, con memoria compartida para datos e instrucciones.",
+                        "- 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.",
+                        "- 2 registros de propósito específico: `IP` (Instruction Pointer) y `SP`(Stack Pointer).",
+                        "- 1 registro de estado (`RS`) para las banderas.",
+                        "- 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.",
+                        "- Memoria de 256 posiciones, con una capacidad de un byte por posición.",
                         "- Bus de datos y direcciones de 8 bits.",
-                        "- Tamaño de instrucciones variable de 1, 2 y 3 bytes.",
-                        "- 16 instrucciones soportadas."),
+                        "- Longitud variable (1, 2 y 3 bytes).",
+                        "-  Soporta un conjunto de 16 instrucciones."),
   stringsAsFactors = FALSE
 )
 
@@ -77,10 +85,10 @@ kable(arq, format = "markdown", align = "l", col.names = c("Arquitectura", "Cara
 ```
 
 ### Repertorio de instrucciones
-El repertorio de instrucciones x86 propuesto para facilitar el aprendizaje y la enseñanza de la arquitectura x86 para aquellos que están recién familiarizándose con este conjunto de instrucciones, es un repertorio ficticio basado en la arquitectura x86, para facilitar el aprendizaje se decidió simplificar los conceptos a un repertorio de 8 bits para un mejor entendimiento.
+El repertorio propuesto para el simulador es una simplificación de la arquitectura x86, diseñada para facilitar la enseñanza y el aprendizaje. Este conjunto ficticio opera con instrucciones de 8 bits para una mejor comprensión.
 
-#### Primera etapa
-En un primera instancia se presentaran solo algunas instrucciones necesarias para desarrollar los primeros contenidos de la asignatura:
+## Primera etapa
+En la primera fase, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
 
 ```{r setreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -137,29 +145,27 @@ kable(setreducido, format = "markdown", align = "l", col.names = c("Instruccione
       caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
 ```
 
-##### Formato de instrucciones
-El formato de las instrucciones propuesto para la enseñanza de la arquitectura es una simplificación de la arquitectura x86, siendo este último un set CISC (conjunto de repertorio de instrucciones complejas) las instrucciones tienen diferente tamaño para poder aplicar estos conceptos a la enseñanza se representa un repertorio de instrucciones simplificado. 
-Primero veremos la codificaciones de 4 tipos de instrucciones.
+### Formato de instrucciones
+El formato de las instrucciones contempla los siguientes casos:
 
 ```{r codtreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
-
 # Crear un dataframe con los datos
 codtreducido <- data.frame(
+  Tipo = c("Transferencia y procesamiento", "", "", "Control"),
   Caso = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
   Codificación = c("---- XXYY", "---- XX00 DDDDDDDD", "---- 00YY DDDDDDDD", "---- ffff DDDDDDDD"),
   Parámetros = c(
     "XX = Registro destino, YY = Registro fuente",
-    "XX = Registro destino, D = Dirección de memoria",
-    "YY = Registro fuente, D = Dirección de memoria",
-    "ffff = funcionalidad, D = Dirección de memoria"
+    "XX = Registro destino, M = Dirección de memoria",
+    "YY = Registro fuente, M = Dirección de memoria",
+    "ffff = funcionalidad, M = Dirección de memoria"
   )
 )
 kable(codtreducido, format = "markdown", align = "l", col.names = c("Casos", "Codificación", "Parámetros"), 
       caption = "Tabla de codififación de instrucciones")
 ```
-
 
 Considerando:
 
@@ -175,7 +181,7 @@ Considerando:
 
   - `XX` o `YY`: Índices de registros, número entre `0` y `3`.
 
-  - `D`: Dirección de memoria, número de 8 bits.
+  - `M`: Dirección de memoria, número de 8 bits.
 
   - `ffff`: representan el comportamiento de la instrucción.
 
@@ -183,8 +189,7 @@ Considerando:
 
   - Las instruciones de control de flujo soportan el formato `D`. 
 
-#### Registros (Banco de Registros)
-
+### Banco de registros
 ```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
@@ -198,17 +203,16 @@ tabla_registros <- data.frame(
 # Imprimir la tabla en formato markdown
 kable(tabla_registros, format = "markdown", col.names = c("Número de registros (R)", "Binario", "Decimal"))
 ```
-##### Modos de direccionamientos
+### Modos de direccionamiento
 
-Los siguientes tipos de direccionamiento son utilizados en las instrucciones de esta CPU para referenciar a los operandos involucrados en la instrucción:
+Los modos de direccionamiento definidos en esta etapa son:
 
 | Operando | tipo | 
 | --- | --- |
-| `Rx`,`Ry`| Registro a registro: los operandos de la instrucción son registros |
-| `[M]`|	Directo: un operando de la instruccion es el contenido de una dirección de memoria, se accede a un contenido de memoria |
-| `M`|	Inmediato: el operando fuente de la instrucción es un valor contenido en la misma instrucción |
+| `Rx`,`Ry`| Registro a registro: operandos son registros del procesador. |
+| `[M]`|	Directo: operando es el contenido de una dirección de memoria. |
 
-Se puede implementar las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
+En esta primera etapa se implementan las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
 
 ```{r tabla_instrucciones, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -236,20 +240,20 @@ tabla_instrucciones <- data.frame(
   ),
   Codificación = c(
     "0000 XXYY",
-    "0001 00YY DDDDDDDD",
-    "0010 XX00 DDDDDDDD",
+    "0001 00YY MMMMMMMM",
+    "0010 XX00 MMMMMMMM",
     "0011 XXYY",
-    "0100 00YY DDDDDDDD",
-    "0101 XX00 DDDDDDDD",
+    "0100 00YY MMMMMMMM",
+    "0101 XX00 MMMMMMMM",
     "0110 XXYY",
-    "0111 00YY DDDDDDDD",
-    "1000 XX00 DDDDDDDD",
+    "0111 00YY MMMMMMMM",
+    "1000 XX00 MMMMMMMM",
     "1001 XXYY",
-    "1010 00YY DDDDDDDD",
-    "1011 XX00 DDDDDDDD",
-    "1100 0000 DDDDDDDD",
-    "1100 0001 DDDDDDDD",
-    "1100 0011 DDDDDDDD"
+    "1010 00YY MMMMMMMM",
+    "1011 XX00 MMMMMMMM",
+    "1100 0000 MMMMMMMM",
+    "1100 0001 MMMMMMMM",
+    "1100 0011 MMMMMMMM"
   )
 )
 
@@ -257,54 +261,33 @@ tabla_instrucciones <- data.frame(
 kable(tabla_instrucciones, format = "markdown", col.names = c("#", "Instrucción", "Acción", "Codificación"))
 ```
 
-### Segunda etapa
-En un segunda instancia se amplian los modos de direccionamiento de las instrucciones y se incorporan nuevos formato de instrucciones y modos de direccionamiento.
+## Segunda etapa
+En esta etapa, se amplían los modos de direccionamiento e instrucciones:
 
-#### Modos de direccionamientos
+### Modos de Direccionamiento Adicionales
 Se incoporan los siguientes modos de direccionamiento:
-
-  * Indirecto: dirección de memoria donde está el operando viene determinada por el contenido del registro `BL`  
-
-
-
-Se incorpora los siguientes operandos a las instrucciones:
-  * **MOV *Rx, [BL]***  
-
-  * **MOV *Rx, d***  
-
-  * **MOV *Rx, [BL + d]***  
-
-  * **MOV *[BL], Ry***
-
-  * **MOV *[BL + d], Ry***
-
-  * **MOV *[mem], [BL]***
-
-  * **MOV *[mem], d***
-
-  * **MOV *[mem], [BL + d]***
 
 | Operando | tipo | 
 | --- | --- |
-| `[BL]`|	indirecto por registro,	Contenido de la dirección de memoria esta dada por el registro `BL`  |
-| `D` o `d`| el operando fuente es un dato inmediato |
-| `[BL + d]`|	registro `BL` + dato inmediato  |
+| `[BL]`| Registro a registro: operandos son registros del procesador. |
+| `m`  |	Inmediato: operando es un valor contenido en la instrucción. |
+| `[BL + m]`|	Directo: operando es el contenido de una dirección de memoria. |
 
-#### Formato de instrucciones
-Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits identifican el `opcode` de la instrucción y determinan como se tienen que ise interpretar los 4 bits restantes. 
+### Formato Ampliado
+Las instrucciones ahora se codifican con 1, 2 o 3 bytes dependiendo del modo:
 
 | Caso | Codificación | Parámetros |
 | --- | --- | --- |
 | A: entre registros | `---- XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
-| B: Cargar a registro  | `---- XXmm DDDDDDDD` | `mm` = modo, `XX` = Registro destino, `D` = Dirección de memoria o Dato Inmediato |
-| C: Almacenar en memoria | `---- mmmm DDDDDDDD dddddddd` | `mmmm` = modo ampliado, `D` = Dirección de memoria,  `d` = Dato Inmediato |
-| D: control de flujo  | `---- ffff DDDDDDDD` | `ffff` = funcionalidad `D` = Dirección de memoria |
+| B: Cargar a registro  | `---- XXff MMMMMMMM` | `ff` = funcionalidad, `XX` = Registro destino, `M` = Dirección de memoria o Dato Inmediato |
+| C: Almacenar en memoria | `---- ffff MMMMMMMM dddddddd` | `ffff` = funcionalidad, `M` = Dirección de memoria,  `d` = Dato Inmediato |
+| D: control de flujo  | `---- ffff MMMMMMMM` | `ffff` = funcionalidad `M` = Dirección de memoria |
 
  `d` = Dato Inmediato, no puede ser destino de la instrucción.
 
-| Modo direccionamientos B: Cargar a registro  |  |  |
+| Modo direccionamiento B: Cargar a registro  |  |  |
 | :---: | :---: | :---: |
-| **`mm`= Modo** | **`Byte`= tamaño** | **Interpretación** |
+| **`ff`= funcionalidad** | **`Byte`= tamaño** | **Interpretación** |
 | 00 |  2 |directo `D` = Dirección de memoria |
 | 01 |  1 |indirecto utiliza como operando implicito el registro `BL` y no requiere operando `D` |
 | 10 |  2 |Inmediato `D` = Dato Inmediato |
@@ -312,7 +295,7 @@ Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits ide
 
 | Modo direccionamientos C: Almacenar en memoria  |  |  |
 | :---: | :---: | :---: |
-| **`mmmm`= Modo** | **`Byte`= tamaño** | **Interpretación** |
+| **`ffff`= funcionalidad** | **`Byte`= tamaño** | **Interpretación** |
 | 00YY |  2 |directo `D` = Dirección de memoria, `YY` = Registro fuente |
 | 01YY |  1 |indirecto `BL`, `YY` = Registro fuente|
 | 01YY |  2 |Indirecto la dirección se calcula operando implicito `BL` + Dato Inmediato |
@@ -324,16 +307,16 @@ Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits ide
 | # | Instrucción        | Acción                                                             | Codificación                  |
 | - | ---                | ---                                                                | ---                           |
 | 0 | `MOV Rx, Ry`       | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`                   |
-| 1 | `MOV Rx, [M]`      | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 XX00 DDDDDDDD`          |
+| 1 | `MOV Rx, [M]`      | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 XX00 MMMMMMMM`          |
 | 1 | `MOV Rx, [BL]`     | `Rx` $\leftarrow$ `Mem[BL]`                                        | `0001 XX01`                   |
-| 1 | `MOV Rx, D`        | `Rx` $\leftarrow$ `Dato`                                           | `0001 XX10 DDDDDDDD`          |
-| 1 | `MOV Rx, [BL + D]` | `Rx` $\leftarrow$ `Mem[BL + Dato]`                                 | `0001 XX11 DDDDDDDD`          |
-| 2 | `MOV [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 00YY DDDDDDDD`          |
+| 1 | `MOV Rx, D`        | `Rx` $\leftarrow$ `Dato`                                           | `0001 XX10 MMMMMMMM`          |
+| 1 | `MOV Rx, [BL + D]` | `Rx` $\leftarrow$ `Mem[BL + Dato]`                                 | `0001 XX11 MMMMMMMM`          |
+| 2 | `MOV [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 00YY MMMMMMMM`          |
 | 2 | `MOV [BL], Ry`     | `Mem[BL]` $\leftarrow$ `Rx`                                        | `0010 01YY`                   |
-| 2 | `MOV [BL + D], Ry` | `Mem[BL + Dato]` $\leftarrow$ `Rx`                                 | `0010 10YY DDDDDDDD`          |
-| 2 | `MOV [M], D`       | `Mem[Dirección]` $\leftarrow$ `Dato`                               | `0010 1100 DDDDDDDD dddddddd` |
-| 2 | `MOV [BL], D`      | `Mem[BL]` $\leftarrow$ `Dato`                                      | `0010 1101 DDDDDDDD`          |
-| 2 | `MOV [BL + D], D`  | `Mem[BL + Dato]` $\leftarrow$ `Dato`                               | `0010 1110 DDDDDDDD`          |
+| 2 | `MOV [BL + D], Ry` | `Mem[BL + Dato]` $\leftarrow$ `Rx`                                 | `0010 10YY MMMMMMMM`          |
+| 2 | `MOV [M], D`       | `Mem[Dirección]` $\leftarrow$ `Dato`                               | `0010 1100 MMMMMMMM dddddddd` |
+| 2 | `MOV [BL], D`      | `Mem[BL]` $\leftarrow$ `Dato`                                      | `0010 1101 MMMMMMMM`          |
+| 2 | `MOV [BL + D], D`  | `Mem[BL + Dato]` $\leftarrow$ `Dato`                               | `0010 1110 MMMMMMMM`          |
 | 3 | `ADD Rx, Ry`       | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`                   |
 | 4 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0100 ---- --------`          |
 | 5 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0101 ---- -------- --------` |
@@ -348,10 +331,9 @@ Las instrucciones están codificadas con 1, 2 o 3 bytes. Los primeros 4 bits ide
 | C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 DDDDDDDD`          |
 | C | `Jxx M`            | Se pueden implemementar más flags y CALL                           | `1100 ffff --------`          |
 
-
-
-### Tercera etapa
-Se incorporan las instrucciones de manejo de pila y de manejo de interrupciones.
+## Tercera etapa
+En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
+A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.
 
 ```{r isacompleta, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -397,8 +379,8 @@ kable(isacompleta, format = "markdown", align = "l", col.names = c("Código oper
       caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
 ```
 
-### Ciclo de la instrucción (Etapas de captación y ejecución)
-Para describir la secuencias de microoperaciones que se llevan a caba dentro de la computadora utilizaremos la siguiente lenguaje de transferencia entre los registros.
+### Ciclo de la instrucción: Etapas de captación y ejecución
+El ciclo de la instrucción describe las secuencias de microoperaciones que ocurren en la computadora durante la ejecución de una instrucción. Para expresar estas operaciones, se utiliza un lenguaje de transferencia entre registros:
 
 `destino` $\leftarrow$ `origen` 
 
@@ -411,6 +393,7 @@ Para describir la secuencias de microoperaciones que se llevan a caba dentro de 
 (*): Todas las instrucciones tienen los mismos pasos en la etapa de captación.
 
 #### **Etapa de Ejecución**:
+La etapa de ejecución depende del tipo de instrucción. A continuación, se detalla cómo se ejecutan algunas instrucciones específicas:
 * 0: Copiar entre registros: MOV `Rx`, `Ry`
   1.	`Rx` $\leftarrow$ `Ry`
 
@@ -431,19 +414,23 @@ Para describir la secuencias de microoperaciones que se llevan a caba dentro de 
       - `write(Memoria[MAR])` $\leftarrow$ `MBR` 
 
 ## Pruebas
-Después de diseñar la herramienta, se debe construir y probar. Se deben realizar pruebas exhaustivas para asegurarse de que la herramienta cumpla con todos los requisitos y sea fácil de usar. Si se encuentran problemas durante las pruebas, se deben solucionar antes de lanzar la herramienta.
+Una vez diseñada la herramienta, es fundamental construirla y someterla a pruebas exhaustivas para garantizar que cumpla con los requisitos definidos y sea fácil de usar. Durante esta fase, se identifican y corrigen los posibles problemas antes de su implementación definitiva.
 
-- **Pruebas Exhaustivas:** Realizar pruebas rigurosas para asegurar que la herramienta cumple con todos los requisitos. Las pruebas incluirán:
-    - Validación de la funcionalidad completa de la herramienta.
-    - Evaluación de la usabilidad por parte de estudiantes y profesores.
-    - Identificación y solución de problemas antes del lanzamiento.
+Se llevarán a cabo pruebas rigurosas que abarcarán los siguientes aspectos:
+
+- Validación de funcionalidad: Verificar que todas las características y funcionalidades de la herramienta operen correctamente según los requisitos establecidos.
+- Evaluación de usabilidad: Obtener retroalimentación de estudiantes y profesores para garantizar que la herramienta sea intuitiva y fácil de utilizar en el contexto educativo.
+- Corrección de problemas: Identificar y resolver cualquier error o inconsistencia antes del lanzamiento oficial de la herramienta.
 
 ## Portabilidad
-Para asegurar la portabilidad, el simulador se implementará como una aplicación web que puede ejecutarse en cualquier navegador web, garantizando su uso multiplataforma.
+Con el objetivo de garantizar la portabilidad, el simulador se implementará como una aplicación web. Esta decisión permite su ejecución en cualquier navegador y asegura su compatibilidad multiplataforma, independientemente del sistema operativo utilizado por los usuarios.
 
 ## Mantenibilidad
-El código de la herramienta será modular y bien documentado, facilitando futuras actualizaciones y mantenimiento. Además, se implementarán prácticas de desarrollo sostenibles para asegurar su longevidad.
+El diseño del código se enfocará en la modularidad y la documentación detallada. Este enfoque facilita futuras actualizaciones, la corrección de errores y el mantenimiento general de la herramienta. Asimismo, se aplicarán prácticas de desarrollo sostenible para garantizar su viabilidad a largo plazo.
 
 ## Escalabilidad
-Desde la asignatura se incentiva el uso de simuladores para dar apoyo a los proceso de enseñanza y aprendizaje, pero también se incentiva que los contenidos desarrollados puedan volcarse en máquinas reales, en este sentido consideramos que el enfoque planteado por la herramienta emu8086 es el más adecuado para la asignatura, ya que facilita mecanismos para implementar los programas en máquinas reales. Sin embargo presenta el inconveniente que genera ejecutables dependientes del sistema operativo MS-DOS, la mayoría de los sistemas operativos actuales no permiten la ejecución de dichos programas, obligando a la utilización de emuladores de MS-DOS para poder correrlos, siendo esto otro elemento más que se incorpora a los procesos de enseñanza y aprendizaje. 
-Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux como Windows a través de herramientas libres como GCC (GNU Compiler Collection), generando programas para la arquitectura x86 de 16, 32 y 64 bits.
+En la asignatura, se promueve el uso de simuladores como apoyo en los procesos de enseñanza y aprendizaje. Además, se fomenta que los contenidos desarrollados puedan implementarse en máquinas reales. En este sentido, el enfoque propuesto por herramientas como emu8086 es relevante, ya que permite implementar programas en sistemas reales.
+
+Sin embargo, emu8086 presenta ciertas limitaciones: genera ejecutables dependientes del sistema operativo MS-DOS, lo cual resulta problemático dado que la mayoría de los sistemas operativos actuales no admiten la ejecución nativa de dichos programas. Esto obliga al uso de emuladores de MS-DOS, añadiendo complejidad a los procesos educativos.
+
+Para superar estas limitaciones, se propone utilizar el ensamblador NASM (Netwide Assembler), que ofrece compatibilidad tanto con Linux como con Windows a través de herramientas libres como GCC (GNU Compiler Collection). Esto permite generar programas para la arquitectura x86 en sus variantes de 16, 32 y 64 bits, asegurando mayor flexibilidad y escalabilidad en los entornos educativos actuales.
