@@ -1477,69 +1477,72 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
   \end{itemize}
 \end{enumerate}
 
-\hypertarget{arquitectura-propuesta}{%
-\section{Arquitectura propuesta}\label{arquitectura-propuesta}}
+\hypertarget{diseuxf1o-conceptual}{%
+\section{Diseño conceptual}\label{diseuxf1o-conceptual}}
 
-La arquitectura propuesta es una versión simplificada de \textbf{8 bits} de la arquitectura \textbf{x86}, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. Este diseño simplificado facilita que los estudiantes comprendan conceptos fundamentales como el formato de instrucciones, modos de direccionamiento y el ciclo de búsqueda y ejecución.
+En esta sección se detalla el proceso de planificación del simulador, enfocándose en cómo los requisitos definidos orientan su construcción y garantizan la alineación con los objetivos pedagógicos establecidos.
 
-\hypertarget{justificaciuxf3n-de-la-simplificaciuxf3n}{%
-\subsection{Justificación de la simplificación}\label{justificaciuxf3n-de-la-simplificaciuxf3n}}
+\hypertarget{modelo-arquitectuxf3nico}{%
+\subsection{Modelo arquitectónico}\label{modelo-arquitectuxf3nico}}
 
-La arquitectura x86 se caracteriza por su complejidad, con un extenso repertorio de instrucciones y características avanzadas que pueden resultar desafiantes para estudiantes principiantes. Por ello, el simulador se desarrolla con un enfoque pedagógico centrado en:
+La arquitectura propuesta corresponde a una versión simplificada de \textbf{8 bits} de la arquitectura \textbf{x86}, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. Este diseño simplificado busca facilitar que los estudiantes comprendan conceptos clave como el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Reducir la carga cognitiva}: Al limitar la complejidad del repertorio de instrucciones y los componentes del simulador, los estudiantes pueden concentrarse en entender los principios fundamentales sin distracciones innecesarias.
-\item
-  \textbf{Fomentar un aprendizaje progresivo}: Se adopta una aproximación escalonada, donde los estudiantes comienzan trabajando con un simulador simplificado antes de avanzar a herramientas que representen de forma completa la arquitectura x86. Este enfoque les permite construir conocimientos de manera incremental, fortaleciendo su comprensión a medida que enfrentan conceptos más avanzados.
-\item
-  \textbf{Priorizar la claridad pedagógica}: Un conjunto reducido de instrucciones y una arquitectura simplificada permiten realizar prácticas manejables en tiempo y esfuerzo, lo cual es crucial para evitar frustraciones y reforzar el aprendizaje práctico.
-\end{itemize}
+\hypertarget{principales-bloques-funcionales}{%
+\subsubsection{Principales bloques funcionales}\label{principales-bloques-funcionales}}
 
-\hypertarget{beneficios-de-la-simplificaciuxf3n}{%
-\subsection{Beneficios de la simplificación}\label{beneficios-de-la-simplificaciuxf3n}}
-
-El diseño del simulador con una arquitectura simplificada permite a los estudiantes:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Entender los fundamentos}: Se enfocan en aspectos esenciales como el ciclo de instrucción, la interacción entre componentes de la CPU y el flujo básico de datos en el sistema.
-\item
-  \textbf{Comparar y reflexionar}: Analizan las diferencias entre el modelo simplificado y la arquitectura x86 real, fomentando el pensamiento crítico y el entendimiento profundo de las características más complejas de la arquitectura real.
-\item
-  \textbf{Aprender de manera práctica}: Realizan experimentos y resuelven ejercicios que les permiten explorar, equivocarse y aprender, en un entorno controlado y accesible.
-\end{itemize}
-
-\hypertarget{alineaciuxf3n-con-los-objetivos-pedaguxf3gicos}{%
-\subsection{Alineación con los objetivos pedagógicos}\label{alineaciuxf3n-con-los-objetivos-pedaguxf3gicos}}
-
-La herramienta no busca sacrificar precisión, sino adoptar una estrategia educativa que optimice la comprensión de los estudiantes. Este enfoque permite:
-
-\begin{itemize}
-\tightlist
-\item
-  Conectar teoría y práctica, facilitando la transición desde conceptos abstractos hacia aplicaciones concretas.
-\item
-  Proveer una base sólida para abordar simuladores más avanzados que representen con fidelidad la complejidad de la arquitectura x86.
-\item
-  Enriquecer la experiencia de aprendizaje al integrar componentes interactivos y visuales que complementan los materiales teóricos.
-\end{itemize}
-
-\hypertarget{componentes-del-simulador}{%
-\section{Componentes del simulador}\label{componentes-del-simulador}}
-
-\hypertarget{procesador-o-cpu}{%
-\subsection{Procesador o CPU}\label{procesador-o-cpu}}
-
-El procesador diseñado para este simulador cuenta con las siguientes características principales:
+El simulador se compone de los siguientes bloques funcionales:
 
 \begin{longtable}[]{@{}ll@{}}
-\caption{\label{tab:arq}Arquitectura x86 propuesta}\tabularnewline
+\caption{(\#tab:bloques\_funcionales)Bloque funcionales principales}\tabularnewline
+\toprule
+\begin{minipage}[b]{0.32\columnwidth}\raggedright
+Bloque\strut
+\end{minipage} & \begin{minipage}[b]{0.62\columnwidth}\raggedright
+Descripción\strut
+\end{minipage}\tabularnewline
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{0.32\columnwidth}\raggedright
+Bloque\strut
+\end{minipage} & \begin{minipage}[b]{0.62\columnwidth}\raggedright
+Descripción\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.32\columnwidth}\raggedright
+Unidad Central de Procesamiento (CPU)\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+Simulación de registros, Unidad de Control (UC) y ALU.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.32\columnwidth}\raggedright
+Memoria\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+Estructura de memoria y simulación de operaciones de lectura y escritura.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.32\columnwidth}\raggedright
+Sistema de entrada/salida (E/S)\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+Interacción con periféricos y manejo de interrupciones.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.32\columnwidth}\raggedright
+Bus de datos, direcciones y control\strut
+\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
+Modelado de la comunicación entre componentes.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{caracteruxedsticas-del-cpu}{%
+\subsubsection{Características del CPU}\label{caracteruxedsticas-del-cpu}}
+
+El diseño del CPU simplificado se describe en la siguiente tabla:
+
+\begin{longtable}[]{@{}ll@{}}
+\caption{\label{tab:arq}Componentes del CPU x86}\tabularnewline
 \toprule
 \begin{minipage}[b]{0.10\columnwidth}\raggedright
-Arquitectura\strut
+Componente\strut
 \end{minipage} & \begin{minipage}[b]{0.84\columnwidth}\raggedright
 Características\strut
 \end{minipage}\tabularnewline
@@ -1547,7 +1550,7 @@ Características\strut
 \endfirsthead
 \toprule
 \begin{minipage}[b]{0.10\columnwidth}\raggedright
-Arquitectura\strut
+Componente\strut
 \end{minipage} & \begin{minipage}[b]{0.84\columnwidth}\raggedright
 Características\strut
 \end{minipage}\tabularnewline
@@ -1601,15 +1604,13 @@ Instrucciones\strut
 \bottomrule
 \end{longtable}
 
-\hypertarget{repertorio-de-instrucciones-1}{%
-\subsection{Repertorio de instrucciones}\label{repertorio-de-instrucciones-1}}
+\hypertarget{implementaciuxf3n-del-repertorio-de-instrucciones}{%
+\section{Implementación del repertorio de instrucciones}\label{implementaciuxf3n-del-repertorio-de-instrucciones}}
 
-El repertorio propuesto para el simulador es una simplificación de la arquitectura x86, diseñada para facilitar la enseñanza y el aprendizaje. Este conjunto ficticio opera con instrucciones de 8 bits para una mejor comprensión.
+\hypertarget{selecciuxf3n-del-repertorio-inicial}{%
+\section{Selección del repertorio inicial}\label{selecciuxf3n-del-repertorio-inicial}}
 
-\hypertarget{primera-etapa}{%
-\section{Primera etapa}\label{primera-etapa}}
-
-En la primera fase, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
+El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos inicialesde la asignatura:
 
 \begin{longtable}[]{@{}llll@{}}
 \caption{\label{tab:setreducido}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\tabularnewline
@@ -1633,10 +1634,40 @@ Control de flujo & \{12\} & JMP & 12-a Salto incondicional\tabularnewline
 \bottomrule
 \end{longtable}
 
+\hypertarget{justificaciuxf3n-de-la-simplificaciuxf3n}{%
+\subsection{Justificación de la simplificación}\label{justificaciuxf3n-de-la-simplificaciuxf3n}}
+
+La arquitectura x86 destaca por su complejidad debido a su extenso repertorio de instrucciones y características avanzadas. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Reducir la carga cognitiva}: la simplificación del repertorio y de los componentes permite a los estudiantes enfocarse en principios fundamentales.
+\item
+  \textbf{Aprendizaje progresivo}: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.
+\item
+  \textbf{Claridad pedagógica}: las prácticas son manejables en términos de tiempo y esfuerzo, promoviendo un aprendizaje práctico sin frustraciones.
+\end{itemize}
+
+\hypertarget{beneficios-de-la-simplificaciuxf3n}{%
+\subsection{Beneficios de la simplificación}\label{beneficios-de-la-simplificaciuxf3n}}
+
+El diseño del simulador contribuye a:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Comprensión fundamental}: los estudiantes pueden enfocarse en el ciclo de instrucciones, interacción de componentes y flujo básico de datos.
+\item
+  \textbf{Análisis crítico}: comparar el modelo simplificado con x86 real fomenta un aprendizaje reflexivo y profundo.
+\item
+  \textbf{Experimentación práctica}: proporciona un entorno accesible para explorar conceptos y corregir errores.
+\end{itemize}
+
 \hypertarget{formato-de-instrucciones}{%
 \subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
 
-El formato de las instrucciones contempla los siguientes casos:
+El formato definido para las instrucciones incluye los siguientes casos:
 
 \begin{longtable}[]{@{}llll@{}}
 \caption{\label{tab:codtreducido}Tabla de codififación de instrucciones}\tabularnewline
@@ -1665,7 +1696,7 @@ Parámetros\strut
 \midrule
 \endhead
 \begin{minipage}[t]{0.22\columnwidth}\raggedright
-Transferencia y procesamiento\strut
+\strut
 \end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
 A: entre registros\strut
 \end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
@@ -1674,7 +1705,7 @@ A: entre registros\strut
 XX = Registro destino, YY = Registro fuente\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.22\columnwidth}\raggedright
-\strut
+Transferencia y procesamiento\strut
 \end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
 B: Cargar a registro\strut
 \end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
@@ -1728,21 +1759,6 @@ Considerando:
   Las instruciones de control de flujo soportan el formato \texttt{D}.
 \end{itemize}
 
-\hypertarget{banco-de-registros}{%
-\subsection{Banco de registros}\label{banco-de-registros}}
-
-\begin{longtable}[]{@{}llr@{}}
-\toprule
-Número de registros (R) & Binario & Decimal\tabularnewline
-\midrule
-\endhead
-AL & 00 & 0\tabularnewline
-BL & 01 & 1\tabularnewline
-CL & 10 & 2\tabularnewline
-DL & 11 & 3\tabularnewline
-\bottomrule
-\end{longtable}
-
 \hypertarget{modos-de-direccionamiento-1}{%
 \subsection{Modos de direccionamiento}\label{modos-de-direccionamiento-1}}
 
@@ -1755,6 +1771,21 @@ Operando & tipo\tabularnewline
 \endhead
 \texttt{Rx},\texttt{Ry} & Registro a registro: operandos son registros del procesador.\tabularnewline
 \texttt{{[}M{]}} & Directo: operando es el contenido de una dirección de memoria.\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{banco-de-registros}{%
+\subsubsection{Banco de registros}\label{banco-de-registros}}
+
+\begin{longtable}[]{@{}llr@{}}
+\toprule
+Número de registros (R) & Binario & Decimal\tabularnewline
+\midrule
+\endhead
+AL & 00 & 0\tabularnewline
+BL & 01 & 1\tabularnewline
+CL & 10 & 2\tabularnewline
+DL & 11 & 3\tabularnewline
 \bottomrule
 \end{longtable}
 
@@ -1783,8 +1814,207 @@ C & JZ M & Si flag Z=1 entonces IP ← Dirección & 1100 0011 MMMMMMMM\tabularne
 \bottomrule
 \end{longtable}
 
+\hypertarget{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}{%
+\subsection{Ciclo de la instrucción: Etapas de captación y ejecución}\label{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}}
+
+En este apartado se detalla el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los aspectos clave:
+
+\begin{itemize}
+\tightlist
+\item
+  Secuencia de pasos.
+\item
+  Registros involucrados en cada etapa del proceso.
+\item
+  Uso de los buses de datos, direcciones y control.
+\item
+  Señales de control generadas.
+\end{itemize}
+
+El \textbf{ciclo de la instrucción} se define como la secuencia de microoperaciones necesarias para ejecutar una instrucción en el sistema. Estas microoperaciones se expresan mediante un lenguaje de transferencia entre registros, representado de la forma:
+
+\texttt{destino} \(\leftarrow\) \texttt{origen}
+
+\hypertarget{etapa-de-captaciuxf3n}{%
+\subsubsection{Etapa de Captación:}\label{etapa-de-captaciuxf3n}}
+
+En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}:
+  El contenido del registro puntero de instrucciones \texttt{IP} se transfiere al registro de direcciones de memoria \texttt{MAR}. La UC genera la señal necesaria para seleccionar el valor del \texttt{IP} y copiarlo en el \texttt{MAR}.
+\item
+  \textbf{\texttt{MDR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} ; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}:
+  La UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del \texttt{MAR} como dirección. El dato leído se transfiere al rRegistro de datos de memoria \texttt{MBR} a través del bus de datos. Simultáneamente, el \texttt{IP} se incrementa en 1 para apuntar al siguiente byte.
+\item
+  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}:
+  El contenido del \texttt{MBR} se transfiere al registro de instrucciones \texttt{IR}, completando la etapa de captación.
+\end{enumerate}
+
+\hypertarget{etapa-de-ejecuciuxf3n}{%
+\subsubsection{Etapa de Ejecución:}\label{etapa-de-ejecuciuxf3n}}
+
+En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
+
+\begin{itemize}
+\tightlist
+\item
+  MOV \texttt{Rx}, \texttt{Ry} (Copiar entre registros)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}:
+    El contenido del registro \texttt{Ry} se copia en el registro \texttt{Rx}.
+  \end{enumerate}
+\item
+  MOV \texttt{Rx}, \texttt{{[}Dirección{]}} (Cargar a registro)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}:
+    El valor del \texttt{IP} se transfiere a \texttt{MAR}.
+  \item
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}:
+    Se lee (read) de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.Simultáneamente, el \texttt{IP} se incrementa.
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}:
+    El contenido de \texttt{MBR} se transfiere a \texttt{MAR}.
+  \item
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}:
+    Se lee de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}:
+    El contenido del \texttt{MBR} se copia al registro \texttt{Rx}.
+  \end{enumerate}
+\item
+  MOV \texttt{{[}Dirección{]}}, \texttt{Ry} (Almacenar en memoria)\\
+  1, 2, 3. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}:
+    El contenido de \texttt{Ry} se transfiere a \texttt{MBR}.
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}:
+    El contenido de \texttt{MBR} se escribe (write) en memoria en la dirección apuntada por el \texttt{MAR}.
+  \end{enumerate}
+\item
+  ADD \texttt{Rx}, \texttt{{[}Dirección{]}} (Sumar a registro)
+  1, 2, 3, 4. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{4}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}}:
+    La Unidad Aritmético-Lógica (ALU) realiza la suma entre \texttt{Rx} y \texttt{MBR}, almacenando el resultado en \texttt{Rx}. El Registro de Estado \texttt{RS} se actualiza con los indicadores correspondientes.
+  \end{enumerate}
+\item
+  SUB \texttt{{[}Dirección{]}}, \texttt{Ry} (Restar a memoria)
+  1, 2, 3, 4. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{4}
+  \tightlist
+  \item
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry} - \texttt{MBR}}:
+    La ALU resta el contenido de \texttt{MBR} al de \texttt{Ry}, almacenando el resultado en \texttt{MBR}. El \texttt{RS} se actualiza.
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}:
+    El contenido de \texttt{MBR} se escribe en memoria en la dirección apuntada por el \texttt{MAR}.
+  \end{enumerate}
+\item
+  CMP \texttt{Rx}, \texttt{{[}Dirección{]}} (Comparar a registro)
+  1, 2, 3, 4. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{4}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} - \texttt{MBR}}:
+    La ALU realiza la resta entre el contenido de \texttt{Rx} y \texttt{MBR}. Aunque el resultado no se almacena, el \texttt{RS} se actualiza con los indicadores de comparación.
+  \end{enumerate}
+\item
+  JMP \texttt{Dirección} (Salto incondicional)
+  1, 2. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}:
+    El contenido del \texttt{MBR} se transfiere al registro \texttt{IP}, estableciendo la nueva dirección de ejecución.
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{simulaciuxf3n-visual-e-interactiva}{%
+\section{Simulación visual e interactiva}\label{simulaciuxf3n-visual-e-interactiva}}
+
+Esta sección explica cómo se implementan las características visuales e interactivas del simulador, cumpliendo con el requisito de facilitar la comprensión del flujo de datos y microoperaciones.
+
+\hypertarget{representaciuxf3n-gruxe1fica-de-componentes}{%
+\subsection{Representación gráfica de componentes}\label{representaciuxf3n-gruxe1fica-de-componentes}}
+
+\begin{itemize}
+\tightlist
+\item
+  Diseño de la interfaz visual: registros, buses y memoria.
+\item
+  Resaltado dinámico de componentes durante la ejecución.
+\end{itemize}
+
+\hypertarget{ejecuciuxf3n-paso-a-paso}{%
+\subsection{Ejecución paso a paso}\label{ejecuciuxf3n-paso-a-paso}}
+
+\begin{itemize}
+\tightlist
+\item
+  Flujo de ejecución interactivo: desde la captación hasta la finalización de una instrucción.
+\item
+  Opciones de visualización de micropasos.
+\end{itemize}
+
+\hypertarget{gestiuxf3n-de-interrupciones-y-perifuxe9ricos}{%
+\section{Gestión de interrupciones y periféricos}\label{gestiuxf3n-de-interrupciones-y-perifuxe9ricos}}
+
+Se describe la implementación básica de la interacción con periféricos, incluyendo la simulación de interrupciones y operaciones de entrada/salida.
+
+\hypertarget{manejo-del-vector-de-interrupciones}{%
+\subsection{Manejo del vector de interrupciones}\label{manejo-del-vector-de-interrupciones}}
+
+\begin{itemize}
+\tightlist
+\item
+  Implementación de un vector predefinido.
+\item
+  Simulación de interrupciones comunes (e.g., teclado, pantalla).
+\end{itemize}
+
+\hypertarget{instrucciones-in-y-out}{%
+\subsection{Instrucciones IN y OUT}\label{instrucciones-in-y-out}}
+
+\begin{itemize}
+\tightlist
+\item
+  Descripción y simulación de operaciones de entrada/salida.
+\end{itemize}
+
 \hypertarget{segunda-etapa}{%
-\section{Segunda etapa}\label{segunda-etapa}}
+\subsection{Segunda etapa}\label{segunda-etapa}}
 
 En esta etapa, se amplían los modos de direccionamiento e instrucciones:
 
@@ -2086,168 +2316,71 @@ No opera NOP Detiene el CPU HLT\strut
 \bottomrule
 \end{longtable}
 
-\hypertarget{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}{%
-\section{Ciclo de la instrucción: Etapas de captación y ejecución}\label{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}}
+\hypertarget{integraciuxf3n-de-muxe9tricas-de-rendimiento}{%
+\section{Integración de métricas de rendimiento}\label{integraciuxf3n-de-muxe9tricas-de-rendimiento}}
 
-Este apartado describe en detalle el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los siguientes aspectos:
+Se detalla cómo el simulador proporciona indicadores clave para analizar la ejecución de programas y fomentar el aprendizaje del impacto del rendimiento en la arquitectura de computadoras.
+
+\hypertarget{muxe9tricas-calculadas}{%
+\subsection{Métricas calculadas}\label{muxe9tricas-calculadas}}
 
 \begin{itemize}
 \tightlist
 \item
-  Secuencia de pasos.
+  Definición e implementación de tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI).
 \item
-  Registros involucrados en cada etapa del proceso.
-\item
-  Uso de los buses de datos, direcciones y control.
-\item
-  Señales de control generadas.
+  Representación visual de las métricas durante la simulación.
 \end{itemize}
 
-El ciclo de la instrucción se define como la secuencia de microoperaciones que tienen lugar durante la ejecución de una instrucción en el sistema. Estas operaciones se describen utilizando un lenguaje de transferencia entre registros, de la forma:
-
-\texttt{destino} \(\leftarrow\) \texttt{origen}
-
-\hypertarget{etapa-de-captaciuxf3n}{%
-\subsubsection{Etapa de Captación:}\label{etapa-de-captaciuxf3n}}
-
-En esta etapa, común a todas las instrucciones, se realiza la lectura de la instrucción desde la memoria.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}:
-  El contenido del registro puntero de instrucciones \texttt{IP} se transfiere al registro de direcciones de memoria \texttt{MAR}. La UC genera la señal necesaria para seleccionar el valor del \texttt{IP} y copiarlo en el \texttt{MAR}.
-\item
-  \textbf{\texttt{MDR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} ; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}:
-  La UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del \texttt{MAR} como dirección. El dato leído se transfiere al Registro de Datos de Memoria \texttt{MBR} a través del bus de datos. Simultáneamente, el \texttt{IP} se incrementa en 1 para apuntar al siguiente byte.
-\item
-  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}:
-  El contenido del \texttt{MBR} se transfiere al Registro de Instrucciones \texttt{IR}, completando la etapa de captación.
-\end{enumerate}
-
-\hypertarget{etapa-de-ejecuciuxf3n}{%
-\subsubsection{Etapa de Ejecución:}\label{etapa-de-ejecuciuxf3n}}
-
-En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
+\hypertarget{anuxe1lisis-de-casos-de-estudio}{%
+\subsection{Análisis de casos de estudio}\label{anuxe1lisis-de-casos-de-estudio}}
 
 \begin{itemize}
 \tightlist
 \item
-  MOV \texttt{Rx}, \texttt{Ry} (Copiar entre registros)
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \tightlist
-  \item
-    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}:
-    El contenido del registro \texttt{Ry} se copia en el registro \texttt{Rx}.
-  \end{enumerate}
-\item
-  MOV \texttt{Rx}, \texttt{{[}Dirección{]}} (Cargar a registro)
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \tightlist
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}:
-    El valor del \texttt{IP} se transfiere a \texttt{MAR}.
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}:
-    Se lee (read) de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.Simultáneamente, el \texttt{IP} se incrementa.
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}:
-    El contenido de \texttt{MBR} se transfiere a \texttt{MAR}.
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}:
-    Se lee de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.
-  \item
-    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}:
-    El contenido del \texttt{MBR} se copia al registro \texttt{Rx}.
-  \end{enumerate}
-\item
-  MOV \texttt{{[}Dirección{]}}, \texttt{Ry} (Almacenar en memoria)\\
-  1, 2, 3. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \tightlist
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}:
-    El contenido de \texttt{Ry} se transfiere a \texttt{MBR}.
-  \item
-    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}:
-    El contenido de \texttt{MBR} se escribe (write) en memoria en la dirección apuntada por el \texttt{MAR}.
-  \end{enumerate}
-\item
-  ADD \texttt{Rx}, \texttt{{[}Dirección{]}} (Sumar a registro)
-  1, 2, 3, 4. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{4}
-  \tightlist
-  \item
-    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}}:
-    La Unidad Aritmético-Lógica (ALU) realiza la suma entre \texttt{Rx} y \texttt{MBR}, almacenando el resultado en \texttt{Rx}. El Registro de Estado \texttt{RS} se actualiza con los indicadores correspondientes.
-  \end{enumerate}
-\item
-  SUB \texttt{{[}Dirección{]}}, \texttt{Ry} (Restar a memoria)
-  1, 2, 3, 4. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{4}
-  \tightlist
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry} - \texttt{MBR}}:
-    La ALU resta el contenido de \texttt{MBR} al de \texttt{Ry}, almacenando el resultado en \texttt{MBR}. El \texttt{RS} se actualiza.
-  \item
-    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}:
-    El contenido de \texttt{MBR} se escribe en memoria en la dirección apuntada por el \texttt{MAR}.
-  \end{enumerate}
-\item
-  CMP \texttt{Rx}, \texttt{{[}Dirección{]}} (Comparar a registro)
-  1, 2, 3, 4. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{4}
-  \tightlist
-  \item
-    \textbf{\texttt{Rx} - \texttt{MBR}}:
-    La ALU realiza la resta entre el contenido de \texttt{Rx} y \texttt{MBR}. Aunque el resultado no se almacena, el \texttt{RS} se actualiza con los indicadores de comparación.
-  \end{enumerate}
-\item
-  JMP \texttt{Dirección} (Salto incondicional)
-  1, 2. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{2}
-  \tightlist
-  \item
-    \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}:
-    El contenido del \texttt{MBR} se transfiere al registro \texttt{IP}, estableciendo la nueva dirección de ejecución.
-  \end{enumerate}
+  Ejemplos prácticos de análisis de rendimiento utilizando el simulador.
 \end{itemize}
 
-\hypertarget{pruebas}{%
-\section{Pruebas}\label{pruebas}}
+\hypertarget{proceso-de-validaciuxf3n}{%
+\section{Proceso de validación}\label{proceso-de-validaciuxf3n}}
 
-Una vez diseñada la herramienta, es fundamental construirla y someterla a pruebas exhaustivas para garantizar que cumpla con los requisitos definidos y sea fácil de usar. Durante esta fase, se identifican y corrigen los posibles problemas antes de su implementación definitiva.
+Finalmente, se describen las pruebas realizadas para garantizar que el simulador cumple con los requisitos definidos.
 
-Se llevarán a cabo pruebas rigurosas que abarcarán los siguientes aspectos:
+\hypertarget{validaciuxf3n-funcional}{%
+\subsection{Validación funcional}\label{validaciuxf3n-funcional}}
 
 \begin{itemize}
 \tightlist
 \item
-  Validación de funcionalidad: Verificar que todas las características y funcionalidades de la herramienta operen correctamente según los requisitos establecidos.
+  Métodos para verificar el correcto funcionamiento de cada módulo.
 \item
-  Evaluación de usabilidad: Obtener retroalimentación de estudiantes y profesores para garantizar que la herramienta sea intuitiva y fácil de utilizar en el contexto educativo.
+  Pruebas de ejecución de instrucciones y programas completos.
+\end{itemize}
+
+\hypertarget{evaluaciuxf3n-pedaguxf3gica}{%
+\subsection{Evaluación pedagógica}\label{evaluaciuxf3n-pedaguxf3gica}}
+
+\begin{itemize}
+\tightlist
 \item
-  Corrección de problemas: Identificar y resolver cualquier error o inconsistencia antes del lanzamiento oficial de la herramienta.
+  Recolección de retroalimentación de estudiantes y docentes.
+\item
+  Ajustes realizados según los resultados.
+\end{itemize}
+
+\hypertarget{alineaciuxf3n-con-los-objetivos-pedaguxf3gicos}{%
+\subsection{Alineación con los objetivos pedagógicos}\label{alineaciuxf3n-con-los-objetivos-pedaguxf3gicos}}
+
+La herramienta no busca sacrificar precisión, sino adoptar una estrategia educativa que optimice la comprensión de los estudiantes. Este enfoque permite:
+
+\begin{itemize}
+\tightlist
+\item
+  Conectar teoría y práctica, facilitando la transición desde conceptos abstractos hacia aplicaciones concretas.
+\item
+  Proveer una base sólida para abordar simuladores más avanzados que representen con fidelidad la complejidad de la arquitectura x86.
+\item
+  Enriquecer la experiencia de aprendizaje al integrar componentes interactivos y visuales que complementan los materiales teóricos.
 \end{itemize}
 
 \hypertarget{portabilidad}{%
