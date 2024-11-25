@@ -25,40 +25,42 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
 6. **Métricas de rendimiento:**
     - Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas.
 
-## Arquitectura propuesta
-La arquitectura propuesta es una versión simplificada de **8 bits** de la arquitectura **x86**, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. Este diseño simplificado facilita que los estudiantes comprendan conceptos fundamentales como el formato de instrucciones, modos de direccionamiento y el ciclo de búsqueda y ejecución.
+## Diseño conceptual
+En esta sección se detalla el proceso de planificación del simulador, enfocándose en cómo los requisitos definidos orientan su construcción y garantizan la alineación con los objetivos pedagógicos establecidos.
 
-### Justificación de la simplificación
-La arquitectura x86 se caracteriza por su complejidad, con un extenso repertorio de instrucciones y características avanzadas que pueden resultar desafiantes para estudiantes principiantes. Por ello, el simulador se desarrolla con un enfoque pedagógico centrado en:
+### Modelo arquitectónico
+La arquitectura propuesta corresponde a una versión simplificada de **8 bits** de la arquitectura **x86**, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. Este diseño simplificado busca facilitar que los estudiantes comprendan conceptos clave como el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
 
-- **Reducir la carga cognitiva**: Al limitar la complejidad del repertorio de instrucciones y los componentes del simulador, los estudiantes pueden concentrarse en entender los principios fundamentales sin distracciones innecesarias.
-- **Fomentar un aprendizaje progresivo**: Se adopta una aproximación escalonada, donde los estudiantes comienzan trabajando con un simulador simplificado antes de avanzar a herramientas que representen de forma completa la arquitectura x86. Este enfoque les permite construir conocimientos de manera incremental, fortaleciendo su comprensión a medida que enfrentan conceptos más avanzados.
-- **Priorizar la claridad pedagógica**: Un conjunto reducido de instrucciones y una arquitectura simplificada permiten realizar prácticas manejables en tiempo y esfuerzo, lo cual es crucial para evitar frustraciones y reforzar el aprendizaje práctico.
+#### Principales bloques funcionales
+El simulador se compone de los siguientes bloques funcionales:
 
-### Beneficios de la simplificación
-El diseño del simulador con una arquitectura simplificada permite a los estudiantes:
+```{r bloques_funcionales, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
 
-- **Entender los fundamentos**: Se enfocan en aspectos esenciales como el ciclo de instrucción, la interacción entre componentes de la CPU y el flujo básico de datos en el sistema.
-- **Comparar y reflexionar**: Analizan las diferencias entre el modelo simplificado y la arquitectura x86 real, fomentando el pensamiento crítico y el entendimiento profundo de las características más complejas de la arquitectura real.
-- **Aprender de manera práctica**: Realizan experimentos y resuelven ejercicios que les permiten explorar, equivocarse y aprender, en un entorno controlado y accesible.
+bloques_funcionales <- data.frame(
+  Bloque = c("Unidad Central de Procesamiento (CPU)",
+             "Memoria",
+             "Sistema de entrada/salida (E/S)",
+             "Bus de datos, direcciones y control"),
+  Descripción = c("Simulación de registros, Unidad de Control (UC) y ALU.",
+                  "Estructura de memoria y simulación de operaciones de lectura y escritura.",
+                  "Interacción con periféricos y manejo de interrupciones.",
+                  "Modelado de la comunicación entre componentes.")
+)
+# Convertir a HTML
+kable(bloques_funcionales, format = "markdown", align = "l", col.names = c("Bloque", "Descripción"), 
+      caption = "Bloque funcionales principales", escape = FALSE)
+```
 
-### Alineación con los objetivos pedagógicos
-La herramienta no busca sacrificar precisión, sino adoptar una estrategia educativa que optimice la comprensión de los estudiantes. Este enfoque permite:
-
-- Conectar teoría y práctica, facilitando la transición desde conceptos abstractos hacia aplicaciones concretas.
-- Proveer una base sólida para abordar simuladores más avanzados que representen con fidelidad la complejidad de la arquitectura x86.
-- Enriquecer la experiencia de aprendizaje al integrar componentes interactivos y visuales que complementan los materiales teóricos.
-
-## Componentes del simulador
-### Procesador o CPU
-El procesador diseñado para este simulador cuenta con las siguientes características principales:
+#### Características del CPU
+El diseño del CPU simplificado se describe en la siguiente tabla:
 
 ```{r arq, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
 # Crear el data frame con los datos del cuadro
 arq <- data.frame(
-  `Arquitectura` = c("Arquitectura", 
+  `Componente` = c("Arquitectura", 
                          "Registros", 
                          "", 
                          "", 
@@ -75,20 +77,19 @@ arq <- data.frame(
                         "- Memoria de 256 posiciones, con una capacidad de un byte por posición.",
                         "- Bus de datos y direcciones de 8 bits.",
                         "- Longitud variable (1, 2 y 3 bytes).",
-                        "-  Soporta un conjunto de 16 instrucciones."),
+                        "- Soporta un conjunto de 16 instrucciones."),
   stringsAsFactors = FALSE
 )
 
 # Convertir a HTML
-kable(arq, format = "markdown", align = "l", col.names = c("Arquitectura", "Características"), 
-      caption = "Arquitectura x86 propuesta", escape = FALSE)
+kable(arq, format = "markdown", align = "l", col.names = c("Componente", "Características"), 
+      caption = "Componentes del CPU x86", escape = FALSE)
 ```
 
-### Repertorio de instrucciones
-El repertorio propuesto para el simulador es una simplificación de la arquitectura x86, diseñada para facilitar la enseñanza y el aprendizaje. Este conjunto ficticio opera con instrucciones de 8 bits para una mejor comprensión.
+## Implementación del repertorio de instrucciones
 
-## Primera etapa
-En la primera fase, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
+## Selección del repertorio inicial
+El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos inicialesde la asignatura:
 
 ```{r setreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -145,15 +146,29 @@ kable(setreducido, format = "markdown", align = "l", col.names = c("Instruccione
       caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
 ```
 
+### Justificación de la simplificación
+La arquitectura x86 destaca por su complejidad debido a su extenso repertorio de instrucciones y características avanzadas. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:
+
+- **Reducir la carga cognitiva**: la simplificación del repertorio y de los componentes permite a los estudiantes enfocarse en principios fundamentales.
+- **Aprendizaje progresivo**: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.
+- **Claridad pedagógica**: las prácticas son manejables en términos de tiempo y esfuerzo, promoviendo un aprendizaje práctico sin frustraciones.
+
+### Beneficios de la simplificación
+El diseño del simulador contribuye a:
+
+- **Comprensión fundamental**: los estudiantes pueden enfocarse en el ciclo de instrucciones, interacción de componentes y flujo básico de datos.
+- **Análisis crítico**: comparar el modelo simplificado con x86 real fomenta un aprendizaje reflexivo y profundo.
+- **Experimentación práctica**: proporciona un entorno accesible para explorar conceptos y corregir errores.
+
 ### Formato de instrucciones
-El formato de las instrucciones contempla los siguientes casos:
+El formato definido para las instrucciones incluye los siguientes casos:
 
 ```{r codtreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
 # Crear un dataframe con los datos
 codtreducido <- data.frame(
-  Tipo = c("Transferencia y procesamiento", "", "", "Control"),
+  Tipo = c("","Transferencia y procesamiento", "", "Control"),
   Caso = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
   Codificación = c("---- XXYY", "---- XX00 DDDDDDDD", "---- 00YY DDDDDDDD", "---- ffff DDDDDDDD"),
   Parámetros = c(
@@ -189,7 +204,15 @@ Considerando:
 
   - Las instruciones de control de flujo soportan el formato `D`. 
 
-### Banco de registros
+### Modos de direccionamiento
+Los modos de direccionamiento definidos en esta etapa son:
+
+| Operando | tipo | 
+| --- | --- |
+| `Rx`,`Ry`| Registro a registro: operandos son registros del procesador. |
+| `[M]`|	Directo: operando es el contenido de una dirección de memoria. |
+
+#### Banco de registros
 ```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
@@ -203,14 +226,6 @@ tabla_registros <- data.frame(
 # Imprimir la tabla en formato markdown
 kable(tabla_registros, format = "markdown", col.names = c("Número de registros (R)", "Binario", "Decimal"))
 ```
-### Modos de direccionamiento
-
-Los modos de direccionamiento definidos en esta etapa son:
-
-| Operando | tipo | 
-| --- | --- |
-| `Rx`,`Ry`| Registro a registro: operandos son registros del procesador. |
-| `[M]`|	Directo: operando es el contenido de una dirección de memoria. |
 
 En esta primera etapa se implementan las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
 
@@ -261,7 +276,98 @@ tabla_instrucciones <- data.frame(
 kable(tabla_instrucciones, format = "markdown", col.names = c("#", "Instrucción", "Acción", "Codificación"))
 ```
 
-## Segunda etapa
+### Ciclo de la instrucción: Etapas de captación y ejecución
+En este apartado se detalla el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los aspectos clave:
+
+- Secuencia de pasos.
+- Registros involucrados en cada etapa del proceso.
+- Uso de los buses de datos, direcciones y control.
+- Señales de control generadas.
+
+El **ciclo de la instrucción** se define como la secuencia de microoperaciones necesarias para ejecutar una instrucción en el sistema. Estas microoperaciones se expresan mediante un lenguaje de transferencia entre registros, representado de la forma:
+
+`destino` $\leftarrow$ `origen` 
+
+#### Etapa de Captación: 
+En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
+
+  1. **`MAR` $\leftarrow$ `IP`**:
+  El contenido del registro puntero de instrucciones `IP` se transfiere al registro de direcciones de memoria `MAR`. La UC genera la señal necesaria para seleccionar el valor del `IP` y copiarlo en el `MAR`.
+  2. **`MDR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**:
+  La UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del `MAR` como dirección. El dato leído se transfiere al rRegistro de datos de memoria `MBR` a través del bus de datos. Simultáneamente, el `IP` se incrementa en 1 para apuntar al siguiente byte.
+  3. **`IR` $\leftarrow$ `MBR`**:
+  El contenido del `MBR` se transfiere al registro de instrucciones `IR`, completando la etapa de captación. 
+
+#### Etapa de Ejecución:
+En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
+
+* MOV `Rx`, `Ry` (Copiar entre registros)
+  1. **`Rx` $\leftarrow$ `Ry`**:
+  El contenido del registro `Ry` se copia en el registro `Rx`.
+
+* MOV `Rx`, `[Dirección]` (Cargar a registro)
+  1. **`MAR` $\leftarrow$ `IP`**:
+  El valor del `IP` se transfiere a `MAR`.
+  2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
+  Se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
+  3. **`MAR` $\leftarrow$ `MBR`**:
+  El contenido de `MBR` se transfiere a `MAR`.
+  4. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**:
+  Se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
+  5. **`Rx`  $\leftarrow$ `MBR`**:
+  El contenido del `MBR` se copia al registro `Rx`.
+
+* MOV `[Dirección]`, `Ry` (Almacenar en memoria)     
+  1, 2, 3. Igual que MOV `Rx`, `[Dirección]`.
+  4. **`MBR` $\leftarrow$ `Ry`**:
+  El contenido de `Ry` se transfiere a `MBR`.
+  5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
+  El contenido de `MBR` se escribe (write) en memoria en la dirección apuntada por el `MAR`.
+
+* ADD  `Rx`, `[Dirección]` (Sumar a registro)
+  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
+  5. **`Rx`  $\leftarrow$ `Rx` + `MBR`**:
+  La Unidad Aritmético-Lógica (ALU) realiza la suma entre `Rx` y `MBR`, almacenando el resultado en `Rx`. El Registro de Estado `RS` se actualiza con los indicadores correspondientes.
+
+* SUB `[Dirección]`, `Ry` (Restar a memoria)
+  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
+  5. **`MBR` $\leftarrow$ `Ry` - `MBR`**: 
+  La ALU resta el contenido de `MBR` al de `Ry`, almacenando el resultado en `MBR`. El `RS` se actualiza.
+  6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
+  El contenido de `MBR` se escribe en memoria en la dirección apuntada por el `MAR`.
+
+* CMP `Rx`,  `[Dirección]` (Comparar a registro)
+  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
+  5. **`Rx` - `MBR`**: 
+  La ALU realiza la resta entre el contenido de `Rx` y `MBR`. Aunque el resultado no se almacena, el `RS` se actualiza con los indicadores de comparación.
+
+* JMP  `Dirección` (Salto incondicional)
+  1, 2. Igual que MOV `Rx`, `[Dirección]`.
+  3. **`IP` $\leftarrow$ `MBR`**:
+  El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
+
+## Simulación visual e interactiva
+Esta sección explica cómo se implementan las características visuales e interactivas del simulador, cumpliendo con el requisito de facilitar la comprensión del flujo de datos y microoperaciones.
+
+### Representación gráfica de componentes
+- Diseño de la interfaz visual: registros, buses y memoria.
+- Resaltado dinámico de componentes durante la ejecución.
+
+### Ejecución paso a paso
+- Flujo de ejecución interactivo: desde la captación hasta la finalización de una instrucción.
+- Opciones de visualización de micropasos.
+
+## Gestión de interrupciones y periféricos
+Se describe la implementación básica de la interacción con periféricos, incluyendo la simulación de interrupciones y operaciones de entrada/salida.
+
+### Manejo del vector de interrupciones
+- Implementación de un vector predefinido.
+- Simulación de interrupciones comunes (e.g., teclado, pantalla).
+
+### Instrucciones IN y OUT
+- Descripción y simulación de operaciones de entrada/salida.
+
+### Segunda etapa
 En esta etapa, se amplían los modos de direccionamiento e instrucciones:
 
 ### Modos de Direccionamiento Adicionales
@@ -379,84 +485,33 @@ kable(isacompleta, format = "markdown", align = "l", col.names = c("Código oper
       caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
 ```
 
-## Ciclo de la instrucción: Etapas de captación y ejecución
-Este apartado describe en detalle el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los siguientes aspectos:
+## Integración de métricas de rendimiento
+Se detalla cómo el simulador proporciona indicadores clave para analizar la ejecución de programas y fomentar el aprendizaje del impacto del rendimiento en la arquitectura de computadoras.
 
-- Secuencia de pasos.
-- Registros involucrados en cada etapa del proceso.
-- Uso de los buses de datos, direcciones y control.
-- Señales de control generadas.
+### Métricas calculadas
+- Definición e implementación de tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI).
+- Representación visual de las métricas durante la simulación.
 
-El ciclo de la instrucción se define como la secuencia de microoperaciones que tienen lugar durante la ejecución de una instrucción en el sistema. Estas operaciones se describen utilizando un lenguaje de transferencia entre registros, de la forma:
+### Análisis de casos de estudio
+- Ejemplos prácticos de análisis de rendimiento utilizando el simulador.
 
-`destino` $\leftarrow$ `origen` 
+## Proceso de validación
+Finalmente, se describen las pruebas realizadas para garantizar que el simulador cumple con los requisitos definidos.
 
-#### Etapa de Captación: 
-En esta etapa, común a todas las instrucciones, se realiza la lectura de la instrucción desde la memoria.
+### Validación funcional
+- Métodos para verificar el correcto funcionamiento de cada módulo.
+- Pruebas de ejecución de instrucciones y programas completos.
 
-  1. **`MAR` $\leftarrow$ `IP`**:
-  El contenido del registro puntero de instrucciones `IP` se transfiere al registro de direcciones de memoria `MAR`. La UC genera la señal necesaria para seleccionar el valor del `IP` y copiarlo en el `MAR`.
-  2. **`MDR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**:
-  La UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del `MAR` como dirección. El dato leído se transfiere al Registro de Datos de Memoria `MBR` a través del bus de datos. Simultáneamente, el `IP` se incrementa en 1 para apuntar al siguiente byte.
-  3. **`IR` $\leftarrow$ `MBR`**:
-  El contenido del `MBR` se transfiere al Registro de Instrucciones `IR`, completando la etapa de captación. 
+### Evaluación pedagógica
+- Recolección de retroalimentación de estudiantes y docentes.
+- Ajustes realizados según los resultados.
 
-#### Etapa de Ejecución:
-En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
+### Alineación con los objetivos pedagógicos
+La herramienta no busca sacrificar precisión, sino adoptar una estrategia educativa que optimice la comprensión de los estudiantes. Este enfoque permite:
 
-* MOV `Rx`, `Ry` (Copiar entre registros)
-  1. **`Rx` $\leftarrow$ `Ry`**:
-  El contenido del registro `Ry` se copia en el registro `Rx`.
-
-* MOV `Rx`, `[Dirección]` (Cargar a registro)
-  1. **`MAR` $\leftarrow$ `IP`**:
-  El valor del `IP` se transfiere a `MAR`.
-  2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
-  Se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
-  3. **`MAR` $\leftarrow$ `MBR`**:
-  El contenido de `MBR` se transfiere a `MAR`.
-  4. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**:
-  Se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
-  5. **`Rx`  $\leftarrow$ `MBR`**:
-  El contenido del `MBR` se copia al registro `Rx`.
-
-* MOV `[Dirección]`, `Ry` (Almacenar en memoria)     
-  1, 2, 3. Igual que MOV `Rx`, `[Dirección]`.
-  4. **`MBR` $\leftarrow$ `Ry`**:
-  El contenido de `Ry` se transfiere a `MBR`.
-  5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
-  El contenido de `MBR` se escribe (write) en memoria en la dirección apuntada por el `MAR`.
-
-* ADD  `Rx`, `[Dirección]` (Sumar a registro)
-  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
-  5. **`Rx`  $\leftarrow$ `Rx` + `MBR`**:
-  La Unidad Aritmético-Lógica (ALU) realiza la suma entre `Rx` y `MBR`, almacenando el resultado en `Rx`. El Registro de Estado `RS` se actualiza con los indicadores correspondientes.
-
-* SUB `[Dirección]`, `Ry` (Restar a memoria)
-  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
-  5. **`MBR` $\leftarrow$ `Ry` - `MBR`**: 
-  La ALU resta el contenido de `MBR` al de `Ry`, almacenando el resultado en `MBR`. El `RS` se actualiza.
-  6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
-  El contenido de `MBR` se escribe en memoria en la dirección apuntada por el `MAR`.
-
-* CMP `Rx`,  `[Dirección]` (Comparar a registro)
-  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
-  5. **`Rx` - `MBR`**: 
-  La ALU realiza la resta entre el contenido de `Rx` y `MBR`. Aunque el resultado no se almacena, el `RS` se actualiza con los indicadores de comparación.
-
-* JMP  `Dirección` (Salto incondicional)
-  1, 2. Igual que MOV `Rx`, `[Dirección]`.
-  3. **`IP` $\leftarrow$ `MBR`**:
-  El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
-
-## Pruebas
-Una vez diseñada la herramienta, es fundamental construirla y someterla a pruebas exhaustivas para garantizar que cumpla con los requisitos definidos y sea fácil de usar. Durante esta fase, se identifican y corrigen los posibles problemas antes de su implementación definitiva.
-
-Se llevarán a cabo pruebas rigurosas que abarcarán los siguientes aspectos:
-
-- Validación de funcionalidad: Verificar que todas las características y funcionalidades de la herramienta operen correctamente según los requisitos establecidos.
-- Evaluación de usabilidad: Obtener retroalimentación de estudiantes y profesores para garantizar que la herramienta sea intuitiva y fácil de utilizar en el contexto educativo.
-- Corrección de problemas: Identificar y resolver cualquier error o inconsistencia antes del lanzamiento oficial de la herramienta.
+- Conectar teoría y práctica, facilitando la transición desde conceptos abstractos hacia aplicaciones concretas.
+- Proveer una base sólida para abordar simuladores más avanzados que representen con fidelidad la complejidad de la arquitectura x86.
+- Enriquecer la experiencia de aprendizaje al integrar componentes interactivos y visuales que complementan los materiales teóricos.
 
 ## Portabilidad
 Con el objetivo de garantizar la portabilidad, el simulador se implementará como una aplicación web. Esta decisión permite su ejecución en cualquier navegador y asegura su compatibilidad multiplataforma, independientemente del sistema operativo utilizado por los usuarios.
