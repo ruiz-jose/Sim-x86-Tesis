@@ -1428,18 +1428,13 @@ Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de 
 \section{Requisitos de la herramienta}\label{requisitos-de-la-herramienta}}
 
 La herramienta de simulación está diseñada para cumplir los siguientes requisitos:
+1. \textbf{Representación global de la estructura y funcionamiento de la computadora:}
+- Mostrar de manera visual la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, resaltando relevantes.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
 \tightlist
-\item
-  \textbf{Representación global de la estructura y funcionamiento de la computadora:}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Mostrar de manera visual la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, resaltando relevantes.
-  \end{itemize}
 \item
   \textbf{Soporte para la generación y ejecución de programas en ensamblador:}
 
@@ -2217,8 +2212,8 @@ C & \texttt{Jxx\ M} & Se pueden implemementar más flags y CALL & \texttt{1100\ 
     \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}:
     Se lee (read) de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.Simultáneamente, el \texttt{IP} se incrementa.
   \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}:
-    El contenido de \texttt{BL} se transfiere a \texttt{MAR}.
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}:
+    El contenido de \texttt{MBR} se transfiere a \texttt{MAR}.
   \item
     \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}:
     Se lee de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.
@@ -2393,7 +2388,7 @@ En esta etapa, se amplían los modos de direccionamiento e instrucciones:
 \hypertarget{integraciuxf3n-de-muxe9tricas-de-rendimiento}{%
 \section{Integración de métricas de rendimiento}\label{integraciuxf3n-de-muxe9tricas-de-rendimiento}}
 
-El simulador incorpora métricas clave para analizar el impacto del rendimiento en la arquitectura de computadoras.
+Se detalla cómo el simulador proporciona indicadores clave para analizar la ejecución de programas y fomentar el aprendizaje del impacto del rendimiento en la arquitectura de computadoras.
 
 \hypertarget{muxe9tricas-calculadas}{%
 \subsection{Métricas calculadas}\label{muxe9tricas-calculadas}}
@@ -2401,9 +2396,9 @@ El simulador incorpora métricas clave para analizar el impacto del rendimiento 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Indicadores}: tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI).
+  Definición e implementación de tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI).
 \item
-  \textbf{Visualización}: las métricas se presentan en tiempo real durante la simulación, facilitando su análisis.
+  Representación visual de las métricas durante la simulación.
 \end{itemize}
 
 \hypertarget{anuxe1lisis-de-casos-de-estudio}{%
@@ -2412,13 +2407,13 @@ El simulador incorpora métricas clave para analizar el impacto del rendimiento 
 \begin{itemize}
 \tightlist
 \item
-  Se incluyen ejemplos que ilustran cómo interpretar las métricas para optimizar el rendimiento.
+  Ejemplos prácticos de análisis de rendimiento utilizando el simulador.
 \end{itemize}
 
 \hypertarget{proceso-de-validaciuxf3n}{%
 \section{Proceso de validación}\label{proceso-de-validaciuxf3n}}
 
-El proceso de validación garantiza que el simulador cumple con los requisitos pedagógicos y funcionales.
+Finalmente, se describen las pruebas realizadas para garantizar que el simulador cumple con los requisitos definidos.
 
 \hypertarget{validaciuxf3n-funcional}{%
 \subsection{Validación funcional}\label{validaciuxf3n-funcional}}
@@ -2426,9 +2421,9 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Pruebas de módulos}: cada componente se verificó de manera individual.
+  Métodos para verificar el correcto funcionamiento de cada módulo.
 \item
-  \textbf{Ejecución completa}: programas de prueba comprobaron la correcta implementación de las instrucciones.
+  Pruebas de ejecución de instrucciones y programas completos.
 \end{itemize}
 
 \hypertarget{evaluaciuxf3n-pedaguxf3gica}{%
@@ -2437,21 +2432,44 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Retroalimentación}: opiniones de estudiantes y docentes guiaron los ajustes realizados.
+  Recolección de retroalimentación de estudiantes y docentes.
 \item
-  \textbf{Objetivos educativos}: el simulador prioriza la claridad conceptual sin sacrificar la precisión técnica.
+  Ajustes realizados según los resultados.
 \end{itemize}
 
-\hypertarget{portabilidad-y-mantenibilidad}{%
-\section{Portabilidad y Mantenibilidad}\label{portabilidad-y-mantenibilidad}}
+\hypertarget{alineaciuxf3n-con-los-objetivos-pedaguxf3gicos}{%
+\subsection{Alineación con los objetivos pedagógicos}\label{alineaciuxf3n-con-los-objetivos-pedaguxf3gicos}}
+
+La herramienta no busca sacrificar precisión, sino adoptar una estrategia educativa que optimice la comprensión de los estudiantes. Este enfoque permite:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Portabilidad}: la herramienta se implementa como una aplicación web, compatible con cualquier navegador moderno.
+  Conectar teoría y práctica, facilitando la transición desde conceptos abstractos hacia aplicaciones concretas.
 \item
-  \textbf{Mantenibilidad}: el código modular y bien documentado facilita futuras actualizaciones y mejoras.
+  Proveer una base sólida para abordar simuladores más avanzados que representen con fidelidad la complejidad de la arquitectura x86.
+\item
+  Enriquecer la experiencia de aprendizaje al integrar componentes interactivos y visuales que complementan los materiales teóricos.
 \end{itemize}
+
+\hypertarget{portabilidad}{%
+\section{Portabilidad}\label{portabilidad}}
+
+Con el objetivo de garantizar la portabilidad, el simulador se implementará como una aplicación web. Esta decisión permite su ejecución en cualquier navegador y asegura su compatibilidad multiplataforma, independientemente del sistema operativo utilizado por los usuarios.
+
+\hypertarget{mantenibilidad}{%
+\section{Mantenibilidad}\label{mantenibilidad}}
+
+El diseño del código se enfocará en la modularidad y la documentación detallada. Este enfoque facilita futuras actualizaciones, la corrección de errores y el mantenimiento general de la herramienta. Asimismo, se aplicarán prácticas de desarrollo sostenible para garantizar su viabilidad a largo plazo.
+
+\hypertarget{escalabilidad}{%
+\section{Escalabilidad}\label{escalabilidad}}
+
+En la asignatura, se promueve el uso de simuladores como apoyo en los procesos de enseñanza y aprendizaje. Además, se fomenta que los contenidos desarrollados puedan implementarse en máquinas reales. En este sentido, el enfoque propuesto por herramientas como emu8086 es relevante, ya que permite implementar programas en sistemas reales.
+
+Sin embargo, emu8086 presenta ciertas limitaciones: genera ejecutables dependientes del sistema operativo MS-DOS, lo cual resulta problemático dado que la mayoría de los sistemas operativos actuales no admiten la ejecución nativa de dichos programas. Esto obliga al uso de emuladores de MS-DOS, añadiendo complejidad a los procesos educativos.
+
+Para superar estas limitaciones, se propone utilizar el ensamblador NASM (Netwide Assembler), que ofrece compatibilidad tanto con Linux como con Windows a través de herramientas libres como GCC (GNU Compiler Collection). Esto permite generar programas para la arquitectura x86 en sus variantes de 16, 32 y 64 bits, asegurando mayor flexibilidad y escalabilidad en los entornos educativos actuales.
 
 \hypertarget{bibliografuxeda}{%
 \chapter*{Bibliografía}\label{bibliografuxeda}}
