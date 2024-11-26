@@ -204,11 +204,8 @@
 <ul>
 <li class="chapter" data-level="5.9.1" data-path="proceso-de-validación.html"><a href="proceso-de-validación.html#validación-funcional"><i class="fa fa-check"></i><b>5.9.1</b> Validación funcional</a></li>
 <li class="chapter" data-level="5.9.2" data-path="proceso-de-validación.html"><a href="proceso-de-validación.html#evaluación-pedagógica"><i class="fa fa-check"></i><b>5.9.2</b> Evaluación pedagógica</a></li>
-<li class="chapter" data-level="5.9.3" data-path="proceso-de-validación.html"><a href="proceso-de-validación.html#alineación-con-los-objetivos-pedagógicos"><i class="fa fa-check"></i><b>5.9.3</b> Alineación con los objetivos pedagógicos</a></li>
 </ul></li>
-<li class="chapter" data-level="5.10" data-path="portabilidad.html"><a href="portabilidad.html"><i class="fa fa-check"></i><b>5.10</b> Portabilidad</a></li>
-<li class="chapter" data-level="5.11" data-path="mantenibilidad.html"><a href="mantenibilidad.html"><i class="fa fa-check"></i><b>5.11</b> Mantenibilidad</a></li>
-<li class="chapter" data-level="5.12" data-path="escalabilidad.html"><a href="escalabilidad.html"><i class="fa fa-check"></i><b>5.12</b> Escalabilidad</a></li>
+<li class="chapter" data-level="5.10" data-path="portabilidad-y-mantenibilidad.html"><a href="portabilidad-y-mantenibilidad.html"><i class="fa fa-check"></i><b>5.10</b> Portabilidad y Mantenibilidad</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="bibliografía.html"><a href="bibliografía.html"><i class="fa fa-check"></i>Bibliografía</a></li>
 <li class="divider"></li>
@@ -956,8 +953,8 @@ Si la bandera de cero (<code>Z</code>) está activa, el contenido del <code>MBR<
 El valor del <code>IP</code> se transfiere a <code>MAR</code>.</li>
 <li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>:
 Se lee (read) de memoria el contenido de la dirección indicada por <code>MAR</code> y se almacena en <code>MBR</code>.Simultáneamente, el <code>IP</code> se incrementa.</li>
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>:
-El contenido de <code>MBR</code> se transfiere a <code>MAR</code>.</li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>:
+El contenido de <code>BL</code> se transfiere a <code>MAR</code>.</li>
 <li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>:
 Se lee de memoria el contenido de la dirección indicada por <code>MAR</code> y se almacena en <code>MBR</code>.</li>
 <li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>:
