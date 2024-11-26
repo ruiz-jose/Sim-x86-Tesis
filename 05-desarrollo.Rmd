@@ -7,6 +7,7 @@ Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de 
 
 ## Requisitos de la herramienta
 La herramienta de simulación está diseñada para cumplir los siguientes requisitos:
+
 1. **Representación global de la estructura y funcionamiento de la computadora:**
    - Mostrar de manera visual la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, resaltando relevantes.
 
@@ -429,8 +430,8 @@ Las instrucciones ahora se codifican con 1, 2 o 3 bytes dependiendo del modo:
   El valor del `IP` se transfiere a `MAR`.
   2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
   Se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
-  3. **`MAR` $\leftarrow$ `MBR`**:
-  El contenido de `MBR` se transfiere a `MAR`.
+  3. **`MAR` $\leftarrow$ `BL`**:
+  El contenido de `BL` se transfiere a `MAR`.
   4. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**:
   Se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
   5. **`Rx`  $\leftarrow$ `MBR`**:
@@ -517,42 +518,26 @@ Se describe la simulación de interrupciones y operaciones de entrada/salida, pr
 En esta etapa, se amplían los modos de direccionamiento e instrucciones:
 
 ## Integración de métricas de rendimiento
-Se detalla cómo el simulador proporciona indicadores clave para analizar la ejecución de programas y fomentar el aprendizaje del impacto del rendimiento en la arquitectura de computadoras.
+El simulador incorpora métricas clave para analizar el impacto del rendimiento en la arquitectura de computadoras.
 
 ### Métricas calculadas
-- Definición e implementación de tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI).
-- Representación visual de las métricas durante la simulación.
+- **Indicadores**: tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI).
+- **Visualización**: las métricas se presentan en tiempo real durante la simulación, facilitando su análisis.
 
 ### Análisis de casos de estudio
-- Ejemplos prácticos de análisis de rendimiento utilizando el simulador.
+- Se incluyen ejemplos que ilustran cómo interpretar las métricas para optimizar el rendimiento.
 
 ## Proceso de validación
-Finalmente, se describen las pruebas realizadas para garantizar que el simulador cumple con los requisitos definidos.
+El proceso de validación garantiza que el simulador cumple con los requisitos pedagógicos y funcionales.
 
 ### Validación funcional
-- Métodos para verificar el correcto funcionamiento de cada módulo.
-- Pruebas de ejecución de instrucciones y programas completos.
+- **Pruebas de módulos**: cada componente se verificó de manera individual.
+- **Ejecución completa**: programas de prueba comprobaron la correcta implementación de las instrucciones.
 
 ### Evaluación pedagógica
-- Recolección de retroalimentación de estudiantes y docentes.
-- Ajustes realizados según los resultados.
+- **Retroalimentación**: opiniones de estudiantes y docentes guiaron los ajustes realizados.
+- **Objetivos educativos**: el simulador prioriza la claridad conceptual sin sacrificar la precisión técnica.
 
-### Alineación con los objetivos pedagógicos
-La herramienta no busca sacrificar precisión, sino adoptar una estrategia educativa que optimice la comprensión de los estudiantes. Este enfoque permite:
-
-- Conectar teoría y práctica, facilitando la transición desde conceptos abstractos hacia aplicaciones concretas.
-- Proveer una base sólida para abordar simuladores más avanzados que representen con fidelidad la complejidad de la arquitectura x86.
-- Enriquecer la experiencia de aprendizaje al integrar componentes interactivos y visuales que complementan los materiales teóricos.
-
-## Portabilidad
-Con el objetivo de garantizar la portabilidad, el simulador se implementará como una aplicación web. Esta decisión permite su ejecución en cualquier navegador y asegura su compatibilidad multiplataforma, independientemente del sistema operativo utilizado por los usuarios.
-
-## Mantenibilidad
-El diseño del código se enfocará en la modularidad y la documentación detallada. Este enfoque facilita futuras actualizaciones, la corrección de errores y el mantenimiento general de la herramienta. Asimismo, se aplicarán prácticas de desarrollo sostenible para garantizar su viabilidad a largo plazo.
-
-## Escalabilidad
-En la asignatura, se promueve el uso de simuladores como apoyo en los procesos de enseñanza y aprendizaje. Además, se fomenta que los contenidos desarrollados puedan implementarse en máquinas reales. En este sentido, el enfoque propuesto por herramientas como emu8086 es relevante, ya que permite implementar programas en sistemas reales.
-
-Sin embargo, emu8086 presenta ciertas limitaciones: genera ejecutables dependientes del sistema operativo MS-DOS, lo cual resulta problemático dado que la mayoría de los sistemas operativos actuales no admiten la ejecución nativa de dichos programas. Esto obliga al uso de emuladores de MS-DOS, añadiendo complejidad a los procesos educativos.
-
-Para superar estas limitaciones, se propone utilizar el ensamblador NASM (Netwide Assembler), que ofrece compatibilidad tanto con Linux como con Windows a través de herramientas libres como GCC (GNU Compiler Collection). Esto permite generar programas para la arquitectura x86 en sus variantes de 16, 32 y 64 bits, asegurando mayor flexibilidad y escalabilidad en los entornos educativos actuales.
+## Portabilidad y Mantenibilidad
+- **Portabilidad**: la herramienta se implementa como una aplicación web, compatible con cualquier navegador moderno.
+- **Mantenibilidad**: el código modular y bien documentado facilita futuras actualizaciones y mejoras.
