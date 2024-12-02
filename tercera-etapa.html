@@ -233,12 +233,12 @@
 <p>En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
 A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.</p>
 <table>
-<caption><span id="tab:isacompleta">Tabla 5.4: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
+<caption><span id="tab:isacompleta">Tabla 5.5: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
 <colgroup>
-<col width="15%" />
+<col width="9%" />
 <col width="11%" />
 <col width="9%" />
-<col width="64%" />
+<col width="68%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -250,38 +250,38 @@ A continuación, se detalla el conjunto completo de instrucciones, incluyendo su
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">{0, 1, 2}</td>
-<td align="left">Transferencia de datos</td>
 <td align="left">MOV</td>
+<td align="left">Transferencia de datos</td>
+<td align="left">MOV EAX, EBX</td>
 <td align="left">1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria</td>
 </tr>
 <tr class="even">
-<td align="left">{3, 4, 5} {6, 7, 8} {9, 10, 11}</td>
-<td align="left">Procesamiento de datos</td>
-<td align="left">ADD, SUB, CMP</td>
+<td align="left">ADD</td>
+<td align="left">Aritmética</td>
+<td align="left">ADD EAX, 1</td>
 <td align="left">1- Sumar 2- Restar 3- Comparar</td>
 </tr>
 <tr class="odd">
-<td align="left">{12}</td>
+<td align="left">JMP</td>
 <td align="left">Control de flujo</td>
-<td align="left">JMP, Jxx,CALL, RET</td>
+<td align="left">JMP 0x00400000</td>
 <td align="left">Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET</td>
 </tr>
 <tr class="even">
-<td align="left">{13}</td>
-<td align="left">Manejo de pila y E/S</td>
+<td align="left">PUSH, POP, OUT, IN</td>
+<td align="left">Pila y E/S</td>
 <td align="left">PUSH, POP, OUT, IN</td>
 <td align="left">Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S</td>
 </tr>
 <tr class="odd">
-<td align="left">{14}</td>
-<td align="left">Manejo de interrupción</td>
+<td align="left">INT , IRET</td>
+<td align="left">Interrupciones</td>
 <td align="left">INT , IRET</td>
 <td align="left">Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET</td>
 </tr>
 <tr class="even">
-<td align="left">{15}</td>
-<td align="left">Control del CPU</td>
+<td align="left">NOP , HLT</td>
+<td align="left">Control</td>
 <td align="left">NOP , HLT</td>
 <td align="left">No opera NOP Detiene el CPU HLT</td>
 </tr>

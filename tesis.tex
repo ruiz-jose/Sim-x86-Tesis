@@ -1497,46 +1497,22 @@ La arquitectura propuesta corresponde a una versión simplificada de \textbf{8 b
 
 El simulador se compone de los siguientes bloques funcionales:
 
-\begin{longtable}[]{@{}ll@{}}
-\caption{\label{tab:bloquesfuncionales}Bloque funcionales principales}\tabularnewline
+\begin{table}
+\centering
+\caption{\label{tab:bloquesfuncionales}Bloques funcionales principales}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{10cm}}
 \toprule
-\begin{minipage}[b]{0.32\columnwidth}\raggedright
-Bloque\strut
-\end{minipage} & \begin{minipage}[b]{0.62\columnwidth}\raggedright
-Descripción\strut
-\end{minipage}\tabularnewline
+Bloque & Descripción\\
 \midrule
-\endfirsthead
-\toprule
-\begin{minipage}[b]{0.32\columnwidth}\raggedright
-Bloque\strut
-\end{minipage} & \begin{minipage}[b]{0.62\columnwidth}\raggedright
-Descripción\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.32\columnwidth}\raggedright
-Unidad Central de Procesamiento (CPU)\strut
-\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
-Simulación de registros, Unidad de Control (UC) y ALU.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.32\columnwidth}\raggedright
-Memoria\strut
-\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
-Estructura de memoria y simulación de operaciones de lectura y escritura.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.32\columnwidth}\raggedright
-Sistema de entrada/salida (E/S)\strut
-\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
-Interacción con periféricos y manejo de interrupciones.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.32\columnwidth}\raggedright
-Bus de datos, direcciones y control\strut
-\end{minipage} & \begin{minipage}[t]{0.62\columnwidth}\raggedright
-Modelado de la comunicación entre componentes.\strut
-\end{minipage}\tabularnewline
+Unidad Central de Procesamiento (CPU) & Simulación de registros, Unidad de Control (UC) y ALU.\\
+Memoria & Estructura de memoria y simulación de operaciones de lectura y escritura.\\
+Sistema de entrada/salida (E/S) & Interacción con periféricos y manejo de interrupciones.\\
+Bus de datos, direcciones y control & Modelado de la comunicación entre componentes.\\
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\end{table}
 
 \hypertarget{caracteruxedsticas-del-cpu}{%
 \subsubsection{Características del CPU}\label{caracteruxedsticas-del-cpu}}
@@ -1550,9 +1526,9 @@ El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{10cm}}
 \toprule
-\cellcolor[HTML]{D3D3D3}{\textbf{Componente}} & \cellcolor[HTML]{D3D3D3}{\textbf{Características}}\\
+Componente & Características\\
 \midrule
-Arquitectura & - von Neumann, con memoria compartida para datos e instrucciones.\\
+Arquitectura & - Von Neumann, con memoria compartida para datos e instrucciones.\\
 Registros & - 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.\\
  & - 3 registros de propósito específico: `IP` (Instruction Pointer), `IR`(Instruction Register) y `SP`(Stack Pointer).\\
  & - 1 registro de estado (`RS`) para las banderas.\\
@@ -1635,26 +1611,25 @@ El formato definido para las instrucciones incluye los siguientes casos tabla \r
 \centering
 \caption{\label{tab:codtraducido}Tabla de codificación de instrucciones}
 \centering
-\begin{tabular}[t]{llll}
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
-\multicolumn{4}{c}{ } \\
-
 Tipo & Operación & Codificación & Parámetros\\
 \midrule
-Transferencia y procesamiento & A: entre registros & ----XXYY & XX = Registro destino, YY = Registro fuente\\
- & B: Cargar a registro & ----XX00 MMMMMMMM & XX = Registro destino, M = Dirección de memoria\\
- & C: Almacenar en memoria & ----00YY MMMMMMMM & YY = Registro fuente, M = Dirección de memoria\\
-\midrule\\
-Control & D: control de flujo & ----ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
+Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino, YY = Registro fuente\\
+ & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX = Registro destino, M = Dirección de memoria\\
+ & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM & YY = Registro fuente, M = Dirección de memoria\\
+\midrule
+Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Considerando:
 
 \begin{itemize}
 \item
-  \texttt{-\/-\/-\/-}: Código de operación de la instrucción, número de 4 bits.
+  \texttt{\_\_\_\_}: Código de operación de la instrucción, número de 4 bits.
 \item
   \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}, cada índice es de 2 bits.
 \item
@@ -2149,86 +2124,18 @@ C & \texttt{Jxx\ M} & Se pueden implemementar más flags y CALL & \texttt{1100\ 
 En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
 A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.
 
-\begin{longtable}[]{@{}llll@{}}
-\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\tabularnewline
+\begin{longtable}[t]{>{\raggedright\arraybackslash}p{8em}|>{\raggedright\arraybackslash}p{10em}>{\raggedright\arraybackslash}p{10em}>{\raggedright\arraybackslash}p{10em}}
+\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\\
 \toprule
-\begin{minipage}[b]{0.14\columnwidth}\raggedright
-Código operación\strut
-\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
-Instrucciones\strut
-\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
-nemónico\strut
-\end{minipage} & \begin{minipage}[b]{0.57\columnwidth}\raggedright
-Acción\strut
-\end{minipage}\tabularnewline
+\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}} & \cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}} & \cellcolor[HTML]{D3D3D3}{\textbf{nemónico}} & \cellcolor[HTML]{D3D3D3}{\textbf{Acción}}\\
 \midrule
-\endfirsthead
-\toprule
-\begin{minipage}[b]{0.14\columnwidth}\raggedright
-Código operación\strut
-\end{minipage} & \begin{minipage}[b]{0.10\columnwidth}\raggedright
-Instrucciones\strut
-\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\raggedright
-nemónico\strut
-\end{minipage} & \begin{minipage}[b]{0.57\columnwidth}\raggedright
-Acción\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.14\columnwidth}\raggedright
-\{0, 1, 2\}\strut
-\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
-Transferencia de datos\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
-MOV\strut
-\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
-1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright
-\{3, 4, 5\} \{6, 7, 8\} \{9, 10, 11\}\strut
-\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
-Procesamiento de datos\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
-ADD, SUB, CMP\strut
-\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
-1- Sumar 2- Restar 3- Comparar\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright
-\{12\}\strut
-\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
-Control de flujo\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
-JMP, Jxx,CALL, RET\strut
-\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
-Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright
-\{13\}\strut
-\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
-Manejo de pila y E/S\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
-PUSH, POP, OUT, IN\strut
-\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
-Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright
-\{14\}\strut
-\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
-Manejo de interrupción\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
-INT , IRET\strut
-\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
-Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.14\columnwidth}\raggedright
-\{15\}\strut
-\end{minipage} & \begin{minipage}[t]{0.10\columnwidth}\raggedright
-Control del CPU\strut
-\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\raggedright
-NOP , HLT\strut
-\end{minipage} & \begin{minipage}[t]{0.57\columnwidth}\raggedright
-No opera NOP Detiene el CPU HLT\strut
-\end{minipage}\tabularnewline
+\textbf{MOV} & Transferencia de datos & MOV EAX, EBX & 1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\\
+\textbf{ADD} & Aritmética & ADD EAX, 1 & 1- Sumar  2- Restar 3- Comparar\\
+\textbf{JMP} & Control de flujo & JMP 0x00400000 & Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET\\
+\textbf{PUSH, POP, OUT, IN} & Pila y E/S & PUSH, POP, OUT, IN & Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S\\
+\textbf{INT , IRET} & Interrupciones & INT , IRET & Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET\\
+\addlinespace
+\textbf{NOP , HLT} & Control & NOP , HLT & No opera NOP Detiene el CPU HLT\\
 \bottomrule
 \end{longtable}
 
