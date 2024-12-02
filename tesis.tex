@@ -1498,7 +1498,7 @@ La arquitectura propuesta corresponde a una versión simplificada de \textbf{8 b
 El simulador se compone de los siguientes bloques funcionales:
 
 \begin{longtable}[]{@{}ll@{}}
-\caption{(\#tab:bloques\_funcionales)Bloque funcionales principales}\tabularnewline
+\caption{\label{tab:bloquesfuncionales}Bloque funcionales principales}\tabularnewline
 \toprule
 \begin{minipage}[b]{0.32\columnwidth}\raggedright
 Bloque\strut
@@ -1543,71 +1543,28 @@ Modelado de la comunicación entre componentes.\strut
 
 El diseño del CPU simplificado se describe en la siguiente tabla:
 
-\begin{longtable}[]{@{}ll@{}}
-\caption{\label{tab:arq}Componentes del CPU x86}\tabularnewline
+\begin{table}
+\centering
+\caption{\label{tab:arq}Componentes del CPU x86}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{10cm}}
 \toprule
-\begin{minipage}[b]{0.10\columnwidth}\raggedright
-Componente\strut
-\end{minipage} & \begin{minipage}[b]{0.84\columnwidth}\raggedright
-Características\strut
-\end{minipage}\tabularnewline
+\cellcolor[HTML]{D3D3D3}{\textbf{Componente}} & \cellcolor[HTML]{D3D3D3}{\textbf{Características}}\\
 \midrule
-\endfirsthead
-\toprule
-\begin{minipage}[b]{0.10\columnwidth}\raggedright
-Componente\strut
-\end{minipage} & \begin{minipage}[b]{0.84\columnwidth}\raggedright
-Características\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.10\columnwidth}\raggedright
-Arquitectura\strut
-\end{minipage} & \begin{minipage}[t]{0.84\columnwidth}\raggedright
-- von Neumann, con memoria compartida para datos e instrucciones.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright
-Registros\strut
-\end{minipage} & \begin{minipage}[t]{0.84\columnwidth}\raggedright
-- 4 registros de propósito general (\texttt{AL}, \texttt{BL}, \texttt{DL} y \texttt{DL}) de 8 bits cada uno.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.84\columnwidth}\raggedright
-- 3 registros de propósito específico: \texttt{IP} (Instruction Pointer), \texttt{IR}(Instruction Register) y \texttt{SP}(Stack Pointer).\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.84\columnwidth}\raggedright
-- 1 registro de estado (\texttt{RS}) para las banderas.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.84\columnwidth}\raggedright
-- 2 registros intermedios (\texttt{MAR}: buffer de direcciones y \texttt{MBR}: buffer de datos) para comunicación entre CPU y memoria.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright
-Memoria\strut
-\end{minipage} & \begin{minipage}[t]{0.84\columnwidth}\raggedright
-- Memoria de 256 posiciones, con una capacidad de un byte por posición.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright
-Buses\strut
-\end{minipage} & \begin{minipage}[t]{0.84\columnwidth}\raggedright
-- Bus de datos y direcciones de 8 bits.\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright
-Instrucciones\strut
-\end{minipage} & \begin{minipage}[t]{0.84\columnwidth}\raggedright
-- Longitud variable (1, 2 y 3 bytes).\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.10\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.84\columnwidth}\raggedright
-- Soporta un conjunto de 16 instrucciones.\strut
-\end{minipage}\tabularnewline
+Arquitectura & - von Neumann, con memoria compartida para datos e instrucciones.\\
+Registros & - 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.\\
+ & - 3 registros de propósito específico: `IP` (Instruction Pointer), `IR`(Instruction Register) y `SP`(Stack Pointer).\\
+ & - 1 registro de estado (`RS`) para las banderas.\\
+ & - 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.\\
+\addlinespace
+Memoria & - Memoria de 256 posiciones, con una capacidad de un byte por posición.\\
+Buses & - Bus de datos y direcciones de 8 bits.\\
+Instrucciones & - Longitud variable (1, 2 y 3 bytes).\\
+ & - Soporta un conjunto de 16 instrucciones.\\
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\end{table}
 
 \hypertarget{implementaciuxf3n-del-repertorio-de-instrucciones}{%
 \section{Implementación del repertorio de instrucciones}\label{implementaciuxf3n-del-repertorio-de-instrucciones}}
