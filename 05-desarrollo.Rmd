@@ -54,7 +54,7 @@ kable(bloquesfuncionales, format = "markdown", align = "l", col.names = c("Bloqu
 ```
 
 #### Características del CPU
-El diseño del CPU simplificado se describe en la siguiente tabla:
+El diseño del CPU simplificado se describe en la siguiente tabla \@ref(tab:arq):
 
 ```{r arq, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -101,7 +101,7 @@ if (knitr::is_latex_output()) {
 ## Implementación del repertorio de instrucciones
 
 ## Selección del repertorio inicial
-El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos inicialesde la asignatura:
+El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
 
 ```{r setreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -173,48 +173,43 @@ El diseño del simulador contribuye a:
 - **Experimentación práctica**: proporciona un entorno accesible para explorar conceptos y corregir errores.
 
 ### Formato de instrucciones
-El formato definido para las instrucciones incluye los siguientes casos:
+El formato definido para las instrucciones incluye los siguientes casos tabla \@ref(tab:codtraducido):
 
-```{r codtreducido, echo=FALSE, message=FALSE, warning=FALSE}
+```{r codtraducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
+library(kableExtra)
 
 # Crear un dataframe con los datos
-codtreducido <- data.frame(
-  Tipo = c("","Transferencia y procesamiento", "", "Control"),
+codtraducido <- data.frame(
+  Tipo = c("Transferencia y procesamiento", "", "", "Control"),
   Caso = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
-  Codificación = c("---- XXYY", "---- XX00 DDDDDDDD", "---- 00YY DDDDDDDD", "---- ffff DDDDDDDD"),
+  Codificación = c("----XXYY", "----XX00 MMMMMMMM", "----00YY MMMMMMMM", "----ffff MMMMMMMM"),
   Parámetros = c(
     "XX = Registro destino, YY = Registro fuente",
     "XX = Registro destino, M = Dirección de memoria",
     "YY = Registro fuente, M = Dirección de memoria",
     "ffff = funcionalidad, M = Dirección de memoria"
-  )
+  ),
+  stringsAsFactors = FALSE
 )
-kable(codtreducido, format = "markdown", align = "l", col.names = c("Tipo","Casos", "Codificación", "Parámetros"), 
-      caption = "Tabla de codififación de instrucciones")
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
+kable(codtraducido, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
+      caption = "Tabla de codificación de instrucciones") %>%
+  kable_styling(latex_options = "hold_position") %>%
+  add_header_above(c(" " = 4), line = TRUE) %>%
+  row_spec(3, extra_latex_after = "\\midrule")  # Agregar una línea después de la tercera fila
 ```
 
 Considerando:
 
-  - `A`: operaciones entre registros del procesador.
+  - `----`: Código de operación de la instrucción, número de 4 bits.
 
-  - `B`: operaciones que cargan en registros del procesado.
-
-  - `C`: operaciones que almacenan en memoria.
-
-  - `D`: operaciones de control de flujo del programa.
-
-  - `----`: Código de operación de la instrucción.
-
-  - `XX` o `YY`: Índices de registros, número entre `0` y `3`.
+  - `XX` o `YY`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
 
   - `M`: Dirección de memoria, número de 8 bits.
 
-  - `ffff`: representan el comportamiento de la instrucción.
-
-  - Las instruciones de transferencia y de procesamiento soportan los formatos `A`, `B` y `C`.
-
-  - Las instruciones de control de flujo soportan el formato `D`. 
+  - `ffff`: representan el comportamiento de la instrucción, número de 4 bits.
 
 ### Modos de direccionamiento
 Los modos de direccionamiento definidos en esta etapa son:
