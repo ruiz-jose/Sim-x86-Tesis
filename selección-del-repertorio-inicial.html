@@ -230,7 +230,7 @@
             <section class="normal" id="section-">
 <div id="selección-del-repertorio-inicial" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Selección del repertorio inicial<a href="selección-del-repertorio-inicial.html#selección-del-repertorio-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos inicialesde la asignatura:</p>
+<p>El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:</p>
 <table>
 <caption><span id="tab:setreducido">Tabla 5.3: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
 <thead>
@@ -318,62 +318,13 @@
 </div>
 <div id="formato-de-instrucciones" class="section level3 hasAnchor" number="5.4.3">
 <h3><span class="header-section-number">5.4.3</span> Formato de instrucciones<a href="selección-del-repertorio-inicial.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formato definido para las instrucciones incluye los siguientes casos:</p>
-<table>
-<caption><span id="tab:codtreducido">Tabla 5.4: </span>Tabla de codififación de instrucciones</caption>
-<colgroup>
-<col width="24%" />
-<col width="19%" />
-<col width="15%" />
-<col width="39%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Tipo</th>
-<th align="left">Casos</th>
-<th align="left">Codificación</th>
-<th align="left">Parámetros</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left"></td>
-<td align="left">A: entre registros</td>
-<td align="left">—- XXYY</td>
-<td align="left">XX = Registro destino, YY = Registro fuente</td>
-</tr>
-<tr class="even">
-<td align="left">Transferencia y procesamiento</td>
-<td align="left">B: Cargar a registro</td>
-<td align="left">—- XX00 DDDDDDDD</td>
-<td align="left">XX = Registro destino, M = Dirección de memoria</td>
-</tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left">C: Almacenar en memoria</td>
-<td align="left">—- 00YY DDDDDDDD</td>
-<td align="left">YY = Registro fuente, M = Dirección de memoria</td>
-</tr>
-<tr class="even">
-<td align="left">Control</td>
-<td align="left">D: control de flujo</td>
-<td align="left">—- ffff DDDDDDDD</td>
-<td align="left">ffff = funcionalidad, M = Dirección de memoria</td>
-</tr>
-</tbody>
-</table>
+<p>El formato definido para las instrucciones incluye los siguientes casos tabla <a href="#tab:codtraducido"><strong>??</strong></a>:</p>
 <p>Considerando:</p>
 <ul>
-<li><p><code>A</code>: operaciones entre registros del procesador.</p></li>
-<li><p><code>B</code>: operaciones que cargan en registros del procesado.</p></li>
-<li><p><code>C</code>: operaciones que almacenan en memoria.</p></li>
-<li><p><code>D</code>: operaciones de control de flujo del programa.</p></li>
-<li><p><code>----</code>: Código de operación de la instrucción.</p></li>
-<li><p><code>XX</code> o <code>YY</code>: Índices de registros, número entre <code>0</code> y <code>3</code>.</p></li>
+<li><p><code>----</code>: Código de operación de la instrucción, número de 4 bits.</p></li>
+<li><p><code>XX</code> o <code>YY</code>: Índices de registros, número entre <code>0</code> y <code>3</code>, cada índice es de 2 bits.</p></li>
 <li><p><code>M</code>: Dirección de memoria, número de 8 bits.</p></li>
-<li><p><code>ffff</code>: representan el comportamiento de la instrucción.</p></li>
-<li><p>Las instruciones de transferencia y de procesamiento soportan los formatos <code>A</code>, <code>B</code> y <code>C</code>.</p></li>
-<li><p>Las instruciones de control de flujo soportan el formato <code>D</code>.</p></li>
+<li><p><code>ffff</code>: representan el comportamiento de la instrucción, número de 4 bits.</p></li>
 </ul>
 </div>
 <div id="modos-de-direccionamiento-1" class="section level3 hasAnchor" number="5.4.4">

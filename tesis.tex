@@ -1541,7 +1541,7 @@ Modelado de la comunicación entre componentes.\strut
 \hypertarget{caracteruxedsticas-del-cpu}{%
 \subsubsection{Características del CPU}\label{caracteruxedsticas-del-cpu}}
 
-El diseño del CPU simplificado se describe en la siguiente tabla:
+El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 
 \begin{table}
 \centering
@@ -1572,7 +1572,7 @@ Instrucciones & - Longitud variable (1, 2 y 3 bytes).\\
 \hypertarget{selecciuxf3n-del-repertorio-inicial}{%
 \section{Selección del repertorio inicial}\label{selecciuxf3n-del-repertorio-inicial}}
 
-El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos inicialesde la asignatura:
+El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
 
 \begin{longtable}[]{@{}llll@{}}
 \caption{\label{tab:setreducido}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\tabularnewline
@@ -1629,96 +1629,38 @@ El diseño del simulador contribuye a:
 \hypertarget{formato-de-instrucciones}{%
 \subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
 
-El formato definido para las instrucciones incluye los siguientes casos:
+El formato definido para las instrucciones incluye los siguientes casos tabla \ref{tab:codtraducido}:
 
-\begin{longtable}[]{@{}llll@{}}
-\caption{\label{tab:codtreducido}Tabla de codififación de instrucciones}\tabularnewline
+\begin{table}[!h]
+\centering
+\caption{\label{tab:codtraducido}Tabla de codificación de instrucciones}
+\centering
+\begin{tabular}[t]{llll}
 \toprule
-\begin{minipage}[b]{0.22\columnwidth}\raggedright
-Tipo\strut
-\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright
-Casos\strut
-\end{minipage} & \begin{minipage}[b]{0.14\columnwidth}\raggedright
-Codificación\strut
-\end{minipage} & \begin{minipage}[b]{0.35\columnwidth}\raggedright
-Parámetros\strut
-\end{minipage}\tabularnewline
+\multicolumn{4}{c}{ } \\
+
+Tipo & Operación & Codificación & Parámetros\\
 \midrule
-\endfirsthead
-\toprule
-\begin{minipage}[b]{0.22\columnwidth}\raggedright
-Tipo\strut
-\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright
-Casos\strut
-\end{minipage} & \begin{minipage}[b]{0.14\columnwidth}\raggedright
-Codificación\strut
-\end{minipage} & \begin{minipage}[b]{0.35\columnwidth}\raggedright
-Parámetros\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.22\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
-A: entre registros\strut
-\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
----- XXYY\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
-XX = Registro destino, YY = Registro fuente\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.22\columnwidth}\raggedright
-Transferencia y procesamiento\strut
-\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
-B: Cargar a registro\strut
-\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
----- XX00 DDDDDDDD\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
-XX = Registro destino, M = Dirección de memoria\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.22\columnwidth}\raggedright
-\strut
-\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
-C: Almacenar en memoria\strut
-\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
----- 00YY DDDDDDDD\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
-YY = Registro fuente, M = Dirección de memoria\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.22\columnwidth}\raggedright
-Control\strut
-\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
-D: control de flujo\strut
-\end{minipage} & \begin{minipage}[t]{0.14\columnwidth}\raggedright
----- ffff DDDDDDDD\strut
-\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\raggedright
-ffff = funcionalidad, M = Dirección de memoria\strut
-\end{minipage}\tabularnewline
+Transferencia y procesamiento & A: entre registros & ----XXYY & XX = Registro destino, YY = Registro fuente\\
+ & B: Cargar a registro & ----XX00 MMMMMMMM & XX = Registro destino, M = Dirección de memoria\\
+ & C: Almacenar en memoria & ----00YY MMMMMMMM & YY = Registro fuente, M = Dirección de memoria\\
+\midrule\\
+Control & D: control de flujo & ----ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
 \bottomrule
-\end{longtable}
+\end{tabular}
+\end{table}
 
 Considerando:
 
 \begin{itemize}
 \item
-  \texttt{A}: operaciones entre registros del procesador.
+  \texttt{-\/-\/-\/-}: Código de operación de la instrucción, número de 4 bits.
 \item
-  \texttt{B}: operaciones que cargan en registros del procesado.
-\item
-  \texttt{C}: operaciones que almacenan en memoria.
-\item
-  \texttt{D}: operaciones de control de flujo del programa.
-\item
-  \texttt{-\/-\/-\/-}: Código de operación de la instrucción.
-\item
-  \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}.
+  \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}, cada índice es de 2 bits.
 \item
   \texttt{M}: Dirección de memoria, número de 8 bits.
 \item
-  \texttt{ffff}: representan el comportamiento de la instrucción.
-\item
-  Las instruciones de transferencia y de procesamiento soportan los formatos \texttt{A}, \texttt{B} y \texttt{C}.
-\item
-  Las instruciones de control de flujo soportan el formato \texttt{D}.
+  \texttt{ffff}: representan el comportamiento de la instrucción, número de 4 bits.
 \end{itemize}
 
 \hypertarget{modos-de-direccionamiento-1}{%
