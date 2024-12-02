@@ -35,10 +35,10 @@ La arquitectura propuesta corresponde a una versión simplificada de **8 bits** 
 #### Principales bloques funcionales
 El simulador se compone de los siguientes bloques funcionales:
 
-```{r bloques_funcionales, echo=FALSE, message=FALSE, warning=FALSE}
+```{r bloquesfuncionales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
-bloques_funcionales <- data.frame(
+bloquesfuncionales <- data.frame(
   Bloque = c("Unidad Central de Procesamiento (CPU)",
              "Memoria",
              "Sistema de entrada/salida (E/S)",
@@ -49,7 +49,7 @@ bloques_funcionales <- data.frame(
                   "Modelado de la comunicación entre componentes.")
 )
 # Convertir a HTML
-kable(bloques_funcionales, format = "markdown", align = "l", col.names = c("Bloque", "Descripción"), 
+kable(bloquesfuncionales, format = "markdown", align = "l", col.names = c("Bloque", "Descripción"), 
       caption = "Bloque funcionales principales", escape = FALSE)
 ```
 
@@ -82,9 +82,20 @@ arq <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Convertir a HTML
-kable(arq, format = "markdown", align = "l", col.names = c("Componente", "Características"), 
-      caption = "Componentes del CPU x86", escape = FALSE)
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  kable(arq, format = "latex", booktabs = TRUE, caption = "Componentes del CPU x86") %>%
+    kable_styling(latex_options = "scale_down") %>%
+    column_spec(1, width = "5cm") %>%  # Ajustar el ancho de la columna "Componente"
+    column_spec(2, width = "10cm") %>%  # Ajustar el ancho de la columna "Características"
+    row_spec(0, bold = TRUE, background = "#D3D3D3")
+} else {
+  kable(arq, format = "html", table.attr = "class='table table-striped'", caption = "Componentes del CPU x86") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Componente"
+    column_spec(2, width = "40em") %>%  # Ajustar el ancho de la columna "Características"
+    row_spec(0, bold = TRUE, background = "#D3D3D3")
+}
 ```
 
 ## Implementación del repertorio de instrucciones
