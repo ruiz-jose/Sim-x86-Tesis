@@ -37,6 +37,7 @@ El simulador se compone de los siguientes bloques funcionales:
 
 ```{r bloquesfuncionales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
+library(kableExtra)
 
 bloquesfuncionales <- data.frame(
   Bloque = c("Unidad Central de Procesamiento (CPU)",
@@ -48,9 +49,19 @@ bloquesfuncionales <- data.frame(
                   "Interacción con periféricos y manejo de interrupciones.",
                   "Modelado de la comunicación entre componentes.")
 )
-# Convertir a HTML
-kable(bloquesfuncionales, format = "markdown", align = "l", col.names = c("Bloque", "Descripción"), 
-      caption = "Bloque funcionales principales", escape = FALSE)
+
+# Convertir a HTML o LaTeX según el formato de salida
+if (knitr::is_latex_output()) {
+  kable(bloquesfuncionales, format = "latex", booktabs = TRUE, caption = "Bloques funcionales principales") %>%
+    kable_styling(latex_options = "scale_down") %>%
+    column_spec(1, width = "5cm") %>%
+    column_spec(2, width = "10cm")
+} else {
+  kable(bloquesfuncionales, format = "html", table.attr = "class='table table-striped'", caption = "Bloques funcionales principales") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%
+    column_spec(2, width = "40em")
+}
 ```
 
 #### Características del CPU
@@ -58,18 +69,19 @@ El diseño del CPU simplificado se describe en la siguiente tabla \@ref(tab:arq)
 
 ```{r arq, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
+library(kableExtra)
 
 # Crear el data frame con los datos del cuadro
 arq <- data.frame(
   `Componente` = c("Arquitectura", 
-                         "Registros", 
-                         "", 
-                         "", 
-                         "", 
-                         "Memoria", 
-                         "Buses", 
-                         "Instrucciones", 
-                         ""),
+                   "Registros", 
+                   "", 
+                   "", 
+                   "", 
+                   "Memoria", 
+                   "Buses", 
+                   "Instrucciones", 
+                   ""),
   `Características` = c("- Von Neumann, con memoria compartida para datos e instrucciones.",
                         "- 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.",
                         "- 3 registros de propósito específico: `IP` (Instruction Pointer), `IR`(Instruction Register) y `SP`(Stack Pointer).",
@@ -86,13 +98,13 @@ arq <- data.frame(
 if (knitr::is_latex_output()) {
   kable(arq, format = "latex", booktabs = TRUE, caption = "Componentes del CPU x86") %>%
     kable_styling(latex_options = "scale_down") %>%
-    column_spec(1, width = "5cm") %>%  # Ajustar el ancho de la columna "Componente"
-    column_spec(2, width = "10cm") %>%  # Ajustar el ancho de la columna "Características"   
+    column_spec(1, width = "5cm") %>%
+    column_spec(2, width = "10cm")
 } else {
   kable(arq, format = "html", table.attr = "class='table table-striped'", caption = "Componentes del CPU x86") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
-    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Componente"
-    column_spec(2, width = "40em") %>%  # Ajustar el ancho de la columna "Características"
+    column_spec(1, width = "20em") %>%
+    column_spec(2, width = "40em")
 }
 ```
 
@@ -469,29 +481,18 @@ A continuación, se detalla el conjunto completo de instrucciones, incluyendo su
 
 ```{r isacompleta, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
+library(kableExtra)
 
-# Crear los datos
+
+
+# Datos de ejemplo
 isacompleta <- data.frame(
-    `Código operación` = c(
-    "{0, 1, 2}", 
-    "{3, 4, 5} {6, 7, 8} {9, 10, 11}", 
-    "{12}",
-    "{13}",
-    "{14}",
-    "{15}"
-  ),
-  Instrucciones = c(
-    "Transferencia de datos", 
-    "Procesamiento de datos", 
-    "Control de flujo", 
-    "Manejo de pila y E/S", 
-    "Manejo de interrupción", 
-    "Control del CPU"
-  ),
-  `Nemónico` = c(
-    "MOV ", 
-    "ADD, SUB,  CMP", 
-    "JMP, Jxx,CALL, RET",
+  `Código operación` = c("MOV", "ADD", "JMP", "PUSH, POP, OUT, IN", "INT , IRET", "NOP , HLT"),
+  Instrucciones = c("Transferencia de datos", "Aritmética", "Control de flujo", "Pila y E/S", "Interrupciones", "Control"),
+  nemónico = c(
+    "MOV EAX, EBX",
+    "ADD EAX, 1",
+    "JMP 0x00400000",
     "PUSH, POP, OUT, IN",
     "INT , IRET",
     "NOP , HLT"
@@ -506,9 +507,18 @@ isacompleta <- data.frame(
   )
 )
 
-# Convertir a HTML
-kable(isacompleta, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
-      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
+# Convertir a HTML o LaTeX según el formato de salida
+if (knitr::is_latex_output()) {
+  kable(isacompleta, format = "latex", booktabs = TRUE, longtable = TRUE, align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
+        caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86") %>%
+    kable_styling(latex_options = c("scale_down", "hold_position")) %>%
+    column_spec(1, width = "8em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "10em") %>%
+    row_spec(0, bold = TRUE, background = "#D3D3D3")
+} else {
+  kable(isacompleta, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
+        caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
+}
 ```
 
 ## Simulación visual e interactiva
