@@ -238,10 +238,8 @@ Considerando:
 ### Modos de direccionamiento
 Los modos de direccionamiento definidos en esta etapa son:
 
-| Operando | tipo | 
-| --- | --- |
-| `Rx`,`Ry`| Registro a registro: operandos son registros del procesador. |
-| `[M]`|	Directo: operando es el contenido de una dirección de memoria. |
+- Registro a registro (`Rx`,`Ry`): operandos son registros del procesador.
+- Directo (`[M]`): operando es el contenido de una dirección de memoria.
 
 #### Banco de registros
 ```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
@@ -390,11 +388,8 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
 ### Modos de direccionamiento adicionales
 Se incoporan los siguientes modos de direccionamiento:
 
-| Operando | tipo | 
-| --- | --- |
-| `[BL]`| Registro a registro: operandos son registros del procesador. |
-| `m`  |	Inmediato: operando es un valor contenido en la instrucción. |
-| `[BL + m]`|	Directo: operando es el contenido de una dirección de memoria. |
+- Indirecto por registro (`[BL]`): operando son registros del procesador.
+- Inmediato (`m`): operando es un valor contenido en la instrucción. 
 
 ### Formato ampliado
 Las instrucciones ahora se codifican con 1, 2 o 3 bytes dependiendo del modo:
