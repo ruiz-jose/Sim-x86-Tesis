@@ -424,6 +424,7 @@ if (knitr::is_latex_output()) {
     column_spec(3, width = "5cm") %>%  # Ajustar el ancho de la columna "Codificación"
     column_spec(4, width = "6cm") %>%  # Ajustar el ancho de la columna "Parámetros"
     row_spec(3, extra_latex_after = "\\midrule")  # Agregar una línea después de la tercera fila
+    footnote(general = "d = Dato Inmediato, no puede ser destino de la instrucción.")
 } else {
   kable(formatoampliado, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
         caption = "Tabla de codificación de instrucciones ampliado") %>%
@@ -433,11 +434,9 @@ if (knitr::is_latex_output()) {
     column_spec(3, width = "25em") %>%  # Ajustar el ancho de la columna "Codificación"
     column_spec(4, width = "30em") %>%  # Ajustar el ancho de la columna "Parámetros"
     row_spec(3, extra_css = "border-top: 2px solid #000;")  # Agregar una línea después de la tercera fila
+    footnote(general = "d = Dato Inmediato, no puede ser destino de la instrucción.")
 }
 ```
-
- `d` = Dato Inmediato, no puede ser destino de la instrucción.
-
 | Modo direccionamiento B: Cargar a registro  |  |  |
 | :---: | :---: | :---: |
 | **`ff`= funcionalidad** | **`Byte`= tamaño** | **Interpretación** |
@@ -513,16 +512,14 @@ A continuación, se detalla el conjunto completo de instrucciones, incluyendo su
 library(knitr)
 library(kableExtra)
 
-
-
 # Datos de ejemplo
 isacompleta <- data.frame(
   `Código operación` = c("MOV", "ADD", "JMP", "PUSH, POP, OUT, IN", "INT , IRET", "NOP , HLT"),
   Instrucciones = c("Transferencia de datos", "Aritmética", "Control de flujo", "Pila y E/S", "Interrupciones", "Control"),
   nemónico = c(
-    "MOV EAX, EBX",
-    "ADD EAX, 1",
-    "JMP 0x00400000",
+    "MOV destino, origen",
+    "ADD destino, origen",
+    "JMP destino",
     "PUSH, POP, OUT, IN",
     "INT , IRET",
     "NOP , HLT"
@@ -544,7 +541,7 @@ if (knitr::is_latex_output()) {
     kable_styling(latex_options = c("scale_down", "hold_position")) %>%
     column_spec(1, width = "8em", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:4, width = "10em") %>%
-    row_spec(0, bold = TRUE, background = "#D3D3D3")
+    row_spec(0, bold = TRUE)
 } else {
   kable(isacompleta, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
         caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
