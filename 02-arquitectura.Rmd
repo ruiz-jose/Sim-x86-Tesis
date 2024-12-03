@@ -392,12 +392,12 @@ if (knitr::is_latex_output()) {
     kable_styling(latex_options = "scale_down") %>%
     column_spec(1, width = "6cm") %>%  # Ajustar el ancho de la columna "Característica"
     column_spec(2:4, width = "5cm") %>%  # Ajustar el ancho de las columnas "TASM", "MASM", "NASM"
-    row_spec(0, bold = TRUE, background = "#D3D3D3")
+    row_spec(0, bold = TRUE)
 } else {
   kable(ensambladores, format = "html", table.attr = "class='table table-striped'", caption = "Comparativa de Ensambladores x86") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
     column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Característica"
     column_spec(2:4, width = "15em") %>%  # Ajustar el ancho de las columnas "TASM", "MASM", "NASM"
-    row_spec(0, bold = TRUE, background = "#D3D3D3")
+    row_spec(0, bold = TRUE)
 }
 ```
