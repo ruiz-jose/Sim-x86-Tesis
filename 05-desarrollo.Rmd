@@ -388,18 +388,53 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
 ### Modos de direccionamiento adicionales
 Se incoporan los siguientes modos de direccionamiento:
 
-- Indirecto por registro (`[BL]`): operando son registros del procesador.
+- Indirecto por registro (`[BL]`): la dirección del operando se encuentra en el registro `BL` del procesador.
 - Inmediato (`m`): operando es un valor contenido en la instrucción. 
 
 ### Formato ampliado
 Las instrucciones ahora se codifican con 1, 2 o 3 bytes dependiendo del modo:
 
-| Caso | Codificación | Parámetros |
-| --- | --- | --- |
-| A: entre registros | `---- XXYY` | `XX` = Registro destino, `YY` = Registro fuente |
-| B: Cargar a registro  | `---- XXff MMMMMMMM` | `ff` = funcionalidad, `XX` = Registro destino, `M` = Dirección de memoria o Dato Inmediato |
-| C: Almacenar en memoria | `---- ffff MMMMMMMM dddddddd` | `ffff` = funcionalidad, `M` = Dirección de memoria,  `d` = Dato Inmediato |
-| D: control de flujo  | `---- ffff MMMMMMMM` | `ffff` = funcionalidad `M` = Dirección de memoria |
+El formato ampliado para las instrucciones incluye los siguientes casos tabla \@ref(tab:formatoampliado):
+
+```{r formatoampliado, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear un dataframe con los datos
+formatoampliado<- data.frame(
+  Tipo = c("Transferencia y procesamiento", "", "", "Control"),
+  Operacion = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
+  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____00YY MMMMMMMM dddddddd", "____ffff MMMMMMMM"),
+  Parámetros = c(
+    "XX = Registro destino, YY = Registro fuente",
+    "XX = Registro destino, M = Dirección de memoria o Dato Inmediato",
+    "YY = Registro fuente, `M` = Dirección de memoria,  `d` = Dato Inmediato",
+    "ffff = funcionalidad, M = Dirección de memoria"
+  ),
+  stringsAsFactors = FALSE
+)
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  kable(formatoampliado, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
+        caption = "Tabla de codificación de instrucciones ampliado") %>%
+    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+    column_spec(1, width = "4cm") %>%  # Ajustar el ancho de la columna "Tipo"
+    column_spec(2, width = "5cm") %>%  # Ajustar el ancho de la columna "Operación"
+    column_spec(3, width = "5cm") %>%  # Ajustar el ancho de la columna "Codificación"
+    column_spec(4, width = "6cm") %>%  # Ajustar el ancho de la columna "Parámetros"
+    row_spec(3, extra_latex_after = "\\midrule")  # Agregar una línea después de la tercera fila
+} else {
+  kable(formatoampliado, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
+        caption = "Tabla de codificación de instrucciones ampliado") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Tipo"
+    column_spec(2, width = "25em") %>%  # Ajustar el ancho de la columna "Operación"
+    column_spec(3, width = "25em") %>%  # Ajustar el ancho de la columna "Codificación"
+    column_spec(4, width = "30em") %>%  # Ajustar el ancho de la columna "Parámetros"
+    row_spec(3, extra_css = "border-top: 2px solid #000;")  # Agregar una línea después de la tercera fila
+}
+```
 
  `d` = Dato Inmediato, no puede ser destino de la instrucción.
 
