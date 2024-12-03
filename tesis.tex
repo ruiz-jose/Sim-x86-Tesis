@@ -1874,7 +1874,7 @@ Se incoporan los siguientes modos de direccionamiento:
 \begin{itemize}
 \tightlist
 \item
-  Indirecto por registro (\texttt{{[}BL{]}}): operando son registros del procesador.
+  Indirecto por registro (\texttt{{[}BL{]}}): la dirección del operando se encuentra en el registro \texttt{BL} del procesador.
 \item
   Inmediato (\texttt{m}): operando es un valor contenido en la instrucción.
 \end{itemize}
@@ -1884,47 +1884,25 @@ Se incoporan los siguientes modos de direccionamiento:
 
 Las instrucciones ahora se codifican con 1, 2 o 3 bytes dependiendo del modo:
 
-\begin{longtable}[]{@{}lll@{}}
+El formato ampliado para las instrucciones incluye los siguientes casos tabla \ref{tab:formatoampliado}:
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:formatoampliado}Tabla de codificación de instrucciones ampliado}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
-\begin{minipage}[b]{0.30\columnwidth}\raggedright
-Caso\strut
-\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
-Codificación\strut
-\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright
-Parámetros\strut
-\end{minipage}\tabularnewline
+Tipo & Operación & Codificación & Parámetros\\
 \midrule
-\endhead
-\begin{minipage}[t]{0.30\columnwidth}\raggedright
-A: entre registros\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{-\/-\/-\/-\ XXYY}\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{XX} = Registro destino, \texttt{YY} = Registro fuente\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.30\columnwidth}\raggedright
-B: Cargar a registro\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{-\/-\/-\/-\ XXff\ MMMMMMMM}\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{ff} = funcionalidad, \texttt{XX} = Registro destino, \texttt{M} = Dirección de memoria o Dato Inmediato\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.30\columnwidth}\raggedright
-C: Almacenar en memoria\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{-\/-\/-\/-\ ffff\ MMMMMMMM\ dddddddd}\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{ffff} = funcionalidad, \texttt{M} = Dirección de memoria, \texttt{d} = Dato Inmediato\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.30\columnwidth}\raggedright
-D: control de flujo\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{-\/-\/-\/-\ ffff\ MMMMMMMM}\strut
-\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright
-\texttt{ffff} = funcionalidad \texttt{M} = Dirección de memoria\strut
-\end{minipage}\tabularnewline
+Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino, YY = Registro fuente\\
+ & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX = Registro destino, M = Dirección de memoria o Dato Inmediato\\
+ & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM dddddddd & YY = Registro fuente, `M` = Dirección de memoria,  `d` = Dato Inmediato\\
+\midrule
+Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\end{table}
 
 \texttt{d} = Dato Inmediato, no puede ser destino de la instrucción.
 
