@@ -46,15 +46,19 @@
 %\usepackage[spanish,provide=*]{babel}
 
 
-\ifxetex
-  \usepackage{polyglossia}
-  \setmainlanguage{spanish}
+%\ifxetex
+%  \usepackage{polyglossia}
+%  \setmainlanguage{spanish}
   % Tabla en lugar de cuadro
-  \gappto\captionsspanish{\renewcommand{\tablename}{Tabla}  
-          \renewcommand{\listtablename}{Índice de tablas}}
-\else
-  \usepackage[spanish,provide=*]{babel}
-\fi
+%  \gappto\captionsspanish{\renewcommand{\tablename}{Tabla}
+%          \renewcommand{\listtablename}{Índice de tablas}}
+%\else
+\usepackage[spanish,provide=*]{babel}
+\addto\captionsspanish{
+  \renewcommand{\tablename}{Tabla}
+  \renewcommand{\listtablename}{Índice de tablas}
+}
+%\fi
 
 \usepackage{graphicx,latexsym}
 \usepackage{amsmath}
