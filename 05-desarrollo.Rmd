@@ -424,7 +424,6 @@ if (knitr::is_latex_output()) {
     column_spec(3, width = "5cm") %>%  # Ajustar el ancho de la columna "Codificación"
     column_spec(4, width = "6cm") %>%  # Ajustar el ancho de la columna "Parámetros"
     row_spec(3, extra_latex_after = "\\midrule")  # Agregar una línea después de la tercera fila
-    footnote(general = "d = Dato Inmediato, no puede ser destino de la instrucción.")
 } else {
   kable(formatoampliado, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
         caption = "Tabla de codificación de instrucciones ampliado") %>%
@@ -434,9 +433,11 @@ if (knitr::is_latex_output()) {
     column_spec(3, width = "25em") %>%  # Ajustar el ancho de la columna "Codificación"
     column_spec(4, width = "30em") %>%  # Ajustar el ancho de la columna "Parámetros"
     row_spec(3, extra_css = "border-top: 2px solid #000;")  # Agregar una línea después de la tercera fila
-    footnote(general = "d = Dato Inmediato, no puede ser destino de la instrucción.")
 }
 ```
+
+d = Dato Inmediato, no puede ser destino de la instrucción.
+
 | Modo direccionamiento B: Cargar a registro  |  |  |
 | :---: | :---: | :---: |
 | **`ff`= funcionalidad** | **`Byte`= tamaño** | **Interpretación** |
