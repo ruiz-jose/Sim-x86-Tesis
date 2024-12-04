@@ -1904,7 +1904,7 @@ Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M 
 \end{tabular}}
 \end{table}
 
-\texttt{d} = Dato Inmediato, no puede ser destino de la instrucción.
+d = Dato Inmediato, no puede ser destino de la instrucción.
 
 \begin{longtable}[]{@{}ccc@{}}
 \toprule
@@ -2104,11 +2104,11 @@ A continuación, se detalla el conjunto completo de instrucciones, incluyendo su
 \begin{longtable}[t]{>{\raggedright\arraybackslash}p{8em}|>{\raggedright\arraybackslash}p{10em}>{\raggedright\arraybackslash}p{10em}>{\raggedright\arraybackslash}p{10em}}
 \caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\\
 \toprule
-\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}} & \cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}} & \cellcolor[HTML]{D3D3D3}{\textbf{nemónico}} & \cellcolor[HTML]{D3D3D3}{\textbf{Acción}}\\
+\textbf{Código operación} & \textbf{Instrucciones} & \textbf{nemónico} & \textbf{Acción}\\
 \midrule
-\textbf{MOV} & Transferencia de datos & MOV EAX, EBX & 1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\\
-\textbf{ADD} & Aritmética & ADD EAX, 1 & 1- Sumar  2- Restar 3- Comparar\\
-\textbf{JMP} & Control de flujo & JMP 0x00400000 & Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET\\
+\textbf{MOV} & Transferencia de datos & MOV destino, origen & 1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\\
+\textbf{ADD} & Aritmética & ADD destino, origen & 1- Sumar  2- Restar 3- Comparar\\
+\textbf{JMP} & Control de flujo & JMP destino & Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET\\
 \textbf{PUSH, POP, OUT, IN} & Pila y E/S & PUSH, POP, OUT, IN & Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S\\
 \textbf{INT , IRET} & Interrupciones & INT , IRET & Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET\\
 \addlinespace
