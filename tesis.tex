@@ -1620,11 +1620,11 @@ El formato definido para las instrucciones incluye los siguientes casos tabla \r
 \toprule
 Tipo & Operación & Codificación & Parámetros\\
 \midrule
-Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino, YY = Registro fuente\\
- & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX = Registro destino, M = Dirección de memoria\\
- & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM & YY = Registro fuente, M = Dirección de memoria\\
+Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino\textbackslash{}newline YY = Registro fuente\\
+ & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX = Registro destino\textbackslash{}newline M = Dirección de memoria o Dato Inmediato\\
+ & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM & YY = Registro fuente\textbackslash{}newline `M` = Dirección de memoria\textbackslash{}newline `d` = Dato Inmediato\\
 \midrule
-Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
+Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad\textbackslash{}newline M = Dirección de memoria\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -1660,7 +1660,7 @@ Los modos de direccionamiento definidos en esta etapa son:
 
 \begin{longtable}[]{@{}llr@{}}
 \toprule
-Número de registros (R) & Binario & Decimal\tabularnewline
+Registros (R) & Binario & Decimal\tabularnewline
 \midrule
 \endhead
 AL & 00 & 0\tabularnewline
