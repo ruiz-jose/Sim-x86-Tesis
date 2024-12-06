@@ -195,10 +195,10 @@ codtraducido <- data.frame(
   Operacion = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
   Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____00YY MMMMMMMM", "____ffff MMMMMMMM"),
   Parámetros = c(
-    "XX = Registro destino, YY = Registro fuente",
-    "XX = Registro destino, M = Dirección de memoria",
-    "YY = Registro fuente, M = Dirección de memoria",
-    "ffff = funcionalidad, M = Dirección de memoria"
+    "XX = Registro destino\\newline YY = Registro fuente",
+    "XX = Registro destino\\newline M = Dirección de memoria o Dato Inmediato",
+    "YY = Registro fuente\\newline `M` = Dirección de memoria\\newline `d` = Dato Inmediato",
+    "ffff = funcionalidad\\newline M = Dirección de memoria"
   ),
   stringsAsFactors = FALSE
 )
@@ -253,7 +253,7 @@ tabla_registros <- data.frame(
 )
 
 # Imprimir la tabla en formato markdown
-kable(tabla_registros, format = "markdown", col.names = c("Número de registros (R)", "Binario", "Decimal"))
+kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal"))
 ```
 
 En esta primera etapa se implementan las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
