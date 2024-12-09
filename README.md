@@ -12,7 +12,7 @@ sudo apt-get install libxml2-dev
 # Abrir R y ejecutar comandos para instalar paquetes de R
 install.packages("bookdown")
 tinytex::install_tinytex()
-bookdown::render_book()
+install.packages("lintr")
 install.packages("xml2")
 install.packages("kableExtra")
 
