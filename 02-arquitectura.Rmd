@@ -8,7 +8,14 @@ Comprender la arquitectura de una computadora implica tener un conocimiento prof
 
 Es fundamental distinguir entre la arquitectura de computadoras, que abarca los componentes visibles al programador, y la organización de computadoras, que se enfoca en la implementación física de dicha arquitectura, incluye cómo están dispuestos y coordinados los elementos del hardware, como la memoria, las señales de control y las unidades de procesamiento, para cumplir con los objetivos de rendimiento y funcionalidad [@tanenbaum_structured_2013; @murdocca_principles_2000].
 
-El estudio de la arquitectura de computadoras no solo permite comprender el funcionamiento interno de los sistemas informáticos, sino que también facilita su adaptación y optimización para satisfacer las demandas de nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el Internet de las cosas. La arquitectura bien diseñada es el cimiento que permite a estas tecnologías alcanzar su máximo potencial, impulsando de manera significativa la innovación [@hennessy_computer_2012; @stallings_computer_2013].
+El estudio de la arquitectura de computadoras no solo permite comprender el 
+funcionamiento interno de los sistemas informáticos, sino que también facilita 
+su adaptación y optimización para satisfacer las demandas de nuevas tendencias 
+tecnológicas, como la computación en la nube, la inteligencia artificial y el 
+Internet de las cosas. La arquitectura bien diseñada es el cimiento que permite 
+a estas tecnologías alcanzar su máximo potencial, impulsando de manera 
+significativa la innovación. 
+[@hennessy_computer_2012; @stallings_computer_2013]
 
 Una arquitectura bien diseñada es el cimiento sobre el cual se desarrollan tecnologías modernas, permitiendo que alcancen su máximo potencial e impulsen significativamente la innovación.
 
@@ -60,14 +67,26 @@ Las características distintivas de cada arquitectura condicionan su idoneidad p
 library(knitr)
 
 comparacion_cpu <- data.frame(
-  Característica = c("Eficiencia Energética", "Complejidad ISA", "Rendimiento", "Compatibilidad", "Áreas de Aplicación"), # nolint: line_length_linter.
-  x86 = c("Moderada", "Alta", "Alto", "Alta (hacia atrás)", "Escritorio, servidores"),
+  Característica = c(
+    "Eficiencia Energética",
+    "Complejidad ISA",
+    "Rendimiento",
+    "Compatibilidad",
+    "Áreas de Aplicación"
+  ), # nolint: line_length_linter.
+  x86 = c("Moderada", "Alta", "Alto", "Alta (hacia atrás)",
+          "Escritorio, servidores"),
   ARM = c("Alta", "Baja", "Moderado", "Moderada", "Dispositivos móviles"),
-  MIPS = c("Moderada", "Moderada", "Moderado", "Moderada", "Sistemas embebidos"),
+  MIPS = c("Moderada", "Moderada", "Moderado",
+           "Moderada", "Sistemas embebidos"),
   `RISC-V` = c("Alta", "Baja", "Variable", "Alta", "Investigación, embebidos")
 )
 
-kable(comparacion_cpu, format = "markdown", caption = "Comparación de Arquitecturas")
+kable(
+  comparacion_cpu,
+  format = "markdown",
+  caption = "Comparación de Arquitecturas"
+)
 ```
 
 ## Repertorio de instrucciones
@@ -105,20 +124,40 @@ knitr::include_graphics(path = "images/modosdireccionamiento.png")
   - R = contenido de un campo de dirección en la instrucción que referencia a un registro
   - EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
 
-La tabla \@ref(tab:tabModDir) detalla el cálculo de la dirección para cada modo de direccionamiento.
+La tabla \@ref(tab:tab_mod_dir) detalla el cálculo de la dirección para cada modo de direccionamiento.
 
-```{r tabModDir, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tab_mod_dir , echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
 # Crear los datos de la tabla
-tabModDir <- data.frame(
-  `Modo` = c("Inmediato", "Directo", "Indirecto", "Registro", "Indirecto con registro", "Con desplazamiento", "Pila"),
-  `Algoritmo` = c("Operando \u2190 A", "EA \u2190 A", "EA \u2190 (A)", "EA \u2190 R", "EA \u2190 (R)", "EA \u2190 A + (R)", "EA \u2190 cabecera de la pila"),
-  `Principal ventaja` = c("No referencia a memoria", "Es sencillo", "Espacio de direcciones grande", "No referencia a memoria", "Espacio de direcciones grande", "Flexibilidad", "No referencia a memoria"),
-  `Principal desventaja` = c("Operando de magnitud limitada", "Espacio de direcciones limitado", "Referencias múltiples a memoria", "Número limitado de registros", "Referencia extra a memoria", "Complejidad", "Aplicabilidad limitada")
+tab_mod_dir <- data.frame(
+  `Modo` = c("Inmediato", "Directo", "Indirecto", "Registro",
+             "Indirecto con registro", "Con desplazamiento", "Pila"),
+  `Algoritmo` = c("Operando \u2190 A", "EA \u2190 A", "EA \u2190 (A)",
+                  "EA \u2190 R", "EA \u2190 (R)", "EA \u2190 A + (R)",
+                  "EA \u2190 cabecera de la pila"),
+  `Principal ventaja` = c("No referencia a memoria",
+                          "Es sencillo", "Espacio de direcciones grande",
+                          "No referencia a memoria",
+                          "Espacio de direcciones grande",
+                          "Flexibilidad",
+                          "No referencia a memoria"),
+  `Principal desventaja` = c(
+    "Operando de magnitud limitada",
+    "Espacio de direcciones limitado",
+    "Referencias múltiples a memoria",
+    "Número limitado de registros",
+    "Referencia extra a memoria",
+    "Complejidad",
+    "Aplicabilidad limitada"
+  )
 )
 
-kable(tabModDir, format = "markdown", caption = "Modos de direccionamiento básicos")
+kable(
+  tab_mod_dir,
+  format = "markdown",
+  caption = "Modos de direccionamiento básicos"
+)
 ```
 
 ### Formato de las instrucciones
@@ -161,92 +200,102 @@ Para ilustrar la diferencia entre ambas filosofías, se presenta el siguiente ej
 
 RISC:
 
-```{r, results='asis', echo=FALSE}
+```{r  code0, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
-  cat('
-\\begin{lstlisting}
-; Carga el valor inmediato 10 en el registro R0
-LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
-LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
-ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
-STORE R3, [mem1]   # Guardar el resultado en mem1
-\\end{lstlisting}
-')
+  cat("
+  \\begin{lstlisting}
+  ; Carga el valor inmediato 10 en el registro R0
+  LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
+  LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
+  ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
+  STORE R3, [mem1]   # Guardar el resultado en mem1
+  \\end{lstlisting}
+  ")
 } else {
-  cat('
+  cat("
   ```assembly
-LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
-LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
-ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
-STORE R3, [mem1]   # Guardar el resultado en mem1
-  ```
-  ')
+  LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
+  LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
+  ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
+  STORE R3, [mem1]   # Guardar el resultado en mem1
+  ```")
 }
 ```
 
 CISC:
 
-```{r, results='asis', echo=FALSE}
+```{r code1, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
-  cat('
-\\begin{lstlisting}
-MOV EAX, [mem1]    ; Cargar el valor de mem1 en el registro EAX
-ADD EAX, [mem2]    ; Sumar el valor de mem2 con EAX
-MOV [mem1], EAX    ; Guardar el resultado de la suma de vuelta en mem1
-\\end{lstlisting}
-')
+  cat("
+  \\begin{lstlisting}
+  MOV EAX, [mem1]    ; Cargar el valor de mem1 en el registro EAX
+  ADD EAX, [mem2]    ; Sumar el valor de mem2 con EAX
+  MOV [mem1], EAX    ; Guardar el resultado de la suma de vuelta en mem1
+  \\end{lstlisting}
+  ")
 } else {
-  cat('
-  ```assembly
-MOV EAX, [mem1]    ; Cargar el valor de mem1 en el registro EAX
-ADD EAX, [mem2]    ; Sumar el valor de mem2 con EAX
-MOV [mem1], EAX    ; Guardar el resultado de la suma de vuelta en mem1
-  ```
-  ')
+cat("
+    ```assembly
+  MOV EAX, [mem1]    ; Cargar el valor de mem1 en el registro EAX
+  ADD EAX, [mem2]    ; Sumar el valor de mem2 con EAX
+  MOV [mem1], EAX    ; Guardar el resultado de la suma de vuelta en mem1
+    ```
+  ")
 }
+
 ```
 
-La tabla \@ref(tab:comparativaciscrisc) resume las principales diferencias entre estas filosofías.
+La tabla \@ref(tab:ciscrisc) resume las principales diferencias entre estas filosofías.
 
-```{r comparativaciscrisc, echo=FALSE, message=FALSE, warning=FALSE}
+```{r ciscrisc, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
-# Crear un data frame con la información comparativa
-comparativaciscrisc <- data.frame(
-  Aspecto = c("Objetivo principal", "Tipo de instrucciones", "Decodificación y ejecución", "Longitud de instrucciones", "Eficiencia energética", "Modos de direccionamiento"),
-  CISC = c(
-    "Minimizar el número de instrucciones para operaciones complejas",
-    "Instrucciones complejas, longitud variable",
-    "Requiere hardware más complejo, posibles cuellos de botella en el pipeline",
-    "Longitud variable, puede aumentar el tiempo de decodificación",
-    "Menor eficiencia energética en comparación con RISC",
-    "Flexibilidad a costa de mayor latencia"
-  ),
-  RISC = c(
-    "Simplificar el conjunto de instrucciones para optimizar velocidad y eficiencia energética",
-    "Instrucciones simples, longitud fija",
-    "Decodificación más sencilla, facilita el uso de técnicas avanzadas como pipelining",
-    "Longitud fija, simplifica la decodificación y mejora la predictibilidad del rendimiento",
-    "Mayor eficiencia energética, especialmente en dispositivos móviles",
-    "Acceso más rápido a los operandos, menor latencia"
-  )
+ciscrisc <- data.frame(
+Aspecto = c(
+"Objetivo principal",
+"Tipo de instrucciones",
+"Decodificación y ejecución",
+"Longitud de instrucciones",
+"Eficiencia energética",
+"Modos de direccionamiento"
+),
+CISC = c(
+"Minimizar el número de instrucciones para operaciones complejas",
+"Instrucciones complejas, longitud variable",
+"Requiere hardware más complejo, posibles cuellos de botella en el pipeline",
+"Longitud variable, puede aumentar el tiempo de decodificación",
+"Menor eficiencia energética en comparación con RISC",
+"Flexibilidad a costa de mayor latencia"),
+RISC = c(
+"Simplificar el conjunto de instrucciones para optimizar velocidad y",
+"eficiencia",
+"energética",
+"Instrucciones simples, longitud fija",
+"Decodificación más sencilla, facilita el uso de técnicas avanzadas como",
+"pipelining",
+"Longitud fija, simplifica la decodificación y mejora la predictibilidad del",
+"rendimiento",
+"Mayor eficiencia energética, especialmente en dispositivos móviles",
+"Acceso más rápido a los operandos, menor latencia")
 )
 
-# Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  kable(comparativaciscrisc, format = "latex", booktabs = TRUE, caption = "Comparativa entre CISC y RISC") %>%
-    kable_styling(latex_options = "scale_down") %>%
-    column_spec(1, width = "6cm") %>%  # Ajustar el ancho de la columna "Aspecto"
-    column_spec(2, width = "5cm") %>%  # Ajustar el ancho de la columna "CISC"
-    column_spec(3, width = "5cm") %>%  # Ajustar el ancho de la columna "RISC"
-    row_spec(1:6, extra_latex_after = "\\addlinespace[10pt]") # Agregar interlineado entre filas
+kable(ciscrisc, format = "latex", booktabs = TRUE,
+caption = "Comparativa entre CISC y RISC") %>%
+kable_styling(latex_options = "scale_down") %>%
+column_spec(1, width = "6cm") %>%
+column_spec(2, width = "5cm") %>%
+column_spec(3, width = "5cm") %>%
+row_spec(1:6, extra_latex_after = "\\addlinespace[10pt]")
 } else {
-  kable(comparativaciscrisc, format = "html", table.attr = "class='table table-striped'", caption = "Comparativa entre CISC y RISC") %>%
-    kable_styling(full_width = FALSE) %>%
-    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Aspecto"
-    column_spec(2, width = "15em") %>%  # Ajustar el ancho de la columna "CISC"
-    column_spec(3, width = "15em")      # Ajustar el ancho de la columna "RISC"
+kable(ciscrisc, format = "html",
+table.attr = "class='table table-striped'",
+caption = "Comparativa entre CISC y RISC") %>%
+kable_styling(full_width = FALSE) %>%
+column_spec(1, width = "20em") %>%
+column_spec(2, width = "15em") %>%
+column_spec(3, width = "15em")
 }
 ```
 
@@ -265,10 +314,14 @@ A continuación, se presenta la tabla \@ref(tab:hitosx86) que resume los hitos c
 library(knitr)
 
 hitosx86 <- data.frame(
-  Procesador = c("Intel 8086", "Intel 80386", "AMD64"),
-  `Año de Lanzamiento` = c(1978, 1985, 2003),
-  `Número de Bits` = c(16, 32, 64),
-  `Nuevas Características` = c("Arquitectura inicial", "Memoria virtual", "Extensiones de 64 bits")
+Procesador = c("Intel 8086", "Intel 80386", "AMD64"),
+`Año de Lanzamiento` = c(1978, 1985, 2003),
+`Número de Bits` = c(16, 32, 64),
+`Nuevas Características` = c(
+"Arquitectura inicial",
+"Memoria virtual",
+"Extensiones de 64 bits"
+)
 )
 
 kable(hitosx86, format = "markdown", caption = "Hitos procesadores x86")
@@ -280,21 +333,24 @@ La tabla \@ref(tab:evolucionx86) muesta comó la evolución de x86 ha estado mar
 library(knitr)
 
 evolucionx86 <- data.frame(
-  Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
-  Procesador = c("Intel 8086", "Intel 80286", "Intel 80386", "Intel 80486", "Intel Pentium", "Intel Pentium Pro", "AMD64", "Intel Core"), # nolint
-  `Innovación_Principal`  = c(
-    "Introducción de la arquitectura x86, 16 bits",
-    "Modos de operación adicionales",
-    "Arquitectura de 32 bits, memoria virtual",
-    "Unidad de punto flotante integrada, mejor caché",
-    "Ejecución superescalar, predicción de saltos",
-    "Ejecución fuera de orden, caché L2 integrada",
-    "Extensiones a 64 bits, mayor acceso a memoria",
-    "Optimización de rendimiento y eficiencia energética"
-  )
+Año = c(1978, 1982, 1985, 1989, 1993, 1995, 2003, 2006),
+Procesador = c("Intel 8086", "Intel 80286", "Intel 80386", "Intel 80486", "Intel Pentium", "Intel Pentium Pro", "AMD64", "Intel Core"), # nolint
+`Innovación_Principal`  = c(
+"Introducción de la arquitectura x86, 16 bits",
+"Modos de operación adicionales",
+"Arquitectura de 32 bits, memoria virtual",
+"Unidad de punto flotante integrada, mejor caché",
+"Ejecución superescalar, predicción de saltos",
+"Ejecución fuera de orden, caché L2 integrada",
+"Extensiones a 64 bits, mayor acceso a memoria",
+"Optimización de rendimiento y eficiencia energética")
 )
 
-kable(evolucionx86, format = "markdown", caption = "Línea de Tiempo de la Evolución de la Arquitectura x86")
+kable(
+evolucionx86,
+format = "markdown",
+caption = "Línea de Tiempo de la Evolución de la Arquitectura x86"
+)
 ```
 
 ###  Repertorio de instrucciones x86
@@ -316,17 +372,17 @@ Un ejemplo típico de instrucción es:
 
 ```{r, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
-  cat('
+cat('
 \\begin{lstlisting}
-MOV AX, [BX+SI+16]  
+MOV AX, [BX+SI+16]
 \\end{lstlisting}
 ')
 } else {
-  cat('
-  ```assembly
-   MOV AX, [BX+SI+16] 
-  ```
-  ')
+cat('
+```assembly
+MOV AX, [BX+SI+16]
+```
+')
 }
 ```
 
@@ -351,53 +407,58 @@ library(kableExtra)
 
 # Crear un data frame con la información de los ensambladores
 ensambladores <- data.frame(
-  Característica = c(
-    "Desarrollador", "Año de lanzamiento", "Sistema operativo", 
-    "Sintaxis", "Soporte de macros", "Compatibilidad", 
-    "Capacidades adicionales", "Licencia", "Uso actual"
-  ),
-  TASM = c(
-    "Borland", "1985", "MS-DOS, Windows", 
-    "Sintaxis similar a Intel con extensiones", 
-    "Macros y directivas avanzadas", 
-    "Compatibilidad con x86 antiguo", 
-    "Integración con herramientas Borland", 
-    "Comercial", 
-    "Menos común, usado en entornos heredados"
-  ),
-  MASM = c(
-    "Microsoft", "1981", "MS-DOS, Windows", 
-    "Sintaxis de Intel con soporte avanzado", 
-    "Macros y directivas extensivas", 
-    "Compatibilidad con x86 antiguo", 
-    "Integración con Visual Studio", 
-    "Comercial", 
-    "Ampliamente usado en desarrollo Windows"
-  ),
-  NASM = c(
-    "Simon Tatham et al.", "1996", "Multiplataforma (Windows, Linux, macOS)", 
-    "Sintaxis de Intel, modular y extensible", 
-    "Macros avanzadas y preprocesamiento", 
-    "Compatibilidad con x86, x86-64 y otros", 
-    "Soporte para múltiples formatos (binario, ELF, etc.)", 
-    "Código abierto", 
-    "Popular en sistemas y software libre"
-  ),
-  stringsAsFactors = FALSE
+Característica = c(
+"Desarrollador", "Año de lanzamiento", "Sistema operativo",
+"Sintaxis", "Soporte de macros", "Compatibilidad",
+"Capacidades adicionales", "Licencia", "Uso actual"),
+TASM = c(
+"Borland", "1985", "MS-DOS, Windows",
+"Sintaxis similar a Intel con extensiones",
+"Macros y directivas avanzadas",
+"Compatibilidad con x86 antiguo",
+"Integración con herramientas Borland",
+"Comercial",
+"Menos común, usado en entornos heredados"),
+MASM = c(
+"Microsoft", "1981", "MS-DOS, Windows",
+"Sintaxis de Intel con soporte avanzado",
+"Macros y directivas extensivas",
+"Compatibilidad con x86 antiguo",
+"Integración con Visual Studio",
+"Comercial",
+"Ampliamente usado en desarrollo Windows"),
+NASM = c(
+"Simon Tatham et al.", "1996", "Multiplataforma (Windows, Linux, macOS)",
+"Sintaxis de Intel, modular y extensible",
+"Macros avanzadas y preprocesamiento",
+"Compatibilidad con x86, x86-64 y otros",
+"Soporte para múltiples formatos (binario, ELF, etc.)",
+"Código abierto",
+"Popular en sistemas y software libre"),
+stringsAsFactors = FALSE
 )
 
 # Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  kable(ensambladores, format = "latex", booktabs = TRUE, caption = "Comparativa de Ensambladores x86") %>%
-    kable_styling(latex_options = "scale_down") %>%
-    column_spec(1, width = "6cm") %>%  # Ajustar el ancho de la columna "Característica"
-    column_spec(2:4, width = "5cm") %>%  # Ajustar el ancho de las columnas "TASM", "MASM", "NASM"
-    row_spec(0, bold = TRUE)
+kable(ensambladores, format = "latex", booktabs = TRUE,
+caption = "Comparativa de Ensambladores x86") %>%
+kable_styling(latex_options = "scale_down") %>%
+column_spec(1, width = "6cm") %>%
+column_spec(2:4, width = "5cm") %>%
+row_spec(0, bold = TRUE)
 } else {
-  kable(ensambladores, format = "html", table.attr = "class='table table-striped'", caption = "Comparativa de Ensambladores x86") %>%
-    kable_styling(full_width = FALSE, position = "center") %>%
-    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Característica"
-    column_spec(2:4, width = "15em") %>%  # Ajustar el ancho de las columnas "TASM", "MASM", "NASM"
-    row_spec(0, bold = TRUE)
+kable(
+ensambladores,
+format = "html",
+caption = "Comparativa de Ensambladores x86"
+) %>%
+kable_styling(
+full_width = FALSE,
+position = "center",
+bootstrap_options = c("striped", "hover")
+) %>%
+column_spec(1, width = "20em") %>%
+column_spec(2:4, width = "15em") %>%
+row_spec(0, bold = TRUE)
 }
 ```

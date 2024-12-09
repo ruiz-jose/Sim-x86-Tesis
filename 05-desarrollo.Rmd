@@ -419,20 +419,20 @@ if (knitr::is_latex_output()) {
   kable(formatoampliado, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
         caption = "Tabla de codificación de instrucciones ampliado") %>%
     kable_styling(latex_options = c("hold_position", "scale_down")) %>%
-    column_spec(1, width = "4cm") %>%  # Ajustar el ancho de la columna "Tipo"
-    column_spec(2, width = "5cm") %>%  # Ajustar el ancho de la columna "Operación"
-    column_spec(3, width = "5cm") %>%  # Ajustar el ancho de la columna "Codificación"
-    column_spec(4, width = "6cm") %>%  # Ajustar el ancho de la columna "Parámetros"
-    row_spec(3, extra_latex_after = "\\midrule")  # Agregar una línea después de la tercera fila
+    column_spec(1, width = "4cm") %>%  
+    column_spec(2, width = "5cm") %>%  
+    column_spec(3, width = "5cm") %>% 
+    column_spec(4, width = "6cm") %>%  
+    row_spec(3, extra_latex_after = "\\midrule")  
 } else {
   kable(formatoampliado, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
         caption = "Tabla de codificación de instrucciones ampliado") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
-    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Tipo"
-    column_spec(2, width = "25em") %>%  # Ajustar el ancho de la columna "Operación"
-    column_spec(3, width = "25em") %>%  # Ajustar el ancho de la columna "Codificación"
-    column_spec(4, width = "30em") %>%  # Ajustar el ancho de la columna "Parámetros"
-    row_spec(3, extra_css = "border-top: 2px solid #000;")  # Agregar una línea después de la tercera fila
+    column_spec(1, width = "20em") %>%  
+    column_spec(2, width = "25em") %>%  
+    column_spec(3, width = "25em") %>%  
+    column_spec(4, width = "30em") %>%  
+    row_spec(3, extra_css = "border-top: 2px solid #000;") 
 }
 ```
 
