@@ -427,7 +427,14 @@ Comprender la arquitectura de una computadora implica tener un conocimiento prof
 
 Es fundamental distinguir entre la arquitectura de computadoras, que abarca los componentes visibles al programador, y la organización de computadoras, que se enfoca en la implementación física de dicha arquitectura, incluye cómo están dispuestos y coordinados los elementos del hardware, como la memoria, las señales de control y las unidades de procesamiento, para cumplir con los objetivos de rendimiento y funcionalidad {[}\protect\hyperlink{ref-tanenbaum_structured_2013}{24}{]}, {[}\protect\hyperlink{ref-murdocca_principles_2000}{25}{]}.
 
-El estudio de la arquitectura de computadoras no solo permite comprender el funcionamiento interno de los sistemas informáticos, sino que también facilita su adaptación y optimización para satisfacer las demandas de nuevas tendencias tecnológicas, como la computación en la nube, la inteligencia artificial y el Internet de las cosas. La arquitectura bien diseñada es el cimiento que permite a estas tecnologías alcanzar su máximo potencial, impulsando de manera significativa la innovación {[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}.
+El estudio de la arquitectura de computadoras no solo permite comprender el
+funcionamiento interno de los sistemas informáticos, sino que también facilita
+su adaptación y optimización para satisfacer las demandas de nuevas tendencias
+tecnológicas, como la computación en la nube, la inteligencia artificial y el
+Internet de las cosas. La arquitectura bien diseñada es el cimiento que permite
+a estas tecnologías alcanzar su máximo potencial, impulsando de manera
+significativa la innovación.
+{[}\protect\hyperlink{ref-hennessy_computer_2012}{13}{]}, {[}\protect\hyperlink{ref-stallings_computer_2013}{14}{]}
 
 Una arquitectura bien diseñada es el cimiento sobre el cual se desarrollan tecnologías modernas, permitiendo que alcancen su máximo potencial e impulsen significativamente la innovación.
 
@@ -669,10 +676,10 @@ Estos modos se ilustran en la figura \ref{fig:ModDir} según {[}\protect\hyperli
   EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
 \end{itemize}
 
-La tabla \ref{tab:tabModDir} detalla el cálculo de la dirección para cada modo de direccionamiento.
+La tabla @ref(tab:tab\_mod\_dir) detalla el cálculo de la dirección para cada modo de direccionamiento.
 
 \begin{longtable}[]{@{}llll@{}}
-\caption{\label{tab:tabModDir}Modos de direccionamiento básicos}\tabularnewline
+\caption{(\#tab:tab\_mod\_dir )Modos de direccionamiento básicos}\tabularnewline
 \toprule
 \begin{minipage}[b]{0.19\columnwidth}\raggedright
 Modo\strut
@@ -827,26 +834,26 @@ Para ilustrar la diferencia entre ambas filosofías, se presenta el siguiente ej
 RISC:
 
 \begin{lstlisting}
-; Carga el valor inmediato 10 en el registro R0
-LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
-LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
-ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
-STORE R3, [mem1]   # Guardar el resultado en mem1
-\end{lstlisting}
+  ; Carga el valor inmediato 10 en el registro R0
+  LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
+  LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
+  ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
+  STORE R3, [mem1]   # Guardar el resultado en mem1
+  \end{lstlisting}
 
 CISC:
 
 \begin{lstlisting}
-MOV EAX, [mem1]    ; Cargar el valor de mem1 en el registro EAX
-ADD EAX, [mem2]    ; Sumar el valor de mem2 con EAX
-MOV [mem1], EAX    ; Guardar el resultado de la suma de vuelta en mem1
-\end{lstlisting}
+  MOV EAX, [mem1]    # Cargar el valor de mem1 en el registro EAX
+  ADD EAX, [mem2]    # Sumar el valor de mem2 con EAX
+  MOV [mem1], EAX    # Guardar el resultado de la suma de vuelta en mem1
+  \end{lstlisting}
 
-La tabla \ref{tab:comparativaciscrisc} resume las principales diferencias entre estas filosofías.
+La tabla \ref{tab:ciscrisc} resume las principales diferencias entre estas filosofías.
 
 \begin{table}
 \centering
-\caption{\label{tab:comparativaciscrisc}Comparativa entre CISC y RISC}
+\caption{\label{tab:ciscrisc}Comparativa entre CISC y RISC}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
@@ -960,8 +967,9 @@ Una instrucción típica de x86 puede incluir los siguientes componentes {[}\pro
 Un ejemplo típico de instrucción es:
 
 \begin{lstlisting}
-MOV AX, [BX+SI+16]  
-\end{lstlisting}
+  ; Carga el valor inmediato 10 en el registro R0
+  MOV AX, [BX+SI+16]
+  \end{lstlisting}
 
 Esta instrucción utiliza varios componentes, que el procesador debe decodificar antes de ejecutarla. Aunque esta flexibilidad es una ventaja en términos de funcionalidad, requiere técnicas avanzadas, como predicción de saltos y paralelización, para mantener la eficiencia en procesadores modernos {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
 
