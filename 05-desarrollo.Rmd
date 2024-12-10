@@ -45,19 +45,19 @@ bloquesfuncionales <- data.frame(
              "Sistema de entrada/salida (E/S)",
              "Bus de datos, direcciones y control"),
   Descripción = c("Simulación de registros, Unidad de Control (UC) y ALU.",
-                  "Estructura de memoria y simulación de operaciones de lectura y escritura.",
+                  "Estructura de memoria y simulación de operaciones de lectura y escritura.", # nolint
                   "Interacción con periféricos y manejo de interrupciones.",
                   "Modelado de la comunicación entre componentes.")
 )
 
 # Convertir a HTML o LaTeX según el formato de salida
 if (knitr::is_latex_output()) {
-  kable(bloquesfuncionales, format = "latex", booktabs = TRUE, caption = "Bloques funcionales principales") %>%
+  kable(bloquesfuncionales, format = "latex", booktabs = TRUE, caption = "Bloques funcionales principales") %>% # nolint: line_length_linter.
     kable_styling(latex_options = "scale_down") %>%
     column_spec(1, width = "5cm") %>%
     column_spec(2, width = "10cm")
 } else {
-  kable(bloquesfuncionales, format = "html", table.attr = "class='table table-striped'", caption = "Bloques funcionales principales") %>%
+  kable(bloquesfuncionales, format = "html", table.attr = "class='table table-striped'", caption = "Bloques funcionales principales") %>% # nolint
     kable_styling(full_width = FALSE, position = "center") %>%
     column_spec(1, width = "20em") %>%
     column_spec(2, width = "40em")
@@ -73,21 +73,21 @@ library(kableExtra)
 
 # Crear el data frame con los datos del cuadro
 arq <- data.frame(
-  `Componente` = c("Arquitectura", 
-                   "Registros", 
-                   "", 
-                   "", 
-                   "", 
-                   "Memoria", 
-                   "Buses", 
-                   "Instrucciones", 
+  `Componente` = c("Arquitectura",
+                   "Registros",
+                   "",
+                   "",
+                   "",
+                   "Memoria",
+                   "Buses",
+                   "Instrucciones",
                    ""),
-  `Características` = c("- Von Neumann, con memoria compartida para datos e instrucciones.",
-                        "- 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.",
-                        "- 3 registros de propósito específico: `IP` (Instruction Pointer), `IR`(Instruction Register) y `SP`(Stack Pointer).",
+  `Características` = c("- Von Neumann, con memoria compartida para datos e instrucciones.", # nolint
+                        "- 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.", # nolint
+                        "- 3 registros de propósito específico: `IP` (Instruction Pointer), `IR`(Instruction Register) y `SP`(Stack Pointer).", # nolint
                         "- 1 registro de estado (`RS`) para las banderas.",
-                        "- 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.",
-                        "- Memoria de 256 posiciones, con una capacidad de un byte por posición.",
+                        "- 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.", # nolint
+                        "- Memoria de 256 posiciones, con una capacidad de un byte por posición.", # nolint
                         "- Bus de datos y direcciones de 8 bits.",
                         "- Longitud variable (1, 2 y 3 bytes).",
                         "- Soporta un conjunto de 16 instrucciones."),
@@ -96,12 +96,12 @@ arq <- data.frame(
 
 # Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  kable(arq, format = "latex", booktabs = TRUE, caption = "Componentes del CPU x86") %>%
+  kable(arq, format = "latex", booktabs = TRUE, caption = "Componentes del CPU x86") %>% # nolint
     kable_styling(latex_options = "scale_down") %>%
     column_spec(1, width = "5cm") %>%
     column_spec(2, width = "10cm")
 } else {
-  kable(arq, format = "html", table.attr = "class='table table-striped'", caption = "Componentes del CPU x86") %>%
+  kable(arq, format = "html", table.attr = "class='table table-striped'", caption = "Componentes del CPU x86") %>% # nolint: line_length_linter.
     kable_styling(full_width = FALSE, position = "center") %>%
     column_spec(1, width = "20em") %>%
     column_spec(2, width = "40em")
@@ -119,26 +119,26 @@ library(knitr)
 # Crear los datos
 setreducido <- data.frame(
   Instrucciones = c(
-    "Transferencia de datos", 
-    "", 
-    "", 
+    "Transferencia de datos",
+    "",
+    "",
     "Pocesamiento de datos",
-    "", 
-    "", 
+    "",
+    "",
     "Control de flujo",
     "",
-    ""  
+    ""
   ),
   `Código operación` = c(
     "{0, 1, 2}",
-    "", 
-    "", 
+    "",
+    "",
     "{3, 4, 5}",
     "{6, 7, 8}",
     "{9, 10, 11}",
     "{12}",
     "",
-    "" 
+    ""
   ),
   `Nemónico` = c(
     "MOV ",
@@ -146,12 +146,12 @@ setreducido <- data.frame(
     "",
     "ADD",
     "SUB",
-    "CMP", 
-    "JMP", 
+    "CMP",
+    "JMP",
     "JZ ",
     "JC "
   ),
-  Acción = c( "0- Copiar entre registros",
+  Acción = c("0- Copiar entre registros",
     "1- Cargar a registro",
     "2- Almacenar en memoria",
     "3-4-5 Sumar",
@@ -164,8 +164,8 @@ setreducido <- data.frame(
 )
 
 # Convertir a HTML
-kable(setreducido, format = "markdown", align = "l", col.names = c("Instrucciones", "Código operación", "nemónico", "Acción"), 
-      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
+kable(setreducido, format = "markdown", align = "l", col.names = c("Instrucciones", "Código operación", "nemónico", "Acción"), # nolint: line_length_linter. # nolint: line_length_linter.
+      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86") # nolint: line_length_linter.
 ```
 
 ### Justificación de la simplificación
@@ -192,36 +192,36 @@ library(kableExtra)
 # Crear un dataframe con los datos
 codtraducido <- data.frame(
   Tipo = c("Transferencia y procesamiento", "", "", "Control"),
-  Operacion = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
-  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____00YY MMMMMMMM", "____ffff MMMMMMMM"),
+  Operacion = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"), # nolint: line_length_linter.
+  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____00YY MMMMMMMM", "____ffff MMMMMMMM"), # nolint: line_length_linter.
   Parámetros = c(
-    "XX = Registro destino\\newline YY = Registro fuente",
-    "XX = Registro destino\\newline M = Dirección de memoria o Dato Inmediato",
-    "YY = Registro fuente\\newline `M` = Dirección de memoria\\newline `d` = Dato Inmediato",
-    "ffff = funcionalidad\\newline M = Dirección de memoria"
+    "XX = Registro destino, YY = Registro fuente",
+    "XX = Registro destino, M = Dirección de memoria",
+    "YY = Registro fuente, M = Dirección de memoria",
+    "ffff = funcionalidad, M = Dirección de memoria"
   ),
   stringsAsFactors = FALSE
 )
 
 # Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  kable(codtraducido, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
+  kable(codtraducido, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones") %>%
     kable_styling(latex_options = c("hold_position", "scale_down")) %>%
     column_spec(1, width = "4cm") %>%  # Ajustar el ancho de la columna "Tipo"
-    column_spec(2, width = "5cm") %>%  # Ajustar el ancho de la columna "Operación"
-    column_spec(3, width = "5cm") %>%  # Ajustar el ancho de la columna "Codificación"
-    column_spec(4, width = "6cm") %>%  # Ajustar el ancho de la columna "Parámetros"
-    row_spec(3, extra_latex_after = "\\midrule")  # Agregar una línea después de la tercera fila
+    column_spec(2, width = "5cm") %>%  # Ajustar el ancho de la columna "Operación" # nolint: line_length_linter, line_length_linter.
+    column_spec(3, width = "5cm") %>%  # Ajustar el ancho de la columna "Codificación" # nolint: line_length_linter, line_length_linter.
+    column_spec(4, width = "6cm") %>%  # Ajustar el ancho de la columna "Parámetros" # nolint
+    row_spec(3, extra_latex_after = "\\midrule")  # Agregar una línea después de la tercera fila # nolint: line_length_linter.
 } else {
-  kable(codtraducido, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
+  kable(codtraducido, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
     column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Tipo"
-    column_spec(2, width = "25em") %>%  # Ajustar el ancho de la columna "Operación"
-    column_spec(3, width = "25em") %>%  # Ajustar el ancho de la columna "Codificación"
-    column_spec(4, width = "30em") %>%  # Ajustar el ancho de la columna "Parámetros"
-    row_spec(3, extra_css = "border-top: 2px solid #000;")  # Agregar una línea después de la tercera fila
+    column_spec(2, width = "25em") %>%  # Ajustar el ancho de la columna "Operación" # nolint
+    column_spec(3, width = "25em") %>%  # Ajustar el ancho de la columna "Codificación" # nolint: line_length_linter.
+    column_spec(4, width = "30em") %>%  # Ajustar el ancho de la columna "Parámetros" # nolint: line_length_linter.
+    row_spec(3, extra_css = "border-top: 2px solid #000;")  # Agregar una línea después de la tercera fila # nolint: line_length_linter.
 }
 ```
 
@@ -253,7 +253,7 @@ tabla_registros <- data.frame(
 )
 
 # Imprimir la tabla en formato markdown
-kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal"))
+kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal")) # nolint: line_length_linter.
 ```
 
 En esta primera etapa se implementan las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
@@ -264,7 +264,7 @@ library(knitr)
 # Crear un dataframe con los datos
 tabla_instrucciones <- data.frame(
   `#` = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "C", "C"),
-  Instrucción = c("MOV Rx, Ry", "MOV Rx, [M]", "MOV [M], Ry", "ADD Rx, Ry", "ADD Rx, [M]", "ADD [M], Ry", "SUB Rx, Ry", "SUB Rx, [M]", "SUB [M], Ry", "CMP Rx, Ry", "CMP Rx, [M]", "CMP [M], Ry", "JMP M", "JC M", "JZ M"),
+  Instrucción = c("MOV Rx, Ry", "MOV Rx, [M]", "MOV [M], Ry", "ADD Rx, Ry", "ADD Rx, [M]", "ADD [M], Ry", "SUB Rx, Ry", "SUB Rx, [M]", "SUB [M], Ry", "CMP Rx, Ry", "CMP Rx, [M]", "CMP [M], Ry", "JMP M", "JC M", "JZ M"), # nolint
   Acción = c(
     "Rx ← Ry",
     "Rx ← Mem[Dirección]",
@@ -302,7 +302,7 @@ tabla_instrucciones <- data.frame(
 )
 
 # Imprimir la tabla en formato markdown
-kable(tabla_instrucciones, format = "markdown", col.names = c("#", "Instrucción", "Acción", "Codificación"))
+kable(tabla_instrucciones, format = "markdown", col.names = c("#", "Instrucción", "Acción", "Codificación")) # nolint: line_length_linter.
 ```
 
 ### Ciclo de la instrucción: Etapas de captación y ejecución
@@ -321,69 +321,69 @@ El **ciclo de la instrucción** se define como la secuencia de microoperaciones 
 En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
 
   1. **`MAR` $\leftarrow$ `IP`**:
-  El contenido del registro puntero de instrucciones `IP` se transfiere al registro de direcciones de memoria `MAR`. La UC genera la señal necesaria para seleccionar el valor del `IP` y copiarlo en el `MAR`.
+  el contenido del registro puntero de instrucciones `IP` se transfiere al registro de direcciones de memoria `MAR`. La UC genera la señal necesaria para seleccionar el valor del `IP` y copiarlo en el `MAR`.
   2. **`MDR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**:
-  La UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del `MAR` como dirección. El dato leído se transfiere al rRegistro de datos de memoria `MBR` a través del bus de datos. Simultáneamente, el `IP` se incrementa en 1 para apuntar al siguiente byte.
+  la UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del `MAR` como dirección. El dato leído se transfiere al registro de datos de memoria `MBR` a través del bus de datos. Simultáneamente, el `IP` se incrementa en 1 para apuntar al siguiente byte.
   3. **`IR` $\leftarrow$ `MBR`**:
-  El contenido del `MBR` se transfiere al registro de instrucciones `IR`, completando la etapa de captación. 
+  el contenido del `MBR` se transfiere al registro de instrucciones `IR`, completando la etapa de captación. 
 
 #### Etapa de Ejecución:
 En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
 
 * MOV `Rx`, `Ry` (Copia entre registros)
   1. **`Rx` $\leftarrow$ `Ry`**:
-  El contenido del registro `Ry` se copia en el registro `Rx`.
+  el contenido del registro `Ry` se copia en el registro `Rx`.
 
 * MOV `Rx`, `[Dirección]` (Carga a registro)
   1. **`MAR` $\leftarrow$ `IP`**:
-  El valor del `IP` se transfiere a `MAR`.
+  el valor del `IP` se transfiere a `MAR`.
   2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
-  Se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
+  se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
   3. **`MAR` $\leftarrow$ `MBR`**:
-  El contenido de `MBR` se transfiere a `MAR`.
+  el contenido de `MBR` se transfiere a `MAR`.
   4. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**:
-  Se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
+  se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
   5. **`Rx`  $\leftarrow$ `MBR`**:
-  El contenido del `MBR` se copia al registro `Rx`.
+  el contenido del `MBR` se copia al registro `Rx`.
 
 * MOV `[Dirección]`, `Ry` (Almacenar en memoria)     
-  1, 2, 3. Igual que MOV `Rx`, `[Dirección]`.
+  1. 2. 3. igual que MOV `Rx`, `[Dirección]`.
   4. **`MBR` $\leftarrow$ `Ry`**:
-  El contenido de `Ry` se transfiere a `MBR`.
+  el contenido de `Ry` se transfiere a `MBR`.
   5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
-  El contenido de `MBR` se escribe (write) en memoria en la dirección apuntada por el `MAR`.
+  el contenido de `MBR` se escribe (write) en memoria en la dirección apuntada por el `MAR`.
 
 * ADD  `Rx`, `[Dirección]` (Sumar a registro)
-  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
+  1. 2. 3.  4. igual que MOV `Rx`, `[Dirección]`.
   5. **`Rx`  $\leftarrow$ `Rx` + `MBR`**:
-  La Unidad Aritmético-Lógica (ALU) realiza la suma entre `Rx` y `MBR`, almacenando el resultado en `Rx`. El Registro de Estado `RS` se actualiza con los indicadores correspondientes.
+  la Unidad Aritmético-Lógica (ALU) realiza la suma entre `Rx` y `MBR`, almacenando el resultado en `Rx`. El Registro de Estado `RS` se actualiza con los indicadores correspondientes.
 
 * SUB `[Dirección]`, `Ry` (Restar a memoria)
-  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
+  1. 2. 3.  4. igual que MOV `Rx`, `[Dirección]`.
   5. **`MBR` $\leftarrow$ `Ry` - `MBR`**: 
-  La ALU resta el contenido de `MBR` al de `Ry`, almacenando el resultado en `MBR`. El `RS` se actualiza.
+  la ALU resta el contenido de `MBR` al de `Ry`, almacenando el resultado en `MBR`. El `RS` se actualiza.
   6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
-  El contenido de `MBR` se escribe en memoria en la dirección apuntada por el `MAR`.
+  el contenido de `MBR` se escribe en memoria en la dirección apuntada por el `MAR`.
 
 * CMP `Rx`,  `[Dirección]` (Comparar a registro)
-  1, 2, 3, 4. Igual que MOV `Rx`, `[Dirección]`.
+  1. 2. 3.  4. igual que MOV `Rx`, `[Dirección]`.
   5. **`Rx` - `MBR`**: 
-  La ALU realiza la resta entre el contenido de `Rx` y `MBR`. Aunque el resultado no se almacena, el `RS` se actualiza con los indicadores de comparación.
+  la ALU realiza la resta entre el contenido de `Rx` y `MBR`. Aunque el resultado no se almacena, el `RS` se actualiza con los indicadores de comparación.
 
 * JMP  `Dirección` (Salto incondicional)
-  1, 2. Igual que MOV `Rx`, `[Dirección]`.
+  1. 2. igual que MOV `Rx`, `[Dirección]`.
   3. **`IP` $\leftarrow$ `MBR`**:
   El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
 
 * JC  `Dirección` (Salto condicional si C=1)
-  1, 2. Igual que MOV `Rx`, `[Dirección]`.
+  1. 2. Igual que MOV `Rx`, `[Dirección]`.
   3. `Si C` == 1: **`IP` $\leftarrow$ `MBR`**:
-  Si la bandera de acarreo (`C`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
+  si la bandera de acarreo (`C`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
 
 * JZ  `Dirección` (Salto condicional si Z=1)
-  1, 2. Igual que MOV `Rx`, `[Dirección]`.
+  1. 2. igual que MOV `Rx`, `[Dirección]`.
   3. `Si Z` == 1: **`IP` $\leftarrow$ `MBR`**:
-  Si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
+  si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
 
 ### Modos de direccionamiento adicionales
 Se incoporan los siguientes modos de direccionamiento:
@@ -401,10 +401,10 @@ library(knitr)
 library(kableExtra)
 
 # Crear un dataframe con los datos
-formatoampliado<- data.frame(
+formatoampliado <- data.frame(
   Tipo = c("Transferencia y procesamiento", "", "", "Control"),
-  Operacion = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
-  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____00YY MMMMMMMM dddddddd", "____ffff MMMMMMMM"),
+  Operacion = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"), # nolint: line_length_linter.
+  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____00YY MMMMMMMM dddddddd", "____ffff MMMMMMMM"), # nolint: line_length_linter, line_length_linter.
   Parámetros = c(
     "XX = Registro destino, YY = Registro fuente",
     "XX = Registro destino, M = Dirección de memoria o Dato Inmediato",
@@ -416,23 +416,23 @@ formatoampliado<- data.frame(
 
 # Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  kable(formatoampliado, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
+  kable(formatoampliado, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones ampliado") %>%
     kable_styling(latex_options = c("hold_position", "scale_down")) %>%
-    column_spec(1, width = "4cm") %>%  
-    column_spec(2, width = "5cm") %>%  
-    column_spec(3, width = "5cm") %>% 
-    column_spec(4, width = "6cm") %>%  
-    row_spec(3, extra_latex_after = "\\midrule")  
+    column_spec(1, width = "4cm") %>%
+    column_spec(2, width = "5cm") %>%
+    column_spec(3, width = "5cm") %>%
+    column_spec(4, width = "6cm") %>%
+    row_spec(3, extra_latex_after = "\\midrule")
 } else {
-  kable(formatoampliado, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), 
+  kable(formatoampliado, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones ampliado") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
-    column_spec(1, width = "20em") %>%  
-    column_spec(2, width = "25em") %>%  
-    column_spec(3, width = "25em") %>%  
-    column_spec(4, width = "30em") %>%  
-    row_spec(3, extra_css = "border-top: 2px solid #000;") 
+    column_spec(1, width = "20em") %>%
+    column_spec(2, width = "25em") %>%
+    column_spec(3, width = "25em") %>%
+    column_spec(4, width = "30em") %>%
+    row_spec(3, extra_css = "border-top: 2px solid #000;")
 }
 ```
 
@@ -515,8 +515,8 @@ library(kableExtra)
 
 # Datos de ejemplo
 isacompleta <- data.frame(
-  `Código operación` = c("MOV", "ADD", "JMP", "PUSH, POP, OUT, IN", "INT , IRET", "NOP , HLT"),
-  Instrucciones = c("Transferencia de datos", "Aritmética", "Control de flujo", "Pila y E/S", "Interrupciones", "Control"),
+  `Código operación` = c("MOV", "ADD", "JMP", "PUSH, POP, OUT, IN", "INT , IRET", "NOP , HLT"), # nolint: line_length_linter.
+  Instrucciones = c("Transferencia de datos", "Aritmética", "Control de flujo", "Pila y E/S", "Interrupciones", "Control"), # nolint: line_length_linter.
   nemónico = c(
     "MOV destino, origen",
     "ADD destino, origen",
@@ -528,24 +528,24 @@ isacompleta <- data.frame(
   Acción = c(
     "1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria",
     "1- Sumar  2- Restar 3- Comparar",
-    "Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET ",
-    "Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S",
-    "Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET",
+    "Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET ", # nolint: line_length_linter. # nolint: line_length_linter.
+    "Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S", # nolint: line_length_linter.
+    "Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET", # nolint: line_length_linter. # nolint: line_length_linter.
     "No opera NOP Detiene el CPU HLT"
   )
 )
 
 # Convertir a HTML o LaTeX según el formato de salida
 if (knitr::is_latex_output()) {
-  kable(isacompleta, format = "latex", booktabs = TRUE, longtable = TRUE, align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
-        caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86") %>%
+  kable(isacompleta, format = "latex", booktabs = TRUE, longtable = TRUE, align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), # nolint: line_length_linter.
+        caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86") %>% # nolint
     kable_styling(latex_options = c("scale_down", "hold_position")) %>%
     column_spec(1, width = "8em", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:4, width = "10em") %>%
     row_spec(0, bold = TRUE)
 } else {
-  kable(isacompleta, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), 
-        caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86")
+  kable(isacompleta, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), # nolint: line_length_linter.
+        caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86") # nolint
 }
 ```
 
