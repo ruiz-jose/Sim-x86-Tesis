@@ -1628,11 +1628,11 @@ El formato definido para las instrucciones incluye los siguientes casos tabla \r
 \toprule
 Tipo & Operación & Codificación & Parámetros\\
 \midrule
-Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino\textbackslash{}newline YY = Registro fuente\\
- & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX = Registro destino\textbackslash{}newline M = Dirección de memoria o Dato Inmediato\\
- & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM & YY = Registro fuente\textbackslash{}newline `M` = Dirección de memoria\textbackslash{}newline `d` = Dato Inmediato\\
+Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino, YY = Registro fuente\\
+ & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX = Registro destino, M = Dirección de memoria\\
+ & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM & YY = Registro fuente, M = Dirección de memoria\\
 \midrule
-Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad\textbackslash{}newline M = Dirección de memoria\\
+Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -1734,13 +1734,13 @@ En esta etapa, común a todas las instrucciones, consiste en la lectura de la in
 \tightlist
 \item
   \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}:
-  El contenido del registro puntero de instrucciones \texttt{IP} se transfiere al registro de direcciones de memoria \texttt{MAR}. La UC genera la señal necesaria para seleccionar el valor del \texttt{IP} y copiarlo en el \texttt{MAR}.
+  el contenido del registro puntero de instrucciones \texttt{IP} se transfiere al registro de direcciones de memoria \texttt{MAR}. La UC genera la señal necesaria para seleccionar el valor del \texttt{IP} y copiarlo en el \texttt{MAR}.
 \item
   \textbf{\texttt{MDR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} ; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}:
-  La UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del \texttt{MAR} como dirección. El dato leído se transfiere al rRegistro de datos de memoria \texttt{MBR} a través del bus de datos. Simultáneamente, el \texttt{IP} se incrementa en 1 para apuntar al siguiente byte.
+  la UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del \texttt{MAR} como dirección. El dato leído se transfiere al registro de datos de memoria \texttt{MBR} a través del bus de datos. Simultáneamente, el \texttt{IP} se incrementa en 1 para apuntar al siguiente byte.
 \item
   \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}:
-  El contenido del \texttt{MBR} se transfiere al registro de instrucciones \texttt{IR}, completando la etapa de captación.
+  el contenido del \texttt{MBR} se transfiere al registro de instrucciones \texttt{IR}, completando la etapa de captación.
 \end{enumerate}
 
 \hypertarget{etapa-de-ejecuciuxf3n}{%
@@ -1758,7 +1758,7 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
   \tightlist
   \item
     \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}:
-    El contenido del registro \texttt{Ry} se copia en el registro \texttt{Rx}.
+    el contenido del registro \texttt{Ry} se copia en el registro \texttt{Rx}.
   \end{enumerate}
 \item
   MOV \texttt{Rx}, \texttt{{[}Dirección{]}} (Carga a registro)
@@ -1768,109 +1768,179 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
   \tightlist
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}:
-    El valor del \texttt{IP} se transfiere a \texttt{MAR}.
+    el valor del \texttt{IP} se transfiere a \texttt{MAR}.
   \item
     \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}:
-    Se lee (read) de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.Simultáneamente, el \texttt{IP} se incrementa.
+    se lee (read) de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.Simultáneamente, el \texttt{IP} se incrementa.
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}:
-    El contenido de \texttt{MBR} se transfiere a \texttt{MAR}.
+    el contenido de \texttt{MBR} se transfiere a \texttt{MAR}.
   \item
     \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}:
-    Se lee de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.
+    se lee de memoria el contenido de la dirección indicada por \texttt{MAR} y se almacena en \texttt{MBR}.
   \item
     \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}:
-    El contenido del \texttt{MBR} se copia al registro \texttt{Rx}.
+    el contenido del \texttt{MBR} se copia al registro \texttt{Rx}.
   \end{enumerate}
 \item
-  MOV \texttt{{[}Dirección{]}}, \texttt{Ry} (Almacenar en memoria)\\
-  1, 2, 3. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+  MOV \texttt{{[}Dirección{]}}, \texttt{Ry} (Almacenar en memoria)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \tightlist
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{1}
+    \item
+      \begin{enumerate}
+      \def\labelenumiii{\arabic{enumiii}.}
+      \setcounter{enumiii}{2}
+      \tightlist
+      \item
+        igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+      \end{enumerate}
+    \end{enumerate}
   \item
     \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}:
-    El contenido de \texttt{Ry} se transfiere a \texttt{MBR}.
+    el contenido de \texttt{Ry} se transfiere a \texttt{MBR}.
   \item
     \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}:
-    El contenido de \texttt{MBR} se escribe (write) en memoria en la dirección apuntada por el \texttt{MAR}.
+    el contenido de \texttt{MBR} se escribe (write) en memoria en la dirección apuntada por el \texttt{MAR}.
   \end{enumerate}
 \item
   ADD \texttt{Rx}, \texttt{{[}Dirección{]}} (Sumar a registro)
-  1, 2, 3, 4. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{4}
-  \tightlist
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{1}
+    \item
+      \begin{enumerate}
+      \def\labelenumiii{\arabic{enumiii}.}
+      \setcounter{enumiii}{2}
+      \item
+        \begin{enumerate}
+        \def\labelenumiv{\arabic{enumiv}.}
+        \setcounter{enumiv}{3}
+        \tightlist
+        \item
+          igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+        \end{enumerate}
+      \end{enumerate}
+    \end{enumerate}
   \item
     \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}}:
-    La Unidad Aritmético-Lógica (ALU) realiza la suma entre \texttt{Rx} y \texttt{MBR}, almacenando el resultado en \texttt{Rx}. El Registro de Estado \texttt{RS} se actualiza con los indicadores correspondientes.
+    la Unidad Aritmético-Lógica (ALU) realiza la suma entre \texttt{Rx} y \texttt{MBR}, almacenando el resultado en \texttt{Rx}. El Registro de Estado \texttt{RS} se actualiza con los indicadores correspondientes.
   \end{enumerate}
 \item
   SUB \texttt{{[}Dirección{]}}, \texttt{Ry} (Restar a memoria)
-  1, 2, 3, 4. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{4}
-  \tightlist
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{1}
+    \item
+      \begin{enumerate}
+      \def\labelenumiii{\arabic{enumiii}.}
+      \setcounter{enumiii}{2}
+      \item
+        \begin{enumerate}
+        \def\labelenumiv{\arabic{enumiv}.}
+        \setcounter{enumiv}{3}
+        \tightlist
+        \item
+          igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+        \end{enumerate}
+      \end{enumerate}
+    \end{enumerate}
   \item
     \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry} - \texttt{MBR}}:
-    La ALU resta el contenido de \texttt{MBR} al de \texttt{Ry}, almacenando el resultado en \texttt{MBR}. El \texttt{RS} se actualiza.
+    la ALU resta el contenido de \texttt{MBR} al de \texttt{Ry}, almacenando el resultado en \texttt{MBR}. El \texttt{RS} se actualiza.
   \item
     \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}:
-    El contenido de \texttt{MBR} se escribe en memoria en la dirección apuntada por el \texttt{MAR}.
+    el contenido de \texttt{MBR} se escribe en memoria en la dirección apuntada por el \texttt{MAR}.
   \end{enumerate}
 \item
   CMP \texttt{Rx}, \texttt{{[}Dirección{]}} (Comparar a registro)
-  1, 2, 3, 4. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{4}
-  \tightlist
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{1}
+    \item
+      \begin{enumerate}
+      \def\labelenumiii{\arabic{enumiii}.}
+      \setcounter{enumiii}{2}
+      \item
+        \begin{enumerate}
+        \def\labelenumiv{\arabic{enumiv}.}
+        \setcounter{enumiv}{3}
+        \tightlist
+        \item
+          igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+        \end{enumerate}
+      \end{enumerate}
+    \end{enumerate}
   \item
     \textbf{\texttt{Rx} - \texttt{MBR}}:
-    La ALU realiza la resta entre el contenido de \texttt{Rx} y \texttt{MBR}. Aunque el resultado no se almacena, el \texttt{RS} se actualiza con los indicadores de comparación.
+    la ALU realiza la resta entre el contenido de \texttt{Rx} y \texttt{MBR}. Aunque el resultado no se almacena, el \texttt{RS} se actualiza con los indicadores de comparación.
   \end{enumerate}
 \item
   JMP \texttt{Dirección} (Salto incondicional)
-  1, 2. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{2}
-  \tightlist
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{1}
+    \tightlist
+    \item
+      igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+    \end{enumerate}
   \item
     \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}:
     El contenido del \texttt{MBR} se transfiere al registro \texttt{IP}, estableciendo la nueva dirección de ejecución.
   \end{enumerate}
 \item
   JC \texttt{Dirección} (Salto condicional si C=1)
-  1, 2. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{2}
-  \tightlist
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{1}
+    \tightlist
+    \item
+      Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+    \end{enumerate}
   \item
     \texttt{Si\ C} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}:
-    Si la bandera de acarreo (\texttt{C}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
+    si la bandera de acarreo (\texttt{C}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
   \end{enumerate}
 \item
   JZ \texttt{Dirección} (Salto condicional si Z=1)
-  1, 2. Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{2}
-  \tightlist
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{1}
+    \tightlist
+    \item
+      igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+    \end{enumerate}
   \item
     \texttt{Si\ Z} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}:
-    Si la bandera de cero (\texttt{Z}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
+    si la bandera de cero (\texttt{Z}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
   \end{enumerate}
 \end{itemize}
 
