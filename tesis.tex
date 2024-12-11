@@ -1575,7 +1575,7 @@ El repertorio se diseñó como una simplificación de la arquitectura x86, orien
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:setreducido}Tabla de instrucciones y códigos de Operación}
+\caption{\label{tab:setreducido}Tabla de instrucciones y códigos de operación}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
@@ -1583,21 +1583,17 @@ El repertorio se diseñó como una simplificación de la arquitectura x86, orien
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
 \midrule
-\textbf{Transferencia de datos} & {0, 1, 2} & MOV & 0- Copiar entre registros\\
-\addlinespace[8pt]
-\textbf{} &  &  & 1- Cargar a registro\\
-\addlinespace[8pt]
-\textbf{} &  &  & 2- Almacenar en memoria\\
+\textbf{Transferencia de datos} & {0, 1, 2} & MOV & \begin{itemize} \item 0 - Operación entre registros \item 1 - Operación carga a registro \item 2 - Operación almacena en memoria \end{itemize}\\
 \addlinespace[8pt]
 \textbf{Pocesamiento de datos} & {3, 4, 5} & ADD & 3-4-5 Sumar\\
 \addlinespace[8pt]
 \textbf{} & {6, 7, 8} & SUB & 6-7-8 Restar\\
 \addlinespace[8pt]
-\addlinespace
 \textbf{} & {9, 10, 11} & CMP & 9-10-11 Comparar\\
 \addlinespace[8pt]
 \textbf{Control de flujo} & {12} & JMP & 12-a Salto incondicional\\
 \addlinespace[8pt]
+\addlinespace
 \textbf{} &  & JZ & 12-b Salto condicional si Z=1\\
 \addlinespace[8pt]
 \textbf{} &  & JC & 12-c Salto condicional si C=1\\
@@ -2063,7 +2059,7 @@ Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M 
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Nota: } 
-\item d = Dato Inmediato, no puede ser destino de la instrucción.
+\item d = dato inmediato, no puede ser destino de la instrucción.
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
