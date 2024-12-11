@@ -237,23 +237,23 @@
 <div id="principales-bloques-funcionales" class="section level4 hasAnchor" number="5.2.1.1">
 <h4><span class="header-section-number">5.2.1.1</span> Principales bloques funcionales<a href="diseño-conceptual.html#principales-bloques-funcionales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>El simulador se compone de los siguientes bloques funcionales:</p>
-<table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:bloquesfuncionales">Tabla 5.1: </span>Bloques funcionales principales
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
-Bloque
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Bloque Funcional
 </th>
-<th style="text-align:left;">
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Descripción
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 Unidad Central de Procesamiento (CPU)
 </td>
 <td style="text-align:left;width: 40em; ">
@@ -261,7 +261,7 @@ Simulación de registros, Unidad de Control (UC) y Unidad Aritmética y Lógica 
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 Memoria
 </td>
 <td style="text-align:left;width: 40em; ">
@@ -269,7 +269,7 @@ Estructura de memoria y simulación de operaciones de lectura y escritura.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 Sistema de Entrada/Salida (E/S)
 </td>
 <td style="text-align:left;width: 40em; ">
@@ -277,7 +277,7 @@ Interacción con periféricos y manejo de interrupciones.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 Bus de datos, direcciones y control
 </td>
 <td style="text-align:left;width: 40em; ">
@@ -290,23 +290,23 @@ Modelado de la comunicación entre componentes.
 <div id="características-del-cpu" class="section level4 hasAnchor" number="5.2.1.2">
 <h4><span class="header-section-number">5.2.1.2</span> Características del CPU<a href="diseño-conceptual.html#características-del-cpu" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>El diseño del CPU simplificado se describe en la siguiente tabla <a href="diseño-conceptual.html#tab:arq">5.2</a>:</p>
-<table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:arq">Tabla 5.2: </span>Componentes del CPU x86
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Componente
 </th>
-<th style="text-align:left;">
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Características
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 Arquitectura
 </td>
 <td style="text-align:left;width: 40em; ">
@@ -314,7 +314,7 @@ Von Neumann, con memoria compartida para datos e instrucciones.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 Registros
 </td>
 <td style="text-align:left;width: 40em; ">
@@ -322,21 +322,21 @@ Registros
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 </td>
 <td style="text-align:left;width: 40em; ">
 4 registros de propósito específico: <code>IP</code> (Instruction Pointer),<code>IR</code>(Instruction Register), <code>SP</code>(Stack Pointer) y <code>RS</code> (registro de estado)
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 </td>
 <td style="text-align:left;width: 40em; ">
 2 registros intermedios (<code>MAR</code>: buffer de direcciones y <code>MBR</code>: buffer de datos) para comunicación entre CPU y memoria.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 Memoria
 </td>
 <td style="text-align:left;width: 40em; ">
@@ -344,7 +344,7 @@ Memoria de 256 posiciones, con una capacidad de un byte por posición.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 Buses
 </td>
 <td style="text-align:left;width: 40em; ">
@@ -352,18 +352,11 @@ Bus de datos y direcciones de 8 bits.
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; ">
+<td style="text-align:left;width: 25em; font-weight: bold;border-right:1px solid;">
 Instrucciones
 </td>
 <td style="text-align:left;width: 40em; ">
-Longitud variable de instrucciones (1, 2 y 3 bytes).
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 20em; ">
-</td>
-<td style="text-align:left;width: 40em; ">
-Modos de direccionamiento: registro a registro, directo, indirecto e inmediato.
+Longitud variable de instrucciones (1, 2 y 3 bytes). Modos de direccionamiento: registro a registro, directo, indirecto e inmediato.
 </td>
 </tr>
 </tbody>
