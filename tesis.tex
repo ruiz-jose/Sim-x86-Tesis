@@ -1546,11 +1546,11 @@ El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
 \midrule
-\textbf{Arquitectura} & Von Neumann, con memoria compartida para datos e instrucciones.\\
+\textbf{Arquitectura} & Von Neumann, memoria compartida para datos e instrucciones.\\
 \addlinespace[10pt]
 \textbf{Registros} & 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.\\
 \addlinespace[10pt]
-\textbf{} & 4 registros de propósito específico: `IP` (Instruction Pointer),`IR`(Instruction Register), `SP`(Stack Pointer) y `RS` (registro de estado)\\
+\textbf{} & 4 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \end{itemize}\\
 \addlinespace[10pt]
 \textbf{} & 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.\\
 \addlinespace[10pt]
@@ -1559,7 +1559,7 @@ El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 \addlinespace
 \textbf{Buses} & Bus de datos y direcciones de 8 bits.\\
 \addlinespace[10pt]
-\textbf{Instrucciones} & Longitud variable de instrucciones (1, 2 y 3 bytes). Modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
+\textbf{Instrucciones} & Longitud variable de instrucciones (1, 2 y 3 Bytes). Modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
@@ -1573,27 +1573,38 @@ El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 
 El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
 
-\begin{longtable}[]{@{}llll@{}}
-\caption{\label{tab:setreducido}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\tabularnewline
+\begin{table}[!h]
+\centering
+\caption{\label{tab:setreducido}Tabla de instrucciones y códigos de Operación}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
-Instrucciones & Código operación & nemónico & Acción\tabularnewline
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
 \midrule
-\endfirsthead
-\toprule
-Instrucciones & Código operación & nemónico & Acción\tabularnewline
-\midrule
-\endhead
-Transferencia de datos & \{0, 1, 2\} & MOV & 0- Copiar entre registros\tabularnewline
-& & & 1- Cargar a registro\tabularnewline
-& & & 2- Almacenar en memoria\tabularnewline
-Pocesamiento de datos & \{3, 4, 5\} & ADD & 3-4-5 Sumar\tabularnewline
-& \{6, 7, 8\} & SUB & 6-7-8 Restar\tabularnewline
-& \{9, 10, 11\} & CMP & 9-10-11 Comparar\tabularnewline
-Control de flujo & \{12\} & JMP & 12-a Salto incondicional\tabularnewline
-& & JZ & 12-b Salto condicional si Z=1\tabularnewline
-& & JC & 12-c Salto condicional si C=1\tabularnewline
+\textbf{Transferencia de datos} & {0, 1, 2} & MOV & 0- Copiar entre registros\\
+\addlinespace[8pt]
+\textbf{} &  &  & 1- Cargar a registro\\
+\addlinespace[8pt]
+\textbf{} &  &  & 2- Almacenar en memoria\\
+\addlinespace[8pt]
+\textbf{Pocesamiento de datos} & {3, 4, 5} & ADD & 3-4-5 Sumar\\
+\addlinespace[8pt]
+\textbf{} & {6, 7, 8} & SUB & 6-7-8 Restar\\
+\addlinespace[8pt]
+\addlinespace
+\textbf{} & {9, 10, 11} & CMP & 9-10-11 Comparar\\
+\addlinespace[8pt]
+\textbf{Control de flujo} & {12} & JMP & 12-a Salto incondicional\\
+\addlinespace[8pt]
+\textbf{} &  & JZ & 12-b Salto condicional si Z=1\\
+\addlinespace[8pt]
+\textbf{} &  & JC & 12-c Salto condicional si C=1\\
+\addlinespace[8pt]
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\end{table}
 
 \hypertarget{justificaciuxf3n-de-la-simplificaciuxf3n}{%
 \subsection{Justificación de la simplificación}\label{justificaciuxf3n-de-la-simplificaciuxf3n}}

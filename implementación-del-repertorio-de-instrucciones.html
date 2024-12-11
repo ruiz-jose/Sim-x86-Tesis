@@ -233,70 +233,140 @@
 <div id="selección-del-repertorio-inicial" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Selección del repertorio inicial<a href="implementación-del-repertorio-de-instrucciones.html#selección-del-repertorio-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:</p>
-<table>
-<caption><span id="tab:setreducido">Tabla 5.3: </span>Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86</caption>
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:setreducido">Tabla 5.3: </span>Tabla de instrucciones y códigos de Operación
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Instrucciones</th>
-<th align="left">Código operación</th>
-<th align="left">nemónico</th>
-<th align="left">Acción</th>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Instrucciones
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Código operación
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+nemónico
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Acción
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Transferencia de datos</td>
-<td align="left">{0, 1, 2}</td>
-<td align="left">MOV</td>
-<td align="left">0- Copiar entre registros</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+Transferencia de datos
+</td>
+<td style="text-align:left;width: 25em; ">
+{0, 1, 2}
+</td>
+<td style="text-align:left;width: 15em; ">
+MOV
+</td>
+<td style="text-align:left;width: 25em; ">
+0- Copiar entre registros
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left">1- Cargar a registro</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+</td>
+<td style="text-align:left;width: 25em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+</td>
+<td style="text-align:left;width: 25em; ">
+1- Cargar a registro
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left">2- Almacenar en memoria</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+</td>
+<td style="text-align:left;width: 25em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+</td>
+<td style="text-align:left;width: 25em; ">
+2- Almacenar en memoria
+</td>
 </tr>
-<tr class="even">
-<td align="left">Pocesamiento de datos</td>
-<td align="left">{3, 4, 5}</td>
-<td align="left">ADD</td>
-<td align="left">3-4-5 Sumar</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+Pocesamiento de datos
+</td>
+<td style="text-align:left;width: 25em; ">
+{3, 4, 5}
+</td>
+<td style="text-align:left;width: 15em; ">
+ADD
+</td>
+<td style="text-align:left;width: 25em; ">
+3-4-5 Sumar
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left">{6, 7, 8}</td>
-<td align="left">SUB</td>
-<td align="left">6-7-8 Restar</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+</td>
+<td style="text-align:left;width: 25em; ">
+{6, 7, 8}
+</td>
+<td style="text-align:left;width: 15em; ">
+SUB
+</td>
+<td style="text-align:left;width: 25em; ">
+6-7-8 Restar
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left">{9, 10, 11}</td>
-<td align="left">CMP</td>
-<td align="left">9-10-11 Comparar</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+</td>
+<td style="text-align:left;width: 25em; ">
+{9, 10, 11}
+</td>
+<td style="text-align:left;width: 15em; ">
+CMP
+</td>
+<td style="text-align:left;width: 25em; ">
+9-10-11 Comparar
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Control de flujo</td>
-<td align="left">{12}</td>
-<td align="left">JMP</td>
-<td align="left">12-a Salto incondicional</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+Control de flujo
+</td>
+<td style="text-align:left;width: 25em; ">
+{12}
+</td>
+<td style="text-align:left;width: 15em; ">
+JMP
+</td>
+<td style="text-align:left;width: 25em; ">
+12-a Salto incondicional
+</td>
 </tr>
-<tr class="even">
-<td align="left"></td>
-<td align="left"></td>
-<td align="left">JZ</td>
-<td align="left">12-b Salto condicional si Z=1</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+</td>
+<td style="text-align:left;width: 25em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+JZ
+</td>
+<td style="text-align:left;width: 25em; ">
+12-b Salto condicional si Z=1
+</td>
 </tr>
-<tr class="odd">
-<td align="left"></td>
-<td align="left"></td>
-<td align="left">JC</td>
-<td align="left">12-c Salto condicional si C=1</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+</td>
+<td style="text-align:left;width: 25em; ">
+</td>
+<td style="text-align:left;width: 15em; ">
+JC
+</td>
+<td style="text-align:left;width: 25em; ">
+12-c Salto condicional si C=1
+</td>
 </tr>
 </tbody>
 </table>
