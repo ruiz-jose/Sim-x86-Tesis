@@ -158,8 +158,6 @@ library(knitr)
 setreducido <- data.frame(
   Instrucciones = c(
     "Transferencia de datos",
-    "",
-    "",
     "Pocesamiento de datos",
     "",
     "",
@@ -169,8 +167,6 @@ setreducido <- data.frame(
   ),
   `Código operación` = c(
     "{0, 1, 2}",
-    "",
-    "",
     "{3, 4, 5}",
     "{6, 7, 8}",
     "{9, 10, 11}",
@@ -180,8 +176,6 @@ setreducido <- data.frame(
   ),
   `Nemónico` = c(
     "MOV ",
-    "",
-    "",
     "ADD",
     "SUB",
     "CMP",
@@ -189,22 +183,24 @@ setreducido <- data.frame(
     "JZ ",
     "JC "
   ),
-  Acción = c("0- Copiar entre registros",
-    "1- Cargar a registro",
-    "2- Almacenar en memoria",
-    "3-4-5 Sumar",
-    "6-7-8 Restar",
-    "9-10-11 Comparar",
-    "12-a Salto incondicional ",
-    "12-b Salto condicional si Z=1",
-    "12-c Salto condicional si C=1"
+  Acción = c(if (knitr::is_latex_output()) {
+    "\\begin{itemize} \\item 0 - Operación entre registros \\item 1 - Operación carga a registro \\item 2 - Operación almacena en memoria \\end{itemize}" # nolint: line_length_linter.
+  } else {
+    "<ul><li>0 - Operación entre registros</li><li>1 - Operación carga a registro</li><li>2 - Operación almacena en memoria</li></ul>" # nolint: line_length_linter.
+  },
+  "3-4-5 Sumar",
+  "6-7-8 Restar",
+  "9-10-11 Comparar",
+  "12-a Salto incondicional ",
+  "12-b Salto condicional si Z=1",
+  "12-c Salto condicional si C=1"
   )
 )
 
 # Crear la tabla con formato dinámico
 tabla <- kable(setreducido,
                format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Tabla de instrucciones y códigos de Operación",
+               caption = "Tabla de instrucciones y códigos de operación",
                col.names = c("Instrucciones", "Código operación", "nemónico", "Acción"), # nolint: line_length_linter.
                booktabs = TRUE,
                escape = FALSE)
@@ -234,7 +230,12 @@ if (knitr::is_latex_output()) {
     column_spec(2, width = "25em") %>%
     column_spec(3, width = "15em") %>%
     column_spec(4, width = "25em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    footnote(
+      general = "Las instrucciones de transferencia y de procesamiento de datos tienen los tres tipos de combinaciones en los operandos.", # nolint: line_length_linter.
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
 }
 ```
 
@@ -527,7 +528,7 @@ if (knitr::is_latex_output()) {
     column_spec(4, width = "6cm") %>%
     row_spec(4, extra_latex_after = "\\midrule") %>%
     footnote(
-      general = "d = Dato Inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
+      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
       general_title = "Nota: ",
       threeparttable = TRUE
     )
@@ -539,7 +540,12 @@ if (knitr::is_latex_output()) {
     column_spec(2, width = "25em") %>%
     column_spec(3, width = "25em") %>%
     column_spec(4, width = "30em") %>%
-    row_spec(4, extra_css = "border-top: 2px solid #000;")
+    row_spec(4, extra_css = "border-top: 2px solid #000;") %>%
+    footnote(
+      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
 }
 ```
 
