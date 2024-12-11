@@ -557,7 +557,7 @@ if (knitr::is_latex_output()) {
 | **`ffff`= funcionalidad** | **`Byte`= tamaño** | **Interpretación** |
 | 00YY |  2 |directo `D` = Dirección de memoria, `YY` = Registro fuente |
 | 01YY |  1 |indirecto `BL`, `YY` = Registro fuente|
-| 01YY |  2 |Indirecto la dirección se calcula operando implicito `BL` + Dato Inmediato |
+| 01YY |  2 |Indirecto la dirección se calcula operando implícito `BL` + Dato Inmediato |
 | 1100 |  3 |Inmediato a memoria|
 | 1101 |  2 |Inmediato a memoria mediante indirecto `BL`|
 | 1110 |  3 |Inmediato a memoria mediante indirecto `BL`+ Dato Inmediato |
@@ -587,7 +587,7 @@ if (knitr::is_latex_output()) {
 | C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 MMMMMMMM`          |
 | C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 MMMMMMMM`          |
 | C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 MMMMMMMM`          |
-| C | `Jxx M`            | Se pueden implemementar más flags y CALL                           | `1100 ffff --------`          |
+| C | `Jxx M`            | Se pueden implementar más flags y CALL                           | `1100 ffff --------`          |
 
 ### Ciclo de la instrucción: modos adicionales
 
