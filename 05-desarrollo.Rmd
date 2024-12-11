@@ -42,13 +42,14 @@ library(kableExtra)
 bloquesfuncionales <- data.frame(
   Bloque = c("Unidad Central de Procesamiento (CPU)",
              "Memoria",
-             "Sistema de entrada/salida (E/S)",
+             "Sistema de Entrada/Salida (E/S)",
              "Bus de datos, direcciones y control"),
-  Descripción = c("Simulación de registros, Unidad de Control (UC) y ALU.",
+  Descripción = c("Simulación de registros, Unidad de Control (UC) y Unidad Aritmética y Lógica (ALU).", # nolint
                   "Estructura de memoria y simulación de operaciones de lectura y escritura.", # nolint
                   "Interacción con periféricos y manejo de interrupciones.",
                   "Modelado de la comunicación entre componentes.")
 )
+
 
 # Convertir a HTML o LaTeX según el formato de salida
 if (knitr::is_latex_output()) {
@@ -77,20 +78,22 @@ arq <- data.frame(
                    "Registros",
                    "",
                    "",
-                   "",
                    "Memoria",
                    "Buses",
                    "Instrucciones",
                    ""),
-  `Características` = c("- Von Neumann, con memoria compartida para datos e instrucciones.", # nolint
-                        "- 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.", # nolint
-                        "- 3 registros de propósito específico: `IP` (Instruction Pointer), `IR`(Instruction Register) y `SP`(Stack Pointer).", # nolint
-                        "- 1 registro de estado (`RS`) para las banderas.",
-                        "- 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.", # nolint
-                        "- Memoria de 256 posiciones, con una capacidad de un byte por posición.", # nolint
-                        "- Bus de datos y direcciones de 8 bits.",
-                        "- Longitud variable (1, 2 y 3 bytes).",
-                        "- Soporta un conjunto de 16 instrucciones."),
+  `Características` = c("Von Neumann, con memoria compartida para datos e instrucciones.", # nolint
+                        "4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.", # nolint
+                        "4 registros de propósito específico: 
+                        - `IP` (Instruction Pointer)
+                        - `IR`(Instruction Register)
+                        - `SP`(Stack Pointer)
+                        - `RS` (registro de estado)", # nolint                        
+                        "2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.", # nolint
+                        "Memoria de 256 posiciones, con una capacidad de un byte por posición.", # nolint
+                        "Bus de datos y direcciones de 8 bits.",
+                        "Longitud variable de instrucciones (1, 2 y 3 bytes).",
+                        "Modos de direccionamiento: registro a registro, directo, indirecto e inmediato."), # nolint: line_length_linter.
   stringsAsFactors = FALSE
 )
 
@@ -110,7 +113,7 @@ if (knitr::is_latex_output()) {
 
 ## Implementación del repertorio de instrucciones
 
-## Selección del repertorio inicial
+### Selección del repertorio inicial
 El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
 
 ```{r setreducido, echo=FALSE, message=FALSE, warning=FALSE}
@@ -188,40 +191,40 @@ El formato definido para las instrucciones incluye los siguientes casos tabla \@
 ```{r codtraducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
+library(magrittr)
 
 # Crear un dataframe con los datos
 codtraducido <- data.frame(
-  Tipo = c("Transferencia y procesamiento", "", "", "Control"),
-  Operacion = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"), # nolint: line_length_linter.
-  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____00YY MMMMMMMM", "____ffff MMMMMMMM"), # nolint: line_length_linter.
+  Tipo = c("", "Transferencia y procesamiento", "", "Control"),
+  Operacion = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
+  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____00YY MMMMMMMM", "____ffff MMMMMMMM"),
   Parámetros = c(
-    "XX = Registro destino, YY = Registro fuente",
-    "XX = Registro destino, M = Dirección de memoria",
-    "YY = Registro fuente, M = Dirección de memoria",
-    "ffff = funcionalidad, M = Dirección de memoria"
+    "XX = Registro destino\nYY = Registro fuente",
+    "XX = Registro destino\nM = Dirección de memoria",
+    "YY = Registro fuente\nM = Dirección de memoria",
+    "ffff = funcionalidad\nM = Dirección de memoria"
   ),
   stringsAsFactors = FALSE
 )
 
 # Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  kable(codtraducido, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
+  kable(codtraducido, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"),
         caption = "Tabla de codificación de instrucciones") %>%
     kable_styling(latex_options = c("hold_position", "scale_down")) %>%
-    column_spec(1, width = "4cm") %>%  # Ajustar el ancho de la columna "Tipo"
-    column_spec(2, width = "5cm") %>%  # Ajustar el ancho de la columna "Operación" # nolint: line_length_linter, line_length_linter.
-    column_spec(3, width = "5cm") %>%  # Ajustar el ancho de la columna "Codificación" # nolint: line_length_linter, line_length_linter.
-    column_spec(4, width = "6cm") %>%  # Ajustar el ancho de la columna "Parámetros" # nolint
-    row_spec(3, extra_latex_after = "\\midrule")  # Agregar una línea después de la tercera fila # nolint: line_length_linter.
+    column_spec(1, width = "3cm") %>%
+    column_spec(2, width = "5cm") %>%
+    column_spec(3, width = "5cm") %>%
+    column_spec(4, width = "6cm") %>%
+    row_spec(3, extra_latex_after = "\\midrule")
 } else {
   kable(codtraducido, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
-    column_spec(1, width = "20em") %>%  # Ajustar el ancho de la columna "Tipo"
-    column_spec(2, width = "25em") %>%  # Ajustar el ancho de la columna "Operación" # nolint
-    column_spec(3, width = "25em") %>%  # Ajustar el ancho de la columna "Codificación" # nolint: line_length_linter.
-    column_spec(4, width = "30em") %>%  # Ajustar el ancho de la columna "Parámetros" # nolint: line_length_linter.
-    row_spec(3, extra_css = "border-top: 2px solid #000;")  # Agregar una línea después de la tercera fila # nolint: line_length_linter.
+    column_spec(1, width = "20em") %>%
+    column_spec(2, width = "25em") %>%
+    column_spec(3, width = "25em", extra_css = "font-size: 6pt;") %>%
+    column_spec(4, width = "30em")
 }
 ```
 
@@ -258,11 +261,11 @@ kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Bina
 
 En esta primera etapa se implementan las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
 
-```{r tabla_instrucciones, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tablainst, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
 # Crear un dataframe con los datos
-tabla_instrucciones <- data.frame(
+tablainst <- data.frame(
   `#` = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "C", "C"),
   Instrucción = c("MOV Rx, Ry", "MOV Rx, [M]", "MOV [M], Ry", "ADD Rx, Ry", "ADD Rx, [M]", "ADD [M], Ry", "SUB Rx, Ry", "SUB Rx, [M]", "SUB [M], Ry", "CMP Rx, Ry", "CMP Rx, [M]", "CMP [M], Ry", "JMP M", "JC M", "JZ M"), # nolint
   Acción = c(
@@ -301,8 +304,17 @@ tabla_instrucciones <- data.frame(
   )
 )
 
-# Imprimir la tabla en formato markdown
-kable(tabla_instrucciones, format = "markdown", col.names = c("#", "Instrucción", "Acción", "Codificación")) # nolint: line_length_linter.
+# Imprimir la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  kable(tablainst, format = "latex", booktabs = TRUE, col.names = c("#", "Instrucción", "Acción", "Codificación"), caption = "Tabla de Instrucciones y Codificación") %>% # nolint: line_length_linter.
+    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+    column_spec(1, width = "1cm") %>%
+    column_spec(2, width = "3cm") %>%
+    column_spec(3, width = "5cm") %>%
+    column_spec(4, width = "5cm", extra_css = "font-size: 6pt;")
+} else {
+  kable(tablainst, format = "markdown", col.names = c("#", "Instrucción", "Acción", "Codificación")) # nolint: line_length_linter.
+}
 ```
 
 ### Ciclo de la instrucción: Etapas de captación y ejecución
