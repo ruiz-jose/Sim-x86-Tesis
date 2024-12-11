@@ -1518,9 +1518,9 @@ El simulador se compone de los siguientes bloques funcionales:
 \toprule
 Bloque & Descripción\\
 \midrule
-Unidad Central de Procesamiento (CPU) & Simulación de registros, Unidad de Control (UC) y ALU.\\
+Unidad Central de Procesamiento (CPU) & Simulación de registros, Unidad de Control (UC) y Unidad Aritmética y Lógica (ALU).\\
 Memoria & Estructura de memoria y simulación de operaciones de lectura y escritura.\\
-Sistema de entrada/salida (E/S) & Interacción con periféricos y manejo de interrupciones.\\
+Sistema de Entrada/Salida (E/S) & Interacción con periféricos y manejo de interrupciones.\\
 Bus de datos, direcciones y control & Modelado de la comunicación entre componentes.\\
 \bottomrule
 \end{tabular}}
@@ -1540,16 +1540,19 @@ El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 \toprule
 Componente & Características\\
 \midrule
-Arquitectura & - Von Neumann, con memoria compartida para datos e instrucciones.\\
-Registros & - 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.\\
- & - 3 registros de propósito específico: `IP` (Instruction Pointer), `IR`(Instruction Register) y `SP`(Stack Pointer).\\
- & - 1 registro de estado (`RS`) para las banderas.\\
- & - 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.\\
+Arquitectura & Von Neumann, con memoria compartida para datos e instrucciones.\\
+Registros & 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.\\
+ & 4 registros de propósito específico: 
+                        - `IP` (Instruction Pointer)
+                        - `IR`(Instruction Register)
+                        - `SP`(Stack Pointer)
+                        - `RS` (registro de estado)\\
+ & 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.\\
+Memoria & Memoria de 256 posiciones, con una capacidad de un byte por posición.\\
 \addlinespace
-Memoria & - Memoria de 256 posiciones, con una capacidad de un byte por posición.\\
-Buses & - Bus de datos y direcciones de 8 bits.\\
-Instrucciones & - Longitud variable (1, 2 y 3 bytes).\\
- & - Soporta un conjunto de 16 instrucciones.\\
+Buses & Bus de datos y direcciones de 8 bits.\\
+Instrucciones & Longitud variable de instrucciones (1, 2 y 3 bytes).\\
+ & Modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -1558,7 +1561,7 @@ Instrucciones & - Longitud variable (1, 2 y 3 bytes).\\
 \section{Implementación del repertorio de instrucciones}\label{implementaciuxf3n-del-repertorio-de-instrucciones}}
 
 \hypertarget{selecciuxf3n-del-repertorio-inicial}{%
-\section{Selección del repertorio inicial}\label{selecciuxf3n-del-repertorio-inicial}}
+\subsection{Selección del repertorio inicial}\label{selecciuxf3n-del-repertorio-inicial}}
 
 El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
 
@@ -1624,15 +1627,19 @@ El formato definido para las instrucciones incluye los siguientes casos tabla \r
 \caption{\label{tab:codtraducido}Tabla de codificación de instrucciones}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
 Tipo & Operación & Codificación & Parámetros\\
 \midrule
-Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino, YY = Registro fuente\\
- & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX = Registro destino, M = Dirección de memoria\\
- & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM & YY = Registro fuente, M = Dirección de memoria\\
+ & A: entre registros & \_\_\_\_XXYY & XX = Registro destino
+YY = Registro fuente\\
+Transferencia y procesamiento & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX = Registro destino
+M = Dirección de \vphantom{2} memoria\\
+ & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM & YY = Registro fuente
+M = Dirección de \vphantom{1} memoria\\
 \midrule
-Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
+Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad
+M = Dirección de memoria\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -1680,28 +1687,35 @@ DL & 11 & 3\tabularnewline
 
 En esta primera etapa se implementan las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
 
-\begin{longtable}[]{@{}llll@{}}
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tablainst}Tabla de Instrucciones y Codificación}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{1cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
 \toprule
-\# & Instrucción & Acción & Codificación\tabularnewline
+\# & Instrucción & Acción & Codificación\\
 \midrule
-\endhead
-0 & MOV Rx, Ry & Rx ← Ry & 0000 XXYY\tabularnewline
-1 & MOV Rx, {[}M{]} & Rx ← Mem{[}Dirección{]} & 0001 00YY MMMMMMMM\tabularnewline
-2 & MOV {[}M{]}, Ry & Mem{[}Dirección{]} ← Rx & 0010 XX00 MMMMMMMM\tabularnewline
-3 & ADD Rx, Ry & Rx ← Rx + Ry & 0011 XXYY\tabularnewline
-4 & ADD Rx, {[}M{]} & Rx ← Rx + Mem{[}Dirección{]} & 0100 00YY MMMMMMMM\tabularnewline
-5 & ADD {[}M{]}, Ry & Mem{[}Dirección{]} ← Mem{[}Dirección{]} + Ry & 0101 XX00 MMMMMMMM\tabularnewline
-6 & SUB Rx, Ry & Rx ← Rx - Ry & 0110 XXYY\tabularnewline
-7 & SUB Rx, {[}M{]} & Rx ← Rx - Mem{[}Dirección{]} & 0111 00YY MMMMMMMM\tabularnewline
-8 & SUB {[}M{]}, Ry & Mem{[}Dirección{]} ← Mem{[}Dirección{]} - Ry & 1000 XX00 MMMMMMMM\tabularnewline
-9 & CMP Rx, Ry & Modifica flags de Rx - Ry & 1001 XXYY\tabularnewline
-A & CMP Rx, {[}M{]} & Modifica flags de Rx - Mem{[}Dirección{]} & 1010 00YY MMMMMMMM\tabularnewline
-B & CMP {[}M{]}, Ry & Modifica flags de Mem{[}Dirección{]} - Ry & 1011 XX00 MMMMMMMM\tabularnewline
-C & JMP M & IP ← Dirección & 1100 0000 MMMMMMMM\tabularnewline
-C & JC M & Si flag C=1 entonces IP ← Dirección & 1100 0001 MMMMMMMM\tabularnewline
-C & JZ M & Si flag Z=1 entonces IP ← Dirección & 1100 0011 MMMMMMMM\tabularnewline
+0 & MOV Rx, Ry & Rx ← Ry & 0000 XXYY\\
+1 & MOV Rx, [M] & Rx ← Mem[Dirección] & 0001 00YY MMMMMMMM\\
+2 & MOV [M], Ry & Mem[Dirección] ← Rx & 0010 XX00 MMMMMMMM\\
+3 & ADD Rx, Ry & Rx ← Rx + Ry & 0011 XXYY\\
+4 & ADD Rx, [M] & Rx ← Rx + Mem[Dirección] & 0100 00YY MMMMMMMM\\
+\addlinespace
+5 & ADD [M], Ry & Mem[Dirección] ← Mem[Dirección] + Ry & 0101 XX00 MMMMMMMM\\
+6 & SUB Rx, Ry & Rx ← Rx - Ry & 0110 XXYY\\
+7 & SUB Rx, [M] & Rx ← Rx - Mem[Dirección] & 0111 00YY MMMMMMMM\\
+8 & SUB [M], Ry & Mem[Dirección] ← Mem[Dirección] - Ry & 1000 XX00 MMMMMMMM\\
+9 & CMP Rx, Ry & Modifica flags de Rx - Ry & 1001 XXYY\\
+\addlinespace
+A & CMP Rx, [M] & Modifica flags de Rx - Mem[Dirección] & 1010 00YY MMMMMMMM\\
+B & CMP [M], Ry & Modifica flags de Mem[Dirección] - Ry & 1011 XX00 MMMMMMMM\\
+C & JMP M & IP ← Dirección & 1100 0000 MMMMMMMM\\
+C & JC M & Si flag C=1 entonces IP ← Dirección & 1100 0001 MMMMMMMM\\
+C & JZ M & Si flag Z=1 entonces IP ← Dirección & 1100 0011 MMMMMMMM\\
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\end{table}
 
 \hypertarget{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}{%
 \subsection{Ciclo de la instrucción: Etapas de captación y ejecución}\label{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}}
