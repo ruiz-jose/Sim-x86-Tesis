@@ -99,13 +99,17 @@ arq <- data.frame(
                    "Memoria",
                    "Buses",
                    "Instrucciones"),
-  `Características` = c("Von Neumann, con memoria compartida para datos e instrucciones.", # nolint
+  `Características` = c("Von Neumann, memoria compartida para datos e instrucciones.", # nolint
                         "4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.", # nolint
-                        "4 registros de propósito específico: `IP` (Instruction Pointer),`IR`(Instruction Register), `SP`(Stack Pointer) y `RS` (registro de estado)", # nolint                        
+                        if (knitr::is_latex_output()) {
+                          "4 registros de propósito específico:\\begin{itemize} \\item `IP` (Instruction Pointer) \\item `IR` (Instruction Register) \\item `SP` (Stack Pointer) \\item `RS` (registro de estado) \\end{itemize}" # nolint: line_length_linter.
+                        } else {
+                          "4 registros de propósito específico:<ul><li>`IP` (Instruction Pointer)</li><li>`IR` (Instruction Register)</li><li>`SP` (Stack Pointer)</li><li>`RS` (registro de estado)</li></ul>" # nolint: line_length_linter.
+                        },
                         "2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.", # nolint
                         "Memoria de 256 posiciones, con una capacidad de un byte por posición.", # nolint
                         "Bus de datos y direcciones de 8 bits.",
-                        "Longitud variable de instrucciones (1, 2 y 3 bytes). Modos de direccionamiento: registro a registro, directo, indirecto e inmediato."), # nolint: line_length_linter.
+                        "Longitud variable de instrucciones (1, 2 y 3 Bytes). Modos de direccionamiento: registro a registro, directo, indirecto e inmediato."), # nolint: line_length_linter.
   stringsAsFactors = FALSE
 )
 
@@ -197,9 +201,41 @@ setreducido <- data.frame(
   )
 )
 
-# Convertir a HTML
-kable(setreducido, format = "markdown", align = "l", col.names = c("Instrucciones", "Código operación", "nemónico", "Acción"), # nolint: line_length_linter. # nolint: line_length_linter.
-      caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86") # nolint: line_length_linter.
+# Crear la tabla con formato dinámico
+tabla <- kable(setreducido,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Tabla de instrucciones y códigos de Operación",
+               col.names = c("Instrucciones", "Código operación", "nemónico", "Acción"), # nolint: line_length_linter.
+               booktabs = TRUE,
+               escape = FALSE)
+
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  tabla %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>% # nolint: line_length_linter.
+    column_spec(2, width = "6cm") %>%
+    column_spec(3, width = "4cm") %>%
+    column_spec(4, width = "6cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(setreducido)), extra_latex_after = "\\addlinespace[8pt]") # Espacio adicional entre filas # nolint: line_length_linter.
+} else {
+  tabla %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "25em", bold = TRUE) %>% # nolint: line_length_linter.
+    column_spec(2, width = "25em") %>%
+    column_spec(3, width = "15em") %>%
+    column_spec(4, width = "25em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
 ```
 
 ### Justificación de la simplificación
