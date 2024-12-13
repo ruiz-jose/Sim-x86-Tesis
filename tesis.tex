@@ -612,17 +612,17 @@ Estos modos se ilustran en la figura \ref{fig:ModDir} según {[}\protect\hyperli
   EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
 \end{itemize}
 
-La tabla detalla el cálculo de la dirección para cada modo de direccionamiento.
+La tabla \ref{tab:tabmoddir} detalla el cálculo de la dirección para cada modo de direccionamiento.
 
-\textbackslash begin\{table\}{[}!h{]}
+\begin{table}[!h]
 \centering
-\textbackslash caption\{(\#tab:tab\_mod\_dir)Modos de direccionamiento básicos\}
+\caption{\label{tab:tabmoddir}Modos de direccionamiento básicos}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Algoritmo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Principal ventaja}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Principal desventaja}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Algoritmo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ventaja}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Desventaja}}}\\
 \midrule
 \textbf{Inmediato} & Operando ← A & No referencia a memoria & Operando de magnitud limitada\\
 \addlinespace[10pt]
@@ -641,7 +641,7 @@ La tabla detalla el cálculo de la dirección para cada modo de direccionamiento
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
-\textbackslash end\{table\}
+\end{table}
 
 \hypertarget{formato-de-las-instrucciones}{%
 \subsection{Formato de las instrucciones}\label{formato-de-las-instrucciones}}
@@ -658,7 +658,7 @@ El formato de las instrucciones define su estructura, incluyendo longitud, canti
   \textbf{Campos de instrucción}: incluyen el opcode y campos adicionales como operandos, modos de direccionamiento y flags de condición. Estos campos determinan cuántas y qué tipo de operaciones puede ejecutar el procesador en un ciclo de reloj.
 \end{itemize}
 
-La Figura {\textbf{???}}(fig:formatoInst) ilustra un esquema típico de formato de instrucciones:
+La Figura \ref{fig:forminst} ilustra un esquema típico de formato de instrucciones:
 
 \begin{figure}
 
@@ -666,7 +666,7 @@ La Figura {\textbf{???}}(fig:formatoInst) ilustra un esquema típico de formato 
 
 }
 
-\caption{Formato de instrucciones }\label{fig:formatoInst}
+\caption{Formato de instrucciones }\label{fig:forminst}
 \end{figure}
 
 \hypertarget{filosofuxedas-cisc-y-risc}{%
@@ -724,28 +724,29 @@ CISC:
 
 La tabla \ref{tab:ciscrisc} resume las principales diferencias entre estas filosofías.
 
-\begin{table}
+\begin{table}[!h]
 \centering
 \caption{\label{tab:ciscrisc}Comparativa entre CISC y RISC}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
 \toprule
-Aspecto & CISC & RISC\\
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aspecto}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CISC}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{RISC}}}\\
 \midrule
-Objetivo principal & Minimizar el número de instrucciones para operaciones complejas & Simplificar el conjunto de instrucciones para optimizar velocidad y eficiencia energética\\
-\addlinespace[10pt]\\
-Tipo de instrucciones & Instrucciones complejas, longitud variable & Instrucciones simples, longitud fija\\
-\addlinespace[10pt]\\
-Decodificación y ejecución & Requiere hardware más complejo, posibles cuellos de botella en el pipeline & Decodificación más sencilla, facilita el uso de técnicas avanzadas como pipelining\\
-\addlinespace[10pt]\\
-Longitud de instrucciones & Longitud variable, puede aumentar el tiempo de decodificación & Longitud fija, simplifica la decodificación y mejora la predictibilidad del rendimiento\\
-\addlinespace[10pt]\\
-Eficiencia energética & Menor eficiencia energética en comparación con RISC & Mayor eficiencia energética, especialmente en dispositivos móviles\\
-\addlinespace[10pt]\\
+\textbf{Objetivo principal} & Minimizar el número de instrucciones para operaciones complejas & Simplificar el conjunto de instrucciones para optimizar velocidad y eficiencia energética\\
+\addlinespace[10pt]
+\textbf{Tipo de instrucciones} & Instrucciones complejas, longitud variable & Instrucciones simples, longitud fija\\
+\addlinespace[10pt]
+\textbf{Decodificación y ejecución} & Requiere hardware más complejo, posibles cuellos de botella en el pipeline & Decodificación más sencilla, facilita el uso de técnicas avanzadas como pipelining\\
+\addlinespace[10pt]
+\textbf{Longitud de instrucciones} & Longitud variable, puede aumentar el tiempo de decodificación & Longitud fija, simplifica la decodificación y mejora la predictibilidad del rendimiento\\
+\addlinespace[10pt]
+\textbf{Eficiencia energética} & Menor eficiencia energética en comparación con RISC & Mayor eficiencia energética, especialmente en dispositivos móviles\\
+\addlinespace[10pt]
 \addlinespace
-Modos de direccionamiento & Flexibilidad a costa de mayor latencia & Acceso más rápido a los operandos, menor latencia\\
-\addlinespace[10pt]\\
+\textbf{Modos de direccionamiento} & Flexibilidad a costa de mayor latencia & Acceso más rápido a los operandos, menor latencia\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -767,44 +768,58 @@ Uno de los pilares del éxito de la arquitectura x86 ha sido su retrocompatibili
 
 A continuación, se presenta la tabla \ref{tab:hitosx86} que resume los hitos clave en la evolución de los procesadores x86:
 
-\begin{longtable}[]{@{}lrrl@{}}
-\caption{\label{tab:hitosx86}Hitos procesadores x86}\tabularnewline
+\begin{table}[!h]
+\centering
+\caption{\label{tab:hitosx86}Hitos procesadores x86}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}>{\raggedleft\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
-Procesador & Año.de.Lanzamiento & Número.de.Bits & Nuevas.Características\tabularnewline
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año de Lanzamiento}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Número de Bits}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Extensiones de 64 bits}}}\\
 \midrule
-\endfirsthead
-\toprule
-Procesador & Año.de.Lanzamiento & Número.de.Bits & Nuevas.Características\tabularnewline
-\midrule
-\endhead
-Intel 8086 & 1978 & 16 & Arquitectura inicial\tabularnewline
-Intel 80386 & 1985 & 32 & Memoria virtual\tabularnewline
-AMD64 & 2003 & 64 & Extensiones de 64 bits\tabularnewline
+\textbf{Intel 8086} & 1978 & 16 & Arquitectura inicial\\
+\addlinespace[10pt]
+\textbf{Intel 80386} & 1985 & 32 & Memoria virtual\\
+\addlinespace[10pt]
+\textbf{AMD64} & 2003 & 64 & Extensiones de 64 bits\\
+\addlinespace[10pt]
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\end{table}
 
 La tabla \ref{tab:evolucionx86} muesta comó la evolución de x86 ha estado marcada por avances tecnológicos que han impulsado la informática hacia nuevas fronteras:
 
-\begin{longtable}[]{@{}rll@{}}
-\caption{\label{tab:evolucionx86}Línea de Tiempo de la Evolución de la Arquitectura x86}\tabularnewline
+\begin{table}[!h]
+\centering
+\caption{\label{tab:evolucionx86}Línea de Tiempo de la Evolución de la Arquitectura x86}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedleft\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
 \toprule
-Año & Procesador & Innovación\_Principal\tabularnewline
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Innovación}}}\\
 \midrule
-\endfirsthead
-\toprule
-Año & Procesador & Innovación\_Principal\tabularnewline
-\midrule
-\endhead
-1978 & Intel 8086 & Introducción de la arquitectura x86, 16 bits\tabularnewline
-1982 & Intel 80286 & Modos de operación adicionales\tabularnewline
-1985 & Intel 80386 & Arquitectura de 32 bits, memoria virtual\tabularnewline
-1989 & Intel 80486 & Unidad de punto flotante integrada, mejor caché\tabularnewline
-1993 & Intel Pentium & Ejecución superescalar, predicción de saltos\tabularnewline
-1995 & Intel Pentium Pro & Ejecución fuera de orden, caché L2 integrada\tabularnewline
-2003 & AMD64 & Extensiones a 64 bits, mayor acceso a memoria\tabularnewline
-2006 & Intel Core & Optimización de rendimiento y eficiencia energética\tabularnewline
+\textbf{1978} & Intel 8086 & Introducción de la arquitectura x86, 16 bits\\
+\addlinespace[10pt]
+\textbf{1982} & Intel 80286 & Modos de operación adicionales\\
+\addlinespace[10pt]
+\textbf{1985} & Intel 80386 & Arquitectura de 32 bits, memoria virtual\\
+\addlinespace[10pt]
+\textbf{1989} & Intel 80486 & Unidad de punto flotante integrada, mejor caché\\
+\addlinespace[10pt]
+\textbf{1993} & Intel Pentium & Ejecución superescalar, predicción de saltos\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{1995} & Intel Pentium Pro & Ejecución fuera de orden, caché L2 integrada\\
+\addlinespace[10pt]
+\textbf{2003} & AMD64 & Extensiones a 64 bits, mayor acceso a memoria\\
+\addlinespace[10pt]
+\textbf{2006} & Intel Core & Optimización de rendimiento y eficiencia energética\\
+\addlinespace[10pt]
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\end{table}
 
 \hypertarget{repertorio-de-instrucciones-x86}{%
 \subsection{Repertorio de instrucciones x86}\label{repertorio-de-instrucciones-x86}}
@@ -865,25 +880,35 @@ En el caso de la arquitectura x86, los programadores pueden elegir entre diverso
 
 A continuación, se presenta una comparativa de las principales características de estos ensambladores:
 
-\begin{table}
+\begin{table}[!h]
 \centering
-\caption{\label{tab:ensambladores}Comparativa de Ensambladores x86}
+\caption{\label{tab:ensambladores}Hitos procesadores x86}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
-\textbf{Característica} & \textbf{TASM} & \textbf{MASM} & \textbf{NASM}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{TASM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{MASM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{NASM}}}\\
 \midrule
-Desarrollador & Borland & Microsoft & Simon Tatham et al.\\
-Año de lanzamiento & 1985 & 1981 & 1996\\
-Sistema operativo & MS-DOS, Windows & MS-DOS, Windows & Multiplataforma (Windows, Linux, macOS)\\
-Sintaxis & Sintaxis similar a Intel con extensiones & Sintaxis de Intel con soporte avanzado & Sintaxis de Intel, modular y extensible\\
-Soporte de macros & Macros y directivas avanzadas & Macros y directivas extensivas & Macros avanzadas y preprocesamiento\\
+\textbf{Desarrollador} & Borland & Microsoft & Simon Tatham et al.\\
+\addlinespace[10pt]
+\textbf{Año de lanzamiento} & 1985 & 1981 & 1996\\
+\addlinespace[10pt]
+\textbf{Sistema operativo} & MS-DOS, Windows & MS-DOS, Windows & Multiplataforma (Windows, Linux, macOS)\\
+\addlinespace[10pt]
+\textbf{Sintaxis} & Sintaxis similar a Intel con extensiones & Sintaxis de Intel con soporte avanzado & Sintaxis de Intel, modular y extensible\\
+\addlinespace[10pt]
+\textbf{Soporte de macros} & Macros y directivas avanzadas & Macros y directivas extensivas & Macros avanzadas y preprocesamiento\\
+\addlinespace[10pt]
 \addlinespace
-Compatibilidad & Compatibilidad con x86 antiguo & Compatibilidad con x86 antiguo & Compatibilidad con x86, x86-64 y otros\\
-Capacidades adicionales & Integración con herramientas Borland & Integración con Visual Studio & Soporte para múltiples formatos (binario, ELF, etc.)\\
-Licencia & Comercial & Comercial & Código abierto\\
-Uso actual & Menos común, usado en entornos heredados & Ampliamente usado en desarrollo Windows & Popular en sistemas y software libre\\
+\textbf{Compatibilidad} & Compatibilidad con x86 antiguo & Compatibilidad con x86 antiguo & Compatibilidad con x86, x86-64 y otros\\
+\addlinespace[10pt]
+\textbf{Capacidades adicionales} & Integración con herramientas Borland & Integración con Visual Studio & Soporte para múltiples formatos (binario, ELF, etc.)\\
+\addlinespace[10pt]
+\textbf{Licencia} & Comercial & Comercial & Código abierto\\
+\addlinespace[10pt]
+\textbf{Uso actual} & Menos común, usado en entornos heredados & Ampliamente usado en desarrollo Windows & Popular en sistemas y software libre\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
