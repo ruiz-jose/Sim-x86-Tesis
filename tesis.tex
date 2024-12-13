@@ -512,93 +512,29 @@ RISC-V ha revolucionado el panorama de la arquitectura de computadoras con su en
 
 Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. MIPS y RISC-V, por su parte, se especializan en nichos como sistemas embebidos y proyectos personalizados. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final {[}\protect\hyperlink{ref-patterson_computer_2014}{23}{]}.
 
-\begin{longtable}[]{@{}lllll@{}}
-\caption{\label{tab:tabla-comparacion-cpu}Comparación de Arquitecturas}\tabularnewline
+\begin{table}[!h]
+\centering
+\caption{\label{tab:comparacion-cpu}Comparación de Arquitecturas}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
-\begin{minipage}[b]{0.17\columnwidth}\raggedright
-Característica\strut
-\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright
-x86\strut
-\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright
-ARM\strut
-\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright
-MIPS\strut
-\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
-RISC.V\strut
-\end{minipage}\tabularnewline
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{x86}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{ARM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{MIPS}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{RISC-V}}}\\
 \midrule
-\endfirsthead
-\toprule
-\begin{minipage}[b]{0.17\columnwidth}\raggedright
-Característica\strut
-\end{minipage} & \begin{minipage}[b]{0.18\columnwidth}\raggedright
-x86\strut
-\end{minipage} & \begin{minipage}[b]{0.16\columnwidth}\raggedright
-ARM\strut
-\end{minipage} & \begin{minipage}[b]{0.15\columnwidth}\raggedright
-MIPS\strut
-\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
-RISC.V\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.17\columnwidth}\raggedright
-Eficiencia Energética\strut
-\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
-Moderada\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
-Alta\strut
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
-Moderada\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-Alta\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.17\columnwidth}\raggedright
-Complejidad ISA\strut
-\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
-Alta\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
-Baja\strut
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
-Moderada\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-Baja\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.17\columnwidth}\raggedright
-Rendimiento\strut
-\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
-Alto\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
-Moderado\strut
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
-Moderado\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-Variable\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.17\columnwidth}\raggedright
-Compatibilidad\strut
-\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
-Alta (hacia atrás)\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
-Moderada\strut
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
-Moderada\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-Alta\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.17\columnwidth}\raggedright
-Áreas de Aplicación\strut
-\end{minipage} & \begin{minipage}[t]{0.18\columnwidth}\raggedright
-Escritorio, servidores\strut
-\end{minipage} & \begin{minipage}[t]{0.16\columnwidth}\raggedright
-Dispositivos móviles\strut
-\end{minipage} & \begin{minipage}[t]{0.15\columnwidth}\raggedright
-Sistemas embebidos\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-Investigación, embebidos\strut
-\end{minipage}\tabularnewline
+\textbf{Eficiencia Energética} & Moderada & Alta & Moderada & Alta\\
+\addlinespace[10pt]
+\textbf{Complejidad ISA} & Alta & Baja & Moderada & Baja\\
+\addlinespace[10pt]
+\textbf{Rendimiento} & Alto & Moderado & Moderado & Variable\\
+\addlinespace[10pt]
+\textbf{Compatibilidad} & Alta (hacia atrás) & Moderada & Moderada & Alta\\
+\addlinespace[10pt]
+\textbf{Áreas de Aplicación} & Escritorio, servidores & Dispositivos móviles & Sistemas embebidos & Investigación, embebidos\\
+\addlinespace[10pt]
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\end{table}
 
 \hypertarget{repertorio-de-instrucciones}{%
 \section{Repertorio de instrucciones}\label{repertorio-de-instrucciones}}
@@ -676,99 +612,36 @@ Estos modos se ilustran en la figura \ref{fig:ModDir} según {[}\protect\hyperli
   EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
 \end{itemize}
 
-La tabla @ref(tab:tab\_mod\_dir) detalla el cálculo de la dirección para cada modo de direccionamiento.
+La tabla detalla el cálculo de la dirección para cada modo de direccionamiento.
 
-\begin{longtable}[]{@{}llll@{}}
-\caption{(\#tab:tab\_mod\_dir )Modos de direccionamiento básicos}\tabularnewline
+\textbackslash begin\{table\}{[}!h{]}
+\centering
+\textbackslash caption\{(\#tab:tab\_mod\_dir)Modos de direccionamiento básicos\}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
-\begin{minipage}[b]{0.19\columnwidth}\raggedright
-Modo\strut
-\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
-Algoritmo\strut
-\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\raggedright
-Principal.ventaja\strut
-\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
-Principal.desventaja\strut
-\end{minipage}\tabularnewline
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Algoritmo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Principal ventaja}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Principal desventaja}}}\\
 \midrule
-\endfirsthead
-\toprule
-\begin{minipage}[b]{0.19\columnwidth}\raggedright
-Modo\strut
-\end{minipage} & \begin{minipage}[b]{0.20\columnwidth}\raggedright
-Algoritmo\strut
-\end{minipage} & \begin{minipage}[b]{0.24\columnwidth}\raggedright
-Principal.ventaja\strut
-\end{minipage} & \begin{minipage}[b]{0.26\columnwidth}\raggedright
-Principal.desventaja\strut
-\end{minipage}\tabularnewline
-\midrule
-\endhead
-\begin{minipage}[t]{0.19\columnwidth}\raggedright
-Inmediato\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-Operando ← A\strut
-\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
-No referencia a memoria\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Operando de magnitud limitada\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.19\columnwidth}\raggedright
-Directo\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-EA ← A\strut
-\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
-Es sencillo\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Espacio de direcciones limitado\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.19\columnwidth}\raggedright
-Indirecto\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-EA ← (A)\strut
-\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
-Espacio de direcciones grande\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Referencias múltiples a memoria\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.19\columnwidth}\raggedright
-Registro\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-EA ← R\strut
-\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
-No referencia a memoria\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Número limitado de registros\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.19\columnwidth}\raggedright
-Indirecto con registro\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-EA ← (R)\strut
-\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
-Espacio de direcciones grande\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Referencia extra a memoria\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.19\columnwidth}\raggedright
-Con desplazamiento\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-EA ← A + (R)\strut
-\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
-Flexibilidad\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Complejidad\strut
-\end{minipage}\tabularnewline
-\begin{minipage}[t]{0.19\columnwidth}\raggedright
-Pila\strut
-\end{minipage} & \begin{minipage}[t]{0.20\columnwidth}\raggedright
-EA ← cabecera de la pila\strut
-\end{minipage} & \begin{minipage}[t]{0.24\columnwidth}\raggedright
-No referencia a memoria\strut
-\end{minipage} & \begin{minipage}[t]{0.26\columnwidth}\raggedright
-Aplicabilidad limitada\strut
-\end{minipage}\tabularnewline
+\textbf{Inmediato} & Operando ← A & No referencia a memoria & Operando de magnitud limitada\\
+\addlinespace[10pt]
+\textbf{Directo} & EA ← A & Es sencillo & Espacio de direcciones limitado\\
+\addlinespace[10pt]
+\textbf{Indirecto} & EA ← (A) & Espacio de direcciones grande & Referencias múltiples a memoria\\
+\addlinespace[10pt]
+\textbf{Registro} & EA ← R & No referencia a memoria & Número limitado de registros\\
+\addlinespace[10pt]
+\textbf{Indirecto con registro} & EA ← (R) & Espacio de direcciones grande & Referencia extra a memoria\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{Con desplazamiento} & EA ← A + (R) & Flexibilidad & Complejidad\\
+\addlinespace[10pt]
+\textbf{Pila} & EA ← cabecera de la pila & No referencia a memoria & Aplicabilidad limitada\\
+\addlinespace[10pt]
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\textbackslash end\{table\}
 
 \hypertarget{formato-de-las-instrucciones}{%
 \subsection{Formato de las instrucciones}\label{formato-de-las-instrucciones}}

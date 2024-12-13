@@ -271,65 +271,125 @@ Figura 2.4: Modos de direccionamiento
 <li>R = contenido de un campo de dirección en la instrucción que referencia a un registro</li>
 <li>EA = dirección real (efectiva) de la posición que contiene el operando que se referencia</li>
 </ul>
-<p>La tabla @ref(tab:tab_mod_dir) detalla el cálculo de la dirección para cada modo de direccionamiento.</p>
-<table style="width:100%;">
-<caption>(#tab:tab_mod_dir )Modos de direccionamiento básicos</caption>
-<colgroup>
-<col width="20%" />
-<col width="22%" />
-<col width="27%" />
-<col width="29%" />
-</colgroup>
+<p>La tabla detalla el cálculo de la dirección para cada modo de direccionamiento.</p>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+(#tab:tab_mod_dir)Modos de direccionamiento básicos
+</caption>
 <thead>
-<tr class="header">
-<th align="left">Modo</th>
-<th align="left">Algoritmo</th>
-<th align="left">Principal.ventaja</th>
-<th align="left">Principal.desventaja</th>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Modo
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Algoritmo
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Principal ventaja
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Principal desventaja
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="left">Inmediato</td>
-<td align="left">Operando ← A</td>
-<td align="left">No referencia a memoria</td>
-<td align="left">Operando de magnitud limitada</td>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Inmediato
+</td>
+<td style="text-align:left;width: 20em; ">
+Operando ← A
+</td>
+<td style="text-align:left;width: 20em; ">
+No referencia a memoria
+</td>
+<td style="text-align:left;width: 20em; ">
+Operando de magnitud limitada
+</td>
 </tr>
-<tr class="even">
-<td align="left">Directo</td>
-<td align="left">EA ← A</td>
-<td align="left">Es sencillo</td>
-<td align="left">Espacio de direcciones limitado</td>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Directo
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← A
+</td>
+<td style="text-align:left;width: 20em; ">
+Es sencillo
+</td>
+<td style="text-align:left;width: 20em; ">
+Espacio de direcciones limitado
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Indirecto</td>
-<td align="left">EA ← (A)</td>
-<td align="left">Espacio de direcciones grande</td>
-<td align="left">Referencias múltiples a memoria</td>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Indirecto
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← (A)
+</td>
+<td style="text-align:left;width: 20em; ">
+Espacio de direcciones grande
+</td>
+<td style="text-align:left;width: 20em; ">
+Referencias múltiples a memoria
+</td>
 </tr>
-<tr class="even">
-<td align="left">Registro</td>
-<td align="left">EA ← R</td>
-<td align="left">No referencia a memoria</td>
-<td align="left">Número limitado de registros</td>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Registro
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← R
+</td>
+<td style="text-align:left;width: 20em; ">
+No referencia a memoria
+</td>
+<td style="text-align:left;width: 20em; ">
+Número limitado de registros
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Indirecto con registro</td>
-<td align="left">EA ← (R)</td>
-<td align="left">Espacio de direcciones grande</td>
-<td align="left">Referencia extra a memoria</td>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Indirecto con registro
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← (R)
+</td>
+<td style="text-align:left;width: 20em; ">
+Espacio de direcciones grande
+</td>
+<td style="text-align:left;width: 20em; ">
+Referencia extra a memoria
+</td>
 </tr>
-<tr class="even">
-<td align="left">Con desplazamiento</td>
-<td align="left">EA ← A + (R)</td>
-<td align="left">Flexibilidad</td>
-<td align="left">Complejidad</td>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Con desplazamiento
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← A + (R)
+</td>
+<td style="text-align:left;width: 20em; ">
+Flexibilidad
+</td>
+<td style="text-align:left;width: 20em; ">
+Complejidad
+</td>
 </tr>
-<tr class="odd">
-<td align="left">Pila</td>
-<td align="left">EA ← cabecera de la pila</td>
-<td align="left">No referencia a memoria</td>
-<td align="left">Aplicabilidad limitada</td>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Pila
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← cabecera de la pila
+</td>
+<td style="text-align:left;width: 20em; ">
+No referencia a memoria
+</td>
+<td style="text-align:left;width: 20em; ">
+Aplicabilidad limitada
+</td>
 </tr>
 </tbody>
 </table>
