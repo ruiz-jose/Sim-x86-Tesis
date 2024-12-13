@@ -153,27 +153,27 @@ knitr::include_graphics(path = "images/modosdireccionamiento.png")
   - R = contenido de un campo de dirección en la instrucción que referencia a un registro
   - EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
 
-La tabla detalla el cálculo de la dirección para cada modo de direccionamiento.
+La tabla \@ref(tab:tabmoddir) detalla el cálculo de la dirección para cada modo de direccionamiento.
 
-```{r tab_mod_dir, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tabmoddir, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 library(magrittr)
 
 # Crear los datos de la tabla
-tab_mod_dir <- data.frame(
+tabmoddir <- data.frame(
   `Modo` = c("Inmediato", "Directo", "Indirecto", "Registro",
              "Indirecto con registro", "Con desplazamiento", "Pila"),
   `Algoritmo` = c("Operando \u2190 A", "EA \u2190 A", "EA \u2190 (A)",
                   "EA \u2190 R", "EA \u2190 (R)", "EA \u2190 A + (R)",
                   "EA \u2190 cabecera de la pila"),
-  `Principal ventaja` = c("No referencia a memoria",
-                          "Es sencillo", "Espacio de direcciones grande",
-                          "No referencia a memoria",
-                          "Espacio de direcciones grande",
-                          "Flexibilidad",
-                          "No referencia a memoria"),
-  `Principal desventaja` = c(
+  `Ventaja` = c("No referencia a memoria",
+                "Es sencillo", "Espacio de direcciones grande",
+                "No referencia a memoria",
+                "Espacio de direcciones grande",
+                "Flexibilidad",
+                "No referencia a memoria"),
+  `Desventaja` = c(
     "Operando de magnitud limitada",
     "Espacio de direcciones limitado",
     "Referencias múltiples a memoria",
@@ -185,16 +185,16 @@ tab_mod_dir <- data.frame(
 )
 
 # Crear la tabla con formato dinámico
-tabla <- kable(tab_mod_dir,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Modos de direccionamiento básicos",
-               col.names = c("Modo", "Algoritmo", "Principal ventaja", "Principal desventaja"), # nolint: line_length_linter.
-               booktabs = TRUE,
-               escape = FALSE)
+tabla_moddir <- kable(tabmoddir,
+                      format = ifelse(knitr::is_latex_output(), "latex", "html"), # nolint
+                      caption = "Modos de direccionamiento básicos",
+                      col.names = c("Modo", "Algoritmo", "Ventaja", "Desventaja"), # nolint: line_length_linter.
+                      booktabs = TRUE,
+                      escape = FALSE)
 
 # Convertir a HTML o LaTeX según el formato de salida
 if (knitr::is_latex_output()) {
-  tabla %>%
+  tabla_moddir %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
       font_size = 10
@@ -202,11 +202,11 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:4, width = "4cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(tab_mod_dir)),
+    row_spec(seq_len(nrow(tabmoddir)),
              extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
 
 } else {
-  tabla %>%
+  tabla_moddir %>%
     kable_styling(
       bootstrap_options = c("striped", "hover", "condensed", "responsive"),
       full_width = FALSE,
@@ -225,9 +225,9 @@ El formato de las instrucciones define su estructura, incluyendo longitud, canti
 - **Cantidad de operandos**: las instrucciones pueden trabajar con diferentes números de operandos (de 0 a 3 o más). Más operandos ofrecen mayor versatilidad, pero aumentan la complejidad y longitud de las instrucciones.
 - **Campos de instrucción**: incluyen el opcode y campos adicionales como operandos, modos de direccionamiento y flags de condición. Estos campos determinan cuántas y qué tipo de operaciones puede ejecutar el procesador en un ciclo de reloj.
 
-La Figura @ref(fig:formatoInst) ilustra un esquema típico de formato de instrucciones:
+La Figura \@ref(fig:forminst) ilustra un esquema típico de formato de instrucciones:
 
-```{r formatoInst, echo=FALSE, fig.cap="Formato de instrucciones ", fig.align = 'center', out.width = "100%"}
+```{r forminst, echo=FALSE, fig.cap="Formato de instrucciones ", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/formatoInst.jpg")
 ```
 
@@ -327,22 +327,35 @@ ciscrisc <- data.frame(
            "Acceso más rápido a los operandos, menor latencia")
 )
 
+# Crear la tabla con formato dinámico
+tabla <- kable(ciscrisc,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Comparativa entre CISC y RISC",
+               col.names = c("Aspecto", "CISC", "RISC"),
+               booktabs = TRUE,
+               escape = FALSE)
+
 if (knitr::is_latex_output()) {
-  kable(ciscrisc, format = "latex", booktabs = TRUE,
-        caption = "Comparativa entre CISC y RISC") %>%
-    kable_styling(latex_options = "scale_down") %>%
-    column_spec(1, width = "6cm") %>%
-    column_spec(2, width = "5cm") %>%
-    column_spec(3, width = "5cm") %>%
-    row_spec(1:6, extra_latex_after = "\\addlinespace[10pt]")
+  tabla %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "5cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(ciscrisc)),
+             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
 } else {
-  kable(ciscrisc, format = "html",
-        table.attr = "class='table table-striped'",
-        caption = "Comparativa entre CISC y RISC") %>%
-    kable_styling(full_width = FALSE) %>%
-    column_spec(1, width = "20em") %>%
-    column_spec(2, width = "15em") %>%
-    column_spec(3, width = "15em")
+  tabla %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "20em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
 
@@ -371,7 +384,36 @@ hitosx86 <- data.frame(
   )
 )
 
-kable(hitosx86, format = "markdown", caption = "Hitos procesadores x86")
+# Crear la tabla con formato dinámico
+tabla <- kable(hitosx86,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Hitos procesadores x86",
+               col.names = c("Procesador", "Año de Lanzamiento", "Número de Bits", "Extensiones de 64 bits"), # nolint
+               booktabs = TRUE,
+               escape = FALSE)
+
+if (knitr::is_latex_output()) {
+  tabla %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "4cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(hitosx86)),
+             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
+} else {
+  tabla %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "18em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
 ```
 
 La tabla \@ref(tab:evolucionx86) muesta comó la evolución de x86 ha estado marcada por avances tecnológicos que han impulsado la informática hacia nuevas fronteras:
@@ -392,11 +434,36 @@ Procesador = c("Intel 8086", "Intel 80286", "Intel 80386", "Intel 80486", "Intel
                             "Optimización de rendimiento y eficiencia energética") # nolint: line_length_linter.
 )
 
-kable(
-  evolucionx86,
-  format = "markdown",
-  caption = "Línea de Tiempo de la Evolución de la Arquitectura x86"
-)
+# Crear la tabla con formato dinámico
+tabla <- kable(evolucionx86,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Línea de Tiempo de la Evolución de la Arquitectura x86", # nolint
+               col.names = c("Año", "Procesador", "Innovación"),
+               booktabs = TRUE,
+               escape = FALSE)
+
+if (knitr::is_latex_output()) {
+  tabla %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "5cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(evolucionx86)),
+             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
+} else {
+  tabla %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "20em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
 ```
 
 ###  Repertorio de instrucciones x86
@@ -480,20 +547,35 @@ ensambladores <- data.frame(
   stringsAsFactors = FALSE
 )
 
-# Mostrar la tabla en formato adecuado según el tipo de salida
+
+# Crear la tabla con formato dinámico
+tabla <- kable(ensambladores,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Hitos procesadores x86",
+               col.names = c("Característica", "TASM", "MASM", "NASM"), # nolint
+               booktabs = TRUE,
+               escape = FALSE)
+
 if (knitr::is_latex_output()) {
-  kable(ensambladores, format = "latex", booktabs = TRUE,
-        caption = "Comparativa de Ensambladores x86") %>%
-    kable_styling(latex_options = "scale_down") %>%
-    column_spec(1, width = "6cm") %>%
-    column_spec(2:4, width = "5cm") %>%
-    row_spec(0, bold = TRUE)
+  tabla %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "4cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(ensambladores)),
+             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
 } else {
-  kable(ensambladores, format = "html",
-        caption = "Comparativa de Ensambladores x86") %>%
-    kable_styling(full_width = FALSE, position = "center", bootstrap_options = c("striped", "hover")) %>% # nolint: line_length_linter.
-    column_spec(1, width = "20em") %>%
-    column_spec(2:4, width = "15em") %>%
-    row_spec(0, bold = TRUE)
+  tabla %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "18em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
