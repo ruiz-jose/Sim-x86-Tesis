@@ -63,12 +63,11 @@ RISC-V ha revolucionado el panorama de la arquitectura de computadoras con su en
 ### Compararativa de arquitecturas
 Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. MIPS y RISC-V, por su parte, se especializan en nichos como sistemas embebidos y proyectos personalizados. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final [@patterson_computer_2014].
 
-```{r comparacion-cpu, echo=FALSE, message=FALSE, warning=FALSE}
+```{r comparq, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
-library(magrittr)
 
-comparacion_cpu <- data.frame(
+comparq <- data.frame(
   Característica = c(
     "Eficiencia Energética",
     "Complejidad ISA",
@@ -81,11 +80,11 @@ comparacion_cpu <- data.frame(
   ARM = c("Alta", "Baja", "Moderado", "Moderada", "Dispositivos móviles"),
   MIPS = c("Moderada", "Moderada", "Moderado",
            "Moderada", "Sistemas embebidos"),
-  `RISC-V` = c("Alta", "Baja", "Variable", "Alta", "Investigación, embebidos")
+  RISCV = c("Alta", "Baja", "Variable", "Alta", "Investigación, embebidos")
 )
 
 # Crear la tabla con formato dinámico
-tabla <- kable(comparacion_cpu,
+tabla <- kable(comparq,
                format = ifelse(knitr::is_latex_output(), "latex", "html"),
                caption = "Comparación de Arquitecturas",
                col.names = c("Característica", "x86", "ARM", "MIPS", "RISC-V"), # nolint: line_length_linter.
@@ -102,7 +101,7 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:5, width = "4cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(comparacion_cpu)),
+    row_spec(seq_len(nrow(comparq)),
              extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
 
 } else {
@@ -145,7 +144,7 @@ Los modos de direccionamiento son esenciales para determinar cómo el procesador
   g) **Pila**: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.
 
 Estos modos se ilustran en la figura \@ref(fig:ModDir) según [@stallings_computer_2013]:
-```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento ", fig.align = 'center', out.width = "80%"}
+```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento ", fig.align = 'center', out.width="60%", fig.pos='htbp'}
 knitr::include_graphics(path = "images/modosdireccionamiento.png")
 ```
 
@@ -155,7 +154,7 @@ knitr::include_graphics(path = "images/modosdireccionamiento.png")
 
 La tabla \@ref(tab:tabmoddir) detalla el cálculo de la dirección para cada modo de direccionamiento.
 
-```{r tabmoddir, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tabmoddir, echo=FALSE, message=FALSE, warning=FALSE, table.pos='htbp'}
 library(knitr)
 library(kableExtra)
 library(magrittr)
