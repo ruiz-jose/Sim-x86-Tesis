@@ -34,15 +34,5 @@ jobs:
         Rscript -e 'install.packages(c("bookdown", "kableExtra", "shiny", "learnr"))'
 
     - name: Render book to PDF
-      run: Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
-
-    - name: Render book to HTML
-      run: Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs
-        publish_branch: gh-pages
-        keep_files: true
+      run: |
+        Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::pdf_book")'
