@@ -26,8 +26,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        Rscript -e 'install.packages("bookdown")'
-        Rscript -e 'install.packages(c("kableExtra", "shiny", "learnr"))'
+        Rscript -e 'install.packages(c("bookdown", "kableExtra", "shiny", "learnr"))'
 
     - name: Render book to PDF
       run: Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
