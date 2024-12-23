@@ -495,6 +495,30 @@ dirampliado <- data.frame(
 kable(dirampliado, format = "markdown", col.names = c("Función", "Byte", "Interpretación")) # nolint: line_length_linter.
 ```
 
+
+Las instrucciones de almacenar en memoria (C):
+
+```{r dirampliado2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Definir los datos de la tabla
+dirampliado2 <- data.frame(
+  `Función` = c("00YY", "01YY", "01YY", "1100", "1101", "1110"),
+  `Byte` = c("2", "1", "2", "3", "2", "3"),
+  `Interpretación` = c(
+    "directo `D` = Dirección de memoria, `YY` = Registro fuente",
+    "indirecto `BL`, `YY` = Registro fuente",
+    "Indirecto la dirección se calcula operando implícito `BL` + Dato Inmediato", # nolint: line_length_linter.
+    "Inmediato a memoria",
+    "Inmediato a memoria mediante indirecto `BL`",
+    "Inmediato a memoria mediante indirecto `BL`+ Dato Inmediato"
+  )
+)
+
+kable(dirampliado2, format = "markdown", col.names = c("Función", "Byte", "Interpretación")) # nolint: line_length_linter.
+```
+
 El formato ampliado para las instrucciones incluye los siguientes casos tabla \@ref(tab:formatoampliado):
 
 ```{r formatoampliado, echo=FALSE, message=FALSE, warning=FALSE}
@@ -551,16 +575,58 @@ if (knitr::is_latex_output()) {
 
 
 
+```{r formatoampliado2, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
 
-| Modo direccionamientos C: Almacenar en memoria  |  |  |
-| :---: | :---: | :---: |
-| **`ffff`= funcionalidad** | **`Byte`= tamaño** | **Interpretación** |
-| 00YY |  2 |directo `D` = Dirección de memoria, `YY` = Registro fuente |
-| 01YY |  1 |indirecto `BL`, `YY` = Registro fuente|
-| 01YY |  2 |Indirecto la dirección se calcula operando implícito `BL` + Dato Inmediato |
-| 1100 |  3 |Inmediato a memoria|
-| 1101 |  2 |Inmediato a memoria mediante indirecto `BL`|
-| 1110 |  3 |Inmediato a memoria mediante indirecto `BL`+ Dato Inmediato |
+# Crear un dataframe con los datos
+formatoampliado2 <- data.frame(
+  CodOp = c("0", "1", "1", "1", "1", "2"),
+  Instrucción = c("`MOV Rx, Ry`", "`MOV Rx, [M]`", "`MOV Rx, [BL]`", "`MOV Rx, D`", "`MOV Rx, [BL + D]`", "`MOV [M], Ry`"), # nolint: line_length_linter.
+  Acción = c("`Rx` <-- `Ry`", "`Rx` <-- `Mem[Dirección]`", "`Rx` <-- `Mem[BL]` ", "`Rx` <-- `Dato`", "`Rx` <-- `Mem[BL + Dato]` ", "`Mem[Dirección]` <-- `Rx`"), # nolint: line_length_linter, line_length_linter.
+  Codificación = c(
+    "`0000 XXYY`",
+    "`0001 XX00 MMMMMMMM`",
+    "`0001 XX01`",
+    "`0001 XX10 MMMMMMMM`",
+    "`0001 XX11 MMMMMMMM`",
+    "`0010 00YY MMMMMMMM`"
+  ),
+  stringsAsFactors = FALSE
+)
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  kable(formatoampliado2, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
+        caption = "Tabla de codificación de instrucciones ampliado") %>%
+    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+    column_spec(1, width = "4cm") %>%
+    column_spec(2, width = "5cm") %>%
+    column_spec(3, width = "5cm") %>%
+    column_spec(4, width = "6cm") %>%
+    row_spec(4, extra_latex_after = "\\midrule") %>%
+    footnote(
+      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
+} else {
+  kable(formatoampliado2, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
+        caption = "Tabla de codificación de instrucciones ampliado") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%
+    column_spec(2, width = "25em") %>%
+    column_spec(3, width = "25em") %>%
+    column_spec(4, width = "30em") %>%
+    row_spec(4, extra_css = "border-top: 2px solid #000;") %>%
+    footnote(
+      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
+}
+```
+
 
 | # | Instrucción        | Acción                                                             | Codificación                  |
 | - | ---                | ---                                                                | ---                           |
@@ -587,7 +653,7 @@ if (knitr::is_latex_output()) {
 | C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 MMMMMMMM`          |
 | C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 MMMMMMMM`          |
 | C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 MMMMMMMM`          |
-| C | `Jxx M`            | Se pueden implementar más flags y CALL                           | `1100 ffff --------`          |
+| C | `Jxx M`            | Se pueden implementar más flags y CALL                             | `1100 ffff --------`          |
 
 ### Ciclo de la instrucción: modos adicionales
 
