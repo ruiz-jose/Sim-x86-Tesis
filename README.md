@@ -5,8 +5,9 @@ sudo apt-get update
 
 # Instalar dependencias del sistema
 sudo apt-get install r-base-core
-sudo apt-get install pandoc
-sudo apt-get install pandoc-citeproc
+sudo apt-get install pandoc 
+pandoc --version
+pandoc 2.19.2
 sudo apt-get install libxml2-dev
 
 # Abrir R y ejecutar comandos para instalar paquetes de R
