@@ -581,23 +581,115 @@ library(kableExtra)
 
 # Crear un dataframe con los datos
 formatoampliado2 <- data.frame(
-  CodOp = c("0", "1", "1", "1", "1", "2"),
-  Instrucción = c("`MOV Rx, Ry`", "`MOV Rx, [M]`", "`MOV Rx, [BL]`", "`MOV Rx, D`", "`MOV Rx, [BL + D]`", "`MOV [M], Ry`"), # nolint: line_length_linter.
-  Acción = c("`Rx` <-- `Ry`", "`Rx` <-- `Mem[Dirección]`", "`Rx` <-- `Mem[BL]` ", "`Rx` <-- `Dato`", "`Rx` <-- `Mem[BL + Dato]` ", "`Mem[Dirección]` <-- `Rx`"), # nolint: line_length_linter, line_length_linter.
+  CodOp = c(
+    "0",
+    "1",
+    "1",
+    "1",
+    "1",
+    "2",
+    "2",
+    "2",
+    "2",
+    "2",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "A",
+    "B",
+    "C",
+    "C",
+    "C",
+    "C"
+  ),
+  Instrucción = c(
+    "`MOV Rx, Ry`",
+    "`MOV Rx, [M]`",
+    "`MOV Rx, [BL]`",
+    "`MOV Rx, D`",
+    "`MOV Rx, [BL + D]`",
+    "`MOV [M], Ry`",
+    "`MOV [BL], Ry`",
+    "`MOV [BL + D], Ry`",
+    "`MOV [M], D`",
+    "`MOV [BL], D`",
+    "`MOV [BL + D], D`",
+    "`ADD Rx, Ry`",
+    "`ADD Rx, --`",
+    "`ADD [M], --`",
+    "`SUB Rx, Ry`",
+    "`SUB Rx, --`",
+    "`SUB [M], --`",
+    "`CMP Rx, Ry`",
+    "`CMP Rx, --`",
+    "`CMP [M], --`",
+    "`JMP M`",
+    "`JC M`",
+    "`JZ M`",
+    "`Jxx M`"
+  ), # nolint: line_length_linter.
+  Acción = c(
+    "`Rx` <-- `Ry`",
+    "`Rx` <-- `Mem[Dirección]`",
+    "`Rx` <-- `Mem[BL]` ",
+    "`Rx` <-- `Dato`",
+    "`Rx` <-- `Mem[BL + Dato]` ",
+    "`Mem[Dirección]` <-- `Rx`",
+    "`Mem[BL]` <-- `Rx`",
+    "`Mem[BL + Dato]` <-- `Rx`",
+    "`Mem[Dirección]` <-- `Dato`",
+    "`Mem[BL + Dato]` <-- `Dato`",
+    "`Rx` <-- `Rx + Ry`",
+    "Carga en registro",
+    "Almacenar en memoria",
+    "`Rx` <-- `Rx - Ry`",
+    "Carga en registro",
+    "Almacenar en memoria",
+    "No almacena el resultado en Rx: `Rx - Ry`",
+    "registro-memoria",
+    "memoria-registro",
+    "`IP` <-- `Dirección`",
+    "Si `C` = 1 entonces `IP` <-- `Dirección`",
+    "Si `Z` = 1 entonces `IP` <-- `Dirección`",
+    "Se pueden implementar más flags y CALL"
+  ), # nolint: line_length_linter, line_length_linter.
   Codificación = c(
     "`0000 XXYY`",
     "`0001 XX00 MMMMMMMM`",
     "`0001 XX01`",
     "`0001 XX10 MMMMMMMM`",
     "`0001 XX11 MMMMMMMM`",
-    "`0010 00YY MMMMMMMM`"
+    "`0010 00YY MMMMMMMM`",
+    "`0010 01YY`",
+    "`0010 10YY MMMMMMMM`",
+    "`0010 1100 MMMMMMMM dddddddd`",
+    "`0010 1101 MMMMMMMM`",
+    "`0010 1110 MMMMMMMM`",
+    "`0011 XXYY`",
+    "`0100 ---- --------`",
+    "`0101 ---- -------- --------`",
+    "`0110 XXYY`",
+    "`0111 ---- --------`",
+    "`1000 ---- -------- --------`",
+    "`1001 XXYY`",
+    "`1010 ---- --------`",
+    "`1011 ---- -------- --------`",
+    "`1100 0000 MMMMMMMM`",
+    "`1100 0001 MMMMMMMM`",
+    "`1100 0011 MMMMMMMM`",
+    "`1100 ffff MMMMMMMM`"
   ),
   stringsAsFactors = FALSE
 )
 
 # Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  kable(formatoampliado2, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
+  kable(formatoampliado2, format = "latex", booktabs = TRUE, align = "l", col.names = c("CodOp", "Instrucción", "Acción", "Codificación"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones ampliado") %>%
     kable_styling(latex_options = c("hold_position", "scale_down")) %>%
     column_spec(1, width = "4cm") %>%
@@ -611,7 +703,7 @@ if (knitr::is_latex_output()) {
       threeparttable = TRUE
     )
 } else {
-  kable(formatoampliado2, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
+  kable(formatoampliado2, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("CodOp", "Instrucción", "Acción", "Codificación"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones ampliado") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
     column_spec(1, width = "20em") %>%
@@ -626,34 +718,6 @@ if (knitr::is_latex_output()) {
     )
 }
 ```
-
-
-| # | Instrucción        | Acción                                                             | Codificación                  |
-| - | ---                | ---                                                                | ---                           |
-| 0 | `MOV Rx, Ry`       | `Rx` $\leftarrow$ `Ry`                                             | `0000 XXYY`                   |
-| 1 | `MOV Rx, [M]`      | `Rx` $\leftarrow$ `Mem[Dirección]`                                 | `0001 XX00 MMMMMMMM`          |
-| 1 | `MOV Rx, [BL]`     | `Rx` $\leftarrow$ `Mem[BL]`                                        | `0001 XX01`                   |
-| 1 | `MOV Rx, D`        | `Rx` $\leftarrow$ `Dato`                                           | `0001 XX10 MMMMMMMM`          |
-| 1 | `MOV Rx, [BL + D]` | `Rx` $\leftarrow$ `Mem[BL + Dato]`                                 | `0001 XX11 MMMMMMMM`          |
-| 2 | `MOV [M], Ry`      | `Mem[Dirección]` $\leftarrow$ `Rx`                                 | `0010 00YY MMMMMMMM`          |
-| 2 | `MOV [BL], Ry`     | `Mem[BL]` $\leftarrow$ `Rx`                                        | `0010 01YY`                   |
-| 2 | `MOV [BL + D], Ry` | `Mem[BL + Dato]` $\leftarrow$ `Rx`                                 | `0010 10YY MMMMMMMM`          |
-| 2 | `MOV [M], D`       | `Mem[Dirección]` $\leftarrow$ `Dato`                               | `0010 1100 MMMMMMMM dddddddd` |
-| 2 | `MOV [BL], D`      | `Mem[BL]` $\leftarrow$ `Dato`                                      | `0010 1101 MMMMMMMM`          |
-| 2 | `MOV [BL + D], D`  | `Mem[BL + Dato]` $\leftarrow$ `Dato`                               | `0010 1110 MMMMMMMM`          |
-| 3 | `ADD Rx, Ry`       | `Rx` $\leftarrow$ `Rx + Ry`                                        | `0011 XXYY`                   |
-| 4 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0100 ---- --------`          |
-| 5 | `ADD --, --`       | Mismo direccionamientos que MOV                                    | `0101 ---- -------- --------` |
-| 6 | `SUB Rx, Ry`       | `Rx` $\leftarrow$ `Rx - Ry`                                        | `0110 XXYY`                   |
-| 7 | `SUB --, --`       | Mismo direccionamientos que MOV                                    | `0111 ---- --------`          |
-| 8 | `SUB --, --`       | Mismo direccionamientos que MOV                                    | `1000 ---- -------- --------` |
-| 9 | `CMP Rx, Ry`       | Modifica *flags* de `Rx - Ry`                                      | `1001 XXYY`                   |
-| A | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1010 ---- --------`          |
-| B | `CMP --, --`       | Mismo direccionamientos que MOV                                    | `1011 ---- -------- --------` |
-| C | `JMP M`            | `IP` $\leftarrow$ `Dirección`                                      | `1100 0000 MMMMMMMM`          |
-| C | `JC M`             | Si `flag C=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0001 MMMMMMMM`          |
-| C | `JZ M`             | Si `flag Z=1` entonces `IP` $\leftarrow$ `Dirección`               | `1100 0011 MMMMMMMM`          |
-| C | `Jxx M`            | Se pueden implementar más flags y CALL                             | `1100 ffff --------`          |
 
 ### Ciclo de la instrucción: modos adicionales
 
