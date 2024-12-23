@@ -575,12 +575,12 @@ if (knitr::is_latex_output()) {
 
 
 
-```{r formatoampliado2, echo=FALSE, message=FALSE, warning=FALSE}
+```{r formampl2, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
 # Crear un dataframe con los datos
-formatoampliado2 <- data.frame(
+formampl2 <- data.frame(
   CodOp = c(
     "0",
     "1",
@@ -634,28 +634,29 @@ formatoampliado2 <- data.frame(
     "`Jxx M`"
   ), # nolint: line_length_linter.
   Acción = c(
-    "`Rx` <-- `Ry`",
-    "`Rx` <-- `Mem[Dirección]`",
-    "`Rx` <-- `Mem[BL]` ",
-    "`Rx` <-- `Dato`",
-    "`Rx` <-- `Mem[BL + Dato]` ",
-    "`Mem[Dirección]` <-- `Rx`",
-    "`Mem[BL]` <-- `Rx`",
-    "`Mem[BL + Dato]` <-- `Rx`",
-    "`Mem[Dirección]` <-- `Dato`",
-    "`Mem[BL + Dato]` <-- `Dato`",
-    "`Rx` <-- `Rx + Ry`",
+    "`Rx` ← `Ry`",
+    "`Rx` ← `Mem[Dirección]`",
+    "`Rx` ← `Mem[BL]` ",
+    "`Rx` ← `Dato`",
+    "`Rx` ← `Mem[BL + Dato]` ",
+    "`Mem[Dirección]` ← `Rx`",
+    "`Mem[BL]` ← `Rx`",
+    "`Mem[BL + Dato]` ← `Rx`",
+    "`Mem[Dirección]` ← `Dato`",
+    "`Mem[BL]` ← `Dato`",
+    "`Mem[BL + Dato]` ← `Dato`",
+    "`Rx` ← `Rx + Ry`",
     "Carga en registro",
     "Almacenar en memoria",
-    "`Rx` <-- `Rx - Ry`",
+    "`Rx` ← `Rx - Ry`",
     "Carga en registro",
     "Almacenar en memoria",
-    "No almacena el resultado en Rx: `Rx - Ry`",
-    "registro-memoria",
-    "memoria-registro",
-    "`IP` <-- `Dirección`",
-    "Si `C` = 1 entonces `IP` <-- `Dirección`",
-    "Si `Z` = 1 entonces `IP` <-- `Dirección`",
+    "`Rx - Ry`: bo almacena el resultado en Rx",
+    "registro - memoria",
+    "memoria - registro",
+    "`IP` ← `Dirección`",
+    "Si `C` = 1 entonces `IP` ← `Dirección`",
+    "Si `Z` = 1 entonces `IP` ← `Dirección`",
     "Se pueden implementar más flags y CALL"
   ), # nolint: line_length_linter, line_length_linter.
   Codificación = c(
@@ -689,33 +690,23 @@ formatoampliado2 <- data.frame(
 
 # Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  kable(formatoampliado2, format = "latex", booktabs = TRUE, align = "l", col.names = c("CodOp", "Instrucción", "Acción", "Codificación"), # nolint: line_length_linter.
+  kable(formampl2, format = "latex", booktabs = TRUE, align = "l", col.names = c("CodOp", "Instrucción", "Acción", "Codificación"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones ampliado") %>%
     kable_styling(latex_options = c("hold_position", "scale_down")) %>%
     column_spec(1, width = "4cm") %>%
     column_spec(2, width = "5cm") %>%
     column_spec(3, width = "5cm") %>%
     column_spec(4, width = "6cm") %>%
-    row_spec(4, extra_latex_after = "\\midrule") %>%
-    footnote(
-      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
-      general_title = "Nota: ",
-      threeparttable = TRUE
-    )
+    row_spec(24, extra_latex_after = "\\midrule")
 } else {
-  kable(formatoampliado2, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("CodOp", "Instrucción", "Acción", "Codificación"), # nolint: line_length_linter.
+  kable(formampl2, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("CodOp", "Instrucción", "Acción", "Codificación"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones ampliado") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
     column_spec(1, width = "20em") %>%
     column_spec(2, width = "25em") %>%
     column_spec(3, width = "25em") %>%
     column_spec(4, width = "30em") %>%
-    row_spec(4, extra_css = "border-top: 2px solid #000;") %>%
-    footnote(
-      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
-      general_title = "Nota: ",
-      threeparttable = TRUE
-    )
+    row_spec(24, extra_css = "border-top: 2px solid #000;")
 }
 ```
 
