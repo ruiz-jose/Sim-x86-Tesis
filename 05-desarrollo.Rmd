@@ -767,8 +767,10 @@ if (knitr::is_latex_output()) {
   kable(isacompleta, format = "latex", booktabs = TRUE, longtable = TRUE, align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), # nolint: line_length_linter.
         caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86") %>% # nolint
     kable_styling(latex_options = c("scale_down", "hold_position")) %>%
-    column_spec(1, width = "8em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:4, width = "10em") %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "5cm") %>%
+    column_spec(3, width = "5cm") %>%
+    column_spec(4, width = "6cm") %>%
     row_spec(0, bold = TRUE)
 } else {
   kable(isacompleta, format = "markdown", align = "l", col.names = c("Código operación", "Instrucciones", "nemónico", "Acción"), # nolint: line_length_linter.
