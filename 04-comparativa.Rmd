@@ -104,7 +104,7 @@ A continuación, se presenta un análisis detallado de los simuladores seleccion
 - **Ejecución de simulación**: Nivel alto. Proporciona control avanzado de la simulación, como retroceder una instrucción ("step back").
 - **Nivel de especificación**: Nivel completo. Detalla la arquitectura del procesador 8086, con memoria direccionable de 1 MiB y soporte para interrupciones de software y hardware.
 - **Desarrollo del producto**: Nivel bueno. Licencia privativa, última actualización en 2023, desarrollado para plataformas de escritorio.
-- **Cobertura de contenidos**: Nivel alto. Emula el booteo de una IBM PC desde un disco flexible (floppy disk) y soporta todos los modos de direccionamiento.
+- **Cobertura de contenidos**: Nivel alto. Emula el arranque (bootstrapping) de una IBM PC desde un disco flexible (floppy disk) y soporta todos los modos de direccionamiento.
 
 ```{r tabla-comparativa-criterios, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -121,7 +121,7 @@ tabla_comparativa <- data.frame(
 kable(tabla_comparativa , format = "markdown", caption = "Comparativa según criterios de evaluación preestablecidos")
 ```
 
-##   Resultados
+## Resultados
 La asignatura promueve el uso de simuladores para apoyar la enseñanza y el aprendizaje, permitiendo aplicar los contenidos desarrollados en máquinas reales. Emu8086 es la herramienta más adecuada para esta finalidad, ya que facilita la implementación de programas en hardware real. Sin embargo, su dependencia de MS-DOS complica su ejecución en sistemas operativos actuales, requiriendo el uso de emuladores de MS-DOS, lo que añade complejidad al proceso de enseñanza y aprendizaje.
 
 Desde 2018, la asignatura utiliza la versión 4.08 de Emu8086. La herramienta tiene un periodo de evaluación gratuito de 14 días, después del cual se debe adquirir una licencia. Esto es un inconveniente, ya que se busca que los estudiantes puedan acceder a las herramientas de forma libre y gratuita.
@@ -130,7 +130,7 @@ Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux co
 
 Emu8086 destaca por su interfaz dinámica, que muestra componentes como la pila, flags, teclado y pantalla solo cuando son necesarios, a diferencia de otros simuladores que presentan todos sus componentes desde el inicio.
 
-En el criterio de evaluación dos, Emu8086 se destaca por su editor, que incluye puntos de ruptura para detener la ejecución del programa en un punto específico y retroceder a la intrucción anterior. Además, permite guardar y recuperar programas directamente desde el editor.
+En el criterio de evaluación dos, Emu8086 se destaca por su editor, que incluye puntos de ruptura para detener la ejecución del programa en un punto específico y retroceder a la instrucción anterior. Además, permite guardar y recuperar programas directamente desde el editor.
 
 En el criterio de evaluación tres, Emu8086 se destaca por ofrecer tres tipos de documentación: un repertorio de instrucciones con ejemplos para cada tipo de instrucción, un manual que explica las partes de la herramienta y un tutorial para aprender a programar en ensamblador.
 
