@@ -10,6 +10,7 @@ R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
 sudo apt-get install pandoc 
 pandoc --version
 pandoc 3.1.6
+sudo apt-get install libfontconfig1-dev libxml2-dev libfreetype6-dev
 
 # Abrir R y ejecutar comandos para instalar paquetes de R
 install.packages('bookdown')
