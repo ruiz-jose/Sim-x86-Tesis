@@ -27,7 +27,12 @@ Versión de knitr:  1.49
 install.packages("rmarkdown")
 cat("Versión de rmarkdown: ", as.character(packageVersion("rmarkdown")), "\n")
 Versión de rmarkdown:  2.29
-install.packages("xml2")
+install.packages("systemfonts")
+cat("Versión de systemfonts: ", as.character(packageVersion("systemfonts")), "\n")
+Versión de xml2:  1.1.0 
+install.packages("svglite")
+cat("Versión de svglite: ", as.character(packageVersion("svglite")), "\n")
+Versión de svglite:  2.1.3 
 cat("Versión de xml2: ", as.character(packageVersion("xml2")), "\n")
 Versión de xml2:  1.3.6 
 install.packages("kableExtra")
