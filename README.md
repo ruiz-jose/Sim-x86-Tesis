@@ -12,7 +12,7 @@ pandoc --version
 pandoc 3.1.6
 
 # Abrir R y ejecutar comandos para instalar paquetes de R
-install.packages("R -e "install.packages('bookdown')"")
+install.packages('bookdown')
 cat("Versión de bookdown: ", as.character(packageVersion("bookdown")), "\n")
 Versión de bookdown:  0.41 
 tinytex::install_tinytex()
