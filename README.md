@@ -1,9 +1,18 @@
 # Generar tesis con R interactivo
 
-# Actualizar lista de paquetes
+## Actualizar lista de paquetes
+```bash
 sudo apt-get update
+```
 
-# Instalar dependencias del sistema
+## Agregar el repositorio CRAN de R
+```bash
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu focal-cran40/'
+```
+
+## Instalar dependencias del sistema
+```bash
 sudo apt-get install r-base-core
 R --version
 R version 4.4.2 (2024-10-31) -- "Pile of Leaves"
@@ -11,6 +20,12 @@ sudo apt-get install pandoc
 pandoc --version
 pandoc 3.1.6
 sudo apt-get install libfontconfig1-dev libxml2-dev libfreetype6-dev
+```
+
+## Actualizar lista de paquetes
+```bash
+sudo apt-get update
+```
 
 # Abrir R y ejecutar comandos para instalar paquetes de R
 install.packages('bookdown')
@@ -34,6 +49,7 @@ Versión de xml2:  1.1.0
 install.packages("svglite")
 cat("Versión de svglite: ", as.character(packageVersion("svglite")), "\n")
 Versión de svglite:  2.1.3 
+install.packages("xml2")
 cat("Versión de xml2: ", as.character(packageVersion("xml2")), "\n")
 Versión de xml2:  1.3.6 
 install.packages("kableExtra")
