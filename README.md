@@ -31,6 +31,7 @@ sudo apt-get update
 install.packages('bookdown')
 cat("Versión de bookdown: ", as.character(packageVersion("bookdown")), "\n")
 Versión de bookdown:  0.41 
+install.packages('tinytex')
 tinytex::install_tinytex()
 cat("Versión de tinytex: ", as.character(packageVersion("tinytex")), "\n")
 Versión de tinytex:  0.54 
