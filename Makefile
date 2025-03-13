@@ -20,7 +20,7 @@ clean:
 
 # Iniciar un servidor HTTP en el directorio docs
 serve:
-	python3 -m http.server --directory docs 8000
+	python3 -m http.server 8080 --bind localhost --directory docs
 
 
 .PHONY: all pdf web clean
