@@ -39,9 +39,3 @@ jobs:
       run: |
         Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::gitbook", output_dir = "docs")'
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./docs  # Ajusta esto a la carpeta donde se encuentran tus documentos
-        publish_branch: gh-pages  # Asegúrat
