@@ -29,15 +29,15 @@ jobs:
       run: |
         Rscript -e 'install.packages("tinytex")'
         Rscript -e 'tinytex::install_tinytex()'
+        Rscript -e 'tinytex::tlmgr_install("multirow")'  # Instalar el paquete multirow
 
     - name: Install dependencies
       run: |
-        Rscript -e 'install.packages(c("bookdown"))'
-        Rscript -e 'install.packages(c("kableExtra", "shiny", "learnr", "xml2"))'
+        Rscript -e 'install.packages(c("bookdown", "kableExtra", "shiny", "learnr", "xml2"))'
 
-    - name: Render book to PDF
+    - name: Render book to GitBook
       run: |
-        Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::pdf_book")'
+        Rscript -e 'bookdown::render_book("index.Rmd", "bookdown::gitbook", output_dir = "docs")'
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
