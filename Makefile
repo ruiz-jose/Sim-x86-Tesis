@@ -19,8 +19,12 @@ clean:
 	rm -f tesis.pdf
 
 # Iniciar un servidor HTTP en el directorio docs
+# para github codespaces es el segundo
 serve:
-	python3 -m http.server 8080 --bind localhost --directory docs
+	python3 -m http.server 8080 --directory docs
+	
+#	python3 -m http.server 8080 --bind localhost --directory docs
+
 
 
 .PHONY: all pdf web clean
