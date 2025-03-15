@@ -21,8 +21,6 @@ jobs:
     - name: Install dependencies
       run: |
         Rscript -e 'install.packages(c("bookdown", "kableExtra"), repos = "https://cloud.r-project.org")'
-        Rscript -e 'if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")'
-        Rscript -e 'remotes::install_deps(dependencies = TRUE)'
 
     - name: Build the book
       run: |
