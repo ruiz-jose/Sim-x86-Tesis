@@ -18,6 +18,10 @@ jobs:
       with:
         r-version: '4.2.0' # Usa una versión reciente de R
 
+    - name: Install Pandoc
+      run: |
+        sudo apt-get install -y pandoc
+
     - name: Install dependencies
       run: |
         Rscript -e 'install.packages(c("bookdown", "kableExtra"), repos = "https://cloud.r-project.org")'
