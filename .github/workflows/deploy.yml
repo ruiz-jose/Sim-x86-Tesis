@@ -18,13 +18,18 @@ jobs:
       with:
         r-version: '4.2.0' # Usa una versión reciente de R
 
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libxml2-dev libfontconfig1-dev libfreetype6-dev
+
     - name: Install Pandoc
       run: |
         sudo apt-get install -y pandoc
 
     - name: Install dependencies
       run: |
-        Rscript -e 'install.packages(c("bookdown", "kableExtra"), repos = "https://cloud.r-project.org")'
+        Rscript -e 'install.packages(c("bookdown", "kableExtra", "knitr", "rmarkdown"), repos = "https://cloud.r-project.org")'
 
     - name: Build the book
       run: |
