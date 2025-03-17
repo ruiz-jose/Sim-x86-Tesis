@@ -38,6 +38,11 @@ jobs:
     - name: Build the book
       run: |
         Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::gitbook')"
+    
+    - name: Generate PDF
+      run: |
+        Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
+        mv tesis.pdf docs/
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
