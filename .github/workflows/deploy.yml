@@ -18,6 +18,12 @@ jobs:
       with:
         r-version: '4.2.0'
 
+    - name: Install Pandoc
+      run: |
+        wget https://github.com/jgm/pandoc/releases/download/3.1.6/pandoc-3.1.6-1-amd64.deb
+        sudo dpkg -i pandoc-3.1.6-1-amd64.deb
+        pandoc --version
+
     - name: Install TinyTeX
       run: |
         Rscript -e "install.packages('tinytex', repos = 'https://cloud.r-project.org')"
