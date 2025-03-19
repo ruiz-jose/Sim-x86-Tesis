@@ -41,11 +41,15 @@ jobs:
     - name: Generate PDF
       run: |
         Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
-        if [ -f "tesis.pdf" ]; then
-          mv tesis.pdf docs/
+        if [ ! -f "docs/tesis.pdf" ]; then
+          if [ -f "tesis.pdf" ]; then
+            mv tesis.pdf docs/
+          else
+            echo "tesis.pdf not found"
+            exit 1
+          fi
         else
-          echo "tesis.pdf not found"
-          exit 1
+          echo "tesis.pdf already exists in docs/"
         fi
 
 
