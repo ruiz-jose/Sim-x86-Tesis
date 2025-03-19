@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.4 Repertorio de instrucciones | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="2.4 Repertorio de instrucciones | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.4 Repertorio de instrucciones | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.4 Repertorio de instrucciones | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  
+  
+  
+
+<meta name="author" content="Ruiz Jose Maria" />
+
+
+<meta name="date" content="2025-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="tipos-de-arquitecturas.html"/>
+<link rel="next" href="filosofías-cisc-y-risc.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sim-x86</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="" data-path="agradecimientos.html"><a href="agradecimientos.html"><i class="fa fa-check"></i>Agradecimientos</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="justificación.html"><a href="justificación.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="objetivos.html"><a href="objetivos.html"><i class="fa fa-check"></i><b>1.2</b> Objetivos</a></li>
+<li class="chapter" data-level="1.3" data-path="metodología-de-desarrollo.html"><a href="metodología-de-desarrollo.html"><i class="fa fa-check"></i><b>1.3</b> Metodología de desarrollo</a></li>
+<li class="chapter" data-level="1.4" data-path="organización-del-documento.html"><a href="organización-del-documento.html"><i class="fa fa-check"></i><b>1.4</b> Organización del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="arquitectura.html"><a href="arquitectura.html"><i class="fa fa-check"></i><b>2</b> Arquitectura de computadoras</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introducción-a-la-arquitectura-de-computadoras.html"><a href="introducción-a-la-arquitectura-de-computadoras.html"><i class="fa fa-check"></i><b>2.1</b> Introducción a la arquitectura de computadoras</a></li>
+<li class="chapter" data-level="2.2" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html"><i class="fa fa-check"></i><b>2.2</b> Arquitecturas Von Neumann y Harvard</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#arquitectura-von-neumann"><i class="fa fa-check"></i><b>2.2.1</b> Arquitectura Von Neumann</a></li>
+<li class="chapter" data-level="2.2.2" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#arquitectura-harvard"><i class="fa fa-check"></i><b>2.2.2</b> Arquitectura Harvard</a></li>
+<li class="chapter" data-level="2.2.3" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#comparación-y-aplicaciones-modernas"><i class="fa fa-check"></i><b>2.2.3</b> Comparación y aplicaciones modernas</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html"><i class="fa fa-check"></i><b>2.3</b> Tipos de arquitecturas</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-x86"><i class="fa fa-check"></i><b>2.3.1</b> Arquitectura x86</a></li>
+<li class="chapter" data-level="2.3.2" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-arm"><i class="fa fa-check"></i><b>2.3.2</b> Arquitectura ARM</a></li>
+<li class="chapter" data-level="2.3.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-mips"><i class="fa fa-check"></i><b>2.3.3</b> Arquitectura MIPS</a></li>
+<li class="chapter" data-level="2.3.4" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-risc-v"><i class="fa fa-check"></i><b>2.3.4</b> Arquitectura RISC-V</a></li>
+<li class="chapter" data-level="2.3.5" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#comparativa-de-arquitecturas"><i class="fa fa-check"></i><b>2.3.5</b> Comparativa de arquitecturas</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html"><i class="fa fa-check"></i><b>2.4</b> Repertorio de instrucciones</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#características-clave-del-isa"><i class="fa fa-check"></i><b>2.4.1</b> Características clave del ISA</a></li>
+<li class="chapter" data-level="2.4.2" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#modos-de-direccionamiento"><i class="fa fa-check"></i><b>2.4.2</b> Modos de direccionamiento</a></li>
+<li class="chapter" data-level="2.4.3" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#formato-de-las-instrucciones"><i class="fa fa-check"></i><b>2.4.3</b> Formato de las instrucciones</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html"><i class="fa fa-check"></i><b>2.5</b> Filosofías CISC y RISC</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#cisc"><i class="fa fa-check"></i><b>2.5.1</b> CISC</a></li>
+<li class="chapter" data-level="2.5.2" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#RISC"><i class="fa fa-check"></i><b>2.5.2</b> RISC</a></li>
+<li class="chapter" data-level="2.5.3" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#comparativa-entre-cisc-y-risc"><i class="fa fa-check"></i><b>2.5.3</b> Comparativa entre CISC y RISC</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="arquitectura-x86-1.html"><a href="arquitectura-x86-1.html"><i class="fa fa-check"></i><b>2.6</b> Arquitectura x86</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="arquitectura-x86-1.html"><a href="arquitectura-x86-1.html#evolución-de-la-arquitectura-x86"><i class="fa fa-check"></i><b>2.6.1</b> Evolución de la arquitectura x86</a></li>
+<li class="chapter" data-level="2.6.2" data-path="arquitectura-x86-1.html"><a href="arquitectura-x86-1.html#repertorio-de-instrucciones-x86"><i class="fa fa-check"></i><b>2.6.2</b> Repertorio de instrucciones x86</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="lenguaje-ensamblador.html"><a href="lenguaje-ensamblador.html"><i class="fa fa-check"></i><b>2.7</b> Lenguaje ensamblador</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="lenguaje-ensamblador.html"><a href="lenguaje-ensamblador.html#ensamblador"><i class="fa fa-check"></i><b>2.7.1</b> Ensamblador</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simulación.html"><a href="simulación.html"><i class="fa fa-check"></i><b>3</b> Simulación</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introducción-a-la-simulación.html"><a href="introducción-a-la-simulación.html"><i class="fa fa-check"></i><b>3.1</b> Introducción a la simulación</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="introducción-a-la-simulación.html"><a href="introducción-a-la-simulación.html#aplicaciones-de-la-simulación-en-la-industria"><i class="fa fa-check"></i><b>3.1.1</b> Aplicaciones de la simulación en la industria</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="simulación-en-la-educación.html"><a href="simulación-en-la-educación.html"><i class="fa fa-check"></i><b>3.2</b> Simulación en la educación</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simulación-en-la-educación.html"><a href="simulación-en-la-educación.html#el-rol-de-la-simulación-en-la-enseñanza-de-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.2.1</b> El rol de la simulación en la enseñanza de Arquitectura de Computadoras</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html"><i class="fa fa-check"></i><b>3.3</b> El Formalismo DEVS (Discrete Event System Specification)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#estructura-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.1</b> Estructura del formalismo DEVS</a></li>
+<li class="chapter" data-level="3.3.2" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#aplicaciones-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.2</b> Aplicaciones del formalismo DEVS</a></li>
+<li class="chapter" data-level="3.3.3" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#devs-en-la-enseñanza-de-la-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.3.3</b> DEVS en la enseñanza de la Arquitectura de Computadoras</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="comparativa.html"><a href="comparativa.html"><i class="fa fa-check"></i><b>4</b> Comparativa de simuladores</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="estudios-similares.html"><a href="estudios-similares.html"><i class="fa fa-check"></i><b>4.1</b> Estudios similares</a></li>
+<li class="chapter" data-level="4.2" data-path="simuladores-bajo-análisis.html"><a href="simuladores-bajo-análisis.html"><i class="fa fa-check"></i><b>4.2</b> Simuladores bajo análisis</a></li>
+<li class="chapter" data-level="4.3" data-path="criterios-de-evaluación.html"><a href="criterios-de-evaluación.html"><i class="fa fa-check"></i><b>4.3</b> Criterios de evaluación</a></li>
+<li class="chapter" data-level="4.4" data-path="selección-de-simuladores.html"><a href="selección-de-simuladores.html"><i class="fa fa-check"></i><b>4.4</b> Selección de simuladores</a></li>
+<li class="chapter" data-level="4.5" data-path="participantes-en-la-evaluación.html"><a href="participantes-en-la-evaluación.html"><i class="fa fa-check"></i><b>4.5</b> Participantes en la evaluación</a></li>
+<li class="chapter" data-level="4.6" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html"><i class="fa fa-check"></i><b>4.6</b> Análisis comparativo</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html#simple-8-bit-assembler-simulator"><i class="fa fa-check"></i><b>4.6.1</b> Simple 8-bit Assembler Simulator</a></li>
+<li class="chapter" data-level="4.6.2" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html#vonsim"><i class="fa fa-check"></i><b>4.6.2</b> VonSim</a></li>
+<li class="chapter" data-level="4.6.3" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html#emu8086"><i class="fa fa-check"></i><b>4.6.3</b> Emu8086</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="resultados.html"><a href="resultados.html"><i class="fa fa-check"></i><b>4.7</b> Resultados</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="resultados.html"><a href="resultados.html#publicación"><i class="fa fa-check"></i><b>4.7.1</b> Publicación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="desarrollo.html"><a href="desarrollo.html"><i class="fa fa-check"></i><b>5</b> Diseño y Construcción del Simulador</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="requisitos-de-la-herramienta.html"><a href="requisitos-de-la-herramienta.html"><i class="fa fa-check"></i><b>5.1</b> Requisitos de la herramienta</a></li>
+<li class="chapter" data-level="5.2" data-path="diseño-conceptual.html"><a href="diseño-conceptual.html"><i class="fa fa-check"></i><b>5.2</b> Diseño conceptual</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="diseño-conceptual.html"><a href="diseño-conceptual.html#modelo-arquitectónico"><i class="fa fa-check"></i><b>5.2.1</b> Modelo arquitectónico</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html"><i class="fa fa-check"></i><b>5.3</b> Implementación del repertorio de instrucciones</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#selección-del-repertorio-inicial"><i class="fa fa-check"></i><b>5.3.1</b> Selección del repertorio inicial</a></li>
+<li class="chapter" data-level="5.3.2" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#justificación-de-la-simplificación"><i class="fa fa-check"></i><b>5.3.2</b> Justificación de la simplificación</a></li>
+<li class="chapter" data-level="5.3.3" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#beneficios-de-la-simplificación"><i class="fa fa-check"></i><b>5.3.3</b> Beneficios de la simplificación</a></li>
+<li class="chapter" data-level="5.3.4" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.3.4</b> Formato de instrucciones</a></li>
+<li class="chapter" data-level="5.3.5" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.3.5</b> Modos de direccionamiento</a></li>
+<li class="chapter" data-level="5.3.6" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución"><i class="fa fa-check"></i><b>5.3.6</b> Ciclo de la instrucción: Etapas de captación y ejecución</a></li>
+<li class="chapter" data-level="5.3.7" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#modos-de-direccionamiento-adicionales"><i class="fa fa-check"></i><b>5.3.7</b> Modos de direccionamiento adicionales</a></li>
+<li class="chapter" data-level="5.3.8" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#formato-ampliado"><i class="fa fa-check"></i><b>5.3.8</b> Formato ampliado</a></li>
+<li class="chapter" data-level="5.3.9" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#ciclo-de-la-instrucción-modos-adicionales"><i class="fa fa-check"></i><b>5.3.9</b> Ciclo de la instrucción: modos adicionales</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="tercera-etapa.html"><a href="tercera-etapa.html"><i class="fa fa-check"></i><b>5.4</b> Tercera etapa</a></li>
+<li class="chapter" data-level="5.5" data-path="simulación-visual-e-interactiva.html"><a href="simulación-visual-e-interactiva.html"><i class="fa fa-check"></i><b>5.5</b> Simulación visual e interactiva</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="simulación-visual-e-interactiva.html"><a href="simulación-visual-e-interactiva.html#representación-gráfica-de-componentes"><i class="fa fa-check"></i><b>5.5.1</b> Representación gráfica de componentes</a></li>
+<li class="chapter" data-level="5.5.2" data-path="simulación-visual-e-interactiva.html"><a href="simulación-visual-e-interactiva.html#ejecución-paso-a-paso"><i class="fa fa-check"></i><b>5.5.2</b> Ejecución paso a paso</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="gestión-de-interrupciones-y-periféricos.html"><a href="gestión-de-interrupciones-y-periféricos.html"><i class="fa fa-check"></i><b>5.6</b> Gestión de interrupciones y periféricos</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="gestión-de-interrupciones-y-periféricos.html"><a href="gestión-de-interrupciones-y-periféricos.html#manejo-del-vector-de-interrupciones"><i class="fa fa-check"></i><b>5.6.1</b> Manejo del vector de interrupciones</a></li>
+<li class="chapter" data-level="5.6.2" data-path="gestión-de-interrupciones-y-periféricos.html"><a href="gestión-de-interrupciones-y-periféricos.html#instrucciones-in-y-out"><i class="fa fa-check"></i><b>5.6.2</b> Instrucciones IN y OUT</a></li>
+<li class="chapter" data-level="5.6.3" data-path="gestión-de-interrupciones-y-periféricos.html"><a href="gestión-de-interrupciones-y-periféricos.html#segunda-etapa"><i class="fa fa-check"></i><b>5.6.3</b> Segunda etapa</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="integración-de-métricas-de-rendimiento.html"><a href="integración-de-métricas-de-rendimiento.html"><i class="fa fa-check"></i><b>5.7</b> Integración de métricas de rendimiento</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="integración-de-métricas-de-rendimiento.html"><a href="integración-de-métricas-de-rendimiento.html#métricas-calculadas"><i class="fa fa-check"></i><b>5.7.1</b> Métricas calculadas</a></li>
+<li class="chapter" data-level="5.7.2" data-path="integración-de-métricas-de-rendimiento.html"><a href="integración-de-métricas-de-rendimiento.html#análisis-de-casos-de-estudio"><i class="fa fa-check"></i><b>5.7.2</b> Análisis de casos de estudio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="proceso-de-validación.html"><a href="proceso-de-validación.html"><i class="fa fa-check"></i><b>5.8</b> Proceso de validación</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="proceso-de-validación.html"><a href="proceso-de-validación.html#validación-funcional"><i class="fa fa-check"></i><b>5.8.1</b> Validación funcional</a></li>
+<li class="chapter" data-level="5.8.2" data-path="proceso-de-validación.html"><a href="proceso-de-validación.html#evaluación-pedagógica"><i class="fa fa-check"></i><b>5.8.2</b> Evaluación pedagógica</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="portabilidad-y-mantenibilidad.html"><a href="portabilidad-y-mantenibilidad.html"><i class="fa fa-check"></i><b>5.9</b> Portabilidad y Mantenibilidad</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliografía.html"><a href="bibliografía.html"><i class="fa fa-check"></i>Bibliografía</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/ruiz-jose/Sim-x86-Tesis" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="repertorio-de-instrucciones" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Repertorio de instrucciones<a href="repertorio-de-instrucciones.html#repertorio-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y manipulación de datos, además de los modos de direccionamiento y los formatos de las instrucciones. El diseño del ISA tiene un impacto directo en el rendimiento, la eficiencia energética y la flexibilidad del procesador, lo que lo convierte en un componente clave en la arquitectura de computadoras <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>; <a href="#ref-stallings_computer_2013">Stallings 2013</a>)</span>.</p>
+<div id="características-clave-del-isa" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Características clave del ISA<a href="repertorio-de-instrucciones.html#características-clave-del-isa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Entre las características fundamentales a considerar en el diseño de un repertorio de instrucciones se encuentran las siguientes <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>)</span>:</p>
+<ul>
+<li><strong>Tipos de operandos</strong>: representan los datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres y direcciones de memoria. Un ISA eficiente debe soportar una amplia variedad de operandos para maximizar su versatilidad.</li>
+<li><strong>Tipos de operaciones</strong>: incluyen las operaciones que el procesador puede realizar, como aritméticas (suma, resta), lógicas (AND, OR), de control (saltos, llamadas a subrutinas) y de manipulación de datos (almacenamiento, carga). Un repertorio bien diseñado debe equilibrar funcionalidad y simplicidad.</li>
+<li><strong>Modos de direccionamiento</strong>: determinan cómo se especifican los operandos en las instrucciones. Modos como inmediato, directo, indirecto y relativo ofrecen diferentes niveles de flexibilidad y eficiencia.</li>
+<li><strong>Formato de las instrucciones</strong>: define la estructura de una instrucción, incluyendo su longitud, el número de operandos y los modos de direccionamiento. Este aspecto influye tanto en la complejidad del procesador como en su rendimiento.</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:repInstCaracteristicas"></span>
+<img src="images/repInstCaracteristicas.jpg" alt="Características repertorio de instrucciones" width="100%" />
+<p class="caption">
+Figura 2.3: Características repertorio de instrucciones
+</p>
+</div>
+</div>
+<div id="modos-de-direccionamiento" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Modos de direccionamiento<a href="repertorio-de-instrucciones.html#modos-de-direccionamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Los modos de direccionamiento son esenciales para determinar cómo el procesador accede a los datos necesarios para ejecutar una instrucción. Los modos más comunes incluyen <span class="citation">(<a href="#ref-stallings_computer_2013">Stallings 2013</a>; <a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>)</span>:</p>
+<ol style="list-style-type: lower-alpha">
+<li><strong>Inmediato</strong>: el operando está directamente incluido en la instrucción, permitiendo acceso rápido a valores constantes. Es eficiente para operaciones simples, aunque limitado a operandos pequeños.</li>
+<li><strong>Directo</strong>: la instrucción contiene la dirección de memoria del operando. Es fácil de usar, pero está restringido por el rango de direcciones accesibles.</li>
+<li><strong>Indirecto</strong>: la instrucción apunta a una dirección que contiene la ubicación real del operando, lo que amplía el rango de direcciones a costa de un acceso adicional a memoria.</li>
+<li><strong>Registro</strong>: el operando se encuentra en un registro del procesador, proporcionando acceso extremadamente rápido, pero limitado por la cantidad de registros disponibles.</li>
+<li><strong>Registro Indirecto</strong>: similar al modo indirecto, pero la dirección se almacena en un registro, combinando rapidez y flexibilidad.</li>
+<li><strong>Con Desplazamiento</strong>: combina una dirección base con un valor de desplazamiento, ideal para estructuras como arrays y matrices.</li>
+<li><strong>Pila</strong>: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.</li>
+</ol>
+Estos modos se ilustran en la figura <a href="repertorio-de-instrucciones.html#fig:ModDir">2.4</a> según <span class="citation">(<a href="#ref-stallings_computer_2013">Stallings 2013</a>)</span>:
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ModDir"></span>
+<img src="images/modosdireccionamiento.png" alt="Modos de direccionamiento " width="60%" />
+<p class="caption">
+Figura 2.4: Modos de direccionamiento
+</p>
+</div>
+<ul>
+<li>A = contenido de un campo de dirección en la instrucción</li>
+<li>R = contenido de un campo de dirección en la instrucción que referencia a un registro</li>
+<li>EA = dirección real (efectiva) de la posición que contiene el operando que se referencia</li>
+</ul>
+<p>La tabla <a href="repertorio-de-instrucciones.html#tab:tabmoddir">2.2</a> detalla el cálculo de la dirección para cada modo de direccionamiento.</p>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tabmoddir">Tabla 2.2: </span>Modos de direccionamiento básicos
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Modo
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Algoritmo
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Ventaja
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Desventaja
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Inmediato
+</td>
+<td style="text-align:left;width: 20em; ">
+Operando ← A
+</td>
+<td style="text-align:left;width: 20em; ">
+No referencia a memoria
+</td>
+<td style="text-align:left;width: 20em; ">
+Operando de magnitud limitada
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Directo
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← A
+</td>
+<td style="text-align:left;width: 20em; ">
+Es sencillo
+</td>
+<td style="text-align:left;width: 20em; ">
+Espacio de direcciones limitado
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Indirecto
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← (A)
+</td>
+<td style="text-align:left;width: 20em; ">
+Espacio de direcciones grande
+</td>
+<td style="text-align:left;width: 20em; ">
+Referencias múltiples a memoria
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Registro
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← R
+</td>
+<td style="text-align:left;width: 20em; ">
+No referencia a memoria
+</td>
+<td style="text-align:left;width: 20em; ">
+Número limitado de registros
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Indirecto con registro
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← (R)
+</td>
+<td style="text-align:left;width: 20em; ">
+Espacio de direcciones grande
+</td>
+<td style="text-align:left;width: 20em; ">
+Referencia extra a memoria
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Con desplazamiento
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← A + (R)
+</td>
+<td style="text-align:left;width: 20em; ">
+Flexibilidad
+</td>
+<td style="text-align:left;width: 20em; ">
+Complejidad
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+Pila
+</td>
+<td style="text-align:left;width: 20em; ">
+EA ← cabecera de la pila
+</td>
+<td style="text-align:left;width: 20em; ">
+No referencia a memoria
+</td>
+<td style="text-align:left;width: 20em; ">
+Aplicabilidad limitada
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="formato-de-las-instrucciones" class="section level3 hasAnchor" number="2.4.3">
+<h3><span class="header-section-number">2.4.3</span> Formato de las instrucciones<a href="repertorio-de-instrucciones.html#formato-de-las-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El formato de las instrucciones define su estructura, incluyendo longitud, cantidad de operandos y campos adicionales como el opcode (operation code) Este formato afecta la rapidez de decodificación y la eficiencia general del procesador <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-tanenbaum_structured_2013">Tanenbaum 2013</a>)</span>:</p>
+<ul>
+<li><strong>Longitud de la instrucción</strong>: puede ser fija o variable. La longitud fija simplifica el diseño del hardware, mientras que la variable optimiza el uso de memoria, aunque incrementa la complejidad de decodificación.</li>
+<li><strong>Cantidad de operandos</strong>: las instrucciones pueden trabajar con diferentes números de operandos (de 0 a 3 o más). Más operandos ofrecen mayor versatilidad, pero aumentan la complejidad y longitud de las instrucciones.</li>
+<li><strong>Campos de instrucción</strong>: incluyen el opcode y campos adicionales como operandos, modos de direccionamiento y flags de condición. Estos campos determinan cuántas y qué tipo de operaciones puede ejecutar el procesador en un ciclo de reloj.</li>
+</ul>
+<p>La Figura <a href="repertorio-de-instrucciones.html#fig:forminst">2.5</a> ilustra un esquema típico de formato de instrucciones:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:forminst"></span>
+<img src="images/formatoInst.jpg" alt="Formato de instrucciones " width="100%" />
+<p class="caption">
+Figura 2.5: Formato de instrucciones
+</p>
+</div>
+</div>
+</div>
+<h3>Bibliografía<a href="bibliografía.html#bibliografía" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-hennessy_computer_2012" class="csl-entry">
+Hennessy, John L, and David A Patterson. 2012. <em>Computer Architecture: <span>A</span> Quantitative Approach</em>. Fifth Edition. Elsevier.
+</div>
+<div id="ref-null_essentials_2014" class="csl-entry">
+Null, Linda, and Julia Lobur. 2014. <em>Essentials of Computer Organization and Architecture</em>. Jones &amp; Bartlett Publishers.
+</div>
+<div id="ref-stallings_computer_2013" class="csl-entry">
+Stallings, William. 2013. <em>Computer Organization and Architecture: Designing for Performance</em>. Eleventh Edition. Pearson.
+</div>
+<div id="ref-tanenbaum_structured_2013" class="csl-entry">
+Tanenbaum, Andrew S. 2013. <em>Structured Computer Organization</em>. Pearson Education.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tipos-de-arquitecturas.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="filosofías-cisc-y-risc.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": "https://github.com/ruiz-jose/Sim-x86-Tesis",
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/02-arquitectura.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/02-arquitectura.Rmd",
+    "text": null
+  },
+  "download": ["tesis.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
