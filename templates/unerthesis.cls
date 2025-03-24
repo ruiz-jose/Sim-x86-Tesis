@@ -158,17 +158,21 @@
 %                       \@afterheading
 %                     \fi}
 
-\newcommand{\RTcleardoublepage}{
-	\clearpage\if@twoside \ifodd\c@page\else
-	\thispagestyle{empty}\hbox{}\newpage
-	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
+%\newcommand{\RTcleardoublepage}{
+%	\clearpage\if@twoside \ifodd\c@page\else
+%	\thispagestyle{empty}\hbox{}\newpage
+%	\if@twocolumn\hbox{}\newpage\fi\fi\fi}
 
+\newcommand{\RTcleardoublepage}{
+  \clearpage
+}
+  
 \let\RToldcleardoublepage\cleardoublepage
 \renewcommand{\cleardoublepage}{\RTcleardoublepage}
 
 % adjust margins for binding  (changed 2007-04-24 tgp)
 \setlength{\oddsidemargin}{.5in}
-\setlength{\evensidemargin}{0in}
+\setlength{\evensidemargin}{.5in}
 \setlength{\textwidth}{6.0in}
 \setlength{\textheight}{9.0in}
 \setlength\topmargin{0in}
@@ -310,8 +314,10 @@
   \end{titlepage}
 
 %% Approved for the division page
-  \cleardoublepage
-  \cleardoublepage
+  %\cleardoublepage
+  %\cleardoublepage
+  \clearpage
+  \clearpage
   }
 }
 
