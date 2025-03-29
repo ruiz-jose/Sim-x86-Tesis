@@ -154,19 +154,42 @@ $endif$
 \makeatother
 
 % Definir los comandos CSLLeftMargin y CSLRightInline
-\newcommand{\CSLLeftMargin}[1]{}
-\newcommand{\CSLRightInline}[1]{}
+\newcommand{\CSLLeftMargin}[1]{#1} % Define \CSLLeftMargin como un simple contenedor
+\newcommand{\CSLRightInline}[1]{#1} % Define \CSLRightInline como un simple contenedor
+
 
 %Added by @MyKo101, code provided by @GerbrichFerdinands
 $if(csl-refs)$
 \newlength{\cslhangindent}
 \setlength{\cslhangindent}{1.5em}
-\newenvironment{CSLReferences}%
-  {$if(csl-hanging-indent)$\setlength{\parindent}{0pt}%
-  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces$endif$}%
-  {\par}
+\newenvironment{CSLReferences}[2] % #1: hanging indent, #2: entry spacing
+ {\setlength{\parindent}{0pt}%
+  \setlength{\leftskip}{#1 pt\relax}% % Agregar unidad `pt`
+  \setlength{\parskip}{#2 pt\relax}% % Agregar unidad `pt`
+  \everypar{\setlength{\hangindent}{\cslhangindent}}}
+ {\par}
 $endif$
 
+\renewcommand{\maketitle}{%
+  {\pagestyle{empty}
+  \begin{titlepage}
+    \begin{center}
+      \includegraphics[scale=0.25]{images/uner.png} % Logo de la universidad
+      \vspace{1cm}
+      {\Large \textbf{\@title}} % Título de la tesis
+      \vspace{1cm}
+      \textbf{\@degree} \\ % Grado
+      \textbf{\@institution} \\ % Institución
+      \vspace{1cm}
+      \textbf{Autor: \@author}
+      \vspace{1cm}
+      \textbf{Director: \@advisor}
+      \vspace{1cm}
+      \@date
+    \end{center}
+  \end{titlepage}
+  }
+}
 \setlength\parindent{0pt}
 
 
