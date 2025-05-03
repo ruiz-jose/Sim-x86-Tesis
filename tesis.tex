@@ -428,17 +428,33 @@ Este capítulo aborda los conceptos fundamentales de la arquitectura de computad
 \hypertarget{introducciuxf3n-a-la-arquitectura-de-computadoras}{%
 \section{Introducción a la arquitectura de computadoras}\label{introducciuxf3n-a-la-arquitectura-de-computadoras}}
 
-La disciplina de arquitectura de computadoras constituye un pilar central en la informática, enfocada en el diseño y la organización de los componentes que conforman un sistema computacional. Esta área abarca tanto el hardware como el software, y su comprensión es esencial para el desarrollo de sistemas eficientes y potentes. La arquitectura de computadoras no solo alude a la estructura física de los componentes, sino también a la forma en que interactúan entre ellos y con el software \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}, \protect\hyperlink{ref-tanenbaum_structured_2013}{{[}22{]}}, \protect\hyperlink{ref-murdocca_principles_2000}{{[}23{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}24{]}}.
+La arquitectura de computadoras es una disciplina fundamental en el campo de la informática, dedicada al estudio del diseño y la interacción entre los componentes que conforman un sistema computacional. Abarca tanto el hardware como el software, y proporciona las bases necesarias para la construcción de sistemas eficientes, robustos y adaptables a distintos contextos tecnológicos \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}, \protect\hyperlink{ref-tanenbaum_structured_2013}{{[}22{]}}, \protect\hyperlink{ref-murdocca_principles_2000}{{[}23{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}24{]}}.
 
-Es importante diferenciar entre \textbf{arquitectura de computadoras}, que describe los componentes funcionales visibles al programador, y \textbf{organización de computadoras}, que se refiere a la implementación física de dichos componentes. Esta última considera cómo se estructuran y coordinan elementos del hardware, como las unidades de procesamiento, la memoria y las señales de control, con el fin de cumplir los objetivos de rendimiento y funcionalidad \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}, \protect\hyperlink{ref-tanenbaum_structured_2013}{{[}22{]}}, \protect\hyperlink{ref-murdocca_principles_2000}{{[}23{]}}. La arquitectura de computadoras abarca el diseño de elementos como el conjunto de instrucciones, la organización de la memoria y los mecanismos de entrada/salida. Estos elementos inciden directamente en el rendimiento y la eficiencia del sistema, lo cual resulta crucial para el desarrollo de tecnologías emergentes, como sistemas de bajo consumo, computación en la nube o dispositivos embebidos. \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}, \protect\hyperlink{ref-tanenbaum_structured_2013}{{[}22{]}}, \protect\hyperlink{ref-murdocca_principles_2000}{{[}23{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}24{]}}.
+Es importante distinguir entre \textbf{arquitectura de computadoras}, que describe de manera abstracta los componentes visibles al programador ---como el repertorio de instrucciones, los registros o los modos de direccionamiento---, y \textbf{organización de computadoras}, que se enfoca en la implementación física concreta de esos componentes. Por ejemplo, mientras la arquitectura define que existe una unidad de ejecución aritmética, la organización detalla cuántos ciclos de reloj tarda una operación o qué tipo de circuito se utiliza para llevarla a cabo \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}, \protect\hyperlink{ref-tanenbaum_structured_2013}{{[}22{]}}, \protect\hyperlink{ref-murdocca_principles_2000}{{[}23{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}24{]}}.
 
-La arquitectura de computadoras evoluciona constantemente para mejorar rendimiento y eficiencia energética \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}. Este desarrollo ha generado arquitecturas especializadas como ARM y RISC-V, ideales para dispositivos móviles y sistemas embebidos \protect\hyperlink{ref-waterman_risc-v_2014}{{[}25{]}}, \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-null_essentials_2014}{{[}27{]}}.
+En respuesta a las demandas de mayor eficiencia energética y rendimiento, la arquitectura de computadoras ha evolucionado hacia diseños más especializados \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}. Por ejemplo, ARM y RISC-V son arquitecturas que priorizan la simplicidad estructural y el bajo consumo energético, lo que ha favorecido su adopción en dispositivos móviles y sistemas embebidos \protect\hyperlink{ref-waterman_risc-v_2014}{{[}25{]}}, \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-null_essentials_2014}{{[}27{]}}. Estas soluciones contrastan con el enfoque más complejo de la arquitectura x86, que ha derivado en un modelo híbrido con características tanto de CISC como de RISC para responder a los requerimientos crecientes del mercado \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}24{]}}, \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}.
 
-Una comprensión integral de la arquitectura de computadoras requiere analizar atributos clave como el repertorio de instrucciones (por ejemplo, x86 o ARM), la capacidad de procesamiento (32 o 64 bits), las técnicas de direccionamiento de memoria (directo o segmentado), la jerarquía de memoria y los mecanismos de entrada y salida \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}24{]}}, \protect\hyperlink{ref-null_essentials_2014}{{[}27{]}}. También son relevantes aspectos como el paralelismo y la eficiencia energética, los cuales resultan fundamentales tanto para mejorar el rendimiento del hardware como para optimizar el desarrollo de software y sistemas operativos contemporáneos \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}.
+El análisis de una arquitectura de computadoras requiere examinar múltiples dimensiones técnicas que determinan su desempeño y aplicabilidad. Entre los aspectos más relevantes se incluyen:
 
-El estudio de la arquitectura de computadoras no solo brinda herramientas para comprender el funcionamiento interno de los sistemas informáticos, sino que también facilita su adaptación y optimización frente a las exigencias de nuevas tendencias tecnológicas como la computación en la nube, la inteligencia artificial y el internet de las cosas {[}\protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}; \protect\hyperlink{ref-tanenbaum_structured_2013}{{[}22{]}}; \protect\hyperlink{ref-patterson2016computer}{{[}29{]}}; belli2020iot{]}.
+\begin{itemize}
+\tightlist
+\item
+  el repertorio de instrucciones disponible (por ejemplo, en las arquitecturas x86, ARM o RISC-V),
+\item
+  la capacidad de procesamiento, expresada en términos del número de bits (32 o 64 bits),
+\item
+  los modos de direccionamiento de memoria (lineales o segmentados),
+\item
+  la jerarquía de memoria y los mecanismos de entrada/salida,
+\item
+  y otras características como el grado de paralelismo, el soporte para virtualización o el nivel de consumo energético.
+\end{itemize}
 
-En síntesis, la arquitectura de computadoras constituye una disciplina estratégica que habilita la comprensión profunda de los sistemas informáticos y su adaptación a nuevos contextos tecnológicos. Su estudio es fundamental para abordar desafíos en ámbitos como la inteligencia artificial, la ciberseguridad o el desarrollo de sistemas embebidos. Este conocimiento habilita la resolución de desafíos tecnológicos emergentes y potencia la inserción profesional en sectores que demandan competencias en diseño y optimización de sistemas complejos \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}, \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-patterson2016computer}{{[}29{]}}.
+Estos factores son especialmente relevantes en el diseño de sistemas contemporáneos que buscan equilibrar rendimiento, eficiencia y escalabilidad, tales como los utilizados en inteligencia artificial, internet de las cosas (IoT) o ciberseguridad \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}, \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-patterson2016computer}{{[}29{]}}, \protect\hyperlink{ref-belli2020iot}{{[}30{]}}.
+
+En síntesis, comprender los fundamentos de la arquitectura de computadoras no solo permite analizar el funcionamiento interno de un sistema, sino también optimizar el desarrollo de soluciones tecnológicas complejas. Este conocimiento resulta esencial tanto para la innovación en ingeniería de sistemas como para su enseñanza eficaz. En contextos educativos, el uso de herramientas de simulación brinda una oportunidad didáctica valiosa, ya que permite experimentar de forma interactiva con distintas arquitecturas y visualizar el comportamiento interno del hardware \protect\hyperlink{ref-naps2003exploring}{\textbf{naps2003exploring?}}, \protect\hyperlink{ref-gonzalez2020simuladores}{\textbf{gonzalez2020simuladores?}}.
+
+En síntesis, comprender los fundamentos de la arquitectura de computadoras no solo permite entender cómo funciona internamente un sistema, sino que también habilita la optimización de soluciones tecnológicas complejas. Este conocimiento resulta esencial tanto para el desarrollo de nuevas tecnologías como para su enseñanza eficaz. En el ámbito educativo, las herramientas de simulación ofrecen una oportunidad valiosa para experimentar de forma interactiva con distintas arquitecturas, facilitando la comprensión práctica del comportamiento interno del hardware \protect\hyperlink{ref-menchonherramientas}{{[}31{]}}, \protect\hyperlink{ref-rosslingexploring}{{[}32{]}}, \protect\hyperlink{ref-gonzalez2020simuladores}{\textbf{gonzalez2020simuladores?}}.
 
 \hypertarget{arquitecturas-von-neumann-y-harvard}{%
 \section{Arquitecturas Von Neumann y Harvard}\label{arquitecturas-von-neumann-y-harvard}}
@@ -862,7 +878,7 @@ Esta instrucción utiliza varios componentes, que el procesador debe decodificar
 \hypertarget{lenguaje-ensamblador}{%
 \section{Lenguaje ensamblador}\label{lenguaje-ensamblador}}
 
-Un procesador puede interpretar y ejecutar instrucciones exclusivamente en \textbf{lenguaje máquina}, que consiste en secuencias de números binarios almacenadas en memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador intentara escribir código en lenguaje máquina, debería especificar manualmente cada secuencia de ceros y unos para realizar operaciones, respetando estrictamente las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso no solo es tedioso, sino también altamente propenso a errores, especialmente al realizar modificaciones, ya que implicaría descifrar y reescribir las secuencias binarias \protect\hyperlink{ref-irvine2011assembly}{{[}30{]}}.
+Un procesador puede interpretar y ejecutar instrucciones exclusivamente en \textbf{lenguaje máquina}, que consiste en secuencias de números binarios almacenadas en memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador intentara escribir código en lenguaje máquina, debería especificar manualmente cada secuencia de ceros y unos para realizar operaciones, respetando estrictamente las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso no solo es tedioso, sino también altamente propenso a errores, especialmente al realizar modificaciones, ya que implicaría descifrar y reescribir las secuencias binarias \protect\hyperlink{ref-irvine2011assembly}{{[}33{]}}.
 
 Para simplificar este desafío, se desarrolló el \textbf{lenguaje ensamblador}, un lenguaje de programación de bajo nivel que permite a los programadores utilizar instrucciones más legibles mediante mnemónicos simbólicos. A diferencia del lenguaje máquina, que opera con secuencias binarias, el ensamblador emplea símbolos que representan directamente las instrucciones ejecutadas por el procesador. Cada arquitectura de procesador tiene su propio lenguaje ensamblador, generalmente diseñado por el fabricante del hardware y optimizado para la arquitectura específica \protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}.
 
@@ -874,7 +890,7 @@ El ensamblador es un programa que traduce las instrucciones simbólicas escritas
 \hypertarget{ensambladores-x86}{%
 \subsubsection{Ensambladores x86}\label{ensambladores-x86}}
 
-En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) \protect\hyperlink{ref-tasm}{{[}31{]}}, MASM (Microsoft Macro Assembler) \protect\hyperlink{ref-masm}{{[}32{]}} y NASM (Netwide Assembler) \protect\hyperlink{ref-nasm}{{[}33{]}}. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 \protect\hyperlink{ref-hyde2010art}{{[}34{]}}.
+En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) \protect\hyperlink{ref-tasm}{{[}34{]}}, MASM (Microsoft Macro Assembler) \protect\hyperlink{ref-masm}{{[}35{]}} y NASM (Netwide Assembler) \protect\hyperlink{ref-nasm}{{[}36{]}}. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 \protect\hyperlink{ref-hyde2010art}{{[}37{]}}.
 
 A continuación, se presenta una comparativa de las principales características de estos ensambladores:
 
@@ -928,9 +944,9 @@ La posibilidad de analizar sistemas complejos sin intervenir directamente en ell
 \hypertarget{aplicaciones-de-la-simulaciuxf3n-en-la-industria}{%
 \subsection{Aplicaciones de la simulación en la industria}\label{aplicaciones-de-la-simulaciuxf3n-en-la-industria}}
 
-En sectores como la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Gracias a modelos virtuales, se realizan pruebas de colisión y análisis de rendimiento sin necesidad de recurrir a costosas pruebas físicas. Asimismo, la simulación permite optimizar diseños de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales en condiciones extremas, contribuyendo a mejorar tanto la eficiencia como la seguridad de los vehículos \protect\hyperlink{ref-stork_towards_2008}{{[}35{]}}.
+En sectores como la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Gracias a modelos virtuales, se realizan pruebas de colisión y análisis de rendimiento sin necesidad de recurrir a costosas pruebas físicas. Asimismo, la simulación permite optimizar diseños de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales en condiciones extremas, contribuyendo a mejorar tanto la eficiencia como la seguridad de los vehículos \protect\hyperlink{ref-stork_towards_2008}{{[}38{]}}.
 
-En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad \protect\hyperlink{ref-jentsch_simulation_2017}{{[}36{]}}.
+En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad \protect\hyperlink{ref-jentsch_simulation_2017}{{[}39{]}}.
 
 Estos ejemplos destacan cómo la simulación no solo optimiza procesos industriales, sino que también asegura una mayor eficacia y seguridad en el diseño de productos complejos.
 
@@ -1010,7 +1026,7 @@ La implementación de entornos de simulación basados en DEVS en la enseñanza d
   \textbf{Exploración de escenarios}: posibilita simular escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin la necesidad de hardware físico.
 \end{itemize}
 
-Estas características transforman la experiencia de aprendizaje, al vincular teoría con práctica y promover un enfoque activo en la comprensión de conceptos clave de arquitectura de computadoras. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras \protect\hyperlink{ref-calvo_valdes_simulador_2010}{{[}37{]}}.
+Estas características transforman la experiencia de aprendizaje, al vincular teoría con práctica y promover un enfoque activo en la comprensión de conceptos clave de arquitectura de computadoras. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras \protect\hyperlink{ref-calvo_valdes_simulador_2010}{{[}40{]}}.
 
 En conclusión, el formalismo DEVS no solo es una herramienta valiosa para el modelado y análisis de sistemas, sino que también representa un recurso poderoso para facilitar la enseñanza de conceptos complejos, como los que se encuentran en la arquitectura de computadoras.
 
@@ -1021,7 +1037,7 @@ En este capítulo se presentan el análisis y la comparación de diversos simula
 
 La selección y evaluación de estos simuladores se fundamenta en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor respalden el proceso de enseñanza y aprendizaje. Los criterios considerados incluyen aspectos como usabilidad, funcionalidad del editor de código, calidad de la documentación, características de la ejecución de simulación, nivel de especificación de la arquitectura x86, propiedades del producto y alineación con los contenidos curriculares.
 
-Los resultados de esta investigación fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), en el trabajo titulado Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86 \protect\hyperlink{ref-colombani_herramientas_2022}{{[}38{]}}.
+Los resultados de esta investigación fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), en el trabajo titulado Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86 \protect\hyperlink{ref-colombani_herramientas_2022}{{[}41{]}}.
 
 \hypertarget{estudios-similares}{%
 \section{Estudios similares}\label{estudios-similares}}
@@ -1037,7 +1053,7 @@ En contraste, este trabajo propone un enfoque diferenciado al centrar la evaluac
 
 Un simulador de arquitectura es una herramienta de software que emula el hardware de un sistema de cómputo, permitiendo representar aspectos arquitectónicos y funcionales del mismo. Estos simuladores ofrecen un entorno controlado para realizar pruebas, modificaciones y ejecución de programas sin riesgo de dañar componentes físicos o enfrentar limitaciones de hardware \protect\hyperlink{ref-radivojevic_design_2011}{{[}10{]}}.
 
-Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Ejemplos de estos simuladores incluyen Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente {[}\protect\hyperlink{ref-nikolic_survey_2009}{{[}11{]}}{]}\protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}{[}\protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}{]}\protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}\protect\hyperlink{ref-behrooz_computer_2005}{{[}39{]}}.
+Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Ejemplos de estos simuladores incluyen Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente {[}\protect\hyperlink{ref-nikolic_survey_2009}{{[}11{]}}{]}\protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}{[}\protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}{]}\protect\hyperlink{ref-stallings_computer_2013}{{[}14{]}}\protect\hyperlink{ref-behrooz_computer_2005}{{[}42{]}}.
 
 \hypertarget{criterios-de-evaluaciuxf3n}{%
 \section{Criterios de evaluación}\label{criterios-de-evaluaciuxf3n}}
@@ -1340,7 +1356,7 @@ Del análisis realizado, se concluye que, aunque todos los simuladores evaluados
 \hypertarget{publicaciuxf3n}{%
 \subsection{Publicación}\label{publicaciuxf3n}}
 
-Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), bajo el título ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86''\protect\hyperlink{ref-colombani_herramientas_2022}{{[}38{]}}.
+Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), bajo el título ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86''\protect\hyperlink{ref-colombani_herramientas_2022}{{[}41{]}}.
 
 Además, durante este proceso se estableció contacto con un desarrollador de VonSim, logrando implementar mejoras significativas, como animaciones de ejecución y documentación en línea, disponibles en su última versión publicada en agosto de 2023.
 
@@ -2337,44 +2353,56 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \CSLLeftMargin{{[}29{]} }%
 \CSLRightInline{D. A. Patterson and J. L. Hennessy, \emph{Computer organization and design ARM edition: The hardware software interface}. Morgan kaufmann, 2016.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-irvine2011assembly}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-belli2020iot}{}}%
 \CSLLeftMargin{{[}30{]} }%
+\CSLRightInline{L. Belli \emph{et al.}, {``IoT-enabled smart sustainable cities: Challenges and approaches,''} \emph{Smart Cities}, vol. 3, no. 3, pp. 1039--1071, 2020.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-menchonherramientas}{}}%
+\CSLLeftMargin{{[}31{]} }%
+\CSLRightInline{M. Menchón, M. Tosini, and O. Goñi, {``Herramientas de software educacional para el aprendizaje de arquitectura de procesadores.''}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-rosslingexploring}{}}%
+\CSLLeftMargin{{[}32{]} }%
+\CSLRightInline{G. Rößling and T. L. Naps, {``Exploring the role of visualization and engagement in computer science education.''}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-irvine2011assembly}{}}%
+\CSLLeftMargin{{[}33{]} }%
 \CSLRightInline{K. R. Irvine and L. B. Das, \emph{Assembly language for x86 processors}. Prentice Hall, 2011.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-tasm}{}}%
-\CSLLeftMargin{{[}31{]} }%
+\CSLLeftMargin{{[}34{]} }%
 \CSLRightInline{B. International, \emph{Turbo assembler user's guide}. Borland International, 1993.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-masm}{}}%
-\CSLLeftMargin{{[}32{]} }%
+\CSLLeftMargin{{[}35{]} }%
 \CSLRightInline{M. Corporation, \emph{Microsoft macro assembler 6.1 reference}. Microsoft Press, 1992.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-nasm}{}}%
-\CSLLeftMargin{{[}33{]} }%
+\CSLLeftMargin{{[}36{]} }%
 \CSLRightInline{The NASM Project, \emph{The netwide assembler (NASM) manual}. 2023.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-hyde2010art}{}}%
-\CSLLeftMargin{{[}34{]} }%
+\CSLLeftMargin{{[}37{]} }%
 \CSLRightInline{R. Hyde, \emph{The art of assembly language}. No Starch Press, 2010.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-stork_towards_2008}{}}%
-\CSLLeftMargin{{[}35{]} }%
+\CSLLeftMargin{{[}38{]} }%
 \CSLRightInline{A. Stork, C.-A. Thole, S. Klimenko, I. Nikitin, L. Nikitina, and Y. Astakhov, {``Towards interactive simulation in automotive design,''} \emph{The Visual Computer}, vol. 24, pp. 947--953, 2008.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-jentsch_simulation_2017}{}}%
-\CSLLeftMargin{{[}36{]} }%
+\CSLLeftMargin{{[}39{]} }%
 \CSLRightInline{F. Jentsch and M. Curtis, \emph{Simulation in aviation training}. Routledge, 2017.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-calvo_valdes_simulador_2010}{}}%
-\CSLLeftMargin{{[}37{]} }%
+\CSLLeftMargin{{[}40{]} }%
 \CSLRightInline{F. A. Calvo Valdés, J. F. Roldán Ramírez, and A. San Miguel Sánchez, {``Simulador del procesador {MIPS} sobre el formalismo {DEVS},''} \emph{Revista de Simulación}, 2010, Accessed: Sep. 19, 2024. {[}Online{]}. Available: \url{https://hdl.handle.net/20.500.14352/46063}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-colombani_herramientas_2022}{}}%
-\CSLLeftMargin{{[}38{]} }%
+\CSLLeftMargin{{[}41{]} }%
 \CSLRightInline{M. A. Colombani, J. M. Ruiz, A. G. Delduca, and M. A. Falappa, {``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86,''} 2022. Accessed: Jul. 10, 2024. {[}Online{]}. Available: \url{http://sedici.unlp.edu.ar/handle/10915/139908}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-behrooz_computer_2005}{}}%
-\CSLLeftMargin{{[}39{]} }%
+\CSLLeftMargin{{[}42{]} }%
 \CSLRightInline{P. BEHROOZ, \emph{Computer {Architecture}: {From} {Microprocessors} to {Supercomputers}}. Oxford University Press Inc, 2005.}
 
 \end{CSLReferences}
