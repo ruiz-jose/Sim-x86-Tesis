@@ -127,7 +127,7 @@ div.csl-indent {
 <li class="chapter" data-level="2.3.2" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-arm"><i class="fa fa-check"></i><b>2.3.2</b> Arquitectura ARM</a></li>
 <li class="chapter" data-level="2.3.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-mips"><i class="fa fa-check"></i><b>2.3.3</b> Arquitectura MIPS</a></li>
 <li class="chapter" data-level="2.3.4" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-risc-v"><i class="fa fa-check"></i><b>2.3.4</b> Arquitectura RISC-V</a></li>
-<li class="chapter" data-level="2.3.5" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#comparativa-de-arquitecturas"><i class="fa fa-check"></i><b>2.3.5</b> Comparativa de arquitecturas</a></li>
+<li class="chapter" data-level="2.3.5" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#comparativa"><i class="fa fa-check"></i><b>2.3.5</b> Comparativa</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html"><i class="fa fa-check"></i><b>2.4</b> Repertorio de instrucciones</a>
 <ul>
@@ -168,7 +168,7 @@ div.csl-indent {
 <li class="chapter" data-level="3.3.3" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#devs-en-la-enseñanza-de-la-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.3.3</b> DEVS en la enseñanza de la Arquitectura de Computadoras</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="comparativa.html"><a href="comparativa.html"><i class="fa fa-check"></i><b>4</b> Comparativa de simuladores</a>
+<li class="chapter" data-level="4" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#comparativa"><i class="fa fa-check"></i><b>4</b> Comparativa de simuladores</a>
 <ul>
 <li class="chapter" data-level="4.1" data-path="estudios-similares.html"><a href="estudios-similares.html"><i class="fa fa-check"></i><b>4.1</b> Estudios similares</a></li>
 <li class="chapter" data-level="4.2" data-path="simuladores-bajo-análisis.html"><a href="simuladores-bajo-análisis.html"><i class="fa fa-check"></i><b>4.2</b> Simuladores bajo análisis</a></li>
@@ -253,25 +253,26 @@ div.csl-indent {
 <div id="tipos-de-arquitecturas" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Tipos de arquitecturas<a href="tipos-de-arquitecturas.html#tipos-de-arquitecturas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El análisis de diversas arquitecturas de computadoras es esencial para comprender sus respectivas ventajas y limitaciones en diferentes contextos de aplicación. Esta evaluación comparativa permite a los diseñadores y desarrolladores de sistemas seleccionar la arquitectura más adecuada para sus necesidades, considerando factores clave como la eficiencia energética, la complejidad del hardware y las aplicaciones específicas en las que se utilizará cada una.</p>
+<p>Si bien arquitecturas como PowerPC o SPARC fueron influyentes, su uso ha disminuido notablemente en la industria y en entornos académicos actuales. Por ello, esta sección se enfoca en aquellas que mantienen una vigencia significativa o poseen un valor didáctico en el contexto del diseño de herramientas de simulación</p>
 <div id="arquitectura-x86" class="section level3 hasAnchor" number="2.3.1">
 <h3><span class="header-section-number">2.3.1</span> Arquitectura x86<a href="tipos-de-arquitecturas.html#arquitectura-x86" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La arquitectura x86, desarrollada inicialmente por Intel, ha dominado el mercado de computadoras de escritorio y servidores durante décadas gracias a su alto rendimiento y amplia compatibilidad con software legado. Su conjunto de instrucciones complejo (ISA) proporciona flexibilidad para una variedad de aplicaciones, aunque a costa de un mayor desafío en el diseño del hardware. Este equilibrio entre compatibilidad y rendimiento hace que x86 sea una opción preferida para entornos donde la capacidad de procesamiento es prioritaria, como en servidores y estaciones de trabajo <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>)</span>.</p>
+<p>La arquitectura x86, desarrollada inicialmente por Intel, ha dominado el mercado de computadoras de escritorio y servidores durante décadas, gracias a su evolución constante y soporte del ecosistema de software <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-smith_x86market_2020"><strong>smith_x86market_2020?</strong></a>)</span>. Su conjunto de instrucciones, conocido como arquitectura de conjunto de instrucciones (ISA, por sus siglas en inglés <em>Instruction Set Architecture</em>), incluye una amplia gama de operaciones, lo que otorga flexibilidad, aunque complica el diseño del hardware. Este equilibrio entre compatibilidad y rendimiento hace que x86 sea una opción preferida para entornos donde la capacidad de procesamiento es prioritaria, como en servidores y estaciones de trabajo <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-intel_whitepaper_2023">I. Corporation 2023</a>)</span>.</p>
 </div>
 <div id="arquitectura-arm" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Arquitectura ARM<a href="tipos-de-arquitecturas.html#arquitectura-arm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Reconocida por su alta eficiencia energética, la arquitectura ARM es la columna vertebral de dispositivos móviles y sistemas embebidos. Basada en el paradigma de conjunto de instrucciones reducidas (RISC), ARM simplifica el diseño del hardware y optimiza el consumo energético, características que la convierten en la elección ideal para aplicaciones como smartphones y tablets. Aunque su rendimiento bruto es inferior al de x86, su balance entre eficiencia y capacidad de procesamiento es crucial para mercados donde la autonomía es esencial <span class="citation">(<a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>)</span>.</p>
+<p>Reconocida por su alta eficiencia energética, la arquitectura ARM es la columna vertebral de dispositivos móviles y sistemas embebidos. Basada en el paradigma de conjunto de instrucciones reducidas (RISC), ARM simplifica el diseño del hardware y optimiza el consumo energético, características que la convierten en la elección ideal para aplicaciones como smartphones y tablets. Aunque su rendimiento general es inferior al de x86, su equilibrio entre eficiencia energética y capacidad computacional resulta decisivo en mercados donde la autonomía y la disipación térmica son factores críticos, como los dispositivos móviles y el IoT <span class="citation">(<a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>)</span>.</p>
 </div>
 <div id="arquitectura-mips" class="section level3 hasAnchor" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> Arquitectura MIPS<a href="tipos-de-arquitecturas.html#arquitectura-mips" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>MIPS, otra arquitectura basada en RISC, ha destacado históricamente en sistemas embebidos y entornos educativos debido a su simplicidad y eficacia. Aunque su relevancia ha disminuido frente a opciones como ARM, MIPS sigue siendo valiosa en nichos específicos que requieren un diseño eficiente y de bajo costo. Su conjunto de instrucciones, aunque menos versátil que el de x86, logra un equilibrio adecuado para aplicaciones de mediana complejidad <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>)</span>.</p>
+<p>MIPS, otra arquitectura basada en RISC, ha destacado históricamente en sistemas embebidos y entornos educativos debido a su simplicidad y eficacia. Aunque su relevancia ha disminuido frente a opciones como ARM, MIPS sigue siendo valiosa en nichos específicos que requieren un diseño eficiente y de bajo costo. Su conjunto de instrucciones, aunque menos versátil que el de x86, logra un equilibrio adecuado para aplicaciones de mediana complejidad <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-harris2015digital">Harris and Harris 2015</a>; <a href="#ref-patterson2016computer">David A. Patterson and Hennessy 2016b</a>)</span>.</p>
 </div>
 <div id="arquitectura-risc-v" class="section level3 hasAnchor" number="2.3.4">
 <h3><span class="header-section-number">2.3.4</span> Arquitectura RISC-V<a href="tipos-de-arquitecturas.html#arquitectura-risc-v" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>RISC-V ha revolucionado el panorama de la arquitectura de computadoras con su enfoque abierto y libre. Su ISA flexible permite a los desarrolladores personalizar sistemas según necesidades específicas, haciéndola especialmente atractiva para investigación, educación y aplicaciones embebidas. Basada en principios RISC, RISC-V combina eficiencia energética con un diseño de hardware simplificado, y su creciente ecosistema la posiciona como una fuerte competidora frente a arquitecturas establecidas como ARM <span class="citation">(<a href="#ref-waterman_risc-v_2014">Waterman et al. 2014</a>)</span>.</p>
+<p>Como arquitectura de código abierto, RISC-V ofrece una alternativa personalizable a los modelos propietarios, destacándose en entornos académicos y de desarrollo especializado. Su ISA flexible permite a los desarrolladores personalizar sistemas según necesidades específicas, haciéndola especialmente atractiva para investigación, educación y aplicaciones embebidas. Basada en principios RISC, RISC-V combina eficiencia energética con un diseño de hardware simplificado, y su creciente ecosistema la posiciona como una fuerte competidora frente a arquitecturas establecidas como ARM. No obstante, RISC-V enfrenta desafíos en adopción masiva debido a la falta de estándares unificados y soporte comercial amplio, limitando su uso en entornos productivos críticos <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-waterman_risc-v_2014">Waterman et al. 2014</a>)</span>.</p>
 </div>
-<div id="comparativa-de-arquitecturas" class="section level3 hasAnchor" number="2.3.5">
-<h3><span class="header-section-number">2.3.5</span> Comparativa de arquitecturas<a href="tipos-de-arquitecturas.html#comparativa-de-arquitecturas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. MIPS y RISC-V, por su parte, se especializan en nichos como sistemas embebidos y proyectos personalizados. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final <span class="citation">(<a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>)</span>.</p>
+<div id="comparativa" class="section level3 hasAnchor" number="2.3.5">
+<h3><span class="header-section-number">2.3.5</span> Comparativa<a href="tipos-de-arquitecturas.html#comparativa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. MIPS y RISC-V, por su parte, se especializan en nichos como sistemas embebidos y proyectos personalizados. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final. Además, comprender las diferencias entre estas arquitecturas resulta fundamental en el ámbito educativo, dado que facilita el desarrollo de herramientas didácticas que simulan sus principios operativos y ayudan a los estudiantes a visualizar el funcionamiento real de los sistemas computacionales <span class="citation">(<a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>)</span>.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:comparq">Tabla 2.2: </span>Comparación de Arquitecturas
@@ -387,11 +388,23 @@ Investigación, embebidos
 </div>
 <h3> Bibliografía<a href="Biblio.html#Biblio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-intel_whitepaper_2023" class="csl-entry">
+Corporation, Intel. 2023. <span>“Intel Xeon Processor Scalable Family: Performance and Efficiency for Modern Data Centers.”</span> Intel. <a href="https://www.intel.com/content/www/us/en/products/docs/processors/xeon-accelerated/4th-gen-xeon-scalable-processors.html">https://www.intel.com/content/www/us/en/products/docs/processors/xeon-accelerated/4th-gen-xeon-scalable-processors.html</a>.
+</div>
+<div id="ref-harris2015digital" class="csl-entry">
+Harris, Sarah, and David Harris. 2015. <em>Digital Design and Computer Architecture</em>. Morgan Kaufmann.
+</div>
 <div id="ref-hennessy_computer_2012" class="csl-entry">
 Hennessy, John L, and David A Patterson. 2012. <em>Computer Architecture: <span>A</span> Quantitative Approach</em>. Fifth Edition. Elsevier.
 </div>
+<div id="ref-hennessy2017computer" class="csl-entry">
+———. 2017. <em>Computer Organization and Design RISC-v Edition: The Hardware Software Interface</em>. Elsevier Science &amp; Technology Books.
+</div>
 <div id="ref-patterson_computer_2014" class="csl-entry">
 Patterson et al. 2014. <em>Computer Organization and Design: The Hardware/Software Interface-5th</em>. Morgan Kaufmann.
+</div>
+<div id="ref-patterson2016computer" class="csl-entry">
+Patterson, David A, and John L Hennessy. 2016b. <em>Computer Organization and Design ARM Edition: The Hardware Software Interface</em>. Morgan kaufmann.
 </div>
 <div id="ref-waterman_risc-v_2014" class="csl-entry">
 Waterman, Andrew, Yunsup Lee, David A Patterson, and Krste Asanovic. 2014. <span>“The Risc-v Instruction Set Manual, Volume i: User-Level Isa.”</span> <em>CS Division, EECE Department, University of California, Berkeley</em>, 28.

@@ -473,12 +473,12 @@ Desde una perspectiva educativa, el uso de herramientas de simulación contribuy
 \hypertarget{arquitecturas-von-neumann-y-harvard}{%
 \section{Arquitecturas Von Neumann y Harvard}\label{arquitecturas-von-neumann-y-harvard}}
 
-Comprender las arquitecturas modernas requiere el análisis de dos modelos conceptuales fundamentales que sentaron las bases del diseño actual de sistemas computacionales: Von Neumann y Harvard. Estos paradigmas no solo constituyen la base teórica de muchas arquitecturas contemporáneas, sino que también permiten identificar sus fortalezas, limitaciones y áreas de aplicación.
+Comprender las arquitecturas modernas requiere el análisis de dos modelos conceptuales fundamentales que sentaron las bases del diseño actual de sistemas computacionales: Von Neumann y Harvard. Estos modelos arquitectónicos no solo constituyen la base teórica de muchas arquitecturas contemporáneas, sino que también permiten identificar sus fortalezas, limitaciones y áreas de aplicación.
 
 \hypertarget{arquitectura-von-neumann}{%
 \subsection{Arquitectura Von Neumann}\label{arquitectura-von-neumann}}
 
-La arquitectura Von Neumann, formalizada por John von Neumann en 1945, se basa en un modelo en el cual tanto los datos como las instrucciones residen en una única memoria y comparten un mismo bus de comunicación. Esta unificación facilita el diseño del sistema, aunque genera una limitación conocida como el \emph{cuello de botella de Von Neumann}, que restringe el acceso concurrente a datos e instrucciones. Este fenómeno limita el rendimiento del sistema, ya que impide el acceso simultáneo a datos e instrucciones, generando demoras en la ejecución de programas complejos o con alto volumen de procesamiento \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}.
+La arquitectura Von Neumann, formalizada por John von Neumann en 1945 en su influyente documento ``First Draft of a Report on the EDVAC'' \protect\hyperlink{ref-vonneumann1945first}{{[}34{]}}, establece un modelo computacional en el cual tanto los datos como las instrucciones residen en una única memoria y comparten un mismo bus de comunicación. Esta arquitectura se caracteriza por sus cuatro componentes fundamentales: la unidad central de procesamiento (CPU), la unidad de control, la memoria y los dispositivos de entrada/salida. La unificación del espacio de memoria facilita el diseño del sistema y la programación, sin embargo, esta unificación también origina una limitación conocida como el `cuello de botella de Von Neumann', que se refiere a la imposibilidad de acceder simultáneamente a datos e instrucciones debido al uso compartido del mismo bus, lo cual reduce la eficiencia del procesamiento, particularmente en aplicaciones con uso intensivo de datos \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}.
 
 \begin{figure}
 
@@ -492,7 +492,7 @@ La arquitectura Von Neumann, formalizada por John von Neumann en 1945, se basa e
 \hypertarget{arquitectura-harvard}{%
 \subsection{Arquitectura Harvard}\label{arquitectura-harvard}}
 
-La arquitectura Harvard tiene su origen en el diseño del Harvard Mark I, una computadora electromecánica desarrollada durante la Segunda Guerra Mundial en la Universidad de Harvard \protect\hyperlink{ref-ceruzzi_history_2003}{{[}34{]}}, \protect\hyperlink{ref-williams1998history}{{[}35{]}}. En este modelo, los datos y las instrucciones residen en memorias físicamente separadas, accedidas a través de buses independientes, lo cual permite un procesamiento más eficiente al evitar conflictos de acceso simultáneo. Esta organización evita el cuello de botella característico de Von Neumann, permitiendo un acceso paralelo que incrementa el rendimiento en escenarios donde la eficiencia y la velocidad de procesamiento son críticas\protect\hyperlink{ref-tanenbaum_structured_2013}{{[}22{]}}. Debido a su eficiencia, esta arquitectura se ha adoptado ampliamente en sistemas embebidos, microcontroladores y procesadores de señal digital (DSP) \protect\hyperlink{ref-noergaard2012embedded}{{[}36{]}}.
+Mientras la arquitectura Von Neumann se convertía en el paradigma dominante, paralelamente se desarrollaba un enfoque alternativo. La arquitectura Harvard tiene su origen en el diseño del Harvard Mark I, una computadora electromecánica desarrollada entre 1939 y 1944 durante la Segunda Guerra Mundial en la Universidad de Harvard bajo la dirección de Howard Aiken y con el apoyo de IBM \protect\hyperlink{ref-ceruzzi_history_2003}{{[}35{]}}, \protect\hyperlink{ref-williams1998history}{{[}36{]}}. El Harvard Mark I sentó las bases para un modelo arquitectónico diferente al de Von Neumann, caracterizado por una separación física entre instrucciones y datos.En este modelo, los datos y las instrucciones residen en memorias físicamente separadas, accedidas a través de buses independientes, lo cual mejora la eficiencia del procesamiento al eliminar la competencia por el bus entre instrucciones y datos. Esta organización evita el cuello de botella característico de Von Neumann y permite un acceso paralelo que incrementa el rendimiento en escenarios críticos para la eficiencia. A continuación, se presenta una comparación sistemática entre ambos modelos, a fin de comprender mejor sus implicancias técnicas y contextos de aplicación \protect\hyperlink{ref-tanenbaum_structured_2013}{{[}22{]}}. Debido a su eficiencia, esta arquitectura se ha adoptado ampliamente en sistemas embebidos, microcontroladores y procesadores de señal digital (DSP) \protect\hyperlink{ref-noergaard2012embedded}{{[}37{]}}.
 
 \begin{figure}
 
@@ -506,9 +506,9 @@ La arquitectura Harvard tiene su origen en el diseño del Harvard Mark I, una co
 \hypertarget{comparativa-entre-von-neumann-y-harvard}{%
 \subsection{Comparativa entre Von Neumann y Harvard}\label{comparativa-entre-von-neumann-y-harvard}}
 
-La arquitectura Von Neumann continúa siendo una alternativa válida cuando se priorizan la simplicidad del diseño y la compatibilidad con software de propósito general, como ocurre en muchas computadoras personales y servidores tradicionales. En cambio, la arquitectura Harvard ha demostrado ventajas significativas en aplicaciones que demandan procesamiento en tiempo real y eficiencia energética, como dispositivos móviles, microcontroladores y entornos de control industrial. La elección entre ambas arquitecturas responde, en última instancia, a requerimientos específicos del sistema, ya sea por su complejidad, restricciones energéticas o necesidades de rendimiento paralelo.
+Como señalan Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} y Hennessy \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, la arquitectura Von Neumann continúa siendo una alternativa predominante cuando se priorizan la simplicidad del diseño, la flexibilidad en la asignación de memoria y la compatibilidad con software de propósito general, como ocurre en muchas computadoras personales y servidores contemporáneos. En cambio, la arquitectura Harvard ha demostrado ventajas significativas en aplicaciones que demandan procesamiento en tiempo real y eficiencia energética, como dispositivos móviles, microcontroladores y entornos de control industrial. La elección entre ambas arquitecturas responde, en última instancia, a requerimientos específicos del sistema, ya sea por su complejidad, restricciones energéticas o necesidades de rendimiento paralelo.
 
-Antes de comparar ambos modelos, es útil establecer algunos criterios clave como: tipo de memoria, buses utilizados, posibilidad de acceso simultáneo, ejemplos representativos, ventajas y limitaciones.
+Para una comparación más sistemática, se pueden establecer criterios como tipo de memoria, estructura de buses, capacidad de acceso paralelo, casos de uso representativos, ventajas y limitaciones.
 
 \begin{table}[!h]
 \centering
@@ -537,43 +537,45 @@ El contraste entre estos dos modelos ha dado lugar a enfoques intermedios que bu
 \hypertarget{arquitecturas-huxedbridas}{%
 \subsection{Arquitecturas híbridas}\label{arquitecturas-huxedbridas}}
 
-Muchas arquitecturas contemporáneas implementan un enfoque híbrido conocido como Harvard modificada. Este modelo emplea memorias separadas para datos e instrucciones a nivel interno ---habitualmente mediante cachés dedicadas---, mientras que al programador se le presenta un espacio de memoria unificado. Este enfoque busca combinar la eficiencia del acceso paralelo, característica de Harvard, con la simplicidad del modelo Von Neumann en cuanto al direccionamiento de memoria, tal como se presenta al programador \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2014}{{[}27{]}}, \protect\hyperlink{ref-patterson_computer_2017}{{[}31{]}}.
+Muchas arquitecturas contemporáneas implementan un enfoque híbrido, también conocido como arquitectura Harvard modificada. Este modelo emplea memorias separadas para datos e instrucciones a nivel microarquitectónico a menudo mediante la utilización de memorias caché de nivel 1 (L1) separadas para instrucciones y datos. No obstante, desde la perspectiva del programador, el modelo de memoria se mantiene unificado, facilitando el desarrollo de software sin exponer la complejidad del diseño interno. Esta dualidad permite optimizar la implementación física del procesador sin complicar el modelo de programación \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2014}{{[}27{]}}, \protect\hyperlink{ref-patterson_computer_2017}{{[}31{]}}.
 
-Esta aproximación híbrida se implementa en arquitecturas modernas como ARM Cortex y los procesadores Intel Core, los cuales incorporan cachés separadas para instrucciones y datos con el objetivo de optimizar el rendimiento del pipeline, permitiendo una mayor paralelización en la ejecución de instrucciones. A pesar de que el modelo de memoria visible para el programador se presenta como unificado, a nivel interno se implementan mecanismos característicos de la arquitectura Harvard, como el uso de memorias caché separadas para instrucciones y datos \protect\hyperlink{ref-arm2021architecture}{{[}37{]}}, \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}38{]}}.
+Esta aproximación híbrida se implementa en arquitecturas modernas como ARM Cortex y los procesadores Intel Core, los cuales incorporan cachés separadas para instrucciones y datos con el objetivo de optimizar el rendimiento del pipeline, lo que facilita una mayor paralelización del procesamiento y reduce los conflictos en el acceso a memoria. A pesar de que el modelo de memoria visible para el programador se presenta como unificado, a nivel interno se implementan mecanismos característicos de la arquitectura Harvard, como el uso de memorias caché separadas para instrucciones y datos \protect\hyperlink{ref-arm2021architecture}{{[}38{]}}, \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}39{]}}.
 
 La adopción de arquitecturas híbridas, como la Harvard modificada, ha permitido a los diseñadores combinar la flexibilidad del modelo Von Neumann con la eficiencia del modelo Harvard. Esta convergencia no solo optimiza el rendimiento de los sistemas, sino que también responde a las exigencias contemporáneas en términos de consumo energético y capacidad de procesamiento paralelo. En este sentido, la distinción entre ambos modelos continúa siendo un eje conceptual clave para comprender la evolución de las arquitecturas modernas y su adaptación a diferentes escenarios tecnológicos.
 
-En síntesis, las arquitecturas híbridas representan una evolución estratégica que permite capitalizar las fortalezas de ambos modelos clásicos. Esta flexibilidad resulta crucial en el diseño de sistemas actuales, donde los requisitos de alto rendimiento, bajo consumo y paralelismo intensivo imponen desafíos arquitectónicos complejos.
+En síntesis, la comprensión de las arquitecturas fundamentales ---Von Neumann, Harvard e híbridas--- resulta esencial para el desarrollo de herramientas de simulación efectivas en la enseñanza de arquitectura de computadoras. Los conceptos explorados en esta sección proporcionan los fundamentos conceptuales esenciales para el diseño y desarrollo de la herramienta de simulación propuesta en esta tesis.
 
 \hypertarget{tipos-de-arquitecturas}{%
 \section{Tipos de arquitecturas}\label{tipos-de-arquitecturas}}
 
 El análisis de diversas arquitecturas de computadoras es esencial para comprender sus respectivas ventajas y limitaciones en diferentes contextos de aplicación. Esta evaluación comparativa permite a los diseñadores y desarrolladores de sistemas seleccionar la arquitectura más adecuada para sus necesidades, considerando factores clave como la eficiencia energética, la complejidad del hardware y las aplicaciones específicas en las que se utilizará cada una.
 
+Si bien arquitecturas como PowerPC o SPARC fueron influyentes, su uso ha disminuido notablemente en la industria y en entornos académicos actuales. Por ello, esta sección se enfoca en aquellas que mantienen una vigencia significativa o poseen un valor didáctico en el contexto del diseño de herramientas de simulación
+
 \hypertarget{arquitectura-x86}{%
 \subsection{Arquitectura x86}\label{arquitectura-x86}}
 
-La arquitectura x86, desarrollada inicialmente por Intel, ha dominado el mercado de computadoras de escritorio y servidores durante décadas gracias a su alto rendimiento y amplia compatibilidad con software legado. Su conjunto de instrucciones complejo (ISA) proporciona flexibilidad para una variedad de aplicaciones, aunque a costa de un mayor desafío en el diseño del hardware. Este equilibrio entre compatibilidad y rendimiento hace que x86 sea una opción preferida para entornos donde la capacidad de procesamiento es prioritaria, como en servidores y estaciones de trabajo \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}.
+La arquitectura x86, desarrollada inicialmente por Intel, ha dominado el mercado de computadoras de escritorio y servidores durante décadas, gracias a su evolución constante y soporte del ecosistema de software \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-smith_x86market_2020}{\textbf{smith\_x86market\_2020?}}. Su conjunto de instrucciones, conocido como arquitectura de conjunto de instrucciones (ISA, por sus siglas en inglés \emph{Instruction Set Architecture}), incluye una amplia gama de operaciones, lo que otorga flexibilidad, aunque complica el diseño del hardware. Este equilibrio entre compatibilidad y rendimiento hace que x86 sea una opción preferida para entornos donde la capacidad de procesamiento es prioritaria, como en servidores y estaciones de trabajo \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-intel_whitepaper_2023}{{[}40{]}}.
 
 \hypertarget{arquitectura-arm}{%
 \subsection{Arquitectura ARM}\label{arquitectura-arm}}
 
-Reconocida por su alta eficiencia energética, la arquitectura ARM es la columna vertebral de dispositivos móviles y sistemas embebidos. Basada en el paradigma de conjunto de instrucciones reducidas (RISC), ARM simplifica el diseño del hardware y optimiza el consumo energético, características que la convierten en la elección ideal para aplicaciones como smartphones y tablets. Aunque su rendimiento bruto es inferior al de x86, su balance entre eficiencia y capacidad de procesamiento es crucial para mercados donde la autonomía es esencial \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}.
+Reconocida por su alta eficiencia energética, la arquitectura ARM es la columna vertebral de dispositivos móviles y sistemas embebidos. Basada en el paradigma de conjunto de instrucciones reducidas (RISC), ARM simplifica el diseño del hardware y optimiza el consumo energético, características que la convierten en la elección ideal para aplicaciones como smartphones y tablets. Aunque su rendimiento general es inferior al de x86, su equilibrio entre eficiencia energética y capacidad computacional resulta decisivo en mercados donde la autonomía y la disipación térmica son factores críticos, como los dispositivos móviles y el IoT \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}.
 
 \hypertarget{arquitectura-mips}{%
 \subsection{Arquitectura MIPS}\label{arquitectura-mips}}
 
-MIPS, otra arquitectura basada en RISC, ha destacado históricamente en sistemas embebidos y entornos educativos debido a su simplicidad y eficacia. Aunque su relevancia ha disminuido frente a opciones como ARM, MIPS sigue siendo valiosa en nichos específicos que requieren un diseño eficiente y de bajo costo. Su conjunto de instrucciones, aunque menos versátil que el de x86, logra un equilibrio adecuado para aplicaciones de mediana complejidad \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}.
+MIPS, otra arquitectura basada en RISC, ha destacado históricamente en sistemas embebidos y entornos educativos debido a su simplicidad y eficacia. Aunque su relevancia ha disminuido frente a opciones como ARM, MIPS sigue siendo valiosa en nichos específicos que requieren un diseño eficiente y de bajo costo. Su conjunto de instrucciones, aunque menos versátil que el de x86, logra un equilibrio adecuado para aplicaciones de mediana complejidad \protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}, \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-patterson2016computer}{{[}41{]}}.
 
 \hypertarget{arquitectura-risc-v}{%
 \subsection{Arquitectura RISC-V}\label{arquitectura-risc-v}}
 
-RISC-V ha revolucionado el panorama de la arquitectura de computadoras con su enfoque abierto y libre. Su ISA flexible permite a los desarrolladores personalizar sistemas según necesidades específicas, haciéndola especialmente atractiva para investigación, educación y aplicaciones embebidas. Basada en principios RISC, RISC-V combina eficiencia energética con un diseño de hardware simplificado, y su creciente ecosistema la posiciona como una fuerte competidora frente a arquitecturas establecidas como ARM \protect\hyperlink{ref-waterman_risc-v_2014}{{[}25{]}}.
+Como arquitectura de código abierto, RISC-V ofrece una alternativa personalizable a los modelos propietarios, destacándose en entornos académicos y de desarrollo especializado. Su ISA flexible permite a los desarrolladores personalizar sistemas según necesidades específicas, haciéndola especialmente atractiva para investigación, educación y aplicaciones embebidas. Basada en principios RISC, RISC-V combina eficiencia energética con un diseño de hardware simplificado, y su creciente ecosistema la posiciona como una fuerte competidora frente a arquitecturas establecidas como ARM. No obstante, RISC-V enfrenta desafíos en adopción masiva debido a la falta de estándares unificados y soporte comercial amplio, limitando su uso en entornos productivos críticos \protect\hyperlink{ref-waterman_risc-v_2014}{{[}25{]}}, \protect\hyperlink{ref-hennessy2017computer}{{[}42{]}}.
 
-\hypertarget{comparativa-de-arquitecturas}{%
-\subsection{Comparativa de arquitecturas}\label{comparativa-de-arquitecturas}}
+\hypertarget{comparativa}{%
+\subsection{Comparativa}\label{comparativa}}
 
-Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. MIPS y RISC-V, por su parte, se especializan en nichos como sistemas embebidos y proyectos personalizados. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}.
+Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. MIPS y RISC-V, por su parte, se especializan en nichos como sistemas embebidos y proyectos personalizados. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final. Además, comprender las diferencias entre estas arquitecturas resulta fundamental en el ámbito educativo, dado que facilita el desarrollo de herramientas didácticas que simulan sus principios operativos y ayudan a los estudiantes a visualizar el funcionamiento real de los sistemas computacionales \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}.
 
 \begin{table}[!h]
 \centering
@@ -927,7 +929,7 @@ Esta instrucción utiliza varios componentes, que el procesador debe decodificar
 \hypertarget{lenguaje-ensamblador}{%
 \section{Lenguaje ensamblador}\label{lenguaje-ensamblador}}
 
-Un procesador puede interpretar y ejecutar instrucciones exclusivamente en \textbf{lenguaje máquina}, que consiste en secuencias de números binarios almacenadas en memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador intentara escribir código en lenguaje máquina, debería especificar manualmente cada secuencia de ceros y unos para realizar operaciones, respetando estrictamente las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso no solo es tedioso, sino también altamente propenso a errores, especialmente al realizar modificaciones, ya que implicaría descifrar y reescribir las secuencias binarias \protect\hyperlink{ref-irvine2011assembly}{{[}39{]}}.
+Un procesador puede interpretar y ejecutar instrucciones exclusivamente en \textbf{lenguaje máquina}, que consiste en secuencias de números binarios almacenadas en memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador intentara escribir código en lenguaje máquina, debería especificar manualmente cada secuencia de ceros y unos para realizar operaciones, respetando estrictamente las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso no solo es tedioso, sino también altamente propenso a errores, especialmente al realizar modificaciones, ya que implicaría descifrar y reescribir las secuencias binarias \protect\hyperlink{ref-irvine2011assembly}{{[}43{]}}.
 
 Para simplificar este desafío, se desarrolló el \textbf{lenguaje ensamblador}, un lenguaje de programación de bajo nivel que permite a los programadores utilizar instrucciones más legibles mediante mnemónicos simbólicos. A diferencia del lenguaje máquina, que opera con secuencias binarias, el ensamblador emplea símbolos que representan directamente las instrucciones ejecutadas por el procesador. Cada arquitectura de procesador tiene su propio lenguaje ensamblador, generalmente diseñado por el fabricante del hardware y optimizado para la arquitectura específica \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}.
 
@@ -939,7 +941,7 @@ El ensamblador es un programa que traduce las instrucciones simbólicas escritas
 \hypertarget{ensambladores-x86}{%
 \subsubsection{Ensambladores x86}\label{ensambladores-x86}}
 
-En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) \protect\hyperlink{ref-tasm}{{[}40{]}}, MASM (Microsoft Macro Assembler) \protect\hyperlink{ref-masm}{{[}41{]}} y NASM (Netwide Assembler) \protect\hyperlink{ref-nasm}{{[}42{]}}. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 \protect\hyperlink{ref-hyde2010art}{{[}43{]}}.
+En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) \protect\hyperlink{ref-tasm}{{[}44{]}}, MASM (Microsoft Macro Assembler) \protect\hyperlink{ref-masm}{{[}45{]}} y NASM (Netwide Assembler) \protect\hyperlink{ref-nasm}{{[}46{]}}. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 \protect\hyperlink{ref-hyde2010art}{{[}47{]}}.
 
 A continuación, se presenta una comparativa de las principales características de estos ensambladores:
 
@@ -993,9 +995,9 @@ La posibilidad de analizar sistemas complejos sin intervenir directamente en ell
 \hypertarget{aplicaciones-de-la-simulaciuxf3n-en-la-industria}{%
 \subsection{Aplicaciones de la simulación en la industria}\label{aplicaciones-de-la-simulaciuxf3n-en-la-industria}}
 
-En sectores como la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Gracias a modelos virtuales, se realizan pruebas de colisión y análisis de rendimiento sin necesidad de recurrir a costosas pruebas físicas. Asimismo, la simulación permite optimizar diseños de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales en condiciones extremas, contribuyendo a mejorar tanto la eficiencia como la seguridad de los vehículos \protect\hyperlink{ref-stork_towards_2008}{{[}44{]}}.
+En sectores como la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Gracias a modelos virtuales, se realizan pruebas de colisión y análisis de rendimiento sin necesidad de recurrir a costosas pruebas físicas. Asimismo, la simulación permite optimizar diseños de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales en condiciones extremas, contribuyendo a mejorar tanto la eficiencia como la seguridad de los vehículos \protect\hyperlink{ref-stork_towards_2008}{{[}48{]}}.
 
-En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad \protect\hyperlink{ref-jentsch_simulation_2017}{{[}45{]}}.
+En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad \protect\hyperlink{ref-jentsch_simulation_2017}{{[}49{]}}.
 
 Estos ejemplos destacan cómo la simulación no solo optimiza procesos industriales, sino que también asegura una mayor eficacia y seguridad en el diseño de productos complejos.
 
@@ -1075,7 +1077,7 @@ La implementación de entornos de simulación basados en DEVS en la enseñanza d
   \textbf{Exploración de escenarios}: posibilita simular escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin la necesidad de hardware físico.
 \end{itemize}
 
-Estas características transforman la experiencia de aprendizaje, al vincular teoría con práctica y promover un enfoque activo en la comprensión de conceptos clave de arquitectura de computadoras. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras \protect\hyperlink{ref-calvo_valdes_simulador_2010}{{[}46{]}}.
+Estas características transforman la experiencia de aprendizaje, al vincular teoría con práctica y promover un enfoque activo en la comprensión de conceptos clave de arquitectura de computadoras. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras \protect\hyperlink{ref-calvo_valdes_simulador_2010}{{[}50{]}}.
 
 En conclusión, el formalismo DEVS no solo es una herramienta valiosa para el modelado y análisis de sistemas, sino que también representa un recurso poderoso para facilitar la enseñanza de conceptos complejos, como los que se encuentran en la arquitectura de computadoras.
 
@@ -1086,7 +1088,7 @@ En este capítulo se presentan el análisis y la comparación de diversos simula
 
 La selección y evaluación de estos simuladores se fundamenta en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor respalden el proceso de enseñanza y aprendizaje. Los criterios considerados incluyen aspectos como usabilidad, funcionalidad del editor de código, calidad de la documentación, características de la ejecución de simulación, nivel de especificación de la arquitectura x86, propiedades del producto y alineación con los contenidos curriculares.
 
-Los resultados de esta investigación fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), en el trabajo titulado Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86 \protect\hyperlink{ref-colombani_herramientas_2022}{{[}47{]}}.
+Los resultados de esta investigación fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), en el trabajo titulado Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86 \protect\hyperlink{ref-colombani_herramientas_2022}{{[}51{]}}.
 
 \hypertarget{estudios-similares}{%
 \section{Estudios similares}\label{estudios-similares}}
@@ -1102,7 +1104,7 @@ En contraste, este trabajo propone un enfoque diferenciado al centrar la evaluac
 
 Un simulador de arquitectura es una herramienta de software que emula el hardware de un sistema de cómputo, permitiendo representar aspectos arquitectónicos y funcionales del mismo. Estos simuladores ofrecen un entorno controlado para realizar pruebas, modificaciones y ejecución de programas sin riesgo de dañar componentes físicos o enfrentar limitaciones de hardware \protect\hyperlink{ref-radivojevic_design_2011}{{[}10{]}}.
 
-Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Ejemplos de estos simuladores incluyen Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente {[}\protect\hyperlink{ref-nikolic_survey_2009}{{[}11{]}}{]}\protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}{[}\protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}{]}\protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}\protect\hyperlink{ref-behrooz_computer_2005}{{[}48{]}}.
+Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Ejemplos de estos simuladores incluyen Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente {[}\protect\hyperlink{ref-nikolic_survey_2009}{{[}11{]}}{]}\protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}{[}\protect\hyperlink{ref-hennessy_computer_2012}{{[}13{]}}{]}\protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}\protect\hyperlink{ref-behrooz_computer_2005}{{[}52{]}}.
 
 \hypertarget{criterios-de-evaluaciuxf3n}{%
 \section{Criterios de evaluación}\label{criterios-de-evaluaciuxf3n}}
@@ -1405,7 +1407,7 @@ Del análisis realizado, se concluye que, aunque todos los simuladores evaluados
 \hypertarget{publicaciuxf3n}{%
 \subsection{Publicación}\label{publicaciuxf3n}}
 
-Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), bajo el título ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86''\protect\hyperlink{ref-colombani_herramientas_2022}{{[}47{]}}.
+Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), bajo el título ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86''\protect\hyperlink{ref-colombani_herramientas_2022}{{[}51{]}}.
 
 Además, durante este proceso se estableció contacto con un desarrollador de VonSim, logrando implementar mejoras significativas, como animaciones de ejecución y documentación en línea, disponibles en su última versión publicada en agosto de 2023.
 
@@ -2418,64 +2420,80 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \CSLLeftMargin{{[}33{]} }%
 \CSLRightInline{M. Menchón, M. Tosini, and O. Goñi, {``Herramientas de software educacional para el aprendizaje de arquitectura de procesadores.''}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-ceruzzi_history_2003}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-vonneumann1945first}{}}%
 \CSLLeftMargin{{[}34{]} }%
+\CSLRightInline{J. von Neumann, {``First draft of a report on the {EDVAC},''} Moore School of Electrical Engineering, University of Pennsylvania, Philadelphia, PA, Technical Report, 1945.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ceruzzi_history_2003}{}}%
+\CSLLeftMargin{{[}35{]} }%
 \CSLRightInline{P. E. Ceruzzi, \emph{A history of modern computing}. MIT press, 2003.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-williams1998history}{}}%
-\CSLLeftMargin{{[}35{]} }%
+\CSLLeftMargin{{[}36{]} }%
 \CSLRightInline{M. R. Williams, \emph{A history of computing technology}. Prentice-Hall Englewood Cliffs, NJ, 1998.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-noergaard2012embedded}{}}%
-\CSLLeftMargin{{[}36{]} }%
+\CSLLeftMargin{{[}37{]} }%
 \CSLRightInline{T. Noergaard, \emph{Embedded systems architecture: A comprehensive guide for engineers and programmers}. Newnes, 2012.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-arm2021architecture}{}}%
-\CSLLeftMargin{{[}37{]} }%
+\CSLLeftMargin{{[}38{]} }%
 \CSLRightInline{Arm Ltd., \emph{Arm architecture reference manual: Armv9-a, for Armv9-a architecture profile}. Arm Ltd., 2021.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-intel_microarchitecture_2021}{}}%
-\CSLLeftMargin{{[}38{]} }%
+\CSLLeftMargin{{[}39{]} }%
 \CSLRightInline{Intel Corporation, \emph{Intel\textsuperscript{\textregistered} 64 and IA-32 architectures optimization reference manual}, April 2021. Intel Corporation, 2021.}
 
+\leavevmode\vadjust pre{\hypertarget{ref-intel_whitepaper_2023}{}}%
+\CSLLeftMargin{{[}40{]} }%
+\CSLRightInline{I. Corporation, {``Intel xeon processor scalable family: Performance and efficiency for modern data centers,''} Intel, 2023. Available: \url{https://www.intel.com/content/www/us/en/products/docs/processors/xeon-accelerated/4th-gen-xeon-scalable-processors.html}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-patterson2016computer}{}}%
+\CSLLeftMargin{{[}41{]} }%
+\CSLRightInline{D. A. Patterson and J. L. Hennessy, \emph{Computer organization and design ARM edition: The hardware software interface}. Morgan kaufmann, 2016.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-hennessy2017computer}{}}%
+\CSLLeftMargin{{[}42{]} }%
+\CSLRightInline{J. L. Hennessy and D. A. Patterson, \emph{Computer organization and design RISC-v edition: The hardware software interface}. Elsevier Science \& Technology Books, 2017.}
+
 \leavevmode\vadjust pre{\hypertarget{ref-irvine2011assembly}{}}%
-\CSLLeftMargin{{[}39{]} }%
+\CSLLeftMargin{{[}43{]} }%
 \CSLRightInline{K. R. Irvine and L. B. Das, \emph{Assembly language for x86 processors}. Prentice Hall, 2011.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-tasm}{}}%
-\CSLLeftMargin{{[}40{]} }%
+\CSLLeftMargin{{[}44{]} }%
 \CSLRightInline{B. International, \emph{Turbo assembler user's guide}. Borland International, 1993.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-masm}{}}%
-\CSLLeftMargin{{[}41{]} }%
+\CSLLeftMargin{{[}45{]} }%
 \CSLRightInline{M. Corporation, \emph{Microsoft macro assembler 6.1 reference}. Microsoft Press, 1992.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-nasm}{}}%
-\CSLLeftMargin{{[}42{]} }%
+\CSLLeftMargin{{[}46{]} }%
 \CSLRightInline{The NASM Project, \emph{The netwide assembler (NASM) manual}. 2023.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-hyde2010art}{}}%
-\CSLLeftMargin{{[}43{]} }%
+\CSLLeftMargin{{[}47{]} }%
 \CSLRightInline{R. Hyde, \emph{The art of assembly language}. No Starch Press, 2010.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-stork_towards_2008}{}}%
-\CSLLeftMargin{{[}44{]} }%
+\CSLLeftMargin{{[}48{]} }%
 \CSLRightInline{A. Stork, C.-A. Thole, S. Klimenko, I. Nikitin, L. Nikitina, and Y. Astakhov, {``Towards interactive simulation in automotive design,''} \emph{The Visual Computer}, vol. 24, pp. 947--953, 2008.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-jentsch_simulation_2017}{}}%
-\CSLLeftMargin{{[}45{]} }%
+\CSLLeftMargin{{[}49{]} }%
 \CSLRightInline{F. Jentsch and M. Curtis, \emph{Simulation in aviation training}. Routledge, 2017.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-calvo_valdes_simulador_2010}{}}%
-\CSLLeftMargin{{[}46{]} }%
+\CSLLeftMargin{{[}50{]} }%
 \CSLRightInline{F. A. Calvo Valdés, J. F. Roldán Ramírez, and A. San Miguel Sánchez, {``Simulador del procesador {MIPS} sobre el formalismo {DEVS},''} \emph{Revista de Simulación}, 2010, Accessed: Sep. 19, 2024. {[}Online{]}. Available: \url{https://hdl.handle.net/20.500.14352/46063}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-colombani_herramientas_2022}{}}%
-\CSLLeftMargin{{[}47{]} }%
+\CSLLeftMargin{{[}51{]} }%
 \CSLRightInline{M. A. Colombani, J. M. Ruiz, A. G. Delduca, and M. A. Falappa, {``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86,''} 2022. Accessed: Jul. 10, 2024. {[}Online{]}. Available: \url{http://sedici.unlp.edu.ar/handle/10915/139908}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-behrooz_computer_2005}{}}%
-\CSLLeftMargin{{[}48{]} }%
+\CSLLeftMargin{{[}52{]} }%
 \CSLRightInline{P. BEHROOZ, \emph{Computer {Architecture}: {From} {Microprocessors} to {Supercomputers}}. Oxford University Press Inc, 2005.}
 
 \end{CSLReferences}
