@@ -118,7 +118,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#arquitectura-von-neumann"><i class="fa fa-check"></i><b>2.2.1</b> Arquitectura Von Neumann</a></li>
 <li class="chapter" data-level="2.2.2" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#arquitectura-harvard"><i class="fa fa-check"></i><b>2.2.2</b> Arquitectura Harvard</a></li>
-<li class="chapter" data-level="2.2.3" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#comparación-y-aplicaciones-modernas"><i class="fa fa-check"></i><b>2.2.3</b> Comparación y aplicaciones modernas</a></li>
+<li class="chapter" data-level="2.2.3" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#comparativa-entre-von-neumann-y-harvard"><i class="fa fa-check"></i><b>2.2.3</b> Comparativa entre Von Neumann y Harvard</a></li>
+<li class="chapter" data-level="2.2.4" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#arquitecturas-híbridas"><i class="fa fa-check"></i><b>2.2.4</b> Arquitecturas híbridas</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html"><i class="fa fa-check"></i><b>2.3</b> Tipos de arquitecturas</a>
 <ul>
@@ -251,7 +252,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="repertorio-de-instrucciones" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Repertorio de instrucciones<a href="repertorio-de-instrucciones.html#repertorio-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y manipulación de datos, además de los modos de direccionamiento y los formatos de las instrucciones. El diseño del ISA tiene un impacto directo en el rendimiento, la eficiencia energética y la flexibilidad del procesador, lo que lo convierte en un componente clave en la arquitectura de computadoras <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>; <a href="#ref-stallings_computer_2013">Stallings 2013</a>)</span>.</p>
+<p>El repertorio de instrucciones, conocido como ISA (Instruction Set Architecture), define el conjunto de operaciones que un procesador puede ejecutar y cómo se codifican dichas operaciones. Este conjunto incluye instrucciones aritméticas, lógicas, de control y manipulación de datos, además de los modos de direccionamiento y los formatos de las instrucciones. El diseño del ISA tiene un impacto directo en el rendimiento, la eficiencia energética y la flexibilidad del procesador, lo que lo convierte en un componente clave en la arquitectura de computadoras <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
 <div id="características-clave-del-isa" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Características clave del ISA<a href="repertorio-de-instrucciones.html#características-clave-del-isa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Entre las características fundamentales a considerar en el diseño de un repertorio de instrucciones se encuentran las siguientes <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>)</span>:</p>
@@ -270,7 +271,7 @@ Figura 2.3: Características repertorio de instrucciones
 </div>
 <div id="modos-de-direccionamiento" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Modos de direccionamiento<a href="repertorio-de-instrucciones.html#modos-de-direccionamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los modos de direccionamiento son esenciales para determinar cómo el procesador accede a los datos necesarios para ejecutar una instrucción. Los modos más comunes incluyen <span class="citation">(<a href="#ref-stallings_computer_2013">Stallings 2013</a>; <a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>)</span>:</p>
+<p>Los modos de direccionamiento son esenciales para determinar cómo el procesador accede a los datos necesarios para ejecutar una instrucción. Los modos más comunes incluyen <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>)</span>:</p>
 <ol style="list-style-type: lower-alpha">
 <li><strong>Inmediato</strong>: el operando está directamente incluido en la instrucción, permitiendo acceso rápido a valores constantes. Es eficiente para operaciones simples, aunque limitado a operandos pequeños.</li>
 <li><strong>Directo</strong>: la instrucción contiene la dirección de memoria del operando. Es fácil de usar, pero está restringido por el rango de direcciones accesibles.</li>
@@ -280,7 +281,7 @@ Figura 2.3: Características repertorio de instrucciones
 <li><strong>Con Desplazamiento</strong>: combina una dirección base con un valor de desplazamiento, ideal para estructuras como arrays y matrices.</li>
 <li><strong>Pila</strong>: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.</li>
 </ol>
-Estos modos se ilustran en la figura <a href="repertorio-de-instrucciones.html#fig:ModDir">2.4</a> según <span class="citation">(<a href="#ref-stallings_computer_2013">Stallings 2013</a>)</span>:
+Estos modos se ilustran en la figura <a href="repertorio-de-instrucciones.html#fig:ModDir">2.4</a> según <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>:
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:ModDir"></span>
 <img src="images/modosdireccionamiento.png" alt="Modos de direccionamiento " width="60%" />
 <p class="caption">
@@ -292,10 +293,10 @@ Figura 2.4: Modos de direccionamiento
 <li>R = contenido de un campo de dirección en la instrucción que referencia a un registro</li>
 <li>EA = dirección real (efectiva) de la posición que contiene el operando que se referencia</li>
 </ul>
-<p>La tabla <a href="repertorio-de-instrucciones.html#tab:tabmoddir">2.2</a> detalla el cálculo de la dirección para cada modo de direccionamiento.</p>
+<p>La tabla <a href="repertorio-de-instrucciones.html#tab:tabmoddir">2.3</a> detalla el cálculo de la dirección para cada modo de direccionamiento.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:tabmoddir">Tabla 2.2: </span>Modos de direccionamiento básicos
+<span id="tab:tabmoddir">Tabla 2.3: </span>Modos de direccionamiento básicos
 </caption>
 <thead>
 <tr>
@@ -440,8 +441,8 @@ Hennessy, John L, and David A Patterson. 2012. <em>Computer Architecture: <span>
 <div id="ref-null_essentials_2014" class="csl-entry">
 Null, Linda, and Julia Lobur. 2014. <em>Essentials of Computer Organization and Architecture</em>. Jones &amp; Bartlett Publishers.
 </div>
-<div id="ref-stallings_computer_2013" class="csl-entry">
-Stallings, William. 2013. <em>Computer Organization and Architecture: Designing for Performance</em>. Eleventh Edition. Pearson.
+<div id="ref-stallings_computer_2021" class="csl-entry">
+Stallings, William. 2021. <em>Computer Organization and Architecture: Designing for Performance</em>. 11th ed. Boston, MA: Pearson.
 </div>
 <div id="ref-tanenbaum_structured_2013" class="csl-entry">
 Tanenbaum, Andrew S. 2013. <em>Structured Computer Organization</em>. Pearson Education.
