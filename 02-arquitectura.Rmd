@@ -463,10 +463,10 @@ knitr::include_graphics(path = "images/convergen.png")
 En síntesis, las filosofías CISC y RISC representan enfoques contrastantes pero complementarios en el diseño de arquitecturas de procesadores. Su comprensión no solo es esencial para analizar el rendimiento y la eficiencia energética de los sistemas modernos, sino también para formar una base sólida en la enseñanza de arquitectura de computadoras, especialmente en contextos donde se emplean simuladores didácticos.
 
 ## Arquitectura x86
-La arquitectura x86, ampliamente reconocida por su influencia y uso extendido en computadoras de escritorio y servidores, tuvo sus inicios en 1978 con el procesador Intel 8086, que introdujo una arquitectura de 16 bits. Desde entonces, ha experimentado una evolución continua, marcando hitos significativos en la historia de la computación. En 1985, el Intel 80386 introdujo la arquitectura de 32 bits, habilitando capacidades como la memoria virtual. Posteriormente, en 2003, AMD amplió el estándar con la arquitectura AMD64, llevando x86 a 64 bits, lo que permitió acceder a mayores espacios de memoria y mejorar el rendimiento en aplicaciones intensivas. Estas innovaciones fueron adoptadas por Intel, consolidando la arquitectura x86 como una de las más versátiles y potentes del mercado [@stallings_computer_2021; @intel_64_2016; @amd_developer_2019; @abel_ibm_2000].
+La arquitectura x86, ampliamente reconocida por su influencia y uso extendido en computadoras de escritorio y servidores, tuvo sus inicios en 1978 con el procesador Intel 8086, que introdujo una arquitectura de 16 bits. Desde entonces, ha experimentado una evolución continua, marcando hitos significativos en la historia de la computación. En 1985, el Intel 80386 introdujo la arquitectura de 32 bits, habilitando capacidades como la memoria virtual. Posteriormente, en 2003, AMD amplió el estándar con la arquitectura AMD64, llevando x86 a 64 bits, lo que permitió acceder a mayores espacios de memoria y mejorar el rendimiento en aplicaciones intensivas. Estas innovaciones, posteriormente adoptadas por Intel, consolidaron a x86 como una arquitectura versátil y dominante, especialmente en aplicaciones de alto rendimiento como servidores y estaciones de trabajo. [@stallings_computer_2021; @intel_64_2016; @amd_developer_2019; @abel_ibm_2000].
 
 ### Evolución de la arquitectura x86
-Uno de los pilares del éxito de la arquitectura x86 ha sido su retrocompatibilidad, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Esta capacidad no solo ha asegurado la continuidad del ecosistema x86, sino que también ha protegido las inversiones en software y sistemas operativos, lo que resulta fundamental en el ámbito empresarial y académico.
+Uno de los pilares del éxito de la arquitectura x86 ha sido su retrocompatibilidad, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Dicha propiedad no solo ha garantizado la continuidad del ecosistema x86, sino que también ha protegido las inversiones en software y sistemas operativos, una característica fundamental en entornos empresariales y académicos.
 
 A continuación, se presenta la tabla \@ref(tab:hitosx86) que resume los hitos clave en la evolución de los procesadores x86:
 
@@ -487,7 +487,7 @@ hitosx86 <- data.frame(
 # Crear la tabla con formato dinámico
 tabla <- kable(hitosx86,
                format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Hitos procesadores x86",
+               caption = "Comparación de ensambladores para la arquitectura x86",
                col.names = c("Procesador", "Año de Lanzamiento", "Número de Bits", "Extensiones de 64 bits"), # nolint
                booktabs = TRUE,
                escape = FALSE)
@@ -599,20 +599,20 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-Esta instrucción utiliza varios componentes, que el procesador debe decodificar antes de ejecutarla. Aunque esta flexibilidad es una ventaja en términos de funcionalidad, requiere técnicas avanzadas, como predicción de saltos y paralelización, para mantener la eficiencia en procesadores modernos [@patterson_computer_2014].
+Esta instrucción utiliza varios componentes, que el procesador debe decodificar antes de ejecutarla. Aunque esta flexibilidad es una ventaja en términos de funcionalidad, requiere técnicas avanzadas, como predicción de saltos y paralelización, para mantener la eficiencia en procesadores modernos [@hennessy2017computer; @patterson_computer_2014].
 
 ## Lenguaje ensamblador
-Un procesador puede interpretar y ejecutar instrucciones exclusivamente en **lenguaje máquina**, que consiste en secuencias de números binarios almacenadas en memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador intentara escribir código en lenguaje máquina, debería especificar manualmente cada secuencia de ceros y unos para realizar operaciones, respetando estrictamente las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso no solo es tedioso, sino también altamente propenso a errores, especialmente al realizar modificaciones, ya que implicaría descifrar y reescribir las secuencias binarias [@irvine2011assembly].
+Un procesador puede interpretar y ejecutar instrucciones exclusivamente en **lenguaje máquina**, que consiste en secuencias de números binarios almacenadas en memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador intentara escribir código en lenguaje máquina, debería especificar manualmente cada secuencia de ceros y unos para realizar operaciones, respetando estrictamente las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso resulta sumamente laborioso y propenso a errores, en especial cuando se requieren modificaciones, ya que estas implican interpretar y reescribir manualmente las secuencias binarias correspondientes a cada instrucción [@irvine2011assembly].
 
-Para simplificar este desafío, se desarrolló el **lenguaje ensamblador**, un lenguaje de programación de bajo nivel que permite a los programadores utilizar instrucciones más legibles mediante mnemónicos simbólicos. A diferencia del lenguaje máquina, que opera con secuencias binarias, el ensamblador emplea símbolos que representan directamente las instrucciones ejecutadas por el procesador. Cada arquitectura de procesador tiene su propio lenguaje ensamblador, generalmente diseñado por el fabricante del hardware y optimizado para la arquitectura específica [@stallings_computer_2021].
+Para simplificar este desafío, se desarrolló el **lenguaje ensamblador**, un lenguaje de programación de bajo nivel que permite a los programadores utilizar instrucciones más legibles mediante mnemónicos simbólicos. A diferencia del lenguaje máquina, que opera con secuencias binarias, el ensamblador emplea símbolos que representan directamente las instrucciones ejecutadas por el procesador. Cada arquitectura de procesador define un conjunto propio de instrucciones que es representado mediante un lenguaje ensamblador particular. Estos lenguajes son desarrollados o estandarizados por los fabricantes de hardware, y se ajustan a las particularidades estructurales y operativas de cada arquitectura [@stallings_computer_2021].
 
 ### Ensamblador
-El ensamblador es un programa que traduce las instrucciones simbólicas escritas en lenguaje ensamblador a lenguaje máquina, es decir, las convierte en las secuencias binarias que el procesador puede interpretar y ejecutar. Este proceso de traducción es prácticamente directo, ya que existe una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina [@stallings_computer_2021]. En contraste, los lenguajes de programación de alto nivel, como C o Python, suelen generar múltiples instrucciones máquina por cada línea de código fuente, lo que los distancia más de la arquitectura subyacente.
+El ensamblador es un programa que traduce las instrucciones simbólicas escritas en lenguaje ensamblador a lenguaje máquina, es decir, las convierte en las secuencias binarias que el procesador puede interpretar y ejecutar. Este proceso de traducción es prácticamente directo, ya que existe una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina [@stallings_computer_2021; @tanenbaum_structured_2016]. En contraste, los lenguajes de programación de alto nivel, como C o Python, suelen generar múltiples instrucciones máquina por cada línea de código fuente, lo que los distancia más de la arquitectura subyacente [@hennessy2017computer].
 
 #### Ensambladores x86
 En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) [@tasm], MASM (Microsoft Macro Assembler) [@masm] y NASM (Netwide Assembler) [@nasm]. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 [@hyde2010art].
 
-A continuación, se presenta una comparativa de las principales características de estos ensambladores:
+A continuación, se presenta una tabla \@ref(tab:ensambladores) comparativa que resume las principales características de tres ensambladores ampliamente utilizados en la arquitectura x86. Esta información resulta útil para comprender sus diferencias en términos de funcionalidad, compatibilidad y contexto de uso.
 
 ```{r ensambladores, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -651,7 +651,7 @@ ensambladores <- data.frame(
 # Crear la tabla con formato dinámico
 tabla <- kable(ensambladores,
                format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Hitos procesadores x86",
+               caption = "Comparación de ensambladores para la arquitectura x86",
                col.names = c("Característica", "TASM", "MASM", "NASM"), # nolint
                booktabs = TRUE,
                escape = FALSE)
