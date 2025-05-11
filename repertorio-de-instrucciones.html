@@ -133,6 +133,7 @@ div.csl-indent {
 <li class="chapter" data-level="2.4.1" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#características-clave-del-isa"><i class="fa fa-check"></i><b>2.4.1</b> Características clave del ISA</a></li>
 <li class="chapter" data-level="2.4.2" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#modos-de-direccionamiento"><i class="fa fa-check"></i><b>2.4.2</b> Modos de direccionamiento</a></li>
 <li class="chapter" data-level="2.4.3" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#formato-de-las-instrucciones"><i class="fa fa-check"></i><b>2.4.3</b> Formato de las instrucciones</a></li>
+<li class="chapter" data-level="2.4.4" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#comparativa-de-repertorios-de-instrucciones-reales"><i class="fa fa-check"></i><b>2.4.4</b> Comparativa de repertorios de instrucciones reales</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html"><i class="fa fa-check"></i><b>2.5</b> Filosofías CISC y RISC</a>
 <ul>
@@ -251,13 +252,13 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="repertorio-de-instrucciones" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Repertorio de instrucciones<a href="repertorio-de-instrucciones.html#repertorio-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El repertorio de instrucciones, conocido como Instruction Set Architecture (ISA), es el conjunto de instrucciones que un procesador puede ejecutar, junto con la forma en que estas se codifican en binario. El ISA define la interfaz entre el hardware y el software, abarcando instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y los formatos de instrucción. El diseño del ISA impacta directamente en el rendimiento, la eficiencia energética y la flexibilidad de un procesador, lo que lo convierte en un componente fundamental de la arquitectura de computadoras” <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
+<p>El repertorio de instrucciones, o Instruction Set Architecture (ISA), es el conjunto de operaciones que un procesador puede ejecutar, incluyendo su representación binaria y el conjunto de reglas que definen la interacción entre el software y el hardware. El ISA define la interfaz entre el hardware y el software, abarcando instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y los formatos de instrucción. Por su influencia directa en el rendimiento, la eficiencia energética y la versatilidad del sistema, el ISA constituye un componente esencial en el diseño de arquitecturas de computadoras <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
 <div id="características-clave-del-isa" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Características clave del ISA<a href="repertorio-de-instrucciones.html#características-clave-del-isa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Entre las características fundamentales a considerar en el diseño de un repertorio de instrucciones se encuentran las siguientes <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span>:</p>
 <ul>
 <li><strong>Tipos de operandos</strong>: representan los datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres y direcciones de memoria. Un ISA eficiente debe soportar una amplia variedad de operandos para maximizar su versatilidad.</li>
-<li><strong>Tipos de operaciones</strong>: incluyen las operaciones que el procesador puede realizar, como aritméticas (suma, resta), lógicas (AND, OR), de control (saltos, llamadas a subrutinas) y de manipulación de datos (almacenamiento, carga). La literatura especializada en diseño de ISA enfatiza la necesidad de equilibrar funcionalidad, simplicidad y eficiencia de implementación al definir un repertorio de instrucciones , como sugieren Hennessy y Patterson <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span> y Null y Lobur <span class="citation">(<a href="#ref-null_essentials_2014">Null and Lobur 2014</a>)</span>.</li>
+<li><strong>Tipos de operaciones</strong>: incluyen las operaciones que el procesador puede realizar, como aritméticas (suma, resta), lógicas (AND, OR), de control (saltos, llamadas a subrutinas) y de manipulación de datos (almacenamiento, carga). Diversos autores destacan que un ISA bien diseñado debe lograr un equilibrio entre funcionalidad, simplicidad y eficiencia de implementación, aspectos fundamentales en el diseño de arquitecturas modernas <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>)</span>.</li>
 <li><strong>Modos de direccionamiento</strong>: determinan cómo se especifican los operandos en las instrucciones. Entre los modos más comunes se encuentran el inmediato, directo, indirecto, mediante registros, con desplazamiento y basado en pila. Cada uno ofrece distintos niveles de eficiencia, flexibilidad y complejidad, siendo fundamentales para optimizar el acceso a datos y la ejecución de instrucciones.</li>
 <li><strong>Formato de las instrucciones</strong>: que definen las reglas para acceder a los operandos dentro de las instrucciones, se exploran con mayor detalle en la siguiente subsección.</li>
 </ul>
@@ -267,11 +268,11 @@ div.csl-indent {
 Figura 2.4: Características repertorio de instrucciones
 </p>
 </div>
-<p>El diseño de un repertorio de instrucciones eficiente y versátil es un desafío complejo que requiere un equilibrio entre funcionalidad, rendimiento y facilidad de uso. La elección de los tipos de operandos, operaciones y modos de direccionamiento adecuados, así como la definición de un formato de instrucción claro y coherente, son aspectos fundamentales para lograr una arquitectura de computadoras efectiva y adaptable a diversas aplicaciones. Estas características no solo definen las capacidades funcionales de un procesador, sino que también condicionan la manera en que las instrucciones interactúan con la memoria y los registros. A continuación, se profundiza en los modos de direccionamiento, uno de los aspectos estructurales más relevantes del ISA.</p>
+<p>El diseño de un repertorio de instrucciones eficiente y versátil es un desafío complejo que requiere un equilibrio entre funcionalidad, rendimiento y facilidad de uso. La selección adecuada de operandos, operaciones y modos de direccionamiento, junto con un formato de instrucción bien estructurado, son aspectos fundamentales para lograr una arquitectura de computadoras efectiva y adaptable a diversas aplicaciones. Estas características no solo definen las capacidades funcionales de un procesador, sino que también condicionan la manera en que las instrucciones interactúan con la memoria y los registros. A continuación, se profundiza en los modos de direccionamiento, uno de los elementos que más influye en la flexibilidad y eficiencia del repertorio de instrucciones.</p>
 </div>
 <div id="modos-de-direccionamiento" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Modos de direccionamiento<a href="repertorio-de-instrucciones.html#modos-de-direccionamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los modos de direccionamiento son esenciales para determinar cómo el procesador accede a los datos necesarios para ejecutar una instrucción. A continuación, se describen los modos de direccionamiento más comúnmente implementados en las arquitecturas modernas <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span>:</p>
+<p>Los modos de direccionamiento definen los mecanismos mediante los cuales una instrucción especifica la ubicación de sus operandos, permitiendo así al procesador acceder a los datos en memoria o registros en tiempo de ejecución. A continuación, se describen los modos de direccionamiento más comúnmente implementados en las arquitecturas modernas <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span>:</p>
 <ol style="list-style-type: lower-alpha">
 <li><strong>Inmediato</strong>: el operando está directamente incluido en la instrucción, permitiendo acceso rápido a valores constantes. Es eficiente para operaciones simples, aunque limitado a operandos pequeños.</li>
 <li><strong>Directo</strong>: la instrucción contiene la dirección de memoria del operando. Es fácil de usar, pero está restringido por el rango de direcciones accesibles.</li>
@@ -426,11 +427,92 @@ Aplicabilidad limitada
 </ul>
 <p>La Figura <a href="repertorio-de-instrucciones.html#fig:forminst">2.6</a> muestra un ejemplo representativo de formato de instrucción, donde se visualizan los campos que la componen y su disposición en el código binario.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:forminst"></span>
-<img src="images/formatoInst.jpg" alt="Formato de instrucciones " width="100%" />
+<img src="images/formatoinst.png" alt="Formato de instrucciones " width="100%" />
 <p class="caption">
 Figura 2.6: Formato de instrucciones
 </p>
 </div>
+</div>
+<div id="comparativa-de-repertorios-de-instrucciones-reales" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Comparativa de repertorios de instrucciones reales<a href="repertorio-de-instrucciones.html#comparativa-de-repertorios-de-instrucciones-reales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La siguiente tabla resume las características principales de los repertorios de instrucciones en tres arquitecturas ampliamente utilizadas: x86, ARM y RISC-V. Se consideran aspectos como la longitud de las instrucciones, la cantidad de operandos, su complejidad y los modos de direccionamiento que permiten.</p>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:comparativaISA">Tabla 2.4: </span>Comparativa de repertorios de instrucciones reales
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;background-color: rgba(211, 211, 211, 255) !important;text-align: center;">
+Arquitectura
+</th>
+<th style="text-align:left;font-weight: bold;background-color: rgba(211, 211, 211, 255) !important;text-align: center;">
+Longitud instrucción
+</th>
+<th style="text-align:left;font-weight: bold;background-color: rgba(211, 211, 211, 255) !important;text-align: center;">
+Nº operandos
+</th>
+<th style="text-align:left;font-weight: bold;background-color: rgba(211, 211, 211, 255) !important;text-align: center;">
+Tipos de operandos
+</th>
+<th style="text-align:left;font-weight: bold;background-color: rgba(211, 211, 211, 255) !important;text-align: center;">
+Modos de direccionamiento
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+x86
+</td>
+<td style="text-align:left;width: 4cm; ">
+Variable
+</td>
+<td style="text-align:left;width: 4cm; ">
+0–3+
+</td>
+<td style="text-align:left;width: 4cm; ">
+Complejos
+</td>
+<td style="text-align:left;width: 4cm; ">
+Muchos
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+ARM
+</td>
+<td style="text-align:left;width: 4cm; ">
+Fija (32 bits)
+</td>
+<td style="text-align:left;width: 4cm; ">
+3
+</td>
+<td style="text-align:left;width: 4cm; ">
+Simples
+</td>
+<td style="text-align:left;width: 4cm; ">
+Limitados
+</td>
+</tr>
+<tr>
+<td style="text-align:left;font-weight: bold;border-right:1px solid;">
+RISC-V
+</td>
+<td style="text-align:left;width: 4cm; ">
+Fija (32 bits)
+</td>
+<td style="text-align:left;width: 4cm; ">
+3
+</td>
+<td style="text-align:left;width: 4cm; ">
+Simples
+</td>
+<td style="text-align:left;width: 4cm; ">
+Extensible
+</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <h3> Bibliografía<a href="Biblio.html#Biblio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
