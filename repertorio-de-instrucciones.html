@@ -251,26 +251,27 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="repertorio-de-instrucciones" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> Repertorio de instrucciones<a href="repertorio-de-instrucciones.html#repertorio-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El repertorio de instrucciones, también denominado Instruction Set Architecture (ISA), es el conjunto de instrucciones que un procesador puede ejecutar, junto con la forma en que estas se codifican. Este repertorio abarca instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y los formatos de instrucción. El diseño del ISA impacta directamente en el rendimiento, la eficiencia energética y la flexibilidad de un procesador, lo que lo convierte en un componente fundamental de la arquitectura de computadoras” <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
+<p>El repertorio de instrucciones, conocido como Instruction Set Architecture (ISA), es el conjunto de instrucciones que un procesador puede ejecutar, junto con la forma en que estas se codifican en binario. El ISA define la interfaz entre el hardware y el software, abarcando instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y los formatos de instrucción. El diseño del ISA impacta directamente en el rendimiento, la eficiencia energética y la flexibilidad de un procesador, lo que lo convierte en un componente fundamental de la arquitectura de computadoras” <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
 <div id="características-clave-del-isa" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Características clave del ISA<a href="repertorio-de-instrucciones.html#características-clave-del-isa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Entre las características fundamentales a considerar en el diseño de un repertorio de instrucciones se encuentran las siguientes <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span>:</p>
 <ul>
 <li><strong>Tipos de operandos</strong>: representan los datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres y direcciones de memoria. Un ISA eficiente debe soportar una amplia variedad de operandos para maximizar su versatilidad.</li>
-<li><strong>Tipos de operaciones</strong>: incluyen las operaciones que el procesador puede realizar, como aritméticas (suma, resta), lógicas (AND, OR), de control (saltos, llamadas a subrutinas) y de manipulación de datos (almacenamiento, carga). Un repertorio bien diseñado debe equilibrar funcionalidad y simplicidad.</li>
+<li><strong>Tipos de operaciones</strong>: incluyen las operaciones que el procesador puede realizar, como aritméticas (suma, resta), lógicas (AND, OR), de control (saltos, llamadas a subrutinas) y de manipulación de datos (almacenamiento, carga). La literatura especializada en diseño de ISA enfatiza la necesidad de equilibrar funcionalidad, simplicidad y eficiencia de implementación al definir un repertorio de instrucciones , como sugieren Hennessy y Patterson <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span> y Null y Lobur <span class="citation">(<a href="#ref-null_essentials_2014">Null and Lobur 2014</a>)</span>.</li>
 <li><strong>Modos de direccionamiento</strong>: determinan cómo se especifican los operandos en las instrucciones. Entre los modos más comunes se encuentran el inmediato, directo, indirecto, mediante registros, con desplazamiento y basado en pila. Cada uno ofrece distintos niveles de eficiencia, flexibilidad y complejidad, siendo fundamentales para optimizar el acceso a datos y la ejecución de instrucciones.</li>
-<li><strong>Formato de las instrucciones</strong>: define la estructura de una instrucción, incluyendo su longitud, el número de operandos y los modos de direccionamiento. Este aspecto influye tanto en la complejidad del procesador como en su rendimiento.</li>
+<li><strong>Formato de las instrucciones</strong>: que definen las reglas para acceder a los operandos dentro de las instrucciones, se exploran con mayor detalle en la siguiente subsección.</li>
 </ul>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:repInstCaracteristicas"></span>
-<img src="images/repInstCaracteristicas.jpg" alt="Características repertorio de instrucciones" width="100%" />
+<img src="images/isa.png" alt="Características repertorio de instrucciones" width="100%" />
 <p class="caption">
 Figura 2.4: Características repertorio de instrucciones
 </p>
 </div>
+<p>El diseño de un repertorio de instrucciones eficiente y versátil es un desafío complejo que requiere un equilibrio entre funcionalidad, rendimiento y facilidad de uso. La elección de los tipos de operandos, operaciones y modos de direccionamiento adecuados, así como la definición de un formato de instrucción claro y coherente, son aspectos fundamentales para lograr una arquitectura de computadoras efectiva y adaptable a diversas aplicaciones. Estas características no solo definen las capacidades funcionales de un procesador, sino que también condicionan la manera en que las instrucciones interactúan con la memoria y los registros. A continuación, se profundiza en los modos de direccionamiento, uno de los aspectos estructurales más relevantes del ISA.</p>
 </div>
 <div id="modos-de-direccionamiento" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Modos de direccionamiento<a href="repertorio-de-instrucciones.html#modos-de-direccionamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los modos de direccionamiento son esenciales para determinar cómo el procesador accede a los datos necesarios para ejecutar una instrucción. Los modos más comunes incluyen <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span>:</p>
+<p>Los modos de direccionamiento son esenciales para determinar cómo el procesador accede a los datos necesarios para ejecutar una instrucción. A continuación, se describen los modos de direccionamiento más comúnmente implementados en las arquitecturas modernas <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span>:</p>
 <ol style="list-style-type: lower-alpha">
 <li><strong>Inmediato</strong>: el operando está directamente incluido en la instrucción, permitiendo acceso rápido a valores constantes. Es eficiente para operaciones simples, aunque limitado a operandos pequeños.</li>
 <li><strong>Directo</strong>: la instrucción contiene la dirección de memoria del operando. Es fácil de usar, pero está restringido por el rango de direcciones accesibles.</li>
@@ -280,7 +281,7 @@ Figura 2.4: Características repertorio de instrucciones
 <li><strong>Con Desplazamiento</strong>: combina una dirección base con un valor de desplazamiento, ideal para estructuras como arrays y matrices.</li>
 <li><strong>Pila</strong>: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.</li>
 </ol>
-Estos modos se ilustran en la figura <a href="repertorio-de-instrucciones.html#fig:ModDir">2.5</a> según <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>:
+<p>Para complementar la descripción anterior, la Figura <a href="repertorio-de-instrucciones.html#fig:ModDir">2.5</a> presenta una representación esquemática de los modos de direccionamiento, mostrando gráficamente cómo se calcula la dirección efectiva (EA) en cada caso <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:ModDir"></span>
 <img src="images/modosdireccionamiento.png" alt="Modos de direccionamiento " width="60%" />
 <p class="caption">
@@ -417,9 +418,9 @@ Aplicabilidad limitada
 </div>
 <div id="formato-de-las-instrucciones" class="section level3 hasAnchor" number="2.4.3">
 <h3><span class="header-section-number">2.4.3</span> Formato de las instrucciones<a href="repertorio-de-instrucciones.html#formato-de-las-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formato de las instrucciones define su estructura, incluyendo su longitud, el número de operandos y campos como el opcode (código de operación), los operandos y los modos de direccionamiento. Este formato afecta la rapidez de decodificación y la eficiencia general del procesador <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-tanenbaum_structured_2013">Tanenbaum 2013</a>)</span>:</p>
+<p>El formato de las instrucciones especifica la disposición y codificación de los elementos que conforman una instrucción, como el código de operación (opcode), los operandos, los modos de direccionamiento y otros campos auxiliares. Esta organización impacta directamente en la facilidad de decodificación y en el rendimiento del procesador. Este formato afecta la rapidez de decodificación y la eficiencia general del procesador <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>:</p>
 <ul>
-<li><strong>Longitud de la instrucción</strong>: puede ser fija o variable. La longitud fija simplifica el diseño del hardware, mientras que la variable optimiza el uso de memoria, aunque incrementa la complejidad de decodificación.</li>
+<li><strong>Longitud de la instrucción</strong>: puede ser fija o variable. Las instrucciones de longitud fija permiten una decodificación más rápida y simplifican la lógica de control del procesador. En cambio, las instrucciones de longitud variable permiten una codificación más eficiente del espacio de memoria, a costa de una mayor complejidad en la etapa de decodificación.</li>
 <li><strong>Cantidad de operandos</strong>: las instrucciones pueden trabajar con diferentes números de operandos (de 0 a 3 o más). Una mayor cantidad de operandos incrementa la expresividad de las instrucciones, pero también puede derivar en una mayor complejidad de codificación y en un mayor uso de recursos del procesador.</li>
 <li><strong>Campos de instrucción</strong>: incluyen el opcode y campos adicionales como operandos, modos de direccionamiento y flags de condición. Estos campos determinan cuántas y qué tipo de operaciones puede ejecutar el procesador en un ciclo de reloj.</li>
 </ul>
@@ -443,8 +444,8 @@ Null, Linda, and Julia Lobur. 2014. <em>The Essentials of Computer Organization 
 <div id="ref-stallings_computer_2021" class="csl-entry">
 Stallings, William. 2021. <em>Computer Organization and Architecture: Designing for Performance</em>. 11th ed. Boston, MA: Pearson.
 </div>
-<div id="ref-tanenbaum_structured_2013" class="csl-entry">
-Tanenbaum, Andrew S. 2013. <em>Structured Computer Organization</em>. Pearson Education.
+<div id="ref-tanenbaum_structured_2016" class="csl-entry">
+Tanenbaum, Andrew S. 2016. <em>Structured Computer Organization</em>. Pearson Education India.
 </div>
 </div>
             </section>
