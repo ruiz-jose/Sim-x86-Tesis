@@ -125,9 +125,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-x86"><i class="fa fa-check"></i><b>2.3.1</b> Arquitectura x86</a></li>
 <li class="chapter" data-level="2.3.2" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-arm"><i class="fa fa-check"></i><b>2.3.2</b> Arquitectura ARM</a></li>
-<li class="chapter" data-level="2.3.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-mips"><i class="fa fa-check"></i><b>2.3.3</b> Arquitectura MIPS</a></li>
-<li class="chapter" data-level="2.3.4" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-risc-v"><i class="fa fa-check"></i><b>2.3.4</b> Arquitectura RISC-V</a></li>
-<li class="chapter" data-level="2.3.5" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#comparativa-arquitecturas"><i class="fa fa-check"></i><b>2.3.5</b> Comparativa arquitecturas</a></li>
+<li class="chapter" data-level="2.3.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-risc-v"><i class="fa fa-check"></i><b>2.3.3</b> Arquitectura RISC-V</a></li>
+<li class="chapter" data-level="2.3.4" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#comparativa-entre-arquitecturas"><i class="fa fa-check"></i><b>2.3.4</b> Comparativa entre arquitecturas</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html"><i class="fa fa-check"></i><b>2.4</b> Repertorio de instrucciones</a>
 <ul>
@@ -151,7 +150,7 @@ div.csl-indent {
 <li class="chapter" data-level="2.7.1" data-path="lenguaje-ensamblador.html"><a href="lenguaje-ensamblador.html#ensamblador"><i class="fa fa-check"></i><b>2.7.1</b> Ensamblador</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="simulación.html"><a href="simulación.html"><i class="fa fa-check"></i><b>3</b> Simulación</a>
+<li class="chapter" data-level="3" data-path="simulacion.html"><a href="simulacion.html"><i class="fa fa-check"></i><b>3</b> Simulación</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="introducción-a-la-simulación.html"><a href="introducción-a-la-simulación.html"><i class="fa fa-check"></i><b>3.1</b> Introducción a la simulación</a>
 <ul>
@@ -255,7 +254,7 @@ div.csl-indent {
 <p>Comprender las arquitecturas modernas requiere el análisis de dos modelos conceptuales fundamentales que sentaron las bases del diseño actual de sistemas computacionales: Von Neumann y Harvard. Estos modelos arquitectónicos no solo constituyen la base teórica de muchas arquitecturas contemporáneas, sino que también permiten identificar sus fortalezas, limitaciones y áreas de aplicación.</p>
 <div id="arquitectura-von-neumann" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Arquitectura Von Neumann<a href="arquitecturas-von-neumann-y-harvard.html#arquitectura-von-neumann" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La arquitectura Von Neumann, formalizada por John von Neumann en 1945 en su influyente documento “First Draft of a Report on the EDVAC” <span class="citation">(<a href="#ref-vonneumann1945first">Neumann 1945</a>)</span>, establece un modelo computacional en el cual tanto los datos como las instrucciones residen en una única memoria y comparten un mismo bus de comunicación. Esta arquitectura se caracteriza por sus cuatro componentes fundamentales: la unidad central de procesamiento (CPU), la unidad de control, la memoria y los dispositivos de entrada/salida. La unificación del espacio de memoria facilita el diseño del sistema y la programación, sin embargo, esta unificación también origina una limitación conocida como el ‘cuello de botella de Von Neumann’, que se refiere a la imposibilidad de acceder simultáneamente a datos e instrucciones debido al uso compartido del mismo bus, lo cual reduce la eficiencia del procesamiento, particularmente en aplicaciones con uso intensivo de datos <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
+<p>La arquitectura Von Neumann, formalizada por John von Neumann en 1945 en su influyente documento “First Draft of a Report on the EDVAC” <span class="citation">(<a href="#ref-vonneumann1945first">Neumann 1945</a>)</span>, establece un modelo computacional en el cual tanto los datos como las instrucciones residen en una única memoria y comparten un mismo bus de comunicación. Esta arquitectura se caracteriza por sus cuatro componentes fundamentales: la unidad central de procesamiento (CPU), la unidad de control, la memoria y los dispositivos de entrada/salida. La unificación del espacio de memoria facilita el diseño del sistema y la programación, sin embargo, esta unificación también origina una limitación conocida como el ‘cuello de botella de Von Neumann’, que se refiere a la imposibilidad de acceder simultáneamente a datos e instrucciones debido al uso compartido del mismo bus, lo cual reduce la eficiencia del procesamiento, particularmente en aplicaciones con uso intensivo de datos <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:vonneumann"></span>
 <img src="images/vonneumann.png" alt="Arquitectura Von Neumann" width="85%" />
 <p class="caption">
@@ -275,7 +274,7 @@ Figura 2.2: Arquitectura Harvard
 </div>
 <div id="comparativa-entre-von-neumann-y-harvard" class="section level3 hasAnchor" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Comparativa entre Von Neumann y Harvard<a href="arquitecturas-von-neumann-y-harvard.html#comparativa-entre-von-neumann-y-harvard" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Como señalan Stallings <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span> y Hennessy <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>)</span>, la arquitectura Von Neumann continúa siendo una alternativa predominante cuando se priorizan la simplicidad del diseño, la flexibilidad en la asignación de memoria y la compatibilidad con software de propósito general, como ocurre en muchas computadoras personales y servidores contemporáneos. En cambio, la arquitectura Harvard ha demostrado ventajas significativas en aplicaciones que demandan procesamiento en tiempo real y eficiencia energética, como dispositivos móviles, microcontroladores y entornos de control industrial. La elección entre ambas arquitecturas responde, en última instancia, a requerimientos específicos del sistema, ya sea por su complejidad, restricciones energéticas o necesidades de rendimiento paralelo.</p>
+<p>Como señalan Stallings <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span> y Hennessy <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span>, la arquitectura Von Neumann continúa siendo una alternativa predominante cuando se priorizan la simplicidad del diseño, la flexibilidad en la asignación de memoria y la compatibilidad con software de propósito general, como ocurre en muchas computadoras personales y servidores contemporáneos. En cambio, la arquitectura Harvard ha demostrado ventajas significativas en aplicaciones que demandan procesamiento en tiempo real y eficiencia energética, como dispositivos móviles, microcontroladores y entornos de control industrial. La elección entre ambas arquitecturas responde, en última instancia, a requerimientos específicos del sistema, ya sea por su complejidad, restricciones energéticas o necesidades de rendimiento paralelo.</p>
 <p>Para una comparación más sistemática, se pueden establecer criterios como tipo de memoria, estructura de buses, capacidad de acceso paralelo, casos de uso representativos, ventajas y limitaciones.</p>
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -368,7 +367,13 @@ Diseño más complejo
 </div>
 <div id="arquitecturas-híbridas" class="section level3 hasAnchor" number="2.2.4">
 <h3><span class="header-section-number">2.2.4</span> Arquitecturas híbridas<a href="arquitecturas-von-neumann-y-harvard.html#arquitecturas-híbridas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Muchas arquitecturas contemporáneas implementan un enfoque híbrido, también conocido como arquitectura Harvard modificada. Este modelo emplea memorias separadas para datos e instrucciones a nivel microarquitectónico a menudo mediante la utilización de memorias caché de nivel 1 (L1) separadas para instrucciones y datos. No obstante, desde la perspectiva del programador, el modelo de memoria se mantiene unificado, facilitando el desarrollo de software sin exponer la complejidad del diseño interno. Esta dualidad permite optimizar la implementación física del procesador sin complicar el modelo de programación <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>; <a href="#ref-patterson_computer_2017">David A. Patterson and Hennessy 2017</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
+<p>Muchas arquitecturas contemporáneas implementan un enfoque híbrido, también conocido como arquitectura Harvard modificada. Este modelo emplea memorias separadas para datos e instrucciones a nivel microarquitectónico a menudo mediante la utilización de memorias caché de nivel 1 (L1) separadas para instrucciones y datos. No obstante, desde la perspectiva del programador, el modelo de memoria se mantiene unificado, facilitando el desarrollo de software sin exponer la complejidad del diseño interno. Esta dualidad permite optimizar la implementación física del procesador sin complicar el modelo de programación <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-null_essentials_2014">Null and Lobur 2014</a>; <a href="#ref-patterson_computer_2017">David A. Patterson and Hennessy 2017</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:hibrida"></span>
+<img src="images/hibrida.png" alt="Arquitectura Híbridas" width="85%" />
+<p class="caption">
+Figura 2.3: Arquitectura Híbridas
+</p>
+</div>
 <p>Esta aproximación híbrida se implementa en arquitecturas modernas como ARM Cortex y los procesadores Intel Core, los cuales incorporan cachés separadas para instrucciones y datos con el objetivo de optimizar el rendimiento del pipeline, lo que facilita una mayor paralelización del procesamiento y reduce los conflictos en el acceso a memoria. A pesar de que el modelo de memoria visible para el programador se presenta como unificado, a nivel interno se implementan mecanismos característicos de la arquitectura Harvard, como el uso de memorias caché separadas para instrucciones y datos <span class="citation">(<a href="#ref-arm2021architecture">Arm Ltd. 2021</a>; <a href="#ref-intel_microarchitecture_2021">Intel Corporation 2021</a>)</span>.</p>
 <p>La adopción de arquitecturas híbridas, como la Harvard modificada, ha permitido a los diseñadores combinar la flexibilidad del modelo Von Neumann con la eficiencia del modelo Harvard. Esta convergencia no solo optimiza el rendimiento de los sistemas, sino que también responde a las exigencias contemporáneas en términos de consumo energético y capacidad de procesamiento paralelo. En este sentido, la distinción entre ambos modelos continúa siendo un eje conceptual clave para comprender la evolución de las arquitecturas modernas y su adaptación a diferentes escenarios tecnológicos.</p>
 <p>En síntesis, la comprensión de las arquitecturas fundamentales —Von Neumann, Harvard e híbridas— resulta esencial para el desarrollo de herramientas de simulación efectivas en la enseñanza de arquitectura de computadoras. Los conceptos explorados en esta sección proporcionan los fundamentos conceptuales esenciales para el diseño y desarrollo de la herramienta de simulación propuesta en esta tesis.</p>
@@ -382,8 +387,8 @@ Arm Ltd. 2021. <em>Arm Architecture Reference Manual: Armv9-a, for Armv9-a Archi
 <div id="ref-ceruzzi_history_2003" class="csl-entry">
 Ceruzzi, Paul E. 2003. <em>A History of Modern Computing</em>. MIT press.
 </div>
-<div id="ref-hennessy_computer_2012" class="csl-entry">
-Hennessy, John L, and David A Patterson. 2012. <em>Computer Architecture: <span>A</span> Quantitative Approach</em>. Fifth Edition. Elsevier.
+<div id="ref-hennessy2017computer" class="csl-entry">
+Hennessy, John L, and David A Patterson. 2017. <em>Computer Organization and Design RISC-v Edition: The Hardware Software Interface</em>. Elsevier Science &amp; Technology Books.
 </div>
 <div id="ref-intel_microarchitecture_2021" class="csl-entry">
 Intel Corporation. 2021. <em>Intel<sup></sup> 64 and IA-32 Architectures Optimization Reference Manual</em>. April 2021. Intel Corporation.
@@ -395,7 +400,7 @@ Neumann, John von. 1945. <span>“First Draft of a Report on the <span>EDVAC</sp
 Noergaard, Tammy. 2012. <em>Embedded Systems Architecture: A Comprehensive Guide for Engineers and Programmers</em>. Newnes.
 </div>
 <div id="ref-null_essentials_2014" class="csl-entry">
-Null, Linda, and Julia Lobur. 2014. <em>Essentials of Computer Organization and Architecture</em>. Jones &amp; Bartlett Publishers.
+Null, Linda, and Julia Lobur. 2014. <em>The Essentials of Computer Organization and Architecture</em>. 4th ed. Burlington, MA: Jones &amp; Bartlett Learning.
 </div>
 <div id="ref-patterson_computer_2017" class="csl-entry">
 Patterson, David A., and John L. Hennessy. 2017. <em>Computer Organization and Design RISC-v Edition: The Hardware Software Interface</em>. Morgan Kaufmann.

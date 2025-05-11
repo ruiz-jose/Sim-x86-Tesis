@@ -125,9 +125,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.3.1" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-x86"><i class="fa fa-check"></i><b>2.3.1</b> Arquitectura x86</a></li>
 <li class="chapter" data-level="2.3.2" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-arm"><i class="fa fa-check"></i><b>2.3.2</b> Arquitectura ARM</a></li>
-<li class="chapter" data-level="2.3.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-mips"><i class="fa fa-check"></i><b>2.3.3</b> Arquitectura MIPS</a></li>
-<li class="chapter" data-level="2.3.4" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-risc-v"><i class="fa fa-check"></i><b>2.3.4</b> Arquitectura RISC-V</a></li>
-<li class="chapter" data-level="2.3.5" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#comparativa-arquitecturas"><i class="fa fa-check"></i><b>2.3.5</b> Comparativa arquitecturas</a></li>
+<li class="chapter" data-level="2.3.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-risc-v"><i class="fa fa-check"></i><b>2.3.3</b> Arquitectura RISC-V</a></li>
+<li class="chapter" data-level="2.3.4" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#comparativa-entre-arquitecturas"><i class="fa fa-check"></i><b>2.3.4</b> Comparativa entre arquitecturas</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html"><i class="fa fa-check"></i><b>2.4</b> Repertorio de instrucciones</a>
 <ul>
@@ -151,7 +150,7 @@ div.csl-indent {
 <li class="chapter" data-level="2.7.1" data-path="lenguaje-ensamblador.html"><a href="lenguaje-ensamblador.html#ensamblador"><i class="fa fa-check"></i><b>2.7.1</b> Ensamblador</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="simulación.html"><a href="simulación.html"><i class="fa fa-check"></i><b>3</b> Simulación</a>
+<li class="chapter" data-level="3" data-path="simulacion.html"><a href="simulacion.html"><i class="fa fa-check"></i><b>3</b> Simulación</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="introducción-a-la-simulación.html"><a href="introducción-a-la-simulación.html"><i class="fa fa-check"></i><b>3.1</b> Introducción a la simulación</a>
 <ul>
@@ -252,17 +251,18 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="filosofías-cisc-y-risc" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Filosofías CISC y RISC<a href="filosofías-cisc-y-risc.html#filosofías-cisc-y-risc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El diseño del repertorio de instrucciones es un componente esencial en la arquitectura de procesadores. Dos de las filosofías más influyentes en este campo son <strong>CISC (Complex Instruction Set Computing)</strong> y <strong>RISC (Reduced Instruction Set Computing)</strong>. Mientras que <strong>CISC</strong> prioriza la reducción del número de instrucciones necesarias para realizar tareas complejas mediante operaciones multifuncionales, <strong>RISC</strong> simplifica el conjunto de instrucciones con el objetivo de maximizar la velocidad y la eficiencia energética. En esta sección se analizan ambos enfoques y sus implicaciones en el diseño de procesadores <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>; <a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>)</span>.</p>
+<p>El diseño del repertorio de instrucciones constituye una decisión estratégica en la arquitectura de procesadores, ya que condiciona tanto el rendimiento del sistema como la complejidad del compilador y del hardware. Dos de las filosofías más influyentes en este campo son <strong>CISC (Complex Instruction Set Computing)</strong> y <strong>RISC (Reduced Instruction Set Computing)</strong>. Mientras que <strong>CISC</strong> prioriza la reducción del número de instrucciones necesarias para realizar tareas complejas mediante operaciones multifuncionales, <strong>RISC</strong> simplifica el conjunto de instrucciones con el objetivo de maximizar la velocidad y la eficiencia energética. En esta sección se analizan ambos enfoques y sus implicaciones en el diseño de procesadores <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>)</span>.</p>
 <div id="cisc" class="section level3 hasAnchor" number="2.5.1">
 <h3><span class="header-section-number">2.5.1</span> CISC<a href="filosofías-cisc-y-risc.html#cisc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Las arquitecturas <strong>CISC</strong>, como la <strong>x86</strong>, se caracterizan por su enfoque en reducir el número de instrucciones requeridas para completar operaciones complejas. Esto se logra mediante la inclusión de instrucciones que combinan múltiples operaciones en un solo ciclo. Como resultado, los programadores necesitan escribir menos líneas de código para alcanzar un objetivo específico.</p>
 <p>Sin embargo, este diseño implica ciertas desventajas. La <strong>decodificación</strong> y <strong>ejecución</strong> de instrucciones CISC requiere un hardware considerablemente más complejo, y las instrucciones de longitud variable, típicas de estas arquitecturas, pueden aumentar el tiempo de decodificación. Esto genera cuellos de botella en el pipeline y limita el rendimiento.</p>
 <p>Por ejemplo, los procesadores <strong>x86</strong> que ha evolucionado hacia un enfoque híbrido. Utiliza microcódigo para descomponer las instrucciones complejas en operaciones más simples, parecidas a las de un procesador RISC. Aunque esta estrategia mejora la eficiencia de ejecución en algunos casos, el diseño sigue siendo más costoso en términos de consumo energético y complejidad <span class="citation">(<a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>)</span>.</p>
+<p>En resumen, el repertorio de instrucciones y sus elementos asociados —como los tipos de operaciones, modos de direccionamiento y formatos— constituyen la interfaz fundamental entre el hardware y el software. Su diseño influye directamente en la eficiencia del procesamiento y en la forma en que los programas interactúan con la arquitectura subyacente, lo que refuerza su relevancia en el estudio de la arquitectura de computadoras.</p>
 </div>
 <div id="RISC" class="section level3 hasAnchor" number="2.5.2">
 <h3><span class="header-section-number">2.5.2</span> RISC<a href="filosofías-cisc-y-risc.html#RISC" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Por su parte, las arquitecturas <strong>RISC</strong>, como <strong>ARM</strong> y <strong>MIPS</strong>, adoptan un conjunto reducido de instrucciones de longitud fija. Esta simplificación facilita la decodificación y permite que muchas instrucciones se ejecuten en un solo ciclo de reloj. Además, esta filosofía favorece la implementación de técnicas avanzadas como el pipelining y la predicción de ramas, optimizando así el rendimiento.</p>
-<p>A nivel de hardware, RISC prioriza la eficiencia energética, una característica crucial en dispositivos móviles y sistemas embebidos. Por ello, procesadores como los basados en ARM han dominado estos mercados. La simplicidad y el bajo CPI (ciclos por instrucción) han sido factores determinantes en su adopción <span class="citation">(<a href="#ref-hennessy_computer_2012">Hennessy and Patterson 2012</a>)</span>.</p>
+<p>A nivel de hardware, RISC prioriza la eficiencia energética, una característica crucial en dispositivos móviles y sistemas embebidos. Por ello, procesadores como los basados en ARM han dominado estos mercados. La simplicidad y el bajo CPI (ciclos por instrucción) han sido factores determinantes en su adopción <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span>.</p>
 </div>
 <div id="comparativa-entre-cisc-y-risc" class="section level3 hasAnchor" number="2.5.3">
 <h3><span class="header-section-number">2.5.3</span> Comparativa entre CISC y RISC<a href="filosofías-cisc-y-risc.html#comparativa-entre-cisc-y-risc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -377,8 +377,8 @@ Acceso más rápido a los operandos, menor latencia
 </div>
 <h3> Bibliografía<a href="Biblio.html#Biblio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-hennessy_computer_2012" class="csl-entry">
-Hennessy, John L, and David A Patterson. 2012. <em>Computer Architecture: <span>A</span> Quantitative Approach</em>. Fifth Edition. Elsevier.
+<div id="ref-hennessy2017computer" class="csl-entry">
+Hennessy, John L, and David A Patterson. 2017. <em>Computer Organization and Design RISC-v Edition: The Hardware Software Interface</em>. Elsevier Science &amp; Technology Books.
 </div>
 <div id="ref-patterson_computer_2014" class="csl-entry">
 Patterson et al. 2014. <em>Computer Organization and Design: The Hardware/Software Interface-5th</em>. Morgan Kaufmann.
