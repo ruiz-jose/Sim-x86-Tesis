@@ -601,18 +601,40 @@ if (knitr::is_latex_output()) {
 
 Esta instrucción utiliza varios componentes, que el procesador debe decodificar antes de ejecutarla. Aunque esta flexibilidad es una ventaja en términos de funcionalidad, requiere técnicas avanzadas, como predicción de saltos y paralelización, para mantener la eficiencia en procesadores modernos [@hennessy2017computer; @patterson_computer_2014].
 
-## Lenguaje ensamblador
-El procesador de una computadora está diseñado para interpretar y ejecutar únicamente instrucciones codificadas en lenguaje máquina, representadas como secuencias binarias que residen en memoria. Estas instrucciones son leídas y ejecutadas de forma directa, sin intermediarios. Sin embargo, la escritura manual de código en lenguaje máquina es un proceso extremadamente laborioso, propenso a errores y difícil de mantener. Cada instrucción debe ser representada como una cadena precisa de ceros y unos, siguiendo las reglas específicas del procesador respecto a modos de direccionamiento, formatos de instrucción y organización de la memoria [@irvine2011assembly; @stallings_computer_2021; @tanenbaum_structured_2016].
+## Lenguaje máquina y lenguaje ensamblador
+El lenguaje máquina es el conjunto de instrucciones que un procesador puede entender y ejecutar directamente. Cada procesador tiene su propio conjunto de instrucciones, que se representan en forma de números binarios. Estas instrucciones son específicas para cada arquitectura y están diseñadas para realizar operaciones básicas como sumar, restar, mover datos entre registros y acceder a la memoria. El lenguaje máquina es el nivel más bajo de programación y está compuesto por secuencias de bits que representan operaciones y operandos específicos del procesador
+[@irvine2011assembly; @hennessy2017computer].
 
-Por ejemplo, si un programador quisiera sumar dos números en lenguaje máquina, tendría que especificar manualmente cada secuencia binaria correspondiente a la operación de suma, así como las direcciones de memoria donde se encuentran los operandos. Este enfoque no solo es tedioso, sino que también aumenta la probabilidad de errores, especialmente cuando se requiere modificar o depurar el código.
+El procesador de una computadora está diseñado para interpretar y ejecutar únicamente instrucciones codificadas en lenguaje máquina, sin mediación de abstracciones de más alto nivel. Estas instrucciones son leídas y ejecutadas de forma directa, sin intermediarios. Sin embargo, la escritura manual de código en lenguaje máquina es un proceso extremadamente laborioso, propenso a errores y difícil de mantener. Cada instrucción debe representarse como una cadena precisa de ceros y unos. Esta codificación depende de las reglas específicas del procesador, que incluyen los modos de direccionamiento, los formatos de instrucción y la organización de la memoria [@irvine2011assembly; @stallings_computer_2021; @tanenbaum_structured_2016; @null_essentials_2020].
 
-Para facilitar la programación a bajo nivel, surgió el lenguaje ensamblador. Este lenguaje permite a los programadores escribir instrucciones más comprensibles mediante mnemónicos simbólicos, que actúan como representaciones legibles de las instrucciones en lenguaje máquina. Cada arquitectura de procesador define su propio conjunto de instrucciones (ISA, *Instruction Set Architecture*), y por lo tanto, cuenta con un lenguaje ensamblador específico, adaptado a sus características funcionales y estructurales [@stallings_computer_2021].
+Por ejemplo, si un estudiante o desarrollador deseara sumar dos números en lenguaje máquina, tendría que especificar manualmente cada secuencia binaria correspondiente a la operación de suma, así como las direcciones de memoria donde se encuentran los operandos. Este enfoque no solo es tedioso, sino que también aumenta la probabilidad de errores, especialmente cuando se requiere modificar o depurar el código.
+
+Ante las limitaciones del lenguaje máquina en términos de legibilidad y mantenibilidad, se desarrolló un lenguaje de nivel ligeramente superior que permitiera al programador escribir instrucciones de forma más comprensible: el lenguaje ensamblador. Este lenguaje permite a los programadores escribir instrucciones más comprensibles mediante mnemónicos simbólicos, que actúan como representaciones legibles de las instrucciones en lenguaje máquina. Cada arquitectura de procesador define su propio conjunto de instrucciones (ISA, Instruction Set Architecture), lo que implica que el lenguaje ensamblador asociado debe ajustarse a la codificación binaria, modos de direccionamiento y sintaxis específicos de dicha ISA [@stallings_computer_2021].
 
 Desde el punto de vista educativo, el lenguaje ensamblador constituye una herramienta fundamental para comprender cómo se comunican el software y el hardware. Permite a los estudiantes visualizar la ejecución de instrucciones individuales, analizar el uso de registros y explorar la estructura de la memoria, lo que lo convierte en un recurso valioso para la enseñanza de arquitectura de computadoras.
 
-### Lenguaje máquina  
-El lenguaje máquina es el conjunto de instrucciones que un procesador puede entender y ejecutar directamente. Cada procesador tiene su propio conjunto de instrucciones, que se representan en forma de números binarios. Estas instrucciones son específicas para cada arquitectura y están diseñadas para realizar operaciones básicas como sumar, restar, mover datos entre registros y acceder a la memoria. El lenguaje máquina es el nivel más bajo de programación y está compuesto por secuencias de bits que representan operaciones y operandos específicos del procesador
-[@irvine2011assembly].
+Un programa en lenguaje ensamblador suele estar compuesto por instrucciones que especifican un mnemónico, uno o más operandos, y eventualmente el modo de direccionamiento. Por ejemplo:
+
+
+```{r  code2, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+  ; Carga el valor inmediato 10 en el registro R0
+  MOV AX, 5
+  ADD AX, BX
+  \\end{lstlisting}
+  ")
+} else {
+  cat("
+  ```assembly
+    MOV AX, 5
+    ADD AX, BX
+  ```")
+}
+```
+
+Estas líneas indican que el valor 5 se mueve al registro AX y luego se suma el contenido de BX. A través de este tipo de instrucciones, el estudiante puede visualizar de forma explícita cómo opera el procesador sobre sus registros y memoria.
 
 ### Ensamblador
 El ensamblador es un programa que traduce las instrucciones simbólicas escritas en lenguaje ensamblador a lenguaje máquina, es decir, las convierte en las secuencias binarias que el procesador puede interpretar y ejecutar. Este proceso de traducción es prácticamente directo, ya que existe una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina [@stallings_computer_2021; @tanenbaum_structured_2016]. En contraste, los lenguajes de programación de alto nivel, como C o Python, suelen generar múltiples instrucciones máquina por cada línea de código fuente, lo que los distancia más de la arquitectura subyacente [@hennessy2017computer].
