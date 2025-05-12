@@ -870,7 +870,7 @@ En síntesis, las filosofías CISC y RISC representan enfoques contrastantes per
 \hypertarget{arquitectura-x86-1}{%
 \section{Arquitectura x86}\label{arquitectura-x86-1}}
 
-La arquitectura x86, ampliamente reconocida por su influencia y uso extendido en computadoras de escritorio y servidores, tuvo sus inicios en 1978 con el procesador Intel 8086, que introdujo una arquitectura de 16 bits. Desde entonces, ha experimentado una evolución continua, marcando hitos significativos en la historia de la computación. En 1985, el Intel 80386 introdujo la arquitectura de 32 bits, habilitando capacidades como la memoria virtual. Posteriormente, en 2003, AMD amplió el estándar con la arquitectura AMD64, llevando x86 a 64 bits, lo que permitió acceder a mayores espacios de memoria y mejorar el rendimiento en aplicaciones intensivas. Estas innovaciones, posteriormente adoptadas por Intel, consolidaron a x86 como una arquitectura versátil y dominante, especialmente en aplicaciones de alto rendimiento como servidores y estaciones de trabajo. \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-intel_64_2016}{{[}15{]}}, \protect\hyperlink{ref-amd_developer_2019}{{[}16{]}}, \protect\hyperlink{ref-abel_ibm_2000}{{[}17{]}}.
+La arquitectura x86, reconocida por su amplia adopción en computadoras personales, estaciones de trabajo y servidores, se introdujo en 1978 con el procesador Intel 8086, basado en una arquitectura de 16 bits. Desde entonces, ha evolucionado en capacidad y complejidad, con hitos clave como la introducción del Intel 80386 (32 bits) en 1985 y la extensión a 64 bits con AMD64 en 2003. Esta evolución ha permitido mejoras significativas en el rendimiento, el direccionamiento de memoria y la compatibilidad con aplicaciones exigentes. \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-intel_64_2016}{{[}15{]}}, \protect\hyperlink{ref-amd_developer_2019}{{[}16{]}}, \protect\hyperlink{ref-abel_ibm_2000}{{[}17{]}}.
 
 \hypertarget{evoluciuxf3n-de-la-arquitectura-x86}{%
 \subsection{Evolución de la arquitectura x86}\label{evoluciuxf3n-de-la-arquitectura-x86}}
@@ -881,7 +881,7 @@ A continuación, se presenta la tabla \ref{tab:hitosx86} que resume los hitos cl
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:hitosx86}Comparación de ensambladores para la arquitectura x86}
+\caption{\label{tab:hitosx86}Hitos en la evolución x86}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
@@ -935,7 +935,7 @@ La tabla \ref{tab:evolucionx86} muestra cómo la evolución de x86 ha estado mar
 \hypertarget{repertorio-de-instrucciones-x86}{%
 \subsection{Repertorio de instrucciones x86}\label{repertorio-de-instrucciones-x86}}
 
-La arquitectura x86 destaca por su complejidad y flexibilidad, reflejada en un repertorio de instrucciones extenso y de longitud variable. Esto contrasta con arquitecturas RISC, donde predominan instrucciones de longitud fija y decodificación sencilla \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}. Aunque esta flexibilidad permite adaptaciones a diversas aplicaciones, también implica mayores desafíos en términos de implementación y eficiencia operativa.
+La arquitectura x86 destaca por su complejidad y flexibilidad, reflejada en un repertorio de instrucciones extenso y de longitud variable. Esto contrasta con arquitecturas RISC, donde predominan instrucciones de longitud fija y decodificación sencilla \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}. Aunque esta flexibilidad implica una mayor capacidad expresiva y compatibilidad hacia atrás, también introduce desafíos de diseño, tales como la necesidad de decodificadores complejos, técnicas de predicción de instrucciones y ejecución fuera de orden para lograr un rendimiento competitivo.
 
 \hypertarget{estructura-de-una-instrucciuxf3n-x86}{%
 \subsubsection{Estructura de una instrucción x86}\label{estructura-de-una-instrucciuxf3n-x86}}
@@ -975,25 +975,46 @@ Esta instrucción utiliza varios componentes, que el procesador debe decodificar
 \hypertarget{lenguaje-ensamblador}{%
 \section{Lenguaje ensamblador}\label{lenguaje-ensamblador}}
 
-Un procesador puede interpretar y ejecutar instrucciones exclusivamente en \textbf{lenguaje máquina}, que consiste en secuencias de números binarios almacenadas en memoria. Estas instrucciones son leídas y ejecutadas directamente por el procesador. Si un programador intentara escribir código en lenguaje máquina, debería especificar manualmente cada secuencia de ceros y unos para realizar operaciones, respetando estrictamente las estructuras de memoria y los modos de direccionamiento del procesador. Este proceso resulta sumamente laborioso y propenso a errores, en especial cuando se requieren modificaciones, ya que estas implican interpretar y reescribir manualmente las secuencias binarias correspondientes a cada instrucción \protect\hyperlink{ref-irvine2011assembly}{{[}43{]}}.
+El procesador de una computadora está diseñado para interpretar y ejecutar únicamente instrucciones codificadas en lenguaje máquina, representadas como secuencias binarias que residen en memoria. Estas instrucciones son leídas y ejecutadas de forma directa, sin intermediarios. Sin embargo, la escritura manual de código en lenguaje máquina es un proceso extremadamente laborioso, propenso a errores y difícil de mantener. Cada instrucción debe ser representada como una cadena precisa de ceros y unos, siguiendo las reglas específicas del procesador respecto a modos de direccionamiento, formatos de instrucción y organización de la memoria \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}}, \protect\hyperlink{ref-irvine2011assembly}{{[}43{]}}.
 
-Para simplificar este desafío, se desarrolló el \textbf{lenguaje ensamblador}, un lenguaje de programación de bajo nivel que permite a los programadores utilizar instrucciones más legibles mediante mnemónicos simbólicos. A diferencia del lenguaje máquina, que opera con secuencias binarias, el ensamblador emplea símbolos que representan directamente las instrucciones ejecutadas por el procesador. Cada arquitectura de procesador define un conjunto propio de instrucciones que es representado mediante un lenguaje ensamblador particular. Estos lenguajes son desarrollados o estandarizados por los fabricantes de hardware, y se ajustan a las particularidades estructurales y operativas de cada arquitectura \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}.
+Por ejemplo, si un programador quisiera sumar dos números en lenguaje máquina, tendría que especificar manualmente cada secuencia binaria correspondiente a la operación de suma, así como las direcciones de memoria donde se encuentran los operandos. Este enfoque no solo es tedioso, sino que también aumenta la probabilidad de errores, especialmente cuando se requiere modificar o depurar el código.
+
+Para facilitar la programación a bajo nivel, surgió el lenguaje ensamblador. Este lenguaje permite a los programadores escribir instrucciones más comprensibles mediante mnemónicos simbólicos, que actúan como representaciones legibles de las instrucciones en lenguaje máquina. Cada arquitectura de procesador define su propio conjunto de instrucciones (ISA, \emph{Instruction Set Architecture}), y por lo tanto, cuenta con un lenguaje ensamblador específico, adaptado a sus características funcionales y estructurales \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}.
+
+Desde el punto de vista educativo, el lenguaje ensamblador constituye una herramienta fundamental para comprender cómo se comunican el software y el hardware. Permite a los estudiantes visualizar la ejecución de instrucciones individuales, analizar el uso de registros y explorar la estructura de la memoria, lo que lo convierte en un recurso valioso para la enseñanza de arquitectura de computadoras.
+
+\hypertarget{lenguaje-muxe1quina}{%
+\subsection{Lenguaje máquina}\label{lenguaje-muxe1quina}}
+
+El lenguaje máquina es el conjunto de instrucciones que un procesador puede entender y ejecutar directamente. Cada procesador tiene su propio conjunto de instrucciones, que se representan en forma de números binarios. Estas instrucciones son específicas para cada arquitectura y están diseñadas para realizar operaciones básicas como sumar, restar, mover datos entre registros y acceder a la memoria. El lenguaje máquina es el nivel más bajo de programación y está compuesto por secuencias de bits que representan operaciones y operandos específicos del procesador
+\protect\hyperlink{ref-irvine2011assembly}{{[}43{]}}.
 
 \hypertarget{ensamblador}{%
 \subsection{Ensamblador}\label{ensamblador}}
 
 El ensamblador es un programa que traduce las instrucciones simbólicas escritas en lenguaje ensamblador a lenguaje máquina, es decir, las convierte en las secuencias binarias que el procesador puede interpretar y ejecutar. Este proceso de traducción es prácticamente directo, ya que existe una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}}. En contraste, los lenguajes de programación de alto nivel, como C o Python, suelen generar múltiples instrucciones máquina por cada línea de código fuente, lo que los distancia más de la arquitectura subyacente \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}.
 
+La Figura \ref{fig:ensambla} muestras el proceso de traducción de un programa en lenguaje ensamblador a lenguaje máquina. En este proceso, el ensamblador toma cada línea de código en ensamblador y la convierte en su representación binaria correspondiente, generando así un archivo ejecutable que puede ser cargado y ejecutado por el procesador.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/ensamblador} 
+
+}
+
+\caption{Proceso de ensamblado}\label{fig:ensambla}
+\end{figure}
+
 \hypertarget{ensambladores-x86}{%
-\subsubsection{Ensambladores x86}\label{ensambladores-x86}}
+\subsection{Ensambladores x86}\label{ensambladores-x86}}
 
 En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) \protect\hyperlink{ref-tasm}{{[}44{]}}, MASM (Microsoft Macro Assembler) \protect\hyperlink{ref-masm}{{[}45{]}} y NASM (Netwide Assembler) \protect\hyperlink{ref-nasm}{{[}46{]}}. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 \protect\hyperlink{ref-hyde2010art}{{[}47{]}}.
 
-A continuación, se presenta una tabla \ref{tab:ensambladores} comparativa que resume las principales características de tres ensambladores ampliamente utilizados en la arquitectura x86. Esta información resulta útil para comprender sus diferencias en términos de funcionalidad, compatibilidad y contexto de uso.
+A continuación, se presenta una tabla comparativa \ref{tab:ensambladores} que resume las principales características de tres ensambladores ampliamente utilizados en la arquitectura x86. La información compilada permite visualizar diferencias relevantes en términos de sintaxis, compatibilidad, funcionalidades adicionales y contexto de uso, lo que resulta particularmente útil al momento de seleccionar herramientas adecuadas para entornos educativos o de desarrollo de bajo nivel.
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:ensambladores}Comparación de ensambladores para la arquitectura x86}
+\caption{\label{tab:ensambladores}Comparación de ensambladores arquitectura x86}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
