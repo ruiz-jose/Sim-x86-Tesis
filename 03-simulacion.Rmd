@@ -64,6 +64,24 @@ Además, la simulación actúa como un puente entre la teoría y la práctica, f
 El formalismo DEVS es una metodología modular y jerárquica que permite modelar y analizar sistemas representables como sistemas de eventos discretos, continuos o híbridos. Desarrollado por Bernard P. Zeigler en la década de 1970, este enfoque amplía el concepto de las máquinas de Moore al añadir una estructura que permite representar el comportamiento de sistemas mediante eventos temporizados que provocan cambios de estado, capturando así tanto la dinámica interna como las interacciones externas del sistema [@zeigler_theory_2000].
 
 ### Estructura del formalismo DEVS
+Un modelo atómico DEVS se define formalmente como una séxtupla:
+
+$$
+M = \langle X, S, Y, \delta_{int}, \delta_{ext}, \lambda, ta \rangle
+$$
+
+donde:
+
+- \(X\) es el conjunto de eventos de entrada
+- \(S\) es el conjunto de estados
+- \(Y\) es el conjunto de eventos de salida
+- \(\delta_{int}: S \rightarrow S\) es la función de transición interna
+- \(\delta_{ext}: Q \times X \rightarrow S\) es la función de transición externa, con \(Q = \{ (s, e) | s \in S, 0 \leq e \leq ta(s) \}\)
+- \(\lambda: S \rightarrow Y\) es la función de salida
+- \(ta: S \rightarrow \mathbb{R}^+_0 \cup \{\infty\}\) es la función de tiempo de permanencia
+
+Esta estructura permite capturar tanto el comportamiento interno como la interacción externa del sistema modelado.
+
 DEVS describe el comportamiento de un sistema real utilizando eventos de entrada y salida, así como transiciones entre estados definidos. Un sistema en este formalismo se compone de dos tipos principales de modelos:
 
 - **Modelos atómicos**: representan las unidades fundamentales de comportamiento.
@@ -71,8 +89,14 @@ DEVS describe el comportamiento de un sistema real utilizando eventos de entrada
 
 Esta organización modular facilita el análisis y la gestión de sistemas, permitiendo probar subsistemas de manera aislada antes de integrarlos en un modelo completo.
 
+La siguiente figura \@ref(fig:ensambla) ilustra la organización modular del formalismo DEVS, mostrando cómo se integran modelos atómicos dentro de modelos acoplados:
+
+```{r devs, echo=FALSE, fig.cap="Relación entre modelos atómicos y modelos acoplados en DEVS", fig.align = 'center', out.width = "100%"}
+knitr::include_graphics(path = "images/devs.png")
+```
+
 ### Aplicaciones del formalismo DEVS
-"El formalismo DEVS encuentra aplicación en diversos ámbitos, como las redes de comunicación [@fujimoto2001parallel], donde permite simular el enrutamiento de paquetes y la congestión de redes; en entornos de manufactura [@zeigler_theory_2000], donde se modelan flujos de producción y control de calidad; y en sistemas de transporte, para la optimización de flujos vehiculares [@barros1997modeling]. También se utiliza en la simulación de sistemas biológicos, como la propagación de enfermedades o el comportamiento de poblaciones [@zeigler_devs_2004]. En el ámbito de la educación, DEVS se ha implementado en simuladores para la enseñanza de arquitectura de computadoras, permitiendo a los estudiantes explorar y comprender conceptos complejos mediante la visualización y manipulación de modelos [@calvo_valdes_simulador_2010]."
+"El formalismo DEVS encuentra aplicación en diversos ámbitos, como las redes de comunicación [@fujimoto2001parallel], donde permite simular el enrutamiento de paquetes y la congestión de redes; en entornos de manufactura [@zeigler_theory_2000], donde se modelan flujos de producción y control de calidad; y en sistemas de transporte, para la optimización de flujos vehiculares [@barros1997modeling]. También se utiliza en la simulación de sistemas biológicos, como la propagación de enfermedades o el comportamiento de poblaciones [@zeigler2004continuity]. En el ámbito de la educación, DEVS se ha implementado en simuladores para la enseñanza de arquitectura de computadoras, permitiendo a los estudiantes explorar y comprender conceptos complejos mediante la visualización y manipulación de modelos [@calvo2010simulador].
 
 Estas aplicaciones destacan su versatilidad para optimizar sistemas complejos en escenarios del mundo real.
 
