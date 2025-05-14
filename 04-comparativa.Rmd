@@ -15,7 +15,7 @@ A diferencia de los estudios mencionados, este trabajo propone una evaluación c
 ## Simuladores bajo análisis
 Un simulador de arquitectura es una herramienta de software que emula el hardware de un sistema de cómputo, permitiendo representar aspectos arquitectónicos y funcionales del mismo. Estos simuladores ofrecen un entorno controlado para realizar pruebas, modificaciones y ejecución de programas sin riesgo de dañar componentes físicos o enfrentar limitaciones de hardware [@radivojevic_design_2011].
 
-Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Algunos ejemplos relevantes de simuladores son: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente [@nikolic_survey_2009][@hasan_survey_2012][@hennessy2017computer][@stallings_computer_2021][@behrooz_computer_2005].
+Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Algunos ejemplos relevantes de simuladores son: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente [@nikolic_survey_2009; @hasan_survey_2012; @hennessy2017computer;@stallings_computer_2021; @behrooz_computer_2005].
 
 ## Criterios de evaluación
 Los criterios de evaluación se definieron con el objetivo de realizar un análisis integral y sistemático de los simuladores seleccionados. A continuación, se presentan estos criterios junto con sus respectivos indicadores y escalas:
@@ -69,7 +69,7 @@ Los criterios de evaluación se definieron con el objetivo de realizar un análi
   - **Escala**: Baja - Media - Alta.
 
 
-La Tabla @ref(tab:criterios) resume los criterios, indicadores y escalas utilizadas.
+La Tabla \@ref(tab:criterios) resume los criterios, indicadores y escalas utilizadas.
 
 ```{r criterios, echo=FALSE}
 library(knitr)
@@ -114,27 +114,38 @@ Mediante una exploración exhaustiva de fuentes disponibles en línea, foros aca
 
 La selección se basó en una evaluación preliminar que consideró el tiempo necesario para su análisis y el grado de cumplimiento de los criterios definidos, priorizando aquellos simuladores que ofrecieran un balance adecuado entre funcionalidad, usabilidad, documentación y alineación con los contenidos curriculares de la asignatura Arquitectura de Computadoras. De esta preselección, se eligieron tres herramientas que, a priori, cumplían con la mayor cantidad de criterios evaluativos: **Emu8086**, **VonSim** y **Simple 8-bit Assembler Simulator**.
 
-```{r simuladores_tabla, echo=FALSE, message=FALSE, warning=FALSE}
+```{r simuladores, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
+# Crear los datos de la tabla
 simuladores <- data.frame(
   Simulador = c(
-    "Assembly Debugger (x86)", 
-    "Simple 8-bit Assembler Simulator", 
-    "Microprocessor Simulator", 
-    "Simulador de ensamblador de 16 bits", 
-    "Emu8086", 
-    "VonSim", 
-    "Orga1", 
+    "Assembly Debugger (x86)",
+    "Simple 8-bit Assembler Simulator",
+    "Microprocessor Simulator",
+    "Simulador de ensamblador de 16 bits",
+    "Emu8086",
+    "VonSim",
+    "Orga1",
     "Qsim"
   ),
-  `Exploración Previa` = c("✔", "✔", "✔", "✔", "✔", "✔", "✔", "✔"),
-  `Evaluación Final` = c("✘", "✔", "✘", "✘", "✔", "✔", "✘", "✘")
+  `Exploración Previa` = c("1", "1", "1", "1", "1", "1", "1", "1"),
+  `Evaluación Final` = c("0", "1", "0", "0", "1", "1", "0", "0")
 )
 
-kable(simuladores, format = "latex", booktabs = TRUE, caption = "Proceso de selección de simuladores") %>%
-  kable_styling(latex_options = c("hold_position"))
+# Generar la tabla con formato LaTeX o HTML según el tipo de salida
+kable(simuladores, format = ifelse(knitr::is_latex_output(), "latex", "html"),
+      caption = "Proceso de selección de simuladores",
+      booktabs = TRUE, escape = FALSE) %>%
+  kable_styling(
+    latex_options = c("hold_position", "scale_down"), # Mantén la tabla en su posición y ajusta el tamaño
+    full_width = FALSE, # Evita que la tabla ocupe todo el ancho
+    position = "center" # Centra la tabla
+  ) %>%
+  column_spec(1, bold = TRUE, border_right = TRUE) %>% # Negrita en la primera columna
+  column_spec(2:3, width = "4cm") %>% # Ajusta el ancho de las columnas
+  row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") # Estilo para el encabezado
 ```
 
 ## Participantes en la evaluación
