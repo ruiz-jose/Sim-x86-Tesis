@@ -15,27 +15,59 @@ En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, 
 
 Estos principios generales encuentran aplicaciones concretas en diversos sectores industriales, donde la simulación cumple un papel clave tanto en el diseño como en el entrenamiento, la evaluación y la toma de decisiones.
 
-```{r aplicacionessimulacion, echo=FALSE, message=FALSE}
-knitr::kable(
-  data.frame(
-    Sector = c("Automotriz", "Aeroespacial", "Medicina", "Educación"),
-    Aplicación = c(
-      "Pruebas de colisión virtuales",
-      "Simuladores de vuelo",
-      "Simulación de cirugías",
-      "Simuladores para arquitectura de computadoras"
-    ),
-    `Beneficio principal` = c(
-      "Reducción de costos y aumento de seguridad",
-      "Entrenamiento sin riesgo",
-      "Entrenamiento sin comprometer pacientes",
-      "Comprensión de procesos abstractos"
-    )
+```{r , echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear los datos de la tabla
+aplicaciones <- data.frame(
+  Sector = c("Automotriz", "Aeroespacial", "Medicina", "Educación"),
+  Aplicación = c(
+    "Pruebas de colisión virtuales",
+    "Simuladores de vuelo",
+    "Simulación de cirugías",
+    "Simuladores para arquitectura de computadoras"
   ),
-  caption = "Aplicaciones de la simulación en distintos sectores",
-  booktabs = TRUE,
-  align = "l"
+  `Beneficio principal` = c(
+    "Reducción de costos y aumento de seguridad",
+    "Entrenamiento sin riesgo",
+    "Entrenamiento sin comprometer pacientes",
+    "Comprensión de procesos abstractos"
+  )
 )
+
+# Crear la tabla con formato dinámico
+tabla <- kable(aplicaciones,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Aplicaciones de la simulación en distintos sectores",
+               col.names = c("Sector", "Aplicación", "Beneficio principal"),
+               booktabs = TRUE,
+               escape = FALSE)
+
+# Convertir a HTML o LaTeX según el formato de salida
+if (knitr::is_latex_output()) {
+  tabla %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "4cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(aplicaciones)),
+             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas
+
+} else {
+  tabla %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "20em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "15em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
 ```
 
 Estos ejemplos ilustran cómo la simulación contribuye significativamente a la optimización de procesos, la reducción de riesgos y la mejora continua en el desarrollo de sistemas complejos. Su uso no solo ha transformado sectores productivos, sino que también ofrece un modelo replicable en contextos educativos especializados, como la enseñanza de arquitectura de computadoras.

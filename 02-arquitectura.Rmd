@@ -113,28 +113,32 @@ Como arquitectura de código abierto, RISC-V ofrece una alternativa personalizab
 ### Comparativa entre arquitecturas
 Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. Por su parte, arquitecturas como RISC-V han encontrado aplicaciones relevantes en sistemas embebidos, plataformas educativas y diseños personalizados, aunque su presencia comercial difiere notablemente. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final. Además, comprender las diferencias entre estas arquitecturas, en particular sus repertorios de instrucciones y principios de diseño, resulta fundamental en el ámbito educativo, dado que facilita el desarrollo de herramientas didácticas que simulan sus principios operativos y ayudan a los estudiantes a visualizar el funcionamiento real de los sistemas computacionales [@patterson_computer_2014; @arm_evolution_2025].
 
-```{r comparq, echo=FALSE, message=FALSE, warning=FALSE}
+```{r aplicacionessimulacion, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
-comparq <- data.frame(
-  Característica = c(
-    "Eficiencia Energética",
-    "Complejidad ISA",
-    "Rendimiento",
-    "Áreas de Aplicación"
-  ), # nolint: line_length_linter.
-  x86 = c("Moderada", "Alta", "Alto",
-          "Escritorio, servidores"),
-  ARM = c("Alta", "Baja", "Moderado", "Dispositivos móviles"),
-  `RISC-V` = c("Alta", "Baja", "Moderado", "Investigación, embebidos")
+# Crear los datos de la tabla
+aplicaciones <- data.frame(
+  Sector = c("Automotriz", "Aeroespacial", "Medicina", "Educación"),
+  Aplicación = c(
+    "Pruebas de colisión virtuales",
+    "Simuladores de vuelo",
+    "Simulación de cirugías",
+    "Simuladores para arquitectura de computadoras"
+  ),
+  `Beneficio principal` = c(
+    "Reducción de costos y aumento de seguridad",
+    "Entrenamiento sin riesgo",
+    "Entrenamiento sin comprometer pacientes",
+    "Comprensión de procesos abstractos"
+  )
 )
 
 # Crear la tabla con formato dinámico
-tabla <- kable(comparq,
+tabla <- kable(aplicaciones,
                format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Comparación de Arquitecturas",
-               col.names = c("Característica", "x86", "ARM", "RISC-V"), # nolint: line_length_linter.
+               caption = "Aplicaciones de la simulación en distintos sectores",
+               col.names = c("Sector", "Aplicación", "Beneficio principal"),
                booktabs = TRUE,
                escape = FALSE)
 
@@ -148,8 +152,8 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:3, width = "4cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(comparq)),
-             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
+    row_spec(seq_len(nrow(aplicaciones)),
+             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas
 
 } else {
   tabla %>%
