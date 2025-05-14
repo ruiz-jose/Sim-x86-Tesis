@@ -1,7 +1,7 @@
 # Comparativa de simuladores {#comparativa}
 En este capítulo se presentan el análisis y la comparación de diversos simuladores x86 con el propósito de evaluar su posible integración en la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas.
 
-La selección y evaluación de estos simuladores se fundamenta en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor respalden el proceso de enseñanza y aprendizaje. Los criterios considerados incluyen aspectos como usabilidad, funcionalidad del editor de código, calidad de la documentación, características de la ejecución de simulación, nivel de especificación de la arquitectura x86, propiedades del producto y alineación con los contenidos curriculares.
+La selección y evaluación de estos simuladores se fundamenta en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor respalden el proceso de enseñanza y aprendizaje. Los criterios definidos abarcan aspectos clave para la enseñanza de arquitectura de computadoras: facilidad de uso, funcionalidades del entorno de programación, calidad de los recursos de apoyo, mecanismos de ejecución de programas, precisión en la emulación de la arquitectura x86, características técnicas del software y su alineación con los contenidos curriculares.
 
 Los resultados de esta investigación fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), en el trabajo titulado Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86 [@colombani_herramientas_2022].
 
@@ -69,9 +69,47 @@ Los criterios de evaluación se definieron cuidadosamente para garantizar un an�
   - **Escala**: Baja - Media - Alta.
 
 ## Selección de simuladores
-A partir de una exhaustiva exploración en internet sobre herramientas de simulación de la arquitectura x86 utilizadas para la enseñanza, se identificaron los siguientes simuladores: Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim.
+Mediante una exploración exhaustiva de fuentes disponibles en línea, foros académicos y repositorios educativos, se identificaron los siguientes simuladores de arquitectura x86: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim. Estos simuladores fueron seleccionados por su relevancia en el ámbito educativo y su potencial para facilitar la enseñanza de la arquitectura x86.
 
 La selección se basó en una evaluación preliminar que consideró el tiempo necesario para su análisis y el grado de cumplimiento de los criterios definidos, priorizando aquellos simuladores que ofrecieran un balance adecuado entre funcionalidad, usabilidad, documentación y alineación con los contenidos curriculares de la asignatura Arquitectura de Computadoras. De esta preselección, se eligieron tres herramientas que, a priori, cumplían con la mayor cantidad de criterios evaluativos: **Emu8086**, **VonSim** y **Simple 8-bit Assembler Simulator**.
+
+```{r criterios, echo=FALSE}
+library(knitr)
+library(kableExtra)
+
+criterios <- data.frame(
+  Criterio = c(
+    "Usabilidad",
+    "Funcionalidad del editor",
+    "Calidad de la documentación",
+    "Ejecución de simulación",
+    "Especificación de arquitectura x86",
+    "Propiedades técnicas y de distribución",
+    "Alineación con contenidos curriculares"
+  ),
+  Indicadores = c(
+    "Facilidad de aprendizaje, interfaz, documentación",
+    "Sintaxis, manejo de errores, guardar/cargar",
+    "Manuales, tutoriales, repertorio de instrucciones",
+    "Control de simulación, visualización del flujo, configurabilidad",
+    "Fidelidad de la arquitectura, repertorio, memoria y E/S",
+    "Licencia, actualizaciones, plataforma",
+    "Cobertura de tópicos, profundidad del tratamiento"
+  ),
+  Escala = c(
+    "Difícil - Fácil",
+    "Baja - Alta",
+    "Mínima - Completa",
+    "Baja - Alta",
+    "Mínima - Completa",
+    "Mala - Muy buena",
+    "Baja - Alta"
+  )
+)
+
+kable(criterios, format = "latex", booktabs = TRUE, caption = "Criterios e indicadores de evaluación de simuladores") %>%
+  kable_styling(latex_options = c("hold_position"))
+```
 
 ## Participantes en la evaluación
 El proceso de evaluación fue realizado por un equipo conformado por tres docentes de la asignatura Arquitectura de Computadoras —Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca—, quienes aportaron su experiencia en el uso de simuladores y su aplicabilidad pedagógica. Además, se contó con la colaboración de un asesor externo, Marcelo A. Falappa, quien ofreció una visión independiente y validó tanto el proceso de evaluación como los resultados obtenidos.
