@@ -777,7 +777,7 @@ La Figura \ref{fig:forminst} muestra un ejemplo representativo de formato de ins
 \hypertarget{comparativa-de-repertorios-de-instrucciones-reales}{%
 \subsection{Comparativa de repertorios de instrucciones reales}\label{comparativa-de-repertorios-de-instrucciones-reales}}
 
-La siguiente tabla resume las características principales de los repertorios de instrucciones en tres arquitecturas ampliamente utilizadas: x86, ARM y RISC-V. Se consideran aspectos como la longitud de las instrucciones, la cantidad de operandos, su complejidad y los modos de direccionamiento que permiten.
+La siguiente tabla \ref{tab:comparativaISA} resume las características principales de los repertorios de instrucciones en tres arquitecturas ampliamente utilizadas: x86, ARM y RISC-V. Se consideran aspectos como la longitud de las instrucciones, la cantidad de operandos, su complejidad y los modos de direccionamiento que permiten.
 
 \begin{table}[!h]
 \centering
@@ -1107,6 +1107,8 @@ En sectores como la industria automotriz, la simulación es fundamental para el 
 
 En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad \protect\hyperlink{ref-jentsch_simulation_2017}{{[}49{]}}.
 
+Estos principios generales encuentran aplicaciones concretas en diversos sectores industriales, donde la simulación cumple un papel clave tanto en el diseño como en el entrenamiento, la evaluación y la toma de decisiones.
+
 \begin{table}
 
 \caption{\label{tab:aplicacionessimulacion}Aplicaciones de la simulación en distintos sectores}
@@ -1123,7 +1125,7 @@ Educación & Simuladores para arquitectura de computadoras & Comprensión de pro
 \end{tabular}
 \end{table}
 
-Estos ejemplos destacan cómo la simulación no solo optimiza procesos industriales, sino que también asegura una mayor eficacia y seguridad en el diseño de productos complejos.
+Estos ejemplos ilustran cómo la simulación contribuye significativamente a la optimización de procesos, la reducción de riesgos y la mejora continua en el desarrollo de sistemas complejos. Su uso no solo ha transformado sectores productivos, sino que también ofrece un modelo replicable en contextos educativos especializados, como la enseñanza de arquitectura de computadoras.
 
 \hypertarget{simulaciuxf3n-en-la-educaciuxf3n}{%
 \section{Simulación en la educación}\label{simulaciuxf3n-en-la-educaciuxf3n}}
@@ -1152,10 +1154,12 @@ Además, la simulación actúa como un puente entre la teoría y la práctica, f
 \hypertarget{el-formalismo-devs-discrete-event-system-specification}{%
 \section{El Formalismo DEVS (Discrete Event System Specification)}\label{el-formalismo-devs-discrete-event-system-specification}}
 
-El formalismo DEVS es una metodología modular y jerárquica que permite modelar y analizar sistemas representables como sistemas de eventos discretos, continuos o híbridos. Desarrollado por Bernard P. Zeigler en la década de 1970, este enfoque amplía el concepto de las máquinas de Moore al incorporar una estructura capaz de modelar sistemas complejos mediante eventos cronometrados y transiciones de estados \protect\hyperlink{ref-zeigler_theory_2000}{{[}20{]}}.
+El formalismo DEVS es una metodología modular y jerárquica que permite modelar y analizar sistemas representables como sistemas de eventos discretos, continuos o híbridos. Desarrollado por Bernard P. Zeigler en la década de 1970, este enfoque amplía el concepto de las máquinas de Moore al añadir una estructura que permite representar el comportamiento de sistemas mediante eventos temporizados que provocan cambios de estado, capturando así tanto la dinámica interna como las interacciones externas del sistema \protect\hyperlink{ref-zeigler_theory_2000}{{[}20{]}}.
 
 \hypertarget{estructura-del-formalismo-devs}{%
 \subsection{Estructura del formalismo DEVS}\label{estructura-del-formalismo-devs}}
+
+Esta estructura permite capturar tanto el comportamiento interno como la interacción externa del sistema modelado.
 
 DEVS describe el comportamiento de un sistema real utilizando eventos de entrada y salida, así como transiciones entre estados definidos. Un sistema en este formalismo se compone de dos tipos principales de modelos:
 
@@ -1169,20 +1173,21 @@ DEVS describe el comportamiento de un sistema real utilizando eventos de entrada
 
 Esta organización modular facilita el análisis y la gestión de sistemas, permitiendo probar subsistemas de manera aislada antes de integrarlos en un modelo completo.
 
+La siguiente figura \ref{fig:devs} ilustra la organización modular del formalismo DEVS, mostrando cómo se integran modelos atómicos dentro de modelos acoplados:
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/devs} 
+
+}
+
+\caption{Relación entre modelos atómicos y modelos acoplados en DEVS}\label{fig:devs}
+\end{figure}
+
 \hypertarget{aplicaciones-del-formalismo-devs}{%
 \subsection{Aplicaciones del formalismo DEVS}\label{aplicaciones-del-formalismo-devs}}
 
-El formalismo DEVS encuentra aplicación en diversos ámbitos:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Redes de comunicación}: permite simular el enrutamiento de paquetes de datos, gestionar la congestión y optimizar protocolos de transmisión.
-\item
-  \textbf{Manufactura}: modela el flujo de materiales, el control de calidad y los procesos en líneas de producción, identificando cuellos de botella y áreas para mejora.
-\item
-  \textbf{Sistemas de transporte}: simula el comportamiento de flujos de tráfico o redes de transporte público para mejorar la eficiencia y reducir costos operativos.
-\end{itemize}
+``El formalismo DEVS encuentra aplicación en diversos ámbitos, como las redes de comunicación \protect\hyperlink{ref-fujimoto2001parallel}{{[}50{]}}, donde permite simular el enrutamiento de paquetes y la congestión de redes; en entornos de manufactura \protect\hyperlink{ref-zeigler_theory_2000}{{[}20{]}}, donde se modelan flujos de producción y control de calidad; y en sistemas de transporte, para la optimización de flujos vehiculares \protect\hyperlink{ref-barros1997modeling}{{[}51{]}}. También se utiliza en la simulación de sistemas biológicos, como la propagación de enfermedades o el comportamiento de poblaciones \protect\hyperlink{ref-zeigler2004continuity}{{[}52{]}}. En el ámbito de la educación, DEVS se ha implementado en simuladores para la enseñanza de arquitectura de computadoras, permitiendo a los estudiantes explorar y comprender conceptos complejos mediante la visualización y manipulación de modelos \protect\hyperlink{ref-calvo2010simulador}{{[}53{]}}.
 
 Estas aplicaciones destacan su versatilidad para optimizar sistemas complejos en escenarios del mundo real.
 
@@ -1201,18 +1206,18 @@ La implementación de entornos de simulación basados en DEVS en la enseñanza d
   \textbf{Exploración de escenarios}: posibilita simular escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin la necesidad de hardware físico.
 \end{itemize}
 
-Estas características transforman la experiencia de aprendizaje, al vincular teoría con práctica y promover un enfoque activo en la comprensión de conceptos clave de arquitectura de computadoras. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras \protect\hyperlink{ref-calvo_valdes_simulador_2010}{{[}50{]}}.
+Estas funcionalidades enriquecen la experiencia educativa al integrar la teoría con la práctica y fomentar una participación activa en el análisis de los principios fundamentales de la arquitectura computacional. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras \protect\hyperlink{ref-calvo_valdes_simulador_2010}{{[}54{]}}.
 
 En conclusión, el formalismo DEVS no solo es una herramienta valiosa para el modelado y análisis de sistemas, sino que también representa un recurso poderoso para facilitar la enseñanza de conceptos complejos, como los que se encuentran en la arquitectura de computadoras.
 
 \hypertarget{comparativa}{%
 \chapter{Comparativa de simuladores}\label{comparativa}}
 
-En este capítulo se presentan el análisis y la comparación de diversos simuladores x86 con el propósito de evaluar su posible integración en la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas.
+Este capítulo presenta un análisis comparativo de simuladores basados en la arquitectura x86, con el objetivo de determinar su adecuación para su integración en la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas de Información.
 
-La selección y evaluación de estos simuladores se fundamenta en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor respalden el proceso de enseñanza y aprendizaje. Los criterios considerados incluyen aspectos como usabilidad, funcionalidad del editor de código, calidad de la documentación, características de la ejecución de simulación, nivel de especificación de la arquitectura x86, propiedades del producto y alineación con los contenidos curriculares.
+La selección y evaluación de estos simuladores se fundamenta en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor respalden el proceso de enseñanza y aprendizaje. Los criterios definidos abarcan aspectos clave para la enseñanza de arquitectura de computadoras: facilidad de uso, funcionalidades del entorno de programación, calidad de los recursos de apoyo, mecanismos de ejecución de programas, precisión en la emulación de la arquitectura x86, características técnicas del software y su alineación con los contenidos curriculares.
 
-Los resultados de esta investigación fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), en el trabajo titulado Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86 \protect\hyperlink{ref-colombani_herramientas_2022}{{[}51{]}}.
+Los resultados de esta investigación fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), en el trabajo titulado Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86 \protect\hyperlink{ref-colombani_herramientas_2022}{{[}55{]}}.
 
 \hypertarget{estudios-similares}{%
 \section{Estudios similares}\label{estudios-similares}}
@@ -1221,19 +1226,19 @@ Existen antecedentes de estudios comparativos que evalúan simuladores aplicados
 - ``A survey and evaluation of simulators suitable for teaching courses in computer architecture and organization'', 2009 \protect\hyperlink{ref-nikolic_survey_2009}{{[}11{]}}: este estudio analiza simuladores considerando dos categorías principales. La primera, relacionada con las características de simulación, incluye criterios como granularidad, usabilidad, disponibilidad, presentación visual y flujo de simulación. La segunda categoría evalúa la cobertura de los contenidos establecidos en los planes de estudio.
 - ``Survey and evaluation of simulators suitable for teaching for computer architecture and organization Supporting undergraduate students at Sir Syed University of Engineering \& Technology'', 2012 \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}: este trabajo evalúa aspectos como la usabilidad, disponibilidad, fundamentos de arquitectura informática, jerarquía de sistemas de memoria, comunicación e interfaz, y diseño de sistemas de procesadores.
 
-En contraste, este trabajo propone un enfoque diferenciado al centrar la evaluación en simuladores x86 bajo criterios diseñados específicamente para abordar tanto las características de simulación como los contenidos particulares de la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos.
+A diferencia de los estudios mencionados, este trabajo propone una evaluación centrada exclusivamente en simuladores de arquitectura x86, mediante el uso de criterios diseñados ad hoc para analizar tanto las funcionalidades de simulación como su adecuación a los contenidos específicos de la asignatura Arquitectura de Computadoras dictada en la Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos.
 
 \hypertarget{simuladores-bajo-anuxe1lisis}{%
 \section{Simuladores bajo análisis}\label{simuladores-bajo-anuxe1lisis}}
 
 Un simulador de arquitectura es una herramienta de software que emula el hardware de un sistema de cómputo, permitiendo representar aspectos arquitectónicos y funcionales del mismo. Estos simuladores ofrecen un entorno controlado para realizar pruebas, modificaciones y ejecución de programas sin riesgo de dañar componentes físicos o enfrentar limitaciones de hardware \protect\hyperlink{ref-radivojevic_design_2011}{{[}10{]}}.
 
-Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Ejemplos de estos simuladores incluyen Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente {[}\protect\hyperlink{ref-nikolic_survey_2009}{{[}11{]}}{]}\protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}{[}\protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}{]}\protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}\protect\hyperlink{ref-behrooz_computer_2005}{{[}52{]}}.
+Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Algunos ejemplos relevantes de simuladores son: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente \protect\hyperlink{ref-nikolic_survey_2009}{{[}11{]}}, \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-behrooz_computer_2005}{{[}56{]}}.
 
 \hypertarget{criterios-de-evaluaciuxf3n}{%
 \section{Criterios de evaluación}\label{criterios-de-evaluaciuxf3n}}
 
-Los criterios de evaluación se definieron cuidadosamente para garantizar un análisis integral de los simuladores. A continuación, se presentan estos criterios junto con sus respectivos indicadores y escalas:
+Los criterios de evaluación se definieron con el objetivo de realizar un análisis integral y sistemático de los simuladores seleccionados. A continuación, se presentan estos criterios junto con sus respectivos indicadores y escalas:
 
 \begin{itemize}
 \tightlist
@@ -1377,17 +1382,61 @@ Los criterios de evaluación se definieron cuidadosamente para garantizar un an�
   \end{itemize}
 \end{itemize}
 
+La Tabla \ref{tab:criterios} resume los criterios, indicadores y escalas utilizadas.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:criterios}Criterios e indicadores de evaluación de simuladores}
+\centering
+\begin{tabular}[t]{lll}
+\toprule
+Criterio & Indicadores & Escala\\
+\midrule
+Usabilidad & Facilidad de aprendizaje, interfaz, documentación & Difícil - Fácil\\
+Funcionalidad del editor & Sintaxis, manejo de errores, guardar/cargar & Baja - Alta\\
+Calidad de la documentación & Manuales, tutoriales, repertorio de instrucciones & Mínima - Completa\\
+Ejecución de simulación & Control de simulación, visualización del flujo, configurabilidad & Baja - Alta\\
+Especificación de arquitectura x86 & Fidelidad de la arquitectura, repertorio, memoria y E/S & Mínima - Completa\\
+\addlinespace
+Propiedades técnicas y de distribución & Licencia, actualizaciones, plataforma & Mala - Muy buena\\
+Alineación con contenidos curriculares & Cobertura de tópicos, profundidad del tratamiento & Baja - Alta\\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \hypertarget{selecciuxf3n-de-simuladores}{%
 \section{Selección de simuladores}\label{selecciuxf3n-de-simuladores}}
 
-A partir de una exhaustiva exploración en internet sobre herramientas de simulación de la arquitectura x86 utilizadas para la enseñanza, se identificaron los siguientes simuladores: Assembly debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim.
+Mediante una exploración exhaustiva de fuentes disponibles en línea, foros académicos y repositorios educativos, se identificaron los siguientes simuladores de arquitectura x86: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim. Estos simuladores fueron seleccionados por su relevancia en el ámbito educativo y su potencial para facilitar la enseñanza de la arquitectura x86.
 
 La selección se basó en una evaluación preliminar que consideró el tiempo necesario para su análisis y el grado de cumplimiento de los criterios definidos, priorizando aquellos simuladores que ofrecieran un balance adecuado entre funcionalidad, usabilidad, documentación y alineación con los contenidos curriculares de la asignatura Arquitectura de Computadoras. De esta preselección, se eligieron tres herramientas que, a priori, cumplían con la mayor cantidad de criterios evaluativos: \textbf{Emu8086}, \textbf{VonSim} y \textbf{Simple 8-bit Assembler Simulator}.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:simuladores}Proceso de selección de simuladores}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{}l|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
+\toprule
+\multicolumn{1}{c}{\cellcolor[HTML]{D3D3D3}{\textbf{Simulador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Exploración.Previa}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Evaluación.Final}}}\\
+\midrule
+\textbf{Assembly Debugger (x86)} & 1 & 0\\
+\textbf{Simple 8-bit Assembler Simulator} & 1 & 1\\
+\textbf{Microprocessor Simulator} & 1 & 0\\
+\textbf{Simulador de ensamblador de 16 bits} & 1 & 0\\
+\textbf{Emu8086} & 1 & 1\\
+\addlinespace
+\textbf{VonSim} & 1 & 1\\
+\textbf{Orga1} & 1 & 0\\
+\textbf{Qsim} & 1 & 0\\
+\bottomrule
+\end{tabular}}
+\end{table}
 
 \hypertarget{participantes-en-la-evaluaciuxf3n}{%
 \section{Participantes en la evaluación}\label{participantes-en-la-evaluaciuxf3n}}
 
-El proceso de evaluación fue realizado por un equipo conformado por tres docentes de la asignatura Arquitectura de Computadoras ---Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca---, quienes aportaron su experiencia en el uso de simuladores y su aplicabilidad pedagógica. Además, se contó con la colaboración de un asesor externo, Marcelo A. Falappa, quien ofreció una visión independiente y validó tanto el proceso de evaluación como los resultados obtenidos.
+La evaluación fue llevada a cabo por un equipo conformado por tres docentes de la asignatura Arquitectura de Computadoras ---Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca---, quienes aportaron su experiencia en el uso pedagógico de simuladores. Asimismo, se contó con la participación de un asesor externo, Marcelo A. Falappa, quien aportó una perspectiva independiente y validó tanto la metodología como los resultados obtenidos.
 
 \hypertarget{anuxe1lisis-comparativo}{%
 \section{Análisis comparativo}\label{anuxe1lisis-comparativo}}
@@ -1509,29 +1558,34 @@ Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux co
 
 Emu8086 destaca por su interfaz dinámica, que muestra componentes como la pila, flags, teclado y pantalla solo cuando son necesarios, a diferencia de otros simuladores que presentan todos sus componentes desde el inicio.
 
-En el criterio de evaluación dos, Emu8086 se destaca por su editor, que incluye puntos de ruptura para detener la ejecución del programa en un punto específico y retroceder a la instrucción anterior. Además, permite guardar y recuperar programas directamente desde el editor.
-
-En el criterio de evaluación tres, Emu8086 se destaca por ofrecer tres tipos de documentación: un repertorio de instrucciones con ejemplos para cada tipo de instrucción, un manual que explica las partes de la herramienta y un tutorial para aprender a programar en ensamblador.
+Emu8086 sobresale particularmente en los aspectos vinculados a la edición, documentación y control de la ejecución. Su editor permite establecer puntos de ruptura, retroceder una instrucción, y guardar o recuperar programas desde la interfaz. Además, ofrece una documentación extensa, que incluye un repertorio de instrucciones con ejemplos, un tutorial para el aprendizaje del lenguaje ensamblador y un manual detallado del entorno de desarrollo. Estas características lo posicionan como una herramienta completa en términos de acompañamiento a los procesos de enseñanza y aprendizaje.
 
 En el criterio de evaluación cuatro, Emu8086 se destaca por ofrecer una mayor cantidad de controladores para gestionar el flujo de ejecución, como la capacidad de retroceder la ejecución de una instrucción y recargar el programa actual.
 
-En el criterio de evaluación cinco el emu8086 se destaca del resto debido a que ofrece una mayor especificidad de la arquitectura x86, además implementa interrupciones del sistema operativo MS-DOS, a través del cual se pueden ejecutar los programas en una máquina real.
+En cuanto al nivel de especificación, Emu8086 representa con gran precisión la arquitectura x86, incluyendo soporte para interrupciones del sistema operativo MS-DOS. Esta característica permite simular de manera realista programas que podrían ejecutarse en un entorno compatible, constituyendo una ventaja significativa frente a los otros simuladores analizados.
 
 En el criterio de evaluación seis VonSim se destaca del resto debido a que es licencia libre y posee una comunidad que respalda el proyecto.
 
 En cuanto al último criterio, ninguna de las herramientas evaluadas cubre todos los contenidos que se pretende desarrollar con la ayuda de una herramienta, quedando excluido pasos del ciclo de instrucción y medidas de rendimientos (tiempo de CPU y CPI: ciclo por instrucción).
 
-En resumen:
-- Emu8086 se destaca por su alta usabilidad, documentación completa, y precisión en la simulación de la arquitectura para la enseñanza de la arquitectura x86. Sin embargo, su licencia privativa y dependencia de MS-DOS representan desafíos importantes.
-- VonSim ofrece una buena solución con licencia libre y una interfaz más amigable, pero su nivel de especificación y cobertura de contenidos es medio, lo cual podría limitar su efectividad en el curso.
-- Simple 8-bit Assembler Simulator tiene limitaciones significativas en usabilidad, documentación, y especificación, lo que lo hace menos adecuado para una enseñanza completa de la arquitectura x86.
+A partir del análisis comparativo, se destacan las siguientes observaciones clave:
 
-Del análisis realizado, se concluye que, aunque todos los simuladores evaluados presentan ventajas y desventajas, ninguno de los simuladores analizados parece adecuado para la asignatura sugiere que los simuladores actuales no cumplen completamente con los requisitos de complejidad y cobertura necesarios para la enseñanza exhaustiva de la arquitectura x86. Se recomienda usar Emu8086 mientras se desarrolla un simulador que combine sus mejores características con una licencia libre, con soporte para sistemas operativos modernos y una mayor cobertura de contenidos curriculares para la asignatura.
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Emu8086} presenta la interfaz más intuitiva y completa, con amplia documentación y una simulación precisa de la arquitectura x86. Sin embargo, su licencia privativa y la necesidad de emuladores para su ejecución en sistemas actuales constituyen limitaciones relevantes.
+\item
+  \textbf{VonSim}, con su licencia libre y actualización reciente, representa una alternativa interesante desde una perspectiva de software abierto, aunque su cobertura de contenidos y nivel de especificación son limitados en comparación.
+\item
+  \textbf{Simple 8-bit Assembler Simulator} resulta insuficiente para cubrir los objetivos curriculares de la asignatura, debido a su bajo nivel de complejidad, escasa documentación y capacidades limitadas de simulación.
+\end{itemize}
+
+En conclusión, si bien cada simulador ofrece ventajas puntuales, ninguno logra satisfacer plenamente los requerimientos pedagógicos y técnicos de la asignatura en su totalidad. Por ello, se recomienda continuar utilizando Emu8086 de manera transitoria, mientras se avanza en el desarrollo de un simulador propio que integre sus fortalezas, opere con licencia libre y sea compatible con entornos modernos. Esta iniciativa permitirá una mayor adecuación curricular, accesibilidad tecnológica y sostenibilidad en el tiempo.
 
 \hypertarget{publicaciuxf3n}{%
 \subsection{Publicación}\label{publicaciuxf3n}}
 
-Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), bajo el título ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86''\protect\hyperlink{ref-colombani_herramientas_2022}{{[}51{]}}.
+Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), bajo el título ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86''\protect\hyperlink{ref-colombani_herramientas_2022}{{[}55{]}}.
 
 Además, durante este proceso se estableció contacto con un desarrollador de VonSim, logrando implementar mejoras significativas, como animaciones de ejecución y documentación en línea, disponibles en su última versión publicada en agosto de 2023.
 
@@ -2608,16 +2662,32 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \CSLLeftMargin{{[}49{]} }%
 \CSLRightInline{F. Jentsch and M. Curtis, \emph{Simulation in aviation training}. Routledge, 2017.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-calvo_valdes_simulador_2010}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-fujimoto2001parallel}{}}%
 \CSLLeftMargin{{[}50{]} }%
+\CSLRightInline{R. M. Fujimoto, {``Parallel and distributed simulation systems,''} in \emph{Proceeding of the 2001 winter simulation conference (cat. No. 01CH37304)}, IEEE, 2001, pp. 147--157.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-barros1997modeling}{}}%
+\CSLLeftMargin{{[}51{]} }%
+\CSLRightInline{F. J. Barros, {``Modeling formalisms for dynamic structure systems,''} \emph{ACM Transactions on Modeling and Computer Simulation (TOMACS)}, vol. 7, no. 4, pp. 501--515, 1997.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-zeigler2004continuity}{}}%
+\CSLLeftMargin{{[}52{]} }%
+\CSLRightInline{B. P. Zeigler, R. Jammalamadaka, and S. R. Akerkar, {``Continuity and change (activity) are fundamentally related in DEVS simulation of continuous systems,''} in \emph{International conference on AI, simulation, and planning in high autonomy systems}, Springer, 2004, pp. 1--13.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-calvo2010simulador}{}}%
+\CSLLeftMargin{{[}53{]} }%
+\CSLRightInline{F. A. Calvo Valdes, J. F. Roldan Ramirez, and A. San Miguel Sanchez, {``Simulador del procesador MIPS sobre el formalismo DEVS,''} 2010.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-calvo_valdes_simulador_2010}{}}%
+\CSLLeftMargin{{[}54{]} }%
 \CSLRightInline{F. A. Calvo Valdés, J. F. Roldán Ramírez, and A. San Miguel Sánchez, {``Simulador del procesador {MIPS} sobre el formalismo {DEVS},''} \emph{Revista de Simulación}, 2010, Accessed: Sep. 19, 2024. {[}Online{]}. Available: \url{https://hdl.handle.net/20.500.14352/46063}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-colombani_herramientas_2022}{}}%
-\CSLLeftMargin{{[}51{]} }%
+\CSLLeftMargin{{[}55{]} }%
 \CSLRightInline{M. A. Colombani, J. M. Ruiz, A. G. Delduca, and M. A. Falappa, {``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86,''} 2022. Accessed: Jul. 10, 2024. {[}Online{]}. Available: \url{http://sedici.unlp.edu.ar/handle/10915/139908}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-behrooz_computer_2005}{}}%
-\CSLLeftMargin{{[}52{]} }%
+\CSLLeftMargin{{[}56{]} }%
 \CSLRightInline{P. BEHROOZ, \emph{Computer {Architecture}: {From} {Microprocessors} to {Supercomputers}}. Oxford University Press Inc, 2005.}
 
 \end{CSLReferences}

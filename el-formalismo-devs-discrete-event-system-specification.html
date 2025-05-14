@@ -253,24 +253,27 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="el-formalismo-devs-discrete-event-system-specification" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> El Formalismo DEVS (Discrete Event System Specification)<a href="el-formalismo-devs-discrete-event-system-specification.html#el-formalismo-devs-discrete-event-system-specification" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El formalismo DEVS es una metodología modular y jerárquica que permite modelar y analizar sistemas representables como sistemas de eventos discretos, continuos o híbridos. Desarrollado por Bernard P. Zeigler en la década de 1970, este enfoque amplía el concepto de las máquinas de Moore al incorporar una estructura capaz de modelar sistemas complejos mediante eventos cronometrados y transiciones de estados <span class="citation">(<a href="#ref-zeigler_theory_2000">B. Zeigler, Prähofer, and Kim 2000</a>)</span>.</p>
+<p>El formalismo DEVS es una metodología modular y jerárquica que permite modelar y analizar sistemas representables como sistemas de eventos discretos, continuos o híbridos. Desarrollado por Bernard P. Zeigler en la década de 1970, este enfoque amplía el concepto de las máquinas de Moore al añadir una estructura que permite representar el comportamiento de sistemas mediante eventos temporizados que provocan cambios de estado, capturando así tanto la dinámica interna como las interacciones externas del sistema <span class="citation">(<a href="#ref-zeigler_theory_2000">B. Zeigler, Prähofer, and Kim 2000</a>)</span>.</p>
 <div id="estructura-del-formalismo-devs" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Estructura del formalismo DEVS<a href="el-formalismo-devs-discrete-event-system-specification.html#estructura-del-formalismo-devs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Esta estructura permite capturar tanto el comportamiento interno como la interacción externa del sistema modelado.</p>
 <p>DEVS describe el comportamiento de un sistema real utilizando eventos de entrada y salida, así como transiciones entre estados definidos. Un sistema en este formalismo se compone de dos tipos principales de modelos:</p>
 <ul>
 <li><strong>Modelos atómicos</strong>: representan las unidades fundamentales de comportamiento.</li>
 <li><strong>Modelos acoplados</strong>: integran modelos atómicos y/o otros modelos acoplados, permitiendo la construcción jerárquica de sistemas más complejos.</li>
 </ul>
 <p>Esta organización modular facilita el análisis y la gestión de sistemas, permitiendo probar subsistemas de manera aislada antes de integrarlos en un modelo completo.</p>
+<p>La siguiente figura <a href="el-formalismo-devs-discrete-event-system-specification.html#fig:devs">3.1</a> ilustra la organización modular del formalismo DEVS, mostrando cómo se integran modelos atómicos dentro de modelos acoplados:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:devs"></span>
+<img src="images/devs.png" alt="Relación entre modelos atómicos y modelos acoplados en DEVS" width="100%" />
+<p class="caption">
+Figura 3.1: Relación entre modelos atómicos y modelos acoplados en DEVS
+</p>
+</div>
 </div>
 <div id="aplicaciones-del-formalismo-devs" class="section level3 hasAnchor" number="3.3.2">
 <h3><span class="header-section-number">3.3.2</span> Aplicaciones del formalismo DEVS<a href="el-formalismo-devs-discrete-event-system-specification.html#aplicaciones-del-formalismo-devs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formalismo DEVS encuentra aplicación en diversos ámbitos:</p>
-<ul>
-<li><strong>Redes de comunicación</strong>: permite simular el enrutamiento de paquetes de datos, gestionar la congestión y optimizar protocolos de transmisión.</li>
-<li><strong>Manufactura</strong>: modela el flujo de materiales, el control de calidad y los procesos en líneas de producción, identificando cuellos de botella y áreas para mejora.</li>
-<li><strong>Sistemas de transporte</strong>: simula el comportamiento de flujos de tráfico o redes de transporte público para mejorar la eficiencia y reducir costos operativos.</li>
-</ul>
+<p>“El formalismo DEVS encuentra aplicación en diversos ámbitos, como las redes de comunicación <span class="citation">(<a href="#ref-fujimoto2001parallel">Fujimoto 2001</a>)</span>, donde permite simular el enrutamiento de paquetes y la congestión de redes; en entornos de manufactura <span class="citation">(<a href="#ref-zeigler_theory_2000">B. Zeigler, Prähofer, and Kim 2000</a>)</span>, donde se modelan flujos de producción y control de calidad; y en sistemas de transporte, para la optimización de flujos vehiculares <span class="citation">(<a href="#ref-barros1997modeling">Barros 1997</a>)</span>. También se utiliza en la simulación de sistemas biológicos, como la propagación de enfermedades o el comportamiento de poblaciones <span class="citation">(<a href="#ref-zeigler2004continuity">Bernard P. Zeigler, Jammalamadaka, and Akerkar 2004</a>)</span>. En el ámbito de la educación, DEVS se ha implementado en simuladores para la enseñanza de arquitectura de computadoras, permitiendo a los estudiantes explorar y comprender conceptos complejos mediante la visualización y manipulación de modelos <span class="citation">(<a href="#ref-calvo2010simulador">Calvo Valdes, Roldan Ramirez, and San Miguel Sanchez 2010</a>)</span>.</p>
 <p>Estas aplicaciones destacan su versatilidad para optimizar sistemas complejos en escenarios del mundo real.</p>
 </div>
 <div id="devs-en-la-enseñanza-de-la-arquitectura-de-computadoras" class="section level3 hasAnchor" number="3.3.3">
@@ -281,7 +284,7 @@ div.csl-indent {
 <li><strong>Interactividad</strong>: permite modificar configuraciones y parámetros, fomentando la experimentación y mostrando el impacto directo de estas variables en el rendimiento del sistema.</li>
 <li><strong>Exploración de escenarios</strong>: posibilita simular escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin la necesidad de hardware físico.</li>
 </ul>
-<p>Estas características transforman la experiencia de aprendizaje, al vincular teoría con práctica y promover un enfoque activo en la comprensión de conceptos clave de arquitectura de computadoras. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras <span class="citation">(<a href="#ref-calvo_valdes_simulador_2010">Calvo Valdés, Roldán Ramírez, and San Miguel Sánchez 2010</a>)</span>.</p>
+<p>Estas funcionalidades enriquecen la experiencia educativa al integrar la teoría con la práctica y fomentar una participación activa en el análisis de los principios fundamentales de la arquitectura computacional. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras <span class="citation">(<a href="#ref-calvo_valdes_simulador_2010">Calvo Valdés, Roldán Ramírez, and San Miguel Sánchez 2010</a>)</span>.</p>
 <p>En conclusión, el formalismo DEVS no solo es una herramienta valiosa para el modelado y análisis de sistemas, sino que también representa un recurso poderoso para facilitar la enseñanza de conceptos complejos, como los que se encuentran en la arquitectura de computadoras.</p>
 
 </div>
@@ -289,8 +292,20 @@ div.csl-indent {
 <!-- </div> -->
 <h3> Bibliografía<a href="Biblio.html#Biblio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-barros1997modeling" class="csl-entry">
+Barros, Fernando J. 1997. <span>“Modeling Formalisms for Dynamic Structure Systems.”</span> <em>ACM Transactions on Modeling and Computer Simulation (TOMACS)</em> 7 (4): 501–15.
+</div>
+<div id="ref-calvo2010simulador" class="csl-entry">
+Calvo Valdes, Francisco Alejandro, Jose Felix Roldan Ramirez, and Alfonso San Miguel Sanchez. 2010. <span>“Simulador Del Procesador MIPS Sobre El Formalismo DEVS.”</span>
+</div>
 <div id="ref-calvo_valdes_simulador_2010" class="csl-entry">
 Calvo Valdés, Francisco Alejandro, José Félix Roldán Ramírez, and Alfonso San Miguel Sánchez. 2010. <span>“Simulador Del Procesador <span>MIPS</span> Sobre El Formalismo <span>DEVS</span>.”</span> <em>Revista de Simulación</em>. <a href="https://hdl.handle.net/20.500.14352/46063">https://hdl.handle.net/20.500.14352/46063</a>.
+</div>
+<div id="ref-fujimoto2001parallel" class="csl-entry">
+Fujimoto, Richard M. 2001. <span>“Parallel and Distributed Simulation Systems.”</span> In <em>Proceeding of the 2001 Winter Simulation Conference (Cat. No. 01CH37304)</em>, 1:147–57. IEEE.
+</div>
+<div id="ref-zeigler2004continuity" class="csl-entry">
+Zeigler, Bernard P, Rajanikanth Jammalamadaka, and Salil R Akerkar. 2004. <span>“Continuity and Change (Activity) Are Fundamentally Related in DEVS Simulation of Continuous Systems.”</span> In <em>International Conference on AI, Simulation, and Planning in High Autonomy Systems</em>, 1–13. Springer.
 </div>
 <div id="ref-zeigler_theory_2000" class="csl-entry">
 Zeigler, Bernard, Herbert Prähofer, and Tag Gon Kim. 2000. <span>“Theory of <span>Modeling</span> and <span>Simulation</span>: <span>Integrating</span> <span>Discrete</span> <span>Event</span> and <span>Continuous</span> <span>Complex</span> <span>Dynamic</span> <span>Systems</span>”</span> 2 (January).
