@@ -1,5 +1,5 @@
 # Comparativa de simuladores {#comparativa}
-En este capítulo se presentan el análisis y la comparación de diversos simuladores x86 con el propósito de evaluar su posible integración en la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas.
+Este capítulo presenta un análisis comparativo de simuladores basados en la arquitectura x86, con el objetivo de determinar su adecuación para su integración en la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas de Información.
 
 La selección y evaluación de estos simuladores se fundamenta en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor respalden el proceso de enseñanza y aprendizaje. Los criterios definidos abarcan aspectos clave para la enseñanza de arquitectura de computadoras: facilidad de uso, funcionalidades del entorno de programación, calidad de los recursos de apoyo, mecanismos de ejecución de programas, precisión en la emulación de la arquitectura x86, características técnicas del software y su alineación con los contenidos curriculares.
 
@@ -10,15 +10,15 @@ Existen antecedentes de estudios comparativos que evalúan simuladores aplicados
   - “A survey and evaluation of simulators suitable for teaching courses in computer architecture and organization”, 2009  [@nikolic_survey_2009]: este estudio analiza simuladores considerando dos categorías principales. La primera, relacionada con las características de simulación, incluye criterios como granularidad, usabilidad, disponibilidad, presentación visual y flujo de simulación. La segunda categoría evalúa la cobertura de los contenidos establecidos en los planes de estudio.
   - “Survey and evaluation of simulators suitable for teaching for computer architecture and organization Supporting undergraduate students at Sir Syed University of Engineering & Technology”, 2012 [@hasan_survey_2012]: este trabajo evalúa aspectos como la usabilidad, disponibilidad, fundamentos de arquitectura informática, jerarquía de sistemas de memoria, comunicación e interfaz, y diseño de sistemas de procesadores.
 
-En contraste, este trabajo propone un enfoque diferenciado al centrar la evaluación en simuladores x86 bajo criterios diseñados específicamente para abordar tanto las características de simulación como los contenidos particulares de la asignatura Arquitectura de Computadoras de la Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos.
+A diferencia de los estudios mencionados, este trabajo propone una evaluación centrada exclusivamente en simuladores de arquitectura x86, mediante el uso de criterios diseñados ad hoc para analizar tanto las funcionalidades de simulación como su adecuación a los contenidos específicos de la asignatura Arquitectura de Computadoras dictada en la Licenciatura en Sistemas de la Universidad Nacional de Entre Ríos.
 
 ## Simuladores bajo análisis
 Un simulador de arquitectura es una herramienta de software que emula el hardware de un sistema de cómputo, permitiendo representar aspectos arquitectónicos y funcionales del mismo. Estos simuladores ofrecen un entorno controlado para realizar pruebas, modificaciones y ejecución de programas sin riesgo de dañar componentes físicos o enfrentar limitaciones de hardware [@radivojevic_design_2011].
 
-Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Ejemplos de estos simuladores incluyen Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente [@nikolic_survey_2009][@hasan_survey_2012][@hennessy2017computer][@stallings_computer_2021][@behrooz_computer_2005].
+Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Algunos ejemplos relevantes de simuladores son: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente [@nikolic_survey_2009][@hasan_survey_2012][@hennessy2017computer][@stallings_computer_2021][@behrooz_computer_2005].
 
 ## Criterios de evaluación
-Los criterios de evaluación se definieron cuidadosamente para garantizar un análisis integral de los simuladores. A continuación, se presentan estos criterios junto con sus respectivos indicadores y escalas:
+Los criterios de evaluación se definieron con el objetivo de realizar un análisis integral y sistemático de los simuladores seleccionados. A continuación, se presentan estos criterios junto con sus respectivos indicadores y escalas:
 
 - **Usabilidad**: evalúa la facilidad de uso del simulador.
   - **Indicadores**: 
@@ -68,10 +68,8 @@ Los criterios de evaluación se definieron cuidadosamente para garantizar un an�
     - Profundidad en el tratamiento de los temas.
   - **Escala**: Baja - Media - Alta.
 
-## Selección de simuladores
-Mediante una exploración exhaustiva de fuentes disponibles en línea, foros académicos y repositorios educativos, se identificaron los siguientes simuladores de arquitectura x86: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim. Estos simuladores fueron seleccionados por su relevancia en el ámbito educativo y su potencial para facilitar la enseñanza de la arquitectura x86.
 
-La selección se basó en una evaluación preliminar que consideró el tiempo necesario para su análisis y el grado de cumplimiento de los criterios definidos, priorizando aquellos simuladores que ofrecieran un balance adecuado entre funcionalidad, usabilidad, documentación y alineación con los contenidos curriculares de la asignatura Arquitectura de Computadoras. De esta preselección, se eligieron tres herramientas que, a priori, cumplían con la mayor cantidad de criterios evaluativos: **Emu8086**, **VonSim** y **Simple 8-bit Assembler Simulator**.
+La Tabla @ref(tab:criterios) resume los criterios, indicadores y escalas utilizadas.
 
 ```{r criterios, echo=FALSE}
 library(knitr)
@@ -111,8 +109,36 @@ kable(criterios, format = "latex", booktabs = TRUE, caption = "Criterios e indic
   kable_styling(latex_options = c("hold_position"))
 ```
 
+## Selección de simuladores
+Mediante una exploración exhaustiva de fuentes disponibles en línea, foros académicos y repositorios educativos, se identificaron los siguientes simuladores de arquitectura x86: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim. Estos simuladores fueron seleccionados por su relevancia en el ámbito educativo y su potencial para facilitar la enseñanza de la arquitectura x86.
+
+La selección se basó en una evaluación preliminar que consideró el tiempo necesario para su análisis y el grado de cumplimiento de los criterios definidos, priorizando aquellos simuladores que ofrecieran un balance adecuado entre funcionalidad, usabilidad, documentación y alineación con los contenidos curriculares de la asignatura Arquitectura de Computadoras. De esta preselección, se eligieron tres herramientas que, a priori, cumplían con la mayor cantidad de criterios evaluativos: **Emu8086**, **VonSim** y **Simple 8-bit Assembler Simulator**.
+
+```{r simuladores_tabla, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+simuladores <- data.frame(
+  Simulador = c(
+    "Assembly Debugger (x86)", 
+    "Simple 8-bit Assembler Simulator", 
+    "Microprocessor Simulator", 
+    "Simulador de ensamblador de 16 bits", 
+    "Emu8086", 
+    "VonSim", 
+    "Orga1", 
+    "Qsim"
+  ),
+  `Exploración Previa` = c("✔", "✔", "✔", "✔", "✔", "✔", "✔", "✔"),
+  `Evaluación Final` = c("✘", "✔", "✘", "✘", "✔", "✔", "✘", "✘")
+)
+
+kable(simuladores, format = "latex", booktabs = TRUE, caption = "Proceso de selección de simuladores") %>%
+  kable_styling(latex_options = c("hold_position"))
+```
+
 ## Participantes en la evaluación
-El proceso de evaluación fue realizado por un equipo conformado por tres docentes de la asignatura Arquitectura de Computadoras —Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca—, quienes aportaron su experiencia en el uso de simuladores y su aplicabilidad pedagógica. Además, se contó con la colaboración de un asesor externo, Marcelo A. Falappa, quien ofreció una visión independiente y validó tanto el proceso de evaluación como los resultados obtenidos.
+La evaluación fue llevada a cabo por un equipo conformado por tres docentes de la asignatura Arquitectura de Computadoras —Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca—, quienes aportaron su experiencia en el uso pedagógico de simuladores. Asimismo, se contó con la participación de un asesor externo, Marcelo A. Falappa, quien aportó una perspectiva independiente y validó tanto la metodología como los resultados obtenidos.
 
 ## Análisis comparativo
 A continuación, se presenta un análisis detallado de los simuladores seleccionados, basado en los criterios previamente establecidos:
@@ -168,24 +194,23 @@ Utilizar lenguaje NASM (Netwide Assembler) garantiza soporte tanto para Linux co
 
 Emu8086 destaca por su interfaz dinámica, que muestra componentes como la pila, flags, teclado y pantalla solo cuando son necesarios, a diferencia de otros simuladores que presentan todos sus componentes desde el inicio.
 
-En el criterio de evaluación dos, Emu8086 se destaca por su editor, que incluye puntos de ruptura para detener la ejecución del programa en un punto específico y retroceder a la instrucción anterior. Además, permite guardar y recuperar programas directamente desde el editor.
-
-En el criterio de evaluación tres, Emu8086 se destaca por ofrecer tres tipos de documentación: un repertorio de instrucciones con ejemplos para cada tipo de instrucción, un manual que explica las partes de la herramienta y un tutorial para aprender a programar en ensamblador.
+Emu8086 sobresale particularmente en los aspectos vinculados a la edición, documentación y control de la ejecución. Su editor permite establecer puntos de ruptura, retroceder una instrucción, y guardar o recuperar programas desde la interfaz. Además, ofrece una documentación extensa, que incluye un repertorio de instrucciones con ejemplos, un tutorial para el aprendizaje del lenguaje ensamblador y un manual detallado del entorno de desarrollo. Estas características lo posicionan como una herramienta completa en términos de acompañamiento a los procesos de enseñanza y aprendizaje.
 
 En el criterio de evaluación cuatro, Emu8086 se destaca por ofrecer una mayor cantidad de controladores para gestionar el flujo de ejecución, como la capacidad de retroceder la ejecución de una instrucción y recargar el programa actual.
 
-En el criterio de evaluación cinco el emu8086 se destaca del resto debido a que ofrece una mayor especificidad de la arquitectura x86, además implementa interrupciones del sistema operativo MS-DOS, a través del cual se pueden ejecutar los programas en una máquina real.
+En cuanto al nivel de especificación, Emu8086 representa con gran precisión la arquitectura x86, incluyendo soporte para interrupciones del sistema operativo MS-DOS. Esta característica permite simular de manera realista programas que podrían ejecutarse en un entorno compatible, constituyendo una ventaja significativa frente a los otros simuladores analizados.
 
 En el criterio de evaluación seis VonSim se destaca del resto debido a que es licencia libre y posee una comunidad que respalda el proyecto.
 
 En cuanto al último criterio, ninguna de las herramientas evaluadas cubre todos los contenidos que se pretende desarrollar con la ayuda de una herramienta, quedando excluido pasos del ciclo de instrucción y medidas de rendimientos (tiempo de CPU y CPI: ciclo por instrucción).
 
-En resumen:
-  - Emu8086 se destaca por su alta usabilidad, documentación completa, y precisión en la simulación de la arquitectura para la enseñanza de la arquitectura x86. Sin embargo, su licencia privativa y dependencia de MS-DOS representan desafíos importantes.
-  - VonSim ofrece una buena solución con licencia libre y una interfaz más amigable, pero su nivel de especificación y cobertura de contenidos es medio, lo cual podría limitar su efectividad en el curso. 
-  - Simple 8-bit Assembler Simulator tiene limitaciones significativas en usabilidad, documentación, y especificación, lo que lo hace menos adecuado para una enseñanza completa de la arquitectura x86.
+A partir del análisis comparativo, se destacan las siguientes observaciones clave:
 
-Del análisis realizado, se concluye que, aunque todos los simuladores evaluados presentan ventajas y desventajas, ninguno de los simuladores analizados parece adecuado para la asignatura sugiere que los simuladores actuales no cumplen completamente con los requisitos de complejidad y cobertura necesarios para la enseñanza exhaustiva de la arquitectura x86. Se recomienda usar Emu8086 mientras se desarrolla un simulador que combine sus mejores características con una licencia libre, con soporte para sistemas operativos modernos y una mayor cobertura de contenidos curriculares para la asignatura.
+- **Emu8086** presenta la interfaz más intuitiva y completa, con amplia documentación y una simulación precisa de la arquitectura x86. Sin embargo, su licencia privativa y la necesidad de emuladores para su ejecución en sistemas actuales constituyen limitaciones relevantes.
+- **VonSim**, con su licencia libre y actualización reciente, representa una alternativa interesante desde una perspectiva de software abierto, aunque su cobertura de contenidos y nivel de especificación son limitados en comparación.
+- **Simple 8-bit Assembler Simulator** resulta insuficiente para cubrir los objetivos curriculares de la asignatura, debido a su bajo nivel de complejidad, escasa documentación y capacidades limitadas de simulación.
+
+En conclusión, si bien cada simulador ofrece ventajas puntuales, ninguno logra satisfacer plenamente los requerimientos pedagógicos y técnicos de la asignatura en su totalidad. Por ello, se recomienda continuar utilizando Emu8086 de manera transitoria, mientras se avanza en el desarrollo de un simulador propio que integre sus fortalezas, opere con licencia libre y sea compatible con entornos modernos. Esta iniciativa permitirá una mayor adecuación curricular, accesibilidad tecnológica y sostenibilidad en el tiempo.
 
 ### Publicación
 Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), bajo el título "Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86"[@colombani_herramientas_2022].
