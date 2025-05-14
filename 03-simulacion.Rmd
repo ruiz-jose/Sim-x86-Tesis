@@ -2,7 +2,7 @@
 En este capítulo se analiza el papel de la simulación desde una perspectiva didáctica, destacando su relevancia como herramienta de apoyo en la enseñanza de Arquitectura de Computadoras. Se abordan los beneficios que ofrecen los simuladores en el proceso educativo y los desafíos que ayudan a superar en la formación de los estudiantes.
 
 ## Introducción a la simulación
-La simulación es una herramienta esencial en una amplia variedad de campos, como la medicina, el ámbito militar, el entretenimiento y la educación. Su principal valor radica en su capacidad para modelar sistemas complejos, generar hipótesis, realizar análisis predictivos y explorar escenarios de manera segura y eficiente.
+La simulación constituye una herramienta esencial en múltiples dominios, incluidos la medicina, la defensa, el entretenimiento y particularmente la educación, debido a su capacidad para representar procesos complejos y facilitar la toma de decisiones en entornos seguros y controlados. Su principal valor radica en su capacidad para modelar sistemas complejos, generar hipótesis, realizar análisis predictivos y explorar escenarios de manera segura y eficiente.
 
 Banks define la simulación como el proceso de replicar el comportamiento de un sistema a lo largo del tiempo mediante un modelo conceptual que representa sus características y dinámicas principales [@banks_discrete-event_2010]. Estos modelos evolucionan simulando las interacciones entre sus componentes, lo que permite estudiar su respuesta ante diferentes variables y escenarios [@robinson_simulation_2014].
 
@@ -13,12 +13,35 @@ En sectores como la industria automotriz, la simulación es fundamental para el 
 
 En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad [@jentsch_simulation_2017].
 
+```{r aplicacionessimulacion, echo=FALSE, message=FALSE}
+knitr::kable(
+  data.frame(
+    Sector = c("Automotriz", "Aeroespacial", "Medicina", "Educación"),
+    Aplicación = c(
+      "Pruebas de colisión virtuales",
+      "Simuladores de vuelo",
+      "Simulación de cirugías",
+      "Simuladores para arquitectura de computadoras"
+    ),
+    `Beneficio principal` = c(
+      "Reducción de costos y aumento de seguridad",
+      "Entrenamiento sin riesgo",
+      "Entrenamiento sin comprometer pacientes",
+      "Comprensión de procesos abstractos"
+    )
+  ),
+  caption = "Aplicaciones de la simulación en distintos sectores",
+  booktabs = TRUE,
+  align = "l"
+)
+```
+
 Estos ejemplos destacan cómo la simulación no solo optimiza procesos industriales, sino que también asegura una mayor eficacia y seguridad en el diseño de productos complejos.
 
 ## Simulación en la educación
-En el ámbito educativo, la simulación ha emergido como una herramienta poderosa para facilitar la enseñanza de conceptos complejos y fomentar el aprendizaje activo. A través de simuladores, los estudiantes pueden interactuar con sistemas virtuales y experimentar escenarios realistas, lo que mejora la comprensión de ideas abstractas y favorece la aplicación práctica de conocimientos teóricos [@lion_simuladores_2005].
+En contextos educativos, la simulación se ha consolidado como una estrategia pedagógica eficaz para facilitar la comprensión de fenómenos complejos, especialmente en disciplinas que requieren alto nivel de abstracción y razonamiento sistémico. A través de simuladores, los estudiantes pueden interactuar con sistemas virtuales y experimentar escenarios realistas, lo que mejora la comprensión de ideas abstractas y favorece la aplicación práctica de conocimientos teóricos [@lion_simuladores_2005].
 
-A diferencia de los métodos tradicionales, como el uso de libros de texto o diapositivas, las herramientas de simulación integran tecnologías que vinculan conceptos teóricos con situaciones reales. Esto promueve una pedagogía interactiva, basada en la resolución de problemas y el aprendizaje por descubrimiento, estimulando la exploración y el razonamiento inferencial [@contreras_uso_2010].
+En contraste con enfoques instruccionales tradicionales centrados en la transmisión de información, los simuladores favorecen metodologías activas basadas en el aprendizaje por descubrimiento, la resolución de problemas y la construcción significativa del conocimiento, las herramientas de simulación integran tecnologías que vinculan conceptos teóricos con situaciones reales. Esto promueve una pedagogía interactiva, basada en la resolución de problemas y el aprendizaje por descubrimiento, estimulando la exploración y el razonamiento inferencial [@contreras_uso_2010].
 
 En definitiva, la simulación enriquece la experiencia de aprendizaje al proporcionar una plataforma dinámica y participativa que facilita tanto la experimentación como la asimilación profunda de los contenidos.
 
@@ -31,7 +54,7 @@ En la carrera de Licenciatura en Sistemas, la asignatura Arquitectura de Computa
 
 Enseñar los fundamentos teóricos de la organización y arquitectura interna de las computadoras puede ser un reto debido a la complejidad de los procesos involucrados. Los estudiantes necesitan desarrollar altos niveles de abstracción para construir modelos mentales que les permitan entender conceptos como la ejecución de instrucciones, la gestión de memoria o la interacción entre componentes del sistema.
 
-Los simuladores desempeñan un papel crucial en este contexto al ofrecer representaciones visuales e interactivas de procesos complejos. Estas herramientas permiten a los alumnos experimentar con configuraciones y parámetros, observar su impacto en el rendimiento del sistema y explorar escenarios hipotéticos sin necesidad de hardware físico.
+En este contexto, los simuladores se configuran como mediadores didácticos que permiten representar gráficamente procesos abstractos, facilitando la manipulación de parámetros y el análisis de resultados en un entorno seguro, repetible y sin restricciones físicas. Estas herramientas permiten a los alumnos experimentar con configuraciones y parámetros, observar su impacto en el rendimiento del sistema y explorar escenarios hipotéticos sin necesidad de hardware físico.
 
 Además, la simulación actúa como un puente entre la teoría y la práctica, facilitando que los docentes refuercen conceptos abstractos con experiencias concretas. En conjunto, estas ventajas hacen de la simulación una metodología pedagógica invaluable, promoviendo la experimentación y el aprendizaje activo en la enseñanza de Arquitectura de Computadoras [@skrien_cpu_2001; @garcia-garcia_pbbcache_2020; @nova_tool_2013].
 
