@@ -362,25 +362,22 @@ Entre sus funcionalidades clave, permitirá:
 
 Estas características facilitarán una comprensión progresiva de la arquitectura x86 y promoverán una experiencia de aprendizaje alineada con los objetivos del curso.
 
-\begin{table}
+\begin{table}[!h]
 \centering
 \caption{\label{tab:funcionalidadessimulador}Funcionalidades principales del simulador propuesto}
 \centering
-\begin{tabular}[t]{l|l|l}
-\hline
-Componente & Funcionalidad.Principal & Propósito.Didáctico\\
-\hline
-CPU & Ciclo de instrucción, ejecución paso a paso & Comprender la secuencia de ejecución\\
-\hline
-Memoria & Lectura/escritura en tiempo real & Visualizar acceso a datos\\
-\hline
-E/S & Gestión básica de teclado/pantalla & Simular interacción con periféricos\\
-\hline
-Instrucciones & Conjunto limitado y ampliable & Acompañar el avance del curso\\
-\hline
-Evaluación & Métricas de rendimiento & Analizar eficiencia de programas\\
-\hline
-\end{tabular}
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Funcionalidad.Principal}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Propósito.Didáctico}}}\\
+\midrule
+\textbf{CPU} & Ciclo de instrucción, ejecución paso a paso & Comprender la secuencia de ejecución\\
+\textbf{Memoria} & Lectura/escritura en tiempo real & Visualizar acceso a datos\\
+\textbf{E/S} & Gestión básica de teclado/pantalla & Simular interacción con periféricos\\
+\textbf{Instrucciones} & Conjunto limitado y ampliable & Acompañar el avance del curso\\
+\textbf{Evaluación} & Métricas de rendimiento & Analizar eficiencia de programas\\
+\bottomrule
+\end{tabular}}
 \end{table}
 
 Contar con un simulador adaptado específicamente a los contenidos de esta asignatura no solo facilita el proceso de aprendizaje, al presentar los conceptos de manera progresiva y alineada con la currícula, sino que también permite una experiencia de aprendizaje contextualizada. Esto fomenta un aprendizaje significativo, en el cual los estudiantes pueden conectar teoría y práctica de manera efectiva a través de una herramienta diseñada para abordar de forma gradual y específica los conceptos fundamentales del curso.
@@ -617,21 +614,21 @@ Las características distintivas de cada arquitectura condicionan su idoneidad p
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:comparq}Comparación de Arquitecturas}
+\caption{\label{tab:aplicacionessimulacion}Aplicaciones de la simulación en distintos sectores}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}l}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{x86}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{ARM}}} & \multicolumn{1}{c}{\cellcolor[HTML]{D3D3D3}{\textbf{RISC-V}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Sector}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aplicación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio principal}}}\\
 \midrule
-\textbf{Eficiencia Energética} & Moderada & Alta & Alta\\
+\textbf{Automotriz} & Pruebas de colisión virtuales & Reducción de costos y aumento de seguridad\\
 \addlinespace[10pt]
-\textbf{Complejidad ISA} & Alta & Baja & Baja\\
+\textbf{Aeroespacial} & Simuladores de vuelo & Entrenamiento sin riesgo\\
 \addlinespace[10pt]
-\textbf{Rendimiento} & Alto & Moderado & Moderado\\
+\textbf{Medicina} & Simulación de cirugías & Entrenamiento sin comprometer pacientes\\
 \addlinespace[10pt]
-\textbf{Áreas de Aplicación} & Escritorio, servidores & Dispositivos móviles & Investigación, embebidos\\
+\textbf{Educación} & Simuladores para arquitectura de computadoras & Comprensión de procesos abstractos\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
@@ -1109,20 +1106,26 @@ En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, 
 
 Estos principios generales encuentran aplicaciones concretas en diversos sectores industriales, donde la simulación cumple un papel clave tanto en el diseño como en el entrenamiento, la evaluación y la toma de decisiones.
 
-\begin{table}
-
-\caption{\label{tab:aplicacionessimulacion}Aplicaciones de la simulación en distintos sectores}
+\begin{table}[!h]
 \centering
-\begin{tabular}[t]{lll}
+\caption{\label{tab:unnamed-chunk-2}Aplicaciones de la simulación en distintos sectores}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
-Sector & Aplicación & Beneficio.principal\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Sector}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aplicación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio principal}}}\\
 \midrule
-Automotriz & Pruebas de colisión virtuales & Reducción de costos y aumento de seguridad\\
-Aeroespacial & Simuladores de vuelo & Entrenamiento sin riesgo\\
-Medicina & Simulación de cirugías & Entrenamiento sin comprometer pacientes\\
-Educación & Simuladores para arquitectura de computadoras & Comprensión de procesos abstractos\\
+\textbf{Automotriz} & Pruebas de colisión virtuales & Reducción de costos y aumento de seguridad\\
+\addlinespace[10pt]
+\textbf{Aeroespacial} & Simuladores de vuelo & Entrenamiento sin riesgo\\
+\addlinespace[10pt]
+\textbf{Medicina} & Simulación de cirugías & Entrenamiento sin comprometer pacientes\\
+\addlinespace[10pt]
+\textbf{Educación} & Simuladores para arquitectura de computadoras & Comprensión de procesos abstractos\\
+\addlinespace[10pt]
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 Estos ejemplos ilustran cómo la simulación contribuye significativamente a la optimización de procesos, la reducción de riesgos y la mejora continua en el desarrollo de sistemas complejos. Su uso no solo ha transformado sectores productivos, sino que también ofrece un modelo replicable en contextos educativos especializados, como la enseñanza de arquitectura de computadoras.
