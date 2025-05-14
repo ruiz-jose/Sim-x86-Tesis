@@ -1391,20 +1391,21 @@ La Tabla \ref{tab:criterios} resume los criterios, indicadores y escalas utiliza
 \centering
 \caption{\label{tab:criterios}Criterios e indicadores de evaluación de simuladores}
 \centering
-\begin{tabular}[t]{lll}
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
 \toprule
-Criterio & Indicadores & Escala\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Criterio}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Indicadores}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Escala}}}\\
 \midrule
-Usabilidad & Facilidad de aprendizaje, interfaz, documentación & Difícil - Fácil\\
-Funcionalidad del editor & Sintaxis, manejo de errores, guardar/cargar & Baja - Alta\\
-Calidad de la documentación & Manuales, tutoriales, repertorio de instrucciones & Mínima - Completa\\
-Ejecución de simulación & Control de simulación, visualización del flujo, configurabilidad & Baja - Alta\\
-Especificación de arquitectura x86 & Fidelidad de la arquitectura, repertorio, memoria y E/S & Mínima - Completa\\
+\textbf{Usabilidad} & Facilidad de aprendizaje, interfaz, documentación & Difícil - Fácil\\
+\textbf{Funcionalidad del editor} & Sintaxis, manejo de errores, guardar/cargar & Baja - Alta\\
+\textbf{Calidad de la documentación} & Manuales, tutoriales, repertorio de instrucciones & Mínima - Completa\\
+\textbf{Ejecución de simulación} & Control de simulación, visualización del flujo, configurabilidad & Baja - Alta\\
+\textbf{Especificación de arquitectura x86} & Fidelidad de la arquitectura, repertorio, memoria y E/S & Mínima - Completa\\
 \addlinespace
-Propiedades técnicas y de distribución & Licencia, actualizaciones, plataforma & Mala - Muy buena\\
-Alineación con contenidos curriculares & Cobertura de tópicos, profundidad del tratamiento & Baja - Alta\\
+\textbf{Propiedades técnicas y de distribución} & Licencia, actualizaciones, plataforma & Mala - Muy buena\\
+\textbf{Alineación con contenidos curriculares} & Cobertura de tópicos, profundidad del tratamiento & Baja - Alta\\
 \bottomrule
-\end{tabular}
+\end{tabular}}
 \end{table}
 
 \hypertarget{selecciuxf3n-de-simuladores}{%
@@ -1509,34 +1510,14 @@ A continuación, se presenta un análisis detallado de los simuladores seleccion
   \textbf{Cobertura de contenidos}: Nivel alto. Emula el arranque (bootstrapping) de una IBM PC desde un disco flexible (floppy disk) y soporta todos los modos de direccionamiento.
 \end{itemize}
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3580}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4074}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1235}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1111}}@{}}
+\begin{longtable}[]{@{}llll@{}}
 \caption{\label{tab:tabla-comparativa-criterios}Comparativa según criterios de evaluación preestablecidos}\tabularnewline
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Criterio.de.Evaluación
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Simple.8.bit.Assembler.Simulator
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-VonSim
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Emu8086
-\end{minipage} \\
+Criterio.de.Evaluación & Simple.8.bit & VonSim & Emu8086 \\
 \midrule\noalign{}
 \endfirsthead
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Criterio.de.Evaluación
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Simple.8.bit.Assembler.Simulator
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-VonSim
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Emu8086
-\end{minipage} \\
+Criterio.de.Evaluación & Simple.8.bit & VonSim & Emu8086 \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
