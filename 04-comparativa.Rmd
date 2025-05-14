@@ -71,10 +71,11 @@ Los criterios de evaluación se definieron con el objetivo de realizar un análi
 
 La Tabla \@ref(tab:criterios) resume los criterios, indicadores y escalas utilizadas.
 
-```{r criterios, echo=FALSE}
+```{r criterios, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
+# Crear los datos de la tabla
 criterios <- data.frame(
   Criterio = c(
     "Usabilidad",
@@ -105,8 +106,19 @@ criterios <- data.frame(
   )
 )
 
-kable(criterios, format = "latex", booktabs = TRUE, caption = "Criterios e indicadores de evaluación de simuladores") %>%
-  kable_styling(latex_options = c("hold_position"))
+# Generar la tabla con formato LaTeX o HTML según el tipo de salida
+kable(criterios, format = ifelse(knitr::is_latex_output(), "latex", "html"),
+      caption = "Criterios e indicadores de evaluación de simuladores",
+      booktabs = TRUE, escape = FALSE) %>%
+  kable_styling(
+    latex_options = c("scale_down", "hold_position"), # Escala la tabla para ajustarla al ancho de la página
+    full_width = FALSE, # Evita que la tabla ocupe todo el ancho
+    position = "center" # Centra la tabla
+  ) %>%
+  column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>% # Ajusta el ancho de la primera columna
+  column_spec(2, width = "5cm") %>% # Ajusta el ancho de la segunda columna
+  column_spec(3, width = "5cm") %>% # Ajusta el ancho de la tercera columna
+  row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") # Aplica estilo a la fila de encabezado
 ```
 
 ## Selección de simuladores
@@ -188,7 +200,7 @@ tabla_comparativa <- data.frame(
   `Criterio de Evaluación` = c("Usabilidad", "Editor", "Documentación", "Ejecución de simulación", 
                              "Nivel de especificación x86", "Características del producto", 
                              "Cobertura de contenidos"),
-  `Simple 8 bit Assembler Simulator` = c("Medio", "Bajo", "Mínima", "Medio", "Mínima", "Buena", "Baja"),
+  `Simple 8 bit` = c("Medio", "Bajo", "Mínima", "Medio", "Mínima", "Buena", "Baja"),
   VonSim = c("Medio", "Medio", "Media", "Medio", "Media", "Muy buena", "Media"),
   Emu8086 = c("Fácil", "Alto", "Completa", "Alta", "Completa", "Buena", "Alta")
 )
