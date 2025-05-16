@@ -1596,7 +1596,7 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
   \begin{itemize}
   \tightlist
   \item
-    Mostrar de manera visual la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, resaltando relevantes.
+    Representar de forma gráfica la arquitectura general de la computadora (CPU, bus, memoria y dispositivos de E/S) durante la ejecución de programas, destacando los componentes relevantes en cada etapa del proceso.
   \end{itemize}
 \item
   \textbf{Soporte para la generación y ejecución de programas en ensamblador:}
@@ -1604,7 +1604,7 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
   \begin{itemize}
   \tightlist
   \item
-    Facilitar la ejecución de programas en ensamblador paso a paso como completa, promoviendo la comprensión detallada de cada instrucción.
+    Permitir tanto la ejecución paso a paso como la ejecución completa de programas en lenguaje ensamblador, promoviendo la comprensión detallada de cada instrucción.
   \end{itemize}
 \item
   \textbf{Repertorio de instrucciones reducido y habilitación progresiva:}
@@ -1636,19 +1636,28 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
   \begin{itemize}
   \tightlist
   \item
-    Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas.
+    Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas. Según Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, estos indicadores permiten evaluar la eficiencia del procesamiento a nivel de arquitectura.
   \end{itemize}
 \end{enumerate}
 
 \hypertarget{diseuxf1o-conceptual}{%
 \section{Diseño conceptual}\label{diseuxf1o-conceptual}}
 
-En esta sección se detalla el proceso de planificación del simulador, enfocándose en cómo los requisitos definidos orientan su construcción y garantizan la alineación con los objetivos pedagógicos establecidos.
+Una vez establecidos los requisitos funcionales y pedagógicos de la herramienta, se procede a detallar su diseño conceptual, el cual traduce dichos lineamientos en una arquitectura concreta del simulador. Esta planificación garantiza la coherencia entre el diseño técnico y los objetivos de enseñanza propuestos.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/harvard} 
+
+}
+
+\caption{Arquitectura general del simulador}\label{fig:vonsim8}
+\end{figure}
 
 \hypertarget{modelo-arquitectuxf3nico}{%
 \subsection{Modelo arquitectónico}\label{modelo-arquitectuxf3nico}}
 
-La arquitectura propuesta corresponde a una versión simplificada de \textbf{8 bits} de la arquitectura \textbf{x86}, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. Este diseño simplificado busca facilitar que los estudiantes comprendan conceptos clave como el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
+La arquitectura propuesta corresponde a una versión simplificada de \textbf{8 bits} de la arquitectura \textbf{x86}, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. La elección de una arquitectura de 8 bits responde a una estrategia didáctica: al reducir la complejidad del sistema original, se prioriza la comprensión conceptual sobre la fidelidad técnica, conservando la esencia del repertorio x86.
 
 \hypertarget{principales-bloques-funcionales}{%
 \subsubsection{Principales bloques funcionales}\label{principales-bloques-funcionales}}
@@ -1679,6 +1688,8 @@ El simulador se compone de los siguientes bloques funcionales:
 
 \hypertarget{caracteruxedsticas-del-cpu}{%
 \subsubsection{Características del CPU}\label{caracteruxedsticas-del-cpu}}
+
+En correspondencia con los bloques funcionales anteriormente mencionados, a continuación se describen las características específicas del CPU simulado.
 
 El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 

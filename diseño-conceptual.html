@@ -253,10 +253,16 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="diseño-conceptual" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Diseño conceptual<a href="diseño-conceptual.html#diseño-conceptual" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>En esta sección se detalla el proceso de planificación del simulador, enfocándose en cómo los requisitos definidos orientan su construcción y garantizan la alineación con los objetivos pedagógicos establecidos.</p>
+<p>Una vez establecidos los requisitos funcionales y pedagógicos de la herramienta, se procede a detallar su diseño conceptual, el cual traduce dichos lineamientos en una arquitectura concreta del simulador. Esta planificación garantiza la coherencia entre el diseño técnico y los objetivos de enseñanza propuestos.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:vonsim8"></span>
+<img src="images/harvard.png" alt="Arquitectura general del simulador" width="85%" />
+<p class="caption">
+Figura 5.1: Arquitectura general del simulador
+</p>
+</div>
 <div id="modelo-arquitectónico" class="section level3 hasAnchor" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Modelo arquitectónico<a href="diseño-conceptual.html#modelo-arquitectónico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La arquitectura propuesta corresponde a una versión simplificada de <strong>8 bits</strong> de la arquitectura <strong>x86</strong>, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. Este diseño simplificado busca facilitar que los estudiantes comprendan conceptos clave como el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.</p>
+<p>La arquitectura propuesta corresponde a una versión simplificada de <strong>8 bits</strong> de la arquitectura <strong>x86</strong>, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. La elección de una arquitectura de 8 bits responde a una estrategia didáctica: al reducir la complejidad del sistema original, se prioriza la comprensión conceptual sobre la fidelidad técnica, conservando la esencia del repertorio x86.</p>
 <div id="principales-bloques-funcionales" class="section level4 hasAnchor" number="5.2.1.1">
 <h4><span class="header-section-number">5.2.1.1</span> Principales bloques funcionales<a href="diseño-conceptual.html#principales-bloques-funcionales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>El simulador se compone de los siguientes bloques funcionales:</p>
@@ -312,6 +318,7 @@ Modelado de la comunicación entre componentes.
 </div>
 <div id="características-del-cpu" class="section level4 hasAnchor" number="5.2.1.2">
 <h4><span class="header-section-number">5.2.1.2</span> Características del CPU<a href="diseño-conceptual.html#características-del-cpu" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En correspondencia con los bloques funcionales anteriormente mencionados, a continuación se describen las características específicas del CPU simulado.</p>
 <p>El diseño del CPU simplificado se describe en la siguiente tabla <a href="diseño-conceptual.html#tab:arq">5.2</a>:</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
