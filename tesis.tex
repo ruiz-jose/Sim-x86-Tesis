@@ -1612,7 +1612,7 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
   \begin{itemize}
   \tightlist
   \item
-    Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes.
+    Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores \protect\hyperlink{ref-null2018essentials}{\textbf{null2018essentials?}}, \protect\hyperlink{ref-stallings2021computer}{\textbf{stallings2021computer?}}.
   \end{itemize}
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
@@ -1645,19 +1645,21 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
 
 Una vez establecidos los requisitos funcionales y pedagógicos de la herramienta, se procede a detallar su diseño conceptual, el cual traduce dichos lineamientos en una arquitectura concreta del simulador. Esta planificación garantiza la coherencia entre el diseño técnico y los objetivos de enseñanza propuestos.
 
+La Figura \ref{fig:esquemavonsim8} representa la arquitectura general del simulador. Esta representación visual permite distinguir los flujos diferenciados de control e información durante la ejecución de los programas, facilitando la comprensión de la segmentación funcional del sistema simulado.
+
 \begin{figure}
 
-{\centering \includegraphics[width=0.85\linewidth]{images/harvard} 
+{\centering \includegraphics[width=0.85\linewidth]{images/esquemavonsim8} 
 
 }
 
-\caption{Arquitectura general del simulador}\label{fig:vonsim8}
+\caption{Arquitectura general del simulador}\label{fig:esquemavonsim8}
 \end{figure}
 
 \hypertarget{modelo-arquitectuxf3nico}{%
 \subsection{Modelo arquitectónico}\label{modelo-arquitectuxf3nico}}
 
-La arquitectura propuesta corresponde a una versión simplificada de \textbf{8 bits} de la arquitectura \textbf{x86}, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. La elección de una arquitectura de 8 bits responde a una estrategia didáctica: al reducir la complejidad del sistema original, se prioriza la comprensión conceptual sobre la fidelidad técnica, conservando la esencia del repertorio x86.
+Se propone una versión simplificada de \textbf{8 bits} basada en la arquitectura \textbf{x86}, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. La elección de una arquitectura de 8 bits responde a una estrategia didáctica: al reducir la complejidad del sistema original, se prioriza la comprensión conceptual sobre la fidelidad técnica, conservando la esencia del repertorio x86.
 
 \hypertarget{principales-bloques-funcionales}{%
 \subsubsection{Principales bloques funcionales}\label{principales-bloques-funcionales}}
@@ -1705,7 +1707,7 @@ El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 \midrule
 \textbf{Arquitectura} & Von Neumann, memoria compartida para datos e instrucciones.\\
 \addlinespace[10pt]
-\textbf{Registros} & 4 registros de propósito general (`AL`, `BL`, `DL` y `DL`) de 8 bits cada uno.\\
+\textbf{Registros} & 4 registros de propósito general (`AL`, `BL`, `CL` y `DL`) de 8 bits cada uno.\\
 \addlinespace[10pt]
 \textbf{} & 4 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \end{itemize}\\
 \addlinespace[10pt]
