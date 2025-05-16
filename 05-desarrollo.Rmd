@@ -9,10 +9,10 @@ Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de 
 La herramienta de simulación está diseñada para cumplir los siguientes requisitos:
 
 1. **Representación global de la estructura y funcionamiento de la computadora:**
-   - Mostrar de manera visual la estructura completa de la computadora (CPU, bus, memoria y E/S) durante la ejecución de programas, resaltando relevantes.
+   - Representar de forma gráfica la arquitectura general de la computadora (CPU, bus, memoria y dispositivos de E/S) durante la ejecución de programas, destacando los componentes relevantes en cada etapa del proceso.
 
 2. **Soporte para la generación y ejecución de programas en ensamblador:**
-   - Facilitar la ejecución de programas en ensamblador paso a paso como completa, promoviendo la comprensión detallada de cada instrucción.
+   - Permitir tanto la ejecución paso a paso como la ejecución completa de programas en lenguaje ensamblador, promoviendo la comprensión detallada de cada instrucción.
 
 3. **Repertorio de instrucciones reducido y habilitación progresiva:**
    - Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes.
@@ -24,13 +24,17 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
     - Incorporar un vector de interrupción predefinido para interactuar con dispositivos como teclado y monitor. También incluir instrucciones IN y OUT, junto con un módulo simplificado de entrada/salida.
 
 6. **Métricas de rendimiento:**
-    - Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas.
+    - Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas. Según Hennessy y Patterson [@hennessy2017computer], estos indicadores permiten evaluar la eficiencia del procesamiento a nivel de arquitectura.
 
 ## Diseño conceptual
-En esta sección se detalla el proceso de planificación del simulador, enfocándose en cómo los requisitos definidos orientan su construcción y garantizan la alineación con los objetivos pedagógicos establecidos.
+Una vez establecidos los requisitos funcionales y pedagógicos de la herramienta, se procede a detallar su diseño conceptual, el cual traduce dichos lineamientos en una arquitectura concreta del simulador. Esta planificación garantiza la coherencia entre el diseño técnico y los objetivos de enseñanza propuestos.
+
+```{r vonsim8, echo=FALSE, fig.cap="Arquitectura general del simulador", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/harvard.png")
+```
 
 ### Modelo arquitectónico
-La arquitectura propuesta corresponde a una versión simplificada de **8 bits** de la arquitectura **x86**, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. Este diseño simplificado busca facilitar que los estudiantes comprendan conceptos clave como el formato de instrucciones, los modos de direccionamiento y el ciclo de búsqueda y ejecución.
+La arquitectura propuesta corresponde a una versión simplificada de **8 bits** de la arquitectura **x86**, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. La elección de una arquitectura de 8 bits responde a una estrategia didáctica: al reducir la complejidad del sistema original, se prioriza la comprensión conceptual sobre la fidelidad técnica, conservando la esencia del repertorio x86.
 
 #### Principales bloques funcionales
 El simulador se compone de los siguientes bloques funcionales:
@@ -84,6 +88,8 @@ if (knitr::is_latex_output()) {
 ```
 
 #### Características del CPU
+En correspondencia con los bloques funcionales anteriormente mencionados, a continuación se describen las características específicas del CPU simulado.
+
 El diseño del CPU simplificado se describe en la siguiente tabla \@ref(tab:arq):
 
 ```{r arq, echo=FALSE, message=FALSE, warning=FALSE}
