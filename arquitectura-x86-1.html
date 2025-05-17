@@ -253,7 +253,13 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="arquitectura-x86-1" class="section level2 hasAnchor" number="2.6">
 <h2><span class="header-section-number">2.6</span> Arquitectura x86<a href="arquitectura-x86-1.html#arquitectura-x86-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La arquitectura x86, reconocida por su amplia adopción en computadoras personales, estaciones de trabajo y servidores, se introdujo en 1978 con el procesador Intel 8086, basado en una arquitectura de 16 bits. Desde entonces, ha evolucionado en capacidad y complejidad, con hitos clave como la introducción del Intel 80386 (32 bits) en 1985 y la extensión a 64 bits con AMD64 en 2003. Esta evolución ha permitido mejoras significativas en el rendimiento, el direccionamiento de memoria y la compatibilidad con aplicaciones exigentes. <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-intel_64_2025">Intel Corporation 2025</a>; <a href="#ref-amd_developer_2024">AMD 2024</a>; <a href="#ref-abel_ibm_2000">Abel 2000</a>)</span>.</p>
+<p>La arquitectura x86, reconocida por su amplia adopción en computadoras personales, estaciones de trabajo y servidores, se introdujo en 1978 con el procesador Intel 8086, basado en una arquitectura de 16 bits. Desde entonces, ha evolucionado en capacidad y complejidad, con hitos clave como la introducción del Intel 80386 (32 bits) en 1985 y la extensión a 64 bits con AMD64 en 2003. Esta evolución ha permitido mejoras significativas en el rendimiento, el direccionamiento de memoria y la compatibilidad con aplicaciones exigentes. <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-intel_64_2025">Intel Corporation 2025</a>, <a href="#ref-intel8086manual">1979</a>; <a href="#ref-amd_developer_2024">AMD 2024</a>; <a href="#ref-abel_ibm_2000">Abel 2000</a>; <a href="#ref-brey_intel_microprocessors">Brey 2013</a>)</span>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:x86"></span>
+<img src="images/x86.png" alt="Diagrama esquemático microprocesador Intel 8086" width="100%" />
+<p class="caption">
+Figura 2.8: Diagrama esquemático microprocesador Intel 8086
+</p>
+</div>
 <div id="evolución-de-la-arquitectura-x86" class="section level3 hasAnchor" number="2.6.1">
 <h3><span class="header-section-number">2.6.1</span> Evolución de la arquitectura x86<a href="arquitectura-x86-1.html#evolución-de-la-arquitectura-x86" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Uno de los pilares del éxito de la arquitectura x86 ha sido su retrocompatibilidad, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Dicha propiedad no solo ha garantizado la continuidad del ecosistema x86, sino que también ha protegido las inversiones en software y sistemas operativos, una característica fundamental en entornos empresariales y académicos.</p>
@@ -435,7 +441,7 @@ Optimización de rendimiento y eficiencia energética
 </div>
 <div id="repertorio-de-instrucciones-x86" class="section level3 hasAnchor" number="2.6.2">
 <h3><span class="header-section-number">2.6.2</span> Repertorio de instrucciones x86<a href="arquitectura-x86-1.html#repertorio-de-instrucciones-x86" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La arquitectura x86 destaca por su complejidad y flexibilidad, reflejada en un repertorio de instrucciones extenso y de longitud variable. Esto contrasta con arquitecturas RISC, donde predominan instrucciones de longitud fija y decodificación sencilla <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span>. Aunque esta flexibilidad implica una mayor capacidad expresiva y compatibilidad hacia atrás, también introduce desafíos de diseño, tales como la necesidad de decodificadores complejos, técnicas de predicción de instrucciones y ejecución fuera de orden para lograr un rendimiento competitivo.</p>
+<p>La arquitectura x86 destaca por su complejidad y flexibilidad, reflejada en un repertorio de instrucciones extenso y de longitud variable. Esto contrasta con arquitecturas RISC, donde predominan instrucciones de longitud fija y decodificación sencilla <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-brey_intel_microprocessors">Brey 2013</a>)</span>. Aunque esta flexibilidad implica una mayor capacidad expresiva y compatibilidad hacia atrás, también introduce desafíos de diseño, tales como la necesidad de decodificadores complejos, técnicas de predicción de instrucciones y ejecución fuera de orden para lograr un rendimiento competitivo.</p>
 <div id="estructura-de-una-instrucción-x86" class="section level4 hasAnchor" number="2.6.2.1">
 <h4><span class="header-section-number">2.6.2.1</span> Estructura de una instrucción x86<a href="arquitectura-x86-1.html#estructura-de-una-instrucción-x86" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Una instrucción típica de x86 puede incluir los siguientes componentes <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>:</p>
@@ -448,12 +454,12 @@ Optimización de rendimiento y eficiencia energética
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:FormatoInst"></span>
 <img src="images/formatoinstruccionx86.png" alt="Formato de instrucciones del Pentium x86" width="100%" />
 <p class="caption">
-Figura 2.8: Formato de instrucciones del Pentium x86
+Figura 2.9: Formato de instrucciones del Pentium x86
 </p>
 </div>
 <p>Un ejemplo típico de instrucción es:</p>
 <pre class="assembly"><code>  MOV AX, [BX+SI+16]</code></pre>
-<p>Esta instrucción utiliza varios componentes, que el procesador debe decodificar antes de ejecutarla. Aunque esta flexibilidad es una ventaja en términos de funcionalidad, requiere técnicas avanzadas, como predicción de saltos y paralelización, para mantener la eficiencia en procesadores modernos <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>)</span>.</p>
+<p>Esta instrucción utiliza varios componentes, que el procesador debe decodificar antes de ejecutarla. Aunque esta flexibilidad es una ventaja en términos de funcionalidad, requiere técnicas avanzadas, como predicción de saltos y paralelización, para mantener la eficiencia en procesadores modernos <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>; <a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>; <a href="#ref-brey_intel_microprocessors">Brey 2013</a>)</span>.</p>
 </div>
 </div>
 </div>
@@ -465,8 +471,14 @@ Abel, Peter. 2000. <em><span>IBM</span> <span>PC</span> <span>Assembly</span> <s
 <div id="ref-amd_developer_2024" class="csl-entry">
 AMD. 2024. <span>“Developer Guides, Manuals &amp; ISA Documents.”</span> <a href="https://www.amd.com/en/search/documentation/hub.html">https://www.amd.com/en/search/documentation/hub.html</a>.
 </div>
+<div id="ref-brey_intel_microprocessors" class="csl-entry">
+Brey, Barry B. 2013. <em>The Intel Microprocessors: Architecture, Programming, and Interfacing</em>. 8th ed. Pearson Education.
+</div>
 <div id="ref-hennessy2017computer" class="csl-entry">
 Hennessy, John L, and David A Patterson. 2017. <em>Computer Organization and Design RISC-v Edition: The Hardware Software Interface</em>. Elsevier Science &amp; Technology Books.
+</div>
+<div id="ref-intel8086manual" class="csl-entry">
+Intel Corporation. 1979. <em>Intel 8086 Family User’s Manual</em>. Intel Corporation. <a href="https://bitsavers.org/components/intel/8086/9800722-03_The_8086_Family_Users_Manual_Oct79.pdf">https://bitsavers.org/components/intel/8086/9800722-03_The_8086_Family_Users_Manual_Oct79.pdf</a>.
 </div>
 <div id="ref-intel_64_2025" class="csl-entry">
 ———. 2025. <em>Intel® 64 and IA-32 Architectures Software Developer’s Manual</em> (version 086). <a href="https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html">https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html</a>.

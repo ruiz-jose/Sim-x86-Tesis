@@ -255,7 +255,7 @@ div.csl-indent {
 <h2><span class="header-section-number">5.3</span> Implementación del repertorio de instrucciones<a href="implementación-del-repertorio-de-instrucciones.html#implementación-del-repertorio-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div id="selección-del-repertorio-inicial" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Selección del repertorio inicial<a href="implementación-del-repertorio-de-instrucciones.html#selección-del-repertorio-inicial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:</p>
+<p>El repertorio de instrucciones fue diseñado como una versión reducida y didáctica basada en la arquitectura x86, con el propósito de facilitar los procesos de enseñanza y prendizaje en contextos introductorios de Arquitectura de Computadoras.En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
 <span id="tab:setreducido">Tabla 5.3: </span>Tabla de instrucciones y códigos de operación
@@ -400,7 +400,7 @@ JC
 <ul>
 <li><strong>Reducir la carga cognitiva</strong>: la simplificación del repertorio y de los componentes permite a los estudiantes enfocarse en principios fundamentales.</li>
 <li><strong>Aprendizaje progresivo</strong>: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.</li>
-<li><strong>Claridad pedagógica</strong>: las prácticas son manejables en términos de tiempo y esfuerzo, favoreciendo experiencias de aprendizaje prácticas y progresivas, adecuadas para el nivel de iniciación.</li>
+<li><strong>Claridad pedagógica</strong>: las actividades prácticas resultan accesibles en cuanto a tiempo y complejidad, lo que permite una progresión gradual y significativa en la adquisición de conocimientos técnicos.</li>
 </ul>
 </div>
 <div id="beneficios-de-la-simplificación" class="section level3 hasAnchor" number="5.3.3">
@@ -503,12 +503,7 @@ M = Dirección de memoria
 <li><p><code>M</code>: Dirección de memoria, número de 8 bits.</p></li>
 <li><p><code>ffff</code>: campo funcional de 4 bits que especifica el tipo de operación de control a realizar, como saltos condicionales o incondicionales.</p></li>
 </ul>
-<p>Como ejemplo, la instrucción MOV AL, BL (transferencia entre registros) se codifica como 00000001, donde:</p>
-<ul>
-<li><p>0000: código de operación (MOV)</p></li>
-<li><p>00: código binario de AL</p></li>
-<li><p>01: código binario de BL</p></li>
-</ul>
+<p>Como ejemplo, la instrucción MOV AL, BL (transferencia entre registros) se codifica como <code>00000001</code>, donde los primeros cuatro bits (<code>0000</code>) representan el código de operación correspondiente a MOV, seguidos por los códigos binarios de los registros destino (<code>00</code> para AL) y fuente (<code>01</code> para BL).</p>
 </div>
 <div id="modos-de-direccionamiento-1" class="section level3 hasAnchor" number="5.3.5">
 <h3><span class="header-section-number">5.3.5</span> Modos de direccionamiento<a href="implementación-del-repertorio-de-instrucciones.html#modos-de-direccionamiento-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
