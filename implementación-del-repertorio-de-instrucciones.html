@@ -199,7 +199,7 @@ div.csl-indent {
 <li class="chapter" data-level="5.3.1" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#selección-del-repertorio-inicial"><i class="fa fa-check"></i><b>5.3.1</b> Selección del repertorio inicial</a></li>
 <li class="chapter" data-level="5.3.2" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#justificación-de-la-simplificación"><i class="fa fa-check"></i><b>5.3.2</b> Justificación de la simplificación</a></li>
 <li class="chapter" data-level="5.3.3" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#beneficios-de-la-simplificación"><i class="fa fa-check"></i><b>5.3.3</b> Beneficios de la simplificación</a></li>
-<li class="chapter" data-level="5.3.4" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.3.4</b> Formato de instrucciones</a></li>
+<li class="chapter" data-level="5.3.4" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#codificación-binaria-de-las-instrucciones"><i class="fa fa-check"></i><b>5.3.4</b> Codificación binaria de las instrucciones</a></li>
 <li class="chapter" data-level="5.3.5" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.3.5</b> Modos de direccionamiento</a></li>
 <li class="chapter" data-level="5.3.6" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución"><i class="fa fa-check"></i><b>5.3.6</b> Ciclo de la instrucción: Etapas de captación y ejecución</a></li>
 <li class="chapter" data-level="5.3.7" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#modos-de-direccionamiento-adicionales"><i class="fa fa-check"></i><b>5.3.7</b> Modos de direccionamiento adicionales</a></li>
@@ -303,7 +303,7 @@ MOV
 </tr>
 <tr>
 <td style="text-align:left;width: 25em; font-weight: bold;">
-Pocesamiento de datos
+Procesamiento de datos
 </td>
 <td style="text-align:left;width: 25em; ">
 {3, 4, 5}
@@ -396,11 +396,11 @@ JC
 </div>
 <div id="justificación-de-la-simplificación" class="section level3 hasAnchor" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Justificación de la simplificación<a href="implementación-del-repertorio-de-instrucciones.html#justificación-de-la-simplificación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La arquitectura x86 destaca por su complejidad debido a su extenso repertorio de instrucciones y características avanzadas. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:</p>
+<p>La arquitectura x86 se caracteriza por un repertorio de instrucciones extenso y heterogéneo, junto con múltiples modos de direccionamiento y niveles de privilegio, lo cual puede dificultar su abordaje inicial en contextos educativos. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:</p>
 <ul>
 <li><strong>Reducir la carga cognitiva</strong>: la simplificación del repertorio y de los componentes permite a los estudiantes enfocarse en principios fundamentales.</li>
 <li><strong>Aprendizaje progresivo</strong>: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.</li>
-<li><strong>Claridad pedagógica</strong>: las prácticas son manejables en términos de tiempo y esfuerzo, promoviendo un aprendizaje práctico sin frustraciones.</li>
+<li><strong>Claridad pedagógica</strong>: las prácticas son manejables en términos de tiempo y esfuerzo, favoreciendo experiencias de aprendizaje prácticas y progresivas, adecuadas para el nivel de iniciación.</li>
 </ul>
 </div>
 <div id="beneficios-de-la-simplificación" class="section level3 hasAnchor" number="5.3.3">
@@ -408,13 +408,13 @@ JC
 <p>El diseño del simulador contribuye a:</p>
 <ul>
 <li><strong>Comprensión fundamental</strong>: los estudiantes pueden enfocarse en el ciclo de instrucciones, interacción de componentes y flujo básico de datos.</li>
-<li><strong>Análisis crítico</strong>: comparar el modelo simplificado con x86 real fomenta un aprendizaje reflexivo y profundo.</li>
+<li><strong>Análisis crítico</strong>: comparar el modelo pedagógico simplificado con la arquitectura x86 en su versión completa fomenta un aprendizaje reflexivo y profundo.</li>
 <li><strong>Experimentación práctica</strong>: proporciona un entorno accesible para explorar conceptos y corregir errores.</li>
 </ul>
 </div>
-<div id="formato-de-instrucciones" class="section level3 hasAnchor" number="5.3.4">
-<h3><span class="header-section-number">5.3.4</span> Formato de instrucciones<a href="implementación-del-repertorio-de-instrucciones.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formato definido para las instrucciones incluye los siguientes casos tabla <a href="implementación-del-repertorio-de-instrucciones.html#tab:codtraducido">5.4</a>:</p>
+<div id="codificación-binaria-de-las-instrucciones" class="section level3 hasAnchor" number="5.3.4">
+<h3><span class="header-section-number">5.3.4</span> Codificación binaria de las instrucciones<a href="implementación-del-repertorio-de-instrucciones.html#codificación-binaria-de-las-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A fin de facilitar la decodificación y ejecución en el simulador, se estableció un formato binario específico para representar cada tipo de instrucción. La siguiente tabla <a href="implementación-del-repertorio-de-instrucciones.html#tab:codtraducido">5.4</a> resume los principales formatos codificados:</p>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:codtraducido">Tabla 5.4: </span>Tabla de codificación de instrucciones
@@ -501,7 +501,13 @@ M = Dirección de memoria
 <li><p><code>____</code>: Código de operación de la instrucción, número de 4 bits.</p></li>
 <li><p><code>XX</code> o <code>YY</code>: Índices de registros, número entre <code>0</code> y <code>3</code>, cada índice es de 2 bits.</p></li>
 <li><p><code>M</code>: Dirección de memoria, número de 8 bits.</p></li>
-<li><p><code>ffff</code>: representan el comportamiento de la instrucción, número de 4 bits.</p></li>
+<li><p><code>ffff</code>: campo funcional de 4 bits que especifica el tipo de operación de control a realizar, como saltos condicionales o incondicionales.</p></li>
+</ul>
+<p>Como ejemplo, la instrucción MOV AL, BL (transferencia entre registros) se codifica como 00000001, donde:</p>
+<ul>
+<li><p>0000: código de operación (MOV)</p></li>
+<li><p>00: código binario de AL</p></li>
+<li><p>01: código binario de BL</p></li>
 </ul>
 </div>
 <div id="modos-de-direccionamiento-1" class="section level3 hasAnchor" number="5.3.5">
