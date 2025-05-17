@@ -15,7 +15,7 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
    - Permitir tanto la ejecución paso a paso como la ejecución completa de programas en lenguaje ensamblador, promoviendo la comprensión detallada de cada instrucción.
 
 3. **Repertorio de instrucciones reducido y habilitación progresiva:**
-    - Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores [@null_essentials_2014; @stallings_computer_2021.
+    - Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores [@null_essentials_2023; @stallings_computer_2021]
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
     - Representar el flujo de datos con el lenguaje de transferencia entre registros (RTL), destacando visualmente cada componente involucrado en la ejecución de un programa.
@@ -166,7 +166,7 @@ library(knitr)
 setreducido <- data.frame(
   Instrucciones = c(
     "Transferencia de datos",
-    "Pocesamiento de datos",
+    "Procesamiento de datos",
     "",
     "",
     "Control de flujo",
@@ -248,21 +248,21 @@ if (knitr::is_latex_output()) {
 ```
 
 ### Justificación de la simplificación
-La arquitectura x86 destaca por su complejidad debido a su extenso repertorio de instrucciones y características avanzadas. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:
+La arquitectura x86 se caracteriza por un repertorio de instrucciones extenso y heterogéneo, junto con múltiples modos de direccionamiento y niveles de privilegio, lo cual puede dificultar su abordaje inicial en contextos educativos. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:
 
 - **Reducir la carga cognitiva**: la simplificación del repertorio y de los componentes permite a los estudiantes enfocarse en principios fundamentales.
 - **Aprendizaje progresivo**: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.
-- **Claridad pedagógica**: las prácticas son manejables en términos de tiempo y esfuerzo, promoviendo un aprendizaje práctico sin frustraciones.
+- **Claridad pedagógica**: las prácticas son manejables en términos de tiempo y esfuerzo, favoreciendo experiencias de aprendizaje prácticas y progresivas, adecuadas para el nivel de iniciación.
 
 ### Beneficios de la simplificación
 El diseño del simulador contribuye a:
 
 - **Comprensión fundamental**: los estudiantes pueden enfocarse en el ciclo de instrucciones, interacción de componentes y flujo básico de datos.
-- **Análisis crítico**: comparar el modelo simplificado con x86 real fomenta un aprendizaje reflexivo y profundo.
+- **Análisis crítico**: comparar el modelo pedagógico simplificado con la arquitectura x86 en su versión completa fomenta un aprendizaje reflexivo y profundo.
 - **Experimentación práctica**: proporciona un entorno accesible para explorar conceptos y corregir errores.
 
-### Formato de instrucciones
-El formato definido para las instrucciones incluye los siguientes casos tabla \@ref(tab:codtraducido):
+### Codificación binaria de las instrucciones
+A fin de facilitar la decodificación y ejecución en el simulador, se estableció un formato binario específico para representar cada tipo de instrucción. La siguiente tabla \@ref(tab:codtraducido) resume los principales formatos codificados:
 
 ```{r codtraducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -312,7 +312,16 @@ Considerando:
 
   - `M`: Dirección de memoria, número de 8 bits.
 
-  - `ffff`: representan el comportamiento de la instrucción, número de 4 bits.
+  - `ffff`: campo funcional de 4 bits que especifica el tipo de operación de control a realizar, como saltos condicionales o incondicionales.
+
+
+Como ejemplo, la instrucción MOV AL, BL (transferencia entre registros) se codifica como 00000001, donde:
+
+  - 0000: código de operación (MOV)
+
+  - 00: código binario de AL
+
+  - 01: código binario de BL
 
 ### Modos de direccionamiento
 Los modos de direccionamiento definidos en esta etapa son:
