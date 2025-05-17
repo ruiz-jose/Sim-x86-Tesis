@@ -157,7 +157,7 @@ if (knitr::is_latex_output()) {
 ## Implementación del repertorio de instrucciones
 
 ### Selección del repertorio inicial
-El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
+El repertorio de instrucciones fue diseñado como una versión reducida y didáctica basada en la arquitectura x86, con el propósito de facilitar los procesos de enseñanza y prendizaje en contextos introductorios de Arquitectura de Computadoras.En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
 
 ```{r setreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -252,7 +252,7 @@ La arquitectura x86 se caracteriza por un repertorio de instrucciones extenso y 
 
 - **Reducir la carga cognitiva**: la simplificación del repertorio y de los componentes permite a los estudiantes enfocarse en principios fundamentales.
 - **Aprendizaje progresivo**: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.
-- **Claridad pedagógica**: las prácticas son manejables en términos de tiempo y esfuerzo, favoreciendo experiencias de aprendizaje prácticas y progresivas, adecuadas para el nivel de iniciación.
+- **Claridad pedagógica**: las actividades prácticas resultan accesibles en cuanto a tiempo y complejidad, lo que permite una progresión gradual y significativa en la adquisición de conocimientos técnicos.
 
 ### Beneficios de la simplificación
 El diseño del simulador contribuye a:
@@ -314,14 +314,7 @@ Considerando:
 
   - `ffff`: campo funcional de 4 bits que especifica el tipo de operación de control a realizar, como saltos condicionales o incondicionales.
 
-
-Como ejemplo, la instrucción MOV AL, BL (transferencia entre registros) se codifica como 00000001, donde:
-
-  - 0000: código de operación (MOV)
-
-  - 00: código binario de AL
-
-  - 01: código binario de BL
+Como ejemplo, la instrucción MOV AL, BL (transferencia entre registros) se codifica como `00000001`, donde los primeros cuatro bits (`0000`) representan el código de operación correspondiente a MOV, seguidos por los códigos binarios de los registros destino (`00` para AL) y fuente (`01` para BL).
 
 ### Modos de direccionamiento
 Los modos de direccionamiento definidos en esta etapa son:
