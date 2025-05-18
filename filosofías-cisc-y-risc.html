@@ -276,15 +276,27 @@ div.csl-indent {
 <div id="ejemplos-de-instrucciones" class="section level4 hasAnchor" number="2.5.3.1">
 <h4><span class="header-section-number">2.5.3.1</span> Ejemplos de instrucciones<a href="filosofías-cisc-y-risc.html#ejemplos-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Para ilustrar la diferencia entre ambas filosofías, se presenta el siguiente ejemplo: cargar dos valores de memoria, sumarlos y almacenar el resultado en una dirección de memoria.</p>
-<p>RISC:</p>
-<pre class="assembly"><code>LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
-LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
-ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
-STORE R3, [mem1]   # Guardar el resultado en mem1</code></pre>
-<p>CISC:</p>
-<pre class="assembly"><code>MOV EAX, [mem1]    # Cargar el valor de mem1 en el registro EAX
-ADD EAX, [mem2]    # Sumar el valor de mem2 con EAX
-MOV [mem1], EAX    # Guardar el resultado de la suma de vuelta en mem1</code></pre>
+<p>Una arquitectura bajo la filosofia RISC es RISC-V, que utiliza instrucciones simples y de longitud fija. En este caso, la instrucción para cargar un valor de memoria en un registro es <code>lw</code> (load word), y la instrucción para almacenar el resultado es <code>sw</code> (store word). La suma se realiza con la instrucción <code>add</code>.:</p>
+<pre class="assembly"><code>  # Cargar el valor de mem1 en el registro t0 (R1)
+  lw t0, 0(mem1)      # t0 = MEM[mem1]
+
+  # Cargar el valor de mem2 en el registro t1 (R2)
+  lw t1, 0(mem2)      # t1 = MEM[mem2]
+
+  # Sumar los registros t0 y t1, guardar el resultado en t2 (R3)
+  add t2, t0, t1      # t2 = t0 + t1
+
+  # Guardar el resultado en mem1
+  sw t2, 0(mem1)      # MEM[mem1] = t2</code></pre>
+<p>Una arquitectura bajo la filosofia CISC es x86, que utiliza instrucciones más complejas y de longitud variable. En este caso, la instrucción para cargar un valor de memoria en un registro es <code>MOV</code>, y la instrucción para almacenar el resultado es también <code>MOV</code>. La suma se realiza con la instrucción <code>ADD</code>:</p>
+<pre class="assembly"><code>; Cargar el valor almacenado en mem1 en el registro EAX
+MOV EAX, [mem1]
+
+; Sumar el valor almacenado en mem2 al registro EAX
+ADD EAX, [mem2]
+
+; Guardar el resultado de la suma de vuelta en mem1
+MOV [mem1], EAX</code></pre>
 <p>La tabla <a href="filosofías-cisc-y-risc.html#tab:ciscrisc">2.5</a> sintetiza las principales diferencias estructurales y operativas entre las filosofías CISC y RISC, destacando sus implicancias en el diseño del hardware y el rendimiento general del sistema.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>

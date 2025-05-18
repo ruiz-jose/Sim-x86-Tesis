@@ -260,8 +260,11 @@ div.csl-indent {
 <p>Ante las limitaciones del lenguaje máquina en términos de legibilidad y mantenibilidad, se desarrolló un lenguaje de bajo nivel con mayor legibilidad que el lenguaje máquina que permitiera al programador escribir instrucciones de forma más comprensible: el lenguaje ensamblador. Este lenguaje permite a los programadores escribir instrucciones más comprensibles mediante mnemónicos simbólicos, que actúan como representaciones legibles de las instrucciones en lenguaje máquina. Cada arquitectura de procesador define su propio conjunto de instrucciones (ISA, Instruction Set Architecture), lo que implica que el lenguaje ensamblador asociado debe ajustarse a la codificación binaria, modos de direccionamiento y sintaxis específicos de dicha ISA <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
 <p>En el ámbito educativo, el lenguaje ensamblador se destaca como una herramienta fundamental para comprender cómo se comunican el software y el hardware <span class="citation">(<a href="#ref-null_essentials_2023">Null 2023</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>. Permite a los estudiantes visualizar la ejecución de instrucciones individuales, analizar el uso de registros y explorar la estructura de la memoria, convirtiéndose en un recurso valioso para este propósito.</p>
 <p>Un programa en lenguaje ensamblador suele estar compuesto por instrucciones que especifican un mnemónico, uno o más operandos, y eventualmente el modo de direccionamiento. Por ejemplo:</p>
-<pre class="assembly"><code>  MOV AX, 5
-  ADD AX, BX</code></pre>
+<pre class="assembly"><code>; Carga el valor inmediato 5 en el registro AX.
+MOV AX, 5  
+
+; Sumar los registros BX y AX, guarda el resultado en AX.
+ADD AX, BX </code></pre>
 <p>Estas líneas indican que el valor 5 se mueve al registro AX y luego se suma el contenido de BX. A través de este tipo de instrucciones, el estudiante puede visualizar de forma explícita cómo opera el procesador sobre sus registros y memoria.</p>
 <div id="ensamblador" class="section level3 hasAnchor" number="2.7.1">
 <h3><span class="header-section-number">2.7.1</span> Ensamblador<a href="lenguaje-máquina-y-lenguaje-ensamblador.html#ensamblador" class="anchor-section" aria-label="Anchor link to header"></a></h3>

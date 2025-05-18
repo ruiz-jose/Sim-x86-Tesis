@@ -781,7 +781,7 @@ La siguiente tabla \ref{tab:comparativaISA} resume las características principa
 \caption{\label{tab:comparativaISA}Comparativa de repertorios de instrucciones reales}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{}l|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
+\begin{tabular}[t]{>{}c|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}}
 \toprule
 \multicolumn{1}{c}{\cellcolor[HTML]{D3D3D3}{\textbf{Arquitectura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Longitud instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nº operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipos de operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modos de direccionamiento}}}\\
 \midrule
@@ -833,22 +833,33 @@ Por ejemplo, en RISC, los modos de direccionamiento son simples y permiten un ac
 
 Para ilustrar la diferencia entre ambas filosofías, se presenta el siguiente ejemplo: cargar dos valores de memoria, sumarlos y almacenar el resultado en una dirección de memoria.
 
-RISC:
+Una arquitectura bajo la filosofia RISC es RISC-V, que utiliza instrucciones simples y de longitud fija. En este caso, la instrucción para cargar un valor de memoria en un registro es \texttt{lw} (load word), y la instrucción para almacenar el resultado es \texttt{sw} (store word). La suma se realiza con la instrucción \texttt{add}.:
 
 \begin{lstlisting}
-  ; Carga el valor inmediato 10 en el registro R0
-  LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
-  LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
-  ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
-  STORE R3, [mem1]   # Guardar el resultado en mem1
+    # Cargar el valor de mem1 en el registro t0 (R1)
+    lw t0, 0(mem1)      # t0 = MEM[mem1]
+
+    # Cargar el valor de mem2 en el registro t1 (R2)
+    lw t1, 0(mem2)      # t1 = MEM[mem2]
+
+    # Sumar los registros t0 y t1, guardar el resultado en t2 (R3)
+    add t2, t0, t1      # t2 = t0 + t1
+
+    # Guardar el resultado en mem1
+    sw t2, 0(mem1)      # MEM[mem1] = t2
   \end{lstlisting}
 
-CISC:
+Una arquitectura bajo la filosofia CISC es x86, que utiliza instrucciones más complejas y de longitud variable. En este caso, la instrucción para cargar un valor de memoria en un registro es \texttt{MOV}, y la instrucción para almacenar el resultado es también \texttt{MOV}. La suma se realiza con la instrucción \texttt{ADD}:
 
 \begin{lstlisting}
-  MOV EAX, [mem1]    # Cargar el valor de mem1 en el registro EAX
-  ADD EAX, [mem2]    # Sumar el valor de mem2 con EAX
-  MOV [mem1], EAX    # Guardar el resultado de la suma de vuelta en mem1
+  ; Cargar el valor almacenado en mem1 en el registro EAX
+  MOV EAX, [mem1]
+
+  ; Sumar el valor almacenado en mem2 al registro EAX
+  ADD EAX, [mem2]
+
+  ; Guardar el resultado de la suma de vuelta en mem1
+  MOV [mem1], EAX
   \end{lstlisting}
 
 La tabla \ref{tab:ciscrisc} sintetiza las principales diferencias estructurales y operativas entre las filosofías CISC y RISC, destacando sus implicancias en el diseño del hardware y el rendimiento general del sistema.
@@ -925,7 +936,7 @@ A continuación, se presenta la tabla \ref{tab:hitosx86} que resume los hitos cl
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedleft\arraybackslash}p{4cm}>{\raggedleft\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año de Lanzamiento}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Número de Bits}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Extensiones de 64 bits}}}\\
 \midrule
@@ -947,9 +958,9 @@ La tabla \ref{tab:evolucionx86} muestra cómo la evolución de x86 ha estado mar
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedleft\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{8cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Innovación}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Innovación}}}\\
 \midrule
 \textbf{1978} & Intel 8086 & Introducción de la arquitectura x86, 16 bits\\
 \addlinespace[10pt]
@@ -1006,7 +1017,8 @@ Una instrucción típica de x86 puede incluir los siguientes componentes \protec
 Un ejemplo típico de instrucción es:
 
 \begin{lstlisting}
-  ; Carga el valor inmediato 10 en el registro R0
+  ; Carga en el registro AX el valor almacenado en la dirección de memoria
+  ; que resulta de sumar el contenido de los registros BX y SI más el desplazamiento 16.
   MOV AX, [BX+SI+16]
   \end{lstlisting}
 
@@ -1029,9 +1041,11 @@ En el ámbito educativo, el lenguaje ensamblador se destaca como una herramienta
 Un programa en lenguaje ensamblador suele estar compuesto por instrucciones que especifican un mnemónico, uno o más operandos, y eventualmente el modo de direccionamiento. Por ejemplo:
 
 \begin{lstlisting}
-  ; Carga el valor inmediato 10 en el registro R0
-  MOV AX, 5
-  ADD AX, BX
+  ; Carga el valor inmediato 5 en el registro AX.
+  MOV AX, 5  
+
+  ; Sumar los registros BX y AX, guarda el resultado en AX.
+  ADD AX, BX 
   \end{lstlisting}
 
 Estas líneas indican que el valor 5 se mueve al registro AX y luego se suma el contenido de BX. A través de este tipo de instrucciones, el estudiante puede visualizar de forma explícita cómo opera el procesador sobre sus registros y memoria.
