@@ -83,6 +83,9 @@
 
 \usepackage[]{natbib}
 
+\usepackage{amssymb}
+\usepackage{pifont}
+
 % Next line commented out by CII
 %\usepackage{biblatex}
 %\usepackage{natbib}
@@ -367,15 +370,21 @@ Estas características facilitarán una comprensión progresiva de la arquitectu
 \caption{\label{tab:funcionalidadessimulador}Funcionalidades principales del simulador propuesto}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{6cm}>{\centering\arraybackslash}p{6cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Funcionalidad.Principal}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Propósito.Didáctico}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Funcionalidad Principal}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Propósito Didáctico}}}\\
 \midrule
 \textbf{CPU} & Ciclo de instrucción, ejecución paso a paso & Comprender la secuencia de ejecución\\
+\addlinespace[10pt]
 \textbf{Memoria} & Lectura/escritura en tiempo real & Visualizar acceso a datos\\
+\addlinespace[10pt]
 \textbf{E/S} & Gestión básica de teclado/pantalla & Simular interacción con periféricos\\
+\addlinespace[10pt]
 \textbf{Instrucciones} & Conjunto limitado y ampliable & Acompañar el avance del curso\\
+\addlinespace[10pt]
 \textbf{Evaluación} & Métricas de rendimiento & Analizar eficiencia de programas\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -546,17 +555,24 @@ Para una comparación más sistemática, se pueden establecer criterios como tip
 \caption{\label{tab:unnamed-chunk-1}Cuadro comparativo entre arquitecturas Von Neumann y Harvard}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Von.Neumann}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Harvard}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Von Neumann}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Harvard}}}\\
 \midrule
 \textbf{Memoria} & Única para datos e instrucciones & Separada para datos e instrucciones\\
+\addlinespace[10pt]
 \textbf{Buses} & Bus compartido & Buses independientes\\
+\addlinespace[10pt]
 \textbf{Acceso simultáneo} & No & Sí\\
+\addlinespace[10pt]
 \textbf{Ejemplo típico} & Intel x86 & AVR, PIC\\
+\addlinespace[10pt]
 \textbf{Ventaja principal} & Diseño más simple & Mayor rendimiento\\
+\addlinespace[10pt]
 \addlinespace
 \textbf{Limitación principal} & Cuello de botella & Diseño más complejo\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -618,9 +634,9 @@ Las características distintivas de cada arquitectura condicionan su idoneidad p
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Sector}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aplicación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio principal}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Sector}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aplicación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio principal}}}\\
 \midrule
 \textbf{Automotriz} & Pruebas de colisión virtuales & Reducción de costos y aumento de seguridad\\
 \addlinespace[10pt]
@@ -771,8 +787,8 @@ La Figura \ref{fig:forminst} muestra un ejemplo representativo de formato de ins
 \caption{Formato de instrucciones }\label{fig:forminst}
 \end{figure}
 
-\hypertarget{comparativa-de-repertorios-de-instrucciones-reales}{%
-\subsection{Comparativa de repertorios de instrucciones reales}\label{comparativa-de-repertorios-de-instrucciones-reales}}
+\hypertarget{comparativa-de-repertorios-de-instrucciones}{%
+\subsection{Comparativa de repertorios de instrucciones}\label{comparativa-de-repertorios-de-instrucciones}}
 
 La siguiente tabla \ref{tab:comparativaISA} resume las características principales de los repertorios de instrucciones en tres arquitecturas ampliamente utilizadas: x86, ARM y RISC-V. Se consideran aspectos como la longitud de las instrucciones, la cantidad de operandos, su complejidad y los modos de direccionamiento que permiten.
 
@@ -781,13 +797,17 @@ La siguiente tabla \ref{tab:comparativaISA} resume las características principa
 \caption{\label{tab:comparativaISA}Comparativa de repertorios de instrucciones reales}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{}c|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}}
 \toprule
-\multicolumn{1}{c}{\cellcolor[HTML]{D3D3D3}{\textbf{Arquitectura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Longitud instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nº operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipos de operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modos de direccionamiento}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Arquitectura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Longitud instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nº operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipos de operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modos de direccionamiento}}}\\
 \midrule
 \textbf{x86} & Variable & 0–3+ & Complejos & Muchos\\
+\addlinespace[10pt]
 \textbf{ARM} & Fija (32 bits) & 3 & Simples & Limitados\\
+\addlinespace[10pt]
 \textbf{RISC-V} & Fija (32 bits) & 3 & Simples & Extensible\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -870,9 +890,9 @@ La tabla \ref{tab:ciscrisc} sintetiza las principales diferencias estructurales 
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aspecto}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CISC}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{RISC}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aspecto}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CISC}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{RISC}}}\\
 \midrule
 \textbf{Objetivo principal} & Minimizar el número de instrucciones para operaciones complejas & Simplificar el conjunto de instrucciones para optimizar velocidad y eficiencia energética\\
 \addlinespace[10pt]
@@ -958,9 +978,9 @@ La tabla \ref{tab:evolucionx86} muestra cómo la evolución de x86 ha estado mar
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{8cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{9cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Innovación}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Innovación}}}\\
 \midrule
 \textbf{1978} & Intel 8086 & Introducción de la arquitectura x86, 16 bits\\
 \addlinespace[10pt]
@@ -1079,9 +1099,9 @@ A continuación, se presenta una tabla comparativa \ref{tab:ensambladores} que r
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{TASM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{MASM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{NASM}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{TASM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{MASM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{NASM}}}\\
 \midrule
 \textbf{Desarrollador} & Borland & Microsoft & Simon Tatham et al.\\
 \addlinespace[10pt]
@@ -1415,18 +1435,26 @@ La Tabla \ref{tab:criterios} resume los criterios, indicadores y escalas utiliza
 \caption{\label{tab:criterios}Criterios e indicadores de evaluación de simuladores}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Criterio}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Indicadores}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Escala}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Criterio}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Indicadores}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Escala}}}\\
 \midrule
-\textbf{Usabilidad} & Facilidad de aprendizaje, interfaz, documentación & Difícil - Fácil\\
-\textbf{Funcionalidad del editor} & Sintaxis, manejo de errores, guardar/cargar & Baja - Alta\\
-\textbf{Calidad de la documentación} & Manuales, tutoriales, repertorio de instrucciones & Mínima - Completa\\
-\textbf{Ejecución de simulación} & Control de simulación, visualización del flujo, configurabilidad & Baja - Alta\\
-\textbf{Especificación de arquitectura x86} & Fidelidad de la arquitectura, repertorio, memoria y E/S & Mínima - Completa\\
+\textbf{Usabilidad} & Facilidad de aprendizaje, interfaz, documentación & Difícil - Media - Fácil\\
+\addlinespace[10pt]
+\textbf{Funcionalidad del editor} & Sintaxis, manejo de errores, guardar/cargar & Baja - Media - Alta\\
+\addlinespace[10pt]
+\textbf{Calidad de la documentación} & Manuales, tutoriales, repertorio de instrucciones & Mínima - Media - Completa\\
+\addlinespace[10pt]
+\textbf{Ejecución de simulación} & Control de simulación, visualización del flujo, configurabilidad & Baja - Media - Alta\\
+\addlinespace[10pt]
+\textbf{Especificación de arquitectura x86} & Fidelidad de la arquitectura, repertorio, memoria y E/S & Mínima - Media - Completa\\
+\addlinespace[10pt]
 \addlinespace
-\textbf{Propiedades técnicas y de distribución} & Licencia, actualizaciones, plataforma & Mala - Muy buena\\
-\textbf{Alineación con contenidos curriculares} & Cobertura de tópicos, profundidad del tratamiento & Baja - Alta\\
+\textbf{Propiedades técnicas y de distribución} & Licencia, actualizaciones, plataforma & Mala - Buena - Muy buena\\
+\addlinespace[10pt]
+\textbf{Alineación con contenidos curriculares} & Cobertura de tópicos, profundidad del tratamiento & Baja - Media - Alta\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -1443,19 +1471,28 @@ La selección se basó en una evaluación preliminar que consideró el tiempo ne
 \caption{\label{tab:simuladores}Proceso de selección de simuladores}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{}l|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}}
 \toprule
-\multicolumn{1}{c}{\cellcolor[HTML]{D3D3D3}{\textbf{Simulador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Exploración.Previa}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Evaluación.Final}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Simulador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Exploración Previa}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Evaluación Final}}}\\
 \midrule
-\textbf{Assembly Debugger (x86)} & 1 & 0\\
-\textbf{Simple 8-bit Assembler Simulator} & 1 & 1\\
-\textbf{Microprocessor Simulator} & 1 & 0\\
-\textbf{Simulador de ensamblador de 16 bits} & 1 & 0\\
-\textbf{Emu8086} & 1 & 1\\
+\textbf{Assembly Debugger (x86)} & \checkmark & \ding{55}\\
+\addlinespace[10pt]
+\textbf{Simple 8-bit Assembler Simulator} & \checkmark & \checkmark\\
+\addlinespace[10pt]
+\textbf{Microprocessor Simulator} & \checkmark & \ding{55}\\
+\addlinespace[10pt]
+\textbf{Simulador de ensamblador de 16 bits} & \checkmark & \ding{55}\\
+\addlinespace[10pt]
+\textbf{Emu8086} & \checkmark & \checkmark\\
+\addlinespace[10pt]
 \addlinespace
-\textbf{VonSim} & 1 & 1\\
-\textbf{Orga1} & 1 & 0\\
-\textbf{Qsim} & 1 & 0\\
+\textbf{VonSim} & \checkmark & \checkmark\\
+\addlinespace[10pt]
+\textbf{Orga1} & \checkmark & \ding{55}\\
+\addlinespace[10pt]
+\textbf{Qsim} & \checkmark & \ding{55}\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -1533,26 +1570,34 @@ A continuación, se presenta un análisis detallado de los simuladores seleccion
   \textbf{Cobertura de contenidos}: Nivel alto. Emula el arranque (bootstrapping) de una IBM PC desde un disco flexible (floppy disk) y soporta todos los modos de direccionamiento.
 \end{itemize}
 
-\begin{longtable}[]{@{}llll@{}}
-\caption{\label{tab:tabla-comparativa-criterios}Comparativa según criterios de evaluación preestablecidos}\tabularnewline
-\toprule\noalign{}
-Criterio.de.Evaluación & Simple.8.bit & VonSim & Emu8086 \\
-\midrule\noalign{}
-\endfirsthead
-\toprule\noalign{}
-Criterio.de.Evaluación & Simple.8.bit & VonSim & Emu8086 \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Usabilidad & Medio & Medio & Fácil \\
-Editor & Bajo & Medio & Alto \\
-Documentación & Mínima & Media & Completa \\
-Ejecución de simulación & Medio & Medio & Alta \\
-Nivel de especificación x86 & Mínima & Media & Completa \\
-Características del producto & Buena & Muy buena & Buena \\
-Cobertura de contenidos & Baja & Media & Alta \\
-\end{longtable}
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tabla-comparativa-criterios}Comparativa según criterios de evaluación preestablecidos}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Criterio de Evaluación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Simple 8 bit}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{VonSim}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Emu8086}}}\\
+\midrule
+\textbf{Usabilidad} & Medio & Medio & Fácil\\
+\addlinespace[10pt]
+\textbf{Editor} & Bajo & Medio & Alto\\
+\addlinespace[10pt]
+\textbf{Documentación} & Mínima & Media & Completa\\
+\addlinespace[10pt]
+\textbf{Ejecución de simulación} & Medio & Medio & Alta\\
+\addlinespace[10pt]
+\textbf{Nivel de especificación x86} & Mínima & Media & Completa\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{Características del producto} & Buena & Muy buena & Buena\\
+\addlinespace[10pt]
+\textbf{Cobertura de contenidos} & Baja & Media & Alta\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
 
 \hypertarget{resultados}{%
 \section{Resultados}\label{resultados}}
