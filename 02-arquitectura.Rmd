@@ -309,7 +309,8 @@ kable(isa_comparativa,
       caption = "Comparativa de repertorios de instrucciones reales",
       col.names = c("Arquitectura", "Longitud instrucción", "Nº operandos", "Tipos de operandos", "Modos de direccionamiento"),
       booktabs = TRUE,
-      escape = FALSE) %>%
+      escape = FALSE,
+      align = c("c", "c", "c", "c", "c")) %>%
   kable_styling(
     latex_options = c("scale_down", "hold_position"),
     full_width = FALSE,
@@ -351,47 +352,70 @@ Por ejemplo, en RISC, los modos de direccionamiento son simples y permiten un ac
 #### Ejemplos de instrucciones
 Para ilustrar la diferencia entre ambas filosofías, se presenta el siguiente ejemplo: cargar dos valores de memoria, sumarlos y almacenar el resultado en una dirección de memoria.
 
-RISC:
+Una arquitectura bajo la filosofia RISC es RISC-V, que utiliza instrucciones simples y de longitud fija. En este caso, la instrucción para cargar un valor de memoria en un registro es `lw` (load word), y la instrucción para almacenar el resultado es `sw` (store word). La suma se realiza con la instrucción `add`.:
 
 ```{r  code0, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
-  ; Carga el valor inmediato 10 en el registro R0
-  LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
-  LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
-  ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
-  STORE R3, [mem1]   # Guardar el resultado en mem1
+    # Cargar el valor de mem1 en el registro t0 (R1)
+    lw t0, 0(mem1)      # t0 = MEM[mem1]
+
+    # Cargar el valor de mem2 en el registro t1 (R2)
+    lw t1, 0(mem2)      # t1 = MEM[mem2]
+
+    # Sumar los registros t0 y t1, guardar el resultado en t2 (R3)
+    add t2, t0, t1      # t2 = t0 + t1
+
+    # Guardar el resultado en mem1
+    sw t2, 0(mem1)      # MEM[mem1] = t2
   \\end{lstlisting}
   ")
 } else {
   cat("
   ```assembly
-  LOAD R1, [mem1]    # Cargar el valor de mem1 en el registro R1
-  LOAD R2, [mem2]    # Cargar el valor de mem2 en el registro R2
-  ADD  R3, R1, R2    # Sumar los valores en los registros R1 y R2, guardar en R3
-  STORE R3, [mem1]   # Guardar el resultado en mem1
+    # Cargar el valor de mem1 en el registro t0 (R1)
+    lw t0, 0(mem1)      # t0 = MEM[mem1]
+
+    # Cargar el valor de mem2 en el registro t1 (R2)
+    lw t1, 0(mem2)      # t1 = MEM[mem2]
+
+    # Sumar los registros t0 y t1, guardar el resultado en t2 (R3)
+    add t2, t0, t1      # t2 = t0 + t1
+
+    # Guardar el resultado en mem1
+    sw t2, 0(mem1)      # MEM[mem1] = t2
   ```")
 }
 ```
 
-CISC:
+Una arquitectura bajo la filosofia CISC es x86, que utiliza instrucciones más complejas y de longitud variable. En este caso, la instrucción para cargar un valor de memoria en un registro es `MOV`, y la instrucción para almacenar el resultado es también `MOV`. La suma se realiza con la instrucción `ADD`:
 
 ```{r  code1, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
-  MOV EAX, [mem1]    # Cargar el valor de mem1 en el registro EAX
-  ADD EAX, [mem2]    # Sumar el valor de mem2 con EAX
-  MOV [mem1], EAX    # Guardar el resultado de la suma de vuelta en mem1
+  ; Cargar el valor almacenado en mem1 en el registro EAX
+  MOV EAX, [mem1]
+
+  ; Sumar el valor almacenado en mem2 al registro EAX
+  ADD EAX, [mem2]
+
+  ; Guardar el resultado de la suma de vuelta en mem1
+  MOV [mem1], EAX
   \\end{lstlisting}
   ")
 } else {
   cat("
   ```assembly
-  MOV EAX, [mem1]    # Cargar el valor de mem1 en el registro EAX
-  ADD EAX, [mem2]    # Sumar el valor de mem2 con EAX
-  MOV [mem1], EAX    # Guardar el resultado de la suma de vuelta en mem1
+  ; Cargar el valor almacenado en mem1 en el registro EAX
+  MOV EAX, [mem1]
+
+  ; Sumar el valor almacenado en mem2 al registro EAX
+  ADD EAX, [mem2]
+
+  ; Guardar el resultado de la suma de vuelta en mem1
+  MOV [mem1], EAX
   ```")
 }
 ```
@@ -498,7 +522,8 @@ tabla <- kable(hitosx86,
                caption = "Hitos en la evolución x86",
                col.names = c("Procesador", "Año de Lanzamiento", "Número de Bits", "Extensiones de 64 bits"), # nolint
                booktabs = TRUE,
-               escape = FALSE)
+               escape = FALSE,
+               align = c("c", "c", "c", "l"))
 
 if (knitr::is_latex_output()) {
   tabla %>%
@@ -506,7 +531,7 @@ if (knitr::is_latex_output()) {
       latex_options = c("scale_down", "hold_position"),
       font_size = 10
     ) %>%
-    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(1, width = "4cm", bold = TRUE) %>%
     column_spec(2:4, width = "4cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(hitosx86)),
@@ -548,7 +573,8 @@ tabla <- kable(evolucionx86,
                caption = "Línea de Tiempo de la Evolución de la Arquitectura x86", # nolint
                col.names = c("Año", "Procesador", "Innovación"),
                booktabs = TRUE,
-               escape = FALSE)
+               escape = FALSE,
+               align = c("c", "c", "l"))
 
 if (knitr::is_latex_output()) {
   tabla %>%
@@ -556,8 +582,9 @@ if (knitr::is_latex_output()) {
       latex_options = c("scale_down", "hold_position"),
       font_size = 10
     ) %>%
-    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:3, width = "5cm") %>%
+    column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "3.5cm", border_right = TRUE) %>%
+    column_spec(3, width = "8cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(evolucionx86)),
              extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
@@ -595,13 +622,16 @@ Un ejemplo típico de instrucción es:
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
-  ; Carga el valor inmediato 10 en el registro R0
+  ; Carga en el registro AX el valor almacenado en la dirección de memoria
+  ; que resulta de sumar el contenido de los registros BX y SI más el desplazamiento 16.
   MOV AX, [BX+SI+16]
   \\end{lstlisting}
   ")
 } else {
   cat("
   ```assembly
+    ; Carga en el registro AX el valor almacenado en la dirección de memoria
+    ; que resulta de sumar el contenido de los registros BX y SI más el desplazamiento 16.
     MOV AX, [BX+SI+16]
   ```")
 }
@@ -627,16 +657,21 @@ Un programa en lenguaje ensamblador suele estar compuesto por instrucciones que 
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
-  ; Carga el valor inmediato 10 en el registro R0
-  MOV AX, 5
-  ADD AX, BX
+  ; Carga el valor inmediato 5 en el registro AX.
+  MOV AX, 5  
+
+  ; Sumar los registros BX y AX, guarda el resultado en AX.
+  ADD AX, BX 
   \\end{lstlisting}
   ")
 } else {
   cat("
   ```assembly
-    MOV AX, 5
-    ADD AX, BX
+  ; Carga el valor inmediato 5 en el registro AX.
+  MOV AX, 5  
+
+  ; Sumar los registros BX y AX, guarda el resultado en AX.
+  ADD AX, BX 
   ```")
 }
 ```
