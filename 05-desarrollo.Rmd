@@ -15,14 +15,14 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
    - Permitir tanto la ejecución paso a paso como la ejecución completa de programas en lenguaje ensamblador, promoviendo la comprensión detallada de cada instrucción.
 
 3. **Repertorio de instrucciones reducido y habilitación progresiva:**
-    - Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores [@null2018essentials; @stallings2021computer].
+    - Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores [@null_essentials_2023; @stallings_computer_2021].
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
-    - Visualizar el flujo de datos mediante el nivel de transferencia entre registros (RTL, por sus siglas en inglés: Register Transfer Level), resaltando cada componente involucrado en las distintas etapas del ciclo de instrucción. Es común en los libros de Hennessy y Patterson [@hennessy2017computer] el uso de RTL para representar el ciclo de instruccion desde el fetch (recuperación de la instrucción) hasta el execute (ejecución). Este enfoque permite a los estudiantes observar cómo se transfieren los datos entre registros y cómo se activan las señales de control en cada etapa del ciclo de instrucción. A continuación se presenta un ejemplo de un ciclo de instrucción simplificado, que ilustra el flujo de datos y las señales de control generadas durante la ejecución de una instrucción. En este caso, se muestra el ciclo de la instrucción MOV `AL`, `BL`, ver figura \@ref(fig:cicloinstruccion):
+    - Visualizar el flujo de datos mediante el nivel de transferencia entre registros (RTL, por sus siglas en inglés: Register Transfer Level), resaltando cada componente involucrado en las distintas etapas del ciclo de instrucción. Es común en los libros de Hennessy y Patterson [@hennessy2017computer] el uso de RTL para representar el ciclo de instruccion desde el fetch (recuperación de la instrucción) hasta el execute (ejecución). Este enfoque permite a los estudiantes observar cómo se transfieren los datos entre registros y cómo se activan las señales de control en cada etapa del ciclo de instrucción. A continuación se presenta un ejemplo de un ciclo de instrucción simplificado, que ilustra el flujo de datos y las señales de control generadas durante la ejecución de una instrucción. En este caso, se muestra el ciclo de la instrucción MOV `AL`, `BL`, la muestra la figura \@ref(fig:cicloinstruccion)
 
-    ```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/cicloinstruccion.png")
-```
+    ```{r cicloinstruccion, echo=FALSE, fig.cap="Arquitectura general del simulador", fig.align = 'center', out.width = "85%"}
+    knitr::include_graphics(path = "images/cicloinstruccion.png")
+    ```
     
 5. **Gestión básica de interrupciones y periféricos:**
     - Incorporar un vector de interrupción predefinido para interactuar con dispositivos como teclado y monitor. También incluir instrucciones IN y OUT, junto con un módulo simplificado de entrada/salida.
