@@ -199,7 +199,7 @@ div.csl-indent {
 <li class="chapter" data-level="5.3.1" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#selección-del-repertorio-inicial"><i class="fa fa-check"></i><b>5.3.1</b> Selección del repertorio inicial</a></li>
 <li class="chapter" data-level="5.3.2" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#justificación-de-la-simplificación"><i class="fa fa-check"></i><b>5.3.2</b> Justificación de la simplificación</a></li>
 <li class="chapter" data-level="5.3.3" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#beneficios-de-la-simplificación"><i class="fa fa-check"></i><b>5.3.3</b> Beneficios de la simplificación</a></li>
-<li class="chapter" data-level="5.3.4" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#codificación-binaria-de-las-instrucciones"><i class="fa fa-check"></i><b>5.3.4</b> Codificación binaria de las instrucciones</a></li>
+<li class="chapter" data-level="5.3.4" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.3.4</b> Formato de instrucciones</a></li>
 <li class="chapter" data-level="5.3.5" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.3.5</b> Modos de direccionamiento</a></li>
 <li class="chapter" data-level="5.3.6" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución"><i class="fa fa-check"></i><b>5.3.6</b> Ciclo de la instrucción: Etapas de captación y ejecución</a></li>
 <li class="chapter" data-level="5.3.7" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#modos-de-direccionamiento-adicionales"><i class="fa fa-check"></i><b>5.3.7</b> Modos de direccionamiento adicionales</a></li>
@@ -253,7 +253,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="requisitos-de-la-herramienta" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Requisitos de la herramienta<a href="requisitos-de-la-herramienta.html#requisitos-de-la-herramienta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La herramienta de simulación está diseñada para cumplir los siguientes requisitos:</p>
+<p>A continuación, se detallan los requisitos funcionales y didácticos que guían el desarrollo de la herramienta de simulación:</p>
 <ol style="list-style-type: decimal">
 <li><strong>Representación global de la estructura y funcionamiento de la computadora:</strong>
 <ul>
@@ -265,12 +265,18 @@ div.csl-indent {
 </ul></li>
 <li><strong>Repertorio de instrucciones reducido y habilitación progresiva:</strong>
 <ul>
-<li>Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores <span class="citation">(<a href="#ref-null_essentials_2023">Null 2023</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span></li>
+<li>Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores <span class="citation">(<a href="#ref-null_essentials_2023">Null 2023</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</li>
 </ul></li>
 <li><strong>Simulación visual e interactiva de micropasos de instrucciones:</strong>
 <ul>
-<li>Representar el flujo de datos con el lenguaje de transferencia entre registros (RTL), destacando visualmente cada componente involucrado en la ejecución de un programa.</li>
-</ul></li>
+<li>Visualizar el flujo de datos mediante el nivel de transferencia entre registros (RTL, por sus siglas en inglés: Register Transfer Level), resaltando cada componente involucrado en las distintas etapas del ciclo de instrucción. Es común en los libros de Hennessy y Patterson <span class="citation">(<a href="#ref-hennessy2017computer">Hennessy and Patterson 2017</a>)</span> el uso de RTL para representar el ciclo de instruccion desde el fetch (recuperación de la instrucción) hasta el execute (ejecución). Este enfoque permite a los estudiantes observar cómo se transfieren los datos entre registros y cómo se activan las señales de control en cada etapa del ciclo de instrucción. A continuación se presenta un ejemplo de un ciclo de instrucción simplificado, que ilustra el flujo de datos y las señales de control generadas durante la ejecución de una instrucción. En este caso, se muestra el ciclo de la instrucción MOV <code>AL</code>, <code>BL</code>, la muestra la figura <a href="requisitos-de-la-herramienta.html#fig:cicloinstruccion">5.1</a></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:cicloinstruccion"></span>
+<img src="images/cicloinstruccion.png" alt="Arquitectura general del simulador" width="85%" />
+<p class="caption">
+Figura 5.1: Arquitectura general del simulador
+</p>
+</div></li>
 <li><strong>Gestión básica de interrupciones y periféricos:</strong>
 <ul>
 <li>Incorporar un vector de interrupción predefinido para interactuar con dispositivos como teclado y monitor. También incluir instrucciones IN y OUT, junto con un módulo simplificado de entrada/salida.</li>

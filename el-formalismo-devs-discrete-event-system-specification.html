@@ -199,7 +199,7 @@ div.csl-indent {
 <li class="chapter" data-level="5.3.1" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#selección-del-repertorio-inicial"><i class="fa fa-check"></i><b>5.3.1</b> Selección del repertorio inicial</a></li>
 <li class="chapter" data-level="5.3.2" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#justificación-de-la-simplificación"><i class="fa fa-check"></i><b>5.3.2</b> Justificación de la simplificación</a></li>
 <li class="chapter" data-level="5.3.3" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#beneficios-de-la-simplificación"><i class="fa fa-check"></i><b>5.3.3</b> Beneficios de la simplificación</a></li>
-<li class="chapter" data-level="5.3.4" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#codificación-binaria-de-las-instrucciones"><i class="fa fa-check"></i><b>5.3.4</b> Codificación binaria de las instrucciones</a></li>
+<li class="chapter" data-level="5.3.4" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.3.4</b> Formato de instrucciones</a></li>
 <li class="chapter" data-level="5.3.5" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.3.5</b> Modos de direccionamiento</a></li>
 <li class="chapter" data-level="5.3.6" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#ciclo-de-la-instrucción-etapas-de-captación-y-ejecución"><i class="fa fa-check"></i><b>5.3.6</b> Ciclo de la instrucción: Etapas de captación y ejecución</a></li>
 <li class="chapter" data-level="5.3.7" data-path="implementación-del-repertorio-de-instrucciones.html"><a href="implementación-del-repertorio-de-instrucciones.html#modos-de-direccionamiento-adicionales"><i class="fa fa-check"></i><b>5.3.7</b> Modos de direccionamiento adicionales</a></li>
@@ -256,18 +256,25 @@ div.csl-indent {
 <p>El formalismo DEVS es una metodología modular y jerárquica que permite modelar y analizar sistemas representables como sistemas de eventos discretos, continuos o híbridos. Desarrollado por Bernard P. Zeigler en la década de 1970, este enfoque amplía el concepto de las máquinas de Moore al añadir una estructura que permite representar el comportamiento de sistemas mediante eventos temporizados que provocan cambios de estado, capturando así tanto la dinámica interna como las interacciones externas del sistema <span class="citation">(<a href="#ref-zeigler_theory_2000">B. Zeigler, Prähofer, and Kim 2000</a>)</span>.</p>
 <div id="estructura-del-formalismo-devs" class="section level3 hasAnchor" number="3.3.1">
 <h3><span class="header-section-number">3.3.1</span> Estructura del formalismo DEVS<a href="el-formalismo-devs-discrete-event-system-specification.html#estructura-del-formalismo-devs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Esta estructura permite capturar tanto el comportamiento interno como la interacción externa del sistema modelado.</p>
+<p>El formalismo DEVS se basa en la representación de sistemas como una colección de componentes que interactúan entre sí a través de eventos. Cada componente tiene un estado interno y puede recibir eventos externos que provocan cambios en su estado. Estos eventos pueden ser temporizados, lo que significa que el sistema puede reaccionar a eventos en momentos específicos, o pueden ser desencadenados por condiciones específicas.
+Esta estructura permite capturar tanto el comportamiento interno como la interacción externa del sistema modelado, ver figura <a href="el-formalismo-devs-discrete-event-system-specification.html#fig:devs">3.1</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:devs"></span>
+<img src="images/devs.png" alt="Relación entre modelos atómicos y modelos acoplados en DEVS" width="100%" />
+<p class="caption">
+Figura 3.1: Relación entre modelos atómicos y modelos acoplados en DEVS
+</p>
+</div>
 <p>DEVS describe el comportamiento de un sistema real utilizando eventos de entrada y salida, así como transiciones entre estados definidos. Un sistema en este formalismo se compone de dos tipos principales de modelos:</p>
 <ul>
 <li><strong>Modelos atómicos</strong>: representan las unidades fundamentales de comportamiento.</li>
 <li><strong>Modelos acoplados</strong>: integran modelos atómicos y/o otros modelos acoplados, permitiendo la construcción jerárquica de sistemas más complejos.</li>
 </ul>
 <p>Esta organización modular facilita el análisis y la gestión de sistemas, permitiendo probar subsistemas de manera aislada antes de integrarlos en un modelo completo.</p>
-<p>La siguiente figura <a href="el-formalismo-devs-discrete-event-system-specification.html#fig:devs">3.1</a> ilustra la organización modular del formalismo DEVS, mostrando cómo se integran modelos atómicos dentro de modelos acoplados:</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:devs"></span>
-<img src="images/devs.png" alt="Relación entre modelos atómicos y modelos acoplados en DEVS" width="100%" />
+<p>La siguiente figura <a href="el-formalismo-devs-discrete-event-system-specification.html#fig:acoplado">3.2</a> ilustra la organización modular del formalismo DEVS, mostrando cómo se integran modelos atómicos dentro de modelos acoplados:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:acoplado"></span>
+<img src="images/acoplado.png" alt="Modelo acoplado en DEVS" width="100%" />
 <p class="caption">
-Figura 3.1: Relación entre modelos atómicos y modelos acoplados en DEVS
+Figura 3.2: Modelo acoplado en DEVS
 </p>
 </div>
 </div>

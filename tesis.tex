@@ -1155,9 +1155,9 @@ Estos principios generales encuentran aplicaciones concretas en diversos sectore
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Sector}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aplicación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio principal}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Sector}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aplicación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio principal}}}\\
 \midrule
 \textbf{Automotriz} & Pruebas de colisión virtuales & Reducción de costos y aumento de seguridad\\
 \addlinespace[10pt]
@@ -1205,7 +1205,17 @@ El formalismo DEVS es una metodología modular y jerárquica que permite modelar
 \hypertarget{estructura-del-formalismo-devs}{%
 \subsection{Estructura del formalismo DEVS}\label{estructura-del-formalismo-devs}}
 
-Esta estructura permite capturar tanto el comportamiento interno como la interacción externa del sistema modelado.
+El formalismo DEVS se basa en la representación de sistemas como una colección de componentes que interactúan entre sí a través de eventos. Cada componente tiene un estado interno y puede recibir eventos externos que provocan cambios en su estado. Estos eventos pueden ser temporizados, lo que significa que el sistema puede reaccionar a eventos en momentos específicos, o pueden ser desencadenados por condiciones específicas.
+Esta estructura permite capturar tanto el comportamiento interno como la interacción externa del sistema modelado, ver figura \ref{fig:devs}.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{images/devs} 
+
+}
+
+\caption{Relación entre modelos atómicos y modelos acoplados en DEVS}\label{fig:devs}
+\end{figure}
 
 DEVS describe el comportamiento de un sistema real utilizando eventos de entrada y salida, así como transiciones entre estados definidos. Un sistema en este formalismo se compone de dos tipos principales de modelos:
 
@@ -1219,15 +1229,15 @@ DEVS describe el comportamiento de un sistema real utilizando eventos de entrada
 
 Esta organización modular facilita el análisis y la gestión de sistemas, permitiendo probar subsistemas de manera aislada antes de integrarlos en un modelo completo.
 
-La siguiente figura \ref{fig:devs} ilustra la organización modular del formalismo DEVS, mostrando cómo se integran modelos atómicos dentro de modelos acoplados:
+La siguiente figura \ref{fig:acoplado} ilustra la organización modular del formalismo DEVS, mostrando cómo se integran modelos atómicos dentro de modelos acoplados:
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/devs} 
+{\centering \includegraphics[width=1\linewidth]{images/acoplado} 
 
 }
 
-\caption{Relación entre modelos atómicos y modelos acoplados en DEVS}\label{fig:devs}
+\caption{Modelo acoplado en DEVS}\label{fig:acoplado}
 \end{figure}
 
 \hypertarget{aplicaciones-del-formalismo-devs}{%
@@ -1646,14 +1656,14 @@ Además, durante este proceso se estableció contacto con un desarrollador de Vo
 
 En este capítulo se describe el diseño y desarrollo de una herramienta de simulación específica para la arquitectura x86, orientada a facilitar la enseñanza de los principios de arquitectura de computadoras. Se detalla la justificación del diseño, los pasos seguidos para su construcción y los métodos utilizados para validar su funcionalidad.
 
-En el capítulo anterior se analizaron y evaluaron las herramientas de simulación existentes para la arquitectura x86. Esta revisión exhaustiva permitió identificar las limitaciones de las soluciones actuales y fundamentar la necesidad de desarrollar una herramienta específica, cuyos resultados fueron publicados posteriormente.
+En el capítulo anterior se analizaron y evaluaron las herramientas de simulación existentes para la arquitectura x86. Esta revisión exhaustiva permitió identificar las limitaciones de las soluciones actuales y fundamentar la necesidad de desarrollar una herramienta específica ver capítulo (\ref{comparativa}).
 
 Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de requisitos establecidos que guían su desarrollo, validación y alineación con los objetivos pedagógicos.
 
 \hypertarget{requisitos-de-la-herramienta}{%
 \section{Requisitos de la herramienta}\label{requisitos-de-la-herramienta}}
 
-La herramienta de simulación está diseñada para cumplir los siguientes requisitos:
+A continuación, se detallan los requisitos funcionales y didácticos que guían el desarrollo de la herramienta de simulación:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1680,7 +1690,7 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
   \begin{itemize}
   \tightlist
   \item
-    Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}
+    Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}.
   \end{itemize}
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
@@ -1688,8 +1698,17 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
   \begin{itemize}
   \tightlist
   \item
-    Representar el flujo de datos con el lenguaje de transferencia entre registros (RTL), destacando visualmente cada componente involucrado en la ejecución de un programa.
+    Visualizar el flujo de datos mediante el nivel de transferencia entre registros (RTL, por sus siglas en inglés: Register Transfer Level), resaltando cada componente involucrado en las distintas etapas del ciclo de instrucción. Es común en los libros de Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}} el uso de RTL para representar el ciclo de instruccion desde el fetch (recuperación de la instrucción) hasta el execute (ejecución). Este enfoque permite a los estudiantes observar cómo se transfieren los datos entre registros y cómo se activan las señales de control en cada etapa del ciclo de instrucción. A continuación se presenta un ejemplo de un ciclo de instrucción simplificado, que ilustra el flujo de datos y las señales de control generadas durante la ejecución de una instrucción. En este caso, se muestra el ciclo de la instrucción MOV \texttt{AL}, \texttt{BL}, la muestra la figura \ref{fig:cicloinstruccion}
   \end{itemize}
+
+  \begin{figure}
+
+   {\centering \includegraphics[width=0.85\linewidth]{images/cicloinstruccion} 
+
+   }
+
+   \caption{Arquitectura general del simulador}\label{fig:cicloinstruccion}
+   \end{figure}
 \item
   \textbf{Gestión básica de interrupciones y periféricos:}
 
@@ -1711,9 +1730,11 @@ La herramienta de simulación está diseñada para cumplir los siguientes requis
 \hypertarget{diseuxf1o-conceptual}{%
 \section{Diseño conceptual}\label{diseuxf1o-conceptual}}
 
-Una vez establecidos los requisitos funcionales y pedagógicos de la herramienta, se procede a detallar su diseño conceptual, el cual traduce dichos lineamientos en una arquitectura concreta del simulador. Esta planificación garantiza la coherencia entre el diseño técnico y los objetivos de enseñanza propuestos.
+A partir de los requisitos funcionales y pedagógicos previamente establecidos, se desarrolla el diseño conceptual del simulador, que traduce dichas especificaciones en una estructura técnica coherente con los objetivos educativos. Este diseño busca asegurar la coherencia entre la funcionalidad de la herramienta y los objetivos pedagógicos definidos para la enseñanza de arquitectura de computadoras.
 
-La Figura \ref{fig:esquemavonsim8} representa la arquitectura general del simulador. Esta representación visual permite distinguir los flujos diferenciados de control e información durante la ejecución de los programas, facilitando la comprensión de la segmentación funcional del sistema simulado.
+A partir de los requisitos definidos, el diseño conceptual del simulador se concreta en una arquitectura operativa compuesta por bloques funcionales con responsabilidades claramente asignadas.
+
+La Figura \ref{fig:esquemavonsim8} representa la arquitectura general del simulador. La figura permite identificar los flujos separados de control y datos durante la ejecución de programas, contribuyendo a una mejor comprensión de la estructura funcional del sistema simulado.
 
 \begin{figure}
 
@@ -1727,12 +1748,12 @@ La Figura \ref{fig:esquemavonsim8} representa la arquitectura general del simula
 \hypertarget{modelo-arquitectuxf3nico}{%
 \subsection{Modelo arquitectónico}\label{modelo-arquitectuxf3nico}}
 
-Se propone una versión simplificada de \textbf{8 bits} basada en la arquitectura \textbf{x86}, diseñada con un repertorio de instrucciones reducido y un conjunto de componentes esenciales. La elección de una arquitectura de 8 bits responde a una estrategia didáctica: al reducir la complejidad del sistema original, se prioriza la comprensión conceptual sobre la fidelidad técnica, conservando la esencia del repertorio x86.
+El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits responde a criterios pedagógicos: permite simplificar el modelo sin perder representatividad respecto a los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes.
 
 \hypertarget{principales-bloques-funcionales}{%
 \subsubsection{Principales bloques funcionales}\label{principales-bloques-funcionales}}
 
-El simulador se compone de los siguientes bloques funcionales:
+La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. A continuación, se describen los bloques funcionales principales:
 
 \begin{table}[!h]
 \centering
@@ -1798,7 +1819,7 @@ El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 \hypertarget{selecciuxf3n-del-repertorio-inicial}{%
 \subsection{Selección del repertorio inicial}\label{selecciuxf3n-del-repertorio-inicial}}
 
-El repertorio de instrucciones fue diseñado como una versión reducida y didáctica basada en la arquitectura x86, con el propósito de facilitar los procesos de enseñanza y prendizaje en contextos introductorios de Arquitectura de Computadoras.En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
+El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
 
 \begin{table}[!h]
 \centering
@@ -1812,7 +1833,7 @@ El repertorio de instrucciones fue diseñado como una versión reducida y didác
 \midrule
 \textbf{Transferencia de datos} & {0, 1, 2} & MOV & \begin{itemize} \item 0 - Operación entre registros \item 1 - Operación carga a registro \item 2 - Operación almacena en memoria \end{itemize}\\
 \addlinespace[8pt]
-\textbf{Procesamiento de datos} & {3, 4, 5} & ADD & 3-4-5 Sumar\\
+\textbf{Pocesamiento de datos} & {3, 4, 5} & ADD & 3-4-5 Sumar\\
 \addlinespace[8pt]
 \textbf{} & {6, 7, 8} & SUB & 6-7-8 Restar\\
 \addlinespace[8pt]
@@ -1832,7 +1853,7 @@ El repertorio de instrucciones fue diseñado como una versión reducida y didác
 \hypertarget{justificaciuxf3n-de-la-simplificaciuxf3n}{%
 \subsection{Justificación de la simplificación}\label{justificaciuxf3n-de-la-simplificaciuxf3n}}
 
-La arquitectura x86 se caracteriza por un repertorio de instrucciones extenso y heterogéneo, junto con múltiples modos de direccionamiento y niveles de privilegio, lo cual puede dificultar su abordaje inicial en contextos educativos. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:
+La arquitectura x86 destaca por su complejidad debido a su extenso repertorio de instrucciones y características avanzadas. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:
 
 \begin{itemize}
 \tightlist
@@ -1841,7 +1862,7 @@ La arquitectura x86 se caracteriza por un repertorio de instrucciones extenso y 
 \item
   \textbf{Aprendizaje progresivo}: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.
 \item
-  \textbf{Claridad pedagógica}: las actividades prácticas resultan accesibles en cuanto a tiempo y complejidad, lo que permite una progresión gradual y significativa en la adquisición de conocimientos técnicos.
+  \textbf{Claridad pedagógica}: las prácticas son manejables en términos de tiempo y esfuerzo, promoviendo un aprendizaje práctico sin frustraciones.
 \end{itemize}
 
 \hypertarget{beneficios-de-la-simplificaciuxf3n}{%
@@ -1854,15 +1875,15 @@ El diseño del simulador contribuye a:
 \item
   \textbf{Comprensión fundamental}: los estudiantes pueden enfocarse en el ciclo de instrucciones, interacción de componentes y flujo básico de datos.
 \item
-  \textbf{Análisis crítico}: comparar el modelo pedagógico simplificado con la arquitectura x86 en su versión completa fomenta un aprendizaje reflexivo y profundo.
+  \textbf{Análisis crítico}: comparar el modelo simplificado con x86 real fomenta un aprendizaje reflexivo y profundo.
 \item
   \textbf{Experimentación práctica}: proporciona un entorno accesible para explorar conceptos y corregir errores.
 \end{itemize}
 
-\hypertarget{codificaciuxf3n-binaria-de-las-instrucciones}{%
-\subsection{Codificación binaria de las instrucciones}\label{codificaciuxf3n-binaria-de-las-instrucciones}}
+\hypertarget{formato-de-instrucciones}{%
+\subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
 
-A fin de facilitar la decodificación y ejecución en el simulador, se estableció un formato binario específico para representar cada tipo de instrucción. La siguiente tabla \ref{tab:codtraducido} resume los principales formatos codificados:
+El formato definido para las instrucciones incluye los siguientes casos tabla \ref{tab:codtraducido}:
 
 \begin{table}[!h]
 \centering
@@ -1896,10 +1917,8 @@ Considerando:
 \item
   \texttt{M}: Dirección de memoria, número de 8 bits.
 \item
-  \texttt{ffff}: campo funcional de 4 bits que especifica el tipo de operación de control a realizar, como saltos condicionales o incondicionales.
+  \texttt{ffff}: representan el comportamiento de la instrucción, número de 4 bits.
 \end{itemize}
-
-Como ejemplo, la instrucción MOV AL, BL (transferencia entre registros) se codifica como \texttt{00000001}, donde los primeros cuatro bits (\texttt{0000}) representan el código de operación correspondiente a MOV, seguidos por los códigos binarios de los registros destino (\texttt{00} para AL) y fuente (\texttt{01} para BL).
 
 \hypertarget{modos-de-direccionamiento-1}{%
 \subsection{Modos de direccionamiento}\label{modos-de-direccionamiento-1}}
