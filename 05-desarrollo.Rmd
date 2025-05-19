@@ -18,7 +18,7 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
     - Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores [@null2018essentials; @stallings2021computer].
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
-    - Visualizar el flujo de datos mediante el nivel de transferencia entre registros (RTL, por sus siglas en inglés: Register Transfer Level), resaltando cada componente involucrado en las distintas etapas del ciclo de instrucción. Es común en los libros de Hennessy y Patterson [@hennessy2017computer] el uso de RTL para representar el ciclo de instruccion desde el fetch (recuperación de la instrucción) hasta el execute (ejecución). Este enfoque permite a los estudiantes observar cómo se transfieren los datos entre registros y cómo se activan las señales de control en cada etapa del ciclo de instrucción. 
+    - Visualizar el flujo de datos mediante el nivel de transferencia entre registros (RTL, por sus siglas en inglés: Register Transfer Level), resaltando cada componente involucrado en las distintas etapas del ciclo de instrucción. Es común en los libros de Hennessy y Patterson [@hennessy2017computer] el uso de RTL para representar el ciclo de instruccion desde el fetch (recuperación de la instrucción) hasta el execute (ejecución). Este enfoque permite a los estudiantes observar cómo se transfieren los datos entre registros y cómo se activan las señales de control en cada etapa del ciclo de instrucción. A continuación se presenta un ejemplo de un ciclo de instrucción simplificado, que ilustra el flujo de datos y las señales de control generadas durante la ejecución de una instrucción. En este caso, se muestra el ciclo de la instrucción MOV `AL`, `BL`, ver figura \@ref(fig:cicloinstruccion):
 
     ```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/cicloinstruccion.png")
@@ -33,19 +33,19 @@ knitr::include_graphics(path = "images/cicloinstruccion.png")
 ## Diseño conceptual
 A partir de los requisitos funcionales y pedagógicos previamente establecidos, se desarrolla el diseño conceptual del simulador, que traduce dichas especificaciones en una estructura técnica coherente con los objetivos educativos. Este diseño busca asegurar la coherencia entre la funcionalidad de la herramienta y los objetivos pedagógicos definidos para la enseñanza de arquitectura de computadoras.
 
-El diseño conceptual del simulador se construye a partir de los requisitos funcionales y pedagógicos definidos previamente, y se plasma en una arquitectura operativa articulada por bloques funcionales con responsabilidades bien delimitadas.
+A partir de los requisitos definidos, el diseño conceptual del simulador se concreta en una arquitectura operativa compuesta por bloques funcionales con responsabilidades claramente asignadas.
 
-La Figura \@ref(fig:esquemavonsim8) representa la arquitectura general del simulador. Esta representación visual permite distinguir los flujos diferenciados de control e información durante la ejecución de los programas, facilitando la comprensión de la segmentación funcional del sistema simulado.
+La Figura \@ref(fig:esquemavonsim8) representa la arquitectura general del simulador. La figura permite identificar los flujos separados de control y datos durante la ejecución de programas, contribuyendo a una mejor comprensión de la estructura funcional del sistema simulado.
 
 ```{r esquemavonsim8, echo=FALSE, fig.cap="Arquitectura general del simulador", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/esquemavonsim8.png")
 ```
 
 ### Modelo arquitectónico
-El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86, y diseñada con un repertorio reducido de instrucciones. Se opta por una arquitectura de 8 bits como estrategia didáctica, ya que al simplificar el sistema se favorece la comprensión conceptual sin comprometer los aspectos esenciales del repertorio x86.
+El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits responde a criterios pedagógicos: permite simplificar el modelo sin perder representatividad respecto a los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes.
 
 #### Principales bloques funcionales
-La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. Se describe los siguientes bloques funcionales:
+La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. A continuación, se describen los bloques funcionales principales:
 
 ```{r bloquesfuncionales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
