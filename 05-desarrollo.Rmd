@@ -31,7 +31,7 @@ knitr::include_graphics(path = "images/cicloinstruccion.png")
     - Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas. Según Hennessy y Patterson [@hennessy2017computer], estos indicadores permiten evaluar la eficiencia del procesamiento a nivel de arquitectura.
 
 ## Diseño conceptual
-Con los requisitos definidos, se plantea a continuación el diseño conceptual del simulador, que establece su estructura técnica y operativa. Este diseño busca asegurar la coherencia entre la funcionalidad de la herramienta y los objetivos pedagógicos definidos para la enseñanza de arquitectura de computadoras.
+A partir de los requisitos funcionales y pedagógicos previamente establecidos, se desarrolla el diseño conceptual del simulador, que traduce dichas especificaciones en una estructura técnica coherente con los objetivos educativos. Este diseño busca asegurar la coherencia entre la funcionalidad de la herramienta y los objetivos pedagógicos definidos para la enseñanza de arquitectura de computadoras.
 
 El diseño conceptual del simulador se construye a partir de los requisitos funcionales y pedagógicos definidos previamente, y se plasma en una arquitectura operativa articulada por bloques funcionales con responsabilidades bien delimitadas.
 
@@ -42,10 +42,10 @@ knitr::include_graphics(path = "images/esquemavonsim8.png")
 ```
 
 ### Modelo arquitectónico
-El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits responde a una estrategia didáctica: al reducir la complejidad del sistema original, se prioriza la comprensión conceptual sobre la fidelidad técnica, conservando la esencia del repertorio x86.
+El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86, y diseñada con un repertorio reducido de instrucciones. Se opta por una arquitectura de 8 bits como estrategia didáctica, ya que al simplificar el sistema se favorece la comprensión conceptual sin comprometer los aspectos esenciales del repertorio x86.
 
 #### Principales bloques funcionales
-El simulador se compone de los siguientes bloques funcionales:
+La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. Se describe los siguientes bloques funcionales:
 
 ```{r bloquesfuncionales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
