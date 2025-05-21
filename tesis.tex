@@ -606,27 +606,27 @@ En síntesis, la comprensión de las arquitecturas fundamentales ---Von Neumann,
 
 El análisis de diversas arquitecturas de computadoras, y particularmente de sus repertorios de instrucciones (Instruction Set Architecture, ISA), es esencial para comprender sus ventajas, limitaciones y áreas de aplicación. Esta evaluación comparativa permite a los diseñadores y educadores seleccionar la ISA más adecuada para sus necesidades, considerando factores como la eficiencia energética, la complejidad del hardware, la compatibilidad y el soporte educativo.
 
-Aunque arquitecturas como PowerPC, SPARC o MIPS desempeñaron un papel central en la evolución de la computación, su adopción ha disminuido significativamente en contextos industriales y académicos, debido al desplazamiento por plataformas con mayor soporte comercial y vigencia tecnológica \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}. Su menor vigencia actual responde al surgimiento de arquitecturas más eficientes y con mejor respaldo comercial, como x86, ARM y RISC-V, que han captado la atención tanto del mercado como del ámbito educativo \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-waterman_risc-v_2014}{{[}25{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}40{]}}. Por ello, esta sección se enfoca en aquellas arquitecturas que mantienen relevancia comercial o presentan un valor pedagógico significativo en el desarrollo de simuladores educativos.
+Aunque arquitecturas como PowerPC, SPARC o MIPS desempeñaron un papel central en la evolución de la computación, su adopción ha disminuido significativamente en contextos industriales y académicos, debido al desplazamiento por plataformas con mayor soporte comercial y vigencia tecnológica \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}. Su menor vigencia actual responde al surgimiento de arquitecturas más eficientes y con mejor respaldo comercial, como x86, ARM y RISC-V, que han captado la atención tanto del mercado como del ámbito educativo \protect\hyperlink{ref-waterman_risc-v_2014}{{[}25{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, \protect\hyperlink{ref-hennessy2017computer_riscv}{{[}40{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}41{]}}. Por ello, esta sección se enfoca en aquellas arquitecturas que mantienen relevancia comercial o presentan un valor pedagógico significativo en el desarrollo de simuladores educativos.
 
 \hypertarget{arquitectura-x86}{%
 \subsection{Arquitectura x86}\label{arquitectura-x86}}
 
-La arquitectura x86, desarrollada inicialmente por Intel, ha dominado el mercado de computadoras de escritorio y servidores durante décadas, gracias a su evolución constante y soporte del ecosistema de software \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}. Su conjunto de instrucciones (ISA, por sus siglas en inglés Instruction Set Architecture) incluye una amplia gama de operaciones, lo que otorga flexibilidad, aunque complica el diseño del hardware. Este equilibrio entre compatibilidad y rendimiento hace que x86 sea una opción preferida para entornos donde la capacidad de procesamiento es prioritaria, como en servidores y estaciones de trabajo \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-intel_whitepaper_2023}{{[}41{]}}.
+La arquitectura x86, desarrollada inicialmente por Intel, ha dominado el mercado de computadoras de escritorio y servidores durante décadas, gracias a su evolución constante y soporte del ecosistema de software \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}. Su conjunto de instrucciones (ISA, por sus siglas en inglés Instruction Set Architecture) incluye una amplia gama de operaciones, lo que otorga flexibilidad, aunque complica el diseño del hardware. Este equilibrio entre compatibilidad y rendimiento hace que x86 sea una opción preferida para entornos donde la capacidad de procesamiento es prioritaria, como en servidores y estaciones de trabajo \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-intel_whitepaper_2023}{{[}42{]}}.
 
 \hypertarget{arquitectura-arm}{%
 \subsection{Arquitectura ARM}\label{arquitectura-arm}}
 
-Reconocida por su alta eficiencia energética, la arquitectura ARM es la columna vertebral de dispositivos móviles y sistemas embebidos. Basada en el paradigma de conjunto de instrucciones reducidas (RISC), ARM simplifica el diseño del hardware y optimiza el consumo energético, características que la posicionan como una opción preferente para aplicaciones como smartphones y tablets. Aunque su rendimiento máximo en tareas de cómputo intensivo suele ser inferior al de x86, su equilibrio entre eficiencia energética y capacidad computacional resulta decisivo en mercados donde la autonomía y la disipación térmica son factores críticos, como los dispositivos móviles y el IoT \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}40{]}}.
+Reconocida por su alta eficiencia energética, la arquitectura ARM es la columna vertebral de dispositivos móviles y sistemas embebidos. Basada en el paradigma de conjunto de instrucciones reducidas (RISC), ARM simplifica el diseño del hardware y optimiza el consumo energético, características que la posicionan como una opción preferente para aplicaciones como smartphones y tablets. Aunque su rendimiento máximo en tareas de cómputo intensivo suele ser inferior al de x86, su equilibrio entre eficiencia energética y capacidad computacional resulta decisivo en mercados donde la autonomía y la disipación térmica son factores críticos, como los dispositivos móviles y el IoT \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}41{]}}.
 
 \hypertarget{arquitectura-risc-v}{%
 \subsection{Arquitectura RISC-V}\label{arquitectura-risc-v}}
 
-Como arquitectura de código abierto, RISC-V ofrece una alternativa personalizable a los modelos propietarios, destacándose en entornos académicos y de desarrollo especializado. Su ISA flexible permite a los desarrolladores personalizar sistemas según necesidades específicas, haciéndola especialmente atractiva para investigación, educación y aplicaciones embebidas. Basada en principios RISC, RISC-V combina eficiencia energética con un diseño de hardware simplificado, y su creciente ecosistema la posiciona como una fuerte competidora frente a arquitecturas establecidas como ARM. No obstante, RISC-V enfrenta desafíos para su adopción masiva, en parte debido a la falta de estándares unificados, la fragmentación de su ecosistema y la limitada presencia de proveedores comerciales consolidados, lo que dificulta su despliegue en entornos productivos críticos.\protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-waterman_risc-v_2014}{{[}25{]}}, \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-patterson2016computer}{{[}42{]}}.
+Como arquitectura de código abierto, RISC-V ofrece una alternativa personalizable a los modelos propietarios, destacándose en entornos académicos y de desarrollo especializado. Su ISA flexible permite a los desarrolladores personalizar sistemas según necesidades específicas, haciéndola especialmente atractiva para investigación, educación y aplicaciones embebidas. Basada en principios RISC, RISC-V combina eficiencia energética con un diseño de hardware simplificado, y su creciente ecosistema la posiciona como una fuerte competidora frente a arquitecturas establecidas como ARM. No obstante, RISC-V enfrenta desafíos para su adopción masiva, en parte debido a la falta de estándares unificados, la fragmentación de su ecosistema y la limitada presencia de proveedores comerciales consolidados, lo que dificulta su despliegue en entornos productivos críticos.\protect\hyperlink{ref-waterman_risc-v_2014}{{[}25{]}}, \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-hennessy2017computer_riscv}{{[}40{]}}, \protect\hyperlink{ref-patterson2016computer}{{[}43{]}}.
 
 \hypertarget{comparativa-entre-arquitecturas}{%
 \subsection{Comparativa entre arquitecturas}\label{comparativa-entre-arquitecturas}}
 
-Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. Por su parte, arquitecturas como RISC-V han encontrado aplicaciones relevantes en sistemas embebidos, plataformas educativas y diseños personalizados, aunque su presencia comercial difiere notablemente. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final. Además, comprender las diferencias entre estas arquitecturas, en particular sus repertorios de instrucciones y principios de diseño, resulta fundamental en el ámbito educativo, dado que facilita el desarrollo de herramientas didácticas que simulan sus principios operativos y ayudan a los estudiantes a visualizar el funcionamiento real de los sistemas computacionales \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}40{]}}.
+Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. Por su parte, arquitecturas como RISC-V han encontrado aplicaciones relevantes en sistemas embebidos, plataformas educativas y diseños personalizados, aunque su presencia comercial difiere notablemente. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final. Además, comprender las diferencias entre estas arquitecturas, en particular sus repertorios de instrucciones y principios de diseño, resulta fundamental en el ámbito educativo, dado que facilita el desarrollo de herramientas didácticas que simulan sus principios operativos y ayudan a los estudiantes a visualizar el funcionamiento real de los sistemas computacionales \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}41{]}}.
 
 \begin{table}[!h]
 \centering
@@ -837,7 +837,7 @@ En consecuencia, el diseño del repertorio de instrucciones ---incluyendo operac
 
 Las arquitecturas basadas en RISC, en contraste con CISC, se caracterizan por emplear instrucciones simples y de longitud fija. Esta simplificación facilita la decodificación y permite que muchas instrucciones se ejecuten en un solo ciclo de reloj. Además, esta filosofía favorece la implementación de técnicas avanzadas como el pipelining y la predicción de ramas, optimizando así el rendimiento.
 
-A nivel de hardware, RISC prioriza la eficiencia energética, una característica crucial en dispositivos móviles y sistemas embebidos. Por ello, procesadores como los basados en ARM han dominado estos mercados, especialmente en dispositivos móviles, debido a su bajo consumo energético. La simplicidad y el bajo CPI (ciclos por instrucción) han sido factores determinantes en su adopción \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}.
+A nivel de hardware, RISC prioriza la eficiencia energética, una característica crucial en dispositivos móviles y sistemas embebidos. Por ello, procesadores como los basados en ARM han dominado estos mercados, especialmente en dispositivos móviles, debido a su bajo consumo energético. La simplicidad y el bajo CPI (ciclos por instrucción) han sido factores determinantes en su adopción \protect\hyperlink{ref-hennessy2017computer_riscv}{{[}40{]}}.
 
 \hypertarget{comparativa-entre-cisc-y-risc}{%
 \subsection{Comparativa entre CISC y RISC}\label{comparativa-entre-cisc-y-risc}}
@@ -932,7 +932,7 @@ En síntesis, las filosofías CISC y RISC representan enfoques contrastantes per
 \hypertarget{arquitectura-x86-1}{%
 \section{Arquitectura x86}\label{arquitectura-x86-1}}
 
-La arquitectura x86, reconocida por su amplia adopción en computadoras personales, estaciones de trabajo y servidores, se introdujo en 1978 con el procesador Intel 8086, basado en una arquitectura de 16 bits. Desde entonces, ha evolucionado en capacidad y complejidad, con hitos clave como la introducción del Intel 80386 (32 bits) en 1985 y la extensión a 64 bits con AMD64 en 2003. Esta evolución ha permitido mejoras significativas en el rendimiento, el direccionamiento de memoria y la compatibilidad con aplicaciones exigentes. \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-intel_64_2025}{{[}15{]}}, \protect\hyperlink{ref-amd_developer_2024}{{[}16{]}}, \protect\hyperlink{ref-abel_ibm_2000}{{[}17{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}43{]}}, \protect\hyperlink{ref-intel8086manual}{{[}44{]}}.
+La arquitectura x86, reconocida por su amplia adopción en computadoras personales, estaciones de trabajo y servidores, se introdujo en 1978 con el procesador Intel 8086, basado en una arquitectura de 16 bits. Desde entonces, ha evolucionado en capacidad y complejidad, con hitos clave como la introducción del Intel 80386 (32 bits) en 1985 y la extensión a 64 bits con AMD64 en 2003. Esta evolución ha permitido mejoras significativas en el rendimiento, el direccionamiento de memoria y la compatibilidad con aplicaciones exigentes. \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-intel_64_2025}{{[}15{]}}, \protect\hyperlink{ref-amd_developer_2024}{{[}16{]}}, \protect\hyperlink{ref-abel_ibm_2000}{{[}17{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}44{]}}, \protect\hyperlink{ref-intel8086manual}{{[}45{]}}.
 
 \begin{figure}
 
@@ -1006,7 +1006,7 @@ La tabla \ref{tab:evolucionx86} muestra cómo la evolución de x86 ha estado mar
 \hypertarget{repertorio-de-instrucciones-x86}{%
 \subsection{Repertorio de instrucciones x86}\label{repertorio-de-instrucciones-x86}}
 
-La arquitectura x86 destaca por su complejidad y flexibilidad, reflejada en un repertorio de instrucciones extenso y de longitud variable. Esto contrasta con arquitecturas RISC, donde predominan instrucciones de longitud fija y decodificación sencilla \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}43{]}}. Aunque esta flexibilidad implica una mayor capacidad expresiva y compatibilidad hacia atrás, también introduce desafíos de diseño, tales como la necesidad de decodificadores complejos, técnicas de predicción de instrucciones y ejecución fuera de orden para lograr un rendimiento competitivo.
+La arquitectura x86 destaca por su complejidad y flexibilidad, reflejada en un repertorio de instrucciones extenso y de longitud variable. Esto contrasta con arquitecturas RISC, donde predominan instrucciones de longitud fija y decodificación sencilla \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}44{]}}. Aunque esta flexibilidad implica una mayor capacidad expresiva y compatibilidad hacia atrás, también introduce desafíos de diseño, tales como la necesidad de decodificadores complejos, técnicas de predicción de instrucciones y ejecución fuera de orden para lograr un rendimiento competitivo.
 
 \hypertarget{estructura-de-una-instrucciuxf3n-x86}{%
 \subsubsection{Estructura de una instrucción x86}\label{estructura-de-una-instrucciuxf3n-x86}}
@@ -1042,15 +1042,15 @@ Un ejemplo típico de instrucción es:
   MOV AX, [BX+SI+16]
   \end{lstlisting}
 
-Esta instrucción utiliza varios componentes, que el procesador debe decodificar antes de ejecutarla. Aunque esta flexibilidad es una ventaja en términos de funcionalidad, requiere técnicas avanzadas, como predicción de saltos y paralelización, para mantener la eficiencia en procesadores modernos \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}43{]}}.
+Esta instrucción utiliza varios componentes, que el procesador debe decodificar antes de ejecutarla. Aunque esta flexibilidad es una ventaja en términos de funcionalidad, requiere técnicas avanzadas, como predicción de saltos y paralelización, para mantener la eficiencia en procesadores modernos \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-patterson_computer_2014}{{[}28{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}44{]}}.
 
 \hypertarget{lenguaje-muxe1quina-y-lenguaje-ensamblador}{%
 \section{Lenguaje máquina y lenguaje ensamblador}\label{lenguaje-muxe1quina-y-lenguaje-ensamblador}}
 
 El lenguaje máquina es el conjunto de instrucciones que un procesador puede entender y ejecutar directamente. Cada procesador tiene su propio conjunto de instrucciones, que se representan en forma de números binarios. Estas instrucciones son específicas para cada arquitectura y están diseñadas para realizar operaciones básicas como sumar, restar, mover datos entre registros y acceder a la memoria. El lenguaje máquina es el nivel más bajo de programación y está compuesto por secuencias de bits que representan operaciones y operandos específicos del procesador
-\protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-irvine2011assembly}{{[}45{]}}.
+\protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-irvine2011assembly}{{[}46{]}}.
 
-El procesador ejecuta directamente las instrucciones codificadas en lenguaje máquina, sin requerir traducción desde niveles superiores de abstracción. Sin embargo, la escritura manual de código en lenguaje máquina es un proceso extremadamente laborioso, propenso a errores y difícil de mantener. Cada instrucción debe representarse como una cadena precisa de ceros y unos. Esta codificación depende de las reglas específicas del procesador, que incluyen los modos de direccionamiento, los formatos de instrucción y la organización de la memoria \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, \protect\hyperlink{ref-irvine2011assembly}{{[}45{]}}.
+El procesador ejecuta directamente las instrucciones codificadas en lenguaje máquina, sin requerir traducción desde niveles superiores de abstracción. Sin embargo, la escritura manual de código en lenguaje máquina es un proceso extremadamente laborioso, propenso a errores y difícil de mantener. Cada instrucción debe representarse como una cadena precisa de ceros y unos. Esta codificación depende de las reglas específicas del procesador, que incluyen los modos de direccionamiento, los formatos de instrucción y la organización de la memoria \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, \protect\hyperlink{ref-irvine2011assembly}{{[}46{]}}.
 
 Por ejemplo, si un estudiante o desarrollador deseara sumar dos números en lenguaje máquina, tendría que especificar manualmente cada secuencia binaria correspondiente a la operación de suma, así como las direcciones de memoria donde se encuentran los operandos. Este enfoque no solo es tedioso, sino que también aumenta la probabilidad de errores, especialmente cuando se requiere modificar o depurar el código.
 
@@ -1089,7 +1089,7 @@ La Figura \ref{fig:ensambla} muestra el proceso de traducción de un programa en
 \hypertarget{ensambladores-x86}{%
 \subsection{Ensambladores x86}\label{ensambladores-x86}}
 
-En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) \protect\hyperlink{ref-tasm}{{[}46{]}}, MASM (Microsoft Macro Assembler) \protect\hyperlink{ref-masm}{{[}47{]}} y NASM (Netwide Assembler) \protect\hyperlink{ref-nasm}{{[}48{]}}. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 \protect\hyperlink{ref-hyde2010art}{{[}49{]}}.
+En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) \protect\hyperlink{ref-tasm}{{[}47{]}}, MASM (Microsoft Macro Assembler) \protect\hyperlink{ref-masm}{{[}48{]}} y NASM (Netwide Assembler) \protect\hyperlink{ref-nasm}{{[}49{]}}. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 \protect\hyperlink{ref-hyde2010art}{{[}50{]}}.
 
 A continuación, se presenta una tabla comparativa \ref{tab:ensambladores} que resume las principales características de tres ensambladores ampliamente utilizados en la arquitectura x86. La información compilada permite visualizar diferencias relevantes en términos de sintaxis, compatibilidad, funcionalidades adicionales y contexto de uso, lo que resulta particularmente útil al momento de seleccionar herramientas adecuadas para entornos educativos o de desarrollo de bajo nivel.
 
@@ -1143,9 +1143,9 @@ La posibilidad de analizar sistemas complejos sin intervenir directamente en ell
 \hypertarget{aplicaciones-de-la-simulaciuxf3n-en-la-industria}{%
 \subsection{Aplicaciones de la simulación en la industria}\label{aplicaciones-de-la-simulaciuxf3n-en-la-industria}}
 
-En sectores como la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Gracias a modelos virtuales, se realizan pruebas de colisión y análisis de rendimiento sin necesidad de recurrir a costosas pruebas físicas. Asimismo, la simulación permite optimizar diseños de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales en condiciones extremas, contribuyendo a mejorar tanto la eficiencia como la seguridad de los vehículos \protect\hyperlink{ref-stork_towards_2008}{{[}50{]}}.
+En sectores como la industria automotriz, la simulación es fundamental para el diseño y prueba de sistemas de seguridad, como airbags y frenos. Gracias a modelos virtuales, se realizan pruebas de colisión y análisis de rendimiento sin necesidad de recurrir a costosas pruebas físicas. Asimismo, la simulación permite optimizar diseños de motores, analizar el flujo aerodinámico y prever el comportamiento de materiales en condiciones extremas, contribuyendo a mejorar tanto la eficiencia como la seguridad de los vehículos \protect\hyperlink{ref-stork_towards_2008}{{[}51{]}}.
 
-En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad \protect\hyperlink{ref-jentsch_simulation_2017}{{[}51{]}}.
+En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad \protect\hyperlink{ref-jentsch_simulation_2017}{{[}52{]}}.
 
 Estos principios generales encuentran aplicaciones concretas en diversos sectores industriales, donde la simulación cumple un papel clave tanto en el diseño como en el entrenamiento, la evaluación y la toma de decisiones.
 
@@ -1243,7 +1243,7 @@ La siguiente figura \ref{fig:acoplado} ilustra la organización modular del form
 \hypertarget{aplicaciones-del-formalismo-devs}{%
 \subsection{Aplicaciones del formalismo DEVS}\label{aplicaciones-del-formalismo-devs}}
 
-``El formalismo DEVS encuentra aplicación en diversos ámbitos, como las redes de comunicación \protect\hyperlink{ref-fujimoto2001parallel}{{[}52{]}}, donde permite simular el enrutamiento de paquetes y la congestión de redes; en entornos de manufactura \protect\hyperlink{ref-zeigler_theory_2000}{{[}20{]}}, donde se modelan flujos de producción y control de calidad; y en sistemas de transporte, para la optimización de flujos vehiculares \protect\hyperlink{ref-barros1997modeling}{{[}53{]}}. También se utiliza en la simulación de sistemas biológicos, como la propagación de enfermedades o el comportamiento de poblaciones \protect\hyperlink{ref-zeigler2004continuity}{{[}54{]}}. En el ámbito de la educación, DEVS se ha implementado en simuladores para la enseñanza de arquitectura de computadoras, permitiendo a los estudiantes explorar y comprender conceptos complejos mediante la visualización y manipulación de modelos \protect\hyperlink{ref-calvo2010simulador}{{[}55{]}}.
+``El formalismo DEVS encuentra aplicación en diversos ámbitos, como las redes de comunicación \protect\hyperlink{ref-fujimoto2001parallel}{{[}53{]}}, donde permite simular el enrutamiento de paquetes y la congestión de redes; en entornos de manufactura \protect\hyperlink{ref-zeigler_theory_2000}{{[}20{]}}, donde se modelan flujos de producción y control de calidad; y en sistemas de transporte, para la optimización de flujos vehiculares \protect\hyperlink{ref-barros1997modeling}{{[}54{]}}. También se utiliza en la simulación de sistemas biológicos, como la propagación de enfermedades o el comportamiento de poblaciones \protect\hyperlink{ref-zeigler2004continuity}{{[}55{]}}. En el ámbito de la educación, DEVS se ha implementado en simuladores para la enseñanza de arquitectura de computadoras, permitiendo a los estudiantes explorar y comprender conceptos complejos mediante la visualización y manipulación de modelos \protect\hyperlink{ref-calvo2010simulador}{{[}56{]}}.
 
 Estas aplicaciones destacan su versatilidad para optimizar sistemas complejos en escenarios del mundo real.
 
@@ -1262,7 +1262,7 @@ La implementación de entornos de simulación basados en DEVS en la enseñanza d
   \textbf{Exploración de escenarios}: posibilita simular escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin la necesidad de hardware físico.
 \end{itemize}
 
-Estas funcionalidades enriquecen la experiencia educativa al integrar la teoría con la práctica y fomentar una participación activa en el análisis de los principios fundamentales de la arquitectura computacional. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras \protect\hyperlink{ref-calvo_valdes_simulador_2010}{{[}56{]}}.
+Estas funcionalidades enriquecen la experiencia educativa al integrar la teoría con la práctica y fomentar una participación activa en el análisis de los principios fundamentales de la arquitectura computacional. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras \protect\hyperlink{ref-calvo_valdes_simulador_2010}{{[}57{]}}.
 
 En conclusión, el formalismo DEVS no solo es una herramienta valiosa para el modelado y análisis de sistemas, sino que también representa un recurso poderoso para facilitar la enseñanza de conceptos complejos, como los que se encuentran en la arquitectura de computadoras.
 
@@ -1273,7 +1273,7 @@ Este capítulo presenta un análisis comparativo de simuladores basados en la ar
 
 La selección y evaluación de estos simuladores se fundamenta en criterios específicos diseñados para medir su efectividad en un entorno educativo. El objetivo principal es identificar las herramientas que mejor respalden el proceso de enseñanza y aprendizaje. Los criterios definidos abarcan aspectos clave para la enseñanza de arquitectura de computadoras: facilidad de uso, funcionalidades del entorno de programación, calidad de los recursos de apoyo, mecanismos de ejecución de programas, precisión en la emulación de la arquitectura x86, características técnicas del software y su alineación con los contenidos curriculares.
 
-Los resultados de esta investigación fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), en el trabajo titulado Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86 \protect\hyperlink{ref-colombani_herramientas_2022}{{[}57{]}}.
+Los resultados de esta investigación fueron publicados en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), en el trabajo titulado Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86 \protect\hyperlink{ref-colombani_herramientas_2022}{{[}58{]}}.
 
 \hypertarget{estudios-similares}{%
 \section{Estudios similares}\label{estudios-similares}}
@@ -1289,7 +1289,7 @@ A diferencia de los estudios mencionados, este trabajo propone una evaluación c
 
 Un simulador de arquitectura es una herramienta de software que emula el hardware de un sistema de cómputo, permitiendo representar aspectos arquitectónicos y funcionales del mismo. Estos simuladores ofrecen un entorno controlado para realizar pruebas, modificaciones y ejecución de programas sin riesgo de dañar componentes físicos o enfrentar limitaciones de hardware \protect\hyperlink{ref-radivojevic_design_2011}{{[}10{]}}.
 
-Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Algunos ejemplos relevantes de simuladores son: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente \protect\hyperlink{ref-nikolic_survey_2009}{{[}11{]}}, \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-behrooz_computer_2005}{{[}58{]}}.
+Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Algunos ejemplos relevantes de simuladores son: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente \protect\hyperlink{ref-nikolic_survey_2009}{{[}11{]}}, \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-behrooz_computer_2005}{{[}59{]}}.
 
 \hypertarget{criterios-de-evaluaciuxf3n}{%
 \section{Criterios de evaluación}\label{criterios-de-evaluaciuxf3n}}
@@ -1647,7 +1647,7 @@ En conclusión, si bien cada simulador ofrece ventajas puntuales, ninguno logra 
 \hypertarget{publicaciuxf3n}{%
 \subsection{Publicación}\label{publicaciuxf3n}}
 
-Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), bajo el título ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86''\protect\hyperlink{ref-colombani_herramientas_2022}{{[}57{]}}.
+Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en Educación y Educación en Tecnología (2022), bajo el título ``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86''\protect\hyperlink{ref-colombani_herramientas_2022}{{[}58{]}}.
 
 Además, durante este proceso se estableció contacto con un desarrollador de VonSim, logrando implementar mejoras significativas, como animaciones de ejecución y documentación en línea, disponibles en su última versión publicada en agosto de 2023.
 
@@ -1656,7 +1656,7 @@ Además, durante este proceso se estableció contacto con un desarrollador de Vo
 
 En este capítulo se describe el diseño y desarrollo de una herramienta de simulación específica para la arquitectura x86, orientada a facilitar la enseñanza de los principios de arquitectura de computadoras. Se detalla la justificación del diseño, los pasos seguidos para su construcción y los métodos utilizados para validar su funcionalidad.
 
-En el capítulo anterior se analizaron y evaluaron las herramientas de simulación existentes para la arquitectura x86. Esta revisión exhaustiva permitió identificar las limitaciones de las soluciones actuales y fundamentar la necesidad de desarrollar una herramienta específica ver capítulo (\ref{comparativa}).
+En el capítulo anterior se analizaron y evaluaron las herramientas de simulación existentes para la arquitectura x86. Esta revisión exhaustiva permitió identificar las limitaciones de las soluciones actuales y fundamentar la necesidad de desarrollar una herramienta específica (véase el capítulo \ref{comparativa}).
 
 Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de requisitos establecidos que guían su desarrollo, validación y alineación con los objetivos pedagógicos.
 
@@ -1667,7 +1667,6 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   \textbf{Representación global de la estructura y funcionamiento de la computadora:}
 
@@ -1690,7 +1689,7 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
   \begin{itemize}
   \tightlist
   \item
-    Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}.
+    Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos orientados a reducir la complejidad inicial del aprendizaje \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}.
   \end{itemize}
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
@@ -1698,8 +1697,10 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
   \begin{itemize}
   \tightlist
   \item
-    Visualizar el flujo de datos mediante el nivel de transferencia entre registros (RTL, por sus siglas en inglés: Register Transfer Level), resaltando cada componente involucrado en las distintas etapas del ciclo de instrucción. Es común en los libros de Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}} y también en los de Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} el uso de RTL para representar el ciclo de instruccion desde el fetch (recuperación de la instrucción) hasta el execute (ejecución). Este enfoque permite a los estudiantes observar cómo se transfieren los datos entre registros y cómo se activan las señales de control en cada etapa del ciclo de instrucción. A continuación se presenta un ejemplo de un ciclo de instrucción simplificado, que ilustra el flujo de datos y las señales de control generadas durante la ejecución de una instrucción. En este caso, se muestra el ciclo de la instrucción MOV \texttt{AL}, \texttt{BL}, como se ilustra en la Figura \ref{fig:cicloinstruccion}
+    Visualizar el flujo de datos mediante una representación en el nivel de transferencia entre registros (Register Transfer Level, RTL), que describe cómo los datos se mueven entre componentes internos como registros y buses durante cada etapa del ciclo de instrucción. Es común en los de Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} la utilización de RTL para representar cada etapa del ciclo de instrucción, desde la captura (`fetch') hasta la ejecución (`execute'). Este enfoque facilita la comprensión del procesador, ya que permite visualizar el recorrido de los datos entre registros y la activación de señales de control en cada etapa.
   \end{itemize}
+
+  A continuación se ilustra un ciclo de instrucción típico del repertorio x86, empleando como ejemplo la operación MOV AL, BL, que transfiere el contenido del registro BL al registro AL. La Figura \ref{fig:cicloinstruccion} representa las etapas del ciclo de instrucción, destacando el flujo de datos y las señales de control activadas en cada fase. Esta representación gráfica, basada en el modelo RTL (Register Transfer Level), permite comprender el funcionamiento interno del procesador desde la recuperación hasta la ejecución de la instrucción.
 
   \begin{figure}
 
@@ -1715,7 +1716,7 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
   \begin{itemize}
   \tightlist
   \item
-    Incorporar un vector de interrupción predefinido para interactuar con dispositivos como teclado y monitor. También incluir instrucciones IN y OUT, junto con un módulo simplificado de entrada/salida.
+    Incorporar un vector de interrupción predefinido para interactuar con dispositivos como teclado y monitor. También incluir instrucciones IN y OUT, junto con un módulo simplificado de entrada/salida. Su inclusión permite a los estudiantes comprender el mecanismo de atención a eventos externos, un aspecto central en sistemas reales.
   \end{itemize}
 \item
   \textbf{Métricas de rendimiento:}
@@ -1723,7 +1724,7 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
   \begin{itemize}
   \tightlist
   \item
-    Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas. Según Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, estos indicadores permiten evaluar la eficiencia del procesamiento a nivel de arquitectura.
+    Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas. Según Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, estos indicadores permiten evaluar la eficiencia del procesamiento a nivel de arquitectura. La incorporación de métricas como CPI y tiempo de CPU está alineada con el objetivo de promover la reflexión crítica sobre el rendimiento de los programas.
   \end{itemize}
 \end{enumerate}
 
@@ -1747,12 +1748,14 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
 \end{tabular}}
 \end{table}
 
+Los requisitos identificados fueron analizados en conjunto con docentes para determinar qué elementos de la arquitectura x86 debían ser representados, simplificados o adaptados. Este análisis guió la selección de una arquitectura reducida de 8 bits y la definición de los módulos funcionales del simulador.
+
 \hypertarget{diseuxf1o-conceptual}{%
 \section{Diseño conceptual}\label{diseuxf1o-conceptual}}
 
-Una vez definidos los requisitos funcionales y pedagógicos, se procede a su traducción en un diseño conceptual que articula las necesidades identificadas con una solución técnica viable. Esta fase permite garantizar la trazabilidad entre los objetivos didácticos planteados y las funcionalidades implementadas en el simulador. Este diseño busca asegurar la coherencia entre la funcionalidad de la herramienta y los objetivos pedagógicos definidos para la enseñanza de arquitectura de computadoras.
+El diseño conceptual busca materializar los principios previamente definidos en una arquitectura operativa alineada con los objetivos pedagógicos de la enseñanza de arquitectura de computadoras.
 
-A partir de los requisitos definidos, el diseño conceptual del simulador se concreta en una arquitectura operativa compuesta por bloques funcionales con responsabilidades claramente asignadas.
+Una vez establecidos los requisitos funcionales y didácticos de la herramienta, se procede a traducirlos en un diseño conceptual que organice su estructura interna. Esta arquitectura operativa se estructura en bloques funcionales, cada uno con responsabilidades claramente definidas.
 
 La Figura \ref{fig:esquemavonsim8} representa la arquitectura general del simulador. La figura permite identificar los flujos separados de control y datos durante la ejecución de programas, contribuyendo a una mejor comprensión de la estructura funcional del sistema simulado.
 
@@ -1764,14 +1767,6 @@ La Figura \ref{fig:esquemavonsim8} representa la arquitectura general del simula
 
 \caption{Arquitectura general del simulador}\label{fig:esquemavonsim8}
 \end{figure}
-
-\hypertarget{modelo-arquitectuxf3nico}{%
-\subsection{Modelo arquitectónico}\label{modelo-arquitectuxf3nico}}
-
-El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits responde a criterios pedagógicos: permite simplificar el modelo sin perder representatividad respecto a los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes.
-
-\hypertarget{principales-bloques-funcionales}{%
-\subsubsection{Principales bloques funcionales}\label{principales-bloques-funcionales}}
 
 La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla \ref{tab:bloquesfuncionales} resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
 
@@ -1797,8 +1792,34 @@ La elección de estos bloques funcionales responde tanto a la necesidad de model
 \end{tabular}}
 \end{table}
 
+\hypertarget{modelo-arquitectuxf3nico}{%
+\subsection{Modelo arquitectónico}\label{modelo-arquitectuxf3nico}}
+
+Diversos autores como Patterson \& Hennessy \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, Tanenbaum \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}} y Null \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}} coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque permite visualizar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
+El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}39{]}}, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes \protect\hyperlink{ref-patt2019introduction}{{[}60{]}}.Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA), en línea con los enfoques de aprendizaje escalonado \protect\hyperlink{ref-nationalacademies2018how}{{[}61{]}}.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:requisitosdidacticos}Requisitos didácticos y beneficios pedagógicos esperados}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{9cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Requisito didáctico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio pedagógico esperado}}}\\
+\midrule
+\textbf{Ejecución paso a paso} & Favorece la comprensión secuencial de las instrucciones\\
+\addlinespace[10pt]
+\textbf{Habilitación progresiva del repertorio} & Reduce la carga cognitiva y promueve aprendizaje incremental\\
+\addlinespace[10pt]
+\textbf{Visualización de ciclos de instrucción (RTL)} & Facilita el aprendizaje del funcionamiento interno del procesador\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
 \hypertarget{caracteruxedsticas-del-cpu}{%
-\subsubsection{Características del CPU}\label{caracteruxedsticas-del-cpu}}
+\subsection{Características del CPU}\label{caracteruxedsticas-del-cpu}}
 
 En correspondencia con los bloques funcionales anteriormente mencionados, a continuación se describen las características específicas del CPU simulado.
 
@@ -1806,7 +1827,7 @@ El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:arq}Componentes del CPU x86}
+\caption{\label{tab:arq}Componentes del CPU VonSim8}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
@@ -2620,11 +2641,11 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 
 \leavevmode\vadjust pre{\hypertarget{ref-hasan_survey_2012}{}}%
 \CSLLeftMargin{{[}12{]} }%
-\CSLRightInline{R. Hasan and S. Mahmood, {``Survey and evaluation of simulators suitable for teaching for computer architecture and organization {Supporting} undergraduate students at {Sir} {Syed} {University} of {Engineering} \& {Technology},''} in \emph{Control ({CONTROL}), 2012 {UKACC} {International} {Conference} on}, IEEE, 2012, pp. 1043--1045.}
+\CSLRightInline{A. Akram and L. Sawalha, {``A survey of computer architecture simulation techniques and tools,''} \emph{IEEE Access}, vol. 7, pp. 78120--78145, 2019, doi: \href{https://doi.org/10.1109/ACCESS.2019.2917698}{10.1109/ACCESS.2019.2917698}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-hennessy2017computer}{}}%
 \CSLLeftMargin{{[}13{]} }%
-\CSLRightInline{J. L. Hennessy and D. A. Patterson, \emph{Computer organization and design RISC-v edition: The hardware software interface}. Elsevier Science \& Technology Books, 2017.}
+\CSLRightInline{J. L. Hennessy and D. A. Patterson, \emph{Computer architecture: A quantitative approach}, 6th ed. Boston: Morgan Kaufmann, 2017.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-stallings_computer_2021}{}}%
 \CSLLeftMargin{{[}14{]} }%
@@ -2730,81 +2751,93 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \CSLLeftMargin{{[}39{]} }%
 \CSLRightInline{Intel Corporation, \emph{Intel\textsuperscript{\textregistered} 64 and IA-32 architectures optimization reference manual}, April 2021. Intel Corporation, 2021.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-arm_evolution_2025}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-hennessy2017computer_riscv}{}}%
 \CSLLeftMargin{{[}40{]} }%
+\CSLRightInline{J. L. Hennessy and D. A. Patterson, \emph{Computer organization and design RISC-v edition: The hardware software interface}. Elsevier Science \& Technology Books, 2017.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-arm_evolution_2025}{}}%
+\CSLLeftMargin{{[}41{]} }%
 \CSLRightInline{ARM Holdings, {``The relentless evolution of the arm architecture,''} ARM Holdings, 2025. Available: \url{https://newsroom.arm.com/blog/evolution-of-arm-architecture-evolution-40-years}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-intel_whitepaper_2023}{}}%
-\CSLLeftMargin{{[}41{]} }%
+\CSLLeftMargin{{[}42{]} }%
 \CSLRightInline{I. Corporation, {``Intel xeon processor scalable family: Performance and efficiency for modern data centers,''} Intel, 2023. Available: \url{https://www.intel.com/content/www/us/en/products/docs/processors/xeon-accelerated/4th-gen-xeon-scalable-processors.html}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-patterson2016computer}{}}%
-\CSLLeftMargin{{[}42{]} }%
+\CSLLeftMargin{{[}43{]} }%
 \CSLRightInline{D. A. Patterson and J. L. Hennessy, \emph{Computer organization and design ARM edition: The hardware software interface}. Morgan kaufmann, 2016.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-brey_intel_microprocessors}{}}%
-\CSLLeftMargin{{[}43{]} }%
+\CSLLeftMargin{{[}44{]} }%
 \CSLRightInline{B. B. Brey, \emph{The intel microprocessors: Architecture, programming, and interfacing}, 8th ed. Pearson Education, 2013.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-intel8086manual}{}}%
-\CSLLeftMargin{{[}44{]} }%
+\CSLLeftMargin{{[}45{]} }%
 \CSLRightInline{Intel Corporation, \emph{Intel 8086 family user's manual}. Intel Corporation, 1979. Accessed: May 17, 2025. {[}Online{]}. Available: \url{https://bitsavers.org/components/intel/8086/9800722-03_The_8086_Family_Users_Manual_Oct79.pdf}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-irvine2011assembly}{}}%
-\CSLLeftMargin{{[}45{]} }%
+\CSLLeftMargin{{[}46{]} }%
 \CSLRightInline{K. R. Irvine and L. B. Das, \emph{Assembly language for x86 processors}. Prentice Hall, 2011.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-tasm}{}}%
-\CSLLeftMargin{{[}46{]} }%
+\CSLLeftMargin{{[}47{]} }%
 \CSLRightInline{B. International, \emph{Turbo assembler user's guide}. Borland International, 1993.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-masm}{}}%
-\CSLLeftMargin{{[}47{]} }%
+\CSLLeftMargin{{[}48{]} }%
 \CSLRightInline{M. Corporation, \emph{Microsoft macro assembler 6.1 reference}. Microsoft Press, 1992.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-nasm}{}}%
-\CSLLeftMargin{{[}48{]} }%
+\CSLLeftMargin{{[}49{]} }%
 \CSLRightInline{The NASM Project, \emph{The netwide assembler (NASM) manual}. 2023.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-hyde2010art}{}}%
-\CSLLeftMargin{{[}49{]} }%
+\CSLLeftMargin{{[}50{]} }%
 \CSLRightInline{R. Hyde, \emph{The art of assembly language}. No Starch Press, 2010.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-stork_towards_2008}{}}%
-\CSLLeftMargin{{[}50{]} }%
+\CSLLeftMargin{{[}51{]} }%
 \CSLRightInline{A. Stork, C.-A. Thole, S. Klimenko, I. Nikitin, L. Nikitina, and Y. Astakhov, {``Towards interactive simulation in automotive design,''} \emph{The Visual Computer}, vol. 24, pp. 947--953, 2008.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-jentsch_simulation_2017}{}}%
-\CSLLeftMargin{{[}51{]} }%
+\CSLLeftMargin{{[}52{]} }%
 \CSLRightInline{F. Jentsch and M. Curtis, \emph{Simulation in aviation training}. Routledge, 2017.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-fujimoto2001parallel}{}}%
-\CSLLeftMargin{{[}52{]} }%
+\CSLLeftMargin{{[}53{]} }%
 \CSLRightInline{R. M. Fujimoto, {``Parallel and distributed simulation systems,''} in \emph{Proceeding of the 2001 winter simulation conference (cat. No. 01CH37304)}, IEEE, 2001, pp. 147--157.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-barros1997modeling}{}}%
-\CSLLeftMargin{{[}53{]} }%
+\CSLLeftMargin{{[}54{]} }%
 \CSLRightInline{F. J. Barros, {``Modeling formalisms for dynamic structure systems,''} \emph{ACM Transactions on Modeling and Computer Simulation (TOMACS)}, vol. 7, no. 4, pp. 501--515, 1997.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-zeigler2004continuity}{}}%
-\CSLLeftMargin{{[}54{]} }%
+\CSLLeftMargin{{[}55{]} }%
 \CSLRightInline{B. P. Zeigler, R. Jammalamadaka, and S. R. Akerkar, {``Continuity and change (activity) are fundamentally related in DEVS simulation of continuous systems,''} in \emph{International conference on AI, simulation, and planning in high autonomy systems}, Springer, 2004, pp. 1--13.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-calvo2010simulador}{}}%
-\CSLLeftMargin{{[}55{]} }%
+\CSLLeftMargin{{[}56{]} }%
 \CSLRightInline{F. A. Calvo Valdes, J. F. Roldan Ramirez, and A. San Miguel Sanchez, {``Simulador del procesador MIPS sobre el formalismo DEVS,''} 2010.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-calvo_valdes_simulador_2010}{}}%
-\CSLLeftMargin{{[}56{]} }%
+\CSLLeftMargin{{[}57{]} }%
 \CSLRightInline{F. A. Calvo Valdés, J. F. Roldán Ramírez, and A. San Miguel Sánchez, {``Simulador del procesador {MIPS} sobre el formalismo {DEVS},''} \emph{Revista de Simulación}, 2010, Accessed: Sep. 19, 2024. {[}Online{]}. Available: \url{https://hdl.handle.net/20.500.14352/46063}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-colombani_herramientas_2022}{}}%
-\CSLLeftMargin{{[}57{]} }%
+\CSLLeftMargin{{[}58{]} }%
 \CSLRightInline{M. A. Colombani, J. M. Ruiz, A. G. Delduca, and M. A. Falappa, {``Herramientas de software para dar soporte en la enseñanza y aprendizaje de la arquitectura x86,''} 2022. Accessed: Jul. 10, 2024. {[}Online{]}. Available: \url{http://sedici.unlp.edu.ar/handle/10915/139908}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-behrooz_computer_2005}{}}%
-\CSLLeftMargin{{[}58{]} }%
+\CSLLeftMargin{{[}59{]} }%
 \CSLRightInline{P. BEHROOZ, \emph{Computer {Architecture}: {From} {Microprocessors} to {Supercomputers}}. Oxford University Press Inc, 2005.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-patt2019introduction}{}}%
+\CSLLeftMargin{{[}60{]} }%
+\CSLRightInline{Y. N. Patt and S. J. Patel, \emph{Introduction to computing systems: From bits and gates to c and beyond}, 3rd ed. New York: McGraw-Hill Education, 2019.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-nationalacademies2018how}{}}%
+\CSLLeftMargin{{[}61{]} }%
+\CSLRightInline{National Academies of Sciences, Engineering, and Medicine, \emph{How people learn II: Learners, contexts, and cultures}. Washington, DC: National Academies Press, 2018. doi: \href{https://doi.org/10.17226/24783}{10.17226/24783}.}
 
 \end{CSLReferences}
 
