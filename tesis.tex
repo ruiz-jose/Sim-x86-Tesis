@@ -1690,7 +1690,7 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
   \begin{itemize}
   \tightlist
   \item
-    Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}.
+    Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos en el área de organización y arquitectura de computadores \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}.
   \end{itemize}
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
@@ -1698,7 +1698,7 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
   \begin{itemize}
   \tightlist
   \item
-    Visualizar el flujo de datos mediante el nivel de transferencia entre registros (RTL, por sus siglas en inglés: Register Transfer Level), resaltando cada componente involucrado en las distintas etapas del ciclo de instrucción. Es común en los libros de Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} el uso de RTL para representar el ciclo de instruccion desde el fetch (recuperación de la instrucción) hasta el execute (ejecución). Este enfoque permite a los estudiantes observar cómo se transfieren los datos entre registros y cómo se activan las señales de control en cada etapa del ciclo de instrucción. A continuación se presenta un ejemplo de un ciclo de instrucción simplificado, que ilustra el flujo de datos y las señales de control generadas durante la ejecución de una instrucción. En este caso, se muestra el ciclo de la instrucción MOV \texttt{AL}, \texttt{BL}, como se muestra en la figura \ref{fig:cicloinstruccion}
+    Visualizar el flujo de datos mediante el nivel de transferencia entre registros (RTL, por sus siglas en inglés: Register Transfer Level), resaltando cada componente involucrado en las distintas etapas del ciclo de instrucción. Es común en los libros de Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}} y también en los de Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} el uso de RTL para representar el ciclo de instruccion desde el fetch (recuperación de la instrucción) hasta el execute (ejecución). Este enfoque permite a los estudiantes observar cómo se transfieren los datos entre registros y cómo se activan las señales de control en cada etapa del ciclo de instrucción. A continuación se presenta un ejemplo de un ciclo de instrucción simplificado, que ilustra el flujo de datos y las señales de control generadas durante la ejecución de una instrucción. En este caso, se muestra el ciclo de la instrucción MOV \texttt{AL}, \texttt{BL}, como se ilustra en la Figura \ref{fig:cicloinstruccion}
   \end{itemize}
 
   \begin{figure}
@@ -1727,10 +1727,30 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
   \end{itemize}
 \end{enumerate}
 
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tablafuncionales}Requisitos funcionales y componentes del simulador}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{8cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Requisito funcional}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente del simulador que lo implementa}}}\\
+\midrule
+\textbf{Ejecución paso a paso} & Unidad de Control + Visualizador de registros\\
+\addlinespace[10pt]
+\textbf{Simulación de periféricos} & Módulo de Entrada/Salida + Vector de interrupciones\\
+\addlinespace[10pt]
+\textbf{Visualización del ciclo de instrucción} & Representación RTL interactiva\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
 \hypertarget{diseuxf1o-conceptual}{%
 \section{Diseño conceptual}\label{diseuxf1o-conceptual}}
 
-A partir de los requisitos funcionales y pedagógicos previamente establecidos, se desarrolla el diseño conceptual del simulador, que traduce dichas especificaciones en una estructura técnica coherente con los objetivos educativos. Este diseño busca asegurar la coherencia entre la funcionalidad de la herramienta y los objetivos pedagógicos definidos para la enseñanza de arquitectura de computadoras.
+Una vez definidos los requisitos funcionales y pedagógicos, se procede a su traducción en un diseño conceptual que articula las necesidades identificadas con una solución técnica viable. Esta fase permite garantizar la trazabilidad entre los objetivos didácticos planteados y las funcionalidades implementadas en el simulador. Este diseño busca asegurar la coherencia entre la funcionalidad de la herramienta y los objetivos pedagógicos definidos para la enseñanza de arquitectura de computadoras.
 
 A partir de los requisitos definidos, el diseño conceptual del simulador se concreta en una arquitectura operativa compuesta por bloques funcionales con responsabilidades claramente asignadas.
 
@@ -1753,7 +1773,7 @@ El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en
 \hypertarget{principales-bloques-funcionales}{%
 \subsubsection{Principales bloques funcionales}\label{principales-bloques-funcionales}}
 
-La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. A continuación, se describen los bloques funcionales principales:
+La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla \ref{tab:bloquesfuncionales} resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
 
 \begin{table}[!h]
 \centering
@@ -1800,11 +1820,13 @@ El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
 \addlinespace[10pt]
 \textbf{} & 4 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \end{itemize}\\
 \addlinespace[10pt]
-\textbf{} & 2 registros intermedios (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.\\
+\textbf{} & 2 registros de datos  (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.\\
 \addlinespace[10pt]
-\textbf{Memoria} & Memoria de 256 posiciones, con una capacidad de un byte por posición.\\
+\textbf{} & 2 registros temporales (`ri`: temporal de direcciones y `id`: temporal de datos) que se utilizan para conservar valores temporales durante la ejecución de una instrucción.\\
 \addlinespace[10pt]
 \addlinespace
+\textbf{Memoria} & Memoria de 256 posiciones, con una capacidad de un byte por posición.\\
+\addlinespace[10pt]
 \textbf{Buses} & Bus de datos y direcciones de 8 bits.\\
 \addlinespace[10pt]
 \textbf{Instrucciones} & Longitud variable de instrucciones (1, 2 y 3 Bytes). Modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
