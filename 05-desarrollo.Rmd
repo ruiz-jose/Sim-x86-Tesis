@@ -296,6 +296,7 @@ setreducido <- data.frame(
     "",
     "Control de flujo",
     "",
+    "",
     ""
   ),
   `Nemónico` = c(
@@ -305,19 +306,18 @@ setreducido <- data.frame(
     "CMP",
     "JMP",
     "JZ ",
-    "JC "
+    "JC ",
+    "HLT"
   ),
-  Acción = c(if (knitr::is_latex_output()) {
-    "\\begin{itemize} \\item 0 - Operación entre registros \\item 1 - Operación carga a registro \\item 2 - Operación almacena en memoria \\end{itemize}" # nolint: line_length_linter.
-  } else {
-    "<ul><li>0 - Operación entre registros</li><li>1 - Operación carga a registro</li><li>2 - Operación almacena en memoria</li></ul>" # nolint: line_length_linter.
-  },
-  "3-4-5 Sumar",
-  "6-7-8 Restar",
-  "9-10-11 Comparar",
-  "12-a Salto incondicional ",
-  "12-b Salto condicional si Z=1",
-  "12-c Salto condicional si C=1"
+  Acción = c(
+   "Copiar",
+  "Sumar",
+  "Restar",
+  "Comparar",
+  "Salto incondicional ",
+  "Salto condicional si Z=1",
+  "Salto condicional si C=1",
+  "Detiene CPU"
   )
 )
 
