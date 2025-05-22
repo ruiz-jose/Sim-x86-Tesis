@@ -1689,7 +1689,7 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
   \begin{itemize}
   \tightlist
   \item
-    Seleccionar un subconjunto esencial de instrucciones x86, que se habiliten progresivamente según avance la asignatura, adaptándose al ritmo de aprendizaje de los estudiantes. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos orientados a reducir la complejidad inicial del aprendizaje \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}.
+    Se propone seleccionar un subconjunto esencial de instrucciones x86 y habilitarlo de manera progresiva, siguiendo recomendaciones pedagógicas que sugieren que el aprendizaje efectivo se potencia cuando los contenidos se introducen de forma escalonada. Tal como afirman las National Academies of Sciences, Engineering, and Medicine \protect\hyperlink{ref-nationalacademies2018how}{{[}60{]}}, esta estrategia facilita la construcción gradual de esquemas mentales complejos y mejora la comprensión de conceptos técnicos. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos orientados a reducir la complejidad inicial del aprendizaje \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}.
   \end{itemize}
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
@@ -1697,10 +1697,10 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
   \begin{itemize}
   \tightlist
   \item
-    Visualizar el flujo de datos mediante una representación en el nivel de transferencia entre registros (Register Transfer Level, RTL), que describe cómo los datos se mueven entre componentes internos como registros y buses durante cada etapa del ciclo de instrucción. Es común en los de Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} la utilización de RTL para representar cada etapa del ciclo de instrucción, desde la captura (`fetch') hasta la ejecución (`execute'). Este enfoque facilita la comprensión del procesador, ya que permite visualizar el recorrido de los datos entre registros y la activación de señales de control en cada etapa.
+    Visualizar el flujo de datos mediante una representación en el nivel de transferencia entre registros (Register Transfer Level, RTL), que describe cómo los datos se mueven entre componentes internos como registros y buses durante cada etapa del ciclo de instrucción. En la obra de Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, es común el uso del nivel de transferencia entre registros (RTL) para representar cada etapa del ciclo de instrucción, desde la captura (`fetch') hasta la ejecución (`execute'). Este enfoque facilita la comprensión del procesador, ya que permite visualizar el recorrido de los datos entre registros y la activación de señales de control en cada etapa.
   \end{itemize}
 
-  A continuación se ilustra un ciclo de instrucción típico del repertorio x86, empleando como ejemplo la operación MOV AL, BL, que transfiere el contenido del registro BL al registro AL. La Figura \ref{fig:cicloinstruccion} representa las etapas del ciclo de instrucción, destacando el flujo de datos y las señales de control activadas en cada fase. Esta representación gráfica, basada en el modelo RTL (Register Transfer Level), permite comprender el funcionamiento interno del procesador desde la recuperación hasta la ejecución de la instrucción.
+  A continuación se ilustra un ciclo de instrucción típico del repertorio x86, empleando como ejemplo la operación MOV AL, BL, la cual copia el contenido del registro BL al registro AL. La Figura \ref{fig:cicloinstruccion} sintetiza esta secuencia, permitiendo observar el funcionamiento interno del procesador en cada etapa del ciclo de instrucción.
 
   \begin{figure}
 
@@ -1748,153 +1748,10 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
 \end{tabular}}
 \end{table}
 
-Los requisitos identificados fueron analizados en conjunto con docentes para determinar qué elementos de la arquitectura x86 debían ser representados, simplificados o adaptados. Este análisis guió la selección de una arquitectura reducida de 8 bits y la definición de los módulos funcionales del simulador.
+\hypertarget{fundamentaciuxf3n-de-la-arquitectura-del-simulador}{%
+\section{Fundamentación de la arquitectura del simulador}\label{fundamentaciuxf3n-de-la-arquitectura-del-simulador}}
 
-\hypertarget{diseuxf1o-conceptual}{%
-\section{Diseño conceptual}\label{diseuxf1o-conceptual}}
-
-El diseño conceptual busca materializar los principios previamente definidos en una arquitectura operativa alineada con los objetivos pedagógicos de la enseñanza de arquitectura de computadoras.
-
-Una vez establecidos los requisitos funcionales y didácticos de la herramienta, se procede a traducirlos en un diseño conceptual que organice su estructura interna. Esta arquitectura operativa se estructura en bloques funcionales, cada uno con responsabilidades claramente definidas.
-
-La Figura \ref{fig:esquemavonsim8} representa la arquitectura general del simulador. La figura permite identificar los flujos separados de control y datos durante la ejecución de programas, contribuyendo a una mejor comprensión de la estructura funcional del sistema simulado.
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.85\linewidth]{images/esquemavonsim8} 
-
-}
-
-\caption{Arquitectura general del simulador}\label{fig:esquemavonsim8}
-\end{figure}
-
-La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla \ref{tab:bloquesfuncionales} resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:bloquesfuncionales}Bloques funcionales principales}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{9cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bloque Funcional}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
-\midrule
-\textbf{Unidad Central de Procesamiento (CPU)} & Simulación de registros, Unidad de Control (UC) y Unidad Aritmética y Lógica (ALU).\\
-\addlinespace[10pt]
-\textbf{Memoria} & Estructura de memoria y simulación de operaciones de lectura y escritura.\\
-\addlinespace[10pt]
-\textbf{Sistema de Entrada/Salida (E/S)} & Interacción con periféricos y manejo de interrupciones.\\
-\addlinespace[10pt]
-\textbf{Bus de datos, direcciones y control} & Modelado de la comunicación entre componentes.\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\hypertarget{modelo-arquitectuxf3nico}{%
-\subsection{Modelo arquitectónico}\label{modelo-arquitectuxf3nico}}
-
-Diversos autores como Patterson \& Hennessy \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, Tanenbaum \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}} y Null \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}} coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque permite visualizar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
-El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}39{]}}, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes \protect\hyperlink{ref-patt2019introduction}{{[}60{]}}.Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA), en línea con los enfoques de aprendizaje escalonado \protect\hyperlink{ref-nationalacademies2018how}{{[}61{]}}.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:requisitosdidacticos}Requisitos didácticos y beneficios pedagógicos esperados}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{9cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Requisito didáctico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio pedagógico esperado}}}\\
-\midrule
-\textbf{Ejecución paso a paso} & Favorece la comprensión secuencial de las instrucciones\\
-\addlinespace[10pt]
-\textbf{Habilitación progresiva del repertorio} & Reduce la carga cognitiva y promueve aprendizaje incremental\\
-\addlinespace[10pt]
-\textbf{Visualización de ciclos de instrucción (RTL)} & Facilita el aprendizaje del funcionamiento interno del procesador\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\hypertarget{caracteruxedsticas-del-cpu}{%
-\subsection{Características del CPU}\label{caracteruxedsticas-del-cpu}}
-
-En correspondencia con los bloques funcionales anteriormente mencionados, a continuación se describen las características específicas del CPU simulado.
-
-El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:arq}Componentes del CPU VonSim8}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{9cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
-\midrule
-\textbf{Arquitectura} & Von Neumann, memoria compartida para datos e instrucciones.\\
-\addlinespace[10pt]
-\textbf{Registros} & 4 registros de propósito general (`AL`, `BL`, `CL` y `DL`) de 8 bits cada uno.\\
-\addlinespace[10pt]
-\textbf{} & 4 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \end{itemize}\\
-\addlinespace[10pt]
-\textbf{} & 2 registros de datos  (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.\\
-\addlinespace[10pt]
-\textbf{} & 2 registros temporales (`ri`: temporal de direcciones y `id`: temporal de datos) que se utilizan para conservar valores temporales durante la ejecución de una instrucción.\\
-\addlinespace[10pt]
-\addlinespace
-\textbf{Memoria} & Memoria de 256 posiciones, con una capacidad de un byte por posición.\\
-\addlinespace[10pt]
-\textbf{Buses} & Bus de datos y direcciones de 8 bits.\\
-\addlinespace[10pt]
-\textbf{Instrucciones} & Longitud variable de instrucciones (1, 2 y 3 Bytes). Modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\hypertarget{implementaciuxf3n-del-repertorio-de-instrucciones}{%
-\section{Implementación del repertorio de instrucciones}\label{implementaciuxf3n-del-repertorio-de-instrucciones}}
-
-\hypertarget{selecciuxf3n-del-repertorio-inicial}{%
-\subsection{Selección del repertorio inicial}\label{selecciuxf3n-del-repertorio-inicial}}
-
-El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:setreducido}Tabla de instrucciones y códigos de operación}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{6cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
-\midrule
-\textbf{Transferencia de datos} & {0, 1, 2} & MOV & \begin{itemize} \item 0 - Operación entre registros \item 1 - Operación carga a registro \item 2 - Operación almacena en memoria \end{itemize}\\
-\addlinespace[8pt]
-\textbf{Pocesamiento de datos} & {3, 4, 5} & ADD & 3-4-5 Sumar\\
-\addlinespace[8pt]
-\textbf{} & {6, 7, 8} & SUB & 6-7-8 Restar\\
-\addlinespace[8pt]
-\textbf{} & {9, 10, 11} & CMP & 9-10-11 Comparar\\
-\addlinespace[8pt]
-\textbf{Control de flujo} & {12} & JMP & 12-a Salto incondicional\\
-\addlinespace[8pt]
-\addlinespace
-\textbf{} &  & JZ & 12-b Salto condicional si Z=1\\
-\addlinespace[8pt]
-\textbf{} &  & JC & 12-c Salto condicional si C=1\\
-\addlinespace[8pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\hypertarget{justificaciuxf3n-de-la-simplificaciuxf3n}{%
-\subsection{Justificación de la simplificación}\label{justificaciuxf3n-de-la-simplificaciuxf3n}}
+A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes de la asignatura Arquitectura de Computadoras ---Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca---, quienes aportaron su experiencia en el uso pedagógico de simuladores para determinar qué elementos de la arquitectura x86 debían ser representados, simplificados o adaptados. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, debido a que este tipo de diseño permite reducir la complejidad del simulador sin comprometer los objetivos didácticos. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.
 
 La arquitectura x86 destaca por su complejidad debido a su extenso repertorio de instrucciones y características avanzadas. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:
 
@@ -1922,6 +1779,145 @@ El diseño del simulador contribuye a:
 \item
   \textbf{Experimentación práctica}: proporciona un entorno accesible para explorar conceptos y corregir errores.
 \end{itemize}
+
+Diversos autores como Patterson \& Hennessy \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, Tanenbaum \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}} y Null \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}} coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque permite visualizar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
+El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}39{]}}, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes \protect\hyperlink{ref-patt2019introduction}{{[}61{]}}, \protect\hyperlink{ref-majid1999design}{{[}62{]}}, \protect\hyperlink{ref-morlan_sap1_2021}{{[}63{]}}, \protect\hyperlink{ref-Guald_2015_thesis}{{[}64{]}}, \protect\hyperlink{ref-silber_tinycpu}{{[}65{]}}.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:requisitosdidacticos}Requisitos didácticos y beneficios pedagógicos esperados}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{9cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Requisito didáctico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio pedagógico esperado}}}\\
+\midrule
+\textbf{Ejecución paso a paso} & Favorece la comprensión secuencial de las instrucciones\\
+\addlinespace[10pt]
+\textbf{Habilitación progresiva del repertorio} & Reduce la carga cognitiva y promueve aprendizaje incremental\\
+\addlinespace[10pt]
+\textbf{Visualización de ciclos de instrucción (RTL)} & Facilita el aprendizaje del funcionamiento interno del procesador\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\hypertarget{diseuxf1o-conceptual}{%
+\section{Diseño conceptual}\label{diseuxf1o-conceptual}}
+
+El diseño conceptual busca materializar los principios previamente definidos en una arquitectura operativa alineada con los objetivos pedagógicos de la enseñanza de arquitectura de computadoras.
+
+Con los requisitos funcionales y didácticos previamente definidos, se elaboró un diseño conceptual que organiza la estructura interna del simulador en bloques funcionales bien delimitados. Este diseño permite modelar de manera explícita las relaciones entre los distintos componentes, facilitando tanto la implementación como la comprensión de la arquitectura simulada.
+
+La Figura \ref{fig:esquemavonsim8} presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Esta representación facilita la comprensión estructural del sistema y su correspondencia con una computadora real simplificada.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/esquemavonsim8} 
+
+}
+
+\caption{Arquitectura general del simulador}\label{fig:esquemavonsim8}
+\end{figure}
+
+La memoria princiapl se modela en una matriz de 16x16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.
+Se representa el teclado y pantalla para simular la interacción con el usuario. El teclado se modela como un vector de 16 posiciones, cada una representando un carácter ASCII. La pantalla se simula como una matriz de 16x16, donde cada posición puede contener un carácter ASCII. Esta representación permite a los estudiantes comprender cómo se gestionan las entradas y salidas en un sistema real.
+La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla \ref{tab:bloquesfuncionales} resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:bloquesfuncionales}Bloques funcionales principales}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{9cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bloque Funcional}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
+\midrule
+\textbf{Unidad Central de Procesamiento (CPU)} & Simulación de registros, Unidad de Control (UC) y Unidad Aritmética y Lógica (ALU).\\
+\addlinespace[10pt]
+\textbf{Memoria} & Estructura de memoria y simulación de operaciones de lectura y escritura.\\
+\addlinespace[10pt]
+\textbf{Sistema de Entrada/Salida (E/S)} & Interacción con periféricos y manejo de interrupciones.\\
+\addlinespace[10pt]
+\textbf{Bus de datos, direcciones y control} & Modelado de la comunicación entre componentes.\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\hypertarget{componentes-del-cpu}{%
+\subsection{Componentes del CPU}\label{componentes-del-cpu}}
+
+En correspondencia con los bloques funcionales anteriormente mencionados, a continuación se describen las componentes específicas del CPU simulado.
+
+El diseño del CPU simplificado se describe en la siguiente tabla \ref{tab:arq}:
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:arq}Componentes del CPU VonSim8}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{9cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
+\midrule
+\textbf{Arquitectura} & Von Neumann, memoria compartida para datos e instrucciones.\\
+\addlinespace[10pt]
+\textbf{Registros} & 4 registros de propósito general (`AL`, `BL`, `CL` y `DL`) de 8 bits cada uno.\\
+\addlinespace[10pt]
+\textbf{} & 4 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \end{itemize}\\
+\addlinespace[10pt]
+\textbf{} & 2 registros de datos  (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.\\
+\addlinespace[10pt]
+\textbf{} & 2 registros temporales (`ri`: temporal de direcciones y `id`: temporal de datos) que se utilizan para conservar valores temporales durante la ejecución de una instrucción.\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{Memoria} & Capacidad de direccionamiento de 256 posiciones, cada una de byte.\\
+\addlinespace[10pt]
+\textbf{Buses} & Bus de datos y direcciones de 8 bits.\\
+\addlinespace[10pt]
+\textbf{Instrucciones} & Longitud variable de instrucciones (1, 2 y 3 Bytes). Modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\hypertarget{repertorio-de-instruciones}{%
+\subsection{Repertorio de instruciones}\label{repertorio-de-instruciones}}
+
+El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:setreducido}Tabla de instrucciones y códigos de operación}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{6cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\midrule
+\textbf{Transferencia de datos} & MOV & \begin{itemize} \item 0 - Operación entre registros \item 1 - Operación carga a registro \item 2 - Operación almacena en memoria \end{itemize}\\
+\addlinespace[8pt]
+\textbf{Pocesamiento de datos} & ADD & 3-4-5 Sumar\\
+\addlinespace[8pt]
+\textbf{} & SUB & 6-7-8 Restar\\
+\addlinespace[8pt]
+\textbf{} & CMP & 9-10-11 Comparar\\
+\addlinespace[8pt]
+\textbf{Control de flujo} & JMP & 12-a Salto incondicional\\
+\addlinespace[8pt]
+\addlinespace
+\textbf{} & JZ & 12-b Salto condicional si Z=1\\
+\addlinespace[8pt]
+\textbf{} & JC & 12-c Salto condicional si C=1\\
+\addlinespace[8pt]
+\bottomrule
+\end{tabular}}
+\end{table}
 
 \hypertarget{formato-de-instrucciones}{%
 \subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
@@ -2470,6 +2466,11 @@ A continuación, se detalla el conjunto completo de instrucciones, incluyendo su
 \bottomrule
 \end{longtable}
 
+\hypertarget{aspectos-tecnoluxf3gicos-de-implementaciuxf3n}{%
+\section{Aspectos tecnológicos de implementación}\label{aspectos-tecnoluxf3gicos-de-implementaciuxf3n}}
+
+Se utiliza un enfoque modular para la implementación del simulador, facilitando su mantenimiento y ampliación futura. La arquitectura del simulador se basa en una estructura de capas, donde cada capa se encarga de una parte específica del proceso de simulación.
+
 \hypertarget{simulaciuxf3n-visual-e-interactiva}{%
 \section{Simulación visual e interactiva}\label{simulaciuxf3n-visual-e-interactiva}}
 
@@ -2831,13 +2832,29 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \CSLLeftMargin{{[}59{]} }%
 \CSLRightInline{P. BEHROOZ, \emph{Computer {Architecture}: {From} {Microprocessors} to {Supercomputers}}. Oxford University Press Inc, 2005.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-patt2019introduction}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-nationalacademies2018how}{}}%
 \CSLLeftMargin{{[}60{]} }%
+\CSLRightInline{National Academies of Sciences, Engineering, and Medicine, \emph{How people learn II: Learners, contexts, and cultures}. Washington, DC: National Academies Press, 2018. doi: \href{https://doi.org/10.17226/24783}{10.17226/24783}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-patt2019introduction}{}}%
+\CSLLeftMargin{{[}61{]} }%
 \CSLRightInline{Y. N. Patt and S. J. Patel, \emph{Introduction to computing systems: From bits and gates to c and beyond}, 3rd ed. New York: McGraw-Hill Education, 2019.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-nationalacademies2018how}{}}%
-\CSLLeftMargin{{[}61{]} }%
-\CSLRightInline{National Academies of Sciences, Engineering, and Medicine, \emph{How people learn II: Learners, contexts, and cultures}. Washington, DC: National Academies Press, 2018. doi: \href{https://doi.org/10.17226/24783}{10.17226/24783}.}
+\leavevmode\vadjust pre{\hypertarget{ref-majid1999design}{}}%
+\CSLLeftMargin{{[}62{]} }%
+\CSLRightInline{Z. Majid, {``Design of SAP-1 controller and simulation using mentor graphics,''} PhD thesis, Universiti Teknologi MARA (UiTM), 1999.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-morlan_sap1_2021}{}}%
+\CSLLeftMargin{{[}63{]} }%
+\CSLRightInline{A. Morlan, {``Building a simple 8-bit CPU in verilog (SAP-1).''} 2021. Available: \url{https://austinmorlan.com/posts/fpga_computer_sap1/}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-Guald_2015_thesis}{}}%
+\CSLLeftMargin{{[}64{]} }%
+\CSLRightInline{A. Gualdrón Gamarra and J. P. Pinilla, {``Plataforma para la emulación y reconfiguración de arquitecturas CISC y RISC.''} 2015-01-27. Available: \url{http://hdl.handle.net/20.500.11912/2004}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-silber_tinycpu}{}}%
+\CSLLeftMargin{{[}65{]} }%
+\CSLRightInline{D. Silber, {``TinyCPU - a simple CPU implemented in verilog.''} \url{https://www.eecis.udel.edu/~silber/tinycpu/\#/home}.}
 
 \end{CSLReferences}
 

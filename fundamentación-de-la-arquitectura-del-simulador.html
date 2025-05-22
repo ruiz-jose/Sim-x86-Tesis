@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.4 Repertorio de instrucciones | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="2.4 Repertorio de instrucciones | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>5.2 Fundamentación de la arquitectura del simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="5.2 Fundamentación de la arquitectura del simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.4 Repertorio de instrucciones | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="5.2 Fundamentación de la arquitectura del simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.4 Repertorio de instrucciones | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="5.2 Fundamentación de la arquitectura del simulador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="tipos-de-arquitecturas.html"/>
-<link rel="next" href="filosofías-cisc-y-risc.html"/>
+<link rel="prev" href="requisitos-de-la-herramienta.html"/>
+<link rel="next" href="diseño-conceptual.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -251,265 +251,62 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="repertorio-de-instrucciones" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Repertorio de instrucciones<a href="repertorio-de-instrucciones.html#repertorio-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El repertorio de instrucciones, o Instruction Set Architecture (ISA), es el conjunto de operaciones que un procesador puede ejecutar, incluyendo su representación binaria y el conjunto de reglas que definen la interacción entre el software y el hardware. El ISA define la interfaz entre el hardware y el software, abarcando instrucciones aritméticas, lógicas, de control y de manipulación de datos, así como los modos de direccionamiento y los formatos de instrucción. Por su influencia directa en el rendimiento, la eficiencia energética y la versatilidad del sistema, el ISA constituye un componente esencial en el diseño de arquitecturas de computadoras <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>; <a href="#ref-null_essentials_2023">Null 2023</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
-<div id="características-clave-del-isa" class="section level3 hasAnchor" number="2.4.1">
-<h3><span class="header-section-number">2.4.1</span> Características clave del ISA<a href="repertorio-de-instrucciones.html#características-clave-del-isa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Entre las características fundamentales a considerar en el diseño de un repertorio de instrucciones se encuentran las siguientes <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>)</span>:</p>
+<div id="fundamentación-de-la-arquitectura-del-simulador" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Fundamentación de la arquitectura del simulador<a href="fundamentación-de-la-arquitectura-del-simulador.html#fundamentación-de-la-arquitectura-del-simulador" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes de la asignatura Arquitectura de Computadoras —Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca—, quienes aportaron su experiencia en el uso pedagógico de simuladores para determinar qué elementos de la arquitectura x86 debían ser representados, simplificados o adaptados. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, debido a que este tipo de diseño permite reducir la complejidad del simulador sin comprometer los objetivos didácticos. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.</p>
+<p>La arquitectura x86 destaca por su complejidad debido a su extenso repertorio de instrucciones y características avanzadas. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:</p>
 <ul>
-<li><strong>Tipos de operandos</strong>: representan los datos que las instrucciones pueden manipular, como enteros, números en punto flotante, caracteres y direcciones de memoria. Un ISA eficiente debe soportar una amplia variedad de operandos para maximizar su versatilidad.</li>
-<li><strong>Tipos de operaciones</strong>: incluyen las operaciones que el procesador puede realizar, como aritméticas (suma, resta), lógicas (AND, OR), de control (saltos, llamadas a subrutinas) y de manipulación de datos (almacenamiento, carga). Diversos autores destacan que un ISA bien diseñado debe lograr un equilibrio entre funcionalidad, simplicidad y eficiencia de implementación, aspectos fundamentales en el diseño de arquitecturas modernas <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>; <a href="#ref-null_essentials_2023">Null 2023</a>)</span>.</li>
-<li><strong>Modos de direccionamiento</strong>: determinan cómo se especifican los operandos en las instrucciones. Entre los modos más comunes se encuentran el inmediato, directo, indirecto, mediante registros, con desplazamiento y basado en pila. Cada uno ofrece distintos niveles de eficiencia, flexibilidad y complejidad, siendo fundamentales para optimizar el acceso a datos y la ejecución de instrucciones.</li>
-<li><strong>Formato de las instrucciones</strong>: que definen las reglas para acceder a los operandos dentro de las instrucciones, se exploran con mayor detalle en la siguiente subsección.</li>
+<li><strong>Reducir la carga cognitiva</strong>: la simplificación del repertorio y de los componentes permite a los estudiantes enfocarse en principios fundamentales.</li>
+<li><strong>Aprendizaje progresivo</strong>: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.</li>
+<li><strong>Claridad pedagógica</strong>: las prácticas son manejables en términos de tiempo y esfuerzo, promoviendo un aprendizaje práctico sin frustraciones.</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:repInstCaracteristicas"></span>
-<img src="images/isa.png" alt="Características repertorio de instrucciones" width="100%" />
-<p class="caption">
-Figura 2.4: Características repertorio de instrucciones
-</p>
-</div>
-<p>El diseño de un repertorio de instrucciones eficiente y versátil es un desafío complejo que requiere un equilibrio entre funcionalidad, rendimiento y facilidad de uso. La selección adecuada de operandos, operaciones y modos de direccionamiento, junto con un formato de instrucción bien estructurado, son aspectos fundamentales para lograr una arquitectura de computadoras efectiva y adaptable a diversas aplicaciones. Estas características no solo definen las capacidades funcionales de un procesador, sino que también condicionan la manera en que las instrucciones interactúan con la memoria y los registros. A continuación, se profundiza en los modos de direccionamiento, uno de los elementos que más influye en la flexibilidad y eficiencia del repertorio de instrucciones.</p>
-</div>
-<div id="modos-de-direccionamiento" class="section level3 hasAnchor" number="2.4.2">
-<h3><span class="header-section-number">2.4.2</span> Modos de direccionamiento<a href="repertorio-de-instrucciones.html#modos-de-direccionamiento" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los modos de direccionamiento definen los mecanismos mediante los cuales una instrucción especifica la ubicación de sus operandos, permitiendo así al procesador acceder a los datos en memoria o registros en tiempo de ejecución. A continuación, se describen los modos de direccionamiento más comúnmente implementados en las arquitecturas modernas <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>)</span>:</p>
-<ol style="list-style-type: lower-alpha">
-<li><strong>Inmediato</strong>: el operando está directamente incluido en la instrucción, permitiendo acceso rápido a valores constantes. Es eficiente para operaciones simples, aunque limitado a operandos pequeños.</li>
-<li><strong>Directo</strong>: la instrucción contiene la dirección de memoria del operando. Es fácil de usar, pero está restringido por el rango de direcciones accesibles.</li>
-<li><strong>Indirecto</strong>: la instrucción apunta a una dirección que contiene la ubicación real del operando, lo que amplía el rango de direcciones a costa de un acceso adicional a memoria.</li>
-<li><strong>Registro</strong>: el operando se encuentra en un registro del procesador, proporcionando acceso extremadamente rápido, pero limitado por la cantidad de registros disponibles.</li>
-<li><strong>Registro Indirecto</strong>: similar al modo indirecto, pero la dirección efectiva se obtiene a partir del contenido de un registro, lo que ofrece un buen equilibrio entre velocidad de acceso y capacidad de direccionamiento.</li>
-<li><strong>Con Desplazamiento</strong>: combina una dirección base con un valor de desplazamiento, ideal para estructuras como arrays y matrices.</li>
-<li><strong>Pila</strong>: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.</li>
-</ol>
-<p>Para complementar la descripción anterior, la Figura <a href="repertorio-de-instrucciones.html#fig:ModDir">2.5</a> presenta una representación esquemática de los modos de direccionamiento, mostrando gráficamente cómo se calcula la dirección efectiva (EA) en cada caso <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ModDir"></span>
-<img src="images/modosdireccionamiento.png" alt="Modos de direccionamiento " width="60%" />
-<p class="caption">
-Figura 2.5: Modos de direccionamiento
-</p>
-</div>
+<div id="beneficios-de-la-simplificación" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Beneficios de la simplificación<a href="fundamentación-de-la-arquitectura-del-simulador.html#beneficios-de-la-simplificación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El diseño del simulador contribuye a:</p>
 <ul>
-<li>A = contenido de un campo de dirección en la instrucción</li>
-<li>R = contenido de un campo de dirección en la instrucción que referencia a un registro</li>
-<li>EA = dirección real (efectiva) de la posición que contiene el operando que se referencia</li>
+<li><strong>Comprensión fundamental</strong>: los estudiantes pueden enfocarse en el ciclo de instrucciones, interacción de componentes y flujo básico de datos.</li>
+<li><strong>Análisis crítico</strong>: comparar el modelo simplificado con x86 real fomenta un aprendizaje reflexivo y profundo.</li>
+<li><strong>Experimentación práctica</strong>: proporciona un entorno accesible para explorar conceptos y corregir errores.</li>
 </ul>
-<p>La tabla <a href="repertorio-de-instrucciones.html#tab:tabmoddir">2.3</a> detalla el cálculo de la dirección para cada modo de direccionamiento.</p>
+<p>Diversos autores como Patterson &amp; Hennessy <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>)</span>, Tanenbaum <span class="citation">(<a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span> y Null <span class="citation">(<a href="#ref-null_essentials_2023">Null 2023</a>)</span> coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque permite visualizar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
+El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 <span class="citation">(<a href="#ref-intel_microarchitecture_2021">Intel Corporation 2021</a>)</span>, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes <span class="citation">(<a href="#ref-patt2019introduction">Patt and Patel 2019</a>; <a href="#ref-majid1999design">Majid 1999</a>; <a href="#ref-morlan_sap1_2021">Morlan 2021</a> ; <a href="#ref-Guald_2015_thesis">Gualdrón Gamarra and Pinilla 2015-01-27</a>; <a href="#ref-silber_tinycpu">Silber, n.d.</a>)</span>.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:tabmoddir">Tabla 2.3: </span>Modos de direccionamiento básicos
+<span id="tab:requisitosdidacticos">Tabla 5.2: </span>Requisitos didácticos y beneficios pedagógicos esperados
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Modo
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Requisito didáctico
 </th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Algoritmo
-</th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Ventaja
-</th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Desventaja
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Beneficio pedagógico esperado
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Inmediato
+<td style="text-align:center;width: 18em; font-weight: bold;border-right:1px solid;">
+Ejecución paso a paso
 </td>
-<td style="text-align:left;width: 20em; ">
-Operando ← A
-</td>
-<td style="text-align:left;width: 20em; ">
-No referencia a memoria
-</td>
-<td style="text-align:left;width: 20em; ">
-Operando de magnitud limitada
+<td style="text-align:center;width: 28em; ">
+Favorece la comprensión secuencial de las instrucciones
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Directo
+<td style="text-align:center;width: 18em; font-weight: bold;border-right:1px solid;">
+Habilitación progresiva del repertorio
 </td>
-<td style="text-align:left;width: 20em; ">
-EA ← A
-</td>
-<td style="text-align:left;width: 20em; ">
-Es sencillo
-</td>
-<td style="text-align:left;width: 20em; ">
-Espacio de direcciones limitado
+<td style="text-align:center;width: 28em; ">
+Reduce la carga cognitiva y promueve aprendizaje incremental
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Indirecto
+<td style="text-align:center;width: 18em; font-weight: bold;border-right:1px solid;">
+Visualización de ciclos de instrucción (RTL)
 </td>
-<td style="text-align:left;width: 20em; ">
-EA ← (A)
-</td>
-<td style="text-align:left;width: 20em; ">
-Espacio de direcciones grande
-</td>
-<td style="text-align:left;width: 20em; ">
-Referencias múltiples a memoria
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Registro
-</td>
-<td style="text-align:left;width: 20em; ">
-EA ← R
-</td>
-<td style="text-align:left;width: 20em; ">
-No referencia a memoria
-</td>
-<td style="text-align:left;width: 20em; ">
-Número limitado de registros
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Indirecto con registro
-</td>
-<td style="text-align:left;width: 20em; ">
-EA ← (R)
-</td>
-<td style="text-align:left;width: 20em; ">
-Espacio de direcciones grande
-</td>
-<td style="text-align:left;width: 20em; ">
-Referencia extra a memoria
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Con desplazamiento
-</td>
-<td style="text-align:left;width: 20em; ">
-EA ← A + (R)
-</td>
-<td style="text-align:left;width: 20em; ">
-Flexibilidad
-</td>
-<td style="text-align:left;width: 20em; ">
-Complejidad
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Pila
-</td>
-<td style="text-align:left;width: 20em; ">
-EA ← puntero de pila
-</td>
-<td style="text-align:left;width: 20em; ">
-No referencia a memoria
-</td>
-<td style="text-align:left;width: 20em; ">
-Aplicabilidad limitada
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="formato-de-las-instrucciones" class="section level3 hasAnchor" number="2.4.3">
-<h3><span class="header-section-number">2.4.3</span> Formato de las instrucciones<a href="repertorio-de-instrucciones.html#formato-de-las-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formato de las instrucciones especifica la disposición y codificación de los elementos que conforman una instrucción, como el código de operación (opcode), los operandos, los modos de direccionamiento y otros campos auxiliares. Esta organización impacta directamente en la facilidad de decodificación y en el rendimiento del procesador. Este formato afecta la rapidez de decodificación y la eficiencia general del procesador <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>:</p>
-<ul>
-<li><strong>Longitud de la instrucción</strong>: puede ser fija o variable. Las instrucciones de longitud fija permiten una decodificación más rápida y simplifican la lógica de control del procesador. En cambio, las instrucciones de longitud variable permiten una codificación más eficiente del espacio de memoria, a costa de una mayor complejidad en la etapa de decodificación.</li>
-<li><strong>Cantidad de operandos</strong>: las instrucciones pueden trabajar con diferentes números de operandos (de 0 a 3 o más). Una mayor cantidad de operandos incrementa la expresividad de las instrucciones, pero también puede derivar en una mayor complejidad de codificación y en un mayor uso de recursos del procesador.</li>
-<li><strong>Campos de instrucción</strong>: incluyen el opcode y campos adicionales como operandos, modos de direccionamiento y flags de condición. Estos campos determinan cuántas y qué tipo de operaciones puede ejecutar el procesador en un ciclo de reloj.</li>
-</ul>
-<p>La Figura <a href="repertorio-de-instrucciones.html#fig:forminst">2.6</a> muestra un ejemplo representativo de formato de instrucción, donde se visualizan los campos que la componen y su disposición en el código binario.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:forminst"></span>
-<img src="images/formatoinst.png" alt="Formato de instrucciones " width="100%" />
-<p class="caption">
-Figura 2.6: Formato de instrucciones
-</p>
-</div>
-</div>
-<div id="comparativa-de-repertorios-de-instrucciones" class="section level3 hasAnchor" number="2.4.4">
-<h3><span class="header-section-number">2.4.4</span> Comparativa de repertorios de instrucciones<a href="repertorio-de-instrucciones.html#comparativa-de-repertorios-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La siguiente tabla <a href="repertorio-de-instrucciones.html#tab:comparativaISA">2.4</a> resume las características principales de los repertorios de instrucciones en tres arquitecturas ampliamente utilizadas: x86, ARM y RISC-V. Se consideran aspectos como la longitud de las instrucciones, la cantidad de operandos, su complejidad y los modos de direccionamiento que permiten.</p>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-<span id="tab:comparativaISA">Tabla 2.4: </span>Comparativa de repertorios de instrucciones reales
-</caption>
-<thead>
-<tr>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Arquitectura
-</th>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Longitud instrucción
-</th>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Nº operandos
-</th>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Tipos de operandos
-</th>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Modos de direccionamiento
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-x86
-</td>
-<td style="text-align:center;width: 15em; ">
-Variable
-</td>
-<td style="text-align:center;width: 15em; ">
-0–3+
-</td>
-<td style="text-align:center;width: 15em; ">
-Complejos
-</td>
-<td style="text-align:center;width: 15em; ">
-Muchos
-</td>
-</tr>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-ARM
-</td>
-<td style="text-align:center;width: 15em; ">
-Fija (32 bits)
-</td>
-<td style="text-align:center;width: 15em; ">
-3
-</td>
-<td style="text-align:center;width: 15em; ">
-Simples
-</td>
-<td style="text-align:center;width: 15em; ">
-Limitados
-</td>
-</tr>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-RISC-V
-</td>
-<td style="text-align:center;width: 15em; ">
-Fija (32 bits)
-</td>
-<td style="text-align:center;width: 15em; ">
-3
-</td>
-<td style="text-align:center;width: 15em; ">
-Simples
-</td>
-<td style="text-align:center;width: 15em; ">
-Extensible
+<td style="text-align:center;width: 28em; ">
+Facilita el aprendizaje del funcionamiento interno del procesador
 </td>
 </tr>
 </tbody>
@@ -518,14 +315,29 @@ Extensible
 </div>
 <h3> Bibliografía<a href="Biblio.html#Biblio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Guald_2015_thesis" class="csl-entry">
+Gualdrón Gamarra, Alfredo, and José Pablo Pinilla. 2015-01-27. <span>“Plataforma Para La Emulación y Reconfiguración de Arquitecturas CISC y RISC.”</span> <a href="http://hdl.handle.net/20.500.11912/2004">http://hdl.handle.net/20.500.11912/2004</a>.
+</div>
 <div id="ref-hennessy2017computer" class="csl-entry">
 Hennessy, John L., and David A. Patterson. 2017a. <em>Computer Architecture: A Quantitative Approach</em>. 6th ed. Boston: Morgan Kaufmann.
+</div>
+<div id="ref-intel_microarchitecture_2021" class="csl-entry">
+———. 2021. <em>Intel<sup></sup> 64 and IA-32 Architectures Optimization Reference Manual</em>. April 2021. Intel Corporation.
+</div>
+<div id="ref-majid1999design" class="csl-entry">
+Majid, Zamri. 1999. <span>“Design of SAP-1 Controller and Simulation Using Mentor Graphics.”</span> PhD thesis, Universiti Teknologi MARA (UiTM).
+</div>
+<div id="ref-morlan_sap1_2021" class="csl-entry">
+Morlan, Austin. 2021. <span>“Building a Simple 8-Bit CPU in Verilog (SAP-1).”</span> <a href="https://austinmorlan.com/posts/fpga_computer_sap1/">https://austinmorlan.com/posts/fpga_computer_sap1/</a>.
 </div>
 <div id="ref-null_essentials_2023" class="csl-entry">
 Null, Linda. 2023. <em>Essentials of Computer Organization and Architecture with Navigate Advantage Access</em>. 6th ed. Burlington, MA: Jones &amp; Bartlett Learning.
 </div>
-<div id="ref-stallings_computer_2021" class="csl-entry">
-Stallings, William. 2021. <em>Computer Organization and Architecture: Designing for Performance</em>. 11th ed. Boston, MA: Pearson.
+<div id="ref-patt2019introduction" class="csl-entry">
+Patt, Yale N., and Sanjay J. Patel. 2019. <em>Introduction to Computing Systems: From Bits and Gates to c and Beyond</em>. 3rd ed. New York: McGraw-Hill Education.
+</div>
+<div id="ref-silber_tinycpu" class="csl-entry">
+Silber, David. n.d. <span>“TinyCPU - a Simple CPU Implemented in Verilog.”</span> <a href="https://www.eecis.udel.edu/~silber/tinycpu/#/home" class="uri">https://www.eecis.udel.edu/~silber/tinycpu/#/home</a>.
 </div>
 <div id="ref-tanenbaum_structured_2016" class="csl-entry">
 Tanenbaum, Andrew S. 2016. <em>Structured Computer Organization</em>. Pearson Education India.
@@ -536,8 +348,8 @@ Tanenbaum, Andrew S. 2016. <em>Structured Computer Organization</em>. Pearson Ed
           </div>
         </div>
       </div>
-<a href="tipos-de-arquitecturas.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="filosofías-cisc-y-risc.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="requisitos-de-la-herramienta.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="diseño-conceptual.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -568,7 +380,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/02-arquitectura.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/05-desarrollo.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -576,7 +388,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/02-arquitectura.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/05-desarrollo.Rmd",
     "text": null
   },
   "download": ["tesis.pdf"],
