@@ -6,7 +6,7 @@ En el capítulo anterior se analizaron y evaluaron las herramientas de simulaci�
 Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de requisitos establecidos que guían su desarrollo, validación y alineación con los objetivos pedagógicos. 
 
 ## Requisitos de la herramienta
-A continuación, se detallan los requisitos funcionales y didácticos que guían el desarrollo de la herramienta de simulación:
+A partir de los objetivos planteados en el capítulo anterior (\@ref(intro)) , se definieron una serie de requisitos funcionales y didácticos que orientan el diseño del simulador, los cuales se describen a continuación:
 
 1. **Representación global de la estructura y funcionamiento de la computadora:**
    - Representar de forma gráfica la arquitectura general de la computadora (CPU, bus, memoria y dispositivos de E/S) durante la ejecución de programas, destacando los componentes relevantes en cada etapa del proceso.
@@ -15,10 +15,10 @@ A continuación, se detallan los requisitos funcionales y didácticos que guían
    - Permitir tanto la ejecución paso a paso como la ejecución completa de programas en lenguaje ensamblador, promoviendo la comprensión detallada de cada instrucción.
 
 3. **Repertorio de instrucciones reducido y habilitación progresiva:**
-    - Se propone seleccionar un subconjunto esencial de instrucciones x86 y habilitarlo de manera progresiva, siguiendo recomendaciones pedagógicas que sugieren que el aprendizaje efectivo se potencia cuando los contenidos se introducen de forma escalonada. Tal como afirman las National Academies of Sciences, Engineering, and Medicine [@nationalacademies2018how], esta estrategia facilita la construcción gradual de esquemas mentales complejos y mejora la comprensión de conceptos técnicos. Esta estrategia didáctica facilita la asimilación gradual del conjunto de instrucciones (ISA) y es consistente con enfoques pedagógicos orientados a reducir la complejidad inicial del aprendizaje  [@hasan_survey_2012; @null_essentials_2023; @stallings_computer_2021].
+    - Se propone seleccionar un subconjunto esencial de instrucciones x86 y habilitarlo de manera progresiva, siguiendo recomendaciones pedagógicas que sugieren que el aprendizaje efectivo se potencia cuando los contenidos se introducen de forma escalonada. Tal como afirman las National Academies of Sciences, Engineering, and Medicine [@nationalacademies2018how], esta estrategia facilita la construcción gradual de esquemas mentales complejos y mejora la comprensión de conceptos técnicos. Esta estrategia está alineada con enfoques pedagógicos que promueven una introducción progresiva a conceptos complejos, favoreciendo la comprensión del conjunto de instrucciones (ISA) y reduciendo la sobrecarga cognitiva inicial [@hasan_survey_2012; @null_essentials_2023; @stallings_computer_2021].
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
-    - Visualizar el flujo de datos mediante una representación en el nivel de transferencia entre registros (Register Transfer Level, RTL), que describe cómo los datos se mueven entre componentes internos como registros y buses durante cada etapa del ciclo de instrucción. En la obra de Stallings [@stallings_computer_2021], es común el uso del nivel de transferencia entre registros (RTL) para representar cada etapa del ciclo de instrucción, desde la captura (‘fetch’) hasta la ejecución (‘execute’). Este enfoque facilita la comprensión del procesador, ya que permite visualizar el recorrido de los datos entre registros y la activación de señales de control en cada etapa. 
+    - Visualizar el flujo de datos mediante una representación en el nivel de transferencia entre registros (Register Transfer Level, RTL), que describe cómo los datos se mueven entre componentes internos como registros y buses durante cada etapa del ciclo de instrucción. Stallings [@stallings_computer_2021] propone utilizar el nivel de transferencia entre registros (RTL) para representar el ciclo de instrucción, desde la captura (*fetch*) hasta la ejecución (*execute*). Este enfoque permite visualizar el recorrido de los datos y la activación de señales de control en cada etapa, lo cual facilita la comprensión del funcionamiento interno del procesador. 
     
     A continuación se ilustra un ciclo de instrucción típico del repertorio x86, empleando como ejemplo la operación MOV AL, BL, la cual copia el contenido del registro BL al registro AL. La Figura \@ref(fig:cicloinstruccion) sintetiza esta secuencia, permitiendo observar el funcionamiento interno del procesador en cada etapa del ciclo de instrucción.
 
@@ -82,7 +82,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-## Fundamentación de la arquitectura del simulador
+## Fundamentación de los requisitos del simulador
 A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes de la asignatura Arquitectura de Computadoras —Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca—, quienes aportaron su experiencia en el uso pedagógico de simuladores para determinar qué elementos de la arquitectura x86 debían ser representados, simplificados o adaptados. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, debido a que este tipo de diseño permite reducir la complejidad del simulador sin comprometer los objetivos didácticos. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.
 
 La arquitectura x86 destaca por su complejidad debido a su extenso repertorio de instrucciones y características avanzadas. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:
@@ -98,7 +98,7 @@ El diseño del simulador contribuye a:
 - **Análisis crítico**: comparar el modelo simplificado con x86 real fomenta un aprendizaje reflexivo y profundo.
 - **Experimentación práctica**: proporciona un entorno accesible para explorar conceptos y corregir errores.
 
-Diversos autores como Patterson & Hennessy [@hennessy2017computer], Tanenbaum [@tanenbaum_structured_2016] y Null [@null_essentials_2023]  coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque permite visualizar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
+Diversos autores como Patterson & Hennessy [@hennessy2017computer], Tanenbaum [@tanenbaum_structured_2016] y Null [@null_essentials_2023]  coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque hace posible observar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
 El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 [@intel_microarchitecture_2021], y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes [@patt2019introduction; @majid1999design; @morlan_sap1_2021 ; @Guald_2015_thesis; @silber_tinycpu].
 
 ```{r requisitosdidacticos, echo=FALSE, message=FALSE, warning=FALSE}
@@ -151,7 +151,15 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-## Diseño conceptual
+## Diseño del Simulador
+El diseño del simulador se basa en la arquitectura Von Neumann, que es la más comúnmente utilizada en computadoras modernas. Esta arquitectura se caracteriza por tener una única memoria que almacena tanto datos como instrucciones, lo que permite una mayor flexibilidad y eficiencia en el procesamiento de información.
+
+Para el diseño del simulador desarrollado en este trabajo, se tomó como referencia el simulador VonSim [@vonsim], una herramienta educativa basada en la arquitectura de Von Neumann que permite visualizar y experimentar el ciclo de instrucción de una manera interactiva. Esta herramienta sirvió como base conceptual y funcional debido a su enfoque didáctico y su estructura visual clara, orientada a la enseñanza de principios fundamentales de arquitectura de computadoras.
+
+Sin embargo, considerando los contenidos y objetivos específicos de la asignatura Arquitectura de Computadoras, se optó por desarrollar una versión simplificada del simulador, adaptada a una arquitectura de 8 bits —denominada VonSim8— [@vonsim8], con el fin de facilitar la comprensión progresiva de los estudiantes y reducir la complejidad técnica en las etapas iniciales del aprendizaje. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
+
+Entre los principales cambios realizados se destacan: la simplificación del repertorio de instrucciones, la reducción del tamaño de los registros y la memoria, la adaptación de la interfaz para representar de manera más esquemática el flujo de ejecución, y la incorporación de elementos interactivos específicos para favorecer la comprensión del ciclo de instrucción y el rol de cada componente.
+
 El diseño conceptual busca materializar los principios previamente definidos en una arquitectura operativa alineada con los objetivos pedagógicos de la enseñanza de arquitectura de computadoras.
 
 Con los requisitos funcionales y didácticos previamente definidos, se elaboró un diseño conceptual que organiza la estructura interna del simulador en bloques funcionales bien delimitados. Este diseño permite modelar de manera explícita las relaciones entre los distintos componentes, facilitando tanto la implementación como la comprensión de la arquitectura simulada.
@@ -163,7 +171,9 @@ knitr::include_graphics(path = "images/esquemavonsim8.png")
 ```
 
 La memoria princiapl se modela en una matriz de 16x16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.
+
 Se representa el teclado y pantalla para simular la interacción con el usuario. El teclado se modela como un vector de 16 posiciones, cada una representando un carácter ASCII. La pantalla se simula como una matriz de 16x16, donde cada posición puede contener un carácter ASCII. Esta representación permite a los estudiantes comprender cómo se gestionan las entradas y salidas en un sistema real.
+
 La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla \@ref(tab:bloquesfuncionales) resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
 
 ```{r bloquesfuncionales, echo=FALSE, message=FALSE, warning=FALSE}
@@ -362,7 +372,8 @@ if (knitr::is_latex_output()) {
 ```
 
 ### Formato de instrucciones
-El formato definido para las instrucciones incluye los siguientes casos tabla \@ref(tab:codtraducido):
+
+El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. La tabla \@ref(tab:codtraducido) muestra el formato de las instrucciones y su codificación binaria.
 
 ```{r codtraducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -408,7 +419,22 @@ Considerando:
 
   - `____`: Código de operación de la instrucción, número de 4 bits.
 
-  - `XX` o `YY`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
+    - `XX` o `YY`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
+      ```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
+    library(knitr)
+
+    # Crear un dataframe con los datos
+    tabla_registros <- data.frame(
+      Registro = c("AL", "BL", "CL", "DL"),
+      Binario = c("00", "01", "10", "11"),
+      Decimal = c(0, 1, 2, 3)
+    )
+
+    # Imprimir la tabla en formato markdown
+    kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal")) # nolint: line_length_linter.
+    ```
+
+    - `00`: Indica que el operando es un registro de propósito general.
 
   - `M`: Dirección de memoria, número de 8 bits.
 
@@ -419,21 +445,6 @@ Los modos de direccionamiento definidos en esta etapa son:
 
 - Registro a registro (`Rx`,`Ry`): operandos son registros del procesador.
 - Directo (`[M]`): operando es el contenido de una dirección de memoria.
-
-#### Banco de registros
-```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-
-# Crear un dataframe con los datos
-tabla_registros <- data.frame(
-  Registro = c("AL", "BL", "CL", "DL"),
-  Binario = c("00", "01", "10", "11"),
-  Decimal = c(0, 1, 2, 3)
-)
-
-# Imprimir la tabla en formato markdown
-kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal")) # nolint: line_length_linter.
-```
 
 En esta primera etapa se implementan las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
 
