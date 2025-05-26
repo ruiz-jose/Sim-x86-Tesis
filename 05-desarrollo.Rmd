@@ -421,19 +421,20 @@ Considerando:
   - `____`: Código de operación de la instrucción, número de 4 bits.
 
     - `XX` o `YY`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
-      ```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
-    library(knitr)
+    
+```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
 
-    # Crear un dataframe con los datos
-    tabla_registros <- data.frame(
-      Registro = c("AL", "BL", "CL", "DL"),
-      Binario = c("00", "01", "10", "11"),
-      Decimal = c(0, 1, 2, 3)
-    )
+# Crear un dataframe con los datos
+tabla_registros <- data.frame(
+  Registro = c("AL", "BL", "CL", "DL"),
+  Binario = c("00", "01", "10", "11"),
+  Decimal = c(0, 1, 2, 3)
+)
 
-    # Imprimir la tabla en formato markdown
-    kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal")) # nolint: line_length_linter.
-    ```
+# Imprimir la tabla en formato markdown
+kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal")) # nolint: line_length_linter.
+```
 
     - `00`: Indica que el operando es un registro de propósito general.
 
