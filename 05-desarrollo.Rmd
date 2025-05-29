@@ -9,28 +9,29 @@ Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de 
 A partir de los objetivos planteados en el capítulo anterior (\@ref(intro)) , se definieron una serie de requisitos funcionales y didácticos que orientan el diseño del simulador, los cuales se describen a continuación:
 
 1. **Visualización de la estructura general de la computadora:**
-   - Incluir una representación gráfica de la arquitectura básica de la computadora —compuesta por CPU, buses, memoria y dispositivos de entrada/salida— durante la ejecución de los programas. La visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas [@sorva2013visualizations].
+  - Incluir una representación gráfica de la arquitectura básica de la computadora —compuesta por CPU, buses, memoria y dispositivos de entrada/salida— durante la ejecución de los programas. La visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas [@sorva2013visualizations].
 
 2. **Soporte para la generación y ejecución de programas en ensamblador:**
-   - Permitir tanto la ejecución paso a paso como la ejecución completa de programas en lenguaje ensamblador, promoviendo la comprensión detallada de cada instrucción.
+  - Permitir tanto la ejecución paso a paso como la ejecución completa de programas en lenguaje ensamblador, promoviendo la comprensión detallada de cada instrucción.
 
 3. **Repertorio reducido de instrucciones con activación progresiva:**
-     - Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se activa de manera progresiva a lo largo del proceso de enseñanza. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva [@nationalacademies2018how]. Esta estrategia también se encuentra respaldada por autores como Hasan [@hasan_survey_2012], Null y Lobur [@null_essentials_2023], y Stallings [@stallings_computer_2021], quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
+  - Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se activa de manera progresiva a lo largo del proceso de enseñanza. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva [@nationalacademies2018how]. Esta estrategia también se encuentra respaldada por autores como Hasan [@hasan_survey_2012], Null y Lobur [@null_essentials_2023], y Stallings [@stallings_computer_2021], quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
-    - Visualizar el flujo de datos mediante una representación en el nivel de transferencia entre registros (Register Transfer Level, RTL), que describe cómo los datos se mueven entre componentes internos como registros y buses durante cada etapa del ciclo de instrucción. Stallings [@stallings_computer_2021] propone utilizar el nivel de transferencia entre registros (RTL) para representar el ciclo de instrucción, desde la captura (*fetch*) hasta la ejecución (*execute*). Este enfoque permite visualizar el recorrido de los datos y la activación de señales de control en cada etapa, lo cual facilita la comprensión del funcionamiento interno del procesador. 
-    
-    Como complemento a la descripción anterior, la Figura \@ref(fig:cicloinstruccion) ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación permite observar con mayor claridad las etapas del ciclo fetch-decode-execute y los registros involucrados en cada una de ellas.
+  - Visualizar el flujo de datos mediante una representación en el nivel de transferencia entre registros (Register Transfer Level, RTL), que describe cómo los datos se mueven entre componentes internos como registros y buses durante cada etapa del ciclo de instrucción. Stallings [@stallings_computer_2021] propone utilizar el nivel de transferencia entre registros (RTL) para representar el ciclo de instrucción, desde la captura (*fetch*) hasta la ejecución (*execute*). Este enfoque permite visualizar el recorrido de los datos y la activación de señales de control en cada etapa, lo cual facilita la comprensión del funcionamiento interno del procesador. 
+  
+  Como complemento a la descripción anterior, la Figura \@ref(fig:cicloinstruccion) ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas *fetch*, *decode* y *execute*, así como los registros que participan activamente en cada fase.
 
-    ```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción: captación y ejecución ", fig.align = 'center', out.width = "85%"}
-    knitr::include_graphics(path = "images/cicloinstruccion.png")
-    ```
+  ```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción: captación y ejecución ", fig.align = 'center', out.width = "85%"}
+  knitr::include_graphics(path = "images/cicloinstruccion.png")
+  ```
     
 5. **Gestión básica de interrupciones y periféricos:**
-    - Incorporar un vector de interrupción predefinido para interactuar con dispositivos como teclado y monitor. También incluir instrucciones IN y OUT, junto con un módulo simplificado de entrada/salida. Su inclusión permite a los estudiantes comprender el mecanismo de atención a eventos externos, un aspecto central en sistemas reales.
+  - Incluir un vector de interrupciones predefinido que permita simular eventos externos, como la interacción con teclado y monitor, a través de instrucciones como IN y OUT. Esta funcionalidad tiene una fuerte relevancia didáctica, ya que introduce al estudiante en el concepto de asincronía y manejo de eventos, aspectos fundamentales en arquitecturas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur [@null_essentials_2023], quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación.
+
 
 6. **Métricas de rendimiento:**
-    - Proporcionar indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI) para analizar la ejecución de programas. Según Hennessy y Patterson [@hennessy2017computer], estos indicadores permiten evaluar la eficiencia del procesamiento a nivel de arquitectura. La incorporación de métricas como CPI y tiempo de CPU está alineada con el objetivo de promover la reflexión crítica sobre el rendimiento de los programas.
+  - Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. Estos datos deben mostrarse en una interfaz dedicada para facilitar su análisis. Su incorporación responde a la necesidad de promover el desarrollo de habilidades de análisis de rendimiento, como señalan Hennessy y Patterson [@hennessy2017computer].
 
 ```{r tablafuncionales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -82,18 +83,18 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-A fin de complementar la tabla de requisitos funcionales y brindar una visión integrada del diseño del simulador, se propone la inclusión de un diagrama estructural del sistema. Este diagrama debe mostrar los módulos principales (Unidad de Control, Módulo E/S, Visualizador RTL, etc.) y sus interacciones, facilitando así la comprensión del flujo interno del simulador.
+Con el propósito de complementar la tabla de requisitos funcionales y brindar una visión integrada del diseño del simulador, se diseñó un diagrama estructural que muestra los módulos principales (Unidad de Control, Módulo E/S, Visualizador RTL, etc.) y sus interacciones, facilitando así la comprensión del flujo interno del simulador.
 
 ```{r diagramasimulador, echo=FALSE, fig.cap="Estructura del simulador y componentes funcionales", fig.align = 'center', out.width = "90%"}
 knitr::include_graphics("images/estructurasimulador.png")
 ```
 
-Además de responder a criterios técnicos, estos requisitos fueron definidos en conjunto con docentes especialistas del área, garantizando así su relevancia didáctica y su adecuación al contexto educativo de la asignatura Arquitectura de Computadoras.
+Además de responder a criterios técnicos, estos requisitos fueron definidos en conjunto con docentes especialistas del área, a través de reuniones y talleres de validación donde se analizaron prototipos tempranos y necesidades concretas del aula, garantizando así su relevancia didáctica y su adecuación al contexto educativo de la asignatura Arquitectura de Computadoras.
 
 ### Fundamentación de los requisitos del simulador
-A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes de la asignatura Arquitectura de Computadoras —Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca—, quienes aportaron su experiencia docente para identificar los elementos de la arquitectura x86 que resultaban prioritarios para representar, simplificar o adaptar en función de los objetivos pedagógicos del simulador. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, cuyas características se describen más adelante, se justifica en su potencial didáctico debido a que este tipo de diseño permite reducir la complejidad del simulador sin comprometer los objetivos didácticos. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.
+A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes de la asignatura Arquitectura de Computadoras —Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca—, quienes aportaron su experiencia docente para identificar los elementos de la arquitectura x86 que resultaban prioritarios para representar, simplificar o adaptar en función de los objetivos pedagógicos del simulador. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, cuyas características se describen más adelante, se justifica en su potencial didáctico ya que este tipo de diseño permite reducir la complejidad del simulador sin comprometer los objetivos didácticos. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.
 
-La arquitectura x86 destaca por su complejidad debido a su extenso repertorio de instrucciones y características avanzadas. Por ello, el simulador se desarrolla bajo un enfoque pedagógico que considera:
+La arquitectura x86 se caracteriza por su elevada complejidad, derivada de su extenso repertorio de instrucciones y sus múltiples características avanzadas. Frente a este panorama, el simulador se desarrolla bajo un enfoque pedagógico que considera tres principios fundamentales:
 
 - **Reducir la carga cognitiva**: la simplificación del repertorio y de los componentes permite a los estudiantes enfocarse en principios fundamentales.
 - **Aprendizaje progresivo**: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.
@@ -158,6 +159,8 @@ if (knitr::is_latex_output()) {
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
+
+Este diseño conceptual sienta las bases para las decisiones tomadas durante la etapa de implementación, que se describen en las siguientes secciones del capítulo.
 
 ## Diseño del Simulador
 El diseño del simulador se basa en la arquitectura Von Neumann, que es la más comúnmente utilizada en computadoras modernas. Esta arquitectura se caracteriza por tener una única memoria que almacena tanto datos como instrucciones, lo que permite una mayor flexibilidad y eficiencia en el procesamiento de información.
