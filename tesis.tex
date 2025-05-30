@@ -1658,12 +1658,12 @@ En este capítulo se describe el diseño y desarrollo de una herramienta de simu
 
 En el capítulo anterior se analizaron y evaluaron las herramientas de simulación existentes para la arquitectura x86. Esta revisión exhaustiva permitió identificar las limitaciones de las soluciones actuales y fundamentar la necesidad de desarrollar una herramienta específica (véase el capítulo \ref{comparativa}).
 
-Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de requisitos establecidos que guían su desarrollo, validación y alineación con los objetivos pedagógicos.
+Para cumplir con este objetivo, se definieron una serie de requisitos funcionales y pedagógicos que estructuran el diseño, validación y desarrollo del simulador. Estos requisitos se alinean con los objetivos educativos presentados en el capítulo introductorio y responden a las limitaciones identificadas en el análisis de simuladores existentes.
 
 \hypertarget{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}{%
 \section{Requisitos de la herramienta y su fundamentación}\label{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}}
 
-Tomando como punto de partida los objetivos didácticos definidos en el capítulo introductorio (\ref{intro}), esta sección presenta los requisitos funcionales y pedagógicos que guiaron el diseño del simulador. Dichos requisitos no solo responden a principios técnicos y educativos, sino que también fueron validados en colaboración con docentes especializados en la enseñanza de Arquitectura de Computadoras.
+A partir de los objetivos didácticos establecidos en el capítulo introductorio (\ref{intro}), esta sección detalla los requisitos funcionales y pedagógicos que estructuraron el diseño del simulador. Estos requisitos no solo surgen de principios técnicos y educativos, sino que también fueron validados mediante consultas con docentes especializados en la enseñanza de Arquitectura de Computadoras.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1689,7 +1689,7 @@ Tomando como punto de partida los objetivos didácticos definidos en el capítul
 \begin{itemize}
 \tightlist
 \item
-  Permitir la ejecución paso a paso y la ejecución completa de programas escritos en lenguaje ensamblador. Esta funcionalidad favorece una comprensión analítica del comportamiento de cada instrucción, promoviendo el desarrollo de habilidades en el trazado y depuración de código bajo un enfoque de bajo nivel, lo cual es esencial para interiorizar el vínculo entre software y hardware.
+  Permitir la ejecución paso a paso y la ejecución completa de programas escritos en lenguaje ensamblador. Esta funcionalidad permite un análisis detallado del comportamiento de cada instrucción, promoviendo el desarrollo de competencias en el trazado y depuración de código a nivel de lenguaje ensamblador, lo cual resulta esencial para interiorizar la relación entre software y hardware.
 \end{itemize}
 
 \begin{enumerate}
@@ -1703,7 +1703,7 @@ Tomando como punto de partida los objetivos didácticos definidos en el capítul
 \begin{itemize}
 \tightlist
 \item
-  Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se activa de manera progresiva a lo largo del proceso de enseñanza. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva \protect\hyperlink{ref-nationalacademies2018how}{{[}61{]}}. Esta estrategia también se encuentra respaldada por autores como Hasan \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, y Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
+  Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita en etapas secuenciales del proceso de enseñanza, en correspondencia con el avance de los contenidos curriculares. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva \protect\hyperlink{ref-nationalacademies2018how}{{[}61{]}}. Esta estrategia también se encuentra respaldada por autores como Hasan \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, y Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
 \end{itemize}
 
 \begin{table}[!h]
@@ -1737,7 +1737,7 @@ Tomando como punto de partida los objetivos didácticos definidos en el capítul
 \begin{itemize}
 \tightlist
 \item
-  Implementar una visualización interactiva del flujo de datos utilizando el nivel de transferencia entre registros (Register Transfer Level, RTL). Este modelo describe, con precisión temporal y estructural, el desplazamiento de datos entre registros, buses y unidades funcionales internas del procesador durante cada etapa del ciclo de instrucción. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} propone utilizar el nivel de transferencia entre registros (RTL) para representar el ciclo de instrucción, desde la captura (\emph{fetch}) hasta la ejecución (\emph{execute}). Este enfoque permite visualizar el recorrido de los datos y la activación de señales de control en cada etapa, lo cual facilita la comprensión del funcionamiento interno del procesador.
+  Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y de las señales de control en cada etapa del proceso.
 \end{itemize}
 
 Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion} ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas \emph{fetch}, \emph{decode} y \emph{execute}, así como los registros que participan activamente en cada fase.
@@ -1762,7 +1762,7 @@ Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion
 \begin{itemize}
 \tightlist
 \item
-  Incluir un vector de interrupciones predefinido que permita simular eventos externos, como la interacción con teclado y monitor, a través de instrucciones como IN y OUT. Esta funcionalidad tiene una fuerte relevancia didáctica, ya que introduce al estudiante en el concepto de asincronía y manejo de eventos, aspectos fundamentales en arquitecturas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación.
+  Incluir un vector de interrupciones predefinido que permita simular eventos externos, como la interacción con teclado y monitor, a través de instrucciones como IN y OUT. Esta funcionalidad posee un alto valor pedagógico, al introducir al estudiante en conceptos clave como la asincronía y el manejo de eventos, los cuales son fundamentales en el diseño y funcionamiento de arquitecturas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación.
 \end{itemize}
 
 \begin{enumerate}
@@ -1776,7 +1776,7 @@ Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion
 \begin{itemize}
 \tightlist
 \item
-  Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. Estos datos deben mostrarse en una interfaz dedicada para facilitar su análisis. Su incorporación responde a la necesidad de promover el desarrollo de habilidades de análisis de rendimiento, como señalan Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}.
+  Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. Estos indicadores se presentan en una interfaz específica que facilita su análisis y comprensión. Su inclusión responde a la necesidad de fomentar habilidades analíticas vinculadas al rendimiento computacional. Como señalan Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}} esta funcionalidad permite a los estudiantes familiarizarse con conceptos fundamentales del análisis de desempeño, utilizados tanto en contextos académicos como en la industria, fomentando una formación técnica integral.
 \end{itemize}
 
 \begin{table}[!h]
