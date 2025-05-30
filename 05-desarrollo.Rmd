@@ -3,19 +3,19 @@ En este capítulo se describe el diseño y desarrollo de una herramienta de simu
 
 En el capítulo anterior se analizaron y evaluaron las herramientas de simulación existentes para la arquitectura x86. Esta revisión exhaustiva permitió identificar las limitaciones de las soluciones actuales y fundamentar la necesidad de desarrollar una herramienta específica (véase el capítulo \@ref(comparativa)).
 
-Para cumplir con este objetivo, el diseño de la herramienta sigue una serie de requisitos establecidos que guían su desarrollo, validación y alineación con los objetivos pedagógicos. 
+Para cumplir con este objetivo, se definieron una serie de requisitos funcionales y pedagógicos que estructuran el diseño, validación y desarrollo del simulador. Estos requisitos se alinean con los objetivos educativos presentados en el capítulo introductorio y responden a las limitaciones identificadas en el análisis de simuladores existentes.
 
 ## Requisitos de la herramienta y su fundamentación
-Tomando como punto de partida los objetivos didácticos definidos en el capítulo introductorio (\@ref(intro)), esta sección presenta los requisitos funcionales y pedagógicos que guiaron el diseño del simulador. Dichos requisitos no solo responden a principios técnicos y educativos, sino que también fueron validados en colaboración con docentes especializados en la enseñanza de Arquitectura de Computadoras.
+A partir de los objetivos didácticos establecidos en el capítulo introductorio (\@ref(intro)), esta sección detalla los requisitos funcionales y pedagógicos que estructuraron el diseño del simulador. Estos requisitos no solo surgen de principios técnicos y educativos, sino que también fueron validados mediante consultas con docentes especializados en la enseñanza de Arquitectura de Computadoras.
 
 1. **Visualización de la estructura general de la computadora:**
   - Incluir una representación gráfica de la arquitectura básica de la computadora —compuesta por CPU, buses, memoria y dispositivos de entrada/salida— durante la ejecución de los programas. La visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas [@sorva2013visualizations].
 
 2. **Soporte para la generación y ejecución de programas en ensamblador:**
-  - Permitir la ejecución paso a paso y la ejecución completa de programas escritos en lenguaje ensamblador. Esta funcionalidad favorece una comprensión analítica del comportamiento de cada instrucción, promoviendo el desarrollo de habilidades en el trazado y depuración de código bajo un enfoque de bajo nivel, lo cual es esencial para interiorizar el vínculo entre software y hardware.
+  - Permitir la ejecución paso a paso y la ejecución completa de programas escritos en lenguaje ensamblador. Esta funcionalidad permite un análisis detallado del comportamiento de cada instrucción, promoviendo el desarrollo de competencias en el trazado y depuración de código a nivel de lenguaje ensamblador, lo cual resulta esencial para interiorizar la relación entre software y hardware.
 
 3. **Repertorio reducido de instrucciones con activación progresiva:**
-  - Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se activa de manera progresiva a lo largo del proceso de enseñanza. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva [@nationalacademies2018how]. Esta estrategia también se encuentra respaldada por autores como Hasan [@hasan_survey_2012], Null y Lobur [@null_essentials_2023], y Stallings [@stallings_computer_2021], quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
+  - Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita en etapas secuenciales del proceso de enseñanza, en correspondencia con el avance de los contenidos curriculares. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva [@nationalacademies2018how]. Esta estrategia también se encuentra respaldada por autores como Hasan [@hasan_survey_2012], Null y Lobur [@null_essentials_2023], y Stallings [@stallings_computer_2021], quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
 
 ```{r activacionprogresiva, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -69,7 +69,7 @@ if (knitr::is_latex_output()) {
 ```
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
-  - Implementar una visualización interactiva del flujo de datos utilizando el nivel de transferencia entre registros (Register Transfer Level, RTL). Este modelo describe, con precisión temporal y estructural, el desplazamiento de datos entre registros, buses y unidades funcionales internas del procesador durante cada etapa del ciclo de instrucción. Stallings [@stallings_computer_2021] propone utilizar el nivel de transferencia entre registros (RTL) para representar el ciclo de instrucción, desde la captura (*fetch*) hasta la ejecución (*execute*). Este enfoque permite visualizar el recorrido de los datos y la activación de señales de control en cada etapa, lo cual facilita la comprensión del funcionamiento interno del procesador. 
+  - Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción. Stallings [@stallings_computer_2021] propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y de las señales de control en cada etapa del proceso. 
   
   Como complemento a la descripción anterior, la Figura \@ref(fig:cicloinstruccion) ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas *fetch*, *decode* y *execute*, así como los registros que participan activamente en cada fase.
 
@@ -78,11 +78,10 @@ if (knitr::is_latex_output()) {
   ```
     
 5. **Gestión básica de interrupciones y periféricos:**
-  - Incluir un vector de interrupciones predefinido que permita simular eventos externos, como la interacción con teclado y monitor, a través de instrucciones como IN y OUT. Esta funcionalidad tiene una fuerte relevancia didáctica, ya que introduce al estudiante en el concepto de asincronía y manejo de eventos, aspectos fundamentales en arquitecturas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur [@null_essentials_2023], quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación.
-
+  - Incluir un vector de interrupciones predefinido que permita simular eventos externos, como la interacción con teclado y monitor, a través de instrucciones como IN y OUT. Esta funcionalidad posee un alto valor pedagógico, al introducir al estudiante en conceptos clave como la asincronía y el manejo de eventos, los cuales son fundamentales en el diseño y funcionamiento de arquitecturas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur [@null_essentials_2023], quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación.
 
 6. **Métricas de rendimiento:**
-  - Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. Estos datos deben mostrarse en una interfaz dedicada para facilitar su análisis. Su incorporación responde a la necesidad de promover el desarrollo de habilidades de análisis de rendimiento, como señalan Hennessy y Patterson [@hennessy2017computer].
+  - Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. Estos indicadores se presentan en una interfaz específica que facilita su análisis y comprensión. Su inclusión responde a la necesidad de fomentar habilidades analíticas vinculadas al rendimiento computacional. Como señalan Hennessy y Patterson [@hennessy2017computer] esta funcionalidad permite a los estudiantes familiarizarse con conceptos fundamentales del análisis de desempeño, utilizados tanto en contextos académicos como en la industria, fomentando una formación técnica integral.
 
 ```{r tablafuncionales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
