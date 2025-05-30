@@ -268,10 +268,10 @@ Figura 5.3: Arquitectura general del simulador
 </div>
 <p>La memoria princiapl se modela en una matriz de 16x16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.</p>
 <p>Se representa el teclado y pantalla para simular la interacción con el usuario. El teclado se modela como un vector de 16 posiciones, cada una representando un carácter ASCII. La pantalla se simula como una matriz de 16x16, donde cada posición puede contener un carácter ASCII. Esta representación permite a los estudiantes comprender cómo se gestionan las entradas y salidas en un sistema real.</p>
-<p>La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla <a href="diseño-del-simulador.html#tab:bloquesfuncionales">5.3</a> resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.</p>
+<p>La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla <a href="diseño-del-simulador.html#tab:bloquesfuncionales">5.4</a> resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:bloquesfuncionales">Tabla 5.3: </span>Bloques funcionales principales
+<span id="tab:bloquesfuncionales">Tabla 5.4: </span>Bloques funcionales principales
 </caption>
 <thead>
 <tr>
@@ -321,10 +321,10 @@ Modelado de la comunicación entre componentes.
 <div id="componentes-del-cpu" class="section level3 hasAnchor" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Componentes del CPU<a href="diseño-del-simulador.html#componentes-del-cpu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En correspondencia con los bloques funcionales anteriormente mencionados, a continuación se describen las componentes específicas del CPU simulado.</p>
-<p>El diseño del CPU simplificado se describe en la siguiente tabla <a href="diseño-del-simulador.html#tab:arq">5.4</a>:</p>
+<p>El diseño del CPU simplificado se describe en la siguiente tabla <a href="diseño-del-simulador.html#tab:arq">5.5</a>:</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:arq">Tabla 5.4: </span>Componentes del CPU VonSim8
+<span id="tab:arq">Tabla 5.5: </span>Componentes del CPU VonSim8
 </caption>
 <thead>
 <tr>
@@ -420,7 +420,7 @@ Longitud variable de instrucciones (1, 2 y 3 Bytes). Modos de direccionamiento: 
 <p>El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:setreducido">Tabla 5.5: </span>Tabla de instrucciones de VonSim8
+<span id="tab:setreducido">Tabla 5.6: </span>Tabla de instrucciones de VonSim8
 </caption>
 <thead>
 <tr>
@@ -536,10 +536,10 @@ Detiene CPU
 </div>
 <div id="formato-de-instrucciones" class="section level3 hasAnchor" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> Formato de instrucciones<a href="diseño-del-simulador.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. La tabla <a href="diseño-del-simulador.html#tab:codtraducido">5.6</a> muestra el formato de las instrucciones y su codificación binaria.</p>
+<p>El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. La tabla <a href="diseño-del-simulador.html#tab:codtraducido">5.7</a> muestra el formato de las instrucciones y su codificación binaria.</p>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:codtraducido">Tabla 5.6: </span>Tabla de codificación de instrucciones
+<span id="tab:codtraducido">Tabla 5.7: </span>Tabla de codificación de instrucciones
 </caption>
 <thead>
 <tr>
@@ -996,10 +996,10 @@ si la bandera de cero (<code>Z</code>) está activa, el contenido del <code>MBR<
 </tr>
 </tbody>
 </table>
-<p>El formato ampliado para las instrucciones incluye los siguientes casos tabla <a href="diseño-del-simulador.html#tab:formatoampliado">5.7</a>:</p>
+<p>El formato ampliado para las instrucciones incluye los siguientes casos tabla <a href="diseño-del-simulador.html#tab:formatoampliado">5.8</a>:</p>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:formatoampliado">Tabla 5.7: </span>Tabla de codificación de instrucciones ampliado
+<span id="tab:formatoampliado">Tabla 5.8: </span>Tabla de codificación de instrucciones ampliado
 </caption>
 <thead>
 <tr>
@@ -1112,7 +1112,7 @@ ffff = funcionalidad, M = Dirección de memoria
 </table>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:formampl2">Tabla 5.8: </span>Tabla de codificación de instrucciones ampliado
+<span id="tab:formampl2">Tabla 5.9: </span>Tabla de codificación de instrucciones ampliado
 </caption>
 <thead>
 <tr>
