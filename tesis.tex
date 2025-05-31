@@ -1663,7 +1663,7 @@ Para cumplir con este objetivo, se definieron una serie de requisitos funcionale
 \hypertarget{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}{%
 \section{Requisitos de la herramienta y su fundamentación}\label{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}}
 
-A partir de los objetivos didácticos establecidos en el capítulo introductorio (\ref{intro}), esta sección detalla los requisitos funcionales y pedagógicos que estructuraron el diseño del simulador. Estos requisitos no solo surgen de principios técnicos y educativos, sino que también fueron validados mediante consultas con docentes especializados en la enseñanza de Arquitectura de Computadoras.
+A partir de los objetivos didácticos establecidos en el capítulo introductorio (\ref{intro}), esta sección detalla los requisitos funcionales y pedagógicos que estructuraron el diseño del simulador. La definición de estos requisitos se basó tanto en principios pedagógicos y técnicos como en un proceso de validación empírica, basado en entrevistas semiestructuradas a cinco docentes con experiencia en la enseñanza de Arquitectura de Computadoras. Los resultados de estas entrevistas guiaron la identificación de necesidades pedagógicas prioritarias. (ver Anexo A para el protocolo de entrevista, sección \ref{anexoA}).
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1716,15 +1716,17 @@ A partir de los objetivos didácticos establecidos en el capítulo introductorio
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Fase}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones activadas}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Objetivo didáctico}}}\\
 \midrule
-\textbf{Inicial} & MOV, ADD, SUB & Comprensión del ciclo de instrucción básico\\
+\textbf{Inicial} & MOV, ADD, SUB, HLT & Comprensión del ciclo de instrucción básico\\
 \addlinespace[10pt]
-\textbf{Intermedia} & JMP, CMP, JZ & Introducción a control de flujo\\
+\textbf{Intermedia} & CMP, JMP, JZ, JC & Introducción a control de flujo\\
 \addlinespace[10pt]
-\textbf{Avanzada} & IN, OUT, INT & Manejo de periféricos e interrupciones\\
+\textbf{Avanzada} & CALL, RET, IN, OUT, INT, IRET & Manejo de periféricos e interrupciones\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
+
+Además de las funcionalidades asociadas al repertorio de instrucciones, resulta fundamental representar visualmente el flujo interno de datos dentro del procesador para facilitar la comprensión de operaciones a nivel microarquitectónico.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1762,7 +1764,7 @@ Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion
 \begin{itemize}
 \tightlist
 \item
-  Incluir un vector de interrupciones predefinido que permita simular eventos externos, como la interacción con teclado y monitor, a través de instrucciones como IN y OUT. Esta funcionalidad posee un alto valor pedagógico, al introducir al estudiante en conceptos clave como la asincronía y el manejo de eventos, los cuales son fundamentales en el diseño y funcionamiento de arquitecturas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación.
+  Incluir un vector de interrupciones predefinido que permita simular eventos externos, como la interacción con teclado y monitor, a través de instrucciones como IN y OUT. Esta funcionalidad tiene un alto valor pedagógico, ya que permite al estudiante explorar de forma interactiva conceptos fundamentales como la asincronía, el manejo de eventos y la interrupción del flujo secuencial de ejecución, los cuales son característicos del diseño de arquitecturas modernas y fundamentales para comprender el funcionamiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación.
 \end{itemize}
 
 \begin{enumerate}
@@ -1777,6 +1779,20 @@ Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion
 \tightlist
 \item
   Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. Estos indicadores se presentan en una interfaz específica que facilita su análisis y comprensión. Su inclusión responde a la necesidad de fomentar habilidades analíticas vinculadas al rendimiento computacional. Como señalan Hennessy y Patterson \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}} esta funcionalidad permite a los estudiantes familiarizarse con conceptos fundamentales del análisis de desempeño, utilizados tanto en contextos académicos como en la industria, fomentando una formación técnica integral.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  \textbf{Interfaz gráfica intuitiva y amigable:}
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  Diseñar una interfaz gráfica intuitiva y adaptable a diferentes dispositivos y niveles de experiencia del usuario. La interfaz debe contemplar principios de accesibilidad para personas con diversidad funcional, con opciones de contraste visual, navegación por teclado y descripciones accesibles. Esto responde a estándares actuales de desarrollo de software educativo y mejora la inclusión en entornos de enseñanza \protect\hyperlink{ref-w3c_accessibility_2021}{{[}63{]}}.
 \end{itemize}
 
 \begin{table}[!h]
@@ -1815,7 +1831,7 @@ Además de responder a criterios técnicos, estos requisitos fueron definidos en
 \hypertarget{fundamentaciuxf3n-de-los-requisitos-del-simulador}{%
 \subsection{Fundamentación de los requisitos del simulador}\label{fundamentaciuxf3n-de-los-requisitos-del-simulador}}
 
-A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes de la asignatura Arquitectura de Computadoras ---Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca---, quienes aportaron su experiencia docente para identificar los elementos de la arquitectura x86 que resultaban prioritarios para representar, simplificar o adaptar en función de los objetivos pedagógicos del simulador. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, cuyas características se describen más adelante, justificado por su valor didáctico: una arquitectura de 8 bits reduce significativamente la complejidad sin sacrificar los objetivos pedagógicos, permitiendo representar procesos clave con mayor claridad y menor carga cognitiva. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.
+A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes\footnote{Docentes: Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca} de la asignatura Arquitectura de Computadoras, quienes aportaron su experiencia docente para identificar los elementos de la arquitectura x86 que resultaban prioritarios para representar, simplificar o adaptar en función de los objetivos pedagógicos del simulador. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, cuyas características se describen más adelante, justificado por su valor didáctico: una arquitectura de 8 bits reduce significativamente la complejidad sin sacrificar los objetivos pedagógicos, permitiendo representar procesos clave con mayor claridad y menor carga cognitiva. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.
 
 La arquitectura x86 se caracteriza por su elevada complejidad, derivada de su extenso repertorio de instrucciones y sus múltiples características avanzadas. Frente a este panorama, el simulador se desarrolla bajo un enfoque pedagógico que considera tres principios fundamentales:
 
@@ -1845,7 +1861,7 @@ El diseño del simulador contribuye a:
 \end{itemize}
 
 Diversos autores como Patterson \& Hennessy \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, Tanenbaum \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}} y Null \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}} coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque hace posible observar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
-El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}39{]}}, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes \protect\hyperlink{ref-patt2019introduction}{{[}63{]}}, \protect\hyperlink{ref-majid1999design}{{[}64{]}}, \protect\hyperlink{ref-morlan_sap1_2021}{{[}65{]}}, \protect\hyperlink{ref-Guald_2015_thesis}{{[}66{]}}, \protect\hyperlink{ref-silber_tinycpu}{{[}67{]}}.
+El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}39{]}}, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes \protect\hyperlink{ref-patt2019introduction}{{[}64{]}}, \protect\hyperlink{ref-majid1999design}{{[}65{]}}, \protect\hyperlink{ref-morlan_sap1_2021}{{[}66{]}}, \protect\hyperlink{ref-Guald_2015_thesis}{{[}67{]}}, \protect\hyperlink{ref-silber_tinycpu}{{[}68{]}}.
 
 \begin{table}[!h]
 \centering
@@ -1874,9 +1890,9 @@ Este diseño conceptual sienta las bases para las decisiones tomadas durante la 
 
 El diseño del simulador se basa en la arquitectura Von Neumann, que es la más comúnmente utilizada en computadoras modernas. Esta arquitectura se caracteriza por tener una única memoria que almacena tanto datos como instrucciones, lo que permite una mayor flexibilidad y eficiencia en el procesamiento de información.
 
-Para el diseño del simulador desarrollado en este trabajo, se tomó como referencia el simulador VonSim \protect\hyperlink{ref-vonsim}{{[}68{]}}, una herramienta educativa basada en la arquitectura de Von Neumann que permite visualizar y experimentar el ciclo de instrucción de una manera interactiva. Esta herramienta sirvió como base conceptual y funcional debido a su enfoque didáctico y su estructura visual clara, orientada a la enseñanza de principios fundamentales de arquitectura de computadoras.
+Para el diseño del simulador desarrollado en este trabajo, se tomó como referencia el simulador VonSim \protect\hyperlink{ref-vonsim}{{[}69{]}}, una herramienta educativa basada en la arquitectura de Von Neumann que permite visualizar y experimentar el ciclo de instrucción de una manera interactiva. Esta herramienta sirvió como base conceptual y funcional debido a su enfoque didáctico y su estructura visual clara, orientada a la enseñanza de principios fundamentales de arquitectura de computadoras.
 
-Sin embargo, considerando los contenidos y objetivos específicos de la asignatura Arquitectura de Computadoras, se optó por desarrollar una versión simplificada del simulador, adaptada a una arquitectura de 8 bits ---denominada VonSim8--- \protect\hyperlink{ref-vonsim8}{{[}69{]}}, con el fin de facilitar la comprensión progresiva de los estudiantes y reducir la complejidad técnica en las etapas iniciales del aprendizaje. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
+Sin embargo, considerando los contenidos y objetivos específicos de la asignatura Arquitectura de Computadoras, se optó por desarrollar una versión simplificada del simulador, adaptada a una arquitectura de 8 bits ---denominada VonSim8--- \protect\hyperlink{ref-vonsim8}{{[}70{]}}, con el fin de facilitar la comprensión progresiva de los estudiantes y reducir la complejidad técnica en las etapas iniciales del aprendizaje. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
 Entre los principales cambios realizados se destacan: la simplificación del repertorio de instrucciones, la reducción del tamaño de los registros y la memoria, la adaptación de la interfaz para representar de manera más esquemática el flujo de ejecución, y la incorporación de elementos interactivos específicos para favorecer la comprensión del ciclo de instrucción y el rol de cada componente.
 
@@ -2680,6 +2696,133 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \hypertarget{Biblio}{%
 \chapter{Bibliografía}\label{Biblio}}
 
+\hypertarget{apuxe9ndices}{%
+\chapter*{Apéndices}\label{apuxe9ndices}}
+\addcontentsline{toc}{chapter}{Apéndices}
+
+\hypertarget{anexoA}{%
+\section{Anexo A: Protocolo de Entrevista Semiestructurada}\label{anexoA}}
+
+\textbf{Objetivo:}\\
+Relevar necesidades, experiencias y percepciones de docentes especializados en la enseñanza de Arquitectura de Computadoras, con el fin de fundamentar los requisitos funcionales y pedagógicos de una herramienta de simulación orientada a la arquitectura x86.
+
+\textbf{Tipo de entrevista:} Semiestructurada\\
+\textbf{Duración estimada:} 45--60 minutos\\
+\textbf{Participantes:} Docentes universitarios con experiencia en la enseñanza de asignaturas vinculadas a Arquitectura de Computadoras\\
+\textbf{Modo de registro:} Grabación de audio (previo consentimiento informado) y notas del entrevistador
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{introducciuxf3n-a-cargo-del-entrevistador}{%
+\subsection{Introducción (a cargo del entrevistador)}\label{introducciuxf3n-a-cargo-del-entrevistador}}
+
+\begin{itemize}
+\tightlist
+\item
+  Breve presentación personal y del objetivo de la entrevista.
+\item
+  Explicación sobre la confidencialidad de los datos.
+\item
+  Solicitud de consentimiento para grabar la entrevista.
+\item
+  Aclaración sobre la posibilidad de no responder a alguna pregunta o interrumpir la entrevista en cualquier momento.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{datos-generales-del-entrevistado}{%
+\subsection{Datos generales del entrevistado}\label{datos-generales-del-entrevistado}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Nombre y Apellido:} (opcional si se desea anonimato)
+\item
+  \textbf{Universidad o institución en la que trabaja:}
+\item
+  \textbf{Asignatura(s) que dicta relacionadas con arquitectura de computadoras:}
+\item
+  \textbf{Años de experiencia docente en el área:}
+\item
+  \textbf{Nivel en el que dicta la asignatura:} (Grado, Posgrado, Técnico, Otro)
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{preguntas-principales}{%
+\subsection{Preguntas principales}\label{preguntas-principales}}
+
+\hypertarget{a.-enseuxf1anza-y-dificultades}{%
+\subsubsection{A. Enseñanza y dificultades}\label{a.-enseuxf1anza-y-dificultades}}
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Cuáles considera que son los principales desafíos que enfrentan los estudiantes al aprender los conceptos de arquitectura de computadoras?
+\item
+  ¿Qué contenidos o temas observa que generan mayores dificultades de comprensión?
+\item
+  ¿Cómo aborda actualmente la enseñanza del lenguaje ensamblador y el ciclo de instrucción?
+\end{itemize}
+
+\hypertarget{b.-experiencia-con-herramientas-de-simulaciuxf3n}{%
+\subsubsection{B. Experiencia con herramientas de simulación}\label{b.-experiencia-con-herramientas-de-simulaciuxf3n}}
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Utiliza o ha utilizado herramientas de simulación en sus clases? ¿Cuáles?
+\item
+  ¿Qué ventajas ha encontrado en el uso de estas herramientas?
+\item
+  ¿Qué limitaciones o dificultades ha identificado en las herramientas actualmente disponibles?
+\end{itemize}
+
+\hypertarget{c.-requisitos-deseables-en-una-herramienta}{%
+\subsubsection{C. Requisitos deseables en una herramienta}\label{c.-requisitos-deseables-en-una-herramienta}}
+
+\begin{itemize}
+\tightlist
+\item
+  En su opinión, ¿qué funcionalidades debería tener una herramienta de simulación para ser útil en el proceso de enseñanza?
+\item
+  ¿Considera importante que la herramienta incluya visualizaciones gráficas del ciclo de instrucción o del flujo de datos entre componentes?
+\item
+  ¿Cree que el soporte para interrupciones y periféricos (por ejemplo, teclado o pantalla) aporta valor al aprendizaje?
+\item
+  ¿Considera que la posibilidad de activar progresivamente instrucciones del repertorio x86 según el avance del curso puede beneficiar el proceso de enseñanza-aprendizaje?
+\item
+  ¿Qué importancia le asigna a la incorporación de métricas de rendimiento (como ciclos por instrucción, tiempo de CPU, etc.) en una herramienta educativa?
+\end{itemize}
+
+\hypertarget{d.-interfaz-y-accesibilidad}{%
+\subsubsection{D. Interfaz y accesibilidad}\label{d.-interfaz-y-accesibilidad}}
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Qué aspectos de la interfaz considera prioritarios en una herramienta pensada para estudiantes?
+\item
+  ¿Debería contemplarse la accesibilidad para personas con discapacidad? ¿De qué forma?
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{cierre}{%
+\subsection{Cierre}\label{cierre}}
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Desea agregar algo más que no hayamos preguntado?
+\item
+  Agradecimiento por el tiempo y colaboración.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\textbf{Nota:} El análisis posterior de las entrevistas será realizado de manera confidencial y con fines exclusivamente académicos.
+
 \hypertarget{refs}{}
 \begin{CSLReferences}{0}{0}
 \leavevmode\vadjust pre{\hypertarget{ref-colombani_pid_2022}{}}%
@@ -2930,32 +3073,36 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \CSLLeftMargin{{[}62{]} }%
 \CSLRightInline{T. Newhall, K. C. Webb, I. Romea, E. Stavis, and S. J. Matthews, {``ASM visualizer: A learning tool for assembly programming,''} in \emph{Proceedings of the 56th ACM technical symposium on computer science education v. 1}, in SIGCSETS 2025. New York, NY, USA: Association for Computing Machinery, 2025, pp. 840--846. doi: \href{https://doi.org/10.1145/3641554.3701793}{10.1145/3641554.3701793}.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-patt2019introduction}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-w3c_accessibility_2021}{}}%
 \CSLLeftMargin{{[}63{]} }%
+\CSLRightInline{W3C Web Accessibility Initiative, {``Accessibility principles.''} 2021. Available: \url{https://www.w3.org/WAI/fundamentals/accessibility-principles/}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-patt2019introduction}{}}%
+\CSLLeftMargin{{[}64{]} }%
 \CSLRightInline{Y. N. Patt and S. J. Patel, \emph{Introduction to computing systems: From bits and gates to c and beyond}, 3rd ed. New York: McGraw-Hill Education, 2019.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-majid1999design}{}}%
-\CSLLeftMargin{{[}64{]} }%
+\CSLLeftMargin{{[}65{]} }%
 \CSLRightInline{Z. Majid, {``Design of SAP-1 controller and simulation using mentor graphics,''} PhD thesis, Universiti Teknologi MARA (UiTM), 1999.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-morlan_sap1_2021}{}}%
-\CSLLeftMargin{{[}65{]} }%
+\CSLLeftMargin{{[}66{]} }%
 \CSLRightInline{A. Morlan, {``Building a simple 8-bit CPU in verilog (SAP-1).''} 2021. Available: \url{https://austinmorlan.com/posts/fpga_computer_sap1/}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-Guald_2015_thesis}{}}%
-\CSLLeftMargin{{[}66{]} }%
+\CSLLeftMargin{{[}67{]} }%
 \CSLRightInline{A. Gualdrón Gamarra and J. P. Pinilla, {``Plataforma para la emulación y reconfiguración de arquitecturas CISC y RISC.''} 2015-01-27. Available: \url{http://hdl.handle.net/20.500.11912/2004}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-silber_tinycpu}{}}%
-\CSLLeftMargin{{[}67{]} }%
+\CSLLeftMargin{{[}68{]} }%
 \CSLRightInline{D. Silber, {``TinyCPU - a simple CPU implemented in verilog.''} \url{https://www.eecis.udel.edu/~silber/tinycpu/\#/home}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-vonsim}{}}%
-\CSLLeftMargin{{[}68{]} }%
+\CSLLeftMargin{{[}69{]} }%
 \CSLRightInline{J. M. S. Facundo Quiroga Manuel Bustos Berrondo, {``VonSim - simulador de arquitectura de von neumann.''} \url{https://vonsim.github.io/}, 2020.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-vonsim8}{}}%
-\CSLLeftMargin{{[}69{]} }%
+\CSLLeftMargin{{[}70{]} }%
 \CSLRightInline{J. Ruiz, {``VonSim8 - simulador simplificado de arquitectura von neumann de 8 bits.''} \url{https://ruiz-jose.github.io/VonSim8/}, 2024.}
 
 \end{CSLReferences}

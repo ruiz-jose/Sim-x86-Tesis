@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.7 Lenguaje máquina y lenguaje ensamblador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="2.7 Lenguaje máquina y lenguaje ensamblador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>Apéndices | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="Apéndices | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.7 Lenguaje máquina y lenguaje ensamblador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="Apéndices | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.7 Lenguaje máquina y lenguaje ensamblador | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="Apéndices | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="arquitectura-x86-1.html"/>
-<link rel="next" href="simulacion.html"/>
+<link rel="prev" href="Biblio.html"/>
+<link rel="next" href="anexoA.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -261,226 +261,16 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lenguaje-máquina-y-lenguaje-ensamblador" class="section level2 hasAnchor" number="2.7">
-<h2><span class="header-section-number">2.7</span> Lenguaje máquina y lenguaje ensamblador<a href="lenguaje-máquina-y-lenguaje-ensamblador.html#lenguaje-máquina-y-lenguaje-ensamblador" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El lenguaje máquina es el conjunto de instrucciones que un procesador puede entender y ejecutar directamente. Cada procesador tiene su propio conjunto de instrucciones, que se representan en forma de números binarios. Estas instrucciones son específicas para cada arquitectura y están diseñadas para realizar operaciones básicas como sumar, restar, mover datos entre registros y acceder a la memoria. El lenguaje máquina es el nivel más bajo de programación y está compuesto por secuencias de bits que representan operaciones y operandos específicos del procesador
-<span class="citation">(<a href="#ref-irvine2011assembly">Irvine and Das 2011</a>; <a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>)</span>.</p>
-<p>El procesador ejecuta directamente las instrucciones codificadas en lenguaje máquina, sin requerir traducción desde niveles superiores de abstracción. Sin embargo, la escritura manual de código en lenguaje máquina es un proceso extremadamente laborioso, propenso a errores y difícil de mantener. Cada instrucción debe representarse como una cadena precisa de ceros y unos. Esta codificación depende de las reglas específicas del procesador, que incluyen los modos de direccionamiento, los formatos de instrucción y la organización de la memoria <span class="citation">(<a href="#ref-irvine2011assembly">Irvine and Das 2011</a>; <a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>; <a href="#ref-null_essentials_2023">Null 2023</a>)</span>.</p>
-<p>Por ejemplo, si un estudiante o desarrollador deseara sumar dos números en lenguaje máquina, tendría que especificar manualmente cada secuencia binaria correspondiente a la operación de suma, así como las direcciones de memoria donde se encuentran los operandos. Este enfoque no solo es tedioso, sino que también aumenta la probabilidad de errores, especialmente cuando se requiere modificar o depurar el código.</p>
-<p>Ante las limitaciones del lenguaje máquina en términos de legibilidad y mantenibilidad, se desarrolló un lenguaje de bajo nivel con mayor legibilidad que el lenguaje máquina que permitiera al programador escribir instrucciones de forma más comprensible: el lenguaje ensamblador. Este lenguaje permite a los programadores escribir instrucciones más comprensibles mediante mnemónicos simbólicos, que actúan como representaciones legibles de las instrucciones en lenguaje máquina. Cada arquitectura de procesador define su propio conjunto de instrucciones (ISA, Instruction Set Architecture), lo que implica que el lenguaje ensamblador asociado debe ajustarse a la codificación binaria, modos de direccionamiento y sintaxis específicos de dicha ISA <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
-<p>En el ámbito educativo, el lenguaje ensamblador se destaca como una herramienta fundamental para comprender cómo se comunican el software y el hardware <span class="citation">(<a href="#ref-null_essentials_2023">Null 2023</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>. Permite a los estudiantes visualizar la ejecución de instrucciones individuales, analizar el uso de registros y explorar la estructura de la memoria, convirtiéndose en un recurso valioso para este propósito.</p>
-<p>Un programa en lenguaje ensamblador suele estar compuesto por instrucciones que especifican un mnemónico, uno o más operandos, y eventualmente el modo de direccionamiento. Por ejemplo:</p>
-<pre class="assembly"><code>; Carga el valor inmediato 5 en el registro AX.
-MOV AX, 5  
-
-; Sumar los registros BX y AX, guarda el resultado en AX.
-ADD AX, BX </code></pre>
-<p>Estas líneas indican que el valor 5 se mueve al registro AX y luego se suma el contenido de BX. A través de este tipo de instrucciones, el estudiante puede visualizar de forma explícita cómo opera el procesador sobre sus registros y memoria.</p>
-<div id="ensamblador" class="section level3 hasAnchor" number="2.7.1">
-<h3><span class="header-section-number">2.7.1</span> Ensamblador<a href="lenguaje-máquina-y-lenguaje-ensamblador.html#ensamblador" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El ensamblador es un programa que traduce las instrucciones simbólicas escritas en lenguaje ensamblador a lenguaje máquina, es decir, las convierte en las secuencias binarias que el procesador puede interpretar y ejecutar. Este proceso de traducción es prácticamente directo, ya que existe una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>. En contraste, los lenguajes de programación de alto nivel, como C o Python, suelen generar múltiples instrucciones máquina por cada línea de código fuente, lo que los distancia más de la arquitectura subyacente <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>)</span>.</p>
-<p>La Figura <a href="lenguaje-máquina-y-lenguaje-ensamblador.html#fig:ensambla">2.10</a> muestra el proceso de traducción de un programa en lenguaje ensamblador a lenguaje máquina. En este proceso, el ensamblador toma cada línea de código en ensamblador y la convierte en su representación binaria correspondiente, generando así un archivo ejecutable que puede ser cargado y ejecutado por el procesador.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ensambla"></span>
-<img src="images/ensamblador.png" alt="Proceso de ensamblado" width="100%" />
-<p class="caption">
-Figura 2.10: Proceso de ensamblado
-</p>
-</div>
-</div>
-<div id="ensambladores-x86" class="section level3 hasAnchor" number="2.7.2">
-<h3><span class="header-section-number">2.7.2</span> Ensambladores x86<a href="lenguaje-máquina-y-lenguaje-ensamblador.html#ensambladores-x86" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) <span class="citation">(<a href="#ref-tasm">International 1993</a>)</span>, MASM (Microsoft Macro Assembler) <span class="citation">(<a href="#ref-masm">M. Corporation 1992</a>)</span> y NASM (Netwide Assembler) <span class="citation">(<a href="#ref-nasm">The NASM Project 2023</a>)</span>. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 <span class="citation">(<a href="#ref-hyde2010art">Hyde 2010</a>)</span>.</p>
-<p>A continuación, se presenta una tabla comparativa <a href="lenguaje-máquina-y-lenguaje-ensamblador.html#tab:ensambladores">2.8</a> que resume las principales características de tres ensambladores ampliamente utilizados en la arquitectura x86. La información compilada permite visualizar diferencias relevantes en términos de sintaxis, compatibilidad, funcionalidades adicionales y contexto de uso, lo que resulta particularmente útil al momento de seleccionar herramientas adecuadas para entornos educativos o de desarrollo de bajo nivel.</p>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-<span id="tab:ensambladores">Tabla 2.8: </span>Comparación de ensambladores arquitectura x86
-</caption>
-<thead>
-<tr>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Característica
-</th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-TASM
-</th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-MASM
-</th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-NASM
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Desarrollador
-</td>
-<td style="text-align:left;width: 18em; ">
-Borland
-</td>
-<td style="text-align:left;width: 18em; ">
-Microsoft
-</td>
-<td style="text-align:left;width: 18em; ">
-Simon Tatham et al. 
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Año de lanzamiento
-</td>
-<td style="text-align:left;width: 18em; ">
-1985
-</td>
-<td style="text-align:left;width: 18em; ">
-1981
-</td>
-<td style="text-align:left;width: 18em; ">
-1996
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Sistema operativo
-</td>
-<td style="text-align:left;width: 18em; ">
-MS-DOS, Windows
-</td>
-<td style="text-align:left;width: 18em; ">
-MS-DOS, Windows
-</td>
-<td style="text-align:left;width: 18em; ">
-Multiplataforma (Windows, Linux, macOS)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Sintaxis
-</td>
-<td style="text-align:left;width: 18em; ">
-Sintaxis similar a Intel con extensiones
-</td>
-<td style="text-align:left;width: 18em; ">
-Sintaxis de Intel con soporte avanzado
-</td>
-<td style="text-align:left;width: 18em; ">
-Sintaxis de Intel, modular y extensible
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Soporte de macros
-</td>
-<td style="text-align:left;width: 18em; ">
-Macros y directivas avanzadas
-</td>
-<td style="text-align:left;width: 18em; ">
-Macros y directivas extensivas
-</td>
-<td style="text-align:left;width: 18em; ">
-Macros avanzadas y preprocesamiento
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Compatibilidad
-</td>
-<td style="text-align:left;width: 18em; ">
-Compatibilidad con x86 antiguo
-</td>
-<td style="text-align:left;width: 18em; ">
-Compatibilidad con x86 antiguo
-</td>
-<td style="text-align:left;width: 18em; ">
-Compatibilidad con x86, x86-64 y otros
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Capacidades adicionales
-</td>
-<td style="text-align:left;width: 18em; ">
-Integración con herramientas Borland
-</td>
-<td style="text-align:left;width: 18em; ">
-Integración con Visual Studio
-</td>
-<td style="text-align:left;width: 18em; ">
-Soporte para múltiples formatos (binario, ELF, etc.)
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Licencia
-</td>
-<td style="text-align:left;width: 18em; ">
-Comercial
-</td>
-<td style="text-align:left;width: 18em; ">
-Comercial
-</td>
-<td style="text-align:left;width: 18em; ">
-Código abierto
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Uso actual
-</td>
-<td style="text-align:left;width: 18em; ">
-Menos común, usado en entornos heredados
-</td>
-<td style="text-align:left;width: 18em; ">
-Ampliamente usado en desarrollo Windows
-</td>
-<td style="text-align:left;width: 18em; ">
-Popular en sistemas y software libre
-</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-<!-- </div> -->
-<h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-masm" class="csl-entry">
-Corporation, Microsoft. 1992. <em>Microsoft Macro Assembler 6.1 Reference</em>. Microsoft Press.
-</div>
-<div id="ref-hennessy2017computer" class="csl-entry">
-Hennessy, John L., and David A. Patterson. 2017a. <em>Computer Architecture: A Quantitative Approach</em>. 6th ed. Boston: Morgan Kaufmann.
-</div>
-<div id="ref-hyde2010art" class="csl-entry">
-Hyde, Randall. 2010. <em>The Art of Assembly Language</em>. No Starch Press.
-</div>
-<div id="ref-tasm" class="csl-entry">
-International, Borland. 1993. <em>Turbo Assembler User’s Guide</em>. Borland International.
-</div>
-<div id="ref-irvine2011assembly" class="csl-entry">
-Irvine, Kip R, and Lyla B Das. 2011. <em>Assembly Language for X86 Processors</em>. Prentice Hall.
-</div>
-<div id="ref-null_essentials_2023" class="csl-entry">
-Null, Linda. 2023. <em>Essentials of Computer Organization and Architecture with Navigate Advantage Access</em>. 6th ed. Burlington, MA: Jones &amp; Bartlett Learning.
-</div>
-<div id="ref-stallings_computer_2021" class="csl-entry">
-Stallings, William. 2021. <em>Computer Organization and Architecture: Designing for Performance</em>. 11th ed. Boston, MA: Pearson.
-</div>
-<div id="ref-tanenbaum_structured_2016" class="csl-entry">
-Tanenbaum, Andrew S. 2016. <em>Structured Computer Organization</em>. Pearson Education India.
-</div>
-<div id="ref-nasm" class="csl-entry">
-The NASM Project. 2023. <em>The Netwide Assembler (NASM) Manual</em>.
-</div>
+<div id="apéndices" class="section level1 unnumbered hasAnchor">
+<h1>Apéndices<a href="apéndices.html#apéndices" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="arquitectura-x86-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="simulacion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="Biblio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="anexoA.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -511,7 +301,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/02-arquitectura.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/apendice.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -519,7 +309,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/02-arquitectura.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/apendice.Rmd",
     "text": null
   },
   "download": ["tesis.pdf"],
