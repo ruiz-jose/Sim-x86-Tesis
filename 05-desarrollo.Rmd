@@ -218,15 +218,60 @@ if (knitr::is_latex_output()) {
 Este diseño conceptual sienta las bases para las decisiones tomadas durante la etapa de implementación, que se describen en las siguientes secciones del capítulo.
 
 ## Diseño del Simulador
-El diseño del simulador se basa en la arquitectura Von Neumann, que es la más comúnmente utilizada en computadoras modernas. Esta arquitectura se caracteriza por tener una única memoria que almacena tanto datos como instrucciones, lo que permite una mayor flexibilidad y eficiencia en el procesamiento de información.
+El diseño del simulador se fundamenta en la arquitectura de Von Neumann, ampliamente adoptada en las computadoras modernas por su simplicidad conceptual y operativa. Esta arquitectura se caracteriza por utilizar una única memoria compartida para almacenar tanto datos como instrucciones, esta característica permite una mayor flexibilidad en la ejecución de programas, ya que las instrucciones pueden ser tratadas como datos, facilitando la implementación de técnicas avanzadas como la ejecución dinámica y la optimización del rendimiento.
 
-Para el diseño del simulador desarrollado en este trabajo, se tomó como referencia el simulador VonSim [@vonsim], una herramienta educativa basada en la arquitectura de Von Neumann que permite visualizar y experimentar el ciclo de instrucción de una manera interactiva. Esta herramienta sirvió como base conceptual y funcional debido a su enfoque didáctico y su estructura visual clara, orientada a la enseñanza de principios fundamentales de arquitectura de computadoras.
+Para el diseño del simulador desarrollado en este trabajo, se tomó como referencia el simulador VonSim^[VonSim: https://vonsim.github.io/], una herramienta educativa basada en la arquitectura de Von Neumann que permite visualizar y experimentar el ciclo de instrucción de una manera interactiva. Esta herramienta sirvió como base conceptual y funcional debido a su enfoque didáctico y su estructura visual clara, orientada a la enseñanza de principios fundamentales de arquitectura de computadoras [@vonsim].
 
-Sin embargo, considerando los contenidos y objetivos específicos de la asignatura Arquitectura de Computadoras, se optó por desarrollar una versión simplificada del simulador, adaptada a una arquitectura de 8 bits —denominada VonSim8— [@vonsim8], con el fin de facilitar la comprensión progresiva de los estudiantes y reducir la complejidad técnica en las etapas iniciales del aprendizaje. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
+Sin embargo, considerando los contenidos y objetivos específicos de la asignatura Arquitectura de Computadoras, 
+VonSim8^[VonSim8: https://ruiz-jose.github.io/VonSim8/] es un simulador diseñado específicamente en este trabajo, inspirado en VonSim, pero adaptado para operar con registros y memoria de 8 bits, con una interfaz simplificada orientada al aprendizaje progresivo.
+Dado que VonSim incluye una arquitectura detallada con múltiples instrucciones, registros y componentes funcionales. Si bien esto ofrece un panorama completo, puede dificultar el aprendizaje inicial al introducir simultáneamente numerosos conceptos avanzados. Debido a esto se optó por desarrollar una versión simplificada del simulador, esta decisión responde a la necesidad de reducir la carga cognitiva en las primeras etapas del aprendizaje y facilitar una asimilación progresiva de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
-Entre los principales cambios realizados se destacan: la simplificación del repertorio de instrucciones, la reducción del tamaño de los registros y la memoria, la adaptación de la interfaz para representar de manera más esquemática el flujo de ejecución, y la incorporación de elementos interactivos específicos para favorecer la comprensión del ciclo de instrucción y el rol de cada componente.
+Entre las principales modificaciones realizadas se incluyen: (1) la reducción y simplificación del repertorio de instrucciones; (2) el ajuste en el tamaño de los registros y la memoria para operar con datos de 8 bits; (3) el rediseño de la interfaz gráfica con un enfoque esquemático del flujo de ejecución; y (4) la incorporación de funcionalidades interactivas orientadas a la visualización del ciclo de instrucción y el rol específico de cada componente. Las modificaciones se definieron conforme a los contenidos curriculares de la asignatura y se fundamentan en los principios del aprendizaje activo, que promueven la participación del estudiante como protagonista en la construcción de su conocimiento [@bonwell1991active].
 
-El diseño conceptual busca materializar los principios previamente definidos en una arquitectura operativa alineada con los objetivos pedagógicos de la enseñanza de arquitectura de computadoras.
+```{r comparativa-vonsim, echo=FALSE, out.width = "100%", fig.cap="Comparación entre VonSim y VonSim8"}
+library(knitr)
+library(kableExtra)
+
+comparativa <- data.frame(
+  Característica = c("Arquitectura", "Tamaño de registros", "Interfaz gráfica", "Repertorio de instrucciones", "Objetivo didáctico"),
+  VonSim = c("Von Neumann", "Variable según versión", "Completa, detallada", "Amplio", "Demostración de conceptos avanzados"),
+  VonSim8 = c("Von Neumann", "8 bits", "Simplificada, esquemática", "Reducido y adaptado", "Comprensión progresiva de conceptos básicos")
+)
+
+tabla_kable <- kable(comparativa,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Comparación entre VonSim y VonSim8",
+               col.names = c("Característica", "VonSim", "VonSim8"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "c", "c"))
+
+if (knitr::is_latex_output()) {
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "5.5cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(comparativa)),
+             extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+
+
+El diseño conceptual se orienta a plasmar los principios definidos anteriormente en una arquitectura funcional que responda de manera efectiva a los objetivos pedagógicos de la asignatura Arquitectura de Computadoras.
 
 Con los requisitos funcionales y didácticos previamente definidos, se elaboró un diseño conceptual que organiza la estructura interna del simulador en bloques funcionales bien delimitados. Este diseño permite modelar de manera explícita las relaciones entre los distintos componentes, facilitando tanto la implementación como la comprensión de la arquitectura simulada.
 
@@ -236,9 +281,9 @@ La Figura \@ref(fig:esquemavonsim8) presenta una visión esquemática de la arqu
 knitr::include_graphics(path = "images/esquemavonsim8.png")
 ```
 
-La memoria princiapl se modela en una matriz de 16x16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.
+La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.
 
-Se representa el teclado y pantalla para simular la interacción con el usuario. El teclado se modela como un vector de 16 posiciones, cada una representando un carácter ASCII. La pantalla se simula como una matriz de 16x16, donde cada posición puede contener un carácter ASCII. Esta representación permite a los estudiantes comprender cómo se gestionan las entradas y salidas en un sistema real.
+El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
 
 La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla \@ref(tab:bloquesfuncionales) resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
 
@@ -291,9 +336,9 @@ if (knitr::is_latex_output()) {
 ```
 
 ### Componentes del CPU
-En correspondencia con los bloques funcionales anteriormente mencionados, a continuación se describen las componentes específicas del CPU simulado.
+En esta sección se detallan los componentes que conforman la Unidad Central de Procesamiento (CPU) del simulador VonSim8, estableciendo su correspondencia con los elementos de una arquitectura real. La descripción de cada componente se organiza en función de su rol funcional y su relevancia didáctica.
 
-El diseño del CPU simplificado se describe en la siguiente tabla \@ref(tab:arq):
+El diseño de los registros busca facilitar el aprendizaje de los distintos modos de direccionamiento y el ciclo de instrucción, aspectos centrales en la enseñanza de arquitectura de computadoras. Se describe en la siguiente tabla \@ref(tab:arq):
 
 ```{r arq, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -438,7 +483,6 @@ if (knitr::is_latex_output()) {
 ```
 
 ### Formato de instrucciones
-
 El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. La tabla \@ref(tab:codtraducido) muestra el formato de las instrucciones y su codificación binaria.
 
 ```{r codtraducido, echo=FALSE, message=FALSE, warning=FALSE}
@@ -571,7 +615,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-### Ciclo de la instrucción: Etapas de captación y ejecución
+## Ciclo de la instrucción: Etapas de captación y ejecución
 En este apartado se detalla el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los aspectos clave:
 
 - Secuencia de pasos.
@@ -583,7 +627,15 @@ El **ciclo de la instrucción** se define como la secuencia de microoperaciones 
 
 `destino` $\leftarrow$ `origen` 
 
-#### Etapa de Captación: 
+
+La Figura \@ref(fig:flujoCicloInstruccion) ilustra el flujo básico del ciclo de instrucción implementado en el simulador, permitiendo visualizar los pasos secuenciales de búsqueda, decodificación y ejecución.
+
+```{r flujoCicloInstruccion, echo=FALSE, fig.cap="Flujo del ciclo de instrucción en VonSim8", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/cicloinstruccion2.png")
+```
+
+
+### Etapa de Captación: 
 En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
 
   1. **`MAR` $\leftarrow$ `IP`**:
@@ -593,7 +645,7 @@ En esta etapa, común a todas las instrucciones, consiste en la lectura de la in
   3. **`IR` $\leftarrow$ `MBR`**:
   el contenido del `MBR` se transfiere al registro de instrucciones `IR`, completando la etapa de captación. 
 
-#### Etapa de Ejecución:
+### Etapa de Ejecución:
 En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
 
 * MOV `Rx`, `Ry` (Copia entre registros)
@@ -651,13 +703,23 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
   3. `Si Z` == 1: **`IP` $\leftarrow$ `MBR`**:
   si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
 
+## Diseño Ampliado del Simulador VonSim8
+En esta sección se presentan las modificaciones y ampliaciones realizadas al diseño del simulador VonSim8, con el objetivo de enriquecer la experiencia de aprendizaje y adaptarlo a los contenidos avanzados de la asignatura Arquitectura de Computadoras.
+
+### Nuevos requisitos funcionales
+Se incorporan nuevos requisitos funcionales para ampliar las capacidades del simulador, permitiendo una mayor flexibilidad y profundidad en el aprendizaje:
+- **Modos de direccionamiento adicionales**: Se añaden nuevos modos de direccionamiento para enriquecer la variedad de operaciones que se pueden realizar.
+- **Formato ampliado de instrucciones**: Se implementa un formato de instrucciones más flexible, permitiendo codificar instrucciones con 1, 2 o 3 bytes según el modo de direccionamiento utilizado.
+- **Instrucciones adicionales**: Se introducen nuevas instrucciones que amplían el repertorio del simulador, permitiendo a los estudiantes explorar conceptos más avanzados de arquitectura de computadoras.
+
+
 ### Modos de direccionamiento adicionales
 Se incoporan los siguientes modos de direccionamiento:
 
 - Indirecto por registro (`[BL]`): la dirección del operando se encuentra en el registro `BL` del procesador.
 - Inmediato (`d`): operando es un valor contenido en la instrucción. 
 
-### Formato ampliado
+### Formato ampliado de instrucciones
 Las instrucciones ahora se codifican con 1, 2 o 3 bytes dependiendo del modo:
 
 Las instrucciones de cargar a registro (B):
