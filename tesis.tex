@@ -1663,7 +1663,7 @@ Para cumplir con este objetivo, se definieron una serie de requisitos funcionale
 \hypertarget{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}{%
 \section{Requisitos de la herramienta y su fundamentación}\label{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}}
 
-A partir de los objetivos didácticos establecidos en el capítulo introductorio (\ref{intro}), esta sección detalla los requisitos funcionales y pedagógicos que estructuraron el diseño del simulador. La definición de estos requisitos se basó tanto en principios pedagógicos y técnicos como en un proceso de validación empírica, basado en entrevistas semiestructuradas realizadas a 2 docentes de nivel universitario con más de veinte años de experiencia en la enseñanza de Arquitectura de Computadoras. La guía de entrevista abordó ejes vinculados a las dificultades frecuentes en la enseñanza, las limitaciones de herramientas actuales y las funcionalidades deseables en un simulador. El análisis se realizó mediante codificación temática (ver Anexo A \ref{anexoA}).
+Esta sección detalla los requisitos funcionales y pedagógicos que guiaron el diseño del simulador, en base a los objetivos didácticos establecidos en el capítulo introductorio (\ref{intro}). Su definición se apoyó en principios pedagógicos y técnicos, y se complementó con una validación empírica basada en entrevistas semiestructuradas a docentes expertos. Este proceso permitió identificar necesidades concretas del aula, así como carencias en las herramientas existentes (ver Anexo A \protect\hyperlink{ref-ref}{\textbf{ref?}}(anexoA)). Este tipo de diseño guiado por entrevistas cualitativas permite captar las necesidades auténticas del aula y fundamentar técnicamente los requerimientos de desarrollo \protect\hyperlink{ref-huberman2019qualitative}{\textbf{huberman2019qualitative?}}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1764,7 +1764,7 @@ Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion
 \begin{itemize}
 \tightlist
 \item
-  Incluir un vector de interrupciones predefinido que permita simular eventos externos, como la interacción con teclado y monitor, a través de instrucciones como IN y OUT. Esta funcionalidad tiene un alto valor pedagógico, ya que permite al estudiante explorar de forma interactiva conceptos fundamentales como la asincronía, el manejo de eventos y la interrupción del flujo secuencial de ejecución, los cuales son característicos del diseño de arquitecturas modernas y fundamentales para comprender el funcionamiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación.
+  Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Estas interacciones permiten emular situaciones reales de asincronía, esenciales para la comprensión de mecanismos como la interrupción del flujo de ejecución. Esta funcionalidad tiene un alto valor pedagógico, ya que permite al estudiante explorar de forma interactiva conceptos fundamentales como la asincronía, el manejo de eventos y la interrupción del flujo secuencial de ejecución, los cuales son característicos del diseño de arquitecturas modernas y fundamentales para comprender el funcionamiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Ademas, se ofrece el posibilidad de simular la entrada y salida de datos a través es un módulo de entrada y salida programable programmed input-output (PIO) generico que hace de interfaz para conectar dispositivos genéricos al CPU, mediante las instrucciones como IN y OUT, ofreciendo dispositivos como llaves o interruptores, que permiten al estudiante interactuar con el simulador de manera más realista, facilitando la comprensión de cómo los sistemas operativos gestionan la comunicación con dispositivos periféricos.
 \end{itemize}
 
 \begin{enumerate}
@@ -1883,7 +1883,7 @@ El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en
 \end{tabular}}
 \end{table}
 
-Este diseño conceptual sienta las bases para las decisiones tomadas durante la etapa de implementación, que se describen en las siguientes secciones del capítulo.
+En conjunto, estos requisitos orientan el diseño del simulador para maximizar su impacto pedagógico y su utilidad como recurso de apoyo a la enseñanza de arquitectura x86. En la siguiente sección se describe cómo fueron implementados funcionalmente estos requisitos, detallando su correspondencia con la estructura modular del simulador.
 
 \hypertarget{diseuxf1o-del-simulador}{%
 \section{Diseño del Simulador}\label{diseuxf1o-del-simulador}}
