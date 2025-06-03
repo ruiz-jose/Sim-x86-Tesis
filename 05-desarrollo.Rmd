@@ -3,16 +3,27 @@ En este capítulo se describe el diseño y desarrollo de una herramienta de simu
 
 En el capítulo anterior se analizaron y evaluaron las herramientas de simulación existentes para la arquitectura x86. Esta revisión exhaustiva permitió identificar las limitaciones de las soluciones actuales y fundamentar la necesidad de desarrollar una herramienta específica (véase el capítulo \@ref(comparativa)).
 
-Para cumplir con este objetivo, se definieron una serie de requisitos funcionales y pedagógicos que estructuran el diseño, validación y desarrollo del simulador. Estos requisitos se alinean con los objetivos educativos presentados en el capítulo introductorio y responden a las limitaciones identificadas en el análisis de simuladores existentes.
+A partir de esta necesidad, se establecieron un conjunto de requisitos funcionales y pedagógicos que guiaron de manera integral el diseño, la implementación y la validación del simulador. Estos requisitos no solo responden a las limitaciones observadas en herramientas existentes, sino que se alinean con los objetivos educativos previamente definidos.
 
 ## Requisitos de la herramienta y su fundamentación
-Esta sección detalla los requisitos funcionales y pedagógicos que guiaron el diseño del simulador, en base a los objetivos didácticos establecidos en el capítulo introductorio (\@ref(intro)). Su definición se apoyó en principios pedagógicos y técnicos, y se complementó con una validación empírica basada en entrevistas semiestructuradas a docentes expertos. Este proceso permitió identificar necesidades concretas del aula, así como carencias en las herramientas existentes (ver Anexo A @ref(anexoA)). Este tipo de diseño guiado por entrevistas cualitativas permite captar las necesidades auténticas del aula y fundamentar técnicamente los requerimientos de desarrollo [@huberman2019qualitative].
+Esta sección detalla los requisitos funcionales y pedagógicos que guiaron el diseño del simulador, en base a los objetivos didácticos establecidos en el capítulo introductorio (\@ref(intro)). Su definición se apoyó en principios pedagógicos y técnicos, y se complementó con una validación empírica basada en entrevistas semiestructuradas a docentes expertos. Este proceso permitió identificar necesidades concretas del aula, así como carencias en las herramientas existentes (ver Anexo A @ref(anexoA)). La metodología cualitativa basada en entrevistas semiestructuradas permitió identificar necesidades auténticas del aula, aportando una base empírica sólida para la definición técnica de los requerimientos funcionales y pedagógicos [@huberman2019qualitative].
 
 1. **Visualización de la estructura general de la computadora:**
   - Incluir una representación gráfica de la arquitectura básica de la computadora —compuesta por CPU, buses, memoria y dispositivos de entrada/salida— durante la ejecución de los programas. La visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas [@sorva2013visualizations].
 
+  Como complemento a la tabla de requisitos funcionales, se incorpora un diagrama estructural que presenta los principales módulos del simulador y sus interacciones. Esta representación permite integrar visualmente los componentes implementados y su relación con los objetivos funcionales definidos.
+
+  ```{r diagramasimulador, echo=FALSE, fig.cap="Estructura del simulador y componentes funcionales", fig.align = 'center', out.width = "90%"}
+  knitr::include_graphics("images/estructurasimulador.png")
+  ```
+
 2. **Soporte para la generación y ejecución de programas en ensamblador:**
   - Permitir la ejecución paso a paso y la ejecución completa de programas escritos en lenguaje ensamblador. Esta funcionalidad permite un análisis detallado del comportamiento de cada instrucción, promoviendo el desarrollo de competencias en el trazado y depuración de código a nivel de lenguaje ensamblador, lo cual resulta esencial para interiorizar la relación entre software y hardware.
+  La inclusión de un editor de ensamblador con resaltado de sintaxis y autocompletado mejora la experiencia del usuario, facilitando la escritura y comprensión del código. Esta funcionalidad se basa en principios de diseño de interfaces que promueven la usabilidad y la accesibilidad [@w3c_accessibility_2021]. El editor debe permitir al usuario escribir, editar y guardar programas en ensamblador, así como ejecutar estos programas dentro del simulador. Esta funcionalidad se encuentra respaldada por estudios que destacan la importancia de herramientas de desarrollo integradas (IDEs) en la enseñanza de lenguajes de programación [@mccracken2001does].
+
+  ```{r editor, echo=FALSE, fig.cap="Editor ensamblador", fig.align = 'center', out.width = "90%"}
+  knitr::include_graphics("images/editor.png")
+  ```
 
 3. **Repertorio reducido de instrucciones con activación progresiva:**
   - Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita en etapas secuenciales del proceso de enseñanza, en correspondencia con el avance de los contenidos curriculares. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva [@nationalacademies2018how]. Esta estrategia también se encuentra respaldada por autores como Hasan [@hasan_survey_2012], Null y Lobur [@null_essentials_2023], y Stallings [@stallings_computer_2021], quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
@@ -75,13 +86,16 @@ Una vez incorporado el repertorio esencial de instrucciones, el siguiente paso e
   
   Como complemento a la descripción anterior, la Figura \@ref(fig:cicloinstruccion) ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas *fetch*, *decode* y *execute*, así como los registros que participan activamente en cada fase.
 
-  ```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción: captación y ejecución ", fig.align = 'center', out.width = "85%"}
+  ```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción: captación y ejecución", fig.align = 'center', out.width = "85%"}
   knitr::include_graphics(path = "images/cicloinstruccion.png")
   ```
     
 5. **Gestión básica de interrupciones y periféricos:**
   - Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Estas interacciones permiten emular situaciones reales de asincronía, esenciales para la comprensión de mecanismos como la interrupción del flujo de ejecución. Esta funcionalidad tiene un alto valor pedagógico, ya que permite al estudiante explorar de forma interactiva conceptos fundamentales como la asincronía, el manejo de eventos y la interrupción del flujo secuencial de ejecución, los cuales son característicos del diseño de arquitecturas modernas y fundamentales para comprender el funcionamiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur [@null_essentials_2023], quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Además, se incorpora un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo permite simular operaciones mediante instrucciones como IN y OUT, facilitando la interacción del estudiante con dispositivos representados gráficamente, como interruptores y teclas. De esta forma, se promueve una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
 
+  ```{r perifericos, echo=FALSE, fig.cap="Módulo genérico de entrada/salida programada", fig.align = 'center', out.width = "85%"}
+  knitr::include_graphics(path = "images/perifericos.png")
+  ```
 
 6. **Métricas de rendimiento:**
   - Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. stos indicadores permiten al estudiante analizar cuantitativamente la eficiencia de la ejecución de un programa, facilitando comparaciones entre diferentes implementaciones. Su inclusión apunta a fortalecer la comprensión de aspectos clave del rendimiento del procesador, promoviendo una formación integral que contemple tanto aspectos funcionales como métricos del comportamiento del sistema [@hennessy2017computer].
@@ -145,11 +159,6 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-Como complemento a la tabla de requisitos funcionales, se incorpora un diagrama estructural que presenta los principales módulos del simulador y sus interacciones. Esta representación permite integrar visualmente los componentes implementados y su relación con los objetivos funcionales definidos.
-
-```{r diagramasimulador, echo=FALSE, fig.cap="Estructura del simulador y componentes funcionales", fig.align = 'center', out.width = "90%"}
-knitr::include_graphics("images/estructurasimulador.png")
-```
 
 Además de responder a criterios técnicos, estos requisitos fueron definidos en conjunto con docentes especialistas del área, a través de reuniones y talleres de validación donde se analizaron prototipos tempranos y necesidades concretas del aula, garantizando así su relevancia didáctica y su adecuación al contexto educativo de la asignatura Arquitectura de Computadoras.
 
