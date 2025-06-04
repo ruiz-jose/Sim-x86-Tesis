@@ -6,7 +6,7 @@ En el capítulo anterior se analizaron y evaluaron las herramientas de simulaci�
 A partir de esta necesidad, se establecieron un conjunto de requisitos funcionales y pedagógicos que guiaron de manera integral el diseño, la implementación y la validación del simulador. Estos requisitos no solo responden a las limitaciones observadas en herramientas existentes, sino que se alinean con los objetivos educativos previamente definidos.
 
 ## Requisitos de la herramienta y su fundamentación
-Esta sección detalla los requisitos funcionales y pedagógicos que guiaron el diseño del simulador, en base a los objetivos didácticos establecidos en el capítulo introductorio (\@ref(intro)). Su definición se apoyó en principios pedagógicos y técnicos, y se complementó con una validación empírica basada en entrevistas semiestructuradas a docentes expertos. Este proceso permitió identificar necesidades concretas del aula, así como carencias en las herramientas existentes (ver Anexo A @ref(anexoA)). La metodología cualitativa basada en entrevistas semiestructuradas permitió identificar necesidades auténticas del aula, aportando una base empírica sólida para la definición técnica de los requerimientos funcionales y pedagógicos [@huberman2019qualitative].
+Esta sección detalla los requisitos funcionales y pedagógicos que guiaron el diseño del simulador, en base a los objetivos didácticos establecidos en el capítulo introductorio (\@ref(intro)). Su definición se apoyó en principios pedagógicos y técnicos, y se complementó con una validación empírica basada en entrevistas semiestructuradas a docentes expertos. Este proceso permitió identificar necesidades concretas del aula, así como carencias en las herramientas existentes (ver Anexo A \@ref(anexoA)). La metodología cualitativa basada en entrevistas semiestructuradas permitió identificar necesidades auténticas del aula, aportando una base empírica sólida para la definición técnica de los requerimientos funcionales y pedagógicos [@huberman2019qualitative].
 
 1. **Visualización de la estructura general de la computadora:**
   - Incluir una representación gráfica de la arquitectura básica de la computadora —compuesta por CPU, buses, memoria y dispositivos de entrada/salida— durante la ejecución de los programas. La visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas [@sorva2013visualizations].
@@ -108,7 +108,7 @@ Esta progresión permite al estudiante familiarizarse con los conceptos fundamen
 8. **Documentación y recursos de apoyo:**
   - Proporcionar documentación clara y accesible que explique el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Esta documentación debe incluir ejemplos prácticos, guías de uso y recursos adicionales para facilitar la comprensión y el aprendizaje autónomo. La inclusión de tutoriales interactivos y ejemplos prácticos es fundamental para guiar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo [@bonwell1991active].
 
-Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. La Tabla \@ref(tablafuncionales) resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
+Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. La Tabla  \@ref(tab:tablafuncionales) resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
 
 ```{r tablafuncionales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -168,12 +168,12 @@ En conjunto, estos requisitos orientan el diseño del simulador para maximizar s
 knitr::include_graphics("images/requisitos.png")
 ```
 
-```{r requisitosdidacticos, echo=FALSE, message=FALSE, warning=FALSE}
+```{r requisitosresumen, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
 # Crear los datos de la tabla de requisitos y fundamento
-requisitos <- data.frame(
+requisitosresumen <- data.frame(
   Requisito = c(
     "Visualización de estructura",
     "Ejecución de programas en ensamblador",
@@ -190,7 +190,7 @@ requisitos <- data.frame(
   )
 )
 
-tabla_requisitos <- kable(requisitos,
+tabla_requisitos <- kable(requisitosresumen,
                format = ifelse(knitr::is_latex_output(), "latex", "html"),
                caption = "Resumen de requisitos funcionales y su fundamentación pedagógica",
                col.names = c("Requisito", "Fundamento pedagógico"),
@@ -207,7 +207,7 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "5cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "8cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(requisitos)),
+    row_spec(seq_len(nrow(requisitosresumen)),
              extra_latex_after = "\\addlinespace[10pt]")
 } else {
   tabla_requisitos %>%
