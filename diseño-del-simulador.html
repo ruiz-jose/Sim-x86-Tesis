@@ -354,32 +354,32 @@ Comprensión progresiva de conceptos básicos
 </table>
 <p>El diseño conceptual se orienta a plasmar los principios definidos anteriormente en una arquitectura funcional que responda de manera efectiva a los objetivos pedagógicos de la asignatura Arquitectura de Computadoras.</p>
 <p>Con los requisitos funcionales y didácticos previamente definidos, se elaboró un diseño conceptual que organiza la estructura interna del simulador en bloques funcionales bien delimitados. Este diseño permite modelar de manera explícita las relaciones entre los distintos componentes, facilitando tanto la implementación como la comprensión de la arquitectura simulada.</p>
-<p>La Figura <a href="diseño-del-simulador.html#fig:esquemavonsim8">5.6</a> presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Esta representación facilita la comprensión estructural del sistema y su correspondencia con una computadora real simplificada.</p>
+<p>La Figura <a href="diseño-del-simulador.html#fig:esquemavonsim8">5.8</a> presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Esta representación facilita la comprensión estructural del sistema y su correspondencia con una computadora real simplificada.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:esquemavonsim8"></span>
 <img src="images/esquemavonsim8.png" alt="Arquitectura general del simulador" width="85%" />
 <p class="caption">
-Figura 5.6: Arquitectura general del simulador
+Figura 5.8: Arquitectura general del simulador
 </p>
 </div>
 <p>La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:memoria"></span>
 <img src="images/memoria.png" alt="Memoria principal" width="85%" />
 <p class="caption">
-Figura 5.7: Memoria principal
+Figura 5.9: Memoria principal
 </p>
 </div>
 <p>El bus de datos, direcciones y control se implementa como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Este bus es esencial para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida, y su diseño modular permite una fácil expansión en futuras versiones del simulador.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:buses"></span>
 <img src="images/buses.png" alt="Buses" width="85%" />
 <p class="caption">
-Figura 5.8: Buses
+Figura 5.10: Buses
 </p>
 </div>
 <p>El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tecladopantalla"></span>
 <img src="images/tecladopantalla.png" alt="Teclado y pantalla" width="85%" />
 <p class="caption">
-Figura 5.9: Teclado y pantalla
+Figura 5.11: Teclado y pantalla
 </p>
 </div>
 <p>La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla <a href="diseño-del-simulador.html#tab:bloquesfuncionales">5.6</a> resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.</p>

@@ -1670,24 +1670,17 @@ Esta sección detalla los requisitos funcionales y pedagógicos que guiaron el d
 \tightlist
 \item
   \textbf{Visualización de la estructura general de la computadora:}
+  Incluir una representación gráfica de la arquitectura básica de la computadora ---compuesta por CPU, buses, memoria y dispositivos de entrada/salida--- durante la ejecución de los programas. La visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas \protect\hyperlink{ref-sorva2013visualizations}{{[}61{]}}. La Figura \ref{fig:diagramasimulador} ilustra diagrama estructural que presenta los principales módulos del simulador y sus interacciones. Esta representación permite integrar visualmente los componentes implementados y su relación con los objetivos funcionales definidos.
 \end{enumerate}
 
-\begin{itemize}
-\tightlist
-\item
-  Incluir una representación gráfica de la arquitectura básica de la computadora ---compuesta por CPU, buses, memoria y dispositivos de entrada/salida--- durante la ejecución de los programas. La visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas \protect\hyperlink{ref-sorva2013visualizations}{{[}61{]}}.
-\end{itemize}
-
-Como complemento a la tabla de requisitos funcionales, se incorpora un diagrama estructural que presenta los principales módulos del simulador y sus interacciones. Esta representación permite integrar visualmente los componentes implementados y su relación con los objetivos funcionales definidos.
-
 \begin{figure}
-  
-  {\centering \includegraphics[width=0.9\linewidth]{images/estructurasimulador} 
-  
-  }
-  
-  \caption{Estructura del simulador y componentes funcionales}\label{fig:diagramasimulador}
-  \end{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{images/estructurasimulador} 
+
+}
+
+\caption{Estructura del simulador y componentes funcionales}\label{fig:diagramasimulador}
+\end{figure}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1695,24 +1688,18 @@ Como complemento a la tabla de requisitos funcionales, se incorpora un diagrama 
 \tightlist
 \item
   \textbf{Soporte para la generación y ejecución de programas en ensamblador:}
+  Permitir la ejecución paso a paso y la ejecución completa de programas escritos en lenguaje ensamblador. Esta funcionalidad posibilita el análisis detallado de cada instrucción, fortaleciendo competencias en trazado y depuración de código ensamblador, fundamentales para comprender la relación entre software y hardware.
+  La inclusión de un editor de ensamblador con resaltado de sintaxis y autocompletado mejora la experiencia del usuario, facilitando la escritura y comprensión del código. Esta funcionalidad se basa en principios de diseño de interfaces que promueven la usabilidad y la accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}62{]}}. El editor debe permitir al usuario escribir, editar y guardar programas en ensamblador, así como ejecutar estos programas dentro del simulador. Diversos estudios respaldan la incorporación de entornos de desarrollo integrados (IDEs) en contextos educativos, dada su eficacia en la enseñanza de lenguajes de programación \protect\hyperlink{ref-mccracken2001does}{{[}63{]}}.
 \end{enumerate}
 
-\begin{itemize}
-\tightlist
-\item
-  Permitir la ejecución paso a paso y la ejecución completa de programas escritos en lenguaje ensamblador. Esta funcionalidad posibilita el análisis detallado de cada instrucción, fortaleciendo competencias en trazado y depuración de código ensamblador, fundamentales para comprender la relación entre software y hardware.
-\end{itemize}
-
-La inclusión de un editor de ensamblador con resaltado de sintaxis y autocompletado mejora la experiencia del usuario, facilitando la escritura y comprensión del código. Esta funcionalidad se basa en principios de diseño de interfaces que promueven la usabilidad y la accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}62{]}}. El editor debe permitir al usuario escribir, editar y guardar programas en ensamblador, así como ejecutar estos programas dentro del simulador. Diversos estudios respaldan la incorporación de entornos de desarrollo integrados (IDEs) en contextos educativos, dada su eficacia en la enseñanza de lenguajes de programación \protect\hyperlink{ref-mccracken2001does}{{[}63{]}}.
-
 \begin{figure}
-  
-  {\centering \includegraphics[width=0.9\linewidth]{images/editor} 
-  
-  }
-  
-  \caption{Editor ensamblador}\label{fig:editor}
-  \end{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{images/editor} 
+
+}
+
+\caption{Editor ensamblador}\label{fig:editor}
+\end{figure}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1720,13 +1707,8 @@ La inclusión de un editor de ensamblador con resaltado de sintaxis y autocomple
 \tightlist
 \item
   \textbf{Repertorio reducido de instrucciones con activación progresiva:}
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
   Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita en etapas secuenciales del proceso de enseñanza, en correspondencia con el avance de los contenidos curriculares. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva \protect\hyperlink{ref-nationalacademies2018how}{{[}64{]}}. Esta estrategia también se encuentra respaldada por autores como Hasan \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, y Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
-\end{itemize}
+\end{enumerate}
 
 \begin{table}[!h]
 \centering
@@ -1757,24 +1739,19 @@ Esta progresión permite al estudiante familiarizarse con los conceptos fundamen
 \tightlist
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
   Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-ASMVisualizer2025}{{[}66{]}}. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y de las señales de control en cada etapa del proceso.
-\end{itemize}
+\end{enumerate}
 
 Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion} ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas \emph{fetch}, \emph{decode} y \emph{execute}, así como los registros que participan activamente en cada fase.
 
 \begin{figure}
-  
-  {\centering \includegraphics[width=0.85\linewidth]{images/cicloinstruccion} 
-  
-  }
-  
-  \caption{Ciclo de instrucción: captación y ejecución}\label{fig:cicloinstruccion}
-  \end{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/cicloinstruccion} 
+
+}
+
+\caption{Ciclo de instrucción: captación y ejecución}\label{fig:cicloinstruccion}
+\end{figure}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1782,22 +1759,17 @@ Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion
 \tightlist
 \item
   \textbf{Gestión básica de interrupciones y periféricos:}
+  Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Estas interacciones permiten emular situaciones reales de asincronía, esenciales para la comprensión de mecanismos como la interrupción del flujo de ejecución. Esta funcionalidad tiene un alto valor pedagógico, ya que permite al estudiante explorar de forma interactiva conceptos fundamentales como la asincronía, el manejo de eventos y la interrupción del flujo secuencial de ejecución, los cuales son característicos del diseño de arquitecturas modernas y fundamentales para comprender el funcionamiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Además, se incorpora un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo permite simular operaciones mediante instrucciones como IN y OUT, facilitando la interacción del estudiante con dispositivos representados gráficamente, como interruptores y teclas. De esta forma, se promueve una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
 \end{enumerate}
 
-\begin{itemize}
-\tightlist
-\item
-  Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Estas interacciones permiten emular situaciones reales de asincronía, esenciales para la comprensión de mecanismos como la interrupción del flujo de ejecución. Esta funcionalidad tiene un alto valor pedagógico, ya que permite al estudiante explorar de forma interactiva conceptos fundamentales como la asincronía, el manejo de eventos y la interrupción del flujo secuencial de ejecución, los cuales son característicos del diseño de arquitecturas modernas y fundamentales para comprender el funcionamiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Además, se incorpora un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo permite simular operaciones mediante instrucciones como IN y OUT, facilitando la interacción del estudiante con dispositivos representados gráficamente, como interruptores y teclas. De esta forma, se promueve una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
-\end{itemize}
-
 \begin{figure}
-  
-  {\centering \includegraphics[width=0.85\linewidth]{images/perifericos} 
-  
-  }
-  
-  \caption{Módulo genérico de entrada/salida programada}\label{fig:perifericos}
-  \end{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/perifericos} 
+
+}
+
+\caption{Módulo genérico de entrada/salida programada}\label{fig:perifericos}
+\end{figure}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1805,41 +1777,37 @@ Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion
 \tightlist
 \item
   \textbf{Métricas de rendimiento:}
+  Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. stos indicadores permiten al estudiante analizar cuantitativamente la eficiencia de la ejecución de un programa, facilitando comparaciones entre diferentes implementaciones. Su inclusión apunta a fortalecer la comprensión de aspectos clave del rendimiento del procesador, promoviendo una formación integral que contemple tanto aspectos funcionales como métricos del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}.
 \end{enumerate}
 
-\begin{itemize}
-\tightlist
-\item
-  Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. stos indicadores permiten al estudiante analizar cuantitativamente la eficiencia de la ejecución de un programa, facilitando comparaciones entre diferentes implementaciones. Su inclusión apunta a fortalecer la comprensión de aspectos clave del rendimiento del procesador, promoviendo una formación integral que contemple tanto aspectos funcionales como métricos del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}.
-\end{itemize}
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/metricas} 
+
+}
+
+\caption{Métricas de rendimiento}\label{fig:metricas}
+\end{figure}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{6}
-\tightlist
 \item
   \textbf{Interfaz intuitiva y experiencia de usuario:}
-\end{enumerate}
-
-\begin{itemize}
-\tightlist
-\item
   Diseñar una interfaz gráfica de usuario (GUI) intuitiva, accesible y coherente con principios de usabilidad. La organización visual debe facilitar la navegación, la comprensión del flujo de datos y la ejecución de tareas pedagógicas sin distracciones. Se recomienda el uso de colores, etiquetas y animaciones para reforzar el aprendizaje visual, especialmente para representar cambios de estado del sistema y flujos de control \protect\hyperlink{ref-w3c_accessibility_2021}{{[}62{]}}.
-\end{itemize}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{7}
-\tightlist
 \item
   \textbf{Documentación y recursos de apoyo:}
+  Proporcionar documentación clara y accesible que explique el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Esta documentación debe incluir ejemplos prácticos, guías de uso y recursos adicionales para facilitar la comprensión y el aprendizaje autónomo. La inclusión de tutoriales interactivos y ejemplos prácticos es fundamental para guiar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo \protect\hyperlink{ref-bonwell1991active}{{[}67{]}}.
 \end{enumerate}
 
-\begin{itemize}
-\tightlist
-\item
-  Proporcionar documentación clara y accesible que explique el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Esta documentación debe incluir ejemplos prácticos, guías de uso y recursos adicionales para facilitar la comprensión y el aprendizaje autónomo. La inclusión de tutoriales interactivos y ejemplos prácticos es fundamental para guiar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo \protect\hyperlink{ref-bonwell1991active}{{[}67{]}}.
-\end{itemize}
+\begin{figure}
+
+{\centering \includegraphics[width=0.9\linewidth]{images/documentacion} 
+
+}
+
+\caption{Documentación on line}\label{fig:documentacion}
+\end{figure}
 
 Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. La Tabla \ref{tab:tablafuncionales} resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
 
