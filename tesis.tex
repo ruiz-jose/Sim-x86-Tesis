@@ -1663,7 +1663,7 @@ A partir de esta necesidad, se establecieron un conjunto de requisitos funcional
 \hypertarget{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}{%
 \section{Requisitos de la herramienta y su fundamentación}\label{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}}
 
-Esta sección detalla los requisitos funcionales y pedagógicos que guiaron el diseño del simulador, en base a los objetivos didácticos establecidos en el capítulo introductorio (\ref{intro}). Su definición se apoyó en principios pedagógicos y técnicos, y se complementó con una validación empírica basada en entrevistas semiestructuradas a docentes expertos. Este proceso permitió identificar necesidades concretas del aula, así como carencias en las herramientas existentes (ver Anexo A \protect\hyperlink{ref-ref}{\textbf{ref?}}(anexoA)). La metodología cualitativa basada en entrevistas semiestructuradas permitió identificar necesidades auténticas del aula, aportando una base empírica sólida para la definición técnica de los requerimientos funcionales y pedagógicos \protect\hyperlink{ref-huberman2019qualitative}{{[}60{]}}.
+Esta sección detalla los requisitos funcionales y pedagógicos que guiaron el diseño del simulador, en base a los objetivos didácticos establecidos en el capítulo introductorio (\ref{intro}). Su definición se apoyó en principios pedagógicos y técnicos, y se complementó con una validación empírica basada en entrevistas semiestructuradas a docentes expertos. Este proceso permitió identificar necesidades concretas del aula, así como carencias en las herramientas existentes (ver Anexo A \ref{anexoA}). La metodología cualitativa basada en entrevistas semiestructuradas permitió identificar necesidades auténticas del aula, aportando una base empírica sólida para la definición técnica de los requerimientos funcionales y pedagógicos \protect\hyperlink{ref-huberman2019qualitative}{{[}60{]}}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1700,9 +1700,10 @@ Como complemento a la tabla de requisitos funcionales, se incorpora un diagrama 
 \begin{itemize}
 \tightlist
 \item
-  Permitir la ejecución paso a paso y la ejecución completa de programas escritos en lenguaje ensamblador. Esta funcionalidad permite un análisis detallado del comportamiento de cada instrucción, promoviendo el desarrollo de competencias en el trazado y depuración de código a nivel de lenguaje ensamblador, lo cual resulta esencial para interiorizar la relación entre software y hardware.
-  La inclusión de un editor de ensamblador con resaltado de sintaxis y autocompletado mejora la experiencia del usuario, facilitando la escritura y comprensión del código. Esta funcionalidad se basa en principios de diseño de interfaces que promueven la usabilidad y la accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}62{]}}. El editor debe permitir al usuario escribir, editar y guardar programas en ensamblador, así como ejecutar estos programas dentro del simulador. Esta funcionalidad se encuentra respaldada por estudios que destacan la importancia de herramientas de desarrollo integradas (IDEs) en la enseñanza de lenguajes de programación \protect\hyperlink{ref-mccracken2001does}{{[}63{]}}.
+  Permitir la ejecución paso a paso y la ejecución completa de programas escritos en lenguaje ensamblador. Esta funcionalidad posibilita el análisis detallado de cada instrucción, fortaleciendo competencias en trazado y depuración de código ensamblador, fundamentales para comprender la relación entre software y hardware.
 \end{itemize}
+
+La inclusión de un editor de ensamblador con resaltado de sintaxis y autocompletado mejora la experiencia del usuario, facilitando la escritura y comprensión del código. Esta funcionalidad se basa en principios de diseño de interfaces que promueven la usabilidad y la accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}62{]}}. El editor debe permitir al usuario escribir, editar y guardar programas en ensamblador, así como ejecutar estos programas dentro del simulador. Diversos estudios respaldan la incorporación de entornos de desarrollo integrados (IDEs) en contextos educativos, dada su eficacia en la enseñanza de lenguajes de programación \protect\hyperlink{ref-mccracken2001does}{{[}63{]}}.
 
 \begin{figure}
   
@@ -1747,7 +1748,8 @@ Como complemento a la tabla de requisitos funcionales, se incorpora un diagrama 
 \end{tabular}}
 \end{table}
 
-Una vez incorporado el repertorio esencial de instrucciones, el siguiente paso en la secuencia didáctica es abordar el flujo interno de datos dentro del procesador. Representar el ciclo de instrucción desde una perspectiva microarquitectónica permite al estudiante comprender cómo se ejecutan las operaciones a nivel de hardware, visualizando tanto los registros involucrados como las señales de control.
+Con el repertorio esencial ya incorporado, se propone profundizar en la comprensión del ciclo de instrucción mediante su representación a nivel microarquitectónico, integrando la visualización de registros activos y señales de control, en correspondencia con la ejecución concreta de instrucciones.
+Esta progresión permite al estudiante familiarizarse con los conceptos fundamentales de la arquitectura x86 sin verse abrumado por la complejidad de un repertorio completo desde el inicio. La activación progresiva del repertorio se fundamenta en teorías de aprendizaje que sugieren que la exposición gradual a nuevos conceptos mejora la comprensión y retención \protect\hyperlink{ref-sweller2010cognitive}{{[}65{]}}. Además, esta estrategia se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan la importancia de introducir los conceptos de forma escalonada para facilitar el aprendizaje efectivo.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1760,7 +1762,7 @@ Una vez incorporado el repertorio esencial de instrucciones, el siguiente paso e
 \begin{itemize}
 \tightlist
 \item
-  Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción \protect\hyperlink{ref-ASMVisualizer2025}{{[}65{]}}. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y de las señales de control en cada etapa del proceso.
+  Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-ASMVisualizer2025}{{[}66{]}}. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y de las señales de control en cada etapa del proceso.
 \end{itemize}
 
 Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion} ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas \emph{fetch}, \emph{decode} y \emph{execute}, así como los registros que participan activamente en cada fase.
@@ -1836,10 +1838,10 @@ Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion
 \begin{itemize}
 \tightlist
 \item
-  Proporcionar documentación clara y accesible que explique el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Esta documentación debe incluir ejemplos prácticos, guías de uso y recursos adicionales para facilitar la comprensión y el aprendizaje autónomo. La inclusión de tutoriales interactivos y ejemplos prácticos es fundamental para guiar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo \protect\hyperlink{ref-bonwell1991active}{{[}66{]}}.
+  Proporcionar documentación clara y accesible que explique el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Esta documentación debe incluir ejemplos prácticos, guías de uso y recursos adicionales para facilitar la comprensión y el aprendizaje autónomo. La inclusión de tutoriales interactivos y ejemplos prácticos es fundamental para guiar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo \protect\hyperlink{ref-bonwell1991active}{{[}67{]}}.
 \end{itemize}
 
-Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. La Tabla \ref{tablafuncionales} resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
+Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. La Tabla \ref{tab:tablafuncionales} resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
 
 \begin{table}[!h]
 \centering
@@ -1874,6 +1876,30 @@ En conjunto, estos requisitos orientan el diseño del simulador para maximizar s
 \caption{Resumen requisitos}\label{fig:requisitos}
 \end{figure}
 
+\begin{table}[!h]
+\centering
+\caption{\label{tab:requisitosresumen}Resumen de requisitos funcionales y su fundamentación pedagógica}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{5cm}|>{\centering\arraybackslash}p{8cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Requisito}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Fundamento pedagógico}}}\\
+\midrule
+\textbf{Visualización de estructura} & Comprensión sistémica del hardware\\
+\addlinespace[10pt]
+\textbf{Ejecución de programas en ensamblador} & Desarrollo de competencias en lenguaje ensamblador\\
+\addlinespace[10pt]
+\textbf{Repertorio progresivo de instrucciones} & Disminución de sobrecarga cognitiva\\
+\addlinespace[10pt]
+\textbf{Simulación visual de micropasos} & Comprensión del flujo interno de datos\\
+\addlinespace[10pt]
+\textbf{Gestión de interrupciones} & Simulación de asincronía real\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
 \hypertarget{fundamentaciuxf3n-de-los-requisitos-del-simulador}{%
 \subsection{Fundamentación de los requisitos del simulador}\label{fundamentaciuxf3n-de-los-requisitos-del-simulador}}
 
@@ -1907,7 +1933,7 @@ El diseño del simulador contribuye a:
 \end{itemize}
 
 Diversos autores como Patterson \& Hennessy \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, Tanenbaum \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}} y Null \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}} coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque hace posible observar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
-El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}39{]}}, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes \protect\hyperlink{ref-patt2019introduction}{{[}67{]}}, \protect\hyperlink{ref-majid1999design}{{[}68{]}}, \protect\hyperlink{ref-morlan_sap1_2021}{{[}69{]}}, \protect\hyperlink{ref-Guald_2015_thesis}{{[}70{]}}, \protect\hyperlink{ref-silber_tinycpu}{{[}71{]}}.
+El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}39{]}}, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes \protect\hyperlink{ref-patt2019introduction}{{[}68{]}}, \protect\hyperlink{ref-majid1999design}{{[}69{]}}, \protect\hyperlink{ref-morlan_sap1_2021}{{[}70{]}}, \protect\hyperlink{ref-Guald_2015_thesis}{{[}71{]}}, \protect\hyperlink{ref-silber_tinycpu}{{[}72{]}}.
 
 \begin{table}[!h]
 \centering
@@ -1936,13 +1962,13 @@ En síntesis, la definición de estos requisitos busca integrar aspectos funcion
 
 El diseño del simulador se fundamenta en la arquitectura de Von Neumann, ampliamente adoptada en las computadoras modernas por su simplicidad conceptual y operativa. Esta arquitectura se caracteriza por utilizar una única memoria compartida para almacenar tanto datos como instrucciones, esta característica permite una mayor flexibilidad en la ejecución de programas, ya que las instrucciones pueden ser tratadas como datos, facilitando la implementación de técnicas avanzadas como la ejecución dinámica y la optimización del rendimiento.
 
-Para el diseño del simulador desarrollado en este trabajo, se tomó como referencia el simulador VonSim\footnote{VonSim: \url{https://vonsim.github.io/}}, una herramienta educativa basada en la arquitectura de Von Neumann que permite visualizar y experimentar el ciclo de instrucción de una manera interactiva. Esta herramienta sirvió como base conceptual y funcional debido a su enfoque didáctico y su estructura visual clara, orientada a la enseñanza de principios fundamentales de arquitectura de computadoras \protect\hyperlink{ref-vonsim}{{[}72{]}}.
+Para el diseño del simulador desarrollado en este trabajo, se tomó como referencia el simulador VonSim\footnote{VonSim: \url{https://vonsim.github.io/}}, una herramienta educativa basada en la arquitectura de Von Neumann que permite visualizar y experimentar el ciclo de instrucción de una manera interactiva. Esta herramienta sirvió como base conceptual y funcional debido a su enfoque didáctico y su estructura visual clara, orientada a la enseñanza de principios fundamentales de arquitectura de computadoras \protect\hyperlink{ref-vonsim}{{[}73{]}}.
 
 Sin embargo, considerando los contenidos y objetivos específicos de la asignatura Arquitectura de Computadoras,
 VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}} es un simulador diseñado específicamente en este trabajo, inspirado en VonSim, pero adaptado para operar con registros y memoria de 8 bits, con una interfaz simplificada orientada al aprendizaje progresivo.
 Dado que VonSim incluye una arquitectura detallada con múltiples instrucciones, registros y componentes funcionales. Si bien esto ofrece un panorama completo, puede dificultar el aprendizaje inicial al introducir simultáneamente numerosos conceptos avanzados. Debido a esto se optó por desarrollar una versión simplificada del simulador, esta decisión responde a la necesidad de reducir la carga cognitiva en las primeras etapas del aprendizaje y facilitar una asimilación progresiva de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
-Entre las principales modificaciones realizadas se incluyen: (1) la reducción y simplificación del repertorio de instrucciones; (2) el ajuste en el tamaño de los registros y la memoria para operar con datos de 8 bits; (3) el rediseño de la interfaz gráfica con un enfoque esquemático del flujo de ejecución; y (4) la incorporación de funcionalidades interactivas orientadas a la visualización del ciclo de instrucción y el rol específico de cada componente. Las modificaciones se definieron conforme a los contenidos curriculares de la asignatura y se fundamentan en los principios del aprendizaje activo, que promueven la participación del estudiante como protagonista en la construcción de su conocimiento \protect\hyperlink{ref-bonwell1991active}{{[}66{]}}.
+Entre las principales modificaciones realizadas se incluyen: (1) la reducción y simplificación del repertorio de instrucciones; (2) el ajuste en el tamaño de los registros y la memoria para operar con datos de 8 bits; (3) el rediseño de la interfaz gráfica con un enfoque esquemático del flujo de ejecución; y (4) la incorporación de funcionalidades interactivas orientadas a la visualización del ciclo de instrucción y el rol específico de cada componente. Las modificaciones se definieron conforme a los contenidos curriculares de la asignatura y se fundamentan en los principios del aprendizaje activo, que promueven la participación del estudiante como protagonista en la construcción de su conocimiento \protect\hyperlink{ref-bonwell1991active}{{[}67{]}}.
 
 \begin{table}[!h]
 \centering
@@ -1985,7 +2011,36 @@ La Figura \ref{fig:esquemavonsim8} presenta una visión esquemática de la arqui
 
 La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.
 
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/memoria} 
+
+}
+
+\caption{Memoria principal}\label{fig:memoria}
+\end{figure}
+
+El bus de datos, direcciones y control se implementa como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Este bus es esencial para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida, y su diseño modular permite una fácil expansión en futuras versiones del simulador.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/buses} 
+
+}
+
+\caption{Buses}\label{fig:buses}
+\end{figure}
+
 El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/tecladopantalla} 
+
+}
+
+\caption{Teclado y pantalla}\label{fig:tecladopantalla}
+\end{figure}
 
 La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla \ref{tab:bloquesfuncionales} resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
 
@@ -2649,20 +2704,32 @@ C & `Jxx M` & Se pueden implementar más flags y CALL & `1100 ffff MMMMMMMM`\\
 En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
 A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.
 
-\begin{longtable}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
-\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}\\
+\begin{table}[!h]
+\centering
+\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}}
 \toprule
-\textbf{Código operación} & \textbf{Instrucciones} & \textbf{nemónico} & \textbf{Acción}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
 \midrule
 \textbf{MOV} & Transferencia de datos & MOV destino, origen & 1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\\
+\addlinespace[10pt]
 \textbf{ADD} & Aritmética & ADD destino, origen & 1- Sumar  2- Restar 3- Comparar\\
-\textbf{JMP} & Control de flujo & JMP destino & Salto incondicional JMP. Saltos condicionales Jxx.Llamadas a rutinas CALL y retorno RET\\
-\textbf{PUSH, POP, OUT, IN} & Pila y E/S & PUSH, POP, OUT, IN & Poner en la pila PUSH Retirar de la pila POP Enviar un byte al puerto del dispositivo de E/S Recibir un byte del dispositivo de E/S\\
-\textbf{INT , IRET} & Interrupciones & INT , IRET & Llamar a una rutina de tratamiento de interrupción INT Retornar de una rutina de tratamiento de interrupción IRET\\
+\addlinespace[10pt]
+\textbf{JMP} & Control de flujo & JMP destino & Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET\\
+\addlinespace[10pt]
+\textbf{PUSH, POP, OUT, IN} & Pila y E/S & PUSH, POP, OUT, IN & Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S\\
+\addlinespace[10pt]
+\textbf{INT , IRET} & Interrupciones & INT , IRET & Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET\\
+\addlinespace[10pt]
 \addlinespace
-\textbf{NOP , HLT} & Control & NOP , HLT & No opera NOP Detiene el CPU HLT\\
+\textbf{NOP , HLT} & Control & NOP , HLT & No opera NOP. Detiene el CPU HLT\\
+\addlinespace[10pt]
 \bottomrule
-\end{longtable}
+\end{tabular}}
+\end{table}
 
 \hypertarget{aspectos-tecnoluxf3gicos-de-implementaciuxf3n}{%
 \section{Aspectos tecnológicos de implementación}\label{aspectos-tecnoluxf3gicos-de-implementaciuxf3n}}
@@ -3177,36 +3244,40 @@ Relevar necesidades, experiencias y percepciones de docentes especializados en l
 \CSLLeftMargin{{[}64{]} }%
 \CSLRightInline{National Academies of Sciences, Engineering, and Medicine, \emph{How people learn II: Learners, contexts, and cultures}. Washington, DC: National Academies Press, 2018. doi: \href{https://doi.org/10.17226/24783}{10.17226/24783}.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-ASMVisualizer2025}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-sweller2010cognitive}{}}%
 \CSLLeftMargin{{[}65{]} }%
+\CSLRightInline{J. Sweller, P. Ayres, and S. Kalyuga, \emph{Cognitive load theory}. New York: Springer, 2010. doi: \href{https://doi.org/10.1007/978-1-4419-8126-3}{10.1007/978-1-4419-8126-3}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ASMVisualizer2025}{}}%
+\CSLLeftMargin{{[}66{]} }%
 \CSLRightInline{T. Newhall, K. C. Webb, I. Romea, E. Stavis, and S. J. Matthews, {``ASM visualizer: A learning tool for assembly programming,''} in \emph{Proceedings of the 56th ACM technical symposium on computer science education v. 1}, in SIGCSETS 2025. New York, NY, USA: Association for Computing Machinery, 2025, pp. 840--846. doi: \href{https://doi.org/10.1145/3641554.3701793}{10.1145/3641554.3701793}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-bonwell1991active}{}}%
-\CSLLeftMargin{{[}66{]} }%
+\CSLLeftMargin{{[}67{]} }%
 \CSLRightInline{C. C. Bonwell and J. A. Eison, {``Active learning: Creating excitement in the classroom,''} \emph{ASHE-ERIC Higher Education Report}, vol. 1, 1991.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-patt2019introduction}{}}%
-\CSLLeftMargin{{[}67{]} }%
+\CSLLeftMargin{{[}68{]} }%
 \CSLRightInline{Y. N. Patt and S. J. Patel, \emph{Introduction to computing systems: From bits and gates to c and beyond}, 3rd ed. New York: McGraw-Hill Education, 2019.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-majid1999design}{}}%
-\CSLLeftMargin{{[}68{]} }%
+\CSLLeftMargin{{[}69{]} }%
 \CSLRightInline{Z. Majid, {``Design of SAP-1 controller and simulation using mentor graphics,''} PhD thesis, Universiti Teknologi MARA (UiTM), 1999.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-morlan_sap1_2021}{}}%
-\CSLLeftMargin{{[}69{]} }%
+\CSLLeftMargin{{[}70{]} }%
 \CSLRightInline{A. Morlan, {``Building a simple 8-bit CPU in verilog (SAP-1).''} 2021. Available: \url{https://austinmorlan.com/posts/fpga_computer_sap1/}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-Guald_2015_thesis}{}}%
-\CSLLeftMargin{{[}70{]} }%
+\CSLLeftMargin{{[}71{]} }%
 \CSLRightInline{A. Gualdrón Gamarra and J. P. Pinilla, {``Plataforma para la emulación y reconfiguración de arquitecturas CISC y RISC.''} 2015-01-27. Available: \url{http://hdl.handle.net/20.500.11912/2004}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-silber_tinycpu}{}}%
-\CSLLeftMargin{{[}71{]} }%
+\CSLLeftMargin{{[}72{]} }%
 \CSLRightInline{D. Silber, {``TinyCPU - a simple CPU implemented in verilog.''} \url{https://www.eecis.udel.edu/~silber/tinycpu/\#/home}.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-vonsim}{}}%
-\CSLLeftMargin{{[}72{]} }%
+\CSLLeftMargin{{[}73{]} }%
 \CSLRightInline{J. M. S. Facundo Quiroga Manuel Bustos Berrondo, {``VonSim - simulador de arquitectura de von neumann.''} \url{https://vonsim.github.io/}, 2020.}
 
 \end{CSLReferences}
