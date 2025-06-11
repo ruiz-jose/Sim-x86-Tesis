@@ -1704,44 +1704,36 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{2}
-\tightlist
 \item
   \textbf{Repertorio reducido de instrucciones con activación progresiva:}
   Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita en etapas secuenciales del proceso de enseñanza, en correspondencia con el avance de los contenidos curriculares. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva \protect\hyperlink{ref-nationalacademies2018how}{{[}64{]}}. Esta estrategia también se encuentra respaldada por autores como Hasan \protect\hyperlink{ref-hasan_survey_2012}{{[}12{]}}, Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, y Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}, quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
-\end{enumerate}
 
-\begin{table}[!h]
-\centering
-\caption{\label{tab:activacionprogresiva}Activación progresiva del repertorio de instrucciones}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{6cm}>{\centering\arraybackslash}p{6cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Fase}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones activadas}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Objetivo didáctico}}}\\
-\midrule
-\textbf{Inicial} & MOV, ADD, SUB, HLT & Comprensión del ciclo de instrucción básico\\
-\addlinespace[10pt]
-\textbf{Intermedia} & CMP, JMP, JZ, JC & Introducción a control de flujo\\
-\addlinespace[10pt]
-\textbf{Avanzada} & CALL, RET, IN, OUT, INT, IRET & Manejo de periféricos e interrupciones\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
+  \begin{table}[!h]
+  \centering
+  \caption{\label{tab:activacionprogresiva}Activación progresiva del repertorio de instrucciones}
+  \centering
+  \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+  \fontsize{10}{12}\selectfont
+  \begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{6cm}}
+  \toprule
+  \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Fase}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones activadas}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Objetivo didáctico}}}\\
+  \midrule
+  \textbf{Inicial} & MOV, ADD, SUB, HLT & Comprensión del ciclo de instrucción básico\\
+  \addlinespace[10pt]
+  \textbf{Intermedia} & CMP, JMP, JZ, JC & Introducción a control de flujo\\
+  \addlinespace[10pt]
+  \textbf{Avanzada} & CALL, RET, IN, OUT, INT, IRET & Manejo de periféricos e interrupciones\\
+  \addlinespace[10pt]
+  \bottomrule
+  \end{tabular}}
+  \end{table}
 
-Una vez establecido el repertorio esencial, se plantea avanzar hacia una comprensión más profunda del ciclo de instrucción mediante su representación en el nivel microarquitectónico. Esta representación incluirá la visualización dinámica de registros activos y señales de control, en correspondencia directa con la ejecución de cada instrucción. Este enfoque promueve el desarrollo progresivo de competencias, al mitigar la sobrecarga cognitiva que implicaría abordar de forma prematura el repertorio completo de instrucciones. La activación progresiva del repertorio se fundamenta en teorías de aprendizaje que sugieren que la exposición gradual a nuevos conceptos mejora la comprensión y retención \protect\hyperlink{ref-sweller2010cognitive}{{[}65{]}}. Además, esta estrategia se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan la importancia de introducir los conceptos de forma escalonada para facilitar el aprendizaje efectivo.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
+  Una vez establecido el repertorio esencial, se plantea avanzar hacia una comprensión más profunda del ciclo de instrucción mediante su representación en el nivel microarquitectónico. Esta representación incluirá la visualización dinámica de registros activos y señales de control, en correspondencia directa con la ejecución de cada instrucción. Este enfoque promueve el desarrollo progresivo de competencias, al mitigar la sobrecarga cognitiva que implicaría abordar de forma prematura el repertorio completo de instrucciones. La activación progresiva del repertorio se fundamenta en teorías de aprendizaje que sugieren que la exposición gradual a nuevos conceptos mejora la comprensión y retención \protect\hyperlink{ref-sweller2010cognitive}{{[}65{]}}. Además, esta estrategia se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}}, quienes destacan la importancia de introducir los conceptos de forma escalonada para facilitar el aprendizaje efectivo.
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
   Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción \protect\hyperlink{ref-harris2015digital}{{[}26{]}}, \protect\hyperlink{ref-ASMVisualizer2025}{{[}66{]}}. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}} propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y de las señales de control en cada etapa del proceso.
+  Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion} ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas \emph{fetch}, \emph{decode} y \emph{execute}, así como los registros que participan activamente en cada fase.
 \end{enumerate}
-
-Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion} ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas \emph{fetch}, \emph{decode} y \emph{execute}, así como los registros que participan activamente en cada fase.
 
 \begin{figure}
 
