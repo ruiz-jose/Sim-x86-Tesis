@@ -1870,9 +1870,9 @@ En conjunto, estos requisitos orientan el diseño del simulador para maximizar s
 \hypertarget{fundamentaciuxf3n-de-los-requisitos-del-simulador}{%
 \subsection{Fundamentación de los requisitos del simulador}\label{fundamentaciuxf3n-de-los-requisitos-del-simulador}}
 
-A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes\footnote{Docentes: Marcelo A. Colombani y Amalia G. Delduca} de la asignatura Arquitectura de Computadoras, quienes aportaron su experiencia docente para identificar los elementos de la arquitectura x86 que resultaban prioritarios para representar, simplificar o adaptar en función de los objetivos pedagógicos del simulador. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, cuyas características se describen más adelante, justificado por su valor didáctico: una arquitectura de 8 bits reduce significativamente la complejidad sin sacrificar los objetivos pedagógicos, permitiendo representar procesos clave con mayor claridad y menor carga cognitiva. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.
+A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes\footnote{Docentes: Marcelo A. Colombani y Amalia G. Delduca} de la asignatura Arquitectura de Computadoras, quienes aportaron su experiencia docente para identificar los elementos de la arquitectura x86 que resultaban prioritarios para representar, simplificar o adaptar en función de los objetivos pedagógicos del simulador. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, cuyas características se describen más adelante, justificado por su valor didáctico: una arquitectura de 8 bits permite reducir significativamente la complejidad del modelo, sin comprometer la enseñanza de conceptos fundamentales como el ciclo de instrucción, la manipulación de registros o el manejo de interrupciones, permitiendo representar procesos clave con mayor claridad y menor carga cognitiva. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.
 
-La arquitectura x86 se caracteriza por su elevada complejidad, derivada de su extenso repertorio de instrucciones y sus múltiples características avanzadas. Frente a este panorama, el simulador se desarrolla bajo un enfoque pedagógico que considera tres principios fundamentales:
+La arquitectura x86 se caracteriza por su elevada complejidad, derivada de su extenso repertorio de instrucciones y sus múltiples características avanzadas. Frente a este panorama, el diseño del simulador adopta un enfoque instruccional basado en tres principios pedagógicos clave:
 
 \begin{itemize}
 \tightlist
@@ -1881,7 +1881,7 @@ La arquitectura x86 se caracteriza por su elevada complejidad, derivada de su ex
 \item
   \textbf{Aprendizaje progresivo}: se adopta un enfoque escalonado, empezando con un modelo simplificado y avanzando hacia representaciones más completas de x86.
 \item
-  \textbf{Claridad pedagógica}: las prácticas son manejables en términos de tiempo y esfuerzo, promoviendo un aprendizaje práctico sin frustraciones.
+  \textbf{Claridad pedagógica}: las prácticas son manejables en términos de tiempo y esfuerzo, favoreciendo un aprendizaje activo, centrado en la resolución progresiva de problemas y libre de sobrecarga cognitiva excesiva.
 \end{itemize}
 
 \hypertarget{beneficios-de-la-simplificaciuxf3n}{%
