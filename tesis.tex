@@ -2018,9 +2018,9 @@ La elección de estos bloques funcionales responde tanto a la necesidad de model
 \hypertarget{componentes-del-cpu}{%
 \subsection{Componentes del CPU}\label{componentes-del-cpu}}
 
-En esta sección se detallan los componentes que conforman la Unidad Central de Procesamiento (CPU) del simulador VonSim8, estableciendo su correspondencia con los elementos de una arquitectura real. La descripción de cada componente se organiza en función de su rol funcional y su relevancia didáctica.
+Esta sección describe los componentes que integran la Unidad Central de Procesamiento (CPU) del simulador VonSim8, destacando su correspondencia con elementos presentes en arquitecturas reales, con el fin de reforzar su valor didáctico. La descripción de cada componente se organiza en función de su rol funcional y su relevancia didáctica.
 
-El diseño de los registros busca facilitar el aprendizaje de los distintos modos de direccionamiento y el ciclo de instrucción, aspectos centrales en la enseñanza de arquitectura de computadoras. Se describe en la siguiente tabla \ref{tab:arq}:
+El diseño de los registros fue concebido para apoyar la comprensión de los modos de direccionamiento y del ciclo de instrucción, considerados ejes fundamentales en la enseñanza de la arquitectura de computadoras. Se describe en la siguiente tabla \ref{tab:arq}:
 
 \begin{table}[!h]
 \centering
@@ -2038,16 +2038,16 @@ El diseño de los registros busca facilitar el aprendizaje de los distintos modo
 \addlinespace[10pt]
 \textbf{} & 4 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \end{itemize}\\
 \addlinespace[10pt]
-\textbf{} & 2 registros de datos  (`MAR`: buffer de direcciones y `MBR`: buffer de datos) para comunicación entre CPU y memoria.\\
+\textbf{} & 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: MAR (Memory Address Register), que almacena direcciones de memoria, y MBR (Memory Buffer Register), que guarda los datos a transferir.\\
 \addlinespace[10pt]
 \textbf{} & 2 registros temporales (`ri`: temporal de direcciones y `id`: temporal de datos) que se utilizan para conservar valores temporales durante la ejecución de una instrucción.\\
 \addlinespace[10pt]
 \addlinespace
 \textbf{Memoria} & Capacidad de direccionamiento de 256 posiciones, cada una de byte.\\
 \addlinespace[10pt]
-\textbf{Buses} & Bus de datos y direcciones de 8 bits.\\
+\textbf{Buses} & Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria.\\
 \addlinespace[10pt]
-\textbf{Instrucciones} & Longitud variable de instrucciones (1, 2 y 3 Bytes). Modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
+\textbf{Instrucciones} & Las instrucciones presentan una longitud variable (1, 2 o 3 bytes), y admiten múltiples modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
@@ -2056,7 +2056,8 @@ El diseño de los registros busca facilitar el aprendizaje de los distintos modo
 \hypertarget{repertorio-de-instruciones}{%
 \subsection{Repertorio de instruciones}\label{repertorio-de-instruciones}}
 
-El repertorio se diseñó como una simplificación de la arquitectura x86, orientada a mejorar la enseñanza y el aprendizaje. En una primera etapa, se introducen únicamente las instrucciones esenciales para abordar los contenidos iniciales de la asignatura:
+El repertorio de instrucciones fue diseñado como una simplificación deliberada de la arquitectura x86, con el propósito de optimizar los procesos de enseñanza y aprendizaje en el contexto educativo. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque gradual facilita la comprensión de los conceptos fundamentales sin abrumar al estudiante con la complejidad inherente a un repertorio completo de instrucciones.
+La Tabla \ref{tab:setreducido} presenta un repertorio reducido de instrucciones, que incluye las operaciones más comunes y relevantes para el aprendizaje inicial. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.
 
 \begin{table}[!h]
 \centering
