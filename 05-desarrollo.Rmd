@@ -25,7 +25,6 @@ knitr::include_graphics("images/editor.png")
 
 3. **Repertorio reducido de instrucciones con activación progresiva:**
 Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita en etapas secuenciales del proceso de enseñanza, en correspondencia con el avance de los contenidos curriculares. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva [@nationalacademies2018how]. Esta estrategia también se encuentra respaldada por autores como Hasan [@hasan_survey_2012], Null y Lobur [@null_essentials_2023], y Stallings [@stallings_computer_2021], quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
-
 ```{r activacionprogresiva, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
@@ -46,12 +45,12 @@ activacionprogresiva <- data.frame(
 )
 
 tabla_activacion <- kable(activacionprogresiva,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Activación progresiva del repertorio de instrucciones",
-               col.names = c("Fase", "Instrucciones activadas", "Objetivo didáctico"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c", "c"))
+              format = ifelse(knitr::is_latex_output(), "latex", "html"),
+              caption = "Activación progresiva del repertorio de instrucciones",
+              col.names = c("Fase", "Instrucciones activadas", "Objetivo didáctico"),
+              booktabs = TRUE,
+              escape = FALSE,
+              align = c("c", "c", "c"))
 
 if (knitr::is_latex_output()) {
   tabla_activacion %>%
@@ -60,10 +59,11 @@ if (knitr::is_latex_output()) {
       font_size = 10
     ) %>%
     column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:3, width = "6cm") %>%
+    column_spec(2, width = "4cm") %>%
+    column_spec(3, width = "6cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(activacionprogresiva)),
-             extra_latex_after = "\\addlinespace[10pt]")
+            extra_latex_after = "\\addlinespace[10pt]")
 } else {
   tabla_activacion %>%
     kable_styling(
@@ -76,12 +76,10 @@ if (knitr::is_latex_output()) {
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
-
 Una vez establecido el repertorio esencial, se plantea avanzar hacia una comprensión más profunda del ciclo de instrucción mediante su representación en el nivel microarquitectónico. Esta representación incluirá la visualización dinámica de registros activos y señales de control, en correspondencia directa con la ejecución de cada instrucción. Este enfoque promueve el desarrollo progresivo de competencias, al mitigar la sobrecarga cognitiva que implicaría abordar de forma prematura el repertorio completo de instrucciones. La activación progresiva del repertorio se fundamenta en teorías de aprendizaje que sugieren que la exposición gradual a nuevos conceptos mejora la comprensión y retención [@sweller2010cognitive]. Además, esta estrategia se alinea con las recomendaciones de autores como Null y Lobur [@null_essentials_2023], quienes destacan la importancia de introducir los conceptos de forma escalonada para facilitar el aprendizaje efectivo.
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
 Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción [@ASMVisualizer2025; @harris2015digital]. Stallings [@stallings_computer_2021] propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y de las señales de control en cada etapa del proceso. 
-  
 Como complemento a la descripción anterior, la Figura \@ref(fig:cicloinstruccion) ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas *fetch*, *decode* y *execute*, así como los registros que participan activamente en cada fase.
 
 ```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción: captación y ejecución", fig.align = 'center', out.width = "85%"}
@@ -112,7 +110,7 @@ Proporcionar documentación clara y accesible que explique el funcionamiento del
 knitr::include_graphics("images/documentacion.png")
 ```
 
-Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. La Tabla  \@ref(tab:tablafuncionales) resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
+Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. La Tabla \@ref(tab:tablafuncionales) resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
 
 ```{r tablafuncionales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -144,7 +142,8 @@ if (knitr::is_latex_output()) {
   tabla_req %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 10,
+      position = "right"
     ) %>%
     column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "8cm") %>%
@@ -156,7 +155,7 @@ if (knitr::is_latex_output()) {
     kable_styling(
       bootstrap_options = c("striped", "hover", "condensed", "responsive"),
       full_width = FALSE,
-      position = "center"
+      position = "right"
     ) %>%
     column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "32em") %>%
