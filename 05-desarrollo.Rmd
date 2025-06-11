@@ -298,15 +298,15 @@ if (knitr::is_latex_output()) {
 En síntesis, la definición de estos requisitos busca integrar aspectos funcionales, pedagógicos y técnicos en una herramienta que no solo simule el comportamiento del sistema, sino que facilite activamente los procesos de enseñanza y aprendizaje en arquitectura de computadoras. La articulación entre visualización, ejecución progresiva y análisis de rendimiento proporciona un entorno didáctico rico que responde tanto a las necesidades del aula como a los desafíos de la disciplina.
 
 ## Diseño del Simulador
-El diseño del simulador se fundamenta en la arquitectura de Von Neumann, ampliamente adoptada en las computadoras modernas por su simplicidad conceptual y operativa. Esta arquitectura se caracteriza por utilizar una única memoria compartida para almacenar tanto datos como instrucciones, esta característica permite una mayor flexibilidad en la ejecución de programas, ya que las instrucciones pueden ser tratadas como datos, facilitando la implementación de técnicas avanzadas como la ejecución dinámica y la optimización del rendimiento.
+El diseño del simulador se basa en la arquitectura de Von Neumann, ampliamente utilizada en computadoras modernas debido a su simplicidad conceptual y operativa. Esta arquitectura se caracteriza por utilizar una única memoria compartida para almacenar tanto datos como instrucciones, lo cual brinda mayor flexibilidad en la ejecución de programas, ya que las instrucciones pueden manipularse como datos, facilitando la implementación de técnicas avanzadas como la ejecución dinámica y la optimización del rendimiento.
 
 Para el diseño del simulador desarrollado en este trabajo, se tomó como referencia el simulador VonSim^[VonSim: https://vonsim.github.io/], una herramienta educativa basada en la arquitectura de Von Neumann que permite visualizar y experimentar el ciclo de instrucción de una manera interactiva. Esta herramienta sirvió como base conceptual y funcional debido a su enfoque didáctico y su estructura visual clara, orientada a la enseñanza de principios fundamentales de arquitectura de computadoras [@vonsim].
 
 Sin embargo, considerando los contenidos y objetivos específicos de la asignatura Arquitectura de Computadoras, 
 VonSim8^[VonSim8: https://ruiz-jose.github.io/VonSim8/] es un simulador diseñado específicamente en este trabajo, inspirado en VonSim, pero adaptado para operar con registros y memoria de 8 bits, con una interfaz simplificada orientada al aprendizaje progresivo.
-Dado que VonSim incluye una arquitectura detallada con múltiples instrucciones, registros y componentes funcionales. Si bien esto ofrece un panorama completo, puede dificultar el aprendizaje inicial al introducir simultáneamente numerosos conceptos avanzados. Debido a esto se optó por desarrollar una versión simplificada del simulador, esta decisión responde a la necesidad de reducir la carga cognitiva en las primeras etapas del aprendizaje y facilitar una asimilación progresiva de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
+Dado que VonSim presenta una arquitectura detallada que incorpora múltiples instrucciones, registros y componentes funcionales. Aunque esta complejidad proporciona una visión integral del funcionamiento interno de una computadora, también puede dificultar el aprendizaje inicial al exponer simultáneamente una gran cantidad de conceptos avanzados. Por este motivo, se optó por desarrollar una versión simplificada del simulador. Esta decisión obedece a la necesidad de reducir la carga cognitiva en las primeras etapas del aprendizaje y facilitar una asimilación progresiva de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
-Entre las principales modificaciones realizadas se incluyen: (1) la reducción y simplificación del repertorio de instrucciones; (2) el ajuste en el tamaño de los registros y la memoria para operar con datos de 8 bits; (3) el rediseño de la interfaz gráfica con un enfoque esquemático del flujo de ejecución; y (4) la incorporación de funcionalidades interactivas orientadas a la visualización del ciclo de instrucción y el rol específico de cada componente. Las modificaciones se definieron conforme a los contenidos curriculares de la asignatura y se fundamentan en los principios del aprendizaje activo, que promueven la participación del estudiante como protagonista en la construcción de su conocimiento [@bonwell1991active].
+Entre las principales modificaciones realizadas se incluyen: (1) la reducción y simplificación del repertorio de instrucciones; (2) el ajuste en el tamaño de los registros y la memoria para operar con datos de 8 bits; (3) el rediseño de la interfaz gráfica con un enfoque esquemático que representa el flujo de ejecución; y (4) la incorporación de funciones interactivas que permiten visualizar el ciclo de instrucción y comprender el rol específico de cada componente. Las modificaciones se definieron de acuerdo con los contenidos curriculares de la asignatura y se sustentan en los principios del aprendizaje activo, el cual promueve que el estudiante asuma un rol protagónico en la construcción de su conocimiento [@bonwell1991active].
 
 ```{r comparativa-vonsim, echo=FALSE, out.width = "100%", fig.cap="Comparación entre VonSim y VonSim8"}
 library(knitr)
@@ -350,8 +350,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-
-El diseño conceptual se orienta a plasmar los principios definidos anteriormente en una arquitectura funcional que responda de manera efectiva a los objetivos pedagógicos de la asignatura Arquitectura de Computadoras.
+El diseño conceptual se orienta a plasmar los principios definidos anteriormente en una una arquitectura funcional coherente con los objetivos pedagógicos específicos de la asignatura Arquitectura de Computadoras.
 
 Con los requisitos funcionales y didácticos previamente definidos, se elaboró un diseño conceptual que organiza la estructura interna del simulador en bloques funcionales bien delimitados. Este diseño permite modelar de manera explícita las relaciones entre los distintos componentes, facilitando tanto la implementación como la comprensión de la arquitectura simulada.
 
@@ -374,7 +373,6 @@ knitr::include_graphics(path = "images/buses.png")
 ```
 
 El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
-
 
 ```{r tecladopantalla, echo=FALSE, fig.cap="Teclado y pantalla", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/tecladopantalla.png")
