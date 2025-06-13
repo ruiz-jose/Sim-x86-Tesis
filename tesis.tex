@@ -1910,18 +1910,34 @@ En síntesis, la definición de estos requisitos busca integrar aspectos funcion
 \hypertarget{diseuxf1o-del-simulador}{%
 \section{Diseño del Simulador}\label{diseuxf1o-del-simulador}}
 
-El simulador desarrollado se basa en la arquitectura de Von Neumann, una estructura ampliamente utilizada en los sistemas computacionales modernos debido a su simplicidad conceptual y operativa. Esta arquitectura se caracteriza por emplear una única memoria para almacenar simultáneamente datos e instrucciones. Esta característica facilita la flexibilidad en la ejecución de programas, ya que permite que las instrucciones sean tratadas como datos, facilitando la implementación de técnicas avanzadas como la ejecución dinámica y la optimización del rendimiento.
+El simulador implementado adopta la arquitectura de Von Neumann, reconocida por su simplicidad conceptual y operativa. En este modelo, los datos y las instrucciones comparten una única memoria, lo que permite tratar las instrucciones como datos. Esta característica facilita técnicas como la ejecución dinámica y la optimización del rendimiento \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}.
 
-Para el diseño del simulador desarrollado en este trabajo, se tomó como referencia el simulador VonSim\footnote{VonSim: \url{https://vonsim.github.io/}}, una herramienta educativa basada en la arquitectura de Von Neumann que permite visualizar y experimentar el ciclo de instrucción de una manera interactiva. Esta herramienta sirvió como base conceptual y funcional debido a su enfoque didáctico y su estructura visual clara, orientada a la enseñanza de principios fundamentales de arquitectura de computadoras \protect\hyperlink{ref-vonsim}{{[}73{]}}.
+VonSim\footnote{VonSim: \url{https://vonsim.github.io/}} sirvió como referencia por su enfoque educativo e interfaz intuitiva. Sobre esta base se desarrolló VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}}, adaptado para operar con registros y memoria de 8\,bits y diseñado para el aprendizaje progresivo \protect\hyperlink{ref-vonsim}{{[}73{]}}.
 
 Considerando los contenidos y objetivos pedagógicos de la asignatura Arquitectura de Computadoras, se desarrolló VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}} un simulador concebido en este trabajo como adaptación de VonSim, pero adaptado para operar con registros y memoria de 8 bits, con una interfaz simplificada orientada al aprendizaje progresivo.
-VonSim implementa una arquitectura detallada, compuesta por un conjunto amplio de instrucciones, registros y componentes funcionales. Esta complejidad, si bien ofrece una visión integral del funcionamiento interno de una computadora, puede dificultar el aprendizaje inicial al exponer simultáneamente numerosos conceptos avanzados. Por este motivo, se optó por desarrollar una versión simplificada del simulador. La decisión de simplificar la arquitectura responde a la necesidad pedagógica de reducir la carga cognitiva durante las etapas iniciales del aprendizaje, facilitando así una progresiva apropiación de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
+La arquitectura detallada de VonSim, con su amplio repertorio de instrucciones y componentes, ofrece una visión integral del sistema. Sin embargo, dicha riqueza funcional puede abrumar a estudiantes en etapas iniciales. Por esta razón, VonSim8 introduce una simplificación estratégica, con el objetivo de reducir la carga cognitiva en etapas iniciales, facilitando así una apropiación gradual de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
-Entre las principales modificaciones realizadas se incluyen: (1) la reducción y simplificación del repertorio de instrucciones; (2) el ajuste en el tamaño de los registros y la memoria para operar con datos de 8 bits; (3) el rediseño de la interfaz gráfica con un enfoque esquemático que representa el flujo de ejecución; y (4) la incorporación de funciones interactivas que permiten visualizar el ciclo de instrucción y comprender el rol específico de cada componente. Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo \protect\hyperlink{ref-bonwell1991active}{{[}67{]}}.
+Las modificaciones principales de VonSim8, alineadas con objetivos pedagógicos, incluyen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Simplificación del repertorio instruccional para una introducción gradual;
+\item
+  Reducción a registros y memoria de 8\,bits, coherente con la escala de enseñanza;
+\item
+  Interfaz gráfica esquemática que muestra el flujo de ejecución;
+\item
+  Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.
+\end{enumerate}
+
+Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo \protect\hyperlink{ref-bonwell1991active}{{[}67{]}}.
+
+La Tabla \ref{tab:comparativavonsim} sintetiza las diferencias entre VonSim y VonSim8, ilustrando cómo las simplificaciones de VonSim8 contribuyen a un aprendizaje progresivo.
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:comparativa-vonsim}Comparación entre VonSim y VonSim8}
+\caption{\label{tab:comparativavonsim}Comparación entre VonSim y VonSim8}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
@@ -1945,7 +1961,41 @@ Entre las principales modificaciones realizadas se incluyen: (1) la reducción y
 
 El diseño conceptual busca traducir los principios previamente definidos en una arquitectura funcional coherente con los objetivos pedagógicos específicos de la asignatura Arquitectura de Computadoras.
 
-Con los requisitos funcionales y didácticos previamente definidos, se elaboró un diseño conceptual que organiza la estructura interna del simulador en bloques funcionales bien delimitados. Este diseño permite modelar de manera explícita las relaciones entre los distintos componentes, facilitando tanto la implementación como la comprensión de la arquitectura simulada.
+\hypertarget{estructura-del-vonsim8}{%
+\subsection{Estructura del VonSim8}\label{estructura-del-vonsim8}}
+
+Esta sección describe la estructura del simulador VonSim8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}. Se describe en la siguiente tabla \ref{tab:estructuravonsim8} los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:estructuravonsim8}Estructura VonSim8}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{9cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
+\midrule
+\textbf{Arquitectura} & Von Neumann, memoria compartida para datos e instrucciones.\\
+\addlinespace[10pt]
+\textbf{Registros} & 4 registros de propósito general (`AL`, `BL`, `CL` y `DL`) de 8 bits cada uno.\\
+\addlinespace[10pt]
+\textbf{} & 4 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \end{itemize}\\
+\addlinespace[10pt]
+\textbf{} & 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el MAR (Memory Address Register), encargado de almacenar direcciones de memoria, y el MBR (Memory Buffer Register), que contiene los datos a transferir.\\
+\addlinespace[10pt]
+\textbf{} & 2 registros temporales (`ri`: temporal de direcciones y `id`: temporal de datos) que se utilizan para conservar valores temporales durante la ejecución de una instrucción.\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{Memoria} & Capacidad de direccionamiento de 256 posiciones de memoria, cada una de un byte.\\
+\addlinespace[10pt]
+\textbf{Buses} & Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria.\\
+\addlinespace[10pt]
+\textbf{Instrucciones} & Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
 
 La Figura \ref{fig:esquemavonsim8} presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Dicha representación facilita la comprensión estructural del sistema y su analogía con una arquitectura computacional real, simplificada para fines educativos.
 
@@ -2003,50 +2053,13 @@ La elección de estos bloques funcionales responde tanto a la necesidad de model
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bloque Funcional}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
 \midrule
-\textbf{Unidad Central de Procesamiento (CPU)} & Simulación de registros, Unidad de Control (UC) y Unidad Aritmética y Lógica (ALU).\\
+\textbf{Unidad Central de Procesamiento (CPU)} & Simulación de registros, unidad de control (UC) y unidad aritmético-lógica (ALU).\\
 \addlinespace[10pt]
 \textbf{Memoria} & Estructura de memoria y simulación de operaciones de lectura y escritura.\\
 \addlinespace[10pt]
 \textbf{Sistema de Entrada/Salida (E/S)} & Interacción con periféricos y manejo de interrupciones.\\
 \addlinespace[10pt]
 \textbf{Bus de datos, direcciones y control} & Modelado de la comunicación entre componentes.\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\hypertarget{componentes-del-cpu}{%
-\subsection{Componentes del CPU}\label{componentes-del-cpu}}
-
-Esta sección describe los componentes de la Unidad Central de Procesamiento (CPU) del simulador VonSim8, destacando su analogía con elementos presentes en arquitecturas reales. Esta correspondencia busca potenciar el valor pedagógico del simulador como recurso didáctico para la enseñanza de Arquitectura de Computadoras.
-El diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}. Se describe en la siguiente tabla \ref{tab:arq}:
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:arq}Componentes del CPU VonSim8}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{9cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
-\midrule
-\textbf{Arquitectura} & Von Neumann, memoria compartida para datos e instrucciones.\\
-\addlinespace[10pt]
-\textbf{Registros} & 4 registros de propósito general (`AL`, `BL`, `CL` y `DL`) de 8 bits cada uno.\\
-\addlinespace[10pt]
-\textbf{} & 4 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \end{itemize}\\
-\addlinespace[10pt]
-\textbf{} & Dos registros dedicados a la transferencia de información entre la CPU y la memoria principal: el MAR (Memory Address Register), encargado de almacenar direcciones de memoria, y el MBR (Memory Buffer Register), que contiene los datos a transferir.\\
-\addlinespace[10pt]
-\textbf{} & 2 registros temporales (`ri`: temporal de direcciones y `id`: temporal de datos) que se utilizan para conservar valores temporales durante la ejecución de una instrucción.\\
-\addlinespace[10pt]
-\addlinespace
-\textbf{Memoria} & Capacidad de direccionamiento de 256 posiciones de memoria, cada una de un byte.\\
-\addlinespace[10pt]
-\textbf{Buses} & Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria.\\
-\addlinespace[10pt]
-\textbf{Instrucciones} & Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
