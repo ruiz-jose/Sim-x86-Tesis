@@ -433,8 +433,8 @@ Modelado de la comunicación entre componentes.
 </table>
 <div id="componentes-del-cpu" class="section level3 hasAnchor" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Componentes del CPU<a href="diseño-del-simulador.html#componentes-del-cpu" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Esta sección describe los componentes que integran la Unidad Central de Procesamiento (CPU) del simulador VonSim8, destacando su correspondencia con elementos presentes en arquitecturas reales, con el fin de reforzar su valor didáctico. La descripción de cada componente se organiza en función de su rol funcional y su relevancia didáctica.</p>
-<p>El diseño de los registros fue concebido para apoyar la comprensión de los modos de direccionamiento y del ciclo de instrucción, considerados ejes fundamentales en la enseñanza de la arquitectura de computadoras. Se describe en la siguiente tabla <a href="diseño-del-simulador.html#tab:arq">5.7</a>:</p>
+<p>Esta sección presenta los componentes que conforman la Unidad Central de Procesamiento (CPU) del simulador VonSim8, resaltando su correspondencia con elementos propios de arquitecturas reales, con el propósito de fortalecer su valor pedagógico en el contexto de la enseñanza de arquitectura de computadoras.
+El diseño de los registros busca facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, considerados pilares conceptuales en la enseñanza de la arquitectura de computadoras. Se describe en la siguiente tabla <a href="diseño-del-simulador.html#tab:arq">5.7</a>:</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:arq">Tabla 5.7: </span>Componentes del CPU VonSim8
@@ -506,7 +506,7 @@ Registros
 Memoria
 </td>
 <td style="text-align:left;width: 40em; ">
-Capacidad de direccionamiento de 256 posiciones, cada una de byte.
+Capacidad de direccionamiento de 256 posiciones de memoria, cada una de un byte.
 </td>
 </tr>
 <tr>
@@ -522,7 +522,7 @@ Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de
 Instrucciones
 </td>
 <td style="text-align:left;width: 40em; ">
-Las instrucciones presentan una longitud variable (1, 2 o 3 bytes), y admiten múltiples modos de direccionamiento: registro a registro, directo, indirecto e inmediato.
+Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.
 </td>
 </tr>
 </tbody>
@@ -530,8 +530,7 @@ Las instrucciones presentan una longitud variable (1, 2 o 3 bytes), y admiten m�
 </div>
 <div id="repertorio-de-instruciones" class="section level3 hasAnchor" number="5.2.2">
 <h3><span class="header-section-number">5.2.2</span> Repertorio de instruciones<a href="diseño-del-simulador.html#repertorio-de-instruciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El repertorio de instrucciones fue diseñado como una simplificación deliberada de la arquitectura x86, con el propósito de optimizar los procesos de enseñanza y aprendizaje en el contexto educativo. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque gradual facilita la comprensión de los conceptos fundamentales sin abrumar al estudiante con la complejidad inherente a un repertorio completo de instrucciones.
-La Tabla <a href="diseño-del-simulador.html#tab:setreducido">5.8</a> presenta un repertorio reducido de instrucciones, que incluye las operaciones más comunes y relevantes para el aprendizaje inicial. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.</p>
+<p>El repertorio de instrucciones fue diseñado como una abstracción intencionada de la arquitectura x86, con el propósito de optimizar los procesos de enseñanza y aprendizaje en el contexto educativo. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque gradual facilita la comprensión de los conceptos fundamentales evitando la complejidad innecesaria que podría dificultar la comprensión en las etapas iniciales del aprendizaje <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>)</span>. La Tabla <a href="diseño-del-simulador.html#tab:setreducido">5.8</a> muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
 <span id="tab:setreducido">Tabla 5.8: </span>Tabla de instrucciones de VonSim8
@@ -563,7 +562,7 @@ Copiar
 </tr>
 <tr>
 <td style="text-align:left;width: 25em; font-weight: bold;">
-Pocesamiento de datos
+Procesamiento de datos
 </td>
 <td style="text-align:left;width: 15em; ">
 ADD
@@ -899,6 +898,9 @@ Bonwell, Charles C., and James A. Eison. 1991. <span>“Active Learning: Creatin
 </div>
 <div id="ref-vonsim" class="csl-entry">
 Facundo Quiroga, Juan Martín Seery, Manuel Bustos Berrondo. 2020. <span>“VonSim - Simulador de Arquitectura de von Neumann.”</span> <a href="https://vonsim.github.io/" class="uri">https://vonsim.github.io/</a>.
+</div>
+<div id="ref-hennessy2017computer" class="csl-entry">
+Hennessy, John L., and David A. Patterson. 2017a. <em>Computer Architecture: A Quantitative Approach</em>. 6th ed. Boston: Morgan Kaufmann.
 </div>
 </div>
 <div class="footnotes">
