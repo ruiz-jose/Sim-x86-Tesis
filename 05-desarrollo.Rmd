@@ -501,6 +501,8 @@ if (knitr::is_latex_output()) {
 ### Repertorio de instruciones
 El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque progresivo permite introducir los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje [@hennessy2017computer; @tanenbaum_structured_2016]. La Tabla \@ref(tab:setreducido) muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.  
 
+Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
+
 ```{r setreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
@@ -569,252 +571,107 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "25em", bold = TRUE) %>% # nolint: line_length_linter.
     column_spec(2, width = "15em") %>%
     column_spec(3, width = "25em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
-    footnote(
-      general = "Las instrucciones de transferencia y de procesamiento de datos tienen los tres tipos de combinaciones en los operandos.", # nolint: line_length_linter.
-      general_title = "Nota: ",
-      threeparttable = TRUE
-    )
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
-
 ### Formato de instrucciones
-El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. La tabla \@ref(tab:codtraducido) muestra el formato de las instrucciones y su codificación binaria.
+Las instrucciones del simulador VonSim8 se definen con un formato de 1 a 3 bytes, donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
 
-```{r codtraducido, echo=FALSE, message=FALSE, warning=FALSE}
+```{r formatoinst, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 library(magrittr)
 
 # Crear un dataframe con los datos
-codtraducido <- data.frame(
-  Tipo = c("", "Transferencia y procesamiento", "", "Control"),
-  Operación = c("A: entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"), # nolint: line_length_linter.
-  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____00YY MMMMMMMM", "____ffff MMMMMMMM"), # nolint: line_length_linter.
-  Parámetros = c(
-    "XX = Registro destino\nYY = Registro fuente",
-    "XX = Registro destino\nM = Dirección de memoria",
-    "YY = Registro fuente\nM = Dirección de memoria",
-    "ffff = funcionalidad\nM = Dirección de memoria"
-  ),
+formatoinst <- data.frame(
+  Tipo = c("Transferencia y procesamiento", "Control"),
+  operandos = c("2 operandos (fuente y destino)", "Con 1 o sin operando"), # nolint: line_length_linter.
+  Ejemplo = c("MOV operando-destino, operando-fuente", "JMP operando o HLT"), # nolint: line_length_linter.
+
   stringsAsFactors = FALSE
 )
 
 # Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  kable(codtraducido, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
-        caption = "Tabla de codificación de instrucciones") %>%
+  kable(formatoinst, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operandos", "Ejemplo"), # nolint: line_length_linter.
+        caption = "Tabla de formato de instrucciones") %>%
     kable_styling(latex_options = c("hold_position", "scale_down")) %>%
     column_spec(1, width = "3cm") %>%
-    column_spec(2, width = "5cm") %>%
-    column_spec(3, width = "5cm") %>%
-    column_spec(4, width = "6cm") %>%
+    column_spec(2, width = "8cm") %>%
+    column_spec(3, width = "8cm") %>%
     row_spec(3, extra_latex_after = "\\midrule")
 } else {
-  kable(codtraducido, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
+  kable(formatoinst, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operandos", "Ejemplo"), # nolint: line_length_linter.
         caption = "Tabla de codificación de instrucciones") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
     column_spec(1, width = "20em") %>%
-    column_spec(2, width = "25em") %>%
-    column_spec(3, width = "25em", extra_css = "font-size: 6pt;") %>%
-    column_spec(4, width = "30em")
+    column_spec(1, width = "30em") %>%
+    column_spec(2, width = "30em")
 }
 ```
-
-Considerando:
-
-  - `____`: Código de operación de la instrucción, número de 4 bits.
-
-  - `XX` o `YY`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
-    
-```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-
-# Crear un dataframe con los datos
-tabla_registros <- data.frame(
-  Registro = c("AL", "BL", "CL", "DL"),
-  Binario = c("00", "01", "10", "11"),
-  Decimal = c(0, 1, 2, 3)
-)
-
-# Imprimir la tabla en formato markdown
-kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal")) # nolint: line_length_linter.
-```
-
-  - `00`: Indica que el operando es un registro de propósito general.
-
-  - `M`: Dirección de memoria, número de 8 bits.
-
-  - `ffff`: representan el comportamiento de la instrucción, número de 4 bits.
 
 ### Modos de direccionamiento
-Los modos de direccionamiento definidos en esta etapa son:
+Los modos de direccionamiento definidos son:
 
-- Registro a registro (`Rx`,`Ry`): operandos son registros del procesador.
-- Directo (`[M]`): operando es el contenido de una dirección de memoria.
+- Registro a registro (`Rx`,`Ry`): operandos son registros del procesador y `Rx` indica registro destino y `Ry` indica registro fuente.
+- Directo (`[M]`): un operando es un registro y el otro operando es el contenido de una dirección de memoria `[M]`.
+- Indirecto por registro (`[BL]`): la dirección del operando se encuentra en el registro `[BL]`.
+- Inmediato (`d`): un operando es un valor contenido en la instrucción. 
 
-En esta primera etapa se implementan las siguientes instrucciones con estos modos de direccionamiento y formato de instrucciones:
+Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \@ref(tab:modosdireccionamiento) resume los modos de direccionamiento implementados en el simulador, junto con ejemplos de uso y su propósito pedagógico.
 
-```{r tablainst, echo=FALSE, message=FALSE, warning=FALSE}
+```{r modosdireccionamiento, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
+library(kableExtra)
 
-# Crear un dataframe con los datos
-tablainst <- data.frame(
-  `#` = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "C", "C"),
-  Instrucción = c("MOV Rx, Ry", "MOV Rx, [M]", "MOV [M], Ry", "ADD Rx, Ry", "ADD Rx, [M]", "ADD [M], Ry", "SUB Rx, Ry", "SUB Rx, [M]", "SUB [M], Ry", "CMP Rx, Ry", "CMP Rx, [M]", "CMP [M], Ry", "JMP M", "JC M", "JZ M"), # nolint
-  Acción = c(
-    "Rx ← Ry",
-    "Rx ← Mem[Dirección]",
-    "Mem[Dirección] ← Rx",
-    "Rx ← Rx + Ry",
-    "Rx ← Rx + Mem[Dirección]",
-    "Mem[Dirección] ← Mem[Dirección] + Ry",
-    "Rx ← Rx - Ry",
-    "Rx ← Rx - Mem[Dirección]",
-    "Mem[Dirección] ← Mem[Dirección] - Ry",
-    "Modifica flags de Rx - Ry",
-    "Modifica flags de Rx - Mem[Dirección]",
-    "Modifica flags de Mem[Dirección] - Ry",
-    "IP ← Dirección",
-    "Si flag C=1 entonces IP ← Dirección",
-    "Si flag Z=1 entonces IP ← Dirección"
+modosdireccionamiento <- data.frame(
+  Tipo = c("", "Transferencia y procesamiento", "", "Control"),
+  Operación = c("A: Entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
+  Parámetros = c(
+    "Operandos son registros `Rx`,`Ry`",
+    "Operando destino registro `Rx` y operando fuente puede ser Directo: dirección `[M]`/ Indirecto: dirección registro BL `[BL]`/Inmediato: valor en la instrucción `d`",
+    "Operando destino puede ser Directo: dirección `[M]`/ Indirecto dirección registro BL `[BL]` y operando fuente se obtiene del Registro: `Ry`/Inmediato: valor en la instrucción `d`",
+    "Si tiene operando es una dirección de memoria `M`"
   ),
-  Codificación = c(
-    "0000 XXYY",
-    "0001 00YY MMMMMMMM",
-    "0010 XX00 MMMMMMMM",
-    "0011 XXYY",
-    "0100 00YY MMMMMMMM",
-    "0101 XX00 MMMMMMMM",
-    "0110 XXYY",
-    "0111 00YY MMMMMMMM",
-    "1000 XX00 MMMMMMMM",
-    "1001 XXYY",
-    "1010 00YY MMMMMMMM",
-    "1011 XX00 MMMMMMMM",
-    "1100 0000 MMMMMMMM",
-    "1100 0001 MMMMMMMM",
-    "1100 0011 MMMMMMMM"
-  )
+  stringsAsFactors = FALSE
 )
 
-# Imprimir la tabla en formato adecuado según el tipo de salida
+tabla <- kable(modosdireccionamiento,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Tabla de modos de direccionamiento",
+               col.names = c("Tipo", "Operación", "Parámetros"),
+               booktabs = TRUE,
+               escape = FALSE)
+
 if (knitr::is_latex_output()) {
-  kable(tablainst, format = "latex", booktabs = TRUE, col.names = c("#", "Instrucción", "Acción", "Codificación"), caption = "Tabla de Instrucciones y Codificación") %>% # nolint: line_length_linter.
-    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
-    column_spec(1, width = "1cm") %>%
-    column_spec(2, width = "3cm") %>%
-    column_spec(3, width = "5cm") %>%
-    column_spec(4, width = "5cm")
+  tabla %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "4cm") %>%
+    column_spec(3, width = "6cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(modosdireccionamiento)), extra_latex_after = "\\addlinespace[8pt]")
 } else {
-  kable(tablainst, format = "markdown", col.names = c("#", "Instrucción", "Acción", "Codificación")) # nolint: line_length_linter.
+  tabla %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "25em", bold = TRUE) %>%
+    column_spec(2, width = "15em") %>%
+    column_spec(3, width = "25em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    footnote(
+      general = "Las instrucciones de transferencia y de procesamiento de datos tienen los tres tipos de combinaciones en los operandos.",
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
 }
 ```
-
-## Ciclo de la instrucción: Etapas de captación y ejecución
-En este apartado se detalla el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los aspectos clave:
-
-- Secuencia de pasos.
-- Registros involucrados en cada etapa del proceso.
-- Uso de los buses de datos, direcciones y control.
-- Señales de control generadas.
-
-El **ciclo de la instrucción** se define como la secuencia de microoperaciones necesarias para ejecutar una instrucción en el sistema. Estas microoperaciones se expresan mediante un lenguaje de transferencia entre registros, representado de la forma:
-
-`destino` $\leftarrow$ `origen` 
-
-La Figura \@ref(fig:flujoCicloInstruccion) ilustra el flujo básico del ciclo de instrucción implementado en el simulador, permitiendo visualizar los pasos secuenciales de búsqueda, decodificación y ejecución.
-
-```{r flujoCicloInstruccion, echo=FALSE, fig.cap="Flujo del ciclo de instrucción en VonSim8", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/cicloinstruccion2.png")
-```
-
-### Etapa de Captación: 
-En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
-
-  1. **`MAR` $\leftarrow$ `IP`**:
-  el contenido del registro puntero de instrucciones `IP` se transfiere al registro de direcciones de memoria `MAR`. La UC genera la señal necesaria para seleccionar el valor del `IP` y copiarlo en el `MAR`.
-  2. **`MDR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**:
-  la UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del `MAR` como dirección. El dato leído se transfiere al registro de datos de memoria `MBR` a través del bus de datos. Simultáneamente, el `IP` se incrementa en 1 para apuntar al siguiente byte.
-  3. **`IR` $\leftarrow$ `MBR`**:
-  el contenido del `MBR` se transfiere al registro de instrucciones `IR`, completando la etapa de captación. 
-
-### Etapa de Ejecución:
-En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
-
-* MOV `Rx`, `Ry` (Copia entre registros)
-  1. **`Rx` $\leftarrow$ `Ry`**:
-  el contenido del registro `Ry` se copia en el registro `Rx`.
-
-* MOV `Rx`, `[Dirección]` (Carga a registro)
-  1. **`MAR` $\leftarrow$ `IP`**:
-  el valor del `IP` se transfiere a `MAR`.
-  2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
-  se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
-  3. **`MAR` $\leftarrow$ `MBR`**:
-  el contenido de `MBR` se transfiere a `MAR`.
-  4. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**:
-  se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
-  5. **`Rx`  $\leftarrow$ `MBR`**:
-  el contenido del `MBR` se copia al registro `Rx`.
-
-* MOV `[Dirección]`, `Ry` (Almacenar en memoria)     
-  1. 2. 3. igual que MOV `Rx`, `[Dirección]`.
-  4. **`MBR` $\leftarrow$ `Ry`**:
-  el contenido de `Ry` se transfiere a `MBR`.
-  5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
-  el contenido de `MBR` se escribe (write) en memoria en la dirección apuntada por el `MAR`.
-
-* ADD  `Rx`, `[Dirección]` (Sumar a registro)
-  1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
-  5. **`Rx`  $\leftarrow$ `Rx` + `MBR`**:
-  la Unidad Aritmético-Lógica (ALU) realiza la suma entre `Rx` y `MBR`, almacenando el resultado en `Rx`. El Registro de Estado `RS` se actualiza con los indicadores correspondientes.
-
-* SUB `[Dirección]`, `Ry` (Restar a memoria)
-  1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
-  5. **`MBR` $\leftarrow$ `Ry` - `MBR`**: 
-  la ALU resta el contenido de `MBR` al de `Ry`, almacenando el resultado en `MBR`. El `RS` se actualiza.
-  6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
-  el contenido de `MBR` se escribe en memoria en la dirección apuntada por el `MAR`.
-
-* CMP `Rx`,  `[Dirección]` (Comparar a registro)
-  1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
-  5. **`Rx` - `MBR`**: 
-  la ALU realiza la resta entre el contenido de `Rx` y `MBR`. Aunque el resultado no se almacena, el `RS` se actualiza con los indicadores de comparación.
-
-* JMP  `Dirección` (Salto incondicional)
-  1. 2. igual que MOV `Rx`, `[Dirección]`.
-  3. **`IP` $\leftarrow$ `MBR`**:
-  El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
-
-* JC  `Dirección` (Salto condicional si C=1)
-  1. 2. Igual que MOV `Rx`, `[Dirección]`.
-  3. `Si C` == 1: **`IP` $\leftarrow$ `MBR`**:
-  si la bandera de acarreo (`C`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
-
-* JZ  `Dirección` (Salto condicional si Z=1)
-  1. 2. igual que MOV `Rx`, `[Dirección]`.
-  3. `Si Z` == 1: **`IP` $\leftarrow$ `MBR`**:
-  si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
-
-## Diseño Ampliado del Simulador VonSim8
-En esta sección se presentan las modificaciones y ampliaciones realizadas al diseño del simulador VonSim8, con el objetivo de enriquecer la experiencia de aprendizaje y adaptarlo a los contenidos avanzados de la asignatura Arquitectura de Computadoras.
-
-### Nuevos requisitos funcionales
-Se incorporan nuevos requisitos funcionales para ampliar las capacidades del simulador, permitiendo una mayor flexibilidad y profundidad en el aprendizaje:
-- **Modos de direccionamiento adicionales**: Se añaden nuevos modos de direccionamiento para enriquecer la variedad de operaciones que se pueden realizar.
-- **Formato ampliado de instrucciones**: Se implementa un formato de instrucciones más flexible, permitiendo codificar instrucciones con 1, 2 o 3 bytes según el modo de direccionamiento utilizado.
-- **Instrucciones adicionales**: Se introducen nuevas instrucciones que amplían el repertorio del simulador, permitiendo a los estudiantes explorar conceptos más avanzados de arquitectura de computadoras.
-
-
-### Modos de direccionamiento adicionales
-Se incoporan los siguientes modos de direccionamiento:
-
-- Indirecto por registro (`[BL]`): la dirección del operando se encuentra en el registro `BL` del procesador.
-- Inmediato (`d`): operando es un valor contenido en la instrucción. 
-
-### Formato ampliado de instrucciones
-Las instrucciones ahora se codifican con 1, 2 o 3 bytes dependiendo del modo:
 
 Las instrucciones de cargar a registro (B):
 
@@ -824,13 +681,12 @@ library(kableExtra)
 
 # Definir los datos de la tabla
 dirampliado <- data.frame(
-  `Función` = c("00", "01", "10", "11"),
-  `Byte` = c("2", "1", "2", "2"),
+  `Función` = c("00", "01", "10"),
+  `Byte` = c("2", "1", "2"),
   `Interpretación` = c(
     "Directo `M` = Dirección de memoria",
-    "Indirecto utiliza como operando implícito el registro `BL` y no requiere operando `M`", # nolint: line_length_linter.
-    "Inmediato `d` = Dato inmediato",
-    "Indirecto la dirección se calcula operando implícito `BL` + Dato inmediato"
+    "Indirecto utiliza como operando implícito el registro `BL`", # nolint: line_length_linter.
+    "Inmediato `d` = Dato inmediato"
   )
 )
 
@@ -845,15 +701,13 @@ library(kableExtra)
 
 # Definir los datos de la tabla
 dirampliado2 <- data.frame(
-  `Función` = c("00YY", "01YY", "01YY", "1100", "1101", "1110"),
-  `Byte` = c("2", "1", "2", "3", "2", "3"),
+  `Función` = c("00YY", "01YY", "1100", "1101"),
+  `Byte` = c("2", "1", "3", "2"),
   `Interpretación` = c(
-    "directo `D` = Dirección de memoria, `YY` = Registro fuente",
+    "directo `M` = Dirección de memoria, `YY` = Registro fuente",
     "indirecto `BL`, `YY` = Registro fuente",
-    "Indirecto la dirección se calcula operando implícito `BL` + Dato Inmediato", # nolint: line_length_linter.
     "Inmediato a memoria",
-    "Inmediato a memoria mediante indirecto `BL`",
-    "Inmediato a memoria mediante indirecto `BL`+ Dato Inmediato"
+    "Inmediato a memoria mediante indirecto `BL`"
   )
 )
 
@@ -913,6 +767,94 @@ if (knitr::is_latex_output()) {
     )
 }
 ```
+
+### Codificación de instrucciones
+El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:tablainst) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
+
+```{r tablainst, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+# Crear un dataframe con los datos
+tablainst <- data.frame(
+  `#` = c(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, "A", "B", "C", "C", "C"),
+  Instrucción = c("MOV Rx, Ry", "MOV Rx, [M]", "MOV [M], Ry", "ADD Rx, Ry", "ADD Rx, [M]", "ADD [M], Ry", "SUB Rx, Ry", "SUB Rx, [M]", "SUB [M], Ry", "CMP Rx, Ry", "CMP Rx, [M]", "CMP [M], Ry", "JMP M", "JC M", "JZ M"), # nolint
+  Acción = c(
+    "Rx ← Ry",
+    "Rx ← Mem[Dirección]",
+    "Mem[Dirección] ← Rx",
+    "Rx ← Rx + Ry",
+    "Rx ← Rx + Mem[Dirección]",
+    "Mem[Dirección] ← Mem[Dirección] + Ry",
+    "Rx ← Rx - Ry",
+    "Rx ← Rx - Mem[Dirección]",
+    "Mem[Dirección] ← Mem[Dirección] - Ry",
+    "Modifica flags de Rx - Ry",
+    "Modifica flags de Rx - Mem[Dirección]",
+    "Modifica flags de Mem[Dirección] - Ry",
+    "IP ← Dirección",
+    "Si flag C=1 entonces IP ← Dirección",
+    "Si flag Z=1 entonces IP ← Dirección"
+  ),
+  Codificación = c(
+    "0000 XXYY",
+    "0001 00YY MMMMMMMM",
+    "0010 XX00 MMMMMMMM",
+    "0011 XXYY",
+    "0100 00YY MMMMMMMM",
+    "0101 XX00 MMMMMMMM",
+    "0110 XXYY",
+    "0111 00YY MMMMMMMM",
+    "1000 XX00 MMMMMMMM",
+    "1001 XXYY",
+    "1010 00YY MMMMMMMM",
+    "1011 XX00 MMMMMMMM",
+    "1100 0000 MMMMMMMM",
+    "1100 0001 MMMMMMMM",
+    "1100 0011 MMMMMMMM"
+  )
+)
+
+# Imprimir la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  kable(tablainst, format = "latex", booktabs = TRUE, col.names = c("#", "Instrucción", "Acción", "Codificación"), caption = "Tabla de Instrucciones y Codificación") %>% # nolint: line_length_linter.
+    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+    column_spec(1, width = "1cm") %>%
+    column_spec(2, width = "3cm") %>%
+    column_spec(3, width = "5cm") %>%
+    column_spec(4, width = "5cm")
+} else {
+  kable(tablainst, format = "markdown", col.names = c("#", "Instrucción", "Acción", "Codificación")) # nolint: line_length_linter.
+}
+```
+
+Considerando:
+
+  - `____`: Código de operación de la instrucción, número de 4 bits.
+
+  - `XX` o `YY`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
+    
+```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+
+# Crear un dataframe con los datos
+tabla_registros <- data.frame(
+  Registro = c("AL", "BL", "CL", "DL"),
+  Binario = c("00", "01", "10", "11"),
+  Decimal = c(0, 1, 2, 3)
+)
+
+# Imprimir la tabla en formato markdown
+kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal")) # nolint: line_length_linter.
+```
+
+  - `00`: Junto con el código de operación indica si la operación es tipo B o C.
+
+  - `M`: Dirección de memoria, número de 8 bits.
+
+  - `ffff`: representan el comportamiento de la instrucción, número de 4 bits.
+
+
+
 
 ```{r formampl2, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1048,6 +990,93 @@ if (knitr::is_latex_output()) {
     row_spec(24, extra_css = "border-top: 2px solid #000;")
 }
 ```
+
+
+## Ciclo de la instrucción: Etapas de captación y ejecución
+En este apartado se detalla el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los aspectos clave:
+
+- Secuencia de pasos.
+- Registros involucrados en cada etapa del proceso.
+- Uso de los buses de datos, direcciones y control.
+- Señales de control generadas.
+
+El **ciclo de la instrucción** se define como la secuencia de microoperaciones necesarias para ejecutar una instrucción en el sistema. Estas microoperaciones se expresan mediante un lenguaje de transferencia entre registros, representado de la forma:
+
+`destino` $\leftarrow$ `origen` 
+
+La Figura \@ref(fig:flujoCicloInstruccion) ilustra el flujo básico del ciclo de instrucción implementado en el simulador, permitiendo visualizar los pasos secuenciales de búsqueda, decodificación y ejecución.
+
+```{r flujoCicloInstruccion, echo=FALSE, fig.cap="Flujo del ciclo de instrucción en VonSim8", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/cicloinstruccion2.png")
+```
+
+### Etapa de Captación: 
+En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
+
+  1. **`MAR` $\leftarrow$ `IP`**:
+  el contenido del registro puntero de instrucciones `IP` se transfiere al registro de direcciones de memoria `MAR`. La UC genera la señal necesaria para seleccionar el valor del `IP` y copiarlo en el `MAR`.
+  2. **`MDR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**:
+  la UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del `MAR` como dirección. El dato leído se transfiere al registro de datos de memoria `MBR` a través del bus de datos. Simultáneamente, el `IP` se incrementa en 1 para apuntar al siguiente byte.
+  3. **`IR` $\leftarrow$ `MBR`**:
+  el contenido del `MBR` se transfiere al registro de instrucciones `IR`, completando la etapa de captación. 
+
+### Etapa de Ejecución:
+En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
+
+* MOV `Rx`, `Ry` (Copia entre registros)
+  1. **`Rx` $\leftarrow$ `Ry`**:
+  el contenido del registro `Ry` se copia en el registro `Rx`.
+
+* MOV `Rx`, `[Dirección]` (Carga a registro)
+  1. **`MAR` $\leftarrow$ `IP`**:
+  el valor del `IP` se transfiere a `MAR`.
+  2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
+  se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
+  3. **`MAR` $\leftarrow$ `MBR`**:
+  el contenido de `MBR` se transfiere a `MAR`.
+  4. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**:
+  se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
+  5. **`Rx`  $\leftarrow$ `MBR`**:
+  el contenido del `MBR` se copia al registro `Rx`.
+
+* MOV `[Dirección]`, `Ry` (Almacenar en memoria)     
+  1. 2. 3. igual que MOV `Rx`, `[Dirección]`.
+  4. **`MBR` $\leftarrow$ `Ry`**:
+  el contenido de `Ry` se transfiere a `MBR`.
+  5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
+  el contenido de `MBR` se escribe (write) en memoria en la dirección apuntada por el `MAR`.
+
+* ADD  `Rx`, `[Dirección]` (Sumar a registro)
+  1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
+  5. **`Rx`  $\leftarrow$ `Rx` + `MBR`**:
+  la Unidad Aritmético-Lógica (ALU) realiza la suma entre `Rx` y `MBR`, almacenando el resultado en `Rx`. El Registro de Estado `RS` se actualiza con los indicadores correspondientes.
+
+* SUB `[Dirección]`, `Ry` (Restar a memoria)
+  1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
+  5. **`MBR` $\leftarrow$ `Ry` - `MBR`**: 
+  la ALU resta el contenido de `MBR` al de `Ry`, almacenando el resultado en `MBR`. El `RS` se actualiza.
+  6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
+  el contenido de `MBR` se escribe en memoria en la dirección apuntada por el `MAR`.
+
+* CMP `Rx`,  `[Dirección]` (Comparar a registro)
+  1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
+  5. **`Rx` - `MBR`**: 
+  la ALU realiza la resta entre el contenido de `Rx` y `MBR`. Aunque el resultado no se almacena, el `RS` se actualiza con los indicadores de comparación.
+
+* JMP  `Dirección` (Salto incondicional)
+  1. 2. igual que MOV `Rx`, `[Dirección]`.
+  3. **`IP` $\leftarrow$ `MBR`**:
+  El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
+
+* JC  `Dirección` (Salto condicional si C=1)
+  1. 2. Igual que MOV `Rx`, `[Dirección]`.
+  3. `Si C` == 1: **`IP` $\leftarrow$ `MBR`**:
+  si la bandera de acarreo (`C`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
+
+* JZ  `Dirección` (Salto condicional si Z=1)
+  1. 2. igual que MOV `Rx`, `[Dirección]`.
+  3. `Si Z` == 1: **`IP` $\leftarrow$ `MBR`**:
+  si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
 
 ### Ciclo de la instrucción: modos adicionales
 
