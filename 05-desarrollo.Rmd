@@ -612,12 +612,10 @@ if (knitr::is_latex_output()) {
 
 ### Modos de direccionamiento
 Los modos de direccionamiento definidos son:
-
 - Registro a registro (`Rx`,`Ry`): operandos son registros del procesador y `Rx` indica registro destino y `Ry` indica registro fuente.
 - Directo (`[M]`): un operando es un registro y el otro operando es el contenido de una dirección de memoria `[M]`.
 - Indirecto por registro (`[BL]`): la dirección del operando se encuentra en el registro `[BL]`.
 - Inmediato (`d`): un operando es un valor contenido en la instrucción. 
-
 Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \@ref(tab:modosdireccionamiento) resume los modos de direccionamiento implementados en el simulador, junto con ejemplos de uso y su propósito pedagógico.
 
 ```{r modosdireccionamiento, echo=FALSE, message=FALSE, warning=FALSE}
@@ -683,6 +681,60 @@ if (knitr::is_latex_output()) {
 
 ### Codificación de instrucciones
 El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
+
+```{r instaccion, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+instaccion <- data.frame(
+  Tipo = c(
+    "A: Entre registros",
+    "", "", "",
+    "B: Cargar a registro",
+    "", "", "", "", "", "", "", "", "", "", "",
+    "C: Almacenar en memoria",
+    "", "", "", "", "", "", "", "", "", "", "", "", "",
+    "D: control de flujo",
+    "", "", ""
+  ),
+  Ejemplo = c(
+    "`MOV Rx, Ry`", "`ADD Rx, Ry`", "`SUB Rx, Ry`", "`CMP Rx, Ry`",
+    "`MOV Rx, [M]`", "`MOV Rx, [BL]`", "`MOV Rx, D`", "`ADD Rx, [M]`", "`ADD Rx, [BL]`", "`ADD Rx, D`",
+    "`SUB Rx, [M]`", "`SUB Rx, [BL]`", "`SUB Rx, d`", "`CMP Rx, [M]`", "`CMP Rx, [BL]`", "`CMP Rx, D`",
+    "`MOV [M], Ry`", "`MOV [BL], Ry`", "`MOV [M], D`", "`MOV [BL], D`",
+    "`ADD [M], Ry`", "`ADD [BL], Ry`", "`ADD [M], D`", "`ADD [BL], D`",
+    "`SUB [M], Ry`", "`SUB [M], --`", "`CMP [M], --`", "", "", "",
+    "`JMP M`", "`JC M`", "`JZ M`", "`HLT`"
+  ),
+  Acción = c(
+    "`Rx` ← `Ry`", "`Rx` ← `Rx + Ry`", "`Rx` ← `Rx - Ry`", "`Rx - Ry`: no almacena el resultado en Rx",
+    "`Rx` ← `Mem[Dirección]`", "`Rx` ← `Mem[BL]`", "`Rx` ← `Dato`", "`Rx` ← `Rx` + `Mem[Dirección]`", "`Rx` ← `Rx` + `Mem[BL]` ", "`Rx` ← `Rx` + `Dato`",
+    "`Rx` ← `Rx` - `Mem[Dirección]`", "`Rx` ← `Rx` - `Mem[BL]`", "`Rx` ← `Rx` - `Dato`", "`Rx` - `Mem[Dirección]`", "`Rx` - `Mem[BL]`", "`Rx` - `Dato`",
+    "`Mem[Dirección]` ← `Rx`", "`Mem[BL]` ← `Rx`", "`Mem[Dirección]` ← `Dato`", "`Mem[BL]` ← `Dato`",
+    "`Mem[Dirección]` ← `Mem[Dirección]` + `Rx`", "`Mem[BL]` ← `Mem[BL]` + `Rx`", "`Mem[Dirección]` ← `Mem[Dirección]` + `Dato`", "`Mem[BL]` ← `Mem[BL]` + `Dato`",
+    "B: Cargar a registro", "C: Almacenar en memoria", "B: Cargar a registro", "C: Almacenar en memoria", "B: Cargar a registro", "C: Almacenar en memoria",
+    "`IP` ← `Dirección`", "Si `C` = 1 entonces `IP` ← `Dirección`", "Si `Z` = 1 entonces `IP` ← `Dirección`", "Detiene el procesador"
+  ),
+  stringsAsFactors = FALSE
+)
+
+if (knitr::is_latex_output()) {
+  kable(instaccion, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Ejemplo", "Acción"),
+        caption = "Tabla de instrucciones y acciones") %>%
+    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+    column_spec(1, width = "4cm") %>%
+    column_spec(2, width = "3cm") %>%
+    column_spec(3, width = "8cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3")
+} else {
+  kable(instaccion, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Ejemplo", "Acción"),
+        caption = "Tabla de instrucciones y acciones") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%
+    column_spec(2, width = "30em") %>%
+    column_spec(3, width = "30em")
+}
+```
 
 ```{r instcodif, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
