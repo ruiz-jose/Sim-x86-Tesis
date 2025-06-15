@@ -112,6 +112,46 @@
 % \usepackage{times} % other fonts are available like times, bookman, charter, palatino
 
 % Syntax highlighting #22
+  \usepackage{color}
+  \usepackage{fancyvrb}
+  \newcommand{\VerbBar}{|}
+  \newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+  \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+  % Add ',fontsize=\small' for more characters per line
+  \usepackage{framed}
+  \definecolor{shadecolor}{RGB}{248,248,248}
+  \newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+  \newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+  \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+  \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+  \newcommand{\BuiltInTok}[1]{#1}
+  \newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+  \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+  \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+  \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+  \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+  \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+  \newcommand{\ExtensionTok}[1]{#1}
+  \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+  \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+  \newcommand{\ImportTok}[1]{#1}
+  \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+  \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+  \newcommand{\NormalTok}[1]{#1}
+  \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+  \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+  \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+  \newcommand{\RegionMarkerTok}[1]{#1}
+  \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+  \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+  \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+  \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 
 % To pass between YAML and LaTeX the dollar signs are added by CII
 \title{Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras}
@@ -1914,8 +1954,7 @@ El simulador implementado adopta la arquitectura de Von Neumann, reconocida por 
 
 VonSim\footnote{VonSim: \url{https://vonsim.github.io/}} sirvió como referencia por su enfoque educativo e interfaz intuitiva. Sobre esta base se desarrolló VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}}, adaptado para operar con registros y memoria de 8\,bits y diseñado para el aprendizaje progresivo \protect\hyperlink{ref-vonsim}{{[}73{]}}.
 
-Considerando los contenidos y objetivos pedagógicos de la asignatura Arquitectura de Computadoras, se desarrolló VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}} un simulador concebido en este trabajo como adaptación de VonSim, pero adaptado para operar con registros y memoria de 8 bits, con una interfaz simplificada orientada al aprendizaje progresivo.
-La arquitectura detallada de VonSim, con su amplio repertorio de instrucciones y componentes, ofrece una visión integral del sistema. Sin embargo, dicha riqueza funcional puede abrumar a estudiantes en etapas iniciales. Por esta razón, VonSim8 introduce una simplificación estratégica, con el objetivo de reducir la carga cognitiva en etapas iniciales, facilitando así una apropiación gradual de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
+La arquitectura detallada de VonSim, con su amplio repertorio de instrucciones y componentes, ofrece una visión integral del sistema. Sin embargo, dicha riqueza funcional puede abrumar a estudiantes en etapas iniciales. Por esta razón, VonSim8 introduce una simplificación estrategica, con el objetivo de reducir la carga cognitiva en etapas iniciales, facilitando así una apropiación gradual de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
 Las modificaciones principales de VonSim8, alineadas con objetivos pedagógicos, incluyen:
 
@@ -2103,25 +2142,154 @@ Las instrucciones del simulador VonSim8 se dividen en dos categorías principale
 \end{tabular}}
 \end{table}
 
-En base a las entrevistas con los docentes y el análisis de los contenidos del curso, se definieron las siguientes categorías de instrucciones:
+En base a las entrevistas con los docentes y el análisis de los contenidos del curso, a continuación se establece para cada categorías de instrucciones su uso pedagógico esperado:
 
-\begin{table}[!h]
-\centering
-\caption{\label{tab:ISAdidacticos}Tipo de instrucción y uso pedagógicos esperados}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{9cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo de instruccion}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Uso pedagógico esperado}}}\\
-\midrule
-\textbf{Transferencia y procesamiento de datos} & Instrucciones que permiten mover datos entre registros y memoria, realizar operaciones aritméticas, y manipular el contenido de los registros. Estas instrucciones son fundamentales para la comprensión del flujo de datos en una arquitectura computacional\\
-\addlinespace[10pt]
-\textbf{Control de flujo} & Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa.\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Transferencia y procesamiento de datos}: Instrucciones que permiten mover datos entre registros y memoria y realizar operaciones aritméticas. Estas instrucciones son fundamentales para la comprensión del flujo de datos en una arquitectura computacional mostrando como se llevan a cabo operaciones aritméticas como de lenguaje de alto nivel como Python:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{=}\DecValTok{2}
+\NormalTok{y}\OperatorTok{=}\DecValTok{3}
+\NormalTok{z}\OperatorTok{=}\DecValTok{0}
+\NormalTok{z }\OperatorTok{=}\NormalTok{ x }\OperatorTok{+}\NormalTok{ y}
+\end{Highlighting}
+\end{Shaded}
+
+Su traduccion a ensamblador sería:
+
+\begin{lstlisting}
+  x db 2
+  y db 3
+  z db 0
+  mov AL, x   ;Se carga el valor de x (2) en AL
+  add AL, y   ;Se suma el valor de y (3) a AL (2) = 5
+  mov z, AL   ;Se guarda el valor del registro AL (5) en z 
+  hlt\end{lstlisting}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Control de flujo}: Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa. Por ejemplo, permiten implementar estructuras condicionales similares a las de lenguajes de alto nivel como Python:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{=}\DecValTok{2}
+\NormalTok{y}\OperatorTok{=}\DecValTok{3}
+\NormalTok{z}\OperatorTok{=}\DecValTok{0}
+\ControlFlowTok{if}\NormalTok{ x }\OperatorTok{==}\NormalTok{ y:}
+\NormalTok{  z }\OperatorTok{=}\NormalTok{ y  }\OperatorTok{+}\NormalTok{ x}
+\end{Highlighting}
+\end{Shaded}
+
+Su traduccion a ensamblador sería:
+
+\begin{lstlisting}
+x db 2 
+y db 3
+z db 0
+          mov AL, x
+          cmp AL, y
+          jz EsIgual
+          jmp Fin
+EsIgual:  add AL, y
+          mov z, AL 
+Fin:      hlt\end{lstlisting}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x}\OperatorTok{=}\DecValTok{2}
+\NormalTok{y}\OperatorTok{=}\DecValTok{3}
+\NormalTok{z}\OperatorTok{=}\DecValTok{0}
+\ControlFlowTok{if}\NormalTok{ x }\OperatorTok{\textless{}}\NormalTok{ y:}
+\NormalTok{  z }\OperatorTok{=}\NormalTok{ y  }\OperatorTok{+}\NormalTok{ x}
+\end{Highlighting}
+\end{Shaded}
+
+Su traduccion a ensamblador sería:
+
+\begin{lstlisting}
+x db 2 
+y db 3
+z db 0
+          mov AL, x
+          cmp AL, y
+          jc EsMenor
+          jmp Fin
+EsMenor:  add AL, y
+          mov z, AL 
+Fin:      hlt\end{lstlisting}
+
+Por ejemplo, la estructura iterativa \texttt{while} en Python:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OperatorTok{=} \DecValTok{0}
+\NormalTok{suma }\OperatorTok{=} \DecValTok{0}
+
+\ControlFlowTok{while}\NormalTok{ x }\OperatorTok{\textless{}} \DecValTok{10}\NormalTok{:}
+\NormalTok{    suma }\OperatorTok{=}\NormalTok{ suma }\OperatorTok{+}\NormalTok{ x}
+\NormalTok{    x }\OperatorTok{=}\NormalTok{ x }\OperatorTok{+} \DecValTok{1}
+\end{Highlighting}
+\end{Shaded}
+
+Su traduccion a ensamblador sería:
+
+\begin{lstlisting}
+x     db 1   
+suma  db 0   
+Condicion:  cmp x, 10 
+            jc Bucle        ; si x < 10  salta a etiqueta Bucle:
+            jmp FinBucle      ; si no salta a la etiqueta FinBucle:
+Bucle:      mov BL, x
+            add suma, BL
+            add x, 1
+            jmp Condicion      ; salta a Condicion:
+FinBucle:   hlt
+\end{lstlisting}
+
+Tratamiento de vectores y matrices: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Búsqueda del máximo en un vector}
+\NormalTok{vector }\OperatorTok{=}\NormalTok{ [}\DecValTok{5}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{9}\NormalTok{]}
+\NormalTok{maximo }\OperatorTok{=} \DecValTok{0}
+
+\ControlFlowTok{for}\NormalTok{ i }\KeywordTok{in} \BuiltInTok{range}\NormalTok{(}\BuiltInTok{len}\NormalTok{(vector)):}
+    \ControlFlowTok{if}\NormalTok{ vector[i] }\OperatorTok{\textgreater{}}\NormalTok{ maximo:}
+\NormalTok{        maximo }\OperatorTok{=}\NormalTok{ vector[i]}
+\end{Highlighting}
+\end{Shaded}
+
+Su traduccion a ensamblador sería:
+
+\begin{lstlisting}
+max     db 0
+vector  db 5, 2, 10, 4, 5, 0, 4, 8, 1, 9
+            mov CL, 0 ; contador
+            mov BL, offset vector  ; obtiene la dirección del primer elemento del vector
+Condicion:  CMP CL, 10 
+            jc Bucle          ; si x < 10  salta a etiqueta Bucle
+            jmp FinBucle      ; si no salta a la etiqueta FinBucle
+Bucle:      mov AL, [BL]      ; AL = vector[indice] 
+            cmp AL, max
+            Jnc EsMayor
+Proximo:    add BL, 1         ; BL = BL + 1 
+            add CL, 1         ; CL = CL + 1            
+            jmp Condicion 
+EsMayor:    mov max, AL       ; AL = max 
+            jmp Proximo       ; próximo elemento del vector
+FinBucle:   hlt\end{lstlisting}
+
+Estas instrucciones permiten a los estudiantes comprender cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
+Estas categorías de instrucciones se seleccionaron cuidadosamente para proporcionar una base sólida en los conceptos fundamentales de la arquitectura x86, permitiendo a los estudiantes familiarizarse con las operaciones más comunes y relevantes sin la complejidad adicional de un repertorio completo.
+
+Estas categorías se alinean con los objetivos pedagógicos del curso, permitiendo a los estudiantes familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.
 
 A traves de la implementación de estas instrucciones, el simulador VonSim8 busca proporcionar una experiencia de aprendizaje que facilite la comprensión de los principios fundamentales de la arquitectura de computadores, al tiempo que se minimiza la carga cognitiva en las etapas iniciales del aprendizaje. Permite al alumno entender como se ejecutan los operaciones artimeticas en la computadora, como se transfieren los datos entre registros y memoria, y como se controla el flujo de ejecución de un programa.
 
@@ -2169,20 +2337,22 @@ Estos modos de direccionamiento permiten al simulador representar una variedad d
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
+\begin{threeparttable}
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{8cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Parámetros}}}\\
 \midrule
 \textbf{} & A: Entre registros & Operandos son registros Rx, Ry\\
-\addlinespace[8pt]
 \textbf{Transferencia y procesamiento} & B: Cargar a registro & Operando destino registro Rx y operando fuente puede ser:\begin{itemize} \item dirección [M]\item dirección registro [BL] \item valor en la instrucción d \end{itemize}\\
-\addlinespace[8pt]
 \textbf{} & C: Almacenar en memoria & Operando destino puede ser: \begin{itemize} \item dirección [M]\item dirección registro [BL] \end{itemize} y operando fuente puede ser:\begin{itemize} \item Registro: Ry\item valor en la instrucción d \end{itemize}\\
-\addlinespace[8pt]
 \textbf{Control} & D: control de flujo & Si tiene operando es una dirección de memoria M\\
-\addlinespace[8pt]
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota: } 
+\item Las instrucciones de transferencia y de procesamiento de datos tienen los mismos modos de direccionamiento.
+\end{tablenotes}
+\end{threeparttable}}
 \end{table}
 
 \hypertarget{codificaciuxf3n-de-instrucciones}{%
@@ -2195,6 +2365,7 @@ El formato de las instrucciones se basa en la codificación binaria, donde cada 
 \caption{\label{tab:instaccion}Tabla de instrucciones y acciones}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ejemplo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
@@ -2202,7 +2373,7 @@ El formato de las instrucciones se basa en la codificación binaria, donde cada 
 A: Entre registros & MOV Rx, Ry & Rx ← Ry\\
  & ADD Rx, Ry & Rx ← Rx + Ry\\
  & SUB Rx, Ry & Rx ← Rx - Ry\\
- & CMP Rx, Ry & Rx - Ry: no almacena resultado en operando destino\\
+ & CMP Rx, Ry & Rx - Ry *\\
 B: Cargar a registro & MOV Rx, [M] & Rx ← Mem[Dirección]\\
 \addlinespace
  & MOV Rx, [BL] & Rx ← Mem[BL]\\
@@ -2214,10 +2385,10 @@ B: Cargar a registro & MOV Rx, [M] & Rx ← Mem[Dirección]\\
  & SUB Rx, [M] & Rx ← Rx - Mem[Dirección]\\
  & SUB Rx, [BL] & Rx ← Rx - Mem[BL]\\
  & SUB Rx, d & Rx ← Rx - dato\\
- & CMP Rx, [M] & Rx - Mem[Dirección]\\
- & CMP Rx, [BL] & Rx - Mem[BL]\\
+ & CMP Rx, [M] & Rx - Mem[Dirección] *\\
+ & CMP Rx, [BL] & Rx - Mem[BL] *\\
 \addlinespace
- & CMP Rx, d & Rx - dato\\
+ & CMP Rx, d & Rx - dato *\\
 C: Almacenar en memoria & MOV [M], Ry & Mem[Dirección] ← Rx\\
  & MOV [BL], Ry & Mem[BL] ← Rx\\
  & MOV [M], d & Mem[Dirección] ← dato\\
@@ -2240,7 +2411,12 @@ D: control de flujo & JMP M & IP ← Dirección\\
  & JZ M & Si Z = 1 entonces IP ← Dirección\\
  & HLT & Detiene el procesador\\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota *: } 
+\item La instrucción CMP no almacena el resultado de la operación en el operando destino.
+\end{tablenotes}
+\end{threeparttable}}
 \end{table}
 
 \begin{table}[!h]
