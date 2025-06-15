@@ -574,6 +574,57 @@ if (knitr::is_latex_output()) {
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
+
+En base a las entrevistas con los docentes y el análisis de los contenidos del curso, se definieron las siguientes categorías de instrucciones:
+```{r ISAdidacticos, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear los datos de la tabla
+ISAdidacticos<- data.frame(
+  `tipoisa` = c(
+    "Transferencia y procesamiento de datos",
+    "Control de flujo"
+  ),
+  `Uso pedagógico esperado` = c(
+    "Instrucciones que permiten mover datos entre registros y memoria, realizar operaciones aritméticas, y manipular el contenido de los registros. Estas instrucciones son fundamentales para la comprensión del flujo de datos en una arquitectura computacional",
+    "Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa."
+  )
+)
+
+tabla <- kable(ISAdidacticos,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Tipo de instrucción y uso pedagógicos esperados",
+               col.names = c("Tipo de instruccion", "Uso pedagógico esperado"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "c"))
+
+if (knitr::is_latex_output()) {
+  tabla %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "9cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(ISAdidacticos)),
+             extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "28em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+A traves de la implementación de estas instrucciones, el simulador VonSim8 busca proporcionar una experiencia de aprendizaje que facilite la comprensión de los principios fundamentales de la arquitectura de computadores, al tiempo que se minimiza la carga cognitiva en las etapas iniciales del aprendizaje. Permite al alumno entender como se ejecutan los operaciones artimeticas en la computadora, como se transfieren los datos entre registros y memoria, y como se controla el flujo de ejecución de un programa.
+
 ### Formato de instrucciones
 Las instrucciones del simulador VonSim8 se definen con un formato de 1 a 3 bytes, donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
 
@@ -612,10 +663,15 @@ if (knitr::is_latex_output()) {
 
 ### Modos de direccionamiento
 Los modos de direccionamiento definidos son:
-- Registro a registro (`Rx`,`Ry`): operandos son registros del procesador y `Rx` indica registro destino y `Ry` indica registro fuente.
-- Directo (`[M]`): un operando es un registro y el otro operando es el contenido de una dirección de memoria `[M]`.
-- Indirecto por registro (`[BL]`): la dirección del operando se encuentra en el registro `[BL]`.
-- Inmediato (`d`): un operando es un valor contenido en la instrucción. 
+
+  - Registro a registro (`Rx`,`Ry`): operandos son registros del procesador y `Rx` indica registro destino y `Ry` indica registro fuente.
+
+  - Directo (`[M]`): un operando es un registro y el otro operando es el contenido de una dirección de memoria `[M]`.
+
+  - Indirecto por registro (`[BL]`): la dirección del operando se encuentra en el registro `[BL]`.
+
+  - Inmediato (`d`): un operando es un valor contenido en la instrucción. 
+
 Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \@ref(tab:modosdireccionamiento) resume los modos de direccionamiento implementados en el simulador, junto con ejemplos de uso y su propósito pedagógico.
 
 ```{r modosdireccionamiento, echo=FALSE, message=FALSE, warning=FALSE}
@@ -626,18 +682,18 @@ modosdireccionamiento <- data.frame(
   Tipo = c("", "Transferencia y procesamiento",  "", "Control"),
   Operación = c("A: Entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
   Parámetros = c(
-    "Operandos son registros `Rx`,`Ry`",
+    "Operandos son registros Rx, Ry",
     if (knitr::is_latex_output()) {
-      "Operando destino registro `Rx` y operando fuente puede ser:\\begin{itemize} \\item dirección `[M]`\\item dirección registro BL `[BL]` \\item valor en la instrucción `d` \\end{itemize}" # nolint: line_length_linter.
+      "Operando destino registro Rx y operando fuente puede ser:\\begin{itemize} \\item dirección [M]\\item dirección registro [BL] \\item valor en la instrucción d \\end{itemize}" # nolint: line_length_linter.
     } else {
-      "Operando destino registro `Rx` y operando fuente puede ser:<ul><li>dirección `[M]`</li><li>dirección registro BL `[BL]`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
+      "Operando destino registro `Rx` y operando fuente puede ser:<ul><li>dirección `[M]`</li><li>dirección registro `[BL]`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
     },
      if (knitr::is_latex_output()) {
-      "Operando destino puede ser: \\begin{itemize} \\item dirección `[M]`\\item dirección registro BL `[BL]` \\end{itemize} y operando fuente puede ser:\\begin{itemize} \\item Registro: `Ry`\\item valor en la instrucción `d` \\end{itemize}" # nolint: line_length_linter.
+      "Operando destino puede ser: \\begin{itemize} \\item dirección [M]\\item dirección registro [BL] \\end{itemize} y operando fuente puede ser:\\begin{itemize} \\item Registro: Ry\\item valor en la instrucción d \\end{itemize}" # nolint: line_length_linter.
     } else {
-      "Operando destino puede ser: <ul><li>dirección `[M]`</li><li>dirección registro BL `[BL]`)</li></ul> y operando fuente puede ser:<ul><li>Registro: `Ry`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
+      "Operando destino puede ser: <ul><li>dirección `[M]`</li><li>dirección registro `[BL]`)</li></ul> y operando fuente puede ser:<ul><li>Registro: `Ry`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
     },
-    "Si tiene operando es una dirección de memoria `M`"
+    "Si tiene operando es una dirección de memoria M"
   ),
   stringsAsFactors = FALSE
 )
@@ -698,22 +754,22 @@ instaccion <- data.frame(
     "", "", ""
   ),
   Ejemplo = c(
-    "`MOV Rx, Ry`", "`ADD Rx, Ry`", "`SUB Rx, Ry`", "`CMP Rx, Ry`",
-    "`MOV Rx, [M]`", "`MOV Rx, [BL]`", "`MOV Rx, D`", "`ADD Rx, [M]`", "`ADD Rx, [BL]`", "`ADD Rx, D`",
-    "`SUB Rx, [M]`", "`SUB Rx, [BL]`", "`SUB Rx, d`", "`CMP Rx, [M]`", "`CMP Rx, [BL]`", "`CMP Rx, D`",
-    "`MOV [M], Ry`", "`MOV [BL], Ry`", "`MOV [M], D`", "`MOV [BL], D`",
-    "`ADD [M], Ry`", "`ADD [BL], Ry`", "`ADD [M], D`", "`ADD [BL], D`",
-    "`SUB [M], Ry`", "`SUB [M], --`", "`CMP [M], --`", "", "", "",
-    "`JMP M`", "`JC M`", "`JZ M`", "`HLT`"
+    "MOV Rx, Ry", "ADD Rx, Ry", "SUB Rx, Ry", "CMP Rx, Ry",
+    "MOV Rx, [M]", "MOV Rx, [BL]", "MOV Rx, d", "ADD Rx, [M]", "ADD Rx, [BL]", "ADD Rx, d",
+    "SUB Rx, [M]", "SUB Rx, [BL]", "SUB Rx, d", "CMP Rx, [M]", "CMP Rx, [BL]", "CMP Rx, d",
+    "MOV [M], Ry", "MOV [BL], Ry", "MOV [M], d", "MOV [BL], d",
+    "ADD [M], Ry", "ADD [BL], Ry", "ADD [M], d", "ADD [BL], d",
+    "SUB [M], Ry", "SUB [M], --`", "CMP [M], --", "", "", "",
+    "JMP M", "JC M", "JZ M", "HLT"
   ),
   Acción = c(
-    "`Rx` ← `Ry`", "`Rx` ← `Rx + Ry`", "`Rx` ← `Rx - Ry`", "`Rx - Ry`: no almacena el resultado en Rx",
-    "`Rx` ← `Mem[Dirección]`", "`Rx` ← `Mem[BL]`", "`Rx` ← `Dato`", "`Rx` ← `Rx` + `Mem[Dirección]`", "`Rx` ← `Rx` + `Mem[BL]` ", "`Rx` ← `Rx` + `Dato`",
-    "`Rx` ← `Rx` - `Mem[Dirección]`", "`Rx` ← `Rx` - `Mem[BL]`", "`Rx` ← `Rx` - `Dato`", "`Rx` - `Mem[Dirección]`", "`Rx` - `Mem[BL]`", "`Rx` - `Dato`",
-    "`Mem[Dirección]` ← `Rx`", "`Mem[BL]` ← `Rx`", "`Mem[Dirección]` ← `Dato`", "`Mem[BL]` ← `Dato`",
-    "`Mem[Dirección]` ← `Mem[Dirección]` + `Rx`", "`Mem[BL]` ← `Mem[BL]` + `Rx`", "`Mem[Dirección]` ← `Mem[Dirección]` + `Dato`", "`Mem[BL]` ← `Mem[BL]` + `Dato`",
+    "Rx ← Ry", "Rx ← Rx + Ry", "Rx ← Rx - Ry", "Rx - Ry: no almacena resultado en operando destino",
+    "Rx ← Mem[Dirección]", "Rx ← Mem[BL]", "Rx ← dato", "Rx ← Rx + Mem[Dirección]", "Rx ← Rx + Mem[BL]", "Rx ← Rx + dato",
+    "Rx ← Rx - Mem[Dirección]", "Rx ← Rx - Mem[BL]", "Rx ← Rx - dato", "Rx - Mem[Dirección]", "Rx - Mem[BL]", "Rx - dato",
+    "Mem[Dirección] ← Rx", "Mem[BL] ← Rx", "Mem[Dirección] ← dato", "Mem[BL] ← dato",
+    "Mem[Dirección] ← `Mem[Dirección] + Rx", "Mem[BL] ← Mem[BL] + Rx", "Mem[Dirección] ← Mem[Dirección] + dato", "Mem[BL] ← Mem[BL] + dato",
     "B: Cargar a registro", "C: Almacenar en memoria", "B: Cargar a registro", "C: Almacenar en memoria", "B: Cargar a registro", "C: Almacenar en memoria",
-    "`IP` ← `Dirección`", "Si `C` = 1 entonces `IP` ← `Dirección`", "Si `Z` = 1 entonces `IP` ← `Dirección`", "Detiene el procesador"
+    "IP ← Dirección", "Si C = 1 entonces IP ← Dirección", "Si Z = 1 entonces IP ← Dirección", "Detiene el procesador"
   ),
   stringsAsFactors = FALSE
 )
@@ -736,130 +792,71 @@ if (knitr::is_latex_output()) {
 }
 ```
 
+
+
+
 ```{r instcodif, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
-# Crear un dataframe con los datos
 instcodif <- data.frame(
   CodOp = c(
-    "0",
-    "1",
-    "1",
-    "1",
-    "2",
-    "2",
-    "2",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "A",
-    "B",
-    "C",
-    "C",
-    "C",
-    "C",
-    "F"
+    "0", "1", "1", "1", "2", "2", "2", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "C", "C", "C", "F"
   ),
   Instrucción = c(
-    "`MOV Rx, Ry`",
-    "`MOV Rx, [M]`",
-    "`MOV Rx, [BL]`",
-    "`MOV Rx, D`",
-    "`MOV [M], Ry`",
-    "`MOV [BL], Ry`",
-    "`MOV [M], D`",
-    "`MOV [BL], D`",
-    "`ADD Rx, Ry`",
-    "`ADD Rx, --`",
-    "`ADD [M], --`",
-    "`SUB Rx, Ry`",
-    "`SUB Rx, --`",
-    "`SUB [M], --`",
-    "`CMP Rx, Ry`",
-    "`CMP Rx, --`",
-    "`CMP [M], --`",
-    "`JMP M`",
-    "`JC M`",
-    "`JZ M`",
-    "`Jxx M`",
-    "`HLT`"
-  ), # nolint: line_length_linter.
-  Acción = c(
-    "`Rx` ← `Ry`",
-    "`Rx` ← `Mem[Dirección]`",
-    "`Rx` ← `Mem[BL]` ",
-    "`Rx` ← `Dato`",
-    "`Mem[Dirección]` ← `Rx`",
-    "`Mem[BL]` ← `Rx`",
-    "`Mem[Dirección]` ← `Dato`",
-    "`Mem[BL]` ← `Dato`",
-    "`Rx` ← `Rx + Ry`",
-    "Carga en registro",
-    "Almacenar en memoria",
-    "`Rx` ← `Rx - Ry`",
-    "Carga en registro",
-    "Almacenar en memoria",
-    "`Rx - Ry`: bo almacena el resultado en Rx",
-    "registro - memoria",
-    "memoria - registro",
-    "`IP` ← `Dirección`",
-    "Si `C` = 1 entonces `IP` ← `Dirección`",
-    "Si `Z` = 1 entonces `IP` ← `Dirección`",
-    "Se pueden implementar más flags y CALL",
-    "Detiene el procesador"
-  ), # nolint: line_length_linter, line_length_linter.
+    "`MOV Rx, Ry`", "`MOV Rx, [M]`", "`MOV Rx, [BL]`", "`MOV Rx, D`",
+    "`MOV [M], Ry`", "`MOV [BL], Ry`", "`MOV [M], D`", "`MOV [BL], D`",
+    "`ADD Rx, Ry`", "`ADD Rx, --`", "`ADD [M], --`", "`SUB Rx, Ry`", "`SUB Rx, --`", "`SUB [M], --`",
+    "`CMP Rx, Ry`", "`CMP Rx, --`", "`CMP [M], --`", "`JMP M`", "`JC M`", "`JZ M`", "`Jxx M`", "`HLT`"
+  ),
+  Byte = c(
+    "1", "2", "1", "2", "2", "2", "3", "2", "1", "Carga en registro", "Almacenar en memoria", "1", "Carga en registro", "Almacenar en memoria",
+    "1", "registro - memoria", "memoria - registro", "1", "1", "1", "1", "1"
+  ),
   Codificación = c(
-    "`0000 XXYY`",
-    "`0001 XX00 MMMMMMMM`",
-    "`0001 XX01`",
-    "`0001 XX10 MMMMMMMM`",
-    "`0010 00YY MMMMMMMM`",
-    "`0010 01YY`",
-    "`0010 1100 MMMMMMMM dddddddd`",
-    "`0010 1101 MMMMMMMM`",
-    "`0011 XXYY`",
-    "`0100 ---- --------`",
-    "`0101 ---- -------- --------`",
-    "`0110 XXYY`",
-    "`0111 ---- --------`",
-    "`1000 ---- -------- --------`",
-    "`1001 XXYY`",
-    "`1010 ---- --------`",
-    "`1011 ---- -------- --------`",
-    "`1100 0000 MMMMMMMM`",
-    "`1100 0001 MMMMMMMM`",
-    "`1100 0011 MMMMMMMM`",
-    "`1100 ffff MMMMMMMM`",
-    "`1111 ----`"
+    "`0000 XXYY`", "`0001 XX00 MMMMMMMM`", "`0001 XX01`", "`0001 XX10 MMMMMMMM`",
+    "`0010 00YY MMMMMMMM`", "`0010 01YY`", "`0010 1100 MMMMMMMM dddddddd`", "`0010 1101 MMMMMMMM`",
+    "`0011 XXYY`", "`0100 ---- --------`", "`0101 ---- -------- --------`", "`0110 XXYY`", "`0111 ---- --------`",
+    "`1000 ---- -------- --------`", "`1001 XXYY`", "`1010 ---- --------`", "`1011 ---- -------- --------`",
+    "`1100 0000 MMMMMMMM`", "`1100 0001 MMMMMMMM`", "`1100 0011 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1111 ----`"
   ),
   stringsAsFactors = FALSE
 )
 
-# Mostrar la tabla en formato adecuado según el tipo de salida
+# Para monoespaciado en PDF reemplaza los backticks por \texttt{}
 if (knitr::is_latex_output()) {
-  kable(instcodif, format = "latex", booktabs = TRUE, align = "l", col.names = c("CodOp", "Instrucción", "Acción", "Codificación"), # nolint: line_length_linter.
-        caption = "Tabla de codificación de instrucciones") %>%
-    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
-    column_spec(1, width = "1cm") %>%
-    column_spec(2, width = "4cm") %>%
-    column_spec(3, width = "6cm") %>%
-    column_spec(4, width = "8cm") %>%
-    row_spec(24, extra_latex_after = "\\midrule")
+  instcodif$Instrucción <- gsub("`([^`]*)`", "\\\\texttt{\\1}", instcodif$Instrucción)
+  instcodif$Codificación <- gsub("`([^`]*)`", "\\\\texttt{\\1}", instcodif$Codificación)
+}
+
+tabla_kable <- kable(instcodif,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Tabla de codificación de instrucciones",
+               col.names = c("CodOp", "Instrucción", "Byte", "Codificación"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "l", "l", "l"))
+
+if (knitr::is_latex_output()) {
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "5.5cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(instcodif)), extra_latex_after = "\\addlinespace[10pt]")
 } else {
-  kable(instcodif, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("CodOp", "Instrucción", "Acción", "Codificación"), # nolint: line_length_linter.
-        caption = "Tabla de codificación de instrucciones") %>%
-    kable_styling(full_width = FALSE, position = "center") %>%
-    column_spec(1, width = "10em") %>%
-    column_spec(2, width = "25em") %>%
-    column_spec(3, width = "25em") %>%
-    column_spec(4, width = "40em") %>%
-    row_spec(24, extra_css = "border-top: 2px solid #000;")
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
 
