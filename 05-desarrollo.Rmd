@@ -298,8 +298,7 @@ El simulador implementado adopta la arquitectura de Von Neumann, reconocida por 
 
 VonSim^[VonSim: https://vonsim.github.io/] sirvió como referencia por su enfoque educativo e interfaz intuitiva. Sobre esta base se desarrolló VonSim8^[VonSim8: https://ruiz-jose.github.io/VonSim8/], adaptado para operar con registros y memoria de 8 bits y diseñado para el aprendizaje progresivo [@vonsim].
 
-Considerando los contenidos y objetivos pedagógicos de la asignatura Arquitectura de Computadoras, se desarrolló VonSim8^[VonSim8: https://ruiz-jose.github.io/VonSim8/] un simulador concebido en este trabajo como adaptación de VonSim, pero adaptado para operar con registros y memoria de 8 bits, con una interfaz simplificada orientada al aprendizaje progresivo.
-La arquitectura detallada de VonSim, con su amplio repertorio de instrucciones y componentes, ofrece una visión integral del sistema. Sin embargo, dicha riqueza funcional puede abrumar a estudiantes en etapas iniciales. Por esta razón, VonSim8 introduce una simplificación estratégica, con el objetivo de reducir la carga cognitiva en etapas iniciales, facilitando así una apropiación gradual de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
+La arquitectura detallada de VonSim, con su amplio repertorio de instrucciones y componentes, ofrece una visión integral del sistema. Sin embargo, dicha riqueza funcional puede abrumar a estudiantes en etapas iniciales. Por esta razón, VonSim8 introduce una simplificación estrategica, con el objetivo de reducir la carga cognitiva en etapas iniciales, facilitando así una apropiación gradual de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
 Las modificaciones principales de VonSim8, alineadas con objetivos pedagógicos, incluyen:
 
@@ -575,54 +574,237 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-En base a las entrevistas con los docentes y el análisis de los contenidos del curso, se definieron las siguientes categorías de instrucciones:
-```{r ISAdidacticos, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
+En base a las entrevistas con los docentes y el análisis de los contenidos del curso, a continuación se establece para cada categorías de instrucciones su uso pedagógico esperado:
 
-# Crear los datos de la tabla
-ISAdidacticos<- data.frame(
-  `tipoisa` = c(
-    "Transferencia y procesamiento de datos",
-    "Control de flujo"
-  ),
-  `Uso pedagógico esperado` = c(
-    "Instrucciones que permiten mover datos entre registros y memoria, realizar operaciones aritméticas, y manipular el contenido de los registros. Estas instrucciones son fundamentales para la comprensión del flujo de datos en una arquitectura computacional",
-    "Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa."
-  )
-)
+- **Transferencia y procesamiento de datos**: Instrucciones que permiten mover datos entre registros y memoria y realizar operaciones aritméticas. Estas instrucciones son fundamentales para la comprensión del flujo de datos en una arquitectura computacional mostrando como se llevan a cabo operaciones aritméticas como de lenguaje de alto nivel como Python: 
 
-tabla <- kable(ISAdidacticos,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Tipo de instrucción y uso pedagógicos esperados",
-               col.names = c("Tipo de instruccion", "Uso pedagógico esperado"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c"))
+```python
+x=2
+y=3
+z=0
+z = x + y
+```
 
+Su traduccion a ensamblador sería:
+
+```{r  codearit, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
-  tabla %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "9cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(ISAdidacticos)),
-             extra_latex_after = "\\addlinespace[10pt]")
+  cat("
+  \\begin{lstlisting}
+  x db 2
+  y db 3
+  z db 0
+  mov AL, x   ;Se carga el valor de x (2) en AL
+  add AL, y   ;Se suma el valor de y (3) a AL (2) = 5
+  mov z, AL   ;Se guarda el valor del registro AL (5) en z 
+  hlt\\end{lstlisting}
+  ")
 } else {
-  tabla %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "28em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+  cat("
+    ```assembly
+    x db 2
+    y db 3
+    z db 0
+    mov AL, x   ;Se carga el valor de x (2) en AL
+    add AL, y   ;Se suma el valor de y (3) a AL (2) = 5
+    mov z, AL   ;Se guarda el valor del registro AL (5) en z 
+    hlt
+    ```")
 }
 ```
+
+- **Control de flujo**: Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa. Por ejemplo, permiten implementar estructuras condicionales similares a las de lenguajes de alto nivel como Python:
+
+```python
+x=2
+y=3
+z=0
+if x == y:
+  z = y  + x
+```
+
+Su traduccion a ensamblador sería:
+
+```{r  codeifZ, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+x db 2 
+y db 3
+z db 0
+          mov AL, x
+          cmp AL, y
+   	      jz EsIgual
+  	      jmp Fin
+EsIgual:  add AL, y
+          mov z, AL 
+Fin:      hlt\\end{lstlisting}
+  ")
+} else {
+  cat("
+    ```assembly
+x db 2 
+y db 3
+z db 0
+          mov AL, x
+          cmp AL, y
+   	      jz EsIgual
+  	      jmp Fin
+EsIgual:  add AL, y
+          mov z, AL 
+Fin:      hlt ```")
+}
+```
+
+```python
+x=2
+y=3
+z=0
+if x < y:
+  z = y  + x
+```
+
+Su traduccion a ensamblador sería:
+
+```{r  codeifC, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+x db 2 
+y db 3
+z db 0
+          mov AL, x
+          cmp AL, y
+   	      jc EsMenor
+  	      jmp Fin
+EsMenor:  add AL, y
+          mov z, AL 
+Fin:      hlt\\end{lstlisting}
+  ")
+} else {
+  cat("
+    ```assembly
+x db 2 
+y db 3
+z db 0
+          mov AL, x
+          cmp AL, y
+   	      jc EsMenor
+  	      jmp Fin
+EsMenor:  add AL, y
+          mov z, AL 
+Fin:      hlt ```")
+}
+```
+
+Por ejemplo, la estructura iterativa `while` en Python:
+
+```python
+x = 0
+suma = 0
+
+while x < 10:
+    suma = suma + x
+    x = x + 1
+```
+
+
+Su traduccion a ensamblador sería:
+
+```{r  codewhile, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+x     db 1   
+suma  db 0   
+Condicion:  cmp x, 10 
+            jc Bucle   		; si x < 10  salta a etiqueta Bucle:
+            jmp FinBucle      ; si no salta a la etiqueta FinBucle:
+Bucle:      mov BL, x
+            add suma, BL
+            add x, 1
+            jmp Condicion      ; salta a Condicion:
+FinBucle: 	hlt
+\\end{lstlisting}
+  ")
+} else {
+  cat("
+    ```assembly
+x     db 1   
+suma  db 0   
+Condicion:  cmp x, 10 
+    	      jc Bucle   		; si x < 10  salta a etiqueta Bucle:
+            jmp FinBucle      ; si no salta a la etiqueta FinBucle:
+Bucle:      mov BL, x
+    	      add suma, BL
+	          add x, 1
+    	      jmp Condicion      ; salta a Condicion:
+FinBucle: 	hlt ```")
+}
+```
+
+Tratamiento de vectores y matrices: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:
+```python
+# Búsqueda del máximo en un vector
+vector = [5, 2, 10, 4, 5, 0, 4, 8, 1, 9]
+maximo = 0
+
+for i in range(len(vector)):
+    if vector[i] > maximo:
+        maximo = vector[i]
+```
+
+
+Su traduccion a ensamblador sería:
+
+```{r  codevector, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+max     db 0
+vector  db 5, 2, 10, 4, 5, 0, 4, 8, 1, 9
+            mov CL, 0 ; contador
+            mov BL, offset vector  ; obtiene la dirección del primer elemento del vector
+Condicion:  CMP CL, 10 
+            jc Bucle          ; si x < 10  salta a etiqueta Bucle
+            jmp FinBucle      ; si no salta a la etiqueta FinBucle
+Bucle:      mov AL, [BL]      ; AL = vector[indice] 
+            cmp AL, max
+            Jnc EsMayor
+Proximo:    add BL, 1         ; BL = BL + 1 
+            add CL, 1         ; CL = CL + 1            
+            jmp Condicion 
+EsMayor:    mov max, AL       ; AL = max 
+            jmp Proximo       ; próximo elemento del vector
+FinBucle: 	hlt\\end{lstlisting}
+  ")
+} else {
+  cat("
+    ```assembly
+max     db 0
+vector  db 5, 2, 10, 4, 5, 0, 4, 8, 1, 9
+            mov CL, 0 ; contador
+            mov BL, offset vector  ; obtiene la dirección del primer elemento del vector
+Condicion:  CMP CL, 10 
+            jc Bucle          ; si x < 10  salta a etiqueta Bucle
+            jmp FinBucle      ; si no salta a la etiqueta FinBucle
+Bucle:      mov AL, [BL]      ; AL = vector[indice] 
+            cmp AL, max
+            Jnc EsMayor
+Proximo:    add BL, 1         ; BL = BL + 1 
+            add CL, 1         ; CL = CL + 1         
+	  	      jmp Condicion 
+EsMayor:    mov max, AL       ; AL = max 
+            jmp Proximo       ; próximo elemento del vector
+FinBucle: 	hlt```")
+}
+```
+
+Estas instrucciones permiten a los estudiantes comprender cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
+Estas categorías de instrucciones se seleccionaron cuidadosamente para proporcionar una base sólida en los conceptos fundamentales de la arquitectura x86, permitiendo a los estudiantes familiarizarse con las operaciones más comunes y relevantes sin la complejidad adicional de un repertorio completo.
+
+Estas categorías se alinean con los objetivos pedagógicos del curso, permitiendo a los estudiantes familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo. 
+
 A traves de la implementación de estas instrucciones, el simulador VonSim8 busca proporcionar una experiencia de aprendizaje que facilite la comprensión de los principios fundamentales de la arquitectura de computadores, al tiempo que se minimiza la carga cognitiva en las etapas iniciales del aprendizaje. Permite al alumno entender como se ejecutan los operaciones artimeticas en la computadora, como se transfieren los datos entre registros y memoria, y como se controla el flujo de ejecución de un programa.
 
 ### Formato de instrucciones
@@ -715,7 +897,11 @@ if (knitr::is_latex_output()) {
     column_spec(2, width = "5cm") %>%
     column_spec(3, width = "8cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(modosdireccionamiento)), extra_latex_after = "\\addlinespace[8pt]")
+    footnote(
+      general = "Las instrucciones de transferencia y de procesamiento de datos tienen los mismos modos de direccionamiento.",
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
 } else {
   tabla %>%
     kable_styling(
@@ -728,7 +914,7 @@ if (knitr::is_latex_output()) {
     column_spec(3, width = "35em") %>%
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
     footnote(
-      general = "Las instrucciones de transferencia y de procesamiento de datos tienen los tres tipos de combinaciones en los operandos.",
+      general = "Las instrucciones de transferencia y de procesamiento de datos tienen los mismos modos de direccionamiento.",
       general_title = "Nota: ",
       threeparttable = TRUE
     )
@@ -763,9 +949,9 @@ instaccion <- data.frame(
     "JMP M", "JC M", "JZ M", "HLT"
   ),
   Acción = c(
-    "Rx ← Ry", "Rx ← Rx + Ry", "Rx ← Rx - Ry", "Rx - Ry: no almacena resultado en operando destino",
+    "Rx ← Ry", "Rx ← Rx + Ry", "Rx ← Rx - Ry", "Rx - Ry * ",
     "Rx ← Mem[Dirección]", "Rx ← Mem[BL]", "Rx ← dato", "Rx ← Rx + Mem[Dirección]", "Rx ← Rx + Mem[BL]", "Rx ← Rx + dato",
-    "Rx ← Rx - Mem[Dirección]", "Rx ← Rx - Mem[BL]", "Rx ← Rx - dato", "Rx - Mem[Dirección]", "Rx - Mem[BL]", "Rx - dato",
+    "Rx ← Rx - Mem[Dirección]", "Rx ← Rx - Mem[BL]", "Rx ← Rx - dato", "Rx - Mem[Dirección] *", "Rx - Mem[BL] *", "Rx - dato *",
     "Mem[Dirección] ← Rx", "Mem[BL] ← Rx", "Mem[Dirección] ← dato", "Mem[BL] ← dato",
     "Mem[Dirección] ← `Mem[Dirección] + Rx", "Mem[BL] ← Mem[BL] + Rx", "Mem[Dirección] ← Mem[Dirección] + dato", "Mem[BL] ← Mem[BL] + dato",
     "B: Cargar a registro", "C: Almacenar en memoria", "B: Cargar a registro", "C: Almacenar en memoria", "B: Cargar a registro", "C: Almacenar en memoria",
@@ -781,14 +967,25 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "4cm") %>%
     column_spec(2, width = "3cm") %>%
     column_spec(3, width = "8cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3")
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    footnote(
+      general = "La instrucción CMP no almacena el resultado de la operación en el operando destino.",
+      general_title = "Nota *: ",
+      threeparttable = TRUE
+    )
+
 } else {
   kable(instaccion, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Ejemplo", "Acción"),
         caption = "Tabla de instrucciones y acciones") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
     column_spec(1, width = "20em") %>%
     column_spec(2, width = "30em") %>%
-    column_spec(3, width = "30em")
+    column_spec(3, width = "30em") %>%
+    footnote(
+      general = "La instrucción CMP no almacena el resultado de la operación en el operando destino.",
+      general_title = "Nota *: ",
+      threeparttable = TRUE
+    )
 }
 ```
 
