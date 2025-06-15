@@ -2103,6 +2103,28 @@ Las instrucciones del simulador VonSim8 se dividen en dos categorías principale
 \end{tabular}}
 \end{table}
 
+En base a las entrevistas con los docentes y el análisis de los contenidos del curso, se definieron las siguientes categorías de instrucciones:
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:ISAdidacticos}Tipo de instrucción y uso pedagógicos esperados}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{9cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo de instruccion}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Uso pedagógico esperado}}}\\
+\midrule
+\textbf{Transferencia y procesamiento de datos} & Instrucciones que permiten mover datos entre registros y memoria, realizar operaciones aritméticas, y manipular el contenido de los registros. Estas instrucciones son fundamentales para la comprensión del flujo de datos en una arquitectura computacional\\
+\addlinespace[10pt]
+\textbf{Control de flujo} & Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa.\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+A traves de la implementación de estas instrucciones, el simulador VonSim8 busca proporcionar una experiencia de aprendizaje que facilite la comprensión de los principios fundamentales de la arquitectura de computadores, al tiempo que se minimiza la carga cognitiva en las etapas iniciales del aprendizaje. Permite al alumno entender como se ejecutan los operaciones artimeticas en la computadora, como se transfieren los datos entre registros y memoria, y como se controla el flujo de ejecución de un programa.
+
 \hypertarget{formato-de-instrucciones}{%
 \subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
 
@@ -2129,7 +2151,6 @@ Control & Con 1 o sin operando & JMP operando o HLT\\
 Los modos de direccionamiento definidos son:
 
 \begin{itemize}
-\tightlist
 \item
   Registro a registro (\texttt{Rx},\texttt{Ry}): operandos son registros del procesador y \texttt{Rx} indica registro destino y \texttt{Ry} indica registro fuente.
 \item
@@ -2148,21 +2169,172 @@ Estos modos de direccionamiento permiten al simulador representar una variedad d
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{6cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{8cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Parámetros}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Parámetros}}}\\
 \midrule
-\textbf{} & A: Entre registros & Operandos son registros `Rx`,`Ry`\\
+\textbf{} & A: Entre registros & Operandos son registros Rx, Ry\\
 \addlinespace[8pt]
-\textbf{Transferencia y procesamiento} & B: Cargar a registro & Operando destino registro `Rx` y operando fuente puede ser Directo: dirección `[M]`/ Indirecto: dirección registro BL `[BL]`/Inmediato: valor en la instrucción `d`\\
+\textbf{Transferencia y procesamiento} & B: Cargar a registro & Operando destino registro Rx y operando fuente puede ser:\begin{itemize} \item dirección [M]\item dirección registro [BL] \item valor en la instrucción d \end{itemize}\\
 \addlinespace[8pt]
-\textbf{} & C: Almacenar en memoria & Operando destino puede ser Directo: dirección `[M]`/ Indirecto dirección registro BL `[BL]` y operando fuente se obtiene del Registro: `Ry`/Inmediato: valor en la instrucción `d`\\
+\textbf{} & C: Almacenar en memoria & Operando destino puede ser: \begin{itemize} \item dirección [M]\item dirección registro [BL] \end{itemize} y operando fuente puede ser:\begin{itemize} \item Registro: Ry\item valor en la instrucción d \end{itemize}\\
 \addlinespace[8pt]
-\textbf{Control} & D: control de flujo & Si tiene operando es una dirección de memoria `M`\\
+\textbf{Control} & D: control de flujo & Si tiene operando es una dirección de memoria M\\
 \addlinespace[8pt]
 \bottomrule
 \end{tabular}}
 \end{table}
+
+\hypertarget{codificaciuxf3n-de-instrucciones}{%
+\subsection{Codificación de instrucciones}\label{codificaciuxf3n-de-instrucciones}}
+
+El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \ref{tab:instcodif} presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:instaccion}Tabla de instrucciones y acciones}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ejemplo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\midrule
+A: Entre registros & MOV Rx, Ry & Rx ← Ry\\
+ & ADD Rx, Ry & Rx ← Rx + Ry\\
+ & SUB Rx, Ry & Rx ← Rx - Ry\\
+ & CMP Rx, Ry & Rx - Ry: no almacena resultado en operando destino\\
+B: Cargar a registro & MOV Rx, [M] & Rx ← Mem[Dirección]\\
+\addlinespace
+ & MOV Rx, [BL] & Rx ← Mem[BL]\\
+ & MOV Rx, d & Rx ← dato\\
+ & ADD Rx, [M] & Rx ← Rx + Mem[Dirección]\\
+ & ADD Rx, [BL] & Rx ← Rx + Mem[BL]\\
+ & ADD Rx, d & Rx ← Rx + dato\\
+\addlinespace
+ & SUB Rx, [M] & Rx ← Rx - Mem[Dirección]\\
+ & SUB Rx, [BL] & Rx ← Rx - Mem[BL]\\
+ & SUB Rx, d & Rx ← Rx - dato\\
+ & CMP Rx, [M] & Rx - Mem[Dirección]\\
+ & CMP Rx, [BL] & Rx - Mem[BL]\\
+\addlinespace
+ & CMP Rx, d & Rx - dato\\
+C: Almacenar en memoria & MOV [M], Ry & Mem[Dirección] ← Rx\\
+ & MOV [BL], Ry & Mem[BL] ← Rx\\
+ & MOV [M], d & Mem[Dirección] ← dato\\
+ & MOV [BL], d & Mem[BL] ← dato\\
+\addlinespace
+ & ADD [M], Ry & Mem[Dirección] ← `Mem[Dirección] + Rx\\
+ & ADD [BL], Ry & Mem[BL] ← Mem[BL] + Rx\\
+ & ADD [M], d & Mem[Dirección] ← Mem[Dirección] + dato\\
+ & ADD [BL], d & Mem[BL] ← Mem[BL] + dato\\
+ & SUB [M], Ry & B: Cargar a registro\\
+\addlinespace
+ & SUB [M], --` & C: Almacenar en memoria\\
+ & CMP [M], -- & B: Cargar a registro\\
+ &  & C: Almacenar en \vphantom{1} memoria\\
+ &  & B: Cargar a registro\\
+ &  & C: Almacenar en memoria\\
+\addlinespace
+D: control de flujo & JMP M & IP ← Dirección\\
+ & JC M & Si C = 1 entonces IP ← Dirección\\
+ & JZ M & Si Z = 1 entonces IP ← Dirección\\
+ & HLT & Detiene el procesador\\
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:instcodif}Tabla de codificación de instrucciones}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}p{5.5cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CodOp}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Byte}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Codificación}}}\\
+\midrule
+\textbf{0} & \texttt{MOV Rx, Ry} & 1 & \texttt{0000 XXYY}\\
+\addlinespace[10pt]
+\textbf{1} & \texttt{MOV Rx, [M]} & 2 & \texttt{0001 XX00 MMMMMMMM}\\
+\addlinespace[10pt]
+\textbf{1} & \texttt{MOV Rx, [BL]} & 1 & \texttt{0001 XX01}\\
+\addlinespace[10pt]
+\textbf{1} & \texttt{MOV Rx, D} & 2 & \texttt{0001 XX10 MMMMMMMM}\\
+\addlinespace[10pt]
+\textbf{2} & \texttt{MOV [M], Ry} & 2 & \texttt{0010 00YY MMMMMMMM}\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{2} & \texttt{MOV [BL], Ry} & 2 & \texttt{0010 01YY}\\
+\addlinespace[10pt]
+\textbf{2} & \texttt{MOV [M], D} & 3 & \texttt{0010 1100 MMMMMMMM dddddddd}\\
+\addlinespace[10pt]
+\textbf{2} & \texttt{MOV [BL], D} & 2 & \texttt{0010 1101 MMMMMMMM}\\
+\addlinespace[10pt]
+\textbf{3} & \texttt{ADD Rx, Ry} & 1 & \texttt{0011 XXYY}\\
+\addlinespace[10pt]
+\textbf{4} & \texttt{ADD Rx, --} & Carga en registro & \texttt{0100 ---- --------}\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{5} & \texttt{ADD [M], --} & Almacenar en memoria & \texttt{0101 ---- -------- --------}\\
+\addlinespace[10pt]
+\textbf{6} & \texttt{SUB Rx, Ry} & 1 & \texttt{0110 XXYY}\\
+\addlinespace[10pt]
+\textbf{7} & \texttt{SUB Rx, --} & Carga en registro & \texttt{0111 ---- --------}\\
+\addlinespace[10pt]
+\textbf{8} & \texttt{SUB [M], --} & Almacenar en memoria & \texttt{1000 ---- -------- --------}\\
+\addlinespace[10pt]
+\textbf{9} & \texttt{CMP Rx, Ry} & 1 & \texttt{1001 XXYY}\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{A} & \texttt{CMP Rx, --} & registro - memoria & \texttt{1010 ---- --------}\\
+\addlinespace[10pt]
+\textbf{B} & \texttt{CMP [M], --} & memoria - registro & \texttt{1011 ---- -------- --------}\\
+\addlinespace[10pt]
+\textbf{C} & \texttt{JMP M} & 1 & \texttt{1100 0000 MMMMMMMM}\\
+\addlinespace[10pt]
+\textbf{C} & \texttt{JC M} & 1 & \texttt{1100 0001 MMMMMMMM}\\
+\addlinespace[10pt]
+\textbf{C} & \texttt{JZ M} & 1 & \texttt{1100 0011 MMMMMMMM}\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{C} & \texttt{Jxx M} & 1 & \texttt{1100 ffff MMMMMMMM}\\
+\addlinespace[10pt]
+\textbf{F} & \texttt{HLT} & 1 & \texttt{1111 ----}\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Considerando:
+
+\begin{itemize}
+\item
+  \texttt{\_\_\_\_}: Código de operación de la instrucción, número de 4 bits.
+\item
+  \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}, cada índice es de 2 bits.
+\end{itemize}
+
+\begin{longtable}[]{@{}llr@{}}
+\toprule\noalign{}
+Registros (R) & Binario & Decimal \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+AL & 00 & 0 \\
+BL & 01 & 1 \\
+CL & 10 & 2 \\
+DL & 11 & 3 \\
+\end{longtable}
+
+\begin{itemize}
+\item
+  \texttt{00}: Junto con el código de operación indica si la operación es tipo B o C.
+\item
+  \texttt{M}: Dirección de memoria, número de 8 bits.
+\item
+  \texttt{ffff}: representan el comportamiento de la instrucción, número de 4 bits.
+\end{itemize}
 
 Las instrucciones de cargar a registro (B):
 
@@ -2238,114 +2410,6 @@ Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M 
 \item d = dato inmediato, no puede ser destino de la instrucción.
 \end{tablenotes}
 \end{threeparttable}}
-\end{table}
-
-\hypertarget{codificaciuxf3n-de-instrucciones}{%
-\subsection{Codificación de instrucciones}\label{codificaciuxf3n-de-instrucciones}}
-
-El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \ref{tab:tablainst} presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:tablainst}Tabla de Instrucciones y Codificación}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{1cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
-\toprule
-\# & Instrucción & Acción & Codificación\\
-\midrule
-0 & MOV Rx, Ry & Rx ← Ry & 0000 XXYY\\
-1 & MOV Rx, [M] & Rx ← Mem[Dirección] & 0001 00YY MMMMMMMM\\
-2 & MOV [M], Ry & Mem[Dirección] ← Rx & 0010 XX00 MMMMMMMM\\
-3 & ADD Rx, Ry & Rx ← Rx + Ry & 0011 XXYY\\
-4 & ADD Rx, [M] & Rx ← Rx + Mem[Dirección] & 0100 00YY MMMMMMMM\\
-\addlinespace
-5 & ADD [M], Ry & Mem[Dirección] ← Mem[Dirección] + Ry & 0101 XX00 MMMMMMMM\\
-6 & SUB Rx, Ry & Rx ← Rx - Ry & 0110 XXYY\\
-7 & SUB Rx, [M] & Rx ← Rx - Mem[Dirección] & 0111 00YY MMMMMMMM\\
-8 & SUB [M], Ry & Mem[Dirección] ← Mem[Dirección] - Ry & 1000 XX00 MMMMMMMM\\
-9 & CMP Rx, Ry & Modifica flags de Rx - Ry & 1001 XXYY\\
-\addlinespace
-A & CMP Rx, [M] & Modifica flags de Rx - Mem[Dirección] & 1010 00YY MMMMMMMM\\
-B & CMP [M], Ry & Modifica flags de Mem[Dirección] - Ry & 1011 XX00 MMMMMMMM\\
-C & JMP M & IP ← Dirección & 1100 0000 MMMMMMMM\\
-C & JC M & Si flag C=1 entonces IP ← Dirección & 1100 0001 MMMMMMMM\\
-C & JZ M & Si flag Z=1 entonces IP ← Dirección & 1100 0011 MMMMMMMM\\
-\bottomrule
-\end{tabular}}
-\end{table}
-
-Considerando:
-
-\begin{itemize}
-\item
-  \texttt{\_\_\_\_}: Código de operación de la instrucción, número de 4 bits.
-\item
-  \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}, cada índice es de 2 bits.
-\end{itemize}
-
-\begin{longtable}[]{@{}llr@{}}
-\toprule\noalign{}
-Registros (R) & Binario & Decimal \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-AL & 00 & 0 \\
-BL & 01 & 1 \\
-CL & 10 & 2 \\
-DL & 11 & 3 \\
-\end{longtable}
-
-\begin{itemize}
-\item
-  \texttt{00}: Junto con el código de operación indica si la operación es tipo B o C.
-\item
-  \texttt{M}: Dirección de memoria, número de 8 bits.
-\item
-  \texttt{ffff}: representan el comportamiento de la instrucción, número de 4 bits.
-\end{itemize}
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:formampl2}Tabla de codificación de instrucciones ampliado}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
-\toprule
-CodOp & Instrucción & Acción & Codificación\\
-\midrule
-0 & `MOV Rx, Ry` & `Rx` ← `Ry` & `0000 XXYY`\\
-1 & `MOV Rx, [M]` & `Rx` ← `Mem[Dirección]` & `0001 XX00 MMMMMMMM`\\
-1 & `MOV Rx, [BL]` & `Rx` ← `Mem[BL]` & `0001 XX01`\\
-1 & `MOV Rx, D` & `Rx` ← `Dato` & `0001 XX10 MMMMMMMM`\\
-1 & `MOV Rx, [BL + D]` & `Rx` ← `Mem[BL + Dato]` & `0001 XX11 MMMMMMMM`\\
-\addlinespace
-2 & `MOV [M], Ry` & `Mem[Dirección]` ← `Rx` & `0010 00YY MMMMMMMM`\\
-2 & `MOV [BL], Ry` & `Mem[BL]` ← `Rx` & `0010 01YY`\\
-2 & `MOV [BL + D], Ry` & `Mem[BL + Dato]` ← `Rx` & `0010 10YY MMMMMMMM`\\
-2 & `MOV [M], D` & `Mem[Dirección]` ← `Dato` & `0010 1100 MMMMMMMM dddddddd`\\
-2 & `MOV [BL], D` & `Mem[BL]` ← `Dato` & `0010 1101 MMMMMMMM`\\
-\addlinespace
-2 & `MOV [BL + D], D` & `Mem[BL + Dato]` ← `Dato` & `0010 1110 MMMMMMMM`\\
-3 & `ADD Rx, Ry` & `Rx` ← `Rx + Ry` & `0011 XXYY`\\
-4 & `ADD Rx, --` & Carga en registro & `0100 ---- --------`\\
-5 & `ADD [M], --` & Almacenar en memoria & `0101 ---- -------- --------`\\
-6 & `SUB Rx, Ry` & `Rx` ← `Rx - Ry` & `0110 XXYY`\\
-\addlinespace
-7 & `SUB Rx, --` & Carga en registro & `0111 ---- --------`\\
-8 & `SUB [M], --` & Almacenar en memoria & `1000 ---- -------- --------`\\
-9 & `CMP Rx, Ry` & `Rx - Ry`: bo almacena el resultado en Rx & `1001 XXYY`\\
-A & `CMP Rx, --` & registro - memoria & `1010 ---- --------`\\
-B & `CMP [M], --` & memoria - registro & `1011 ---- -------- --------`\\
-\addlinespace
-C & `JMP M` & `IP` ← `Dirección` & `1100 0000 MMMMMMMM`\\
-C & `JC M` & Si `C` = 1 entonces `IP` ← `Dirección` & `1100 0001 MMMMMMMM`\\
-C & `JZ M` & Si `Z` = 1 entonces `IP` ← `Dirección` & `1100 0011 MMMMMMMM`\\
-C & `Jxx M` & Se pueden implementar más flags y CALL & `1100 ffff MMMMMMMM`\\
-\midrule\\
-\bottomrule
-\end{tabular}}
 \end{table}
 
 \hypertarget{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}{%
