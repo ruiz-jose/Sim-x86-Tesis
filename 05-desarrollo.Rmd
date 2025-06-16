@@ -672,12 +672,11 @@ Condicion:  cmp CL, 10
             jmp FinBucle      ; si no salta a la etiqueta FinBucle
 Bucle:      mov AL, [BL]      ; AL = vector[indice] 
             cmp AL, max
-            Jnc EsMayor
+            jc Proximo        ; si AL < max, salta a Proximo
+            mov max, AL       ; si no, actualiza max
 Proximo:    add BL, 1         ; BL = BL + 1 
             add CL, 1         ; CL = CL + 1            
             jmp Condicion 
-EsMayor:    mov max, AL       ; AL = max 
-            jmp Proximo       ; próximo elemento del vector
 FinBucle: 	hlt\\end{lstlisting}
   ")
 } else {
@@ -692,12 +691,11 @@ Condicion:  cmp CL, 10
             jmp FinBucle      ; si no salta a la etiqueta FinBucle
 Bucle:      mov AL, [BL]      ; AL = vector[indice] 
             cmp AL, max
-            Jnc EsMayor
+            jc Proximo        ; si AL < max, salta a Proximo
+            mov max, AL       ; si no, actualiza max
 Proximo:    add BL, 1         ; BL = BL + 1 
             add CL, 1         ; CL = CL + 1         
 	  	      jmp Condicion 
-EsMayor:    mov max, AL       ; AL = max 
-            jmp Proximo       ; próximo elemento del vector
 FinBucle: 	hlt```")
 }
 ```
