@@ -357,6 +357,11 @@ if (knitr::is_latex_output()) {
 ```
 
 El diseño conceptual busca traducir los principios previamente definidos en una arquitectura funcional coherente con los objetivos pedagógicos específicos de la asignatura Arquitectura de Computadoras.
+Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
+Se modifico el menu de los controles del simulador.
+Se elimino el uso de los registros temporales de la ALU (`left` y `rigth`).
+Tambien se ocultaron los registros registro SP y  (`ri` e `id`) que se habilitan automaticamente al ejecutar una instrucción que requiera su uso. 
+Todos los registros CPU tienen una entrada y una salida indepediente.
 
 ### Estructura del VonSim8
 Esta sección describe la estructura del simulador VonSim8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras [@stallings_computer_2021]. Se describe en la siguiente tabla \@ref(tab:estructuravonsim8) los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:
@@ -743,7 +748,8 @@ FinBucle: 	hlt ```")
 }
 ```
 
-Tratamiento de vectores y matrices: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:
+Tratamiento de vectores: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:
+
 ```python
 # Búsqueda del máximo en un vector
 vector = [5, 2, 10, 4, 5, 0, 4, 8, 1, 9]
@@ -754,10 +760,9 @@ for i in range(len(vector)):
         maximo = vector[i]
 ```
 
-
 Su traduccion a ensamblador sería:
 
-```{r  codevector, results='asis', echo=FALSE}
+```{r codevector, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
@@ -813,33 +818,44 @@ Las instrucciones del simulador VonSim8 se definen con un formato de 1 a 3 bytes
 ```{r formatoinst, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
-library(magrittr)
 
-# Crear un dataframe con los datos
 formatoinst <- data.frame(
   Tipo = c("Transferencia y procesamiento", "Control"),
-  operandos = c("2 operandos (fuente y destino)", "Con 1 o sin operando"), # nolint: line_length_linter.
-  Ejemplo = c("MOV operando-destino, operando-fuente", "JMP operando o HLT"), # nolint: line_length_linter.
-
+  Operandos = c("2", "1 / cero"),
+  Ejemplo = c("MOV operando-destino, operando-fuente", "JMP operando / HLT"),
   stringsAsFactors = FALSE
 )
 
-# Mostrar la tabla en formato adecuado según el tipo de salida
+tabla_kable <- kable(formatoinst,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Tabla de formato de instrucciones",
+               col.names = c("Tipo", "Operandos", "Ejemplo"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "c", "c"))
+
 if (knitr::is_latex_output()) {
-  kable(formatoinst, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operandos", "Ejemplo"), # nolint: line_length_linter.
-        caption = "Tabla de formato de instrucciones") %>%
-    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
-    column_spec(1, width = "3cm") %>%
-    column_spec(2, width = "8cm") %>%
-    column_spec(3, width = "8cm") %>%
-    row_spec(3, extra_latex_after = "\\midrule")
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "4cm") %>%
+    column_spec(3, width = "7cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(formatoinst)),
+             extra_latex_after = "\\addlinespace[10pt]")
 } else {
-  kable(formatoinst, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operandos", "Ejemplo"), # nolint: line_length_linter.
-        caption = "Tabla de codificación de instrucciones") %>%
-    kable_styling(full_width = FALSE, position = "center") %>%
-    column_spec(1, width = "20em") %>%
-    column_spec(1, width = "30em") %>%
-    column_spec(2, width = "30em")
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
 
@@ -861,21 +877,21 @@ library(knitr)
 library(kableExtra)
 
 modosdireccionamiento <- data.frame(
-  Tipo = c("", "Transferencia y procesamiento",  "", "Control"),
+  Tipo = c("", "",  "Transferencia y procesamiento", "Control"),
   Operación = c("A: Entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
   Parámetros = c(
     "Operandos son registros Rx, Ry",
     if (knitr::is_latex_output()) {
-      "Operando destino registro Rx y operando fuente puede ser:\\begin{itemize} \\item dirección [M]\\item dirección registro [BL] \\item valor en la instrucción d \\end{itemize}" # nolint: line_length_linter.
+      "Operando destino es registro Rx y el operando fuente puede ser:\\begin{itemize} \\item dirección [M] (1)\\item dirección registro [BL] (2)\\item valor en la instrucción d  (3)\\end{itemize}" # nolint: line_length_linter.
     } else {
-      "Operando destino registro `Rx` y operando fuente puede ser:<ul><li>dirección `[M]`</li><li>dirección registro `[BL]`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
+      "Operando destino es registro `Rx` y el operando fuente puede ser:<ul><li>dirección `[M]`</li><li>dirección registro `[BL]`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
     },
      if (knitr::is_latex_output()) {
       "Operando destino puede ser: \\begin{itemize} \\item dirección [M]\\item dirección registro [BL] \\end{itemize} y operando fuente puede ser:\\begin{itemize} \\item Registro: Ry\\item valor en la instrucción d \\end{itemize}" # nolint: line_length_linter.
     } else {
       "Operando destino puede ser: <ul><li>dirección `[M]`</li><li>dirección registro `[BL]`)</li></ul> y operando fuente puede ser:<ul><li>Registro: `Ry`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
     },
-    "Si tiene operando es una dirección de memoria M"
+    "Si tiene operando es una dirección de memoria M (*)"
   ),
   stringsAsFactors = FALSE
 )
@@ -897,9 +913,17 @@ if (knitr::is_latex_output()) {
     column_spec(2, width = "5cm") %>%
     column_spec(3, width = "8cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(3, extra_latex_after = "\\midrule") %>%
     footnote(
-      general = "Las instrucciones de transferencia y de procesamiento de datos tienen los mismos modos de direccionamiento.",
+      general = c(
+        "Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A, B y C.",
+        "Rx y Ry puede ser un registro de proposito general: AL, BL, CL y DL."
+      ),
       general_title = "Nota: ",
+      number = c("La notación [M] indica el contenido de la dirección de memoria.", "La notación [BL] indica el contenido de la dirección del registro BL.", "La notación d indica dato inmediato."),
+      number_title = "Notas numéricas: ",
+      symbol = c("La notación M indica dirección de memoria."),
+      symbol_title = "Símbolos: ",
       threeparttable = TRUE
     )
 } else {
@@ -913,8 +937,9 @@ if (knitr::is_latex_output()) {
     column_spec(2, width = "25em") %>%
     column_spec(3, width = "35em") %>%
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    row_spec(3, extra_css = "border-top: 2px solid #000;") %>%
     footnote(
-      general = "Las instrucciones de transferencia y de procesamiento de datos tienen los mismos modos de direccionamiento.",
+      general = "Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A, B y C.",
       general_title = "Nota: ",
       threeparttable = TRUE
     )
@@ -935,7 +960,7 @@ instaccion <- data.frame(
     "B: Cargar a registro",
     "", "", "", "", "", "", "", "", "", "", "",
     "C: Almacenar en memoria",
-    "", "", "", "", "", "", "", "", "", "", "", "", "",
+    "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
     "D: control de flujo",
     "", "", ""
   ),
@@ -945,16 +970,18 @@ instaccion <- data.frame(
     "SUB Rx, [M]", "SUB Rx, [BL]", "SUB Rx, d", "CMP Rx, [M]", "CMP Rx, [BL]", "CMP Rx, d",
     "MOV [M], Ry", "MOV [BL], Ry", "MOV [M], d", "MOV [BL], d",
     "ADD [M], Ry", "ADD [BL], Ry", "ADD [M], d", "ADD [BL], d",
-    "SUB [M], Ry", "SUB [M], --`", "CMP [M], --", "", "", "",
+    "SUB [M], Ry", "SUB [BL], Ry", "SUB [M], d", "SUB [BL], d",
+    "CMP [M], Ry", "CMP [BL], Ry", "CMP [M], d", "CMP [BL], d",
     "JMP M", "JC M", "JZ M", "HLT"
   ),
   Acción = c(
     "Rx ← Ry", "Rx ← Rx + Ry", "Rx ← Rx - Ry", "Rx - Ry * ",
     "Rx ← Mem[Dirección]", "Rx ← Mem[BL]", "Rx ← dato", "Rx ← Rx + Mem[Dirección]", "Rx ← Rx + Mem[BL]", "Rx ← Rx + dato",
-    "Rx ← Rx - Mem[Dirección]", "Rx ← Rx - Mem[BL]", "Rx ← Rx - dato", "Rx - Mem[Dirección] *", "Rx - Mem[BL] *", "Rx - dato *",
+    "Rx ← Rx - Mem[Dirección]", "Rx ← Rx - Mem[BL]", "Rx ← Rx - dato", "Rx - Mem[Dirección] (*)", "Rx - Mem[BL] (*)", "Rx - dato (*)",
     "Mem[Dirección] ← Rx", "Mem[BL] ← Rx", "Mem[Dirección] ← dato", "Mem[BL] ← dato",
-    "Mem[Dirección] ← `Mem[Dirección] + Rx", "Mem[BL] ← Mem[BL] + Rx", "Mem[Dirección] ← Mem[Dirección] + dato", "Mem[BL] ← Mem[BL] + dato",
-    "B: Cargar a registro", "C: Almacenar en memoria", "B: Cargar a registro", "C: Almacenar en memoria", "B: Cargar a registro", "C: Almacenar en memoria",
+    "Mem[Dirección] ← Mem[Dirección] + Rx", "Mem[BL] ← Mem[BL] + Rx", "Mem[Dirección] ← Mem[Dirección] + dato", "Mem[BL] ← Mem[BL] + dato",
+    "Mem[Dirección] ← Mem[Dirección] - Rx", "Mem[BL] ← Mem[BL] - Rx", "Mem[Dirección] ← Mem[Dirección] - dato", "Mem[BL] ← Mem[BL] - dato",
+    "Mem[Dirección] - Rx", "Mem[BL] - Rx", "Mem[Dirección] - dato", "Mem[BL] - dato", 
     "IP ← Dirección", "Si C = 1 entonces IP ← Dirección", "Si Z = 1 entonces IP ← Dirección", "Detiene el procesador"
   ),
   stringsAsFactors = FALSE
@@ -1062,20 +1089,6 @@ Considerando:
   - `____`: Código de operación de la instrucción, número de 4 bits.
 
   - `XX` o `YY`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
-    
-```{r tabla_registros, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-
-# Crear un dataframe con los datos
-tabla_registros <- data.frame(
-  Registro = c("AL", "BL", "CL", "DL"),
-  Binario = c("00", "01", "10", "11"),
-  Decimal = c(0, 1, 2, 3)
-)
-
-# Imprimir la tabla en formato markdown
-kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Binario", "Decimal")) # nolint: line_length_linter.
-```
 
   - `00`: Junto con el código de operación indica si la operación es tipo B o C.
 
@@ -1083,51 +1096,55 @@ kable(tabla_registros, format = "markdown", col.names = c("Registros (R)", "Bina
 
   - `ffff`: representan el comportamiento de la instrucción, número de 4 bits.
 
+  - `d`: Dato inmediato, número de 8 bits.
+
+  - `MMMMMMMM`: Dirección de memoria, número de 8 bits.
+
+  - `dddddddd`: Dato inmediato, número de 8 bits.
 
 
-
-
-
-Las instrucciones de cargar a registro (B):
-
-```{r dirampliado, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tablaregistros, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
-# Definir los datos de la tabla
-dirampliado <- data.frame(
-  `Función` = c("00", "01", "10"),
-  `Byte` = c("2", "1", "2"),
-  `Interpretación` = c(
-    "Directo `M` = Dirección de memoria",
-    "Indirecto utiliza como operando implícito el registro `BL`", # nolint: line_length_linter.
-    "Inmediato `d` = Dato inmediato"
-  )
+tablaregistros <- data.frame(
+  Registro = c("AL", "BL", "CL", "DL"),
+  Binario = c("00", "01", "10", "11"),
+  Decimal = c(0, 1, 2, 3)
 )
 
-kable(dirampliado, format = "markdown", col.names = c("Función", "Byte", "Interpretación")) # nolint: line_length_linter.
+if (knitr::is_latex_output()) {
+  kable(tablaregistros, format = "latex", booktabs = TRUE, align = "l",
+        col.names = c("Registros R", "Binario", "Decimal"),
+        caption = "Tabla de registros del simulador") %>%
+    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+    column_spec(1, width = "4cm") %>%
+    column_spec(2, width = "5cm") %>%
+    column_spec(3, width = "5cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    footnote(
+      general = "Los registros AL, BL, CL y DL corresponden a registros de propósito general de 8 bits.",
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
+} else {
+  kable(tablaregistros, format = "html", table.attr = "class='table table-striped'", align = "l",
+        col.names = c("Registros R", "Binario", "Decimal"),
+        caption = "Tabla de registros del simulador") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%
+    column_spec(2, width = "25em") %>%
+    column_spec(3, width = "25em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    footnote(
+      general = "Los registros AL, BL, CL y DL corresponden a registros de propósito general de 8 bits.",
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
+}
 ```
 
-Las instrucciones de almacenar en memoria (C):
 
-```{r dirampliado2, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-# Definir los datos de la tabla
-dirampliado2 <- data.frame(
-  `Función` = c("00YY", "01YY", "1100", "1101"),
-  `Byte` = c("2", "1", "3", "2"),
-  `Interpretación` = c(
-    "directo `M` = Dirección de memoria, `YY` = Registro fuente",
-    "indirecto `BL`, `YY` = Registro fuente",
-    "Inmediato a memoria",
-    "Inmediato a memoria mediante indirecto `BL`"
-  )
-)
-
-kable(dirampliado2, format = "markdown", col.names = c("Función", "Byte", "Interpretación")) # nolint: line_length_linter.
-```
 
 El formato ampliado para las instrucciones incluye los siguientes casos tabla \@ref(tab:formatoampliado):
 
