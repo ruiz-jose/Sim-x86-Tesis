@@ -111,62 +111,9 @@ Proporcionar documentación clara y accesible que explique el funcionamiento del
 knitr::include_graphics("images/documentacion.png")
 ```
 
-Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. La Tabla \@ref(tab:tablafuncionales) resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
+Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. A través de reuniones y talleres de validación donde se analizaron prototipos tempranos y necesidades concretas del aula, garantizando así su relevancia didáctica y su adecuación al contexto educativo de la asignatura Arquitectura de Computadoras.
 
-```{r tablafuncionales, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-# Crear los datos de la tabla de requisitos funcionales
-tablafuncionales <- data.frame(
-  `Requisito funcional` = c(
-    "Ejecución paso a paso",
-    "Simulación de periféricos",
-    "Visualización del ciclo de instrucción"
-  ),
-  `Componente del simulador que lo implementa` = c(
-    "Unidad de Control + Visualizador de registros",
-    "Módulo de Entrada/Salida + Vector de interrupciones",
-    "Representación RTL interactiva"
-  )
-)
-
-tabla_req <- kable(tablafuncionales,
-                   format = ifelse(knitr::is_latex_output(), "latex", "html"),
-                   caption = "Requisitos funcionales y componentes del simulador",
-                   col.names = c("Requisito funcional", "Componente del simulador que lo implementa"),
-                   booktabs = TRUE,
-                   escape = FALSE,
-                   align = c("c", "c"))
-
-if (knitr::is_latex_output()) {
-  tabla_req %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10,
-      position = "right"
-    ) %>%
-    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "8cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(tablafuncionales)),
-             extra_latex_after = "\\addlinespace[10pt]")
-} else {
-  tabla_req %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "right"
-    ) %>%
-    column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "32em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-}
-```
-
-Además de responder a criterios técnicos, estos requisitos fueron definidos en conjunto con docentes especialistas del área, a través de reuniones y talleres de validación donde se analizaron prototipos tempranos y necesidades concretas del aula, garantizando así su relevancia didáctica y su adecuación al contexto educativo de la asignatura Arquitectura de Computadoras.
-
-En conjunto, estos requisitos orientan el diseño del simulador para maximizar su impacto pedagógico y su utilidad como recurso de apoyo a la enseñanza de arquitectura x86. En la siguiente sección se describe cómo fueron implementados funcionalmente estos requisitos, detallando su correspondencia con la estructura modular del simulador.
+En conjunto, estos requisitos orientan el diseño del simulador para maximizar su impacto pedagógico y su utilidad como recurso de apoyo a la enseñanza de arquitectura x86. En la siguiente sección se describe cómo fueron implementados funcionalmente estos requisitos, detallando su correspondencia con la estructura modular del simulador. La Tabla \@ref(tab:requisitosresumen) resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
 
 ```{r requisitosresumen, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -179,7 +126,7 @@ requisitosresumen <- data.frame(
     "Ejecución de programas en ensamblador",
     "Repertorio progresivo de instrucciones",
     "Simulación visual de micropasos",
-    "Gestión de interrupciones"
+    "Módulo de Entrada/Salida + Vector de interrupciones"
   ),
   Fundamento = c(
     "Comprensión sistémica del hardware",
@@ -240,56 +187,6 @@ El diseño del simulador contribuye a:
 
 Diversos autores como Patterson & Hennessy [@hennessy2017computer], Tanenbaum [@tanenbaum_structured_2016] y Null [@null_essentials_2023]  coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque hace posible observar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
 El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 [@intel_microarchitecture_2021], y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes [@patt2019introduction; @majid1999design; @morlan_sap1_2021 ; @Guald_2015_thesis; @silber_tinycpu].
-
-```{r requisitosdidacticos, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-# Crear los datos de la tabla
-tabladidactica <- data.frame(
-  `Requisito didáctico` = c(
-    "Ejecución paso a paso",
-    "Habilitación progresiva del repertorio",
-    "Visualización de ciclos de instrucción (RTL)"
-  ),
-  `Beneficio pedagógico esperado` = c(
-    "Favorece la comprensión secuencial de las instrucciones",
-    "Reduce la carga cognitiva y promueve aprendizaje incremental",
-    "Facilita el aprendizaje del funcionamiento interno del procesador"
-  )
-)
-
-tabla <- kable(tabladidactica,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Requisitos didácticos y beneficios pedagógicos esperados",
-               col.names = c("Requisito didáctico", "Beneficio pedagógico esperado"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c"))
-
-if (knitr::is_latex_output()) {
-  tabla %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "9cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(tabladidactica)),
-             extra_latex_after = "\\addlinespace[10pt]")
-} else {
-  tabla %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "28em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-}
-```
 
 En síntesis, la definición de estos requisitos busca integrar aspectos funcionales, pedagógicos y técnicos en una herramienta que no solo simule el comportamiento del sistema, sino que facilite activamente los procesos de enseñanza y aprendizaje en arquitectura de computadoras. La articulación entre visualización, ejecución progresiva y análisis de rendimiento proporciona un entorno didáctico rico que responde tanto a las necesidades del aula como a los desafíos de la disciplina.
 
@@ -770,7 +667,7 @@ max     db 0
 vector  db 5, 2, 10, 4, 5, 0, 4, 8, 1, 9
             mov CL, 0 ; contador
             mov BL, offset vector  ; obtiene la dirección del primer elemento del vector
-Condicion:  CMP CL, 10 
+Condicion:  cmp CL, 10 
             jc Bucle          ; si x < 10  salta a etiqueta Bucle
             jmp FinBucle      ; si no salta a la etiqueta FinBucle
 Bucle:      mov AL, [BL]      ; AL = vector[indice] 
@@ -790,7 +687,7 @@ max     db 0
 vector  db 5, 2, 10, 4, 5, 0, 4, 8, 1, 9
             mov CL, 0 ; contador
             mov BL, offset vector  ; obtiene la dirección del primer elemento del vector
-Condicion:  CMP CL, 10 
+Condicion:  cmp CL, 10 
             jc Bucle          ; si x < 10  salta a etiqueta Bucle
             jmp FinBucle      ; si no salta a la etiqueta FinBucle
 Bucle:      mov AL, [BL]      ; AL = vector[indice] 
