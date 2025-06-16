@@ -260,7 +260,9 @@
   basicstyle=\ttfamily\small,
   breaklines=true,
   frame=single,
-  language=nasm,
+  language=[x86masm]Assembler,
+  keywordstyle=\color{blue}\bfseries,
+  morekeywords={mov,add,sub,cmp,jmp,jc,jnc,db,offset,hlt}
   keywordstyle=\color{blue},
   commentstyle=\color{gray},
   stringstyle=\color{red},
@@ -1840,31 +1842,9 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \caption{Documentación on line}\label{fig:documentacion}
 \end{figure}
 
-Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. La Tabla \ref{tab:tablafuncionales} resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
+Estos requisitos funcionales y pedagógicos se fundamentan en principios de diseño instruccional y psicología cognitiva, y fueron validados mediante entrevistas con docentes expertos en la materia. A través de reuniones y talleres de validación donde se analizaron prototipos tempranos y necesidades concretas del aula, garantizando así su relevancia didáctica y su adecuación al contexto educativo de la asignatura Arquitectura de Computadoras.
 
-\begin{table}[!h]
-\centering
-\caption{\label{tab:tablafuncionales}Requisitos funcionales y componentes del simulador}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{8cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Requisito funcional}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente del simulador que lo implementa}}}\\
-\midrule
-\textbf{Ejecución paso a paso} & Unidad de Control + Visualizador de registros\\
-\addlinespace[10pt]
-\textbf{Simulación de periféricos} & Módulo de Entrada/Salida + Vector de interrupciones\\
-\addlinespace[10pt]
-\textbf{Visualización del ciclo de instrucción} & Representación RTL interactiva\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-Además de responder a criterios técnicos, estos requisitos fueron definidos en conjunto con docentes especialistas del área, a través de reuniones y talleres de validación donde se analizaron prototipos tempranos y necesidades concretas del aula, garantizando así su relevancia didáctica y su adecuación al contexto educativo de la asignatura Arquitectura de Computadoras.
-
-En conjunto, estos requisitos orientan el diseño del simulador para maximizar su impacto pedagógico y su utilidad como recurso de apoyo a la enseñanza de arquitectura x86. En la siguiente sección se describe cómo fueron implementados funcionalmente estos requisitos, detallando su correspondencia con la estructura modular del simulador.
+En conjunto, estos requisitos orientan el diseño del simulador para maximizar su impacto pedagógico y su utilidad como recurso de apoyo a la enseñanza de arquitectura x86. En la siguiente sección se describe cómo fueron implementados funcionalmente estos requisitos, detallando su correspondencia con la estructura modular del simulador. La Tabla \ref{tab:requisitosresumen} resume los principales requisitos funcionales del simulador, junto con los componentes específicos que los implementan.
 
 \begin{table}[!h]
 \centering
@@ -1884,7 +1864,7 @@ En conjunto, estos requisitos orientan el diseño del simulador para maximizar s
 \addlinespace[10pt]
 \textbf{Simulación visual de micropasos} & Comprensión del flujo interno de datos\\
 \addlinespace[10pt]
-\textbf{Gestión de interrupciones} & Simulación de asincronía real\\
+\textbf{Módulo de Entrada/Salida + Vector de interrupciones} & Simulación de asincronía real\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
@@ -1924,26 +1904,6 @@ El diseño del simulador contribuye a:
 
 Diversos autores como Patterson \& Hennessy \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}, Tanenbaum \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}22{]}} y Null \protect\hyperlink{ref-null_essentials_2023}{{[}27{]}} coinciden en que el uso de arquitecturas simplificadas, como las de 8 bits, permite a los estudiantes centrarse en los conceptos fundamentales de la arquitectura de computadores sin verse abrumados por la complejidad técnica de arquitecturas reales. Este enfoque hace posible observar la transferencia de datos entre registros y la activación de señales de control en cada etapa, favoreciendo la comprensión del funcionamiento interno del procesador.
 El modelo propuesto adopta una arquitectura simplificada de 8 bits, inspirada en los principios de la arquitectura x86 \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}39{]}}, y diseñada con un repertorio reducido de instrucciones. La elección de una arquitectura de 8 bits obedece a criterios pedagógicos, ya que simplifica el modelo sin sacrificar los principios fundamentales del repertorio x86, facilitando así la comprensión progresiva de sus componentes \protect\hyperlink{ref-patt2019introduction}{{[}68{]}}, \protect\hyperlink{ref-majid1999design}{{[}69{]}}, \protect\hyperlink{ref-morlan_sap1_2021}{{[}70{]}}, \protect\hyperlink{ref-Guald_2015_thesis}{{[}71{]}}, \protect\hyperlink{ref-silber_tinycpu}{{[}72{]}}.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:requisitosdidacticos}Requisitos didácticos y beneficios pedagógicos esperados}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{9cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Requisito didáctico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio pedagógico esperado}}}\\
-\midrule
-\textbf{Ejecución paso a paso} & Favorece la comprensión secuencial de las instrucciones\\
-\addlinespace[10pt]
-\textbf{Habilitación progresiva del repertorio} & Reduce la carga cognitiva y promueve aprendizaje incremental\\
-\addlinespace[10pt]
-\textbf{Visualización de ciclos de instrucción (RTL)} & Facilita el aprendizaje del funcionamiento interno del procesador\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
 
 En síntesis, la definición de estos requisitos busca integrar aspectos funcionales, pedagógicos y técnicos en una herramienta que no solo simule el comportamiento del sistema, sino que facilite activamente los procesos de enseñanza y aprendizaje en arquitectura de computadoras. La articulación entre visualización, ejecución progresiva y análisis de rendimiento proporciona un entorno didáctico rico que responde tanto a las necesidades del aula como a los desafíos de la disciplina.
 
@@ -2278,7 +2238,7 @@ max     db 0
 vector  db 5, 2, 10, 4, 5, 0, 4, 8, 1, 9
             mov CL, 0 ; contador
             mov BL, offset vector  ; obtiene la dirección del primer elemento del vector
-Condicion:  CMP CL, 10 
+Condicion:  cmp CL, 10 
             jc Bucle          ; si x < 10  salta a etiqueta Bucle
             jmp FinBucle      ; si no salta a la etiqueta FinBucle
 Bucle:      mov AL, [BL]      ; AL = vector[indice] 
