@@ -1999,6 +1999,11 @@ La Tabla \ref{tab:comparativavonsim} sintetiza las diferencias entre VonSim y Vo
 \end{table}
 
 El diseño conceptual busca traducir los principios previamente definidos en una arquitectura funcional coherente con los objetivos pedagógicos específicos de la asignatura Arquitectura de Computadoras.
+Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
+Se modifico el menu de los controles del simulador.
+Se elimino el uso de los registros temporales de la ALU (\texttt{left} y \texttt{rigth}).
+Tambien se ocultaron los registros registro SP y (\texttt{ri} e \texttt{id}) que se habilitan automaticamente al ejecutar una instrucción que requiera su uso.
+Todos los registros CPU tienen una entrada y una salida indepediente.
 
 \hypertarget{estructura-del-vonsim8}{%
 \subsection{Estructura del VonSim8}\label{estructura-del-vonsim8}}
@@ -2252,7 +2257,7 @@ Bucle:      mov BL, x
 FinBucle:   hlt
 \end{lstlisting}
 
-Tratamiento de vectores y matrices: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:
+Tratamiento de vectores: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2303,12 +2308,15 @@ Las instrucciones del simulador VonSim8 se definen con un formato de 1 a 3 bytes
 \caption{\label{tab:formatoinst}Tabla de formato de instrucciones}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{8cm}}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{7cm}}
 \toprule
-Tipo & Operandos & Ejemplo\\
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ejemplo}}}\\
 \midrule
-Transferencia y procesamiento & 2 operandos (fuente y destino) & MOV operando-destino, operando-fuente\\
-Control & Con 1 o sin operando & JMP operando o HLT\\
+\textbf{Transferencia y procesamiento} & 2 & MOV operando-destino, operando-fuente\\
+\addlinespace[10pt]
+\textbf{Control} & 1 / cero & JMP operando / HLT\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -2343,14 +2351,22 @@ Estos modos de direccionamiento permiten al simulador representar una variedad d
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Parámetros}}}\\
 \midrule
 \textbf{} & A: Entre registros & Operandos son registros Rx, Ry\\
-\textbf{Transferencia y procesamiento} & B: Cargar a registro & Operando destino registro Rx y operando fuente puede ser:\begin{itemize} \item dirección [M]\item dirección registro [BL] \item valor en la instrucción d \end{itemize}\\
-\textbf{} & C: Almacenar en memoria & Operando destino puede ser: \begin{itemize} \item dirección [M]\item dirección registro [BL] \end{itemize} y operando fuente puede ser:\begin{itemize} \item Registro: Ry\item valor en la instrucción d \end{itemize}\\
-\textbf{Control} & D: control de flujo & Si tiene operando es una dirección de memoria M\\
+\textbf{} & B: Cargar a registro & Operando destino es registro Rx y el operando fuente puede ser:\begin{itemize} \item dirección [M] (1)\item dirección registro [BL] (2)\item valor en la instrucción d  (3)\end{itemize}\\
+\textbf{Transferencia y procesamiento} & C: Almacenar en memoria & Operando destino puede ser: \begin{itemize} \item dirección [M]\item dirección registro [BL] \end{itemize} y operando fuente puede ser:\begin{itemize} \item Registro: Ry\item valor en la instrucción d \end{itemize}\\
+\midrule
+\textbf{Control} & D: control de flujo & Si tiene operando es una dirección de memoria M (*)\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Nota: } 
-\item Las instrucciones de transferencia y de procesamiento de datos tienen los mismos modos de direccionamiento.
+\item Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A, B y C.
+\item Rx y Ry puede ser un registro de proposito general: AL, BL, CL y DL.
+\item \textit{Notas numéricas: } 
+\item[1] La notación [M] indica el contenido de la dirección de memoria.
+\item[2] La notación [BL] indica el contenido de la dirección del registro BL.
+\item[3] La notación d indica dato inmediato.
+\item \textit{Símbolos: } 
+\item[*] La notación M indica dirección de memoria.
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
@@ -2385,30 +2401,33 @@ B: Cargar a registro & MOV Rx, [M] & Rx ← Mem[Dirección]\\
  & SUB Rx, [M] & Rx ← Rx - Mem[Dirección]\\
  & SUB Rx, [BL] & Rx ← Rx - Mem[BL]\\
  & SUB Rx, d & Rx ← Rx - dato\\
- & CMP Rx, [M] & Rx - Mem[Dirección] *\\
- & CMP Rx, [BL] & Rx - Mem[BL] *\\
+ & CMP Rx, [M] & Rx - Mem[Dirección] (*)\\
+ & CMP Rx, [BL] & Rx - Mem[BL] (*)\\
 \addlinespace
- & CMP Rx, d & Rx - dato *\\
+ & CMP Rx, d & Rx - dato (*)\\
 C: Almacenar en memoria & MOV [M], Ry & Mem[Dirección] ← Rx\\
  & MOV [BL], Ry & Mem[BL] ← Rx\\
  & MOV [M], d & Mem[Dirección] ← dato\\
  & MOV [BL], d & Mem[BL] ← dato\\
 \addlinespace
- & ADD [M], Ry & Mem[Dirección] ← `Mem[Dirección] + Rx\\
+ & ADD [M], Ry & Mem[Dirección] ← Mem[Dirección] + Rx\\
  & ADD [BL], Ry & Mem[BL] ← Mem[BL] + Rx\\
  & ADD [M], d & Mem[Dirección] ← Mem[Dirección] + dato\\
  & ADD [BL], d & Mem[BL] ← Mem[BL] + dato\\
- & SUB [M], Ry & B: Cargar a registro\\
+ & SUB [M], Ry & Mem[Dirección] ← Mem[Dirección] - Rx\\
 \addlinespace
- & SUB [M], --` & C: Almacenar en memoria\\
- & CMP [M], -- & B: Cargar a registro\\
- &  & C: Almacenar en \vphantom{1} memoria\\
- &  & B: Cargar a registro\\
- &  & C: Almacenar en memoria\\
+ & SUB [BL], Ry & Mem[BL] ← Mem[BL] - Rx\\
+ & SUB [M], d & Mem[Dirección] ← Mem[Dirección] - dato\\
+ & SUB [BL], d & Mem[BL] ← Mem[BL] - dato\\
+ & CMP [M], Ry & Mem[Dirección] - Rx\\
+ & CMP [BL], Ry & Mem[BL] - Rx\\
 \addlinespace
+ & CMP [M], d & Mem[Dirección] - dato\\
+ & CMP [BL], d & Mem[BL] - dato\\
 D: control de flujo & JMP M & IP ← Dirección\\
  & JC M & Si C = 1 entonces IP ← Dirección\\
  & JZ M & Si Z = 1 entonces IP ← Dirección\\
+\addlinespace
  & HLT & Detiene el procesador\\
 \bottomrule
 \end{tabular}
@@ -2488,76 +2507,42 @@ Considerando:
   \texttt{\_\_\_\_}: Código de operación de la instrucción, número de 4 bits.
 \item
   \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}, cada índice es de 2 bits.
-\end{itemize}
-
-\begin{longtable}[]{@{}llr@{}}
-\toprule\noalign{}
-Registros (R) & Binario & Decimal \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-AL & 00 & 0 \\
-BL & 01 & 1 \\
-CL & 10 & 2 \\
-DL & 11 & 3 \\
-\end{longtable}
-
-\begin{itemize}
 \item
   \texttt{00}: Junto con el código de operación indica si la operación es tipo B o C.
 \item
   \texttt{M}: Dirección de memoria, número de 8 bits.
 \item
   \texttt{ffff}: representan el comportamiento de la instrucción, número de 4 bits.
+\item
+  \texttt{d}: Dato inmediato, número de 8 bits.
+\item
+  \texttt{MMMMMMMM}: Dirección de memoria, número de 8 bits.
+\item
+  \texttt{dddddddd}: Dato inmediato, número de 8 bits.
 \end{itemize}
 
-Las instrucciones de cargar a registro (B):
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1111}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0694}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.8194}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Función
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Byte
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Interpretación
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-00 & 2 & Directo \texttt{M} = Dirección de memoria \\
-01 & 1 & Indirecto utiliza como operando implícito el registro \texttt{BL} \\
-10 & 2 & Inmediato \texttt{d} = Dato inmediato \\
-\end{longtable}
-
-Las instrucciones de almacenar en memoria (C):
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1111}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0694}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.8194}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Función
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Byte
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Interpretación
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-00YY & 2 & directo \texttt{M} = Dirección de memoria, \texttt{YY} = Registro fuente \\
-01YY & 1 & indirecto \texttt{BL}, \texttt{YY} = Registro fuente \\
-1100 & 3 & Inmediato a memoria \\
-1101 & 2 & Inmediato a memoria mediante indirecto \texttt{BL} \\
-\end{longtable}
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tablaregistros}Tabla de registros del simulador}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Registros R}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Binario}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Decimal}}}\\
+\midrule
+AL & 00 & 0\\
+BL & 01 & 1\\
+CL & 10 & 2\\
+DL & 11 & 3\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota: } 
+\item Los registros AL, BL, CL y DL corresponden a registros de propósito general de 8 bits.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
 
 El formato ampliado para las instrucciones incluye los siguientes casos tabla \ref{tab:formatoampliado}:
 

@@ -417,7 +417,12 @@ Comprensión progresiva de conceptos básicos
 </tr>
 </tbody>
 </table>
-<p>El diseño conceptual busca traducir los principios previamente definidos en una arquitectura funcional coherente con los objetivos pedagógicos específicos de la asignatura Arquitectura de Computadoras.</p>
+<p>El diseño conceptual busca traducir los principios previamente definidos en una arquitectura funcional coherente con los objetivos pedagógicos específicos de la asignatura Arquitectura de Computadoras.
+Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
+Se modifico el menu de los controles del simulador.
+Se elimino el uso de los registros temporales de la ALU (<code>left</code> y <code>rigth</code>).
+Tambien se ocultaron los registros registro SP y (<code>ri</code> e <code>id</code>) que se habilitan automaticamente al ejecutar una instrucción que requiera su uso.
+Todos los registros CPU tienen una entrada y una salida indepediente.</p>
 <div id="estructura-del-vonsim8" class="section level3 hasAnchor" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Estructura del VonSim8<a href="diseño-del-simulador.html#estructura-del-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Esta sección describe la estructura del simulador VonSim8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>. Se describe en la siguiente tabla <a href="diseño-del-simulador.html#tab:estructuravonsim8">5.6</a> los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:</p>
@@ -773,7 +778,7 @@ add suma, BL
 add x, 1
 jmp Condicion ; salta a Condicion:
 FinBucle: hlt ```</p>
-<p>Tratamiento de vectores y matrices: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:</p>
+<p>Tratamiento de vectores: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="diseño-del-simulador.html#cb13-1" tabindex="-1"></a><span class="co"># Búsqueda del máximo en un vector</span></span>
 <span id="cb13-2"><a href="diseño-del-simulador.html#cb13-2" tabindex="-1"></a>vector <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
 <span id="cb13-3"><a href="diseño-del-simulador.html#cb13-3" tabindex="-1"></a>maximo <span class="op">=</span> <span class="dv">0</span></span>
@@ -807,44 +812,44 @@ Estas categorías de instrucciones se seleccionaron cuidadosamente para proporci
 <div id="formato-de-instrucciones" class="section level3 hasAnchor" number="5.2.3">
 <h3><span class="header-section-number">5.2.3</span> Formato de instrucciones<a href="diseño-del-simulador.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Las instrucciones del simulador VonSim8 se definen con un formato de 1 a 3 bytes, donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.</p>
-<table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:formatoinst">Tabla 5.9: </span>Tabla de codificación de instrucciones
+<span id="tab:formatoinst">Tabla 5.9: </span>Tabla de formato de instrucciones
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Tipo
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Operandos
 </th>
-<th style="text-align:left;">
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Ejemplo
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;width: 20em; width: 30em; ">
+<td style="text-align:center;width: 10em; font-weight: bold;border-right:1px solid;">
 Transferencia y procesamiento
 </td>
-<td style="text-align:left;width: 30em; ">
-2 operandos (fuente y destino)
+<td style="text-align:center;width: 32em; ">
+2
 </td>
-<td style="text-align:left;">
+<td style="text-align:center;width: 32em; ">
 MOV operando-destino, operando-fuente
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 20em; width: 30em; ">
+<td style="text-align:center;width: 10em; font-weight: bold;border-right:1px solid;">
 Control
 </td>
-<td style="text-align:left;width: 30em; ">
-Con 1 o sin operando
+<td style="text-align:center;width: 32em; ">
+1 / cero
 </td>
-<td style="text-align:left;">
-JMP operando o HLT
+<td style="text-align:center;width: 32em; ">
+JMP operando / HLT
 </td>
 </tr>
 </tbody>
@@ -890,13 +895,12 @@ Operandos son registros Rx, Ry
 </tr>
 <tr>
 <td style="text-align:left;width: 15em; font-weight: bold;">
-Transferencia y procesamiento
 </td>
 <td style="text-align:left;width: 25em; ">
 B: Cargar a registro
 </td>
 <td style="text-align:left;width: 35em; ">
-Operando destino registro <code>Rx</code> y operando fuente puede ser:
+Operando destino es registro <code>Rx</code> y el operando fuente puede ser:
 <ul>
 <li>
 dirección <code>[M]</code>
@@ -911,12 +915,13 @@ valor en la instrucción <code>d</code>
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 15em; font-weight: bold;">
+<td style="text-align:left;width: 15em; font-weight: bold;border-top: 2px solid #000;">
+Transferencia y procesamiento
 </td>
-<td style="text-align:left;width: 25em; ">
+<td style="text-align:left;width: 25em; border-top: 2px solid #000;">
 C: Almacenar en memoria
 </td>
-<td style="text-align:left;width: 35em; ">
+<td style="text-align:left;width: 35em; border-top: 2px solid #000;">
 Operando destino puede ser:
 <ul>
 <li>
@@ -945,7 +950,7 @@ Control
 D: control de flujo
 </td>
 <td style="text-align:left;width: 35em; ">
-Si tiene operando es una dirección de memoria M
+Si tiene operando es una dirección de memoria M (*)
 </td>
 </tr>
 </tbody>
@@ -957,7 +962,7 @@ Si tiene operando es una dirección de memoria M
 </tr>
 <tr>
 <td style="padding: 0; " colspan="100%">
-<sup></sup> Las instrucciones de transferencia y de procesamiento de datos tienen los mismos modos de direccionamiento.
+<sup></sup> Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A, B y C.
 </td>
 </tr>
 </tfoot>
@@ -1123,7 +1128,7 @@ Rx ← Rx - dato
 CMP Rx, [M]
 </td>
 <td style="text-align:left;width: 30em; ">
-Rx - Mem[Dirección] *
+Rx - Mem[Dirección] (*)
 </td>
 </tr>
 <tr>
@@ -1133,7 +1138,7 @@ Rx - Mem[Dirección] *
 CMP Rx, [BL]
 </td>
 <td style="text-align:left;width: 30em; ">
-Rx - Mem[BL] *
+Rx - Mem[BL] (*)
 </td>
 </tr>
 <tr>
@@ -1143,7 +1148,7 @@ Rx - Mem[BL] *
 CMP Rx, d
 </td>
 <td style="text-align:left;width: 30em; ">
-Rx - dato *
+Rx - dato (*)
 </td>
 </tr>
 <tr>
@@ -1194,47 +1199,117 @@ Mem[BL] ← dato
 ADD [M], Ry
 </td>
 <td style="text-align:left;width: 30em; ">
-Mem[Dirección] ← <code>Mem[Dirección] + Rx &lt;/td&gt;   &lt;/tr&gt;   &lt;tr&gt;    &lt;td style="text-align:left;width: 20em; "&gt;  &lt;/td&gt;    &lt;td style="text-align:left;width: 30em; "&gt; ADD [BL], Ry &lt;/td&gt;    &lt;td style="text-align:left;width: 30em; "&gt; Mem[BL] ← Mem[BL] + Rx &lt;/td&gt;   &lt;/tr&gt;   &lt;tr&gt;    &lt;td style="text-align:left;width: 20em; "&gt;  &lt;/td&gt;    &lt;td style="text-align:left;width: 30em; "&gt; ADD [M], d &lt;/td&gt;    &lt;td style="text-align:left;width: 30em; "&gt; Mem[Dirección] ← Mem[Dirección] + dato &lt;/td&gt;   &lt;/tr&gt;   &lt;tr&gt;    &lt;td style="text-align:left;width: 20em; "&gt;  &lt;/td&gt;    &lt;td style="text-align:left;width: 30em; "&gt; ADD [BL], d &lt;/td&gt;    &lt;td style="text-align:left;width: 30em; "&gt; Mem[BL] ← Mem[BL] + dato &lt;/td&gt;   &lt;/tr&gt;   &lt;tr&gt;    &lt;td style="text-align:left;width: 20em; "&gt;  &lt;/td&gt;    &lt;td style="text-align:left;width: 30em; "&gt; SUB [M], Ry &lt;/td&gt;    &lt;td style="text-align:left;width: 30em; "&gt; B: Cargar a registro &lt;/td&gt;   &lt;/tr&gt;   &lt;tr&gt;    &lt;td style="text-align:left;width: 20em; "&gt;  &lt;/td&gt;    &lt;td style="text-align:left;width: 30em; "&gt; SUB [M], --</code>
-</td>
-<td style="text-align:left;width: 30em; ">
-C: Almacenar en memoria
+Mem[Dirección] ← Mem[Dirección] + Rx
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
 </td>
 <td style="text-align:left;width: 30em; ">
-CMP [M], –
+ADD [BL], Ry
 </td>
 <td style="text-align:left;width: 30em; ">
-B: Cargar a registro
+Mem[BL] ← Mem[BL] + Rx
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
 </td>
 <td style="text-align:left;width: 30em; ">
+ADD [M], d
 </td>
 <td style="text-align:left;width: 30em; ">
-C: Almacenar en memoria
+Mem[Dirección] ← Mem[Dirección] + dato
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
 </td>
 <td style="text-align:left;width: 30em; ">
+ADD [BL], d
 </td>
 <td style="text-align:left;width: 30em; ">
-B: Cargar a registro
+Mem[BL] ← Mem[BL] + dato
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 20em; ">
 </td>
 <td style="text-align:left;width: 30em; ">
+SUB [M], Ry
 </td>
 <td style="text-align:left;width: 30em; ">
-C: Almacenar en memoria
+Mem[Dirección] ← Mem[Dirección] - Rx
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+SUB [BL], Ry
+</td>
+<td style="text-align:left;width: 30em; ">
+Mem[BL] ← Mem[BL] - Rx
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+SUB [M], d
+</td>
+<td style="text-align:left;width: 30em; ">
+Mem[Dirección] ← Mem[Dirección] - dato
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+SUB [BL], d
+</td>
+<td style="text-align:left;width: 30em; ">
+Mem[BL] ← Mem[BL] - dato
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+CMP [M], Ry
+</td>
+<td style="text-align:left;width: 30em; ">
+Mem[Dirección] - Rx
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+CMP [BL], Ry
+</td>
+<td style="text-align:left;width: 30em; ">
+Mem[BL] - Rx
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+CMP [M], d
+</td>
+<td style="text-align:left;width: 30em; ">
+Mem[Dirección] - dato
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+</td>
+<td style="text-align:left;width: 30em; ">
+CMP [BL], d
+</td>
+<td style="text-align:left;width: 30em; ">
+Mem[BL] - dato
 </td>
 </tr>
 <tr>
@@ -1627,116 +1702,93 @@ F
 <ul>
 <li><p><code>____</code>: Código de operación de la instrucción, número de 4 bits.</p></li>
 <li><p><code>XX</code> o <code>YY</code>: Índices de registros, número entre <code>0</code> y <code>3</code>, cada índice es de 2 bits.</p></li>
-</ul>
-<table>
-<thead>
-<tr class="header">
-<th align="left">Registros (R)</th>
-<th align="left">Binario</th>
-<th align="right">Decimal</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">AL</td>
-<td align="left">00</td>
-<td align="right">0</td>
-</tr>
-<tr class="even">
-<td align="left">BL</td>
-<td align="left">01</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">CL</td>
-<td align="left">10</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">DL</td>
-<td align="left">11</td>
-<td align="right">3</td>
-</tr>
-</tbody>
-</table>
-<ul>
 <li><p><code>00</code>: Junto con el código de operación indica si la operación es tipo B o C.</p></li>
 <li><p><code>M</code>: Dirección de memoria, número de 8 bits.</p></li>
 <li><p><code>ffff</code>: representan el comportamiento de la instrucción, número de 4 bits.</p></li>
+<li><p><code>d</code>: Dato inmediato, número de 8 bits.</p></li>
+<li><p><code>MMMMMMMM</code>: Dirección de memoria, número de 8 bits.</p></li>
+<li><p><code>dddddddd</code>: Dato inmediato, número de 8 bits.</p></li>
 </ul>
-<p>Las instrucciones de cargar a registro (B):</p>
-<table>
-<colgroup>
-<col width="11%" />
-<col width="6%" />
-<col width="81%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Función</th>
-<th align="left">Byte</th>
-<th align="left">Interpretación</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">00</td>
-<td align="left">2</td>
-<td align="left">Directo <code>M</code> = Dirección de memoria</td>
-</tr>
-<tr class="even">
-<td align="left">01</td>
-<td align="left">1</td>
-<td align="left">Indirecto utiliza como operando implícito el registro <code>BL</code></td>
-</tr>
-<tr class="odd">
-<td align="left">10</td>
-<td align="left">2</td>
-<td align="left">Inmediato <code>d</code> = Dato inmediato</td>
-</tr>
-</tbody>
-</table>
-<p>Las instrucciones de almacenar en memoria (C):</p>
-<table>
-<colgroup>
-<col width="11%" />
-<col width="6%" />
-<col width="81%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Función</th>
-<th align="left">Byte</th>
-<th align="left">Interpretación</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">00YY</td>
-<td align="left">2</td>
-<td align="left">directo <code>M</code> = Dirección de memoria, <code>YY</code> = Registro fuente</td>
-</tr>
-<tr class="even">
-<td align="left">01YY</td>
-<td align="left">1</td>
-<td align="left">indirecto <code>BL</code>, <code>YY</code> = Registro fuente</td>
-</tr>
-<tr class="odd">
-<td align="left">1100</td>
-<td align="left">3</td>
-<td align="left">Inmediato a memoria</td>
-</tr>
-<tr class="even">
-<td align="left">1101</td>
-<td align="left">2</td>
-<td align="left">Inmediato a memoria mediante indirecto <code>BL</code></td>
-</tr>
-</tbody>
-</table>
-<p>El formato ampliado para las instrucciones incluye los siguientes casos tabla <a href="diseño-del-simulador.html#tab:formatoampliado">5.13</a>:</p>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:formatoampliado">Tabla 5.13: </span>Tabla de codificación de instrucciones ampliado
+<span id="tab:tablaregistros">Tabla 5.13: </span>Tabla de registros del simulador
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Registros R
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Binario
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Decimal
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 20em; ">
+AL
+</td>
+<td style="text-align:left;width: 25em; ">
+00
+</td>
+<td style="text-align:left;width: 25em; ">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+BL
+</td>
+<td style="text-align:left;width: 25em; ">
+01
+</td>
+<td style="text-align:left;width: 25em; ">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+CL
+</td>
+<td style="text-align:left;width: 25em; ">
+10
+</td>
+<td style="text-align:left;width: 25em; ">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 20em; ">
+DL
+</td>
+<td style="text-align:left;width: 25em; ">
+11
+</td>
+<td style="text-align:left;width: 25em; ">
+3
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Nota: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Los registros AL, BL, CL y DL corresponden a registros de propósito general de 8 bits.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>El formato ampliado para las instrucciones incluye los siguientes casos tabla <a href="diseño-del-simulador.html#tab:formatoampliado">5.14</a>:</p>
+<table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>
+<span id="tab:formatoampliado">Tabla 5.14: </span>Tabla de codificación de instrucciones ampliado
 </caption>
 <thead>
 <tr>
