@@ -797,12 +797,11 @@ jc Bucle ; si x &lt; 10 salta a etiqueta Bucle
 jmp FinBucle ; si no salta a la etiqueta FinBucle
 Bucle: mov AL, [BL] ; AL = vector[indice]
 cmp AL, max
-Jnc EsMayor
+jc Proximo ; si AL &lt; max, salta a Proximo
+mov max, AL ; si no, actualiza max
 Proximo: add BL, 1 ; BL = BL + 1
 add CL, 1 ; CL = CL + 1<br />
 jmp Condicion
-EsMayor: mov max, AL ; AL = max
-jmp Proximo ; próximo elemento del vector
 FinBucle: hlt```</p>
 <p>Estas instrucciones permiten a los estudiantes comprender cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
 Estas categorías de instrucciones se seleccionaron cuidadosamente para proporcionar una base sólida en los conceptos fundamentales de la arquitectura x86, permitiendo a los estudiantes familiarizarse con las operaciones más comunes y relevantes sin la complejidad adicional de un repertorio completo.</p>
