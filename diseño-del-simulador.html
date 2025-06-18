@@ -429,11 +429,43 @@ Comprensión progresiva de conceptos básicos
 </tbody>
 </table>
 <p>El diseño conceptual busca traducir los principios previamente definidos en una arquitectura funcional coherente con los objetivos pedagógicos específicos de la asignatura Arquitectura de Computadoras.
-Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
+Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:banderas"></span>
+<img src="images/flags.png" alt="Registro de estado" width="85%" />
+<p class="caption">
+Figura 5.7: Registro de estado
+</p>
+</div>
 Se modifico el menu de los controles del simulador.
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:controles"></span>
+<img src="images/controles.png" alt="Controles del simulador" width="85%" />
+<p class="caption">
+Figura 5.8: Controles del simulador
+</p>
+</div>
+<p>Se eliminaron los registros de 16 bits y se redujo el tamaño de los registros a 8 bits, lo que simplifica la representación y manipulación de datos. Esta decisión se fundamenta en la necesidad de reducir la complejidad del modelo para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:registros"></span>
+<img src="images/registros.png" alt="Registro de 8 bits" width="85%" />
+<p class="caption">
+Figura 5.9: Registro de 8 bits
+</p>
+</div>
 Se elimino el uso de los registros temporales de la ALU (<code>left</code> y <code>rigth</code>).
-Tambien se ocultaron los registros registro SP y (<code>ri</code> e <code>id</code>) que se habilitan automaticamente al ejecutar una instrucción que requiera su uso.
-Todos los registros CPU tienen una entrada y una salida indepediente.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:leftrigth"></span>
+<img src="images/leftrigth.png" alt="Eliminación registro temporales left y rigth" width="85%" />
+<p class="caption">
+Figura 5.10: Eliminación registro temporales left y rigth
+</p>
+</div>
+<p>Tambien se ocultaron los registros registro SP y (<code>ri</code> e <code>id</code>) que se habilitan automaticamente al
+ejecutar una instrucción que requiera su uso.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:idri"></span>
+<img src="images/idri.png" alt="Ocultamiento automatico" width="85%" />
+<p class="caption">
+Figura 5.11: Ocultamiento automatico
+</p>
+</div>
+<p>Todos los registros CPU tienen una entrada y una salida indepediente.</p>
 <div id="estructura-del-vonsim8" class="section level3 hasAnchor" number="5.2.1">
 <h3><span class="header-section-number">5.2.1</span> Estructura del VonSim8<a href="diseño-del-simulador.html#estructura-del-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Esta sección describe la estructura del simulador VonSim8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>. Se describe en la siguiente tabla <a href="diseño-del-simulador.html#tab:estructuravonsim8">5.4</a> los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:</p>
@@ -529,32 +561,32 @@ Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten divers
 </tr>
 </tbody>
 </table>
-<p>La Figura <a href="diseño-del-simulador.html#fig:esquemavonsim8">5.7</a> presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Dicha representación facilita la comprensión estructural del sistema y su analogía con una arquitectura computacional real, simplificada para fines educativos.</p>
+<p>La Figura <a href="diseño-del-simulador.html#fig:esquemavonsim8">5.12</a> presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Dicha representación facilita la comprensión estructural del sistema y su analogía con una arquitectura computacional real, simplificada para fines educativos.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:esquemavonsim8"></span>
 <img src="images/esquemavonsim8.png" alt="Arquitectura general del simulador" width="85%" />
 <p class="caption">
-Figura 5.7: Arquitectura general del simulador
+Figura 5.12: Arquitectura general del simulador
 </p>
 </div>
 <p>La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:memoria"></span>
 <img src="images/memoria.png" alt="Memoria principal" width="85%" />
 <p class="caption">
-Figura 5.8: Memoria principal
+Figura 5.13: Memoria principal
 </p>
 </div>
 <p>El bus de datos, direcciones y control se implementa como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Este bus es esencial para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida, y su diseño modular permite una fácil expansión en futuras versiones del simulador.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:buses"></span>
 <img src="images/buses.png" alt="Buses" width="85%" />
 <p class="caption">
-Figura 5.9: Buses
+Figura 5.14: Buses
 </p>
 </div>
 <p>El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tecladopantalla"></span>
 <img src="images/tecladopantalla.png" alt="Teclado y pantalla" width="85%" />
 <p class="caption">
-Figura 5.10: Teclado y pantalla
+Figura 5.15: Teclado y pantalla
 </p>
 </div>
 <p>La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla <a href="diseño-del-simulador.html#tab:bloquesfuncionales">5.5</a> resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.</p>
