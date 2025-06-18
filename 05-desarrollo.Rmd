@@ -267,10 +267,37 @@ if (knitr::is_latex_output()) {
 
 El diseño conceptual busca traducir los principios previamente definidos en una arquitectura funcional coherente con los objetivos pedagógicos específicos de la asignatura Arquitectura de Computadoras.
 Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
+
+```{r banderas, echo=FALSE, fig.cap="Registro de estado", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/flags.png")
+```
+
 Se modifico el menu de los controles del simulador.
+```{r controles, echo=FALSE, fig.cap="Controles del simulador", fig.align = 'center', out.width = "85%"}    
+knitr::include_graphics(path = "images/controles.png")
+```
+
+Se eliminaron los registros de 16 bits y se redujo el tamaño de los registros a 8 bits, lo que simplifica la representación y manipulación de datos. Esta decisión se fundamenta en la necesidad de reducir la complejidad del modelo para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras.
+
+```{r registros, echo=FALSE, fig.cap="Registro de 8 bits", fig.align = 'center', out.width = "85%"}    
+knitr::include_graphics(path = "images/registros.png")
+```
+
 Se elimino el uso de los registros temporales de la ALU (`left` y `rigth`).
-Tambien se ocultaron los registros registro SP y  (`ri` e `id`) que se habilitan automaticamente al ejecutar una instrucción que requiera su uso. 
+```{r leftrigth, echo=FALSE, fig.cap="Eliminación registro temporales left y rigth", fig.align = 'center', out.width = "85%"}    
+knitr::include_graphics(path = "images/leftrigth.png")
+```
+
+Tambien se ocultaron los registros registro SP y  (`ri` e `id`) que se habilitan automaticamente al 
+ejecutar una instrucción que requiera su uso. 
+
+```{r idri, echo=FALSE, fig.cap="Ocultamiento automatico", fig.align = 'center', out.width = "85%"}    
+knitr::include_graphics(path = "images/idri.png")
+```
+
 Todos los registros CPU tienen una entrada y una salida indepediente.
+
+
 
 ### Estructura del VonSim8
 Esta sección describe la estructura del simulador VonSim8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras [@stallings_computer_2021]. Se describe en la siguiente tabla \@ref(tab:estructuravonsim8) los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:
