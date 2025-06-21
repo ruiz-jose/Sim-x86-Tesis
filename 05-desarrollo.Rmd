@@ -252,6 +252,23 @@ Se elimino el uso de los registros temporales de la ALU (`left` y `rigth`).
 knitr::include_graphics(path = "images/leftrigth.png")
 ```
 
+La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos.
+
+```{r memoriacomp, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/memoriacomp.png")
+```
+
+Resaldo de la direccion de memoria apuntadas por los registros IP y SP.
+
+```{r resaltadoipintsp, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/resaltadoipintsp.png")
+```
+
+Se resalta el vector de interrucciones.
+Se resalta el programa en memoria pudiendo ver la instruccion y su tamaño en bytes que ocupa en memoria, ademas la etiqueta asociada a los datos.
+
+
+
 1. Simplificación del repertorio instruccional para una introducción gradual;
 
 2. Reducción a registros y memoria de 8 bits, coherente con la escala de enseñanza;
