@@ -1918,61 +1918,36 @@ VonSim\footnote{VonSim: \url{https://vonsim.github.io/}} sirvió como referencia
 
 La arquitectura detallada de VonSim, con su amplio repertorio de instrucciones y componentes, ofrece una visión integral del sistema. Sin embargo, dicha riqueza funcional puede abrumar a estudiantes en etapas iniciales. Por esta razón, VonSim8 introduce una simplificación estrategica, con el objetivo de reducir la carga cognitiva en etapas iniciales, facilitando así una apropiación gradual de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
-VonSim es una herramienta diseñada específicamente para la enseñanza y el aprendizaje de la arquitectura y organización de computadoras. Entre sus principales ventajas para este fin, se destacan las siguientes:
-- Entorno Integrado de Desarrollo y Simulación: Ofrece un entorno completo para desarrollar programas en lenguaje ensamblador (Assembly o Assembler) y un simulador para ejecutar esos programas, lo que facilita el proceso de aprendizaje práctico.
-- Basado en un Procesador Real (Intel 8088): Aunque es una herramienta educativa, está fundamentada en el procesador 8088 de Intel, lo que proporciona una base relevante y reconocida en la historia de la computación.
-- Funcionalidades Clave del Procesador: Incluye componentes esenciales para el estudio, como cuatro registros multipropósito de 16 bits, una memoria principal de 32 kB, un bus de direcciones de 16 bits y un bus de datos de 8 bits.
-- Manejo de Interrupciones: Soporta interrupciones por software (como lectura de teclado y escritura en pantalla) e interrupciones por hardware con un PIC, cubriendo aspectos fundamentales de la operación del sistema.
-- Dispositivos Periféricos Simulados: Cuenta con múltiples dispositivos como reloj, llaves, leds y una impresora centronics, inspirados en los análogos especificados por la familia iAPX 88 de Intel, lo que permite simular interacciones más complejas con el sistema.
-- Orientado a la Enseñanza mediante Simplificaciones Estratégicas: No busca ser un emulador fiel del 8088, sino una herramienta pedagógica. Por ello, realiza simplificaciones (como un set de instrucciones más pequeño y codificación más simple) que facilitan su uso y comprensión en un contexto educativo, sin las complejidades de un entorno real.
-- Desarrollado en un Contexto Académico: Fue creado por Facundo Quiroga, Manuel Bustos Berrondo y Juan Martín Seery, con ayuda de Andoni Zubimendi y César Estrebou, específicamente para cátedras como Organización de computadoras y Arquitectura de computadoras en la Facultad de Informática de la Universidad Nacional de La Plata. Esto asegura su alineación con los objetivos curriculares.
-- Basado en Trabajos Previos Reconocidos: Se apoya en el trabajo del simulador MSX88 (desarrollado en 1988 por Rubén de Diego Martínez para la Universidad Politécnica de Madrid), lo que le da una base sólida y experiencia acumulada en simuladores educativos.
-- Acceso Libre y Código Abierto: Está bajo la licencia GNU Affero General Public License v3.0 y su código fuente está disponible en GitHub, lo que permite su estudio, modificación y mejora continua. Su documentación está bajo licencia CC BY-SA 4.0.
-En resumen, VonSim es una herramienta robusta y accesible, diseñada específicamente para simplificar y facilitar el aprendizaje de conceptos complejos de arquitectura de computadoras mediante la simulación práctica y una interfaz amigable.
+VonSim \protect\hyperlink{ref-vonsim}{{[}73{]}} es una herramienta diseñada específicamente para la enseñanza y el aprendizaje de la arquitectura y organización de computadoras. Sus principales características la posicionan como una solución educativa integral:
 
-Las modificaciones principales de VonSim8, alineadas con objetivos pedagógicos, incluyen:
+\textbf{Características técnicas y pedagógicas de VonSim:}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Simplificación del repertorio instruccional para una introducción gradual;
+  \textbf{Entorno integrado de desarrollo y simulación:} Proporciona un entorno completo que incluye editor de código ensamblador con resaltado de sintaxis y un simulador para la ejecución de programas, facilitando el proceso de aprendizaje práctico \protect\hyperlink{ref-vonsim}{{[}73{]}}.
 \item
-  Reducción a registros y memoria de 8\,bits, coherente con la escala de enseñanza;
+  \textbf{Fundamento en arquitectura real:} Se basa en el procesador Intel 8088, proporcionando una referencia histórica y técnicamente relevante para el estudio de la evolución de las arquitecturas de computadoras \protect\hyperlink{ref-intel8086manual}{{[}45{]}}.
 \item
-  Interfaz gráfica esquemática que muestra el flujo de ejecución;
+  \textbf{Componentes esenciales para el estudio:} Incluye cuatro registros multipropósito de 16 bits, memoria principal de 32 kB, bus de direcciones de 16 bits y bus de datos de 8 bits, abarcando los elementos fundamentales para la comprensión de la arquitectura von Neumann \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}.
 \item
-  Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.
+  \textbf{Gestión completa de interrupciones:} Implementa tanto interrupciones por software (entrada/salida de datos) como interrupciones por hardware mediante un controlador de interrupciones programable (PIC), cubriendo aspectos fundamentales de la operación del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}13{]}}.
+\item
+  \textbf{Simulación de periféricos:} Incorpora dispositivos como reloj, llaves, LEDs e impresora Centronics, inspirados en los especificados por la familia iAPX 88 de Intel, permitiendo simular interacciones complejas con el sistema.
+\item
+  \textbf{Enfoque pedagógico mediante simplificaciones estratégicas:} No pretende ser un emulador fiel del 8088, sino una herramienta educativa que implementa simplificaciones deliberadas (repertorio de instrucciones reducido y codificación simplificada) para facilitar la comprensión en contextos educativos \protect\hyperlink{ref-patt2019introduction}{{[}68{]}}.
+\item
+  \textbf{Desarrollo académico especializado:} Creado por Facundo Quiroga, Manuel Bustos Berrondo y Juan Martín Seery, con colaboración de Andoni Zubimendi y César Estrebou, específicamente para las cátedras de Organización de Computadoras y Arquitectura de Computadoras de la Facultad de Informática de la Universidad Nacional de La Plata, garantizando su alineación con objetivos curriculares específicos.
+\item
+  \textbf{Fundamento en experiencia previa:} Se apoya en el simulador MSX88, desarrollado en 1988 por Rubén de Diego Martínez para la Universidad Politécnica de Madrid, aprovechando décadas de experiencia acumulada en simuladores educativos.
+\item
+  \textbf{Accesibilidad y sostenibilidad:} Distribuido bajo licencia GNU Affero General Public License v3.0 con código fuente disponible en GitHub, y documentación bajo licencia CC BY-SA 4.0, facilitando su estudio, modificación y mejora continua \protect\hyperlink{ref-opensource_licensing_2024}{{[}74{]}}.
 \end{enumerate}
 
-Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo \protect\hyperlink{ref-bonwell1991active}{{[}67{]}}.
+En síntesis, VonSim constituye una herramienta robusta y accesible que simplifica y facilita el aprendizaje de conceptos complejos de arquitectura de computadoras mediante simulación práctica y una interfaz pedagógicamente orientada.
 
-La Tabla \ref{tab:comparativavonsim} sintetiza las diferencias entre VonSim y VonSim8, ilustrando cómo las simplificaciones de VonSim8 contribuyen a un aprendizaje progresivo.
+Las modificaciones principales de VonSim8, alineadas con objetivos pedagógicos, incluyen:
 
-\begin{table}[!h]
-\centering
-\caption{\label{tab:comparativavonsim}Comparación entre VonSim y VonSim8}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{VonSim}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{VonSim8}}}\\
-\midrule
-\textbf{Arquitectura} & Von Neumann & Von Neumann\\
-\addlinespace[10pt]
-\textbf{Tamaño de registros} & 8 y 16 bis & 8 bits\\
-\addlinespace[10pt]
-\textbf{Interfaz gráfica} & Completa, detallada & Simplificada, esquemática\\
-\addlinespace[10pt]
-\textbf{Repertorio de instrucciones} & Amplio & Reducido y adaptado\\
-\addlinespace[10pt]
-\textbf{Objetivo didáctico} & Demostración de conceptos avanzados & Comprensión progresiva de conceptos básicos\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-El diseño conceptual busca traducir los principios previamente definidos en una arquitectura funcional coherente con los objetivos pedagógicos específicos de la asignatura Arquitectura de Computadoras.
 Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
 
 \begin{figure}
@@ -1982,6 +1957,17 @@ Del registro de estado del simulador original se ocualtaron las banderas I, O y 
 }
 
 \caption{Registro de estado}\label{fig:banderas}
+\end{figure}
+
+El flag de interrupcion I solo se muestra cuando el programa lo requiere, por ejemplo, al ejecutar una instrucción de interrupción como \texttt{INT} o \texttt{IRET}. Esto permite a los estudiantes observar cómo se activa y desactiva este flag en función de las operaciones realizadas.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/flagi} 
+
+}
+
+\caption{Registro de estado I}\label{fig:banderaI}
 \end{figure}
 
 Se modifico el menu de los controles del simulador.
@@ -1995,7 +1981,7 @@ Se modifico el menu de los controles del simulador.
 \caption{Controles del simulador}\label{fig:controles}
 \end{figure}
 
-Se eliminaron los registros de 16 bits y se redujo el tamaño de los registros a 8 bits, lo que simplifica la representación y manipulación de datos. Esta decisión se fundamenta en la necesidad de reducir la complejidad del modelo para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras.
+Se eliminaron los registros de 16 bits y se redujo el tamaño de los registros a 8 bits, lo que simplifica la representación y manipulación de datos. Esta decisión se fundamenta en la necesidad de reducir la complejidad del modelo para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Tambien se unifico el criterio del diseño de los registro, ahora todos los registros tienen una entrada y una salida independiente, lo que permite una visualización más clara de cómo se transfieren los datos entre los registros y la ALU (Unidad Aritmético Lógica). Esta modificación es esencial para comprender el flujo de datos en el ciclo de instrucción y la interacción entre los componentes del procesador. Tambien se ocultaron los registros registro SP y (\texttt{ri} e \texttt{id}) que se habilitan automaticamente al ejecutar una instrucción que requiera su uso.
 
 \begin{figure}
 
@@ -2017,24 +2003,24 @@ Se elimino el uso de los registros temporales de la ALU (\texttt{left} y \texttt
 \caption{Eliminación registro temporales left y rigth}\label{fig:leftrigth}
 \end{figure}
 
-Tambien se ocultaron los registros registro SP y (\texttt{ri} e \texttt{id}) que se habilitan automaticamente al
-ejecutar una instrucción que requiera su uso.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Simplificación del repertorio instruccional para una introducción gradual;
+\item
+  Reducción a registros y memoria de 8\,bits, coherente con la escala de enseñanza;
+\item
+  Interfaz gráfica esquemática que muestra el flujo de ejecución;
+\item
+  Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.
+\end{enumerate}
 
-\begin{figure}
-
-{\centering \includegraphics[width=0.85\linewidth]{images/idri} 
-
-}
-
-\caption{Ocultamiento automatico}\label{fig:idri}
-\end{figure}
-
-Todos los registros CPU tienen una entrada y una salida indepediente.
+Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo \protect\hyperlink{ref-bonwell1991active}{{[}67{]}}.
 
 \hypertarget{estructura-del-vonsim8}{%
 \subsection{Estructura del VonSim8}\label{estructura-del-vonsim8}}
 
-Esta sección describe la estructura del simulador VonSim8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}. Se describe en la siguiente tabla \ref{tab:estructuravonsim8} los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:
+Esta sección describe la estructura del simulador VonSims8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}14{]}}. Se describe en la siguiente tabla \ref{tab:estructuravonsim8} los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:
 
 \begin{table}[!h]
 \centering
@@ -3476,6 +3462,10 @@ Relevar necesidades, experiencias y percepciones de docentes especializados en l
 \leavevmode\vadjust pre{\hypertarget{ref-vonsim}{}}%
 \CSLLeftMargin{{[}73{]} }%
 \CSLRightInline{J. M. S. Facundo Quiroga Manuel Bustos Berrondo, {``VonSim - simulador de arquitectura de von neumann.''} \url{https://vonsim.github.io/}, 2020.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-opensource_licensing_2024}{}}%
+\CSLLeftMargin{{[}74{]} }%
+\CSLRightInline{Open Source Initiative, {``Open source licenses: Understanding {GPL}, {MIT}, and {Apache} licenses.''} 2024. Accessed: Jan. 15, 2024. {[}Online{]}. Available: \url{https://opensource.org/licenses/}}
 
 \end{CSLReferences}
 
