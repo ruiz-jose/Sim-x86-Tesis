@@ -266,6 +266,9 @@ knitr::include_graphics(path = "images/resaltadoipintsp.png")
 
 Se resalta el vector de interrucciones.
 Se resalta el programa en memoria pudiendo ver la instruccion y su tamaño en bytes que ocupa en memoria, ademas la etiqueta asociada a los datos.
+No es obligatorio la directiva org para indicar la dirección de inicio del programa, ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
+Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva `org` para establecerla. Por ejemplo, `org 0x20` indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva `org` para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. El simulador comienza a ejecutar el programa desde la dirección 0x00, a menos que se indique lo contrario con `org`.
+En caso de tener interrupciones y no indicarse la directiva `org`, el simulador asigna automáticamente la dirección 0x20 al primer byte del programa, porque las interrupciones se gestionan a partir de la dirección `0x00`. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
 
 
 
