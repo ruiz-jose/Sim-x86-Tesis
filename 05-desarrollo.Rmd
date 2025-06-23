@@ -261,19 +261,19 @@ knitr::include_graphics(path = "images/memoriacomp.png")
 Resaldo de la direccion de memoria apuntada por el registro IP.
 
 ```{r resaltadoip, echo=FALSE, fig.cap="Resaltado registro IP", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/resaltadoipintsp.png")
+knitr::include_graphics(path = "images/resaltadoip.png")
 ```
 
 Cuando el progrma tiene instrucciones INT o de manejo de pila se resalta en memoria el el vector de interrucciones, 8 posiciones de memoria desde ` 0x00` a ` 0x07` y la dirección apuntada por el registro SP:
 
 ```{r resaltadointsp, echo=FALSE, fig.cap="Resaltado vector de interrupciones y registro SP", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/resaltadoipintsp.png")
+knitr::include_graphics(path = "images/resaltadointsp.png")
 ```
 
 Visor de instrucciones y datos del programa en memoria, pudiendo ver la instruccion y su tamaño en bytes que ocupa en memoria, ademas la etiqueta asociada a los datos.
 
-```{r visorint, echo=FALSE, fig.cap="Resaltado vector de interrupciones y registro SP", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/resaltadoipintsp.png")
+```{r visorprog, echo=FALSE, fig.cap="Resaltado vector de interrupciones y registro SP", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/visorprog.png")
 ```
 
 En el VonSim cuando se escribe un programa en el editor del simulador es obligatorio que la sección de codigo inicie con la directiva `org 0x2000h`, porque el simulador comienza a ejecutar la primer instruccion del programa a partir de la dirección de memoria `0x2000h`, esto se indica al comienzo del programa mediante la directiva `org 0x2000h` y los datos del programa generalmente se cargan a partir de la dirección de memoria `0x1000h` mediante la directiva `org 0x1000h`.
