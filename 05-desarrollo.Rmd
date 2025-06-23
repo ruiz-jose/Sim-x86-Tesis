@@ -258,19 +258,29 @@ La memoria principal se modela como una matriz de 16×16 expresada en hexadecima
 knitr::include_graphics(path = "images/memoriacomp.png")
 ```
 
-Resaldo de la direccion de memoria apuntadas por los registros IP y SP.
+Resaldo de la direccion de memoria apuntada por el registro IP.
 
-```{r resaltadoipintsp, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "85%"}
+```{r resaltadoip, echo=FALSE, fig.cap="Resaltado registro IP", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/resaltadoipintsp.png")
 ```
 
-Se resalta el vector de interrucciones.
-Se resalta el programa en memoria pudiendo ver la instruccion y su tamaño en bytes que ocupa en memoria, ademas la etiqueta asociada a los datos.
-No es obligatorio la directiva org para indicar la dirección de inicio del programa, ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
-Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva `org` para establecerla. Por ejemplo, `org 0x20` indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva `org` para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. El simulador comienza a ejecutar el programa desde la dirección 0x00, a menos que se indique lo contrario con `org`.
-En caso de tener interrupciones y no indicarse la directiva `org`, el simulador asigna automáticamente la dirección 0x20 al primer byte del programa, porque las interrupciones se gestionan a partir de la dirección `0x00`. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
+Cuando el progrma tiene instrucciones INT o de manejo de pila se resalta en memoria el el vector de interrucciones, 8 posiciones de memoria desde ` 0x00` a ` 0x07` y la dirección apuntada por el registro SP:
 
+```{r resaltadointsp, echo=FALSE, fig.cap="Resaltado vector de interrupciones y registro SP", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/resaltadoipintsp.png")
+```
 
+Visor de instrucciones y datos del programa en memoria, pudiendo ver la instruccion y su tamaño en bytes que ocupa en memoria, ademas la etiqueta asociada a los datos.
+
+```{r resaltadointsp, echo=FALSE, fig.cap="Resaltado vector de interrupciones y registro SP", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/resaltadoipintsp.png")
+```
+
+En el VonSim cuando se escribe un programa en el editor del simulador es obligatorio que la sección de codigo inicie con la directiva `org 0x2000h`, porque el simulador comienza a ejecutar la primer instruccion del programa a partir de la dirección de memoria `0x2000h`, esto se indica al comienzo del programa mediante la directiva `org 0x2000h` y los datos del programa generalmente se cargan a partir de la dirección de memoria `0x1000h` mediante la directiva `org 0x1000h`.
+En VonSim8 no es obligatorio la directiva `org` para indicar la dirección de inicio del programa sino opcional, por default si el programa no tiene la directiva `org` la primer instruccion del programa comienza a cargarse en la dirección `0x00h`, y en caso que el programa tenga instrucciones de interrupcion `INT` el programa se cargará a partir de la direccion `0x08h` para dejar espacio al vector de interrupciones.
+VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en utilizar la directiva `org 0x2000h` utiliza org `0x20h` y el simulador comienza a ejecutar la instruccion que se encuentra en la dirección `0x20h` de la memoria vez de cargar en la posicion ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
+Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva `org` para establecerla. Por ejemplo, `org 0x20h` indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva `org` para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. El simulador comienza a ejecutar el programa desde la dirección 0x00, a menos que se indique lo contrario con `org`.
+En caso de tener interrupciones y no indicarse la directiva `org`, el simulador asigna automáticamente la dirección 0x20 al primer byte del programa, porque las interrupciones se gestionan a partir de la dirección `0x00h`. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
 
 1. Simplificación del repertorio instruccional para una introducción gradual;
 
