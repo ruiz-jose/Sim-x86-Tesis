@@ -390,18 +390,32 @@ Figura 5.11: Eliminación registro temporales left y rigth
 Figura 5.12: Memoria principal
 </p>
 </div>
-<p>Resaldo de la direccion de memoria apuntadas por los registros IP y SP.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadoipintsp"></span>
-<img src="images/resaltadoipintsp.png" alt="Memoria principal" width="85%" />
+<p>Resaldo de la direccion de memoria apuntada por el registro IP.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadoip"></span>
+<img src="images/resaltadoipintsp.png" alt="Resaltado registro IP" width="85%" />
 <p class="caption">
-Figura 5.13: Memoria principal
+Figura 5.13: Resaltado registro IP
 </p>
 </div>
-<p>Se resalta el vector de interrucciones.
-Se resalta el programa en memoria pudiendo ver la instruccion y su tamaño en bytes que ocupa en memoria, ademas la etiqueta asociada a los datos.
-No es obligatorio la directiva org para indicar la dirección de inicio del programa, ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
-Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva <code>org</code> para establecerla. Por ejemplo, <code>org 0x20</code> indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva <code>org</code> para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. El simulador comienza a ejecutar el programa desde la dirección 0x00, a menos que se indique lo contrario con <code>org</code>.
-En caso de tener interrupciones y no indicarse la directiva <code>org</code>, el simulador asigna automáticamente la dirección 0x20 al primer byte del programa, porque las interrupciones se gestionan a partir de la dirección <code>0x00</code>. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.</p>
+<p>Cuando el progrma tiene instrucciones INT o de manejo de pila se resalta en memoria el el vector de interrucciones, 8 posiciones de memoria desde <code>0x00</code> a <code>0x07</code> y la dirección apuntada por el registro SP:</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadointsp"></span>
+<img src="images/resaltadoipintsp.png" alt="Resaltado vector de interrupciones y registro SP" width="85%" />
+<p class="caption">
+Figura 5.14: Resaltado vector de interrupciones y registro SP
+</p>
+</div>
+<p>Visor de instrucciones y datos del programa en memoria, pudiendo ver la instruccion y su tamaño en bytes que ocupa en memoria, ademas la etiqueta asociada a los datos.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:visorint"></span>
+<img src="images/resaltadoipintsp.png" alt="Resaltado vector de interrupciones y registro SP" width="85%" />
+<p class="caption">
+Figura 5.15: Resaltado vector de interrupciones y registro SP
+</p>
+</div>
+<p>En el VonSim cuando se escribe un programa en el editor del simulador es obligatorio que la sección de codigo inicie con la directiva <code>org 0x2000h</code>, porque el simulador comienza a ejecutar la primer instruccion del programa a partir de la dirección de memoria <code>0x2000h</code>, esto se indica al comienzo del programa mediante la directiva <code>org 0x2000h</code> y los datos del programa generalmente se cargan a partir de la dirección de memoria <code>0x1000h</code> mediante la directiva <code>org 0x1000h</code>.
+En VonSim8 no es obligatorio la directiva <code>org</code> para indicar la dirección de inicio del programa sino opcional, por default si el programa no tiene la directiva <code>org</code> la primer instruccion del programa comienza a cargarse en la dirección <code>0x00h</code>, y en caso que el programa tenga instrucciones de interrupcion <code>INT</code> el programa se cargará a partir de la direccion <code>0x08h</code> para dejar espacio al vector de interrupciones.
+VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en utilizar la directiva <code>org 0x2000h</code> utiliza org <code>0x20h</code> y el simulador comienza a ejecutar la instruccion que se encuentra en la dirección <code>0x20h</code> de la memoria vez de cargar en la posicion ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
+Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva <code>org</code> para establecerla. Por ejemplo, <code>org 0x20h</code> indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva <code>org</code> para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. El simulador comienza a ejecutar el programa desde la dirección 0x00, a menos que se indique lo contrario con <code>org</code>.
+En caso de tener interrupciones y no indicarse la directiva <code>org</code>, el simulador asigna automáticamente la dirección 0x20 al primer byte del programa, porque las interrupciones se gestionan a partir de la dirección <code>0x00h</code>. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.</p>
 <ol style="list-style-type: decimal">
 <li><p>Simplificación del repertorio instruccional para una introducción gradual;</p></li>
 <li><p>Reducción a registros y memoria de 8 bits, coherente con la escala de enseñanza;</p></li>
@@ -504,32 +518,32 @@ Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten divers
 </tr>
 </tbody>
 </table>
-<p>La Figura <a href="diseño-del-simulador.html#fig:esquemavonsim8">5.14</a> presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Dicha representación facilita la comprensión estructural del sistema y su analogía con una arquitectura computacional real, simplificada para fines educativos.</p>
+<p>La Figura <a href="diseño-del-simulador.html#fig:esquemavonsim8">5.16</a> presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Dicha representación facilita la comprensión estructural del sistema y su analogía con una arquitectura computacional real, simplificada para fines educativos.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:esquemavonsim8"></span>
 <img src="images/esquemavonsim8.png" alt="Arquitectura general del simulador" width="85%" />
 <p class="caption">
-Figura 5.14: Arquitectura general del simulador
+Figura 5.16: Arquitectura general del simulador
 </p>
 </div>
 <p>La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:memoria"></span>
 <img src="images/memoria.png" alt="Memoria principal" width="85%" />
 <p class="caption">
-Figura 5.15: Memoria principal
+Figura 5.17: Memoria principal
 </p>
 </div>
 <p>El bus de datos, direcciones y control se implementa como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Este bus es esencial para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida, y su diseño modular permite una fácil expansión en futuras versiones del simulador.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:buses"></span>
 <img src="images/buses.png" alt="Buses" width="85%" />
 <p class="caption">
-Figura 5.16: Buses
+Figura 5.18: Buses
 </p>
 </div>
 <p>El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tecladopantalla"></span>
 <img src="images/tecladopantalla.png" alt="Teclado y pantalla" width="85%" />
 <p class="caption">
-Figura 5.17: Teclado y pantalla
+Figura 5.19: Teclado y pantalla
 </p>
 </div>
 <p>La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla <a href="diseño-del-simulador.html#tab:bloquesfuncionales">5.4</a> resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.</p>
