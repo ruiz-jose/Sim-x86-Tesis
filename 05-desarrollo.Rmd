@@ -64,7 +64,7 @@ Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual
         column_spec(3, width = "6cm") %>%
         row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
         row_spec(seq_len(nrow(activacionprogresiva)),
-                extra_latex_after = "\\addlinespace[10pt]")
+                 extra_latex_after = "\\addlinespace[10pt]")
     } else {
       tabla_activacion %>%
         kable_styling(
@@ -146,27 +146,27 @@ tabla_requisitos <- kable(requisitosresumen,
                align = c("c", "c"))
 
 if (knitr::is_latex_output()) {
-  tabla_requisitos %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10,
-    ) %>%
-    column_spec(1, width = "5cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "8cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(requisitosresumen)),
-             extra_latex_after = "\\addlinespace[10pt]")
-} else {
-  tabla_requisitos %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "16em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "32em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-}
+      tabla_requisitos %>%
+        kable_styling(
+          latex_options = c("scale_down", "hold_position"),
+          font_size = 10
+        ) %>%
+        column_spec(1, width = "5cm", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2, width = "8cm") %>%
+        row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+        row_spec(seq_len(nrow(requisitosresumen)),
+                 extra_latex_after = "\\addlinespace[10pt]")
+    } else {
+      tabla_requisitos %>%
+        kable_styling(
+          bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+          full_width = FALSE,
+          position = "center"
+        ) %>%
+        column_spec(1, width = "16em", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2, width = "32em") %>%
+        row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+    }
 ```
 
 ### Fundamentación de los requisitos del simulador
@@ -276,7 +276,7 @@ Visor de instrucciones y datos del programa en memoria, pudiendo ver la instrucc
 knitr::include_graphics(path = "images/visorprog.png")
 ```
 
-En el VonSim cuando se escribe un programa en el editor del simulador es obligatorio que la sección de codigo inicie con la directiva `org 0x2000h`, porque el simulador comienza a ejecutar la primer instruccion del programa a partir de la dirección de memoria `0x2000h`, esto se indica al comienzo del programa mediante la directiva `org 0x2000h` y los datos del programa generalmente se cargan a partir de la dirección de memoria `0x1000h` mediante la directiva `org 0x1000h`.
+En el VonSim cuando se escribe un programa en el editor del simulador es obligatorio que la sección de codigo inicie con la directiva `org 0x2000h`, porque el simulador comienza a ejecutar la primer instrucción del programa a partir de la dirección de memoria `0x2000h`, esto se indica al comienzo del programa mediante la directiva `org 0x2000h` y los datos del programa generalmente se cargan a partir de la dirección de memoria `0x1000h` mediante la directiva `org 0x1000h`.
 
 En VonSim8 no es obligatorio la directiva `org` para indicar la dirección de inicio del programa sino opcional, por default si el programa no tiene la directiva `org` la primer instruccion del programa comienza a cargarse en la dirección `0x00h`, y en caso que el programa tenga instrucciones de interrupcion `INT` el programa se cargará a partir de la direccion `0x08h` para dejar espacio al vector de interrupciones.
 VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en utilizar la directiva `org 0x2000h` utiliza org `0x20h` y el simulador comienza a ejecutar la instruccion que se encuentra en la dirección `0x20h` de la memoria vez de cargar en la posicion ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
@@ -715,7 +715,8 @@ Bucle:      mov AL, [BL]      ; AL = vector[indice]
 Proximo:    add BL, 1         ; BL = BL + 1 
             add CL, 1         ; CL = CL + 1            
             jmp Condicion 
-FinBucle: 	hlt\\end{lstlisting}
+FinBucle: 	hlt
+\\end{lstlisting}
   ")
 } else {
   cat("
@@ -740,7 +741,6 @@ FinBucle: 	hlt```")
 
 Estas instrucciones permiten a los estudiantes comprender cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
 Estas categorías de instrucciones se seleccionaron cuidadosamente para proporcionar una base sólida en los conceptos fundamentales de la arquitectura x86, permitiendo a los estudiantes familiarizarse con las operaciones más comunes y relevantes sin la complejidad adicional de un repertorio completo.
-
 Estas categorías se alinean con los objetivos pedagógicos del curso, permitiendo a los estudiantes familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo. 
 
 A traves de la implementación de estas instrucciones, el simulador VonSim8 busca proporcionar una experiencia de aprendizaje que facilite la comprensión de los principios fundamentales de la arquitectura de computadores, al tiempo que se minimiza la carga cognitiva en las etapas iniciales del aprendizaje. Permite al alumno entender como se ejecutan los operaciones artimeticas en la computadora, como se transfieren los datos entre registros y memoria, y como se controla el flujo de ejecución de un programa.
