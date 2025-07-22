@@ -247,6 +247,7 @@ knitr::include_graphics(path = "images/registros.png")
 ```
 
 Se elimino el uso de los registros temporales de la ALU (`left` y `rigth`).
+Por una cuestion de diseño del simulador algunos registros tienen la entrada y salida de manera horizontal y otros vertical, pero su funcionamiento es el mismo.
 
 ```{r leftrigth, echo=FALSE, fig.cap="Eliminación registro temporales left y rigth", fig.align = 'center', out.width = "85%"}    
 knitr::include_graphics(path = "images/leftrigth.png")
@@ -282,8 +283,6 @@ En VonSim8 no es obligatorio la directiva `org` para indicar la dirección de in
 VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en utilizar la directiva `org 0x2000h` utiliza org `0x20h` y el simulador comienza a ejecutar la instruccion que se encuentra en la dirección `0x20h` de la memoria vez de cargar en la posicion ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
 
 Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva `org` para establecerla. Por ejemplo, `org 0x20h` indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva `org` para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. Sino se especifica la directiva `org` en el programa el simulador comienza a ejecutar el programa desde la dirección `0x00h`, en caso de que el programa tenga instrucciones de interrupción `INT`, el simulador asigna automáticamente la dirección `0x08h` al primer byte del programa, dejando espacio para el vector de interrupciones.
-
-
 
 
 1. Simplificación del repertorio instruccional para una introducción gradual;
@@ -380,6 +379,8 @@ El bus de datos, direcciones y control se implementa como un conjunto de líneas
 ```{r buses, echo=FALSE, fig.cap="Buses", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/buses.png")
 ```
+
+Dentro de los buses interno de la CPU se incluyen circulos que representan circuitos multiplexores, que son componentes clave en la selección de datos y direcciones durante el ciclo de instrucción. Estos multiplexores permiten dirigir las señales adecuadas a los registros y a la ALU (Unidad Aritmético Lógica), facilitando así el flujo de datos dentro del procesador. Un multiplexor (MUX) es un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una, y solo una, de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida
 
 El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
 
@@ -879,6 +880,49 @@ if (knitr::is_latex_output()) {
 }
 ```
 
+Ejemplo de los modos de direccionamiento:
+
+```{r  codemoddir, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+x db 5
+; ejemplo modos direccionamiento
+; Por registro
+mov dl, al
+
+; Directo
+mov cl, x
+
+; Inmediato
+mov bl, 8
+
+; Indirecto
+mov [bl], cl
+
+hlt\\end{lstlisting}
+  ")
+} else {
+  cat("
+    ```assembly
+x db 5
+; ejemplo modos direccionamiento
+; Por registro
+mov dl, al
+
+; Directo
+mov cl, x
+
+; Inmediato
+mov bl, 8
+
+; Indirecto
+mov [bl], cl
+
+hlt ```")
+}
+```
+
 ### Codificación de instrucciones
 El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
 
@@ -948,9 +992,6 @@ if (knitr::is_latex_output()) {
     )
 }
 ```
-
-
-
 
 ```{r instcodif, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1076,8 +1117,6 @@ if (knitr::is_latex_output()) {
     )
 }
 ```
-
-
 
 El formato ampliado para las instrucciones incluye los siguientes casos tabla \@ref(tab:formatoampliado):
 
