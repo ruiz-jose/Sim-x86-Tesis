@@ -376,7 +376,8 @@ Figura 5.9: Controles del simulador
 Figura 5.10: Registro de 8 bits
 </p>
 </div>
-<p>Se elimino el uso de los registros temporales de la ALU (<code>left</code> y <code>rigth</code>).</p>
+<p>Se elimino el uso de los registros temporales de la ALU (<code>left</code> y <code>rigth</code>).
+Por una cuestion de diseño del simulador algunos registros tienen la entrada y salida de manera horizontal y otros vertical, pero su funcionamiento es el mismo.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:leftrigth"></span>
 <img src="images/leftrigth.png" alt="Eliminación registro temporales left y rigth" width="85%" />
 <p class="caption">
@@ -538,6 +539,7 @@ Figura 5.17: Memoria principal
 Figura 5.18: Buses
 </p>
 </div>
+<p>Dentro de los buses interno de la CPU se incluyen circulos que representan circuitos multiplexores, que son componentes clave en la selección de datos y direcciones durante el ciclo de instrucción. Estos multiplexores permiten dirigir las señales adecuadas a los registros y a la ALU (Unidad Aritmético Lógica), facilitando así el flujo de datos dentro del procesador. Un multiplexor (MUX) es un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una, y solo una, de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida</p>
 <p>El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tecladopantalla"></span>
 <img src="images/tecladopantalla.png" alt="Teclado y pantalla" width="85%" />
@@ -965,6 +967,19 @@ Si tiene operando es una dirección de memoria M (*)
 </tr>
 </tfoot>
 </table>
+<p>Ejemplo de los modos de direccionamiento:</p>
+<pre><code>```assembly</code></pre>
+<p>x db 5
+; ejemplo modos direccionamiento
+; Por registro
+mov dl, al</p>
+<p>; Directo
+mov cl, x</p>
+<p>; Inmediato
+mov bl, 8</p>
+<p>; Indirecto
+mov [bl], cl</p>
+<p>hlt ```</p>
 </div>
 <div id="codificación-de-instrucciones" class="section level3 hasAnchor" number="5.2.5">
 <h3><span class="header-section-number">5.2.5</span> Codificación de instrucciones<a href="diseño-del-simulador.html#codificación-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>

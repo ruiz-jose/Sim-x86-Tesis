@@ -1993,6 +1993,7 @@ Se eliminaron los registros de 16 bits y se redujo el tamaño de los registros a
 \end{figure}
 
 Se elimino el uso de los registros temporales de la ALU (\texttt{left} y \texttt{rigth}).
+Por una cuestion de diseño del simulador algunos registros tienen la entrada y salida de manera horizontal y otros vertical, pero su funcionamiento es el mismo.
 
 \begin{figure}
 
@@ -2136,6 +2137,8 @@ El bus de datos, direcciones y control se implementa como un conjunto de líneas
 
 \caption{Buses}\label{fig:buses}
 \end{figure}
+
+Dentro de los buses interno de la CPU se incluyen circulos que representan circuitos multiplexores, que son componentes clave en la selección de datos y direcciones durante el ciclo de instrucción. Estos multiplexores permiten dirigir las señales adecuadas a los registros y a la ALU (Unidad Aritmético Lógica), facilitando así el flujo de datos dentro del procesador. Un multiplexor (MUX) es un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una, y solo una, de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida
 
 El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
 
@@ -2432,6 +2435,25 @@ Estos modos de direccionamiento permiten al simulador representar una variedad d
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
+
+Ejemplo de los modos de direccionamiento:
+
+\begin{lstlisting}
+x db 5
+; ejemplo modos direccionamiento
+; Por registro
+mov dl, al
+
+; Directo
+mov cl, x
+
+; Inmediato
+mov bl, 8
+
+; Indirecto
+mov [bl], cl
+
+hlt\end{lstlisting}
 
 \hypertarget{codificaciuxf3n-de-instrucciones}{%
 \subsection{Codificación de instrucciones}\label{codificaciuxf3n-de-instrucciones}}
