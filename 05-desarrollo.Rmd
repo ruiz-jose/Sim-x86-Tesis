@@ -443,6 +443,8 @@ El repertorio de instrucciones se diseñó como una abstracción deliberada insp
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
+Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida se presentan más instrccciones.
+
 ```{r setreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
@@ -904,7 +906,7 @@ hlt\\end{lstlisting}
   ")
 } else {
   cat("
-    ```assembly
+  ```assembly
 x db 5
 ; ejemplo modos direccionamiento
 ; Por registro
@@ -919,9 +921,11 @@ mov bl, 8
 ; Indirecto
 mov [bl], cl
 
-hlt ```")
+hlt
+```")
 }
 ```
+	     
 
 ### Codificación de instrucciones
 El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
@@ -999,7 +1003,7 @@ library(kableExtra)
 
 instcodif <- data.frame(
   CodOp = c(
-    "0", "1", "1", "1", "2", "2", "2", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "C", "C", "C", "F"
+    "0", "1", "1", "1", "2", "2", "2", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "C", "C", "C", "D"
   ),
   Instrucción = c(
     "`MOV Rx, Ry`", "`MOV Rx, [M]`", "`MOV Rx, [BL]`", "`MOV Rx, D`",
@@ -1016,7 +1020,7 @@ instcodif <- data.frame(
     "`0010 00YY MMMMMMMM`", "`0010 01YY`", "`0010 1100 MMMMMMMM dddddddd`", "`0010 1101 MMMMMMMM`",
     "`0011 XXYY`", "`0100 ---- --------`", "`0101 ---- -------- --------`", "`0110 XXYY`", "`0111 ---- --------`",
     "`1000 ---- -------- --------`", "`1001 XXYY`", "`1010 ---- --------`", "`1011 ---- -------- --------`",
-    "`1100 0000 MMMMMMMM`", "`1100 0001 MMMMMMMM`", "`1100 0011 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1111 ----`"
+    "`1100 0000 MMMMMMMM`", "`1100 0001 MMMMMMMM`", "`1100 0011 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1101 0000 00000000`",
   ),
   stringsAsFactors = FALSE
 )
@@ -1193,21 +1197,22 @@ knitr::include_graphics(path = "images/cicloinstruccion2.png")
 ### Etapa de Captación: 
 En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
 
-  1. **`MAR` $\leftarrow$ `IP`**:
-  el contenido del registro puntero de instrucciones `IP` se transfiere al registro de direcciones de memoria `MAR`. La UC genera la señal necesaria para seleccionar el valor del `IP` y copiarlo en el `MAR`.
-  2. **`MDR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**:
-  la UC activa la señal de lectura (read) hacia la memoria, utilizando el valor del `MAR` como dirección. El dato leído se transfiere al registro de datos de memoria `MBR` a través del bus de datos. Simultáneamente, el `IP` se incrementa en 1 para apuntar al siguiente byte.
-  3. **`IR` $\leftarrow$ `MBR`**:
-  el contenido del `MBR` se transfiere al registro de instrucciones `IR`, completando la etapa de captación. 
+1. **`MAR` $\leftarrow$ `IP`**:
+La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (`IP`) al registro de direcciones de memoria (`MAR`). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.
+2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**:
+La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (`MAR`). El dato leído se transfiere al registro de datos de memoria (`MBR`) mediante el bus de datos. Simultáneamente, el registro (`IP`) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente.
+3. **`IR` $\leftarrow$ `MBR`**:
+Finalmente, el contenido del registro de datos de memoria (`MBR`) se copia en el registro de instrucciones (`IR`). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada. 
 
 ### Etapa de Ejecución:
 En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
 
-* MOV `Rx`, `Ry` (Copia entre registros)
+#### Destino registro
+* MOV `Rx`, `Ry` (Entre registros)
   1. **`Rx` $\leftarrow$ `Ry`**:
   el contenido del registro `Ry` se copia en el registro `Rx`.
 
-* MOV `Rx`, `[Dirección]` (Carga a registro)
+* MOV `Rx`, `[Dirección]` (Directo)
   1. **`MAR` $\leftarrow$ `IP`**:
   el valor del `IP` se transfiere a `MAR`.
   2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
@@ -1219,12 +1224,36 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
   5. **`Rx`  $\leftarrow$ `MBR`**:
   el contenido del `MBR` se copia al registro `Rx`.
 
-* MOV `[Dirección]`, `Ry` (Almacenar en memoria)     
+* MOV `Rx`, `Dato` (Inmediato)
+  1. **`MAR` $\leftarrow$ `IP`**:
+  El valor del `IP` se transfiere a `MAR`.
+  2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
+  Se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
+  3. **`Rx`  $\leftarrow$ `MBR`**:
+  El contenido del `MBR` se copia al registro `Rx`.
+
+
+  * MOV `Rx`, `[BL]` (Indirecto) 
+  1. **`MAR` $\leftarrow$ `IP`**:
+  El valor del `IP` se transfiere a `MAR`.
+  2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
+  Se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
+  3. **`MAR` $\leftarrow$ `BL`**:
+  El contenido de `BL` se transfiere a `MAR`.
+  4. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**:
+  Se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
+  5. **`Rx`  $\leftarrow$ `MBR`**:
+  El contenido del `MBR` se copia al registro `Rx`.
+
+  #### Destino Memoria
+
+* MOV `[Dirección]`, `Ry` (Directo)     
   1. 2. 3. igual que MOV `Rx`, `[Dirección]`.
   4. **`MBR` $\leftarrow$ `Ry`**:
   el contenido de `Ry` se transfiere a `MBR`.
   5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
   el contenido de `MBR` se escribe (write) en memoria en la dirección apuntada por el `MAR`.
+
 
 * ADD  `Rx`, `[Dirección]` (Sumar a registro)
   1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
@@ -1258,27 +1287,10 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
   3. `Si Z` == 1: **`IP` $\leftarrow$ `MBR`**:
   si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
 
-### Ciclo de la instrucción: modos adicionales
 
-* MOV `Rx`, `[BL]` (Carga indirecto) 
-  1. **`MAR` $\leftarrow$ `IP`**:
-  El valor del `IP` se transfiere a `MAR`.
-  2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
-  Se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
-  3. **`MAR` $\leftarrow$ `BL`**:
-  El contenido de `BL` se transfiere a `MAR`.
-  4. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**:
-  Se lee de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.
-  5. **`Rx`  $\leftarrow$ `MBR`**:
-  El contenido del `MBR` se copia al registro `Rx`.
 
-* MOV `Rx`, `Dato` (Carga valor inmediato)
-  1. **`MAR` $\leftarrow$ `IP`**:
-  El valor del `IP` se transfiere a `MAR`.
-  2. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**:
-  Se lee (read) de memoria el contenido de la dirección indicada por `MAR` y se almacena en `MBR`.Simultáneamente, el `IP` se incrementa.
-  3. **`Rx`  $\leftarrow$ `MBR`**:
-  El contenido del `MBR` se copia al registro `Rx`.
+
+
 
 ## Tercera etapa
 En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
