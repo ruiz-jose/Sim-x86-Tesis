@@ -2055,6 +2055,43 @@ VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en
 
 Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva \texttt{org} para establecerla. Por ejemplo, \texttt{org\ 0x20h} indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva \texttt{org} para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. Sino se especifica la directiva \texttt{org} en el programa el simulador comienza a ejecutar el programa desde la dirección \texttt{0x00h}, en caso de que el programa tenga instrucciones de interrupción \texttt{INT}, el simulador asigna automáticamente la dirección \texttt{0x08h} al primer byte del programa, dejando espacio para el vector de interrupciones.
 
+El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor.
+En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT} número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+Específicamente, el procesador:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  obtiene el número de la interrupción (0-7),
+\item
+  apila el registro {[}\texttt{FLAGS}{]},
+\item
+  inhabilita las interrupciones (\texttt{IF=0}),
+\item
+  apila el registro \texttt{IP},
+\item
+  obtiene la dirección de la rutina de interrupción del vector de interrupciones,
+\item
+  modifica el \texttt{IP} para que apunte a la dirección de la rutina de interrupción.
+\end{enumerate}
+
+El simulador implementas las interrupciones por software mediante la instrucción \texttt{INT\ \textless{}n\textgreater{}}. Estos números son:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{INT\ 0}: termina la ejecución del programa, equivalente a la instrucción {[}\texttt{HLT}{]};
+\item
+  \texttt{INT\ 6}: lee un carácter del {[}teclado{]};
+\item
+  \texttt{INT\ 7}: escribe una cadena de caracteres en {[}pantalla{]}.
+\end{itemize}
+
+\hypertarget{requisitos-funcionales-del-simulador-vonsim8}{%
+\subsection{Requisitos funcionales del simulador VonSim8}\label{requisitos-funcionales-del-simulador-vonsim8}}
+
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
@@ -2511,8 +2548,8 @@ C: Almacenar en memoria & MOV [M], Ry & Mem[Dirección] ← Rx\\
  & CMP [M], d & Mem[Dirección] - dato\\
  & CMP [BL], d & Mem[BL] - dato\\
 D: control de flujo & JMP M & IP ← Dirección\\
- & JC M & Si C = 1 entonces IP ← Dirección\\
  & JZ M & Si Z = 1 entonces IP ← Dirección\\
+ & JC M & Si C = 1 entonces IP ← Dirección\\
 \addlinespace
  & HLT & Detiene el procesador\\
 \bottomrule
@@ -2573,9 +2610,9 @@ D: control de flujo & JMP M & IP ← Dirección\\
 \addlinespace[10pt]
 \textbf{C} & \texttt{JMP M} & 1 & \texttt{1100 0000 MMMMMMMM}\\
 \addlinespace[10pt]
-\textbf{C} & \texttt{JC M} & 1 & \texttt{1100 0001 MMMMMMMM}\\
+\textbf{C} & \texttt{JZ M} & 1 & \texttt{1100 0001 MMMMMMMM}\\
 \addlinespace[10pt]
-\textbf{C} & \texttt{JZ M} & 1 & \texttt{1100 0011 MMMMMMMM}\\
+\textbf{C} & \texttt{JC M} & 1 & \texttt{1100 0011 MMMMMMMM}\\
 \addlinespace[10pt]
 \addlinespace
 \textbf{C} & \texttt{Jxx M} & 1 & \texttt{1100 ffff MMMMMMMM}\\
@@ -2659,8 +2696,47 @@ Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M 
 \end{threeparttable}}
 \end{table}
 
-\hypertarget{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}{%
-\section{Ciclo de la instrucción: Etapas de captación y ejecución}\label{ciclo-de-la-instrucciuxf3n-etapas-de-captaciuxf3n-y-ejecuciuxf3n}}
+\hypertarget{repertorio-de-instrucciones-1}{%
+\section{Repertorio de instrucciones}\label{repertorio-de-instrucciones-1}}
+
+El repertorio \textbf{x86} es reducido (8 bits)
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1915}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1702}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1277}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5106}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Categoría
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Instrucción
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Código operación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Acción
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Transferencia de datos} & \texttt{MOV} & \{0, 1, 2\} & Copiar entre registros, cargar a registro, almacenar en memoria \\
+\end{longtable}
+
+\textbf{Procesamiento de datos}\textbar{} \texttt{ADD} \textbar{} \{3, 4, 5\} \textbar{} Operación aritmética: \texttt{operando1\ ←\ operando1\ +\ operando2} \textbar{}\\
+\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\textbar{} \texttt{SUB} \textbar{} \{6, 7, 8\} \textbar{} Operación aritmética: \texttt{operando1\ ←\ operando1\ -\ operando2} \textbar{}\\
+\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\textbar{} \texttt{CMP} \textbar{} \{9, 10, 11\} \textbar{} Comparación: \texttt{operando1\ -\ operando2} (no actualiza el destino) \textbar{}
+
+\textbf{Control de flujo} \textbar{} \texttt{JMP\ /\ Jxx\ /\ CALL\ /\ RET} \textbar{} \{12\} \textbar{} Salto incondicional \texttt{JMP}, condicionales \texttt{Jxx}, llamada \texttt{CALL}, retorno \texttt{RET} \textbar{}
+
+\textbf{Manejo de pila y E/S} \textbar{} \texttt{PUSH\ /\ POP\ /\ OUT\ /\ IN} \textbar{} \{13\} \textbar{} \texttt{PUSH}: poner en la pila\texttt{POP}: retirar de la pila\texttt{OUT}: enviar a puerto\texttt{IN}: recibir desde puerto \textbar{}
+
+\textbf{Manejo de interrupción}\textbar{} \texttt{INT\ /\ IRET\ /\ NOP\ /\ HLT}\textbar{} \{14\} \textbar{} \texttt{INT}: llamar rutina de interrupción\texttt{IRET}: retornar de interrupción\texttt{NOP}: no opera\texttt{HLT}: detiene el CPU \textbar{}
+
+\textbf{Miscelánea} \textbar{} \texttt{AND\ /\ OR\ /\ XOR\ /\ NOT} \textbar{} \{15\} \textbar{} Operaciones lógicas \textbar{}
+
+\hypertarget{ciclo-de-la-instrucciuxf3n}{%
+\section{Ciclo de la instrucción}\label{ciclo-de-la-instrucciuxf3n}}
 
 En este apartado se detalla el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los aspectos clave:
 
@@ -2715,21 +2791,13 @@ En esta etapa, común a todas las instrucciones, consiste en la lectura de la in
 
 En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
 
-\hypertarget{destino-registro}{%
-\subsubsection{Destino registro}\label{destino-registro}}
+Instruccion de transferencia de datos MOV
+\#\#\#\# Destino registro
+* MOV \texttt{Rx}, \texttt{Ry} (Entre registros)
+4. \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}: El valor almacenado en Ry se copia en el registro Rx.
 
 \begin{itemize}
 \tightlist
-\item
-  MOV \texttt{Rx}, \texttt{Ry} (Entre registros)
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \tightlist
-  \item
-    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}: El valor almacenado en Ry se copia en el registro Rx.
-  \end{enumerate}
 \item
   MOV \texttt{Rx}, \texttt{{[}Dirección{]}} (Directo)
 
@@ -2765,12 +2833,8 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
   \item
     \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}: El contenido de MBR se transfiere al registro Rx.
   \end{enumerate}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    MOV \texttt{Rx}, \texttt{{[}BL{]}} (Indirecto)
-  \end{itemize}
+\item
+  MOV \texttt{Rx}, \texttt{{[}BL{]}} (Indirecto)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
@@ -2803,154 +2867,377 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
     \begin{enumerate}
     \def\labelenumii{\arabic{enumii}.}
     \setcounter{enumii}{4}
+    \tightlist
     \item
-      \begin{enumerate}
-      \def\labelenumiii{\arabic{enumiii}.}
-      \setcounter{enumiii}{5}
-      \tightlist
-      \item
-        igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}
-      \end{enumerate}
+      Se obtiene el operando de la instrucción.
     \end{enumerate}
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}: El valor de MBR se transfiere al registro MAR.
+  \item
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}: El contenido de Ry se copia en MBR.
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
+  \end{enumerate}
+\item
+  MOV \texttt{{[}BL{]}}, \texttt{Ry} (Indirecto)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{5}
+  \tightlist
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL se transfiere al registro MAR.
+  \item
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}: El contenido de Ry se copia en MBR.
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
+  \end{enumerate}
+\item
+  MOV \texttt{{[}Dirección{]}}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{4}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR}}: El valor de MBR se transfiere a un registro intermedio (ri).\\
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{7}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}: El contenido de ri se transfiere al registro MAR.
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
+  \end{enumerate}
+\item
+  MOV \texttt{{[}BL{]}}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{4}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL se transfiere al registro MAR.
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
+  \end{enumerate}
+\end{itemize}
+
+Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan las banderas del registro de estado \texttt{RS}.
+\#\#\#\# Destino registro
+* ADD \texttt{Rx}, \texttt{Ry} (Entre registros)
+4. \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry}; update(Flags)}
+
+\begin{itemize}
+\tightlist
+\item
+  ADD \texttt{Rx}, \texttt{{[}Dirección{]}} (Directo)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{4}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}
+  \item
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  ADD \texttt{Rx}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{4}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  ADD \texttt{Rx}, \texttt{{[}BL{]}} (Indirecto)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{4}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
+  \item
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{destino-memoria-1}{%
+\subsubsection{Destino Memoria}\label{destino-memoria-1}}
+
+\begin{itemize}
+\tightlist
+\item
+  ADD \texttt{{[}Dirección{]}}, \texttt{Ry} (Directo)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{4}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}
   \item
     \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}
   \item
     \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
   \end{enumerate}
 \item
-  ADD \texttt{Rx}, \texttt{{[}Dirección{]}} (Sumar a registro)
+  ADD \texttt{{[}BL{]}}, \texttt{Ry} (Indirecto)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{5}
+  \tightlist
   \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{1}
-    \item
-      \begin{enumerate}
-      \def\labelenumiii{\arabic{enumiii}.}
-      \setcounter{enumiii}{2}
-      \item
-        \begin{enumerate}
-        \def\labelenumiv{\arabic{enumiv}.}
-        \setcounter{enumiv}{3}
-        \tightlist
-        \item
-          igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
-        \end{enumerate}
-      \end{enumerate}
-    \end{enumerate}
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
   \item
-    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}}:
-    la Unidad Aritmético-Lógica (ALU) realiza la suma entre \texttt{Rx} y \texttt{MBR}, almacenando el resultado en \texttt{Rx}. El Registro de Estado \texttt{RS} se actualiza con los indicadores correspondientes.
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
   \end{enumerate}
 \item
-  SUB \texttt{{[}Dirección{]}}, \texttt{Ry} (Restar a memoria)
+  ADD \texttt{{[}Dirección{]}}, \texttt{Dato} (Inmediato)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
   \item
     \begin{enumerate}
     \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{1}
-    \item
-      \begin{enumerate}
-      \def\labelenumiii{\arabic{enumiii}.}
-      \setcounter{enumiii}{2}
-      \item
-        \begin{enumerate}
-        \def\labelenumiv{\arabic{enumiv}.}
-        \setcounter{enumiv}{3}
-        \tightlist
-        \item
-          igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
-        \end{enumerate}
-      \end{enumerate}
-    \end{enumerate}
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry} - \texttt{MBR}}:
-    la ALU resta el contenido de \texttt{MBR} al de \texttt{Ry}, almacenando el resultado en \texttt{MBR}. El \texttt{RS} se actualiza.
-  \item
-    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}:
-    el contenido de \texttt{MBR} se escribe en memoria en la dirección apuntada por el \texttt{MAR}.
-  \end{enumerate}
-\item
-  CMP \texttt{Rx}, \texttt{{[}Dirección{]}} (Comparar a registro)
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{1}
-    \item
-      \begin{enumerate}
-      \def\labelenumiii{\arabic{enumiii}.}
-      \setcounter{enumiii}{2}
-      \item
-        \begin{enumerate}
-        \def\labelenumiv{\arabic{enumiv}.}
-        \setcounter{enumiv}{3}
-        \tightlist
-        \item
-          igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
-        \end{enumerate}
-      \end{enumerate}
-    \end{enumerate}
-  \item
-    \textbf{\texttt{Rx} - \texttt{MBR}}:
-    la ALU realiza la resta entre el contenido de \texttt{Rx} y \texttt{MBR}. Aunque el resultado no se almacena, el \texttt{RS} se actualiza con los indicadores de comparación.
-  \end{enumerate}
-\item
-  JMP \texttt{Dirección} (Salto incondicional)
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{1}
+    \setcounter{enumii}{4}
     \tightlist
     \item
-      igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+      Se obtiene el operando de la instrucción.
     \end{enumerate}
   \item
-    \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}:
-    El contenido del \texttt{MBR} se transfiere al registro \texttt{IP}, estableciendo la nueva dirección de ejecución.
+    \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR}}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{7}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+  \end{enumerate}
+\item
+  ADD \texttt{{[}BL{]}}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{4}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+  \end{enumerate}
+\end{itemize}
+
+Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.
+
+\begin{itemize}
+\tightlist
+\item
+  SUB \texttt{Rx}, \texttt{Ry} (Entre registros)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{Ry}; update(Flags)}
+  \end{enumerate}
+\item
+  CMP \texttt{Rx}, \texttt{Ry} (Entre registros)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} - \texttt{Ry}; update(Flags)}
+  \end{enumerate}
+\end{itemize}
+
+Instrucciones de Control de Flujo
+
+Salto incondicional y condicionales:
+* JMP \texttt{Dirección} (Salto incondicional)
+4. 5. Se obtiene el operando de la instrucción.
+6. \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: El contenido del \texttt{MBR} se transfiere al registro \texttt{IP}, estableciendo la nueva dirección de ejecución.
+
+\begin{itemize}
+\tightlist
+\item
+  JZ \texttt{Dirección} (Salto condicional si Z=1)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{4}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    \texttt{Si\ Z} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: Si la bandera de cero (\texttt{Z}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
   \end{enumerate}
 \item
   JC \texttt{Dirección} (Salto condicional si C=1)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
   \item
     \begin{enumerate}
     \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{1}
+    \setcounter{enumii}{4}
     \tightlist
     \item
-      Igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+      Se obtiene el operando de la instrucción.
     \end{enumerate}
   \item
-    \texttt{Si\ C} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}:
-    si la bandera de acarreo (\texttt{C}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
+    \texttt{Si\ C} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: Si la bandera de acarreo (\texttt{C}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
   \end{enumerate}
 \item
-  JZ \texttt{Dirección} (Salto condicional si Z=1)
+  Jxx \texttt{Dirección} (Salto condicional)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
   \item
     \begin{enumerate}
     \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{1}
+    \setcounter{enumii}{4}
     \tightlist
     \item
-      igual que MOV \texttt{Rx}, \texttt{{[}Dirección{]}}.
+      Se obtiene el operando de la instrucción.
     \end{enumerate}
   \item
-    \texttt{Si\ Z} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}:
-    si la bandera de cero (\texttt{Z}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
+    \texttt{Si\ xx} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: Si la condición especificada por \texttt{xx} se cumple, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
+  \end{enumerate}
+\end{itemize}
+
+Rutinas:\\
+* CALL \texttt{Dirección}
+4. 5. Se obtiene el operando de la instrucción.
+6: \texttt{ri} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
+7: \texttt{MAR} \(\leftarrow\) \texttt{SP};
+8: \texttt{MBR} \(\leftarrow\) \texttt{IP}
+9: \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}
+10: \texttt{IP} \(\leftarrow\) \texttt{ri}
+
+\begin{itemize}
+\tightlist
+\item
+  RET
+  4: \texttt{MAR} \(\leftarrow\) \texttt{SP}
+  5: \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
+  6: \texttt{IP} \(\leftarrow\) \texttt{MBR}
+  7: \texttt{SP} \(\leftarrow\) \texttt{SP} + 1
+\end{itemize}
+
+Interrupciones:
+* INT \texttt{Dirección}
+4 y 5: Obtener segundo byte de memoria
+6: \texttt{ri} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
+7: \texttt{MAR} \(\leftarrow\) \texttt{SP}
+8: \texttt{MBR} \(\leftarrow\) \texttt{Ry}
+9: \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}
+10: \texttt{IP} \(\leftarrow\) \texttt{ri}
+
+\begin{itemize}
+\item
+  IRET
+  4: \texttt{MAR} \(\leftarrow\) \texttt{SP}
+  5: \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
+  6: \texttt{IP} \(\leftarrow\) \texttt{MBR};\texttt{SP} \(\leftarrow\) \texttt{SP} + 1
+\item
+  HLT
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \item
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \setcounter{enumii}{4}
+    \tightlist
+    \item
+      Se obtiene el operando de la instrucción.
+    \end{enumerate}
+  \item
+    Detiene CPU.
   \end{enumerate}
 \end{itemize}
 

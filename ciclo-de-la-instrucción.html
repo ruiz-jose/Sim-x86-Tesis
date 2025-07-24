@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.3 Criterios de evaluación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="4.3 Criterios de evaluación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>5.4 Ciclo de la instrucción | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="5.4 Ciclo de la instrucción | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.3 Criterios de evaluación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="5.4 Ciclo de la instrucción | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.3 Criterios de evaluación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="5.4 Ciclo de la instrucción | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="simuladores-bajo-análisis.html"/>
-<link rel="next" href="selección-de-simuladores.html"/>
+<link rel="prev" href="repertorio-de-instrucciones-1.html"/>
+<link rel="next" href="tercera-etapa.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -329,186 +329,262 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="criterios-de-evaluación" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> Criterios de evaluación<a href="criterios-de-evaluación.html#criterios-de-evaluación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Los criterios de evaluación se definieron con el objetivo de realizar un análisis integral y sistemático de los simuladores seleccionados. A continuación, se presentan estos criterios junto con sus respectivos indicadores y escalas:</p>
+<div id="ciclo-de-la-instrucción" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Ciclo de la instrucción<a href="ciclo-de-la-instrucción.html#ciclo-de-la-instrucción" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En este apartado se detalla el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los aspectos clave:</p>
 <ul>
-<li><strong>Usabilidad</strong>: evalúa la facilidad de uso del simulador.
-<ul>
-<li><strong>Indicadores</strong>:
-<ul>
-<li>Facilidad de aprendizaje (tiempo necesario para familiarizarse con la herramienta).</li>
-<li>Interfaz de usuario (claridad y organización).</li>
-<li>Documentación y ayuda (accesibilidad y calidad de tutoriales y guías).</li>
-</ul></li>
-<li><strong>Escala</strong>: Difícil - Media - Fácil.</li>
-</ul></li>
-<li><strong>Editor</strong>: analiza las funcionalidades para escribir y depurar código ensamblador.
-<ul>
-<li><strong>Indicadores</strong>:
-<ul>
-<li>Capacidad de edición (resaltado de sintaxis, puntos de interrupción, etc.).</li>
-<li>Manejo de errores de sintaxis.</li>
-<li>Opciones de almacenamiento (guardar y cargar programas).</li>
-</ul></li>
-<li><strong>Escala</strong>: Baja - Media - Alta.</li>
-</ul></li>
-<li><strong>Documentación</strong>: valora la disponibilidad y calidad de los recursos de aprendizaje proporcionados.
-<ul>
-<li><strong>Indicadores</strong>:
-<ul>
-<li>Manual de usuario.</li>
-<li>Tutoriales de aprendizaje.</li>
-<li>Exhaustividad en la descripción del repertorio de instrucciones.</li>
-</ul></li>
-<li><strong>Escala</strong>: Mínima - Media - Completa.</li>
-</ul></li>
-<li><strong>Ejecución de simulación</strong>: mide la facilidad para controlar y observar la ejecución de programas.
-<ul>
-<li><strong>Indicadores</strong>:
-<ul>
-<li>Control de simulación (pausa, reanudación, retroceso).</li>
-<li>Visualización del flujo de ejecución.</li>
-<li>Configurabilidad (ajuste de parámetros como la velocidad del reloj).</li>
-</ul></li>
-<li><strong>Escala</strong>: Baja - Media - Alta.</li>
-</ul></li>
-<li><strong>Nivel de especificación de la Organización y Arquitectura del sistema simulado</strong>: determina la precisión en la representación de la arquitectura x86.
-<ul>
-<li><strong>Indicadores</strong>:
-<ul>
-<li>Fidelidad en la representación de la arquitectura.</li>
-<li>Completitud del conjunto de instrucciones implementadas.</li>
-<li>Inclusión y funcionalidad de memoria y módulos de E/S.</li>
-</ul></li>
-<li><strong>Escala</strong>: Mínima - Media - Completa.</li>
-</ul></li>
-<li><strong>Características del producto software</strong>: evalúa las propiedades generales del simulador.
-<ul>
-<li><strong>Indicadores</strong>:
-<ul>
-<li>Tipo de licencia (open source o privativa).</li>
-<li>Frecuencia de actualizaciones.</li>
-<li>Plataforma (aplicación web o de escritorio)</li>
-</ul></li>
-<li><strong>Escala</strong>: Mala - Buena - Muy buena.</li>
-</ul></li>
-<li><strong>Cobertura de los contenidos preestablecidos en la currícula</strong>: mide el grado en que el simulador abarca los contenidos de la asignatura.
-<ul>
-<li><strong>Indicadores</strong>:
-<ul>
-<li>Alineación con los tópicos del currículum.</li>
-<li>Profundidad en el tratamiento de los temas.</li>
-</ul></li>
-<li><strong>Escala</strong>: Baja - Media - Alta.</li>
-</ul></li>
+<li>Secuencia de pasos.</li>
+<li>Registros involucrados en cada etapa del proceso.</li>
+<li>Uso de los buses de datos, direcciones y control.</li>
+<li>Señales de control generadas.</li>
 </ul>
-<p>La Tabla <a href="criterios-de-evaluación.html#tab:criterios">4.1</a> resume los criterios, indicadores y escalas utilizadas.</p>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-<span id="tab:criterios">Tabla 4.1: </span>Criterios e indicadores de evaluación de simuladores
-</caption>
-<thead>
-<tr>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Criterio
-</th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Indicadores
-</th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Escala
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-Usabilidad
-</td>
-<td style="text-align:left;width: 15em; ">
-Facilidad de aprendizaje, interfaz, documentación
-</td>
-<td style="text-align:left;width: 15em; ">
-Difícil - Media - Fácil
-</td>
-</tr>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-Funcionalidad del editor
-</td>
-<td style="text-align:left;width: 15em; ">
-Sintaxis, manejo de errores, guardar/cargar
-</td>
-<td style="text-align:left;width: 15em; ">
-Baja - Media - Alta
-</td>
-</tr>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-Calidad de la documentación
-</td>
-<td style="text-align:left;width: 15em; ">
-Manuales, tutoriales, repertorio de instrucciones
-</td>
-<td style="text-align:left;width: 15em; ">
-Mínima - Media - Completa
-</td>
-</tr>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-Ejecución de simulación
-</td>
-<td style="text-align:left;width: 15em; ">
-Control de simulación, visualización del flujo, configurabilidad
-</td>
-<td style="text-align:left;width: 15em; ">
-Baja - Media - Alta
-</td>
-</tr>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-Especificación de arquitectura x86
-</td>
-<td style="text-align:left;width: 15em; ">
-Fidelidad de la arquitectura, repertorio, memoria y E/S
-</td>
-<td style="text-align:left;width: 15em; ">
-Mínima - Media - Completa
-</td>
-</tr>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-Propiedades técnicas y de distribución
-</td>
-<td style="text-align:left;width: 15em; ">
-Licencia, actualizaciones, plataforma
-</td>
-<td style="text-align:left;width: 15em; ">
-Mala - Buena - Muy buena
-</td>
-</tr>
-<tr>
-<td style="text-align:center;width: 20em; font-weight: bold;border-right:1px solid;">
-Alineación con contenidos curriculares
-</td>
-<td style="text-align:left;width: 15em; ">
-Cobertura de tópicos, profundidad del tratamiento
-</td>
-<td style="text-align:left;width: 15em; ">
-Baja - Media - Alta
-</td>
-</tr>
-</tbody>
-</table>
+<p>El <strong>ciclo de la instrucción</strong> se define como la secuencia de microoperaciones necesarias para ejecutar una instrucción en el sistema. Estas microoperaciones se expresan mediante un lenguaje de transferencia entre registros, representado de la forma:</p>
+<p><code>destino</code> <span class="math inline">\(\leftarrow\)</span> <code>origen</code></p>
+<p>La Figura <a href="ciclo-de-la-instrucción.html#fig:flujoCicloInstruccion">5.20</a> ilustra el flujo básico del ciclo de instrucción implementado en el simulador, permitiendo visualizar los pasos secuenciales de búsqueda, decodificación y ejecución.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:flujoCicloInstruccion"></span>
+<img src="images/cicloinstruccion2.png" alt="Flujo del ciclo de instrucción en VonSim8" width="85%" />
+<p class="caption">
+Figura 5.20: Flujo del ciclo de instrucción en VonSim8
+</p>
+</div>
+<div id="etapa-de-captación" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Etapa de Captación:<a href="ciclo-de-la-instrucción.html#etapa-de-captación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.</p>
+<ol style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>:
+La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (<code>IP</code>) al registro de direcciones de memoria (<code>MAR</code>). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> ; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>:
+La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (<code>MAR</code>). El dato leído se transfiere al registro de datos de memoria (<code>MBR</code>) mediante el bus de datos. Simultáneamente, el registro (<code>IP</code>) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente.</li>
+<li><strong><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>:
+Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se copia en el registro de instrucciones (<code>IR</code>). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.</li>
+</ol>
+</div>
+<div id="etapa-de-ejecución" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Etapa de Ejecución:<a href="ciclo-de-la-instrucción.html#etapa-de-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:</p>
+<p>Instruccion de transferencia de datos MOV
+#### Destino registro
+* MOV <code>Rx</code>, <code>Ry</code> (Entre registros)
+4. <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong>: El valor almacenado en Ry se copia en el registro Rx.</p>
+<ul>
+<li>MOV <code>Rx</code>, <code>[Dirección]</code> (Directo)
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: El contenido de IP se transfiere al registro MAR.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno.<br />
+</li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El valor de MBR se transfiere a MAR.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>: Se lee el dato de la memoria en la nueva dirección de MAR y se almacena en MBR.</li>
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Finalmente, el contenido de MBR se copia en el registro Rx.</li>
+</ol></li>
+<li>MOV <code>Rx</code>, <code>Dato</code> (Inmediato)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El contenido de MBR se transfiere al registro Rx.</li>
+</ol></li>
+<li>MOV <code>Rx</code>, <code>[BL]</code> (Indirecto)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido de BL se transfiere al registro MAR.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>: Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR.</li>
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Finalmente, el contenido de MBR se copia en el registro Rx.</li>
+</ol>
+<h4 id="destino-memoria" class="hasAnchor">Destino Memoria<a href="ciclo-de-la-instrucción.html#destino-memoria" class="anchor-section" aria-label="Anchor link to header"></a></h4></li>
+<li>MOV <code>[Dirección]</code>, <code>Ry</code> (Directo)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El valor de MBR se transfiere al registro MAR.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong>: El contenido de Ry se copia en MBR.</li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Se escribe el valor de MBR en la posición de memoria indicada por MAR.</li>
+</ol></li>
+<li>MOV <code>[BL]</code>, <code>Ry</code> (Indirecto)
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido de BL se transfiere al registro MAR.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong>: El contenido de Ry se copia en MBR.</li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Se escribe el valor de MBR en la posición de memoria indicada por MAR.</li>
+</ol></li>
+<li>MOV <code>[Dirección]</code>, <code>Dato</code> (Inmediato)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El valor de MBR se transfiere a un registro intermedio (ri).<br />
+</li>
+<li><ol start="8" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong>: El contenido de ri se transfiere al registro MAR.</li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Se escribe el valor de MBR en la posición de memoria indicada por MAR.</li>
+</ol></li>
+<li>MOV <code>[BL]</code>, <code>Dato</code> (Inmediato)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido de BL se transfiere al registro MAR.</li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Se escribe el valor de MBR en la posición de memoria indicada por MAR.</li>
+</ol></li>
+</ul>
+<p>Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan las banderas del registro de estado <code>RS</code>.
+#### Destino registro
+* ADD <code>Rx</code>, <code>Ry</code> (Entre registros)
+4. <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>Ry</code>; update(Flags)</strong></p>
+<ul>
+<li>ADD <code>Rx</code>, <code>[Dirección]</code> (Directo)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>ADD <code>Rx</code>, <code>Dato</code> (Inmediato)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>ADD <code>Rx</code>, <code>[BL]</code> (Indirecto)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+</ul>
+<div id="destino-memoria-1" class="section level4 hasAnchor" number="5.4.2.1">
+<h4><span class="header-section-number">5.4.2.1</span> Destino Memoria<a href="ciclo-de-la-instrucción.html#destino-memoria-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>ADD <code>[Dirección]</code>, <code>Ry</code> (Directo)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong></li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+</ol></li>
+<li>ADD <code>[BL]</code>, <code>Ry</code> (Indirecto)
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong></li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+</ol></li>
+<li>ADD <code>[Dirección]</code>, <code>Dato</code> (Inmediato)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<li><ol start="8" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong></li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+</ol></li>
+<li>ADD <code>[BL]</code>, <code>Dato</code> (Inmediato)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong></li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+</ol></li>
+</ul>
+<p>Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.</p>
+<ul>
+<li>SUB <code>Rx</code>, <code>Ry</code> (Entre registros)
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>Ry</code>; update(Flags)</strong></li>
+</ol></li>
+<li>CMP <code>Rx</code>, <code>Ry</code> (Entre registros)
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>Rx</code> - <code>Ry</code>; update(Flags)</strong></li>
+</ol></li>
+</ul>
+<p>Instrucciones de Control de Flujo</p>
+<p>Salto incondicional y condicionales:
+* JMP <code>Dirección</code> (Salto incondicional)
+4. 5. Se obtiene el operando de la instrucción.
+6. <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El contenido del <code>MBR</code> se transfiere al registro <code>IP</code>, estableciendo la nueva dirección de ejecución.</p>
+<ul>
+<li>JZ <code>Dirección</code> (Salto condicional si Z=1)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><code>Si Z</code> == 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Si la bandera de cero (<code>Z</code>) está activa, el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.</li>
+</ol></li>
+<li>JC <code>Dirección</code> (Salto condicional si C=1)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><code>Si C</code> == 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Si la bandera de acarreo (<code>C</code>) está activa, el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.</li>
+</ol></li>
+<li>Jxx <code>Dirección</code> (Salto condicional)
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li><code>Si xx</code> == 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Si la condición especificada por <code>xx</code> se cumple, el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.</li>
+</ol></li>
+</ul>
+<p>Rutinas:<br />
+* CALL <code>Dirección</code>
+4. 5. Se obtiene el operando de la instrucción.
+6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
+7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>;
+8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>
+9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
+10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
+<ul>
+<li>RET
+4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
+5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
+6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
+7: <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+</ul>
+<p>Interrupciones:
+* INT <code>Dirección</code>
+4 y 5: Obtener segundo byte de memoria
+6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
+7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
+8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code>
+9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
+10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
+<ul>
+<li><p>IRET
+4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
+5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
+6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>;<code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</p></li>
+<li><p>HLT</p>
+<ol start="4" style="list-style-type: decimal">
+<li><ol start="5" style="list-style-type: decimal">
+<li>Se obtiene el operando de la instrucción.</li>
+</ol></li>
+<li>Detiene CPU.</li>
+</ol></li>
+</ul>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="simuladores-bajo-análisis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="selección-de-simuladores.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="repertorio-de-instrucciones-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tercera-etapa.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -539,7 +615,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/04-comparativa.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/05-desarrollo.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -547,7 +623,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/04-comparativa.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/05-desarrollo.Rmd",
     "text": null
   },
   "download": ["tesis.pdf"],
