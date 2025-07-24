@@ -284,6 +284,25 @@ VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en
 
 Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva `org` para establecerla. Por ejemplo, `org 0x20h` indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva `org` para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. Sino se especifica la directiva `org` en el programa el simulador comienza a ejecutar el programa desde la dirección `0x00h`, en caso de que el programa tenga instrucciones de interrupción `INT`, el simulador asigna automáticamente la dirección `0x08h` al primer byte del programa, dejando espacio para el vector de interrupciones.
 
+El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. 
+En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT` número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+Específicamente, el procesador:
+
+1. obtiene el número de la interrupción (0-7),
+2. apila el registro [`FLAGS`],
+3. inhabilita las interrupciones (`IF=0`),
+4. apila el registro `IP`,
+5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
+6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
+
+El simulador implementas las interrupciones por software mediante la instrucción `INT <n>`. Estos números son:
+
+- `INT 0`: termina la ejecución del programa, equivalente a la instrucción [`HLT`];
+- `INT 6`: lee un carácter del [teclado];
+- `INT 7`: escribe una cadena de caracteres en [pantalla].
+
+### Requisitos funcionales del simulador VonSim8
 
 1. Simplificación del repertorio instruccional para una introducción gradual;
 
@@ -953,7 +972,7 @@ instaccion <- data.frame(
     "ADD [M], Ry", "ADD [BL], Ry", "ADD [M], d", "ADD [BL], d",
     "SUB [M], Ry", "SUB [BL], Ry", "SUB [M], d", "SUB [BL], d",
     "CMP [M], Ry", "CMP [BL], Ry", "CMP [M], d", "CMP [BL], d",
-    "JMP M", "JC M", "JZ M", "HLT"
+    "JMP M", "JZ M", "JC M", "HLT"
   ),
   Acción = c(
     "Rx ← Ry", "Rx ← Rx + Ry", "Rx ← Rx - Ry", "Rx - Ry * ",
@@ -963,7 +982,7 @@ instaccion <- data.frame(
     "Mem[Dirección] ← Mem[Dirección] + Rx", "Mem[BL] ← Mem[BL] + Rx", "Mem[Dirección] ← Mem[Dirección] + dato", "Mem[BL] ← Mem[BL] + dato",
     "Mem[Dirección] ← Mem[Dirección] - Rx", "Mem[BL] ← Mem[BL] - Rx", "Mem[Dirección] ← Mem[Dirección] - dato", "Mem[BL] ← Mem[BL] - dato",
     "Mem[Dirección] - Rx", "Mem[BL] - Rx", "Mem[Dirección] - dato", "Mem[BL] - dato", 
-    "IP ← Dirección", "Si C = 1 entonces IP ← Dirección", "Si Z = 1 entonces IP ← Dirección", "Detiene el procesador"
+    "IP ← Dirección", "Si Z = 1 entonces IP ← Dirección", "Si C = 1 entonces IP ← Dirección", "Detiene el procesador"
   ),
   stringsAsFactors = FALSE
 )
@@ -1009,7 +1028,7 @@ instcodif <- data.frame(
     "`MOV Rx, Ry`", "`MOV Rx, [M]`", "`MOV Rx, [BL]`", "`MOV Rx, D`",
     "`MOV [M], Ry`", "`MOV [BL], Ry`", "`MOV [M], D`", "`MOV [BL], D`",
     "`ADD Rx, Ry`", "`ADD Rx, --`", "`ADD [M], --`", "`SUB Rx, Ry`", "`SUB Rx, --`", "`SUB [M], --`",
-    "`CMP Rx, Ry`", "`CMP Rx, --`", "`CMP [M], --`", "`JMP M`", "`JC M`", "`JZ M`", "`Jxx M`", "`HLT`"
+    "`CMP Rx, Ry`", "`CMP Rx, --`", "`CMP [M], --`", "`JMP M`", "`JZ M`", "`JC M`", "`Jxx M`", "`HLT`"
   ),
   Byte = c(
     "1", "2", "1", "2", "2", "2", "3", "2", "1", "Carga en registro", "Almacenar en memoria", "1", "Carga en registro", "Almacenar en memoria",
@@ -1176,7 +1195,28 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-## Ciclo de la instrucción: Etapas de captación y ejecución
+## Repertorio de instrucciones
+
+El repertorio **x86** es reducido (8 bits)
+
+| Categoría                  | Instrucción            | Código operación | Acción                                                                 |
+|---------------------------|------------------------|------------------|------------------------------------------------------------------------|
+| **Transferencia de datos**| `MOV`                  | {0, 1, 2}        | Copiar entre registros, cargar a registro, almacenar en memoria        |
+
+| **Procesamiento de datos**| `ADD`                  | {3, 4, 5}        | Operación aritmética: `operando1 ← operando1 + operando2`             |
+|                           | `SUB`                  | {6, 7, 8}        | Operación aritmética: `operando1 ← operando1 - operando2`             |
+|                           | `CMP`                  | {9, 10, 11}      | Comparación: `operando1 - operando2` (no actualiza el destino)        |
+
+| **Control de flujo**      | `JMP / Jxx / CALL / RET` | {12}           | Salto incondicional `JMP`, condicionales `Jxx`, llamada `CALL`, retorno `RET` |
+
+| **Manejo de pila y E/S**  | `PUSH / POP / OUT / IN` | {13}           | `PUSH`: poner en la pila<br>`POP`: retirar de la pila<br>`OUT`: enviar a puerto<br>`IN`: recibir desde puerto |
+
+| **Manejo de interrupción**| `INT / IRET / NOP / HLT`| {14}           | `INT`: llamar rutina de interrupción<br>`IRET`: retornar de interrupción<br>`NOP`: no opera<br>`HLT`: detiene el CPU  |
+
+| **Miscelánea**            | `AND / OR / XOR / NOT`  | {15}           | Operaciones lógicas                               |
+
+
+## Ciclo de la instrucción
 En este apartado se detalla el proceso llevado a cabo por la Unidad de Control (UC) para ejecutar cada instrucción, destacando los aspectos clave:
 
 - Secuencia de pasos.
@@ -1207,6 +1247,7 @@ Finalmente, el contenido del registro de datos de memoria (`MBR`) se copia en el
 ### Etapa de Ejecución:
 En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
 
+Instruccion de transferencia de datos MOV
 #### Destino registro
 * MOV `Rx`, `Ry` (Entre registros)
   4. **`Rx` $\leftarrow$ `Ry`**: El valor almacenado en Ry se copia en el registro Rx.
@@ -1222,51 +1263,140 @@ En esta etapa, las operaciones específicas dependen del tipo de instrucción. A
   4. 5. Se obtiene el operando de la instrucción.
   6. **`Rx`  $\leftarrow$ `MBR`**: El contenido de MBR se transfiere al registro Rx.
 
-  * MOV `Rx`, `[BL]` (Indirecto) 
+* MOV `Rx`, `[BL]` (Indirecto) 
   4. 5. Se obtiene el operando de la instrucción.
   6. **`MAR` $\leftarrow$ `BL`**: El contenido de BL se transfiere al registro MAR.
   7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**: Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR.
   8. **`Rx`  $\leftarrow$ `MBR`**: Finalmente, el contenido de MBR se copia en el registro Rx.
 
   #### Destino Memoria
-
 * MOV `[Dirección]`, `Ry` (Directo)     
-  4. 5. 6. igual que MOV `Rx`, `[Dirección]`
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`MAR` $\leftarrow$ `MBR`**: El valor de MBR se transfiere al registro MAR.
+  7. **`MBR` $\leftarrow$ `Ry`**: El contenido de Ry se copia en MBR.
+  8. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
+
+* MOV `[BL]`, `Ry` (Indirecto)     
+  6. **`MAR` $\leftarrow$ `BL`**: El contenido de BL se transfiere al registro MAR.
+  7. **`MBR` $\leftarrow$ `Ry`**: El contenido de Ry se copia en MBR.
+  8. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
+
+* MOV `[Dirección]`, `Dato` (Inmediato)     
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`ri` $\leftarrow$ `MBR`**: El valor de MBR se transfiere a un registro intermedio (ri).  
+  7. 8. Se obtiene el operando de la instrucción. 
+  9. **`MAR` $\leftarrow$ `ri`**: El contenido de ri se transfiere al registro MAR.
+  10. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
+
+* MOV `[BL]`, `Dato` (Inmediato)     
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`MAR` $\leftarrow$ `BL`**: El contenido de BL se transfiere al registro MAR.
+  7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
+
+Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan las banderas del registro de estado `RS`.
+#### Destino registro
+* ADD `Rx`, `Ry` (Entre registros)
+  4. **`Rx` $\leftarrow$ `Rx` + `Ry`; update(Flags)**
+
+* ADD `Rx`, `[Dirección]` (Directo)
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`MAR` $\leftarrow$ `MBR`**
+  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+  8. **`Rx`  $\leftarrow$ `Rx` + `MBR`; update(Flags)**
+
+* ADD `Rx`, `Dato` (Inmediato)
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`Rx`  $\leftarrow$ `Rx` + `MBR`; update(Flags)**
+
+* ADD `Rx`, `[BL]` (Indirecto) 
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`MAR` $\leftarrow$ `BL`**
+  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+  8. **`Rx`  $\leftarrow$ `Rx` + `MBR`; update(Flags)**
+
+#### Destino Memoria
+* ADD `[Dirección]`, `Ry` (Directo)     
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`MAR` $\leftarrow$ `MBR`**
   7. **`MBR` $\leftarrow$ `Ry`**
   8. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
+* ADD `[BL]`, `Ry` (Indirecto)     
+  6. **`MAR` $\leftarrow$ `BL`**
+  7. **`MBR` $\leftarrow$ `Ry`**
+  8. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
-* ADD  `Rx`, `[Dirección]` (Sumar a registro)
-  1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
-  5. **`Rx`  $\leftarrow$ `Rx` + `MBR`**:
-  la Unidad Aritmético-Lógica (ALU) realiza la suma entre `Rx` y `MBR`, almacenando el resultado en `Rx`. El Registro de Estado `RS` se actualiza con los indicadores correspondientes.
+* ADD `[Dirección]`, `Dato` (Inmediato)     
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`ri` $\leftarrow$ `MBR`**
+  7. 8. Se obtiene el operando de la instrucción. 
+  9. **`MAR` $\leftarrow$ `ri`**
+  10. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
-* SUB `[Dirección]`, `Ry` (Restar a memoria)
-  1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
-  5. **`MBR` $\leftarrow$ `Ry` - `MBR`**: 
-  la ALU resta el contenido de `MBR` al de `Ry`, almacenando el resultado en `MBR`. El `RS` se actualiza.
-  6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**:
-  el contenido de `MBR` se escribe en memoria en la dirección apuntada por el `MAR`.
+* ADD `[BL]`, `Dato` (Inmediato)     
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`MAR` $\leftarrow$ `BL`**
+  7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
-* CMP `Rx`,  `[Dirección]` (Comparar a registro)
-  1. 2. 3. 4. igual que MOV `Rx`, `[Dirección]`.
-  5. **`Rx` - `MBR`**: 
-  la ALU realiza la resta entre el contenido de `Rx` y `MBR`. Aunque el resultado no se almacena, el `RS` se actualiza con los indicadores de comparación.
+Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.
 
+* SUB `Rx`, `Ry` (Entre registros)
+  4. **`Rx` $\leftarrow$ `Rx` - `Ry`; update(Flags)**
+
+* CMP `Rx`, `Ry` (Entre registros)
+  4. **`Rx` - `Ry`; update(Flags)**
+
+Instrucciones de Control de Flujo
+
+Salto incondicional y condicionales:
 * JMP  `Dirección` (Salto incondicional)
-  1. 2. igual que MOV `Rx`, `[Dirección]`.
-  3. **`IP` $\leftarrow$ `MBR`**:
-  El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
-
-* JC  `Dirección` (Salto condicional si C=1)
-  1. 2. Igual que MOV `Rx`, `[Dirección]`.
-  3. `Si C` == 1: **`IP` $\leftarrow$ `MBR`**:
-  si la bandera de acarreo (`C`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
+  4. 5. Se obtiene el operando de la instrucción.
+  6. **`IP` $\leftarrow$ `MBR`**: El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
 
 * JZ  `Dirección` (Salto condicional si Z=1)
-  1. 2. igual que MOV `Rx`, `[Dirección]`.
-  3. `Si Z` == 1: **`IP` $\leftarrow$ `MBR`**:
-  si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
+  4. 5. Se obtiene el operando de la instrucción.
+  6. `Si Z` == 1: **`IP` $\leftarrow$ `MBR`**:  Si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
+
+* JC  `Dirección` (Salto condicional si C=1)
+  4. 5. Se obtiene el operando de la instrucción.
+  6. `Si C` == 1: **`IP` $\leftarrow$ `MBR`**:  Si la bandera de acarreo (`C`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
+
+* Jxx  `Dirección` (Salto condicional)
+  4. 5. Se obtiene el operando de la instrucción. 
+  6. `Si xx` == 1: **`IP` $\leftarrow$ `MBR`**:  Si la condición especificada por `xx` se cumple, el contenido del `MBR` se transfiere al registro `IP`.
+
+Rutinas:  
+* CALL  `Dirección` 
+  4. 5. Se obtiene el operando de la instrucción.
+  6: `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
+  7: `MAR` $\leftarrow$ `SP`;
+  8: `MBR` $\leftarrow$ `IP`
+  9: `write(Memoria[MAR])` $\leftarrow$ `MBR`
+  10: `IP` $\leftarrow$ `ri`
+
+* RET
+  4: `MAR` $\leftarrow$ `SP`
+  5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
+  6: `IP` $\leftarrow$ `MBR`
+  7: `SP` $\leftarrow$ `SP` + 1
+
+Interrupciones:
+* INT  `Dirección` 
+  4 y 5: Obtener segundo byte de memoria
+  6: `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
+  7: `MAR` $\leftarrow$ `SP`
+  8: `MBR` $\leftarrow$ `Ry`
+  9: `write(Memoria[MAR])` $\leftarrow$ `MBR`
+  10: `IP` $\leftarrow$ `ri`
+  
+* IRET
+  4: `MAR` $\leftarrow$ `SP`
+  5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
+  6: `IP` $\leftarrow$ `MBR`;`SP` $\leftarrow$ `SP` + 1
+
+* HLT
+  4. 5. Se obtiene el operando de la instrucción.
+  6. Detiene CPU.
 
 
 ## Tercera etapa
