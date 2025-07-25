@@ -1948,7 +1948,35 @@ En síntesis, VonSim constituye una herramienta robusta y accesible que simplifi
 
 Las modificaciones principales de VonSim8, alineadas con objetivos pedagógicos, incluyen:
 
-Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
+El registro de estado contiene los siguientes flags o banderas:
+Z = cero (Zero)
+C = acarreo (Carry)
+S = signo (Sign)
+O = desbordamiento (Overflow)
+I = interrupción (Interrupt)
+
+\hypertarget{flags}{%
+\subsection{Flags}\label{flags}}
+
+El registro \texttt{FLAGS} es un registro de 8 bits que contiene las \emph{flags} mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
+
+\begin{longtable}[]{@{}ccl@{}}
+\toprule\noalign{}
+Bit \# & Abreviatura & Descripción \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & \texttt{Z} & \emph{Flag} de cero \\
+1 & \texttt{C} & \emph{Flag} de acarreo \\
+2 & \texttt{O} & \emph{Flag} de overflow \\
+3 & \texttt{S} & \emph{Flag} de signo \\
+4 & \texttt{I} & \emph{Flag} de interrupción \\
+\end{longtable}
+
+El resto de bits del registro de estado están reservados.
+
+Del registro de estado del simulador original se ocultaron las banderas O y S ya que en los primeros ejercicios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
 
 \begin{figure}
 
@@ -2219,7 +2247,7 @@ El repertorio de instrucciones se diseñó como una abstracción deliberada insp
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
-Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida se presentan más instrccciones.
+Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida de acuerdo al programa de estudio de la asignatura Arquitectura de Computadoras \protect\hyperlink{ref-cd023_25_programa2025}{{[}81{]}}.
 
 \begin{table}[!h]
 \centering
@@ -2727,13 +2755,13 @@ Acción
 \hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\textbar{} \texttt{SUB} \textbar{} \{6, 7, 8\} \textbar{} Operación aritmética: \texttt{operando1\ ←\ operando1\ -\ operando2} \textbar{}\\
 \hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\textbar{} \texttt{CMP} \textbar{} \{9, 10, 11\} \textbar{} Comparación: \texttt{operando1\ -\ operando2} (no actualiza el destino) \textbar{}
 
-\textbf{Control de flujo} \textbar{} \texttt{JMP\ /\ Jxx\ /\ CALL\ /\ RET} \textbar{} \{12\} \textbar{} Salto incondicional \texttt{JMP}, condicionales \texttt{Jxx}, llamada \texttt{CALL}, retorno \texttt{RET} \textbar{}
+\textbf{Control de flujo} \textbar{} \texttt{JMP\ /\ Jxx\ /\ CALL\ /\ INT} \textbar{} \{12\} \textbar{} Salto incondicional \texttt{JMP}, condicionales \texttt{Jxx}, llamada \texttt{CALL},\texttt{INT}: llamar rutina de interrupción \textbar{}
 
-\textbf{Manejo de pila y E/S} \textbar{} \texttt{PUSH\ /\ POP\ /\ OUT\ /\ IN} \textbar{} \{13\} \textbar{} \texttt{PUSH}: poner en la pila\texttt{POP}: retirar de la pila\texttt{OUT}: enviar a puerto\texttt{IN}: recibir desde puerto \textbar{}
+\textbf{Gestion de flujo} \textbar{} \texttt{RET\ /\ IRET\ /\ CLI/\ \ STI\ /\ HLT}\textbar{} \{13\} \textbar{} , , retorno \texttt{RET}, \texttt{IRET}: retornar de interrupción\texttt{NOP}: no opera\texttt{HLT}: detiene el CPU \textbar{}
 
-\textbf{Manejo de interrupción}\textbar{} \texttt{INT\ /\ IRET\ /\ NOP\ /\ HLT}\textbar{} \{14\} \textbar{} \texttt{INT}: llamar rutina de interrupción\texttt{IRET}: retornar de interrupción\texttt{NOP}: no opera\texttt{HLT}: detiene el CPU \textbar{}
+\textbf{Manejo de pila y E/S} \textbar{} \texttt{PUSH\ /\ POP\ /\ OUT\ /\ IN} \textbar{} \{14\} \textbar{} \texttt{PUSH}: poner en la pila\texttt{POP}: retirar de la pila\texttt{OUT}: enviar a puerto\texttt{IN}: recibir desde puerto \textbar{}
 
-\textbf{Miscelánea} \textbar{} \texttt{AND\ /\ OR\ /\ XOR\ /\ NOT} \textbar{} \{15\} \textbar{} Operaciones lógicas \textbar{}
+\textbf{Miscelánea} \textbar{} \texttt{AND\ /\ OR\ /\ XOR\ /\ NOT\ /\ INC\ /\ DEC} \textbar{} \{15\} \textbar{} Operaciones lógicas \textbar{}
 
 \hypertarget{ciclo-de-la-instrucciuxf3n}{%
 \section{Ciclo de la instrucción}\label{ciclo-de-la-instrucciuxf3n}}
@@ -3850,6 +3878,10 @@ Relevar necesidades, experiencias y percepciones de docentes especializados en l
 \leavevmode\vadjust pre{\hypertarget{ref-opensource_licensing_2024}{}}%
 \CSLLeftMargin{{[}80{]} }%
 \CSLRightInline{Open Source Initiative, {``Open source licenses: Understanding {GPL}, {MIT}, and {Apache} licenses.''} 2024. Accessed: Jan. 15, 2024. {[}Online{]}. Available: \url{https://opensource.org/licenses/}}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cd023_25_programa2025}{}}%
+\CSLLeftMargin{{[}81{]} }%
+\CSLRightInline{Facultad de Ciencias de la Administración, UNER, {``{Programa de la asignatura Arquitectura de Computadoras}.''} Consejo Directivo, Facultad de Ciencias de la Administración, UNER; \url{https://digesto.uner.edu.ar/documento.frame.php?cod=170316}, Mar. 2025.}
 
 \end{CSLReferences}
 

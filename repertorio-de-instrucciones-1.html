@@ -260,12 +260,13 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html"><i class="fa fa-check"></i><b>5.2</b> Diseño del Simulador</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#requisitos-funcionales-del-simulador-vonsim8"><i class="fa fa-check"></i><b>5.2.1</b> Requisitos funcionales del simulador VonSim8</a></li>
-<li class="chapter" data-level="5.2.2" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#estructura-del-vonsim8"><i class="fa fa-check"></i><b>5.2.2</b> Estructura del VonSim8</a></li>
-<li class="chapter" data-level="5.2.3" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#repertorio-de-instruciones"><i class="fa fa-check"></i><b>5.2.3</b> Repertorio de instruciones</a></li>
-<li class="chapter" data-level="5.2.4" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.2.4</b> Formato de instrucciones</a></li>
-<li class="chapter" data-level="5.2.5" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.2.5</b> Modos de direccionamiento</a></li>
-<li class="chapter" data-level="5.2.6" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#codificación-de-instrucciones"><i class="fa fa-check"></i><b>5.2.6</b> Codificación de instrucciones</a></li>
+<li class="chapter" data-level="5.2.1" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#flags"><i class="fa fa-check"></i><b>5.2.1</b> Flags</a></li>
+<li class="chapter" data-level="5.2.2" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#requisitos-funcionales-del-simulador-vonsim8"><i class="fa fa-check"></i><b>5.2.2</b> Requisitos funcionales del simulador VonSim8</a></li>
+<li class="chapter" data-level="5.2.3" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#estructura-del-vonsim8"><i class="fa fa-check"></i><b>5.2.3</b> Estructura del VonSim8</a></li>
+<li class="chapter" data-level="5.2.4" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#repertorio-de-instruciones"><i class="fa fa-check"></i><b>5.2.4</b> Repertorio de instruciones</a></li>
+<li class="chapter" data-level="5.2.5" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.2.5</b> Formato de instrucciones</a></li>
+<li class="chapter" data-level="5.2.6" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.2.6</b> Modos de direccionamiento</a></li>
+<li class="chapter" data-level="5.2.7" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#codificación-de-instrucciones"><i class="fa fa-check"></i><b>5.2.7</b> Codificación de instrucciones</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html"><i class="fa fa-check"></i><b>5.3</b> Repertorio de instrucciones</a></li>
 <li class="chapter" data-level="5.4" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html"><i class="fa fa-check"></i><b>5.4</b> Ciclo de la instrucción</a>
@@ -359,10 +360,10 @@ div.csl-indent {
 <div class="line-block"><strong>Procesamiento de datos</strong>| <code>ADD</code> | {3, 4, 5} | Operación aritmética: <code>operando1 ← operando1 + operando2</code> |<br />
                           | <code>SUB</code> | {6, 7, 8} | Operación aritmética: <code>operando1 ← operando1 - operando2</code> |<br />
                           | <code>CMP</code> | {9, 10, 11} | Comparación: <code>operando1 - operando2</code> (no actualiza el destino) |</div>
-<div class="line-block"><strong>Control de flujo</strong> | <code>JMP / Jxx / CALL / RET</code> | {12} | Salto incondicional <code>JMP</code>, condicionales <code>Jxx</code>, llamada <code>CALL</code>, retorno <code>RET</code> |</div>
-<div class="line-block"><strong>Manejo de pila y E/S</strong> | <code>PUSH / POP / OUT / IN</code> | {13} | <code>PUSH</code>: poner en la pila<br><code>POP</code>: retirar de la pila<br><code>OUT</code>: enviar a puerto<br><code>IN</code>: recibir desde puerto |</div>
-<div class="line-block"><strong>Manejo de interrupción</strong>| <code>INT / IRET / NOP / HLT</code>| {14} | <code>INT</code>: llamar rutina de interrupción<br><code>IRET</code>: retornar de interrupción<br><code>NOP</code>: no opera<br><code>HLT</code>: detiene el CPU |</div>
-<div class="line-block"><strong>Miscelánea</strong> | <code>AND / OR / XOR / NOT</code> | {15} | Operaciones lógicas |</div>
+<div class="line-block"><strong>Control de flujo</strong> | <code>JMP / Jxx / CALL / INT</code> | {12} | Salto incondicional <code>JMP</code>, condicionales <code>Jxx</code>, llamada <code>CALL</code>,<code>INT</code>: llamar rutina de interrupción |</div>
+<div class="line-block"><strong>Gestion de flujo</strong> | <code>RET / IRET / CLI/  STI / HLT</code>| {13} | , , retorno <code>RET</code>, <code>IRET</code>: retornar de interrupción<br><code>NOP</code>: no opera<br><code>HLT</code>: detiene el CPU |</div>
+<div class="line-block"><strong>Manejo de pila y E/S</strong> | <code>PUSH / POP / OUT / IN</code> | {14} | <code>PUSH</code>: poner en la pila<br><code>POP</code>: retirar de la pila<br><code>OUT</code>: enviar a puerto<br><code>IN</code>: recibir desde puerto |</div>
+<div class="line-block"><strong>Miscelánea</strong> | <code>AND / OR / XOR / NOT / INC / DEC</code> | {15} | Operaciones lógicas |</div>
 </div>
             </section>
 

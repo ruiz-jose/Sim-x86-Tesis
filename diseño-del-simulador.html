@@ -260,12 +260,13 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html"><i class="fa fa-check"></i><b>5.2</b> Diseño del Simulador</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#requisitos-funcionales-del-simulador-vonsim8"><i class="fa fa-check"></i><b>5.2.1</b> Requisitos funcionales del simulador VonSim8</a></li>
-<li class="chapter" data-level="5.2.2" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#estructura-del-vonsim8"><i class="fa fa-check"></i><b>5.2.2</b> Estructura del VonSim8</a></li>
-<li class="chapter" data-level="5.2.3" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#repertorio-de-instruciones"><i class="fa fa-check"></i><b>5.2.3</b> Repertorio de instruciones</a></li>
-<li class="chapter" data-level="5.2.4" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.2.4</b> Formato de instrucciones</a></li>
-<li class="chapter" data-level="5.2.5" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.2.5</b> Modos de direccionamiento</a></li>
-<li class="chapter" data-level="5.2.6" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#codificación-de-instrucciones"><i class="fa fa-check"></i><b>5.2.6</b> Codificación de instrucciones</a></li>
+<li class="chapter" data-level="5.2.1" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#flags"><i class="fa fa-check"></i><b>5.2.1</b> Flags</a></li>
+<li class="chapter" data-level="5.2.2" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#requisitos-funcionales-del-simulador-vonsim8"><i class="fa fa-check"></i><b>5.2.2</b> Requisitos funcionales del simulador VonSim8</a></li>
+<li class="chapter" data-level="5.2.3" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#estructura-del-vonsim8"><i class="fa fa-check"></i><b>5.2.3</b> Estructura del VonSim8</a></li>
+<li class="chapter" data-level="5.2.4" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#repertorio-de-instruciones"><i class="fa fa-check"></i><b>5.2.4</b> Repertorio de instruciones</a></li>
+<li class="chapter" data-level="5.2.5" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.2.5</b> Formato de instrucciones</a></li>
+<li class="chapter" data-level="5.2.6" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.2.6</b> Modos de direccionamiento</a></li>
+<li class="chapter" data-level="5.2.7" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#codificación-de-instrucciones"><i class="fa fa-check"></i><b>5.2.7</b> Codificación de instrucciones</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html"><i class="fa fa-check"></i><b>5.3</b> Repertorio de instrucciones</a></li>
 <li class="chapter" data-level="5.4" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html"><i class="fa fa-check"></i><b>5.4</b> Ciclo de la instrucción</a>
@@ -349,7 +350,53 @@ div.csl-indent {
 </ol>
 <p>En síntesis, VonSim constituye una herramienta robusta y accesible que simplifica y facilita el aprendizaje de conceptos complejos de arquitectura de computadoras mediante simulación práctica y una interfaz pedagógicamente orientada.</p>
 <p>Las modificaciones principales de VonSim8, alineadas con objetivos pedagógicos, incluyen:</p>
-<p>Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.</p>
+<p>El registro de estado contiene los siguientes flags o banderas:
+Z = cero (Zero)
+C = acarreo (Carry)
+S = signo (Sign)
+O = desbordamiento (Overflow)
+I = interrupción (Interrupt)</p>
+<div id="flags" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Flags<a href="diseño-del-simulador.html#flags" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El registro <code>FLAGS</code> es un registro de 8 bits que contiene las <em>flags</em> mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Bit #</th>
+<th align="center">Abreviatura</th>
+<th align="left">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">0</td>
+<td align="center"><code>Z</code></td>
+<td align="left"><em>Flag</em> de cero</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center"><code>C</code></td>
+<td align="left"><em>Flag</em> de acarreo</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center"><code>O</code></td>
+<td align="left"><em>Flag</em> de overflow</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center"><code>S</code></td>
+<td align="left"><em>Flag</em> de signo</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center"><code>I</code></td>
+<td align="left"><em>Flag</em> de interrupción</td>
+</tr>
+</tbody>
+</table>
+<p>El resto de bits del registro de estado están reservados.</p>
+Del registro de estado del simulador original se ocultaron las banderas O y S ya que en los primeros ejercicios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:banderas"></span>
 <img src="images/flags.png" alt="Registro de estado" width="85%" />
 <p class="caption">
@@ -434,8 +481,9 @@ En el caso de las interrupciones por software, esta es dada por el operando de l
 <li><code>INT 6</code>: lee un carácter del [teclado];</li>
 <li><code>INT 7</code>: escribe una cadena de caracteres en [pantalla].</li>
 </ul>
-<div id="requisitos-funcionales-del-simulador-vonsim8" class="section level3 hasAnchor" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> Requisitos funcionales del simulador VonSim8<a href="diseño-del-simulador.html#requisitos-funcionales-del-simulador-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="requisitos-funcionales-del-simulador-vonsim8" class="section level3 hasAnchor" number="5.2.2">
+<h3><span class="header-section-number">5.2.2</span> Requisitos funcionales del simulador VonSim8<a href="diseño-del-simulador.html#requisitos-funcionales-del-simulador-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><p>Simplificación del repertorio instruccional para una introducción gradual;</p></li>
 <li><p>Reducción a registros y memoria de 8 bits, coherente con la escala de enseñanza;</p></li>
@@ -444,8 +492,8 @@ En el caso de las interrupciones por software, esta es dada por el operando de l
 </ol>
 <p>Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo <span class="citation">(<a href="#ref-bonwell1991active">Bonwell and Eison 1991</a>)</span>.</p>
 </div>
-<div id="estructura-del-vonsim8" class="section level3 hasAnchor" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Estructura del VonSim8<a href="diseño-del-simulador.html#estructura-del-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="estructura-del-vonsim8" class="section level3 hasAnchor" number="5.2.3">
+<h3><span class="header-section-number">5.2.3</span> Estructura del VonSim8<a href="diseño-del-simulador.html#estructura-del-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Esta sección describe la estructura del simulador VonSims8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>. Se describe en la siguiente tabla <a href="diseño-del-simulador.html#tab:estructuravonsim8">5.3</a> los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -619,11 +667,11 @@ Modelado de la comunicación entre componentes.
 </tbody>
 </table>
 </div>
-<div id="repertorio-de-instruciones" class="section level3 hasAnchor" number="5.2.3">
-<h3><span class="header-section-number">5.2.3</span> Repertorio de instruciones<a href="diseño-del-simulador.html#repertorio-de-instruciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="repertorio-de-instruciones" class="section level3 hasAnchor" number="5.2.4">
+<h3><span class="header-section-number">5.2.4</span> Repertorio de instruciones<a href="diseño-del-simulador.html#repertorio-de-instruciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque progresivo permite introducir los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>. La Tabla <a href="diseño-del-simulador.html#tab:setreducido">5.5</a> muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.</p>
 <p>Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.</p>
-<p>Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida se presentan más instrccciones.</p>
+<p>Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida de acuerdo al programa de estudio de la asignatura Arquitectura de Computadoras <span class="citation">(<a href="#ref-cd023_25_programa2025">Facultad de Ciencias de la Administración, UNER 2025</a>)</span>.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:setreducido">Tabla 5.5: </span>Tabla de instrucciones de VonSim8
@@ -831,8 +879,8 @@ Estas categorías de instrucciones se seleccionaron cuidadosamente para proporci
 Estas categorías se alinean con los objetivos pedagógicos del curso, permitiendo a los estudiantes familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.</p>
 <p>A traves de la implementación de estas instrucciones, el simulador VonSim8 busca proporcionar una experiencia de aprendizaje que facilite la comprensión de los principios fundamentales de la arquitectura de computadores, al tiempo que se minimiza la carga cognitiva en las etapas iniciales del aprendizaje. Permite al alumno entender como se ejecutan los operaciones artimeticas en la computadora, como se transfieren los datos entre registros y memoria, y como se controla el flujo de ejecución de un programa.</p>
 </div>
-<div id="formato-de-instrucciones" class="section level3 hasAnchor" number="5.2.4">
-<h3><span class="header-section-number">5.2.4</span> Formato de instrucciones<a href="diseño-del-simulador.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="formato-de-instrucciones" class="section level3 hasAnchor" number="5.2.5">
+<h3><span class="header-section-number">5.2.5</span> Formato de instrucciones<a href="diseño-del-simulador.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Las instrucciones del simulador VonSim8 se definen con un formato de 1 a 3 bytes, donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -877,8 +925,8 @@ JMP operando / HLT
 </tbody>
 </table>
 </div>
-<div id="modos-de-direccionamiento-1" class="section level3 hasAnchor" number="5.2.5">
-<h3><span class="header-section-number">5.2.5</span> Modos de direccionamiento<a href="diseño-del-simulador.html#modos-de-direccionamiento-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="modos-de-direccionamiento-1" class="section level3 hasAnchor" number="5.2.6">
+<h3><span class="header-section-number">5.2.6</span> Modos de direccionamiento<a href="diseño-del-simulador.html#modos-de-direccionamiento-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Los modos de direccionamiento definidos son:</p>
 <ul>
 <li><p>Registro a registro (<code>Rx</code>,<code>Ry</code>): operandos son registros del procesador y <code>Rx</code> indica registro destino y <code>Ry</code> indica registro fuente.</p></li>
@@ -1006,8 +1054,8 @@ mov [bl], cl
 
 hlt</code></pre>
 </div>
-<div id="codificación-de-instrucciones" class="section level3 hasAnchor" number="5.2.6">
-<h3><span class="header-section-number">5.2.6</span> Codificación de instrucciones<a href="diseño-del-simulador.html#codificación-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="codificación-de-instrucciones" class="section level3 hasAnchor" number="5.2.7">
+<h3><span class="header-section-number">5.2.7</span> Codificación de instrucciones<a href="diseño-del-simulador.html#codificación-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla <a href="diseño-del-simulador.html#tab:instcodif">5.9</a> presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.</p>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
@@ -1943,6 +1991,9 @@ ffff = funcionalidad, M = Dirección de memoria
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-bonwell1991active" class="csl-entry">
 Bonwell, Charles C., and James A. Eison. 1991. <span>“Active Learning: Creating Excitement in the Classroom.”</span> <em>ASHE-ERIC Higher Education Report</em> 1.
+</div>
+<div id="ref-cd023_25_programa2025" class="csl-entry">
+Facultad de Ciencias de la Administración, UNER. 2025. <span>“<span class="nocase">Programa de la asignatura Arquitectura de Computadoras</span>.”</span> Consejo Directivo, Facultad de Ciencias de la Administración, UNER; <a href="https://digesto.uner.edu.ar/documento.frame.php?cod=170316" class="uri">https://digesto.uner.edu.ar/documento.frame.php?cod=170316</a>.
 </div>
 <div id="ref-vonsim" class="csl-entry">
 Facundo Quiroga, Juan Martín Seery, Manuel Bustos Berrondo. 2020. <span>“VonSim - Simulador de Arquitectura de von Neumann.”</span> <a href="https://vonsim.github.io/" class="uri">https://vonsim.github.io/</a>.
