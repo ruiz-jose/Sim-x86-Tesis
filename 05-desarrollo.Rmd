@@ -223,8 +223,29 @@ En síntesis, VonSim constituye una herramienta robusta y accesible que simplifi
 
 Las modificaciones principales de VonSim8, alineadas con objetivos pedagógicos, incluyen:
 
-Del registro de estado del simulador original se ocualtaron las banderas I, O y S ya que en los primeros ejericios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
 
+El registro de estado contiene los siguientes flags o banderas:
+Z = cero (Zero)
+C = acarreo (Carry)
+S = signo (Sign)
+O = desbordamiento (Overflow)
+I = interrupción (Interrupt)
+
+### Flags
+
+El registro `FLAGS` es un registro de 8 bits que contiene las _flags_ mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
+
+| Bit # | Abreviatura | Descripción            |
+| :---: | :---------: | :--------------------- |
+|   0   |    `Z`     | _Flag_ de cero         |
+|   1   |    `C`     | _Flag_ de acarreo      |
+|   2   |    `O`     | _Flag_ de overflow     | 
+|   3   |    `S`     | _Flag_ de signo        |
+|   4   |    `I`     | _Flag_ de interrupción |
+
+El resto de bits del registro de estado están reservados.
+
+Del registro de estado del simulador original se ocultaron las banderas O y S ya que en los primeros ejercicios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador. 
 ```{r banderas, echo=FALSE, fig.cap="Registro de estado", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/flags.png")
 ```
@@ -462,7 +483,7 @@ El repertorio de instrucciones se diseñó como una abstracción deliberada insp
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
-Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida se presentan más instrccciones.
+Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida de acuerdo al programa de estudio de la asignatura Arquitectura de Computadoras [@cd023_25_programa2025].
 
 ```{r setreducido, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1207,13 +1228,13 @@ El repertorio **x86** es reducido (8 bits)
 |                           | `SUB`                  | {6, 7, 8}        | Operación aritmética: `operando1 ← operando1 - operando2`             |
 |                           | `CMP`                  | {9, 10, 11}      | Comparación: `operando1 - operando2` (no actualiza el destino)        |
 
-| **Control de flujo**      | `JMP / Jxx / CALL / RET` | {12}           | Salto incondicional `JMP`, condicionales `Jxx`, llamada `CALL`, retorno `RET` |
+| **Control de flujo**      | `JMP / Jxx / CALL / INT`         | {12}             | Salto incondicional `JMP`, condicionales `Jxx`, llamada `CALL`,`INT`: llamar rutina de interrupción |
 
-| **Manejo de pila y E/S**  | `PUSH / POP / OUT / IN` | {13}           | `PUSH`: poner en la pila<br>`POP`: retirar de la pila<br>`OUT`: enviar a puerto<br>`IN`: recibir desde puerto |
+| **Gestion de flujo**      | `RET / IRET / CLI/  STI / HLT`| {13}           | , , retorno `RET`, `IRET`: retornar de interrupción<br>`NOP`: no opera<br>`HLT`: detiene el CPU  |
 
-| **Manejo de interrupción**| `INT / IRET / NOP / HLT`| {14}           | `INT`: llamar rutina de interrupción<br>`IRET`: retornar de interrupción<br>`NOP`: no opera<br>`HLT`: detiene el CPU  |
+| **Manejo de pila y E/S**  | `PUSH / POP / OUT / IN` | {14}           | `PUSH`: poner en la pila<br>`POP`: retirar de la pila<br>`OUT`: enviar a puerto<br>`IN`: recibir desde puerto |
 
-| **Miscelánea**            | `AND / OR / XOR / NOT`  | {15}           | Operaciones lógicas                               |
+| **Miscelánea**            | `AND / OR / XOR / NOT / INC / DEC`  | {15}           | Operaciones lógicas                               |
 
 
 ## Ciclo de la instrucción
