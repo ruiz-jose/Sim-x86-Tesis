@@ -1057,10 +1057,10 @@ instcodif <- data.frame(
     "1", "registro - memoria", "memoria - registro", "1", "1", "1", "1", "1"
   ),
   Codificación = c(
-    "`0000 XXYY`", "`0001 XX00 MMMMMMMM`", "`0001 XX01`", "`0001 XX10 MMMMMMMM`",
-    "`0010 00YY MMMMMMMM`", "`0010 01YY`", "`0010 1100 MMMMMMMM dddddddd`", "`0010 1101 MMMMMMMM`",
-    "`0011 XXYY`", "`0100 ---- --------`", "`0101 ---- -------- --------`", "`0110 XXYY`", "`0111 ---- --------`",
-    "`1000 ---- -------- --------`", "`1001 XXYY`", "`1010 ---- --------`", "`1011 ---- -------- --------`",
+    "`0000 RxRy`", "`0001 Rx00 MMMMMMMM`", "`0001 Rx01`", "`0001 Rx10 MMMMMMMM`",
+    "`0010 00Ry MMMMMMMM`", "`0010 01Ry`", "`0010 1100 MMMMMMMM dddddddd`", "`0010 1101 MMMMMMMM`",
+    "`0011 RxRy`", "`0100 ---- --------`", "`0101 ---- -------- --------`", "`0110 RxRy`", "`0111 ---- --------`",
+    "`1000 ---- -------- --------`", "`1001 RxRy`", "`1010 ---- --------`", "`1011 ---- -------- --------`",
     "`1100 0000 MMMMMMMM`", "`1100 0001 MMMMMMMM`", "`1100 0011 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1101 0000 00000000`"
   ),
   stringsAsFactors = FALSE
@@ -1107,7 +1107,7 @@ Considerando:
 
   - `____`: Código de operación de la instrucción, número de 4 bits.
 
-  - `XX` o `YY`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
+  - `Rx` o `Ry`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
 
   - `00`: Junto con el código de operación indica si la operación es tipo B o C.
 
@@ -1121,7 +1121,7 @@ Considerando:
 
   - `dddddddd`: Dato inmediato, número de 8 bits.
 
-En la instrucción de salto condicional `Jxx Dirección`, la indicación `xx` representa todas las combinaciones posibles de los _flags_:
+En la instrucción de salto condicional `Jxx Dirección`, la indicación `xx` representa todas las combinaciones posibles de los _flags_ donde `NZ` indica la negacion del  _flags_ `Z`:
 
 | Instrucción               | Acción                                      |
 | :------------------------ | :------------------------------------------ | 
