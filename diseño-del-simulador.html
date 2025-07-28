@@ -1795,6 +1795,53 @@ D
 <li><p><code>MMMMMMMM</code>: Dirección de memoria, número de 8 bits.</p></li>
 <li><p><code>dddddddd</code>: Dato inmediato, número de 8 bits.</p></li>
 </ul>
+<p>En la instrucción de salto condicional <code>Jxx Dirección</code>, la indicación <code>xx</code> representa todas las combinaciones posibles de los <em>flags</em>:</p>
+<table>
+<colgroup>
+<col width="36%" />
+<col width="63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Instrucción</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">[<code>JZ Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>Z=1</code></td>
+</tr>
+<tr class="even">
+<td align="left">[<code>JNZ Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>Z=0</code></td>
+</tr>
+<tr class="odd">
+<td align="left">[<code>JC Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>C=1</code></td>
+</tr>
+<tr class="even">
+<td align="left">[<code>JNC Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>C=0</code></td>
+</tr>
+<tr class="odd">
+<td align="left">[<code>JS Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>S=1</code></td>
+</tr>
+<tr class="even">
+<td align="left">[<code>JNS Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>S=0</code></td>
+</tr>
+<tr class="odd">
+<td align="left">[<code>JO Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>O=1</code></td>
+</tr>
+<tr class="even">
+<td align="left">[<code>JNO Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>O=0</code></td>
+</tr>
+</tbody>
+</table>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
 <span id="tab:tablaregistros">Tabla 5.10: </span>Tabla de registros del simulador

@@ -2672,6 +2672,31 @@ Considerando:
   \texttt{dddddddd}: Dato inmediato, número de 8 bits.
 \end{itemize}
 
+En la instrucción de salto condicional \texttt{Jxx\ Dirección}, la indicación \texttt{xx} representa todas las combinaciones posibles de los \emph{flags}:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3676}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6324}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Instrucción
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Acción
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+{[}\texttt{JZ\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{Z=1} \\
+{[}\texttt{JNZ\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{Z=0} \\
+{[}\texttt{JC\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{C=1} \\
+{[}\texttt{JNC\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{C=0} \\
+{[}\texttt{JS\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{S=1} \\
+{[}\texttt{JNS\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{S=0} \\
+{[}\texttt{JO\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{O=1} \\
+{[}\texttt{JNO\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{O=0} \\
+\end{longtable}
+
 \begin{table}[!h]
 \centering
 \caption{\label{tab:tablaregistros}Tabla de registros del simulador}
