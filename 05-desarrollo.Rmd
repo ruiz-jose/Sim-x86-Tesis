@@ -1121,6 +1121,18 @@ Considerando:
 
   - `dddddddd`: Dato inmediato, número de 8 bits.
 
+En la instrucción de salto condicional `Jxx Dirección`, la indicación `xx` representa todas las combinaciones posibles de los _flags_:
+
+| Instrucción               | Acción                                      |
+| :------------------------ | :------------------------------------------ | 
+| [`JZ Dirección`]          | Salta a _Dirección_ si `Z=1`                 | 
+| [`JNZ Dirección`]         | Salta a _Dirección_ si `Z=0`                 |
+| [`JC Dirección`]          | Salta a _Dirección_ si `C=1`                 |
+| [`JNC Dirección`]         | Salta a _Dirección_ si `C=0`                 |
+| [`JS Dirección`]          | Salta a _Dirección_ si `S=1`                 |
+| [`JNS Dirección`]         | Salta a _Dirección_ si `S=0`                 |
+| [`JO Dirección`]          | Salta a _Dirección_ si `O=1`                 |
+| [`JNO Dirección`]         | Salta a _Dirección_ si `O=0`                 |
 
 ```{r tablaregistros, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
