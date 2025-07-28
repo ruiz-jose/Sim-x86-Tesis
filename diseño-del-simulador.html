@@ -1485,7 +1485,7 @@ Codificación
 1
 </td>
 <td style="text-align:left;width: 32em; ">
-<code>0000 XXYY</code>
+<code>0000 RxRy</code>
 </td>
 </tr>
 <tr>
@@ -1499,7 +1499,7 @@ Codificación
 2
 </td>
 <td style="text-align:left;width: 32em; ">
-<code>0001 XX00 MMMMMMMM</code>
+<code>0001 Rx00 MMMMMMMM</code>
 </td>
 </tr>
 <tr>
@@ -1513,7 +1513,7 @@ Codificación
 1
 </td>
 <td style="text-align:left;width: 32em; ">
-<code>0001 XX01</code>
+<code>0001 Rx01</code>
 </td>
 </tr>
 <tr>
@@ -1527,7 +1527,7 @@ Codificación
 2
 </td>
 <td style="text-align:left;width: 32em; ">
-<code>0001 XX10 MMMMMMMM</code>
+<code>0001 Rx10 MMMMMMMM</code>
 </td>
 </tr>
 <tr>
@@ -1541,7 +1541,7 @@ Codificación
 2
 </td>
 <td style="text-align:left;width: 32em; ">
-<code>0010 00YY MMMMMMMM</code>
+<code>0010 00Ry MMMMMMMM</code>
 </td>
 </tr>
 <tr>
@@ -1555,7 +1555,7 @@ Codificación
 2
 </td>
 <td style="text-align:left;width: 32em; ">
-<code>0010 01YY</code>
+<code>0010 01Ry</code>
 </td>
 </tr>
 <tr>
@@ -1597,7 +1597,7 @@ Codificación
 1
 </td>
 <td style="text-align:left;width: 32em; ">
-<code>0011 XXYY</code>
+<code>0011 RxRy</code>
 </td>
 </tr>
 <tr>
@@ -1639,7 +1639,7 @@ Almacenar en memoria
 1
 </td>
 <td style="text-align:left;width: 32em; ">
-<code>0110 XXYY</code>
+<code>0110 RxRy</code>
 </td>
 </tr>
 <tr>
@@ -1681,7 +1681,7 @@ Almacenar en memoria
 1
 </td>
 <td style="text-align:left;width: 32em; ">
-<code>1001 XXYY</code>
+<code>1001 RxRy</code>
 </td>
 </tr>
 <tr>
@@ -1787,7 +1787,7 @@ D
 <p>Considerando:</p>
 <ul>
 <li><p><code>____</code>: Código de operación de la instrucción, número de 4 bits.</p></li>
-<li><p><code>XX</code> o <code>YY</code>: Índices de registros, número entre <code>0</code> y <code>3</code>, cada índice es de 2 bits.</p></li>
+<li><p><code>Rx</code> o <code>Ry</code>: Índices de registros, número entre <code>0</code> y <code>3</code>, cada índice es de 2 bits.</p></li>
 <li><p><code>00</code>: Junto con el código de operación indica si la operación es tipo B o C.</p></li>
 <li><p><code>M</code>: Dirección de memoria, número de 8 bits.</p></li>
 <li><p><code>ffff</code>: representan el comportamiento de la instrucción, número de 4 bits.</p></li>
@@ -1795,7 +1795,7 @@ D
 <li><p><code>MMMMMMMM</code>: Dirección de memoria, número de 8 bits.</p></li>
 <li><p><code>dddddddd</code>: Dato inmediato, número de 8 bits.</p></li>
 </ul>
-<p>En la instrucción de salto condicional <code>Jxx Dirección</code>, la indicación <code>xx</code> representa todas las combinaciones posibles de los <em>flags</em>:</p>
+<p>En la instrucción de salto condicional <code>Jxx Dirección</code>, la indicación <code>xx</code> representa todas las combinaciones posibles de los <em>flags</em> donde <code>NZ</code> indica la negacion del <em>flags</em> <code>Z</code>:</p>
 <table>
 <colgroup>
 <col width="36%" />

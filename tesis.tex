@@ -2599,37 +2599,37 @@ D: control de flujo & JMP M & IP ← Dirección\\
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CodOp}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Byte}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Codificación}}}\\
 \midrule
-\textbf{0} & \texttt{MOV Rx, Ry} & 1 & \texttt{0000 XXYY}\\
+\textbf{0} & \texttt{MOV Rx, Ry} & 1 & \texttt{0000 RxRy}\\
 \addlinespace[10pt]
-\textbf{1} & \texttt{MOV Rx, [M]} & 2 & \texttt{0001 XX00 MMMMMMMM}\\
+\textbf{1} & \texttt{MOV Rx, [M]} & 2 & \texttt{0001 Rx00 MMMMMMMM}\\
 \addlinespace[10pt]
-\textbf{1} & \texttt{MOV Rx, [BL]} & 1 & \texttt{0001 XX01}\\
+\textbf{1} & \texttt{MOV Rx, [BL]} & 1 & \texttt{0001 Rx01}\\
 \addlinespace[10pt]
-\textbf{1} & \texttt{MOV Rx, D} & 2 & \texttt{0001 XX10 MMMMMMMM}\\
+\textbf{1} & \texttt{MOV Rx, D} & 2 & \texttt{0001 Rx10 MMMMMMMM}\\
 \addlinespace[10pt]
-\textbf{2} & \texttt{MOV [M], Ry} & 2 & \texttt{0010 00YY MMMMMMMM}\\
+\textbf{2} & \texttt{MOV [M], Ry} & 2 & \texttt{0010 00Ry MMMMMMMM}\\
 \addlinespace[10pt]
 \addlinespace
-\textbf{2} & \texttt{MOV [BL], Ry} & 2 & \texttt{0010 01YY}\\
+\textbf{2} & \texttt{MOV [BL], Ry} & 2 & \texttt{0010 01Ry}\\
 \addlinespace[10pt]
 \textbf{2} & \texttt{MOV [M], D} & 3 & \texttt{0010 1100 MMMMMMMM dddddddd}\\
 \addlinespace[10pt]
 \textbf{2} & \texttt{MOV [BL], D} & 2 & \texttt{0010 1101 MMMMMMMM}\\
 \addlinespace[10pt]
-\textbf{3} & \texttt{ADD Rx, Ry} & 1 & \texttt{0011 XXYY}\\
+\textbf{3} & \texttt{ADD Rx, Ry} & 1 & \texttt{0011 RxRy}\\
 \addlinespace[10pt]
 \textbf{4} & \texttt{ADD Rx, --} & Carga en registro & \texttt{0100 ---- --------}\\
 \addlinespace[10pt]
 \addlinespace
 \textbf{5} & \texttt{ADD [M], --} & Almacenar en memoria & \texttt{0101 ---- -------- --------}\\
 \addlinespace[10pt]
-\textbf{6} & \texttt{SUB Rx, Ry} & 1 & \texttt{0110 XXYY}\\
+\textbf{6} & \texttt{SUB Rx, Ry} & 1 & \texttt{0110 RxRy}\\
 \addlinespace[10pt]
 \textbf{7} & \texttt{SUB Rx, --} & Carga en registro & \texttt{0111 ---- --------}\\
 \addlinespace[10pt]
 \textbf{8} & \texttt{SUB [M], --} & Almacenar en memoria & \texttt{1000 ---- -------- --------}\\
 \addlinespace[10pt]
-\textbf{9} & \texttt{CMP Rx, Ry} & 1 & \texttt{1001 XXYY}\\
+\textbf{9} & \texttt{CMP Rx, Ry} & 1 & \texttt{1001 RxRy}\\
 \addlinespace[10pt]
 \addlinespace
 \textbf{A} & \texttt{CMP Rx, --} & registro - memoria & \texttt{1010 ---- --------}\\
@@ -2657,7 +2657,7 @@ Considerando:
 \item
   \texttt{\_\_\_\_}: Código de operación de la instrucción, número de 4 bits.
 \item
-  \texttt{XX} o \texttt{YY}: Índices de registros, número entre \texttt{0} y \texttt{3}, cada índice es de 2 bits.
+  \texttt{Rx} o \texttt{Ry}: Índices de registros, número entre \texttt{0} y \texttt{3}, cada índice es de 2 bits.
 \item
   \texttt{00}: Junto con el código de operación indica si la operación es tipo B o C.
 \item
@@ -2672,7 +2672,7 @@ Considerando:
   \texttt{dddddddd}: Dato inmediato, número de 8 bits.
 \end{itemize}
 
-En la instrucción de salto condicional \texttt{Jxx\ Dirección}, la indicación \texttt{xx} representa todas las combinaciones posibles de los \emph{flags}:
+En la instrucción de salto condicional \texttt{Jxx\ Dirección}, la indicación \texttt{xx} representa todas las combinaciones posibles de los \emph{flags} donde \texttt{NZ} indica la negacion del \emph{flags} \texttt{Z}:
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3676}}
