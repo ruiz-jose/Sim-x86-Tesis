@@ -931,6 +931,9 @@ if (knitr::is_latex_output()) {
   \\begin{lstlisting}
 x db 5
 ; ejemplo modos direccionamiento
+;----------------------
+; carga en registro
+;----------------------
 ; Por registro
 mov dl, al
 
@@ -941,7 +944,22 @@ mov cl, x
 mov bl, 8
 
 ; Indirecto
-mov [bl], cl
+mov al, [bl]
+
+;----------------------
+; Almacenar en memoria
+;----------------------
+; Diecto
+mov x, dl
+
+; Indirecto
+mov [bl], dl
+
+; Inmediato
+mov x, 3
+
+; Inmediato
+mov [bl], 2
 
 hlt\\end{lstlisting}
   ")
@@ -950,6 +968,9 @@ hlt\\end{lstlisting}
   ```assembly
 x db 5
 ; ejemplo modos direccionamiento
+;----------------------
+; carga en registro
+;----------------------
 ; Por registro
 mov dl, al
 
@@ -960,7 +981,22 @@ mov cl, x
 mov bl, 8
 
 ; Indirecto
-mov [bl], cl
+mov al, [bl]
+
+;----------------------
+; Almacenar en memoria
+;----------------------
+; Diecto
+mov x, dl
+
+; Indirecto
+mov [bl], dl
+
+; Inmediato
+mov x, 3
+
+; Inmediato
+mov [bl], 2
 
 hlt
 ```")
