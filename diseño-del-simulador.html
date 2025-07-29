@@ -1038,37 +1038,39 @@ Si tiene operando es una dirección de memoria M (*)
 </tfoot>
 </table>
 <p>Ejemplo de los modos de direccionamiento:</p>
-<pre class="assembly"><code>x db 5
+<pre class="assembly"><code>x db 2 
+y db 3
+
 ; ejemplo modos direccionamiento
 ;----------------------
 ; carga en registro
 ;----------------------
+; Directo
+mov al, x
+
 ; Por registro
 mov dl, al
 
-; Directo
-mov cl, x
-
 ; Inmediato
-mov bl, 8
+mov bl, 16
 
 ; Indirecto
-mov al, [bl]
+mov cl, [bl] ; celda 16 = y
 
 ;----------------------
 ; Almacenar en memoria
 ;----------------------
 ; Diecto
-mov x, dl
+mov x, cl
 
 ; Indirecto
-mov [bl], dl
+mov [bl], al
 
 ; Inmediato
-mov x, 3
+mov x, 5
 
 ; Inmediato
-mov [bl], 2
+mov [bl], 4
 
 hlt</code></pre>
 </div>
