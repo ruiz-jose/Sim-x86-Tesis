@@ -35,7 +35,7 @@ Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual
       `Instrucciones activadas` = c(
         "MOV, ADD, SUB, HLT",
         "CMP, JMP, JZ, JC",
-        "CALL, RET, IN, OUT, INT, IRET"
+        "CALL, RET, IN, OUT, INT, IRET, POP, PUSH, INC, DEC, AND, OR, SHL, SHR, CLI, STI"
       ),
       `Objetivo didáctico` = c(
         "Comprensión del ciclo de instrucción básico",
@@ -353,20 +353,26 @@ estructuravonsim8 <- data.frame(
                    "",
                    "",
                    "Memoria",
-                   "Buses",
+                   "Puertos",
                    "Instrucciones"),
   `Características` = c("Von Neumann, memoria compartida para datos e instrucciones.", # nolint
-                        "4 registros de propósito general (`AL`, `BL`, `CL` y `DL`) de 8 bits cada uno.", # nolint
+                        "4 registros de propósito general de 8 bits (`AL`, `BL`, `CL` y `DL`).", # nolint
                         if (knitr::is_latex_output()) {
-                          "4 registros de propósito específico:\\begin{itemize} \\item `IP` (Instruction Pointer) \\item `IR` (Instruction Register) \\item `SP` (Stack Pointer) \\item `RS` (registro de estado) \\end{itemize}" # nolint: line_length_linter.
+                          "6 registros de propósito específico:\\begin{itemize} \\item `IP` (Instruction Pointer) \\item `IR` (Instruction Register) \\item `SP` (Stack Pointer) \\item `RS` (registro de estado) \\item `MAR` (Memory Address Register) \\item `MBR` (Memory Buffer Register) \\end{itemize}" # nolint: line_length_linter.
                         } else {
-                          "4 registros de propósito específico:<ul><li>`IP` (Instruction Pointer)</li><li>`IR` (Instruction Register)</li><li>`SP` (Stack Pointer)</li><li>`RS` (registro de estado)</li></ul>" # nolint: line_length_linter.
+                          "6 registros de propósito específico:<ul><li>`IP` (Instruction Pointer)</li><li>`IR` (Instruction Register)</li><li>`SP` (Stack Pointer)</li><li>`RS` (registro de estado)</li><li>`MAR` (Memory Address Register)</li><li>`MBR` (Memory Buffer Register)</li></ul>" # nolint: line_length_linter.
                         },
-                        "2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el MAR (Memory Address Register), encargado de almacenar direcciones de memoria, y el MBR (Memory Buffer Register), que contiene los datos a transferir.", # nolint
-                        "2 registros temporales (`ri`: temporal de direcciones y `id`: temporal de datos) que se utilizan para conservar valores temporales durante la ejecución de una instrucción.", # nolint
-                        "Capacidad de direccionamiento de 256 posiciones de memoria, cada una de un byte.", # nolint
-                        "Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria.",
-                        "Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato."), # nolint: line_length_linter.
+                        "Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.", # nolint
+                        "Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición de memoria almacena un byte. La memoria se organiza en celdas de 16 bits, con una dirección inicial de `0x00` y una dirección final de `0xFF`.", # nolint        
+                        "Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria. Un bus de control de 4 bits que gestiona las señales de control entre la CPU, la memoria y los dispositivos periféricos. Conformado por rd (read), wr (write), ", # nolint
+                        "- 8 bits de direcciones de memoria (bus de direcciones, con su respectivo _buffer_ `MAR`)
+                      - 8 bits de datos (bus de datos, con su respectivo _buffer_ `MBR`)
+                      - 1 bit para la señal de lectura (`RD`)
+                      - 1 bit para la señal de escritura (`WR`)
+                      - 1 bit para indicar si la escritura es a un módulo de entrada/salida o a memoria principal (`IO/M`)
+                      - 1 bit para la petición de interrupción (`INTR`)
+                      - 1 bit para la señal de _acknowledge_ de interrupción (`INTA`)",
+                        "El repertorio de instrucciones incluye operaciones aritméticas, lógicas, de transferencia de datos y control de flujo. Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato."), # nolint: line_length_linter.
   stringsAsFactors = FALSE
 )
 
@@ -402,6 +408,101 @@ if (knitr::is_latex_output()) {
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
+
+Dentro de los registros específicos que no pueden ser accedidos por el usuario, se encuentra el registro `SP` (_stack pointer_) para el funcionamiento de la pila, el registro `FLAGS` (_flags register_), el `IP` (_instruction pointer_) que almacena la dirección de la próxima instrucción a ejecutar, el `IR` (_instruction register_) que almacena el byte de la instrucción que se está analizando/decodificando en un instante dado. También hay 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el `MAR` (_memory address register_) encargado de almacenar direcciones de memoria, y el `MBR` (_memory buffer register_) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.
+
+Además, dos registros específicos que sirven de intermediarios para realizar ejecutar instrucciones, como pueden ser el `ri` para almacenar una dirección temporal, el `id` para almacenar un dato temporal. 
+
+## Unidad de Control
+
+La unidad de control es responsable de coordinar todas las operaciones de la CPU. Se encarga de:
+
+- **Decodificación de instrucciones**: Interpreta el código de operación de cada instrucción
+- **Generación de señales de control**: Activa las señales necesarias para ejecutar microoperaciones
+- **Secuenciación**: Controla el orden de ejecución de las operaciones
+
+### Memoria de Control
+
+Para una comprensión más profunda de cómo funciona la unidad de control, puedes visualizar la memoria de control que muestra las microinstrucciones y microoperaciones de cada instrucción.
+
+### Secuenciador
+
+El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
+
+## ALU
+
+La ALU (_Arithmetic Logic Unit_) permite realizar operaciones aritméticas y lógicas de 8 bits. Las operaciones disponibles son: [`ADD`](./instructions/add), [`ADC`](./instructions/adc), [`INC`](./instructions/inc), [`SUB`](./instructions/sub), [`DEC`](./instructions/dec), [`NEG`](./instructions/neg), [`NOT`](./instructions/not), [`AND`](./instructions/and) y [`OR`](./instructions/or). Todas estas operaciones modifican el registro `FLAGS`.
+
+### Flags
+
+El registro `FLAGS` es un registro de 8 bits que contiene las _flags_ mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
+
+| Bit # | Abreviatura | Descripción            |
+| :---: | :---------: | :--------------------- |
+|   0   |    `CF`     | _Flag_ de acarreo      |
+|   6   |    `ZF`     | _Flag_ de cero         |
+|   7   |    `SF`     | _Flag_ de signo        |
+|   9   |    `IF`     | _Flag_ de interrupción |
+|  11   |    `OF`     | _Flag_ de overflow     |
+
+El resto de bits están reservados / no se utilizan.
+
+## Pila
+
+El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo _Last In, First Out_ (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (`FFh`) y creciendo hacia las direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se guarda en el registro `SP`. Todos los elementos de la pila son de 8 bits.
+
+## Subrutinas
+
+El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción [`CALL`](./instructions/call). Esta instrucción almacena el `IP` en la [pila](#pila), y luego realiza un salto a la dirección de la subrutina, modificando el `IP` para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción [`RET`](./instructions/ret), que desapila la dirección apilada previamente por `CALL` y restaura el `IP`, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
+
+Ejemplo de subrutina:
+
+```vonsim
+      mov al, 1
+      mov bl, 2
+      mov cl, 3
+      call sum3
+      ; ax = 6
+      hlt
+
+      ; suma al, bl y cl
+      sum3: add al, bl
+            add al, cl
+            ret
+```
+
+## Interrupciones
+
+El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el [PIC](../io/modules/pic) o por la instrucción [`INT`](./instructions/int) respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, `IF=1` (la _flag_ de interrupciones activada).
+
+Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT` ([ver más](./instructions/int)). En el caso de las interrupciones por hardware, esta es dada por el PIC ([ver cómo se obtiene](../io/modules/pic#funcionamiento)). El número de interrupción debe ser un número entre `0` y `7`.
+
+Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+Específicamente, el procesador:
+
+1. obtiene el número de la interrupción (0-7),
+2. apila el registro [`FLAGS`](#flags),
+3. inhabilita las interrupciones (`IF=0`),
+4. apila el registro `IP`,
+5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
+6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
+
+Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una [subrutina](#subrutinas) salvo que terminan en [`IRET`](./instructions/iret) en vez de [`RET`](./instructions/ret).
+
+### Llamadas al sistema
+
+El simulador permite realizar llamadas al sistema o _syscalls_. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una _syscall_ basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
+
+- `INT 0`: termina la ejecución del programa, equivalente a la instrucción [`HLT`](./instructions/hlt);
+- `INT 6`: lee un carácter del [teclado](../io/devices/keyboard);
+- `INT 7`: escribe una cadena de caracteres en [pantalla](../io/devices/screen).
+
+Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
+
+El contenido de estas rutinas se encuentran almacenadas en el [monitor del sistema](./memory) en las direcciones `A0h`, `B0h` y `C0h` respectivamente.
+
+
 
 La Figura \@ref(fig:esquemavonsim8) presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Dicha representación facilita la comprensión estructural del sistema y su analogía con una arquitectura computacional real, simplificada para fines educativos.
 
