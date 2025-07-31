@@ -312,17 +312,17 @@ En el caso de las interrupciones por software, esta es dada por el operando de l
 Específicamente, el procesador:
 
 1. obtiene el número de la interrupción (0-7),
-2. apila el registro [`FLAGS`],
-3. inhabilita las interrupciones (`IF=0`),
+2. apila el registro `FLAGS`,
+3. inhabilita las interrupciones `IF=0`,
 4. apila el registro `IP`,
 5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
 6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
 
 El simulador implementas las interrupciones por software mediante la instrucción `INT <n>`. Estos números son:
 
-- `INT 0`: termina la ejecución del programa, equivalente a la instrucción [`HLT`];
-- `INT 6`: lee un carácter del [teclado];
-- `INT 7`: escribe una cadena de caracteres en [pantalla].
+- `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
+- `INT 6`: lee un carácter del teclado;
+- `INT 7`: escribe una cadena de caracteres en pantalla.
 
 ### Requisitos funcionales del simulador VonSim8
 
@@ -364,14 +364,14 @@ estructuravonsim8 <- data.frame(
                         },
                         "Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.", # nolint
                         "Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición de memoria almacena un byte. La memoria se organiza en celdas de 16 bits, con una dirección inicial de `0x00` y una dirección final de `0xFF`.", # nolint        
-                        "Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria. Un bus de control de 4 bits que gestiona las señales de control entre la CPU, la memoria y los dispositivos periféricos. Conformado por rd (read), wr (write), ", # nolint
-                        "- 8 bits de direcciones de memoria (bus de direcciones, con su respectivo _buffer_ `MAR`)
-                      - 8 bits de datos (bus de datos, con su respectivo _buffer_ `MBR`)
-                      - 1 bit para la señal de lectura (`RD`)
-                      - 1 bit para la señal de escritura (`WR`)
-                      - 1 bit para indicar si la escritura es a un módulo de entrada/salida o a memoria principal (`IO/M`)
-                      - 1 bit para la petición de interrupción (`INTR`)
-                      - 1 bit para la señal de _acknowledge_ de interrupción (`INTA`)",
+                        "Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria. Un bus de control de 4 bits que gestiona las señales de control entre la CPU, la memoria y los dispositivos periféricos. Conformado por rd (read), wr (write)", # nolint
+                        "0- 8 bits de direcciones de memoria (bus de direcciones, con su respectivo buffer `MAR`)
+- 8 bits de datos (bus de datos, con su respectivo buffer `MBR`)
+- 1 bit para la señal de lectura `rd`
+- 1 bit para la señal de escritura `wr`
+- 1 bit para indicar si la escritura es a un módulo de entrada/salida o a memoria principal `IO/M`
+- 1 bit para la petición de interrupción `INTR`
+- 1 bit para la señal de acknowledge de interrupción `INTA`",
                         "El repertorio de instrucciones incluye operaciones aritméticas, lógicas, de transferencia de datos y control de flujo. Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato."), # nolint: line_length_linter.
   stringsAsFactors = FALSE
 )
@@ -431,7 +431,7 @@ El secuenciador complementa la memoria de control mostrando cómo se controla la
 
 ## ALU
 
-La ALU (_Arithmetic Logic Unit_) permite realizar operaciones aritméticas y lógicas de 8 bits. Las operaciones disponibles son: [`ADD`](./instructions/add), [`ADC`](./instructions/adc), [`INC`](./instructions/inc), [`SUB`](./instructions/sub), [`DEC`](./instructions/dec), [`NEG`](./instructions/neg), [`NOT`](./instructions/not), [`AND`](./instructions/and) y [`OR`](./instructions/or). Todas estas operaciones modifican el registro `FLAGS`.
+La ALU (_Arithmetic Logic Unit_) permite realizar operaciones aritméticas y lógicas de 8 bits. Las operaciones disponibles son: `ADD`, `INC`, `SUB`, `DEC`, `NEG`, `NOT`, `AND` y `OR`. Todas estas operaciones modifican el registro `FLAGS`.
 
 ### Flags
 
@@ -473,34 +473,34 @@ Ejemplo de subrutina:
 
 ## Interrupciones
 
-El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el [PIC](../io/modules/pic) o por la instrucción [`INT`](./instructions/int) respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, `IF=1` (la _flag_ de interrupciones activada).
+El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción `INT` respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, `IF=1` (la _flag_ de interrupciones activada).
 
-Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT` ([ver más](./instructions/int)). En el caso de las interrupciones por hardware, esta es dada por el PIC ([ver cómo se obtiene](../io/modules/pic#funcionamiento)). El número de interrupción debe ser un número entre `0` y `7`.
+Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT`. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre `0` y `7`.
 
 Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
 
 Específicamente, el procesador:
 
 1. obtiene el número de la interrupción (0-7),
-2. apila el registro [`FLAGS`](#flags),
-3. inhabilita las interrupciones (`IF=0`),
+2. apila el registro `FLAGS`,
+3. inhabilita las interrupciones `IF=0`,
 4. apila el registro `IP`,
 5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
 6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
 
-Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una [subrutina](#subrutinas) salvo que terminan en [`IRET`](./instructions/iret) en vez de [`RET`](./instructions/ret).
+Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en `IRET` en vez de `RET`.
 
 ### Llamadas al sistema
 
 El simulador permite realizar llamadas al sistema o _syscalls_. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una _syscall_ basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
 
-- `INT 0`: termina la ejecución del programa, equivalente a la instrucción [`HLT`](./instructions/hlt);
-- `INT 6`: lee un carácter del [teclado](../io/devices/keyboard);
-- `INT 7`: escribe una cadena de caracteres en [pantalla](../io/devices/screen).
+- `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
+- `INT 6`: lee un carácter del teclado;
+- `INT 7`: escribe una cadena de caracteres en pantalla.
 
 Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
 
-El contenido de estas rutinas se encuentran almacenadas en el [monitor del sistema](./memory) en las direcciones `A0h`, `B0h` y `C0h` respectivamente.
+El contenido de estas rutinas se encuentran almacenadas en el monitor del sistemaen las direcciones `A0h`, `B0h` y `C0h` respectivamente.
 
 
 
@@ -1202,7 +1202,7 @@ instcodif <- data.frame(
     "`0010 00Ry MMMMMMMM`", "`0010 01Ry`", "`0010 1100 MMMMMMMM dddddddd`", "`0010 1101 MMMMMMMM`",
     "`0011 RxRy`", "`0100 ---- --------`", "`0101 ---- -------- --------`", "`0110 RxRy`", "`0111 ---- --------`",
     "`1000 ---- -------- --------`", "`1001 RxRy`", "`1010 ---- --------`", "`1011 ---- -------- --------`",
-    "`1100 0000 MMMMMMMM`", "`1100 0001 MMMMMMMM`", "`1100 0011 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1101 0000 00000000`"
+    "`1100 0000 MMMMMMMM`", "`1100 0001 MMMMMMMM`", "`1100 0011 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1101 0000`"
   ),
   stringsAsFactors = FALSE
 )
@@ -1384,9 +1384,9 @@ El repertorio **x86** es reducido (8 bits)
 
 | **Control de flujo**      | `JMP / Jxx / CALL / INT`         | {12}             | Salto incondicional `JMP`, condicionales `Jxx`, llamada `CALL`,`INT`: llamar rutina de interrupción |
 
-| **Gestion de flujo**      | `RET / IRET / CLI/  STI / HLT`| {13}           | , , retorno `RET`, `IRET`: retornar de interrupción<br>`NOP`: no opera<br>`HLT`: detiene el CPU  |
+| **Gestion de flujo**      | `RET / IRET / CLI/  STI / HLT`| {13}           | retorno `RET`, `IRET`: retornar de interrupción<br>`NOP`: no opera<br>`HLT`: detiene el CPU  |
 
-| **Manejo de pila y E/S**  | `PUSH / POP / OUT / IN` | {14}           | `PUSH`: poner en la pila<br>`POP`: retirar de la pila<br>`OUT`: enviar a puerto<br>`IN`: recibir desde puerto |
+| **Manejo de pila y E/S**  | `PUSH / POP / OUT / IN` | {14}           | `PUSH`: poner en la pila<br>`POP`: retirar de la pila<br>`OUT`: enviar a puerto `IN`: recibir desde puerto |
 
 | **Miscelánea**            | `AND / OR / XOR / NOT / INC / DEC`  | {15}           | Operaciones lógicas                               |
 
