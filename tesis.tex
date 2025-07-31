@@ -1766,7 +1766,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
    \addlinespace[10pt]
    \textbf{Intermedia} & CMP, JMP, JZ, JC & Introducción a control de flujo\\
    \addlinespace[10pt]
-   \textbf{Avanzada} & CALL, RET, IN, OUT, INT, IRET & Manejo de periféricos e interrupciones\\
+   \textbf{Avanzada} & CALL, RET, IN, OUT, INT, IRET, POP, PUSH, INC, DEC, AND, OR, SHL, SHR, CLI, STI & Manejo de periféricos e interrupciones\\
    \addlinespace[10pt]
    \bottomrule
    \end{tabular}}
@@ -2094,9 +2094,9 @@ Específicamente, el procesador:
 \item
   obtiene el número de la interrupción (0-7),
 \item
-  apila el registro {[}\texttt{FLAGS}{]},
+  apila el registro \texttt{FLAGS},
 \item
-  inhabilita las interrupciones (\texttt{IF=0}),
+  inhabilita las interrupciones \texttt{IF=0},
 \item
   apila el registro \texttt{IP},
 \item
@@ -2110,11 +2110,11 @@ El simulador implementas las interrupciones por software mediante la instrucció
 \begin{itemize}
 \tightlist
 \item
-  \texttt{INT\ 0}: termina la ejecución del programa, equivalente a la instrucción {[}\texttt{HLT}{]};
+  \texttt{INT\ 0}: termina la ejecución del programa, equivalente a la instrucción \texttt{HLT};
 \item
-  \texttt{INT\ 6}: lee un carácter del {[}teclado{]};
+  \texttt{INT\ 6}: lee un carácter del teclado;
 \item
-  \texttt{INT\ 7}: escribe una cadena de caracteres en {[}pantalla{]}.
+  \texttt{INT\ 7}: escribe una cadena de caracteres en pantalla.
 \end{itemize}
 
 \hypertarget{requisitos-funcionales-del-simulador-vonsim8}{%
@@ -2151,24 +2151,162 @@ Esta sección describe la estructura del simulador VonSims8, el diseño de los r
 \midrule
 \textbf{Arquitectura} & Von Neumann, memoria compartida para datos e instrucciones.\\
 \addlinespace[10pt]
-\textbf{Registros} & 4 registros de propósito general (`AL`, `BL`, `CL` y `DL`) de 8 bits cada uno.\\
+\textbf{Registros} & 4 registros de propósito general de 8 bits (`AL`, `BL`, `CL` y `DL`).\\
 \addlinespace[10pt]
-\textbf{} & 4 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \end{itemize}\\
+\textbf{} & 6 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \item `MAR` (Memory Address Register) \item `MBR` (Memory Buffer Register) \end{itemize}\\
 \addlinespace[10pt]
-\textbf{} & 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el MAR (Memory Address Register), encargado de almacenar direcciones de memoria, y el MBR (Memory Buffer Register), que contiene los datos a transferir.\\
+\textbf{} & Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.\\
 \addlinespace[10pt]
-\textbf{} & 2 registros temporales (`ri`: temporal de direcciones y `id`: temporal de datos) que se utilizan para conservar valores temporales durante la ejecución de una instrucción.\\
+\textbf{} & Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición de memoria almacena un byte. La memoria se organiza en celdas de 16 bits, con una dirección inicial de `0x00` y una dirección final de `0xFF`.\\
 \addlinespace[10pt]
 \addlinespace
-\textbf{Memoria} & Capacidad de direccionamiento de 256 posiciones de memoria, cada una de un byte.\\
+\textbf{Memoria} & Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria. Un bus de control de 4 bits que gestiona las señales de control entre la CPU, la memoria y los dispositivos periféricos. Conformado por rd (read), wr (write)\\
 \addlinespace[10pt]
-\textbf{Buses} & Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria.\\
+Puertos & 0- 8 bits de direcciones de memoria (bus de direcciones, con su respectivo buffer `MAR`)
+- 8 bits de datos (bus de datos, con su respectivo buffer `MBR`)
+- 1 bit para la señal de lectura `rd`
+- 1 bit para la señal de escritura `wr`
+- 1 bit para indicar si la escritura es a un módulo de entrada/salida o a memoria principal `IO/M`
+- 1 bit para la petición de interrupción `INTR`
+\textbf{- 1 bit para la señal de acknowledge de interrupción `INTA`}\\
 \addlinespace[10pt]
-\textbf{Instrucciones} & Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
+\textbf{Instrucciones} & El repertorio de instrucciones incluye operaciones aritméticas, lógicas, de transferencia de datos y control de flujo. Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
+
+Dentro de los registros específicos que no pueden ser accedidos por el usuario, se encuentra el registro \texttt{SP} (\emph{stack pointer}) para el funcionamiento de la pila, el registro \texttt{FLAGS} (\emph{flags register}), el \texttt{IP} (\emph{instruction pointer}) que almacena la dirección de la próxima instrucción a ejecutar, el \texttt{IR} (\emph{instruction register}) que almacena el byte de la instrucción que se está analizando/decodificando en un instante dado. También hay 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el \texttt{MAR} (\emph{memory address register}) encargado de almacenar direcciones de memoria, y el \texttt{MBR} (\emph{memory buffer register}) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.
+
+Además, dos registros específicos que sirven de intermediarios para realizar ejecutar instrucciones, como pueden ser el \texttt{ri} para almacenar una dirección temporal, el \texttt{id} para almacenar un dato temporal.
+
+\hypertarget{unidad-de-control}{%
+\section{Unidad de Control}\label{unidad-de-control}}
+
+La unidad de control es responsable de coordinar todas las operaciones de la CPU. Se encarga de:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Decodificación de instrucciones}: Interpreta el código de operación de cada instrucción
+\item
+  \textbf{Generación de señales de control}: Activa las señales necesarias para ejecutar microoperaciones
+\item
+  \textbf{Secuenciación}: Controla el orden de ejecución de las operaciones
+\end{itemize}
+
+\hypertarget{memoria-de-control}{%
+\subsection{Memoria de Control}\label{memoria-de-control}}
+
+Para una comprensión más profunda de cómo funciona la unidad de control, puedes visualizar la memoria de control que muestra las microinstrucciones y microoperaciones de cada instrucción.
+
+\hypertarget{secuenciador}{%
+\subsection{Secuenciador}\label{secuenciador}}
+
+El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
+
+\hypertarget{alu}{%
+\section{ALU}\label{alu}}
+
+La ALU (\emph{Arithmetic Logic Unit}) permite realizar operaciones aritméticas y lógicas de 8 bits. Las operaciones disponibles son: \texttt{ADD}, \texttt{INC}, \texttt{SUB}, \texttt{DEC}, \texttt{NEG}, \texttt{NOT}, \texttt{AND} y \texttt{OR}. Todas estas operaciones modifican el registro \texttt{FLAGS}.
+
+\hypertarget{flags-1}{%
+\subsection{Flags}\label{flags-1}}
+
+El registro \texttt{FLAGS} es un registro de 8 bits que contiene las \emph{flags} mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
+
+\begin{longtable}[]{@{}ccl@{}}
+\toprule\noalign{}
+Bit \# & Abreviatura & Descripción \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & \texttt{CF} & \emph{Flag} de acarreo \\
+6 & \texttt{ZF} & \emph{Flag} de cero \\
+7 & \texttt{SF} & \emph{Flag} de signo \\
+9 & \texttt{IF} & \emph{Flag} de interrupción \\
+11 & \texttt{OF} & \emph{Flag} de overflow \\
+\end{longtable}
+
+El resto de bits están reservados / no se utilizan.
+
+\hypertarget{pila}{%
+\section{Pila}\label{pila}}
+
+El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo \emph{Last In, First Out} (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (\texttt{FFh}) y creciendo hacia las direcciones más bajas (\texttt{FEh}, \texttt{FCh}, etc.). El tope de la pila se guarda en el registro \texttt{SP}. Todos los elementos de la pila son de 8 bits.
+
+\hypertarget{subrutinas}{%
+\section{Subrutinas}\label{subrutinas}}
+
+El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción \href{./instructions/call}{\texttt{CALL}}. Esta instrucción almacena el \texttt{IP} en la \protect\hyperlink{pila}{pila}, y luego realiza un salto a la dirección de la subrutina, modificando el \texttt{IP} para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción \href{./instructions/ret}{\texttt{RET}}, que desapila la dirección apilada previamente por \texttt{CALL} y restaura el \texttt{IP}, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
+
+Ejemplo de subrutina:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{      mov al, 1}
+\NormalTok{      mov bl, 2}
+\NormalTok{      mov cl, 3}
+\NormalTok{      call sum3}
+\NormalTok{      ; ax = 6}
+\NormalTok{      hlt}
+
+\NormalTok{      ; suma al, bl y cl}
+\NormalTok{      sum3: add al, bl}
+\NormalTok{            add al, cl}
+\NormalTok{            ret}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{interrupciones}{%
+\section{Interrupciones}\label{interrupciones}}
+
+El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción \texttt{INT} respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, \texttt{IF=1} (la \emph{flag} de interrupciones activada).
+
+Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT}. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre \texttt{0} y \texttt{7}.
+
+Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+Específicamente, el procesador:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  obtiene el número de la interrupción (0-7),
+\item
+  apila el registro \texttt{FLAGS},
+\item
+  inhabilita las interrupciones \texttt{IF=0},
+\item
+  apila el registro \texttt{IP},
+\item
+  obtiene la dirección de la rutina de interrupción del vector de interrupciones,
+\item
+  modifica el \texttt{IP} para que apunte a la dirección de la rutina de interrupción.
+\end{enumerate}
+
+Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en \texttt{IRET} en vez de \texttt{RET}.
+
+\hypertarget{llamadas-al-sistema}{%
+\subsection{Llamadas al sistema}\label{llamadas-al-sistema}}
+
+El simulador permite realizar llamadas al sistema o \emph{syscalls}. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una \emph{syscall} basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{INT\ 0}: termina la ejecución del programa, equivalente a la instrucción \texttt{HLT};
+\item
+  \texttt{INT\ 6}: lee un carácter del teclado;
+\item
+  \texttt{INT\ 7}: escribe una cadena de caracteres en pantalla.
+\end{itemize}
+
+Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
+
+El contenido de estas rutinas se encuentran almacenadas en el monitor del sistemaen las direcciones \texttt{A0h}, \texttt{B0h} y \texttt{C0h} respectivamente.
 
 La Figura \ref{fig:esquemavonsim8} presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Dicha representación facilita la comprensión estructural del sistema y su analogía con una arquitectura computacional real, simplificada para fines educativos.
 
@@ -2665,7 +2803,7 @@ D: control de flujo & JMP M & IP ← Dirección\\
 \addlinespace
 \textbf{C} & \texttt{Jxx M} & 1 & \texttt{1100 ffff MMMMMMMM}\\
 \addlinespace[10pt]
-\textbf{D} & \texttt{HLT} & 1 & \texttt{1101 0000 00000000}\\
+\textbf{D} & \texttt{HLT} & 1 & \texttt{1101 0000}\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
@@ -2802,9 +2940,9 @@ Acción
 
 \textbf{Control de flujo} \textbar{} \texttt{JMP\ /\ Jxx\ /\ CALL\ /\ INT} \textbar{} \{12\} \textbar{} Salto incondicional \texttt{JMP}, condicionales \texttt{Jxx}, llamada \texttt{CALL},\texttt{INT}: llamar rutina de interrupción \textbar{}
 
-\textbf{Gestion de flujo} \textbar{} \texttt{RET\ /\ IRET\ /\ CLI/\ \ STI\ /\ HLT}\textbar{} \{13\} \textbar{} , , retorno \texttt{RET}, \texttt{IRET}: retornar de interrupción\texttt{NOP}: no opera\texttt{HLT}: detiene el CPU \textbar{}
+\textbf{Gestion de flujo} \textbar{} \texttt{RET\ /\ IRET\ /\ CLI/\ \ STI\ /\ HLT}\textbar{} \{13\} \textbar{} retorno \texttt{RET}, \texttt{IRET}: retornar de interrupción\texttt{NOP}: no opera\texttt{HLT}: detiene el CPU \textbar{}
 
-\textbf{Manejo de pila y E/S} \textbar{} \texttt{PUSH\ /\ POP\ /\ OUT\ /\ IN} \textbar{} \{14\} \textbar{} \texttt{PUSH}: poner en la pila\texttt{POP}: retirar de la pila\texttt{OUT}: enviar a puerto\texttt{IN}: recibir desde puerto \textbar{}
+\textbf{Manejo de pila y E/S} \textbar{} \texttt{PUSH\ /\ POP\ /\ OUT\ /\ IN} \textbar{} \{14\} \textbar{} \texttt{PUSH}: poner en la pila\texttt{POP}: retirar de la pila\texttt{OUT}: enviar a puerto \texttt{IN}: recibir desde puerto \textbar{}
 
 \textbf{Miscelánea} \textbar{} \texttt{AND\ /\ OR\ /\ XOR\ /\ NOT\ /\ INC\ /\ DEC} \textbar{} \{15\} \textbar{} Operaciones lógicas \textbar{}
 
