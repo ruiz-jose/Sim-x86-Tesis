@@ -2139,43 +2139,6 @@ Las modificaciones implementadas se alinean con los contenidos curriculares de l
 
 Esta sección describe la estructura del simulador VonSims8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. Se describe en la siguiente tabla \ref{tab:estructuravonsim8} los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:
 
-\begin{table}[!h]
-\centering
-\caption{\label{tab:estructuravonsim8}Estructura VonSim8}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{9cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
-\midrule
-\textbf{Arquitectura} & Von Neumann, memoria compartida para datos e instrucciones.\\
-\addlinespace[10pt]
-\textbf{Registros} & 4 registros de propósito general de 8 bits (`AL`, `BL`, `CL` y `DL`).\\
-\addlinespace[10pt]
-\textbf{} & 6 registros de propósito específico:\begin{itemize} \item `IP` (Instruction Pointer) \item `IR` (Instruction Register) \item `SP` (Stack Pointer) \item `RS` (registro de estado) \item `MAR` (Memory Address Register) \item `MBR` (Memory Buffer Register) \end{itemize}\\
-\addlinespace[10pt]
-\textbf{} & Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.\\
-\addlinespace[10pt]
-\textbf{} & Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición de memoria almacena un byte. La memoria se organiza en celdas de 16 bits, con una dirección inicial de `0x00` y una dirección final de `0xFF`.\\
-\addlinespace[10pt]
-\addlinespace
-\textbf{Memoria} & Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria. Un bus de control de 4 bits que gestiona las señales de control entre la CPU, la memoria y los dispositivos periféricos. Conformado por rd (read), wr (write)\\
-\addlinespace[10pt]
-Puertos & 0- 8 bits de direcciones de memoria (bus de direcciones, con su respectivo buffer `MAR`)
-- 8 bits de datos (bus de datos, con su respectivo buffer `MBR`)
-- 1 bit para la señal de lectura `rd`
-- 1 bit para la señal de escritura `wr`
-- 1 bit para indicar si la escritura es a un módulo de entrada/salida o a memoria principal `IO/M`
-- 1 bit para la petición de interrupción `INTR`
-\textbf{- 1 bit para la señal de acknowledge de interrupción `INTA`}\\
-\addlinespace[10pt]
-\textbf{Instrucciones} & El repertorio de instrucciones incluye operaciones aritméticas, lógicas, de transferencia de datos y control de flujo. Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
 Dentro de los registros específicos que no pueden ser accedidos por el usuario, se encuentra el registro \texttt{SP} (\emph{stack pointer}) para el funcionamiento de la pila, el registro \texttt{FLAGS} (\emph{flags register}), el \texttt{IP} (\emph{instruction pointer}) que almacena la dirección de la próxima instrucción a ejecutar, el \texttt{IR} (\emph{instruction register}) que almacena el byte de la instrucción que se está analizando/decodificando en un instante dado. También hay 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el \texttt{MAR} (\emph{memory address register}) encargado de almacenar direcciones de memoria, y el \texttt{MBR} (\emph{memory buffer register}) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.
 
 Además, dos registros específicos que sirven de intermediarios para realizar ejecutar instrucciones, como pueden ser el \texttt{ri} para almacenar una dirección temporal, el \texttt{id} para almacenar un dato temporal.
@@ -2204,6 +2167,13 @@ Para una comprensión más profunda de cómo funciona la unidad de control, pued
 \subsection{Secuenciador}\label{secuenciador}}
 
 El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
+
+\hypertarget{instrucciones}{%
+\section{Instrucciones}\label{instrucciones}}
+
+El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, permitiendo a los estudiantes familiarizarse con las operaciones básicas sin abrumarse con la complejidad del conjunto completo de instrucciones x86.
+
+El repertorio de instrucciones incluye operaciones aritméticas, lógicas, de transferencia de datos y control de flujo. Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.
 
 \hypertarget{alu}{%
 \section{ALU}\label{alu}}
@@ -2661,7 +2631,7 @@ mov dl, al
 mov bl, 16
 
 ; Indirecto
-mov cl, [bl] ; celda 16 = y
+mov cl, [bl] ; celda 16 = bl
 
 ;----------------------
 ; Almacenar en memoria
