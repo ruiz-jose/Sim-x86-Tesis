@@ -351,10 +351,8 @@ estructuravonsim8 <- data.frame(
                    "Registros",
                    "",
                    "",
-                   "",
                    "Memoria",
-                   "Puertos",
-                   "Instrucciones"),
+                   "Puertos"),
   `Características` = c("Von Neumann, memoria compartida para datos e instrucciones.", # nolint
                         "4 registros de propósito general de 8 bits (`AL`, `BL`, `CL` y `DL`).", # nolint
                         if (knitr::is_latex_output()) {
@@ -364,15 +362,11 @@ estructuravonsim8 <- data.frame(
                         },
                         "Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.", # nolint
                         "Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición de memoria almacena un byte. La memoria se organiza en celdas de 16 bits, con una dirección inicial de `0x00` y una dirección final de `0xFF`.", # nolint        
-                        "Sistema de buses compuesto por un bus de datos y un bus de direcciones, ambos de 8 bits, lo cual limita el espacio de direccionamiento a 256 posiciones de memoria. Un bus de control de 4 bits que gestiona las señales de control entre la CPU, la memoria y los dispositivos periféricos. Conformado por rd (read), wr (write)", # nolint
-                        "0- 8 bits de direcciones de memoria (bus de direcciones, con su respectivo buffer `MAR`)
-- 8 bits de datos (bus de datos, con su respectivo buffer `MBR`)
-- 1 bit para la señal de lectura `rd`
-- 1 bit para la señal de escritura `wr`
-- 1 bit para indicar si la escritura es a un módulo de entrada/salida o a memoria principal `IO/M`
-- 1 bit para la petición de interrupción `INTR`
-- 1 bit para la señal de acknowledge de interrupción `INTA`",
-                        "El repertorio de instrucciones incluye operaciones aritméticas, lógicas, de transferencia de datos y control de flujo. Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato."), # nolint: line_length_linter.
+                        if (knitr::is_latex_output()) {
+                          "Puertos de la CPU:\\begin{itemize} \\item 8 bits de direcciones de memoria (bus de direcciones, con su respectivo buffer \\texttt{MAR}) \\item 8 bits de datos (bus de datos, con su respectivo buffer \\texttt{MBR}) \\item 1 bit para la señal de lectura \\texttt{rd} \\item 1 bit para la señal de escritura \\texttt{wr} \\item 1 bit para indicar si la escritura es a un módulo de entrada/salida o a memoria principal \\texttt{IO/M} \\item 1 bit para la petición de interrupción \\texttt{INTR} \\item 1 bit para la señal de acknowledge de interrupción \\texttt{INTA} \\end{itemize}"
+                        } else {
+                          "Puertos de la CPU:<ul><li>8 bits de direcciones de memoria (bus de direcciones, con su respectivo buffer <code>MAR</code>)</li><li>8 bits de datos (bus de datos, con su respectivo buffer <code>MBR</code>)</li><li>1 bit para la señal de lectura <code>rd</code></li><li>1 bit para la señal de escritura <code>wr</code></li><li>1 bit para indicar si la escritura es a un módulo de entrada/salida o a memoria principal <code>IO/M</code></li><li>1 bit para la petición de interrupción <code>INTR</code></li><li>1 bit para la señal de acknowledge de interrupción <code>INTA</code></li></ul>"
+                        }, # nolint: line_length_linter.
   stringsAsFactors = FALSE
 )
 
@@ -428,6 +422,11 @@ Para una comprensión más profunda de cómo funciona la unidad de control, pued
 ### Secuenciador
 
 El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
+
+## Instrucciones
+El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, permitiendo a los estudiantes familiarizarse con las operaciones básicas sin abrumarse con la complejidad del conjunto completo de instrucciones x86.
+
+El repertorio de instrucciones incluye operaciones aritméticas, lógicas, de transferencia de datos y control de flujo. Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.
 
 ## ALU
 
@@ -1047,7 +1046,7 @@ mov dl, al
 mov bl, 16
 
 ; Indirecto
-mov cl, [bl] ; celda 16 = y
+mov cl, [bl] ; celda 16 = bl
 
 ;----------------------
 ; Almacenar en memoria
@@ -1086,7 +1085,7 @@ mov dl, al
 mov bl, 16
 
 ; Indirecto
-mov cl, [bl] ; celda 16 = y
+mov cl, [bl] ; celda 16 = BL
 
 ;----------------------
 ; Almacenar en memoria
