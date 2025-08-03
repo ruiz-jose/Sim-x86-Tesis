@@ -2967,6 +2967,8 @@ En esta etapa, común a todas las instrucciones, consiste en la lectura de la in
   Finalmente, el contenido del registro de datos de memoria (\texttt{MBR}) se copia en el registro de instrucciones (\texttt{IR}). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.
 \end{enumerate}
 
+La etapa de captación tiene 3 ciclos para todas las instrucciones.
+
 \hypertarget{etapa-de-ejecuciuxf3n}{%
 \subsection{Etapa de Ejecución:}\label{etapa-de-ejecuciuxf3n}}
 
@@ -3020,14 +3022,7 @@ Instruccion de transferencia de datos MOV
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \setcounter{enumi}{3}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
+  \tightlist
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL se transfiere al registro MAR.
   \item
@@ -3064,7 +3059,7 @@ Instruccion de transferencia de datos MOV
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{5}
+  \setcounter{enumi}{3}
   \tightlist
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL se transfiere al registro MAR.
@@ -3088,15 +3083,9 @@ Instruccion de transferencia de datos MOV
       Se obtiene el operando de la instrucción.
     \end{enumerate}
   \item
-    \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR}}: El valor de MBR se transfiere a un registro intermedio (ri).\\
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP};\texttt{ri} \(\leftarrow\) \texttt{MBR}}: El contenido de IP se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio (ri) .\\
   \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{7}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno.\\
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}: El contenido de ri se transfiere al registro MAR.
   \item
@@ -3124,30 +3113,31 @@ Instruccion de transferencia de datos MOV
 \end{itemize}
 
 Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan las banderas del registro de estado \texttt{RS}.
-\#\#\#\# Destino registro
-* ADD \texttt{Rx}, \texttt{Ry} (Entre registros)
-4. \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry}; update(Flags)}
+Tienen los mismos modos de direccionamiento que MOV, pero con una diferencia importante: la instrucción ADD almacena el resultado de la operación en el operando destino. Es decir que solo cambia el ultimo paso de la etapa de ejecución.
+Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.
+
+\hypertarget{destino-registro}{%
+\subsubsection{Destino registro}\label{destino-registro}}
 
 \begin{itemize}
 \tightlist
+\item
+  ADD \texttt{Rx}, \texttt{Ry} (Entre registros)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry}; update(Flags)}
+  \end{enumerate}
 \item
   ADD \texttt{Rx}, \texttt{{[}Dirección{]}} (Directo)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+  \setcounter{enumi}{7}
+  \tightlist
   \item
     \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
   \end{enumerate}
@@ -3156,15 +3146,8 @@ Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan la
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
+  \setcounter{enumi}{5}
+  \tightlist
   \item
     \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
   \end{enumerate}
@@ -3173,19 +3156,8 @@ Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan la
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+  \setcounter{enumi}{5}
+  \tightlist
   \item
     \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
   \end{enumerate}
@@ -3201,87 +3173,45 @@ Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan la
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
+  \setcounter{enumi}{7}
+  \tightlist
   \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}
-  \item
-    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
   \end{enumerate}
 \item
   ADD \texttt{{[}BL{]}}, \texttt{Ry} (Indirecto)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{5}
+  \setcounter{enumi}{7}
   \tightlist
   \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}
-  \item
-    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
   \end{enumerate}
 \item
   ADD \texttt{{[}Dirección{]}}, \texttt{Dato} (Inmediato)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
+  \setcounter{enumi}{8}
+  \tightlist
   \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
-  \item
-    \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR}}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{7}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}
-  \item
-    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
   \end{enumerate}
 \item
   ADD \texttt{{[}BL{]}}, \texttt{Dato} (Inmediato)
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
+  \setcounter{enumi}{6}
+  \tightlist
   \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
-  \item
-    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
   \end{enumerate}
 \end{itemize}
 
-Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.
+\hypertarget{destino-registro-1}{%
+\subsubsection{Destino registro}\label{destino-registro-1}}
 
 \begin{itemize}
 \tightlist
@@ -3296,6 +3226,90 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
     \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{Ry}; update(Flags)}
   \end{enumerate}
 \item
+  SUB \texttt{Rx}, \texttt{{[}Dirección{]}} (Directo)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{7}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  SUB \texttt{Rx}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{5}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  SUB \texttt{Rx}, \texttt{{[}BL{]}} (Indirecto)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{5}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{destino-memoria-2}{%
+\subsubsection{Destino Memoria}\label{destino-memoria-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  SUB \texttt{{[}Dirección{]}}, \texttt{Ry} (Directo)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{7}
+  \tightlist
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  SUB \texttt{{[}BL{]}}, \texttt{Ry} (Indirecto)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{7}
+  \tightlist
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  SUB \texttt{{[}Dirección{]}}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{8}
+  \tightlist
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  SUB \texttt{{[}BL{]}}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{6}
+  \tightlist
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{destino-registro-2}{%
+\subsubsection{Destino registro}\label{destino-registro-2}}
+
+\begin{itemize}
+\tightlist
+\item
   CMP \texttt{Rx}, \texttt{Ry} (Entre registros)
 
   \begin{enumerate}
@@ -3304,6 +3318,124 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
   \tightlist
   \item
     \textbf{\texttt{Rx} - \texttt{Ry}; update(Flags)}
+  \end{enumerate}
+\item
+  CMP \texttt{Rx}, \texttt{{[}Dirección{]}} (Directo)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{7}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}\\
+  \end{enumerate}
+\item
+  CMP \texttt{Rx}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{5}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  CMP \texttt{Rx}, \texttt{{[}BL{]}} (Indirecto)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{5}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}\\
+    \#\#\#\# Destino Memoria
+  \end{enumerate}
+\item
+  CMP \texttt{{[}Dirección{]}}, \texttt{Ry} (Directo)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{7}
+  \tightlist
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  CMP \texttt{{[}BL{]}}, \texttt{Ry} (Indirecto)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{7}
+  \tightlist
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  CMP \texttt{{[}Dirección{]}}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{8}
+  \tightlist
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  CMP \texttt{{[}BL{]}}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{6}
+  \tightlist
+  \item
+    \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{destino-registro-3}{%
+\subsubsection{Destino registro}\label{destino-registro-3}}
+
+\begin{itemize}
+\tightlist
+\item
+  CMP \texttt{Rx}, \texttt{Ry} (Entre registros)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} - \texttt{Ry}; update(Flags)}
+  \end{enumerate}
+\item
+  CMP \texttt{Rx}, \texttt{{[}Dirección{]}} (Directo)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{7}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}\\
+  \end{enumerate}
+\item
+  CMP \texttt{Rx}, \texttt{Dato} (Inmediato)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{5}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}
+  \end{enumerate}
+\item
+  CMP \texttt{Rx}, \texttt{{[}BL{]}} (Indirecto)
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{5}
+  \tightlist
+  \item
+    \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}
   \end{enumerate}
 \end{itemize}
 

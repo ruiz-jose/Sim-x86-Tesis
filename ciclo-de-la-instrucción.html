@@ -375,6 +375,7 @@ La UC activa la señal de lectura para obtener el contenido de la memoria en la 
 <li><strong><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>:
 Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se copia en el registro de instrucciones (<code>IR</code>). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.</li>
 </ol>
+<p>La etapa de captación tiene 3 ciclos para todas las instrucciones.</p>
 </div>
 <div id="etapa-de-ejecución" class="section level3 hasAnchor" number="5.10.2">
 <h3><span class="header-section-number">5.10.2</span> Etapa de Ejecución:<a href="ciclo-de-la-instrucción.html#etapa-de-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -402,9 +403,6 @@ Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se 
 </ol></li>
 <li>MOV <code>Rx</code>, <code>[BL]</code> (Indirecto)
 <ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
 <li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido de BL se transfiere al registro MAR.</li>
 <li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>: Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR.</li>
 <li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Finalmente, el contenido de MBR se copia en el registro Rx.</li>
@@ -420,7 +418,7 @@ Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se 
 <li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Se escribe el valor de MBR en la posición de memoria indicada por MAR.</li>
 </ol></li>
 <li>MOV <code>[BL]</code>, <code>Ry</code> (Indirecto)
-<ol start="6" style="list-style-type: decimal">
+<ol start="4" style="list-style-type: decimal">
 <li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido de BL se transfiere al registro MAR.</li>
 <li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong>: El contenido de Ry se copia en MBR.</li>
 <li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Se escribe el valor de MBR en la posición de memoria indicada por MAR.</li>
@@ -430,11 +428,10 @@ Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se 
 <li><ol start="5" style="list-style-type: decimal">
 <li>Se obtiene el operando de la instrucción.</li>
 </ol></li>
-<li><strong><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El valor de MBR se transfiere a un registro intermedio (ri).<br />
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>;<code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El contenido de IP se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio (ri) .<br />
 </li>
-<li><ol start="8" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno.<br />
+</li>
 <li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong>: El contenido de ri se transfiere al registro MAR.</li>
 <li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Se escribe el valor de MBR en la posición de memoria indicada por MAR.</li>
 </ol></li>
@@ -448,84 +445,150 @@ Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se 
 </ol></li>
 </ul>
 <p>Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan las banderas del registro de estado <code>RS</code>.
-#### Destino registro
-* ADD <code>Rx</code>, <code>Ry</code> (Entre registros)
-4. <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>Ry</code>; update(Flags)</strong></p>
+Tienen los mismos modos de direccionamiento que MOV, pero con una diferencia importante: la instrucción ADD almacena el resultado de la operación en el operando destino. Es decir que solo cambia el ultimo paso de la etapa de ejecución.
+Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.</p>
+<div id="destino-registro" class="section level4 hasAnchor" number="5.10.2.1">
+<h4><span class="header-section-number">5.10.2.1</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li>ADD <code>Rx</code>, <code>[Dirección]</code> (Directo)
+<li>ADD <code>Rx</code>, <code>Ry</code> (Entre registros)
 <ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>Ry</code>; update(Flags)</strong></li>
 </ol></li>
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
-<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
+<li>ADD <code>Rx</code>, <code>[Dirección]</code> (Directo)
+<ol start="8" style="list-style-type: decimal">
 <li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code>; update(Flags)</strong></li>
 </ol></li>
 <li>ADD <code>Rx</code>, <code>Dato</code> (Inmediato)
-<ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
+<ol start="6" style="list-style-type: decimal">
 <li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code>; update(Flags)</strong></li>
 </ol></li>
 <li>ADD <code>Rx</code>, <code>[BL]</code> (Indirecto)
-<ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong></li>
-<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
+<ol start="6" style="list-style-type: decimal">
 <li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code>; update(Flags)</strong></li>
 </ol></li>
 </ul>
-<div id="destino-memoria-1" class="section level4 hasAnchor" number="5.10.2.1">
-<h4><span class="header-section-number">5.10.2.1</span> Destino Memoria<a href="ciclo-de-la-instrucción.html#destino-memoria-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="destino-memoria-1" class="section level4 hasAnchor" number="5.10.2.2">
+<h4><span class="header-section-number">5.10.2.2</span> Destino Memoria<a href="ciclo-de-la-instrucción.html#destino-memoria-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>ADD <code>[Dirección]</code>, <code>Ry</code> (Directo)
-<ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
-<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong></li>
-<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<ol start="8" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
 </ol></li>
 <li>ADD <code>[BL]</code>, <code>Ry</code> (Indirecto)
-<ol start="6" style="list-style-type: decimal">
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong></li>
-<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong></li>
-<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<ol start="8" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
 </ol></li>
 <li>ADD <code>[Dirección]</code>, <code>Dato</code> (Inmediato)
-<ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
-<li><strong><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
-<li><ol start="8" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong></li>
-<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<ol start="9" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
 </ol></li>
 <li>ADD <code>[BL]</code>, <code>Dato</code> (Inmediato)
-<ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong></li>
-<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<ol start="7" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
 </ol></li>
 </ul>
-<p>Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.</p>
+</div>
+<div id="destino-registro-1" class="section level4 hasAnchor" number="5.10.2.3">
+<h4><span class="header-section-number">5.10.2.3</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>SUB <code>Rx</code>, <code>Ry</code> (Entre registros)
 <ol start="4" style="list-style-type: decimal">
 <li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>Ry</code>; update(Flags)</strong></li>
 </ol></li>
+<li>SUB <code>Rx</code>, <code>[Dirección]</code> (Directo)
+<ol start="8" style="list-style-type: decimal">
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>SUB <code>Rx</code>, <code>Dato</code> (Inmediato)
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>SUB <code>Rx</code>, <code>[BL]</code> (Indirecto)
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+</ul>
+</div>
+<div id="destino-memoria-2" class="section level4 hasAnchor" number="5.10.2.4">
+<h4><span class="header-section-number">5.10.2.4</span> Destino Memoria<a href="ciclo-de-la-instrucción.html#destino-memoria-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>SUB <code>[Dirección]</code>, <code>Ry</code> (Directo)
+<ol start="8" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>SUB <code>[BL]</code>, <code>Ry</code> (Indirecto)
+<ol start="8" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>SUB <code>[Dirección]</code>, <code>Dato</code> (Inmediato)
+<ol start="9" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>SUB <code>[BL]</code>, <code>Dato</code> (Inmediato)
+<ol start="7" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+</ul>
+</div>
+<div id="destino-registro-2" class="section level4 hasAnchor" number="5.10.2.5">
+<h4><span class="header-section-number">5.10.2.5</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
 <li>CMP <code>Rx</code>, <code>Ry</code> (Entre registros)
 <ol start="4" style="list-style-type: decimal">
 <li><strong><code>Rx</code> - <code>Ry</code>; update(Flags)</strong></li>
+</ol></li>
+<li>CMP <code>Rx</code>, <code>[Dirección]</code> (Directo)
+<ol start="8" style="list-style-type: decimal">
+<li><strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong><br />
+</li>
+</ol></li>
+<li>CMP <code>Rx</code>, <code>Dato</code> (Inmediato)
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>CMP <code>Rx</code>, <code>[BL]</code> (Indirecto)
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong><br />
+#### Destino Memoria</li>
+</ol></li>
+<li>CMP <code>[Dirección]</code>, <code>Ry</code> (Directo)
+<ol start="8" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>CMP <code>[BL]</code>, <code>Ry</code> (Indirecto)
+<ol start="8" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>CMP <code>[Dirección]</code>, <code>Dato</code> (Inmediato)
+<ol start="9" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>CMP <code>[BL]</code>, <code>Dato</code> (Inmediato)
+<ol start="7" style="list-style-type: decimal">
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+</ul>
+</div>
+<div id="destino-registro-3" class="section level4 hasAnchor" number="5.10.2.6">
+<h4><span class="header-section-number">5.10.2.6</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>CMP <code>Rx</code>, <code>Ry</code> (Entre registros)
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>Rx</code> - <code>Ry</code>; update(Flags)</strong></li>
+</ol></li>
+<li>CMP <code>Rx</code>, <code>[Dirección]</code> (Directo)
+<ol start="8" style="list-style-type: decimal">
+<li><strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong><br />
+</li>
+</ol></li>
+<li>CMP <code>Rx</code>, <code>Dato</code> (Inmediato)
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong></li>
+</ol></li>
+<li>CMP <code>Rx</code>, <code>[BL]</code> (Indirecto)
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong></li>
 </ol></li>
 </ul>
 <p>Instrucciones de Control de Flujo</p>
