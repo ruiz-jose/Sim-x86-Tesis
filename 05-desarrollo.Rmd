@@ -1540,25 +1540,29 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
   7. ADD `[BL]`, `Dato`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`; update(Flags)**
 
 
-
-Instrucciones de Control de Flujo
+Instrucciones con un operando:
 
 Salto incondicional y condicionales:
 * JMP  `Dirección` (Salto incondicional)
-  4. 5. Se obtiene el operando de la instrucción.
-  6. **`IP` $\leftarrow$ `MBR`**: El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
+  4. **`MAR` $\leftarrow$ `IP`**
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**
+  Los pasos 4. 5. se obtiene la direccion del operando de la instrucción.
+
+  6. JMP: **`IP` $\leftarrow$ `MBR`**: El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
 
 * JZ  `Dirección` (Salto condicional si Z=1)
-  4. 5. Se obtiene el operando de la instrucción.
   6. `Si Z` == 1: **`IP` $\leftarrow$ `MBR`**:  Si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
 
 * JC  `Dirección` (Salto condicional si C=1)
-  4. 5. Se obtiene el operando de la instrucción.
   6. `Si C` == 1: **`IP` $\leftarrow$ `MBR`**:  Si la bandera de acarreo (`C`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
 
 * Jxx  `Dirección` (Salto condicional)
-  4. 5. Se obtiene el operando de la instrucción. 
   6. `Si xx` == 1: **`IP` $\leftarrow$ `MBR`**:  Si la condición especificada por `xx` se cumple, el contenido del `MBR` se transfiere al registro `IP`.
+
+Instrucciones sin operandos
+* HLT
+  4. Detiene CPU.
+
 
 Rutinas:  
 * CALL  `Dirección` 
@@ -1589,9 +1593,6 @@ Interrupciones:
   5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
   6: `IP` $\leftarrow$ `MBR`;`SP` $\leftarrow$ `SP` + 1
 
-* HLT
-  4. 5. Se obtiene el operando de la instrucción.
-  6. Detiene CPU.
 
 
 ## Modulo de Entrada/Salida e interrupciones
