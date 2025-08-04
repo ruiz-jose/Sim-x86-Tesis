@@ -2957,15 +2957,14 @@ En esta etapa, común a todas las instrucciones, consiste en la lectura de la in
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}:
-  La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (\texttt{IP}) al registro de direcciones de memoria (\texttt{MAR}). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.
+  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
 \item
-  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} ; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}:
-  La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (\texttt{MAR}). El dato leído se transfiere al registro de datos de memoria (\texttt{MBR}) mediante el bus de datos. Simultáneamente, el registro (\texttt{IP}) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente.
+  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} ; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
 \item
-  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}:
-  Finalmente, el contenido del registro de datos de memoria (\texttt{MBR}) se copia en el registro de instrucciones (\texttt{IR}). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.
+  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}
 \end{enumerate}
+
+La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (\texttt{IP}) al registro de direcciones de memoria (\texttt{MAR}). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción. La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (\texttt{MAR}). El dato leído se transfiere al registro de datos de memoria (\texttt{MBR}) mediante el bus de datos. Simultáneamente, el registro (\texttt{IP}) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente. Finalmente, el contenido del registro de datos de memoria (\texttt{MBR}) se copia en el registro de instrucciones (\texttt{IR}). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.
 
 La etapa de captación tiene 3 ciclos para todas las instrucciones.
 
@@ -2974,31 +2973,55 @@ La etapa de captación tiene 3 ciclos para todas las instrucciones.
 
 En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
 
-Instruccion de transferencia de datos MOV
-\#\#\#\# Destino registro
-* MOV \texttt{Rx}, \texttt{Ry} (Entre registros)
-4. \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}: El valor almacenado en Ry se copia en el registro Rx.
+Todas las instrucciones de dos operandos tienen los mismos pasos de ejecución, diferenciándose en el destino de la operación y el modo de direccionamiento.
+
+\hypertarget{destino-registro}{%
+\subsubsection{Destino registro}\label{destino-registro}}
 
 \begin{itemize}
 \tightlist
 \item
-  MOV \texttt{Rx}, \texttt{{[}Dirección{]}} (Directo)
+  Entre registros \texttt{Rx}, \texttt{Ry}
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \setcounter{enumi}{3}
   \tightlist
   \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: El contenido de IP se transfiere al registro MAR.
+    MOV \texttt{Rx}, \texttt{Ry}: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}
   \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno.\\
+    ADD \texttt{Rx}, \texttt{Ry}: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry}; update(Flags)}
   \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}: El valor de MBR se transfiere a MAR.
+    SUB \texttt{Rx}, \texttt{Ry}: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{Ry}; update(Flags)}
   \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}: Se lee el dato de la memoria en la nueva dirección de MAR y se almacena en MBR.
-  \item
-    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}: Finalmente, el contenido de MBR se copia en el registro Rx.
+    CMP \texttt{Rx}, \texttt{Ry}: \textbf{\texttt{Rx} - \texttt{Ry}; update(Flags)}
   \end{enumerate}
+\item
+  Directo \texttt{Rx}, \texttt{{[}Dirección{]}}
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
+\item
+  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+\item
+  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}
+\item
+  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+\end{enumerate}
+
+Los pasos 4. 5. se obtiene el operando de la instrucción. El contenido de IP se transfiere al registro MAR. Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. El valor de MBR se transfiere a MAR. Se lee el dato de la memoria en la nueva dirección de MAR y se almacena en MBR.
+8. MOV \texttt{Rx}, \texttt{{[}Dirección{]}}: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}
+8. ADD \texttt{Rx}, \texttt{{[}Dirección{]}}: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
+8. SUB \texttt{Rx}, \texttt{{[}Dirección{]}}: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR}; update(Flags)}
+8. CMP \texttt{Rx}, \texttt{{[}Dirección{]}}: \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}
+
+\begin{itemize}
+\tightlist
 \item
   MOV \texttt{Rx}, \texttt{Dato} (Inmediato)
 
@@ -3116,21 +3139,12 @@ Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan la
 Tienen los mismos modos de direccionamiento que MOV, pero con una diferencia importante: la instrucción ADD almacena el resultado de la operación en el operando destino. Es decir que solo cambia el ultimo paso de la etapa de ejecución.
 Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.
 
-\hypertarget{destino-registro}{%
-\subsubsection{Destino registro}\label{destino-registro}}
+\hypertarget{destino-registro-1}{%
+\subsubsection{Destino registro}\label{destino-registro-1}}
 
 \begin{itemize}
 \tightlist
 \item
-  ADD \texttt{Rx}, \texttt{Ry} (Entre registros)
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \tightlist
-  \item
-    \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry}; update(Flags)}
-  \end{enumerate}
 \item
   ADD \texttt{Rx}, \texttt{{[}Dirección{]}} (Directo)
 
@@ -3210,8 +3224,8 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
   \end{enumerate}
 \end{itemize}
 
-\hypertarget{destino-registro-1}{%
-\subsubsection{Destino registro}\label{destino-registro-1}}
+\hypertarget{destino-registro-2}{%
+\subsubsection{Destino registro}\label{destino-registro-2}}
 
 \begin{itemize}
 \tightlist
@@ -3304,8 +3318,8 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
   \end{enumerate}
 \end{itemize}
 
-\hypertarget{destino-registro-2}{%
-\subsubsection{Destino registro}\label{destino-registro-2}}
+\hypertarget{destino-registro-3}{%
+\subsubsection{Destino registro}\label{destino-registro-3}}
 
 \begin{itemize}
 \tightlist
@@ -3392,8 +3406,8 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
   \end{enumerate}
 \end{itemize}
 
-\hypertarget{destino-registro-3}{%
-\subsubsection{Destino registro}\label{destino-registro-3}}
+\hypertarget{destino-registro-4}{%
+\subsubsection{Destino registro}\label{destino-registro-4}}
 
 \begin{itemize}
 \tightlist

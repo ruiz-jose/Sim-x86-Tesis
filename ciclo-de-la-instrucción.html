@@ -368,32 +368,41 @@ Figura 5.20: Flujo del ciclo de instrucción en VonSim8
 <h3><span class="header-section-number">5.10.1</span> Etapa de Captación:<a href="ciclo-de-la-instrucción.html#etapa-de-captación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.</p>
 <ol style="list-style-type: decimal">
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>:
-La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (<code>IP</code>) al registro de direcciones de memoria (<code>MAR</code>). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.</li>
-<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> ; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>:
-La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (<code>MAR</code>). El dato leído se transfiere al registro de datos de memoria (<code>MBR</code>) mediante el bus de datos. Simultáneamente, el registro (<code>IP</code>) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente.</li>
-<li><strong><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>:
-Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se copia en el registro de instrucciones (<code>IR</code>). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.</li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> ; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong></li>
+<li><strong><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
 </ol>
+<p>La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (<code>IP</code>) al registro de direcciones de memoria (<code>MAR</code>). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción. La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (<code>MAR</code>). El dato leído se transfiere al registro de datos de memoria (<code>MBR</code>) mediante el bus de datos. Simultáneamente, el registro (<code>IP</code>) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente. Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se copia en el registro de instrucciones (<code>IR</code>). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.</p>
 <p>La etapa de captación tiene 3 ciclos para todas las instrucciones.</p>
 </div>
 <div id="etapa-de-ejecución" class="section level3 hasAnchor" number="5.10.2">
 <h3><span class="header-section-number">5.10.2</span> Etapa de Ejecución:<a href="ciclo-de-la-instrucción.html#etapa-de-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:</p>
-<p>Instruccion de transferencia de datos MOV
-#### Destino registro
-* MOV <code>Rx</code>, <code>Ry</code> (Entre registros)
-4. <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong>: El valor almacenado en Ry se copia en el registro Rx.</p>
+<p>Todas las instrucciones de dos operandos tienen los mismos pasos de ejecución, diferenciándose en el destino de la operación y el modo de direccionamiento.</p>
+<div id="destino-registro" class="section level4 hasAnchor" number="5.10.2.1">
+<h4><span class="header-section-number">5.10.2.1</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li>MOV <code>Rx</code>, <code>[Dirección]</code> (Directo)
+<li>Entre registros <code>Rx</code>, <code>Ry</code>
 <ol start="4" style="list-style-type: decimal">
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: El contenido de IP se transfiere al registro MAR.</li>
-<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno.<br />
-</li>
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El valor de MBR se transfiere a MAR.</li>
-<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>: Se lee el dato de la memoria en la nueva dirección de MAR y se almacena en MBR.</li>
-<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Finalmente, el contenido de MBR se copia en el registro Rx.</li>
+<li>MOV <code>Rx</code>, <code>Ry</code>: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong></li>
+<li>ADD <code>Rx</code>, <code>Ry</code>: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>Ry</code>; update(Flags)</strong></li>
+<li>SUB <code>Rx</code>, <code>Ry</code>: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>Ry</code>; update(Flags)</strong></li>
+<li>CMP <code>Rx</code>, <code>Ry</code>: <strong><code>Rx</code> - <code>Ry</code>; update(Flags)</strong></li>
 </ol></li>
+<li>Directo <code>Rx</code>, <code>[Dirección]</code></li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
+</ol>
+<p>Los pasos 4. 5. se obtiene el operando de la instrucción. El contenido de IP se transfiere al registro MAR. Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. El valor de MBR se transfiere a MAR. Se lee el dato de la memoria en la nueva dirección de MAR y se almacena en MBR.
+8. MOV <code>Rx</code>, <code>[Dirección]</code>: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>
+8. ADD <code>Rx</code>, <code>[Dirección]</code>: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code>; update(Flags)</strong>
+8. SUB <code>Rx</code>, <code>[Dirección]</code>: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>MBR</code>; update(Flags)</strong>
+8. CMP <code>Rx</code>, <code>[Dirección]</code>: <strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong></p>
+<ul>
 <li>MOV <code>Rx</code>, <code>Dato</code> (Inmediato)
 <ol start="4" style="list-style-type: decimal">
 <li><ol start="5" style="list-style-type: decimal">
@@ -447,13 +456,11 @@ Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se 
 <p>Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan las banderas del registro de estado <code>RS</code>.
 Tienen los mismos modos de direccionamiento que MOV, pero con una diferencia importante: la instrucción ADD almacena el resultado de la operación en el operando destino. Es decir que solo cambia el ultimo paso de la etapa de ejecución.
 Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.</p>
-<div id="destino-registro" class="section level4 hasAnchor" number="5.10.2.1">
-<h4><span class="header-section-number">5.10.2.1</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="destino-registro-1" class="section level4 hasAnchor" number="5.10.2.2">
+<h4><span class="header-section-number">5.10.2.2</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
-<li>ADD <code>Rx</code>, <code>Ry</code> (Entre registros)
-<ol start="4" style="list-style-type: decimal">
-<li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>Ry</code>; update(Flags)</strong></li>
-</ol></li>
+<li></li>
 <li>ADD <code>Rx</code>, <code>[Dirección]</code> (Directo)
 <ol start="8" style="list-style-type: decimal">
 <li><strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code>; update(Flags)</strong></li>
@@ -468,8 +475,8 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
 </ol></li>
 </ul>
 </div>
-<div id="destino-memoria-1" class="section level4 hasAnchor" number="5.10.2.2">
-<h4><span class="header-section-number">5.10.2.2</span> Destino Memoria<a href="ciclo-de-la-instrucción.html#destino-memoria-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="destino-memoria-1" class="section level4 hasAnchor" number="5.10.2.3">
+<h4><span class="header-section-number">5.10.2.3</span> Destino Memoria<a href="ciclo-de-la-instrucción.html#destino-memoria-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>ADD <code>[Dirección]</code>, <code>Ry</code> (Directo)
 <ol start="8" style="list-style-type: decimal">
@@ -489,8 +496,8 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
 </ol></li>
 </ul>
 </div>
-<div id="destino-registro-1" class="section level4 hasAnchor" number="5.10.2.3">
-<h4><span class="header-section-number">5.10.2.3</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="destino-registro-2" class="section level4 hasAnchor" number="5.10.2.4">
+<h4><span class="header-section-number">5.10.2.4</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>SUB <code>Rx</code>, <code>Ry</code> (Entre registros)
 <ol start="4" style="list-style-type: decimal">
@@ -510,8 +517,8 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
 </ol></li>
 </ul>
 </div>
-<div id="destino-memoria-2" class="section level4 hasAnchor" number="5.10.2.4">
-<h4><span class="header-section-number">5.10.2.4</span> Destino Memoria<a href="ciclo-de-la-instrucción.html#destino-memoria-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="destino-memoria-2" class="section level4 hasAnchor" number="5.10.2.5">
+<h4><span class="header-section-number">5.10.2.5</span> Destino Memoria<a href="ciclo-de-la-instrucción.html#destino-memoria-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>SUB <code>[Dirección]</code>, <code>Ry</code> (Directo)
 <ol start="8" style="list-style-type: decimal">
@@ -531,8 +538,8 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
 </ol></li>
 </ul>
 </div>
-<div id="destino-registro-2" class="section level4 hasAnchor" number="5.10.2.5">
-<h4><span class="header-section-number">5.10.2.5</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="destino-registro-3" class="section level4 hasAnchor" number="5.10.2.6">
+<h4><span class="header-section-number">5.10.2.6</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>CMP <code>Rx</code>, <code>Ry</code> (Entre registros)
 <ol start="4" style="list-style-type: decimal">
@@ -570,8 +577,8 @@ Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD,
 </ol></li>
 </ul>
 </div>
-<div id="destino-registro-3" class="section level4 hasAnchor" number="5.10.2.6">
-<h4><span class="header-section-number">5.10.2.6</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="destino-registro-4" class="section level4 hasAnchor" number="5.10.2.7">
+<h4><span class="header-section-number">5.10.2.7</span> Destino registro<a href="ciclo-de-la-instrucción.html#destino-registro-4" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <ul>
 <li>CMP <code>Rx</code>, <code>Ry</code> (Entre registros)
 <ol start="4" style="list-style-type: decimal">
