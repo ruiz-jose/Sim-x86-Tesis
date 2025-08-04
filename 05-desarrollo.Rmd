@@ -1514,12 +1514,13 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
   9. MOV: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
   Para la instrucción ADD/SUB/CMP los pasos son:
-  9. ADD: **`MBR` $\leftarrow$ `MBR` + `Ry`; update(Flags)**
-  9. SUB: **`MBR` $\leftarrow$ `MBR` - `Ry`; update(Flags)**
-  9. CMP: **`MBR` - `Ry`; update(Flags)**
+  9. ADD/SUB/CMP: **`id` $\leftarrow$ `MBR`**
+  10. ADD: **`MBR` $\leftarrow$ `MBR` + `id`; update(Flags)**
+  10. SUB: **`MBR` $\leftarrow$ `MBR` - `id`; update(Flags)**
+  10. CMP: **`MBR` - `id`; update(Flags)**
 
   La instrucción CMP no realiza el paso 10 de escritura en memoria.
-  10. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`; update(Flags)**
+  11. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`; update(Flags)**
 
 * Inmediato `[BL]`, `Dato`  
   4. **`MAR` $\leftarrow$ `BL`**: El contenido de BL se transfiere al registro MAR.
