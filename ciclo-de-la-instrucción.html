@@ -516,34 +516,32 @@ Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucci�
 <li><p>ADD <code>[BL]</code>, <code>Dato</code>: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></p></li>
 </ol></li>
 </ul>
-<p>Instrucciones de Control de Flujo</p>
+<p>Instrucciones con un operando:</p>
 <p>Salto incondicional y condicionales:
 * JMP <code>Dirección</code> (Salto incondicional)
-4. 5. Se obtiene el operando de la instrucción.
-6. <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El contenido del <code>MBR</code> se transfiere al registro <code>IP</code>, estableciendo la nueva dirección de ejecución.</p>
+4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>
+5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>
+Los pasos 4. 5. se obtiene la direccion del operando de la instrucción.</p>
+<ol start="6" style="list-style-type: decimal">
+<li>JMP: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El contenido del <code>MBR</code> se transfiere al registro <code>IP</code>, estableciendo la nueva dirección de ejecución.</li>
+</ol>
 <ul>
 <li>JZ <code>Dirección</code> (Salto condicional si Z=1)
-<ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
+<ol start="6" style="list-style-type: decimal">
 <li><code>Si Z</code> == 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Si la bandera de cero (<code>Z</code>) está activa, el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.</li>
 </ol></li>
 <li>JC <code>Dirección</code> (Salto condicional si C=1)
-<ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
+<ol start="6" style="list-style-type: decimal">
 <li><code>Si C</code> == 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Si la bandera de acarreo (<code>C</code>) está activa, el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.</li>
 </ol></li>
 <li>Jxx <code>Dirección</code> (Salto condicional)
-<ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
+<ol start="6" style="list-style-type: decimal">
 <li><code>Si xx</code> == 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Si la condición especificada por <code>xx</code> se cumple, el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.</li>
 </ol></li>
 </ul>
+<p>Instrucciones sin operandos
+* HLT
+4. Detiene CPU.</p>
 <p>Rutinas:<br />
 * CALL <code>Dirección</code>
 4. 5. Se obtiene el operando de la instrucción.
@@ -568,17 +566,10 @@ Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucci�
 9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
 10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
 <ul>
-<li><p>IRET
+<li>IRET
 4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
 5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
-6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>;<code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</p></li>
-<li><p>HLT</p>
-<ol start="4" style="list-style-type: decimal">
-<li><ol start="5" style="list-style-type: decimal">
-<li>Se obtiene el operando de la instrucción.</li>
-</ol></li>
-<li>Detiene CPU.</li>
-</ol></li>
+6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>;<code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
 </ul>
 </div>
 </div>

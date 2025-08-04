@@ -3277,12 +3277,21 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \end{enumerate}
 \end{itemize}
 
-Instrucciones de Control de Flujo
+Instrucciones con un operando:
 
 Salto incondicional y condicionales:
 * JMP \texttt{Dirección} (Salto incondicional)
-4. 5. Se obtiene el operando de la instrucción.
-6. \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: El contenido del \texttt{MBR} se transfiere al registro \texttt{IP}, estableciendo la nueva dirección de ejecución.
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+Los pasos 4. 5. se obtiene la direccion del operando de la instrucción.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  JMP: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: El contenido del \texttt{MBR} se transfiere al registro \texttt{IP}, estableciendo la nueva dirección de ejecución.
+\end{enumerate}
 
 \begin{itemize}
 \tightlist
@@ -3291,15 +3300,8 @@ Salto incondicional y condicionales:
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
+  \setcounter{enumi}{5}
+  \tightlist
   \item
     \texttt{Si\ Z} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: Si la bandera de cero (\texttt{Z}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
   \end{enumerate}
@@ -3308,15 +3310,8 @@ Salto incondicional y condicionales:
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
+  \setcounter{enumi}{5}
+  \tightlist
   \item
     \texttt{Si\ C} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: Si la bandera de acarreo (\texttt{C}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
   \end{enumerate}
@@ -3325,19 +3320,16 @@ Salto incondicional y condicionales:
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
+  \setcounter{enumi}{5}
+  \tightlist
   \item
     \texttt{Si\ xx} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: Si la condición especificada por \texttt{xx} se cumple, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
   \end{enumerate}
 \end{itemize}
+
+Instrucciones sin operandos
+* HLT
+4. Detiene CPU.
 
 Rutinas:\\
 * CALL \texttt{Dirección}
@@ -3368,28 +3360,12 @@ Interrupciones:
 10: \texttt{IP} \(\leftarrow\) \texttt{ri}
 
 \begin{itemize}
+\tightlist
 \item
   IRET
   4: \texttt{MAR} \(\leftarrow\) \texttt{SP}
   5: \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
   6: \texttt{IP} \(\leftarrow\) \texttt{MBR};\texttt{SP} \(\leftarrow\) \texttt{SP} + 1
-\item
-  HLT
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \item
-    \begin{enumerate}
-    \def\labelenumii{\arabic{enumii}.}
-    \setcounter{enumii}{4}
-    \tightlist
-    \item
-      Se obtiene el operando de la instrucción.
-    \end{enumerate}
-  \item
-    Detiene CPU.
-  \end{enumerate}
 \end{itemize}
 
 \hypertarget{modulo-de-entradasalida-e-interrupciones}{%
