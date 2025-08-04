@@ -3221,18 +3221,20 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \setcounter{enumi}{8}
   \tightlist
   \item
-    ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry}; update(Flags)}
+    ADD/SUB/CMP: \textbf{\texttt{id} \(\leftarrow\) \texttt{MBR}}
   \item
-    SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry}; update(Flags)}
+    ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id}; update(Flags)}
   \item
-    CMP: \textbf{\texttt{MBR} - \texttt{Ry}; update(Flags)}
+    SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id}; update(Flags)}
+  \item
+    CMP: \textbf{\texttt{MBR} - \texttt{id}; update(Flags)}
   \end{enumerate}
 
   La instrucción CMP no realiza el paso 10 de escritura en memoria.
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{9}
+  \setcounter{enumi}{10}
   \tightlist
   \item
     ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}

@@ -501,12 +501,13 @@ Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucci�
 </ol>
 <p>Para la instrucción ADD/SUB/CMP los pasos son:</p>
 <ol start="9" style="list-style-type: decimal">
-<li>ADD: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> + <code>Ry</code>; update(Flags)</strong></li>
-<li>SUB: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> - <code>Ry</code>; update(Flags)</strong></li>
-<li>CMP: <strong><code>MBR</code> - <code>Ry</code>; update(Flags)</strong></li>
+<li>ADD/SUB/CMP: <strong><code>id</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<li>ADD: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> + <code>id</code>; update(Flags)</strong></li>
+<li>SUB: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> - <code>id</code>; update(Flags)</strong></li>
+<li>CMP: <strong><code>MBR</code> - <code>id</code>; update(Flags)</strong></li>
 </ol>
 <p>La instrucción CMP no realiza el paso 10 de escritura en memoria.</p>
-<ol start="10" style="list-style-type: decimal">
+<ol start="11" style="list-style-type: decimal">
 <li>ADD/SUB: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; update(Flags)</strong></li>
 </ol></li>
 <li><p>Inmediato <code>[BL]</code>, <code>Dato</code></p>
