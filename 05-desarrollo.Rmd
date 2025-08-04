@@ -1261,18 +1261,6 @@ Considerando:
 
   - `dddddddd`: Dato inmediato, número de 8 bits.
 
-En la instrucción de salto condicional `Jxx Dirección`, la indicación `xx` representa todas las combinaciones posibles de los _flags_ donde `NZ` indica la negacion del  _flags_ `Z`:
-
-| Instrucción               | Acción                                      |
-| :------------------------ | :------------------------------------------ | 
-| [`JZ Dirección`]          | Salta a _Dirección_ si `Z=1`                 | 
-| [`JNZ Dirección`]         | Salta a _Dirección_ si `Z=0`                 |
-| [`JC Dirección`]          | Salta a _Dirección_ si `C=1`                 |
-| [`JNC Dirección`]         | Salta a _Dirección_ si `C=0`                 |
-| [`JS Dirección`]          | Salta a _Dirección_ si `S=1`                 |
-| [`JNS Dirección`]         | Salta a _Dirección_ si `S=0`                 |
-| [`JO Dirección`]          | Salta a _Dirección_ si `O=1`                 |
-| [`JNO Dirección`]         | Salta a _Dirección_ si `O=0`                 |
 
 ```{r tablaregistros, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1542,22 +1530,29 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
 
 Instrucciones con un operando:
 
-Salto incondicional y condicionales:
-* JMP  `Dirección` (Salto incondicional)
+* Salto incondicional y condicionales:  `Dirección` 
   4. **`MAR` $\leftarrow$ `IP`**
   5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**
-  Los pasos 4. 5. se obtiene la direccion del operando de la instrucción.
+  Los pasos 4. 5. se obtiene la direccion destino de la instrucción.
 
-  6. JMP: **`IP` $\leftarrow$ `MBR`**: El contenido del `MBR` se transfiere al registro `IP`, estableciendo la nueva dirección de ejecución.
+  6. JMP: **`IP` $\leftarrow$ `MBR`** (Salto incondicional)
+  6. Jxx: `Si ` xx== 1: **`IP` $\leftarrow$ `MBR`** (Salto condicional)
+  Si la bandera esta en 1 el contenido del `MBR` se transfiere al registro `IP`.
+  Si la bandera esta en 0 no se realiza ninguna acción y se continua con la siguiente instrucción.
 
-* JZ  `Dirección` (Salto condicional si Z=1)
-  6. `Si Z` == 1: **`IP` $\leftarrow$ `MBR`**:  Si la bandera de cero (`Z`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
+En la instrucción de salto condicional `Jxx Dirección`, la indicación `xx` representa todas las combinaciones posibles de los _flags_ donde `NZ` indica la negacion del  _flags_ `Z`:
 
-* JC  `Dirección` (Salto condicional si C=1)
-  6. `Si C` == 1: **`IP` $\leftarrow$ `MBR`**:  Si la bandera de acarreo (`C`) está activa, el contenido del `MBR` se transfiere al registro `IP`.
+| Instrucción               | Acción                                      |
+| :------------------------ | :------------------------------------------ | 
+| [`JZ Dirección`]          | Salta a _Dirección_ si `Z=1`                 | 
+| [`JNZ Dirección`]         | Salta a _Dirección_ si `Z=0`                 |
+| [`JC Dirección`]          | Salta a _Dirección_ si `C=1`                 |
+| [`JNC Dirección`]         | Salta a _Dirección_ si `C=0`                 |
+| [`JS Dirección`]          | Salta a _Dirección_ si `S=1`                 |
+| [`JNS Dirección`]         | Salta a _Dirección_ si `S=0`                 |
+| [`JO Dirección`]          | Salta a _Dirección_ si `O=1`                 |
+| [`JNO Dirección`]         | Salta a _Dirección_ si `O=0`                 |
 
-* Jxx  `Dirección` (Salto condicional)
-  6. `Si xx` == 1: **`IP` $\leftarrow$ `MBR`**:  Si la condición especificada por `xx` se cumple, el contenido del `MBR` se transfiere al registro `IP`.
 
 Instrucciones sin operandos
 * HLT
