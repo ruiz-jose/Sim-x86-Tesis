@@ -2924,22 +2924,22 @@ La Figura \ref{fig:flujoCicloInstruccion} ilustra el flujo básico del ciclo de 
 \end{figure}
 
 \hypertarget{etapa-de-captaciuxf3n}{%
-\subsection{Etapa de Captación:}\label{etapa-de-captaciuxf3n}}
+\subsection{Etapa de Captación}\label{etapa-de-captaciuxf3n}}
 
-En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
+Esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria. El proceso se desarrolla en tres ciclos:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
-  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
+  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}\\
+  La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (\texttt{IP}) al registro de direcciones de memoria (\texttt{MAR}). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.
 \item
-  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} ; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} ; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}\\
+  La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el \texttt{MAR}. El dato leído se transfiere al registro de datos de memoria (\texttt{MBR}) mediante el bus de datos. Simultáneamente, el registro \texttt{IP} se incrementa en uno, apuntando así a la siguiente instrucción u operando en memoria.
 \item
-  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}
+  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}\\
+  Finalmente, el contenido del registro de datos de memoria (\texttt{MBR}) se copia en el registro de instrucciones (\texttt{IR}). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.
 \end{enumerate}
-
-La etapa de captación tiene 3 ciclos para todas las instrucciones. En el primero la Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (\texttt{IP}) al registro de direcciones de memoria (\texttt{MAR}). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción. En el segundo paso la UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (\texttt{MAR}). El dato leído se transfiere al registro de datos de memoria (\texttt{MBR}) mediante el bus de datos. Simultáneamente, el registro (\texttt{IP}) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente. Finalmente, el tercer paso el contenido del registro de datos de memoria (\texttt{MBR}) se copia en el registro de instrucciones (\texttt{IR}). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.
 
 \hypertarget{etapa-de-ejecuciuxf3n}{%
 \subsection{Etapa de Ejecución:}\label{etapa-de-ejecuciuxf3n}}

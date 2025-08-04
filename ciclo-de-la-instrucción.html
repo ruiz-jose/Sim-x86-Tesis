@@ -287,7 +287,7 @@ div.csl-indent {
 <li class="chapter" data-level="5.9" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html"><i class="fa fa-check"></i><b>5.9</b> Repertorio de instrucciones</a></li>
 <li class="chapter" data-level="5.10" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html"><i class="fa fa-check"></i><b>5.10</b> Ciclo de la instrucción</a>
 <ul>
-<li class="chapter" data-level="5.10.1" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#etapa-de-captación"><i class="fa fa-check"></i><b>5.10.1</b> Etapa de Captación:</a></li>
+<li class="chapter" data-level="5.10.1" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#etapa-de-captación"><i class="fa fa-check"></i><b>5.10.1</b> Etapa de Captación</a></li>
 <li class="chapter" data-level="5.10.2" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#etapa-de-ejecución"><i class="fa fa-check"></i><b>5.10.2</b> Etapa de Ejecución:</a></li>
 </ul></li>
 <li class="chapter" data-level="5.11" data-path="modulo-de-entradasalida-e-interrupciones.html"><a href="modulo-de-entradasalida-e-interrupciones.html"><i class="fa fa-check"></i><b>5.11</b> Modulo de Entrada/Salida e interrupciones</a></li>
@@ -365,14 +365,16 @@ Figura 5.20: Flujo del ciclo de instrucción en VonSim8
 </p>
 </div>
 <div id="etapa-de-captación" class="section level3 hasAnchor" number="5.10.1">
-<h3><span class="header-section-number">5.10.1</span> Etapa de Captación:<a href="ciclo-de-la-instrucción.html#etapa-de-captación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.</p>
+<h3><span class="header-section-number">5.10.1</span> Etapa de Captación<a href="ciclo-de-la-instrucción.html#etapa-de-captación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria. El proceso se desarrolla en tres ciclos:</p>
 <ol style="list-style-type: decimal">
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong></li>
-<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> ; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong></li>
-<li><strong><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<li><p><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong><br />
+La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (<code>IP</code>) al registro de direcciones de memoria (<code>MAR</code>). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.</p></li>
+<li><p><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> ; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong><br />
+La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el <code>MAR</code>. El dato leído se transfiere al registro de datos de memoria (<code>MBR</code>) mediante el bus de datos. Simultáneamente, el registro <code>IP</code> se incrementa en uno, apuntando así a la siguiente instrucción u operando en memoria.</p></li>
+<li><p><strong><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong><br />
+Finalmente, el contenido del registro de datos de memoria (<code>MBR</code>) se copia en el registro de instrucciones (<code>IR</code>). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.</p></li>
 </ol>
-<p>La etapa de captación tiene 3 ciclos para todas las instrucciones. En el primero la Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (<code>IP</code>) al registro de direcciones de memoria (<code>MAR</code>). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción. En el segundo paso la UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (<code>MAR</code>). El dato leído se transfiere al registro de datos de memoria (<code>MBR</code>) mediante el bus de datos. Simultáneamente, el registro (<code>IP</code>) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente. Finalmente, el tercer paso el contenido del registro de datos de memoria (<code>MBR</code>) se copia en el registro de instrucciones (<code>IR</code>). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.</p>
 </div>
 <div id="etapa-de-ejecución" class="section level3 hasAnchor" number="5.10.2">
 <h3><span class="header-section-number">5.10.2</span> Etapa de Ejecución:<a href="ciclo-de-la-instrucción.html#etapa-de-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
