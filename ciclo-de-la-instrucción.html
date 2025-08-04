@@ -517,28 +517,65 @@ Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucci�
 </ol></li>
 </ul>
 <p>Instrucciones con un operando:</p>
-<p>Salto incondicional y condicionales:
-* JMP <code>Dirección</code> (Salto incondicional)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>
-Los pasos 4. 5. se obtiene la direccion del operando de la instrucción.</p>
-<ol start="6" style="list-style-type: decimal">
-<li>JMP: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El contenido del <code>MBR</code> se transfiere al registro <code>IP</code>, estableciendo la nueva dirección de ejecución.</li>
-</ol>
 <ul>
-<li>JZ <code>Dirección</code> (Salto condicional si Z=1)
-<ol start="6" style="list-style-type: decimal">
-<li><code>Si Z</code> == 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Si la bandera de cero (<code>Z</code>) está activa, el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.</li>
-</ol></li>
-<li>JC <code>Dirección</code> (Salto condicional si C=1)
-<ol start="6" style="list-style-type: decimal">
-<li><code>Si C</code> == 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Si la bandera de acarreo (<code>C</code>) está activa, el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.</li>
-</ol></li>
-<li>Jxx <code>Dirección</code> (Salto condicional)
-<ol start="6" style="list-style-type: decimal">
-<li><code>Si xx</code> == 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Si la condición especificada por <code>xx</code> se cumple, el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.</li>
+<li>Salto incondicional y condicionales: <code>Dirección</code>
+<ol start="4" style="list-style-type: decimal">
+<li><p><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong></p></li>
+<li><p><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>
+Los pasos 4. 5. se obtiene la direccion destino de la instrucción.</p></li>
+<li><p>JMP: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> (Salto incondicional)</p></li>
+<li><p>Jxx: <code>Si</code> xx== 1: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> (Salto condicional)
+Si la bandera esta en 1 el contenido del <code>MBR</code> se transfiere al registro <code>IP</code>.
+Si la bandera esta en 0 no se realiza ninguna acción y se continua con la siguiente instrucción.</p></li>
 </ol></li>
 </ul>
+<p>En la instrucción de salto condicional <code>Jxx Dirección</code>, la indicación <code>xx</code> representa todas las combinaciones posibles de los <em>flags</em> donde <code>NZ</code> indica la negacion del <em>flags</em> <code>Z</code>:</p>
+<table>
+<colgroup>
+<col width="36%" />
+<col width="63%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Instrucción</th>
+<th align="left">Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">[<code>JZ Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>Z=1</code></td>
+</tr>
+<tr class="even">
+<td align="left">[<code>JNZ Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>Z=0</code></td>
+</tr>
+<tr class="odd">
+<td align="left">[<code>JC Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>C=1</code></td>
+</tr>
+<tr class="even">
+<td align="left">[<code>JNC Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>C=0</code></td>
+</tr>
+<tr class="odd">
+<td align="left">[<code>JS Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>S=1</code></td>
+</tr>
+<tr class="even">
+<td align="left">[<code>JNS Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>S=0</code></td>
+</tr>
+<tr class="odd">
+<td align="left">[<code>JO Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>O=1</code></td>
+</tr>
+<tr class="even">
+<td align="left">[<code>JNO Dirección</code>]</td>
+<td align="left">Salta a <em>Dirección</em> si <code>O=0</code></td>
+</tr>
+</tbody>
+</table>
 <p>Instrucciones sin operandos
 * HLT
 4. Detiene CPU.</p>

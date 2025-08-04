@@ -2800,31 +2800,6 @@ Considerando:
   \texttt{dddddddd}: Dato inmediato, número de 8 bits.
 \end{itemize}
 
-En la instrucción de salto condicional \texttt{Jxx\ Dirección}, la indicación \texttt{xx} representa todas las combinaciones posibles de los \emph{flags} donde \texttt{NZ} indica la negacion del \emph{flags} \texttt{Z}:
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3676}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6324}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Instrucción
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Acción
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-{[}\texttt{JZ\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{Z=1} \\
-{[}\texttt{JNZ\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{Z=0} \\
-{[}\texttt{JC\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{C=1} \\
-{[}\texttt{JNC\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{C=0} \\
-{[}\texttt{JS\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{S=1} \\
-{[}\texttt{JNS\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{S=0} \\
-{[}\texttt{JO\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{O=1} \\
-{[}\texttt{JNO\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{O=0} \\
-\end{longtable}
-
 \begin{table}[!h]
 \centering
 \caption{\label{tab:tablaregistros}Tabla de registros del simulador}
@@ -3279,53 +3254,52 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
 
 Instrucciones con un operando:
 
-Salto incondicional y condicionales:
-* JMP \texttt{Dirección} (Salto incondicional)
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
-Los pasos 4. 5. se obtiene la direccion del operando de la instrucción.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{5}
-\tightlist
-\item
-  JMP: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: El contenido del \texttt{MBR} se transfiere al registro \texttt{IP}, estableciendo la nueva dirección de ejecución.
-\end{enumerate}
-
 \begin{itemize}
 \tightlist
 \item
-  JZ \texttt{Dirección} (Salto condicional si Z=1)
+  Salto incondicional y condicionales: \texttt{Dirección}
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{5}
-  \tightlist
+  \setcounter{enumi}{3}
   \item
-    \texttt{Si\ Z} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: Si la bandera de cero (\texttt{Z}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
-  \end{enumerate}
-\item
-  JC \texttt{Dirección} (Salto condicional si C=1)
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{5}
-  \tightlist
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
   \item
-    \texttt{Si\ C} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: Si la bandera de acarreo (\texttt{C}) está activa, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
-  \end{enumerate}
-\item
-  Jxx \texttt{Dirección} (Salto condicional)
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{5}
-  \tightlist
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+    Los pasos 4. 5. se obtiene la direccion destino de la instrucción.
   \item
-    \texttt{Si\ xx} == 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}: Si la condición especificada por \texttt{xx} se cumple, el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
+    JMP: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}} (Salto incondicional)
+  \item
+    Jxx: \texttt{Si} xx== 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}} (Salto condicional)
+    Si la bandera esta en 1 el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
+    Si la bandera esta en 0 no se realiza ninguna acción y se continua con la siguiente instrucción.
   \end{enumerate}
 \end{itemize}
+
+En la instrucción de salto condicional \texttt{Jxx\ Dirección}, la indicación \texttt{xx} representa todas las combinaciones posibles de los \emph{flags} donde \texttt{NZ} indica la negacion del \emph{flags} \texttt{Z}:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3676}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6324}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Instrucción
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Acción
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+{[}\texttt{JZ\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{Z=1} \\
+{[}\texttt{JNZ\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{Z=0} \\
+{[}\texttt{JC\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{C=1} \\
+{[}\texttt{JNC\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{C=0} \\
+{[}\texttt{JS\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{S=1} \\
+{[}\texttt{JNS\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{S=0} \\
+{[}\texttt{JO\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{O=1} \\
+{[}\texttt{JNO\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{O=0} \\
+\end{longtable}
 
 Instrucciones sin operandos
 * HLT
