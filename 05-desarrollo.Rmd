@@ -1541,54 +1541,24 @@ Instrucciones con un operando:
   Si la bandera esta en 1 el contenido del `MBR` se transfiere al registro `IP`.
   Si la bandera esta en 0 no se realiza ninguna acción y se continua con la siguiente instrucción.
 
-En la instrucción de salto condicional `Jxx Dirección`, la indicación `xx` representa todas las combinaciones posibles de los _flags_ donde `NZ` indica la negacion del  _flags_ `Z`:
 
-| Instrucción               | Acción                                      |
-| :------------------------ | :------------------------------------------ | 
-| [`JZ Dirección`]          | Salta a _Dirección_ si `Z=1`                 | 
-| [`JNZ Dirección`]         | Salta a _Dirección_ si `Z=0`                 |
-| [`JC Dirección`]          | Salta a _Dirección_ si `C=1`                 |
-| [`JNC Dirección`]         | Salta a _Dirección_ si `C=0`                 |
-| [`JS Dirección`]          | Salta a _Dirección_ si `S=1`                 |
-| [`JNS Dirección`]         | Salta a _Dirección_ si `S=0`                 |
-| [`JO Dirección`]          | Salta a _Dirección_ si `O=1`                 |
-| [`JNO Dirección`]         | Salta a _Dirección_ si `O=0`                 |
+En la instrucción de salto condicional `Jxx Dirección`, el parámetro `xx` representa todas las combinaciones posibles de los _flags_. En este contexto, `NZ` indica la negación del _flag_ `Z`. A continuación se detallan las instrucciones y su acción correspondiente:
+
+| Instrucción        | Acción                                         |
+| :----------------- | :--------------------------------------------- |
+| `JZ Dirección`     | Salta a _Dirección_ si `Z = 1`                 |
+| `JNZ Dirección`    | Salta a _Dirección_ si `Z = 0`                 |
+| `JC Dirección`     | Salta a _Dirección_ si `C = 1`                 |
+| `JNC Dirección`    | Salta a _Dirección_ si `C = 0`                 |
+| `JS Dirección`     | Salta a _Dirección_ si `S = 1`                 |
+| `JNS Dirección`    | Salta a _Dirección_ si `S = 0`                 |
+| `JO Dirección`     | Salta a _Dirección_ si `O = 1`                 |
+| `JNO Dirección`    | Salta a _Dirección_ si `O = 0`                 |
 
 
 Instrucciones sin operandos
 * HLT
   4. Detiene CPU.
-
-
-Rutinas:  
-* CALL  `Dirección` 
-  4. 5. Se obtiene el operando de la instrucción.
-  6: `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
-  7: `MAR` $\leftarrow$ `SP`;
-  8: `MBR` $\leftarrow$ `IP`
-  9: `write(Memoria[MAR])` $\leftarrow$ `MBR`
-  10: `IP` $\leftarrow$ `ri`
-
-* RET
-  4: `MAR` $\leftarrow$ `SP`
-  5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
-  6: `IP` $\leftarrow$ `MBR`
-  7: `SP` $\leftarrow$ `SP` + 1
-
-Interrupciones:
-* INT  `Dirección` 
-  4 y 5: Obtener segundo byte de memoria
-  6: `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
-  7: `MAR` $\leftarrow$ `SP`
-  8: `MBR` $\leftarrow$ `Ry`
-  9: `write(Memoria[MAR])` $\leftarrow$ `MBR`
-  10: `IP` $\leftarrow$ `ri`
-  
-* IRET
-  4: `MAR` $\leftarrow$ `SP`
-  5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
-  6: `IP` $\leftarrow$ `MBR`;`SP` $\leftarrow$ `SP` + 1
-
 
 
 ## Modulo de Entrada/Salida e interrupciones
@@ -1651,6 +1621,41 @@ if (knitr::is_latex_output()) {
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
+
+
+EL ciclo de ejecucion es estas instrucciones es similar al ciclo de instrucción básico, pero con pasos adicionales para manejar la pila y las interrupciones. A continuación se detallan los pasos específicos para cada tipo de instrucción:
+
+
+Subrutinas:  
+* CALL  `Dirección` 
+  4. 5. Se obtiene el operando de la instrucción.
+  6: `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
+  7: `MAR` $\leftarrow$ `SP`;
+  8: `MBR` $\leftarrow$ `IP`
+  9: `write(Memoria[MAR])` $\leftarrow$ `MBR`
+  10: `IP` $\leftarrow$ `ri`
+
+* RET
+  4: `MAR` $\leftarrow$ `SP`
+  5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
+  6: `IP` $\leftarrow$ `MBR`
+  7: `SP` $\leftarrow$ `SP` + 1
+
+Interrupciones:
+* INT  `Dirección` 
+  4 y 5: Obtener segundo byte de memoria
+  6: `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
+  7: `MAR` $\leftarrow$ `SP`
+  8: `MBR` $\leftarrow$ `Ry`
+  9: `write(Memoria[MAR])` $\leftarrow$ `MBR`
+  10: `IP` $\leftarrow$ `ri`
+  
+* IRET
+  4: `MAR` $\leftarrow$ `SP`
+  5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
+  6: `IP` $\leftarrow$ `MBR`;`SP` $\leftarrow$ `SP` + 1
+
+
 
 ## Aspectos tecnológicos de implementación
 Se utiliza un enfoque modular para la implementación del simulador, facilitando su mantenimiento y ampliación futura. La arquitectura del simulador se basa en una estructura de capas, donde cada capa se encarga de una parte específica del proceso de simulación.
