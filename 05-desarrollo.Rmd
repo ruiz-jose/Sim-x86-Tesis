@@ -1396,14 +1396,18 @@ La Figura \@ref(fig:flujoCicloInstruccion) ilustra el flujo básico del ciclo de
 knitr::include_graphics(path = "images/cicloinstruccion2.png")
 ```
 
-### Etapa de Captación: 
-En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
+### Etapa de Captación
 
-1. **`MAR` $\leftarrow$ `IP`**
-2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**
-3. **`IR` $\leftarrow$ `MBR`**
+Esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria. El proceso se desarrolla en tres ciclos:
 
-La etapa de captación tiene 3 ciclos para todas las instrucciones. En el primero la Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (`IP`) al registro de direcciones de memoria (`MAR`). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción. En el segundo paso la UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (`MAR`). El dato leído se transfiere al registro de datos de memoria (`MBR`) mediante el bus de datos. Simultáneamente, el registro (`IP`) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente. Finalmente, el tercer paso el contenido del registro de datos de memoria (`MBR`) se copia en el registro de instrucciones (`IR`). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada. 
+1. **`MAR` $\leftarrow$ `IP`**  
+   La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (`IP`) al registro de direcciones de memoria (`MAR`). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.
+
+2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**  
+   La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el `MAR`. El dato leído se transfiere al registro de datos de memoria (`MBR`) mediante el bus de datos. Simultáneamente, el registro `IP` se incrementa en uno, apuntando así a la siguiente instrucción u operando en memoria.
+
+3. **`IR` $\leftarrow$ `MBR`**  
+   Finalmente, el contenido del registro de datos de memoria (`MBR`) se copia en el registro de instrucciones (`IR`). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada.
 
 ### Etapa de Ejecución:
 En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
