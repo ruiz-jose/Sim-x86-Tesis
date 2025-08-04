@@ -1411,29 +1411,37 @@ knitr::include_graphics(path = "images/cicloinstruccion2.png")
 ### Etapa de Captación: 
 En esta etapa, común a todas las instrucciones, consiste en la lectura de la instrucción desde la memoria.
 
-1. **`MAR` $\leftarrow$ `IP`**:
-La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (`IP`) al registro de direcciones de memoria (`MAR`). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.
-2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**:
-La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (`MAR`). El dato leído se transfiere al registro de datos de memoria (`MBR`) mediante el bus de datos. Simultáneamente, el registro (`IP`) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente.
-3. **`IR` $\leftarrow$ `MBR`**:
-Finalmente, el contenido del registro de datos de memoria (`MBR`) se copia en el registro de instrucciones (`IR`). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada. 
+1. **`MAR` $\leftarrow$ `IP`**
+2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**
+3. **`IR` $\leftarrow$ `MBR`**
+
+La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (`IP`) al registro de direcciones de memoria (`MAR`). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción. La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el (`MAR`). El dato leído se transfiere al registro de datos de memoria (`MBR`) mediante el bus de datos. Simultáneamente, el registro (`IP`) se incrementa en uno, apuntando así a la siguiente instrucción en memoria u operando de la instrucción vigente. Finalmente, el contenido del registro de datos de memoria (`MBR`) se copia en el registro de instrucciones (`IR`). Con este paso, la instrucción ha sido captada y está lista para ser decodificada y ejecutada. 
 
 La etapa de captación tiene 3 ciclos para todas las instrucciones.
 
 ### Etapa de Ejecución:
 En esta etapa, las operaciones específicas dependen del tipo de instrucción. A continuación, se describen algunos casos representativos:
 
-Instruccion de transferencia de datos MOV
-#### Destino registro
-* MOV `Rx`, `Ry` (Entre registros)
-  4. **`Rx` $\leftarrow$ `Ry`**: El valor almacenado en Ry se copia en el registro Rx.
+Todas las instrucciones de dos operandos tienen los mismos pasos de ejecución, diferenciándose en el destino de la operación y el modo de direccionamiento.
 
-* MOV `Rx`, `[Dirección]` (Directo)
-  4. **`MAR` $\leftarrow$ `IP`**: El contenido de IP se transfiere al registro MAR.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**: Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno.  
-  6. **`MAR` $\leftarrow$ `MBR`**: El valor de MBR se transfiere a MAR.
-  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**: Se lee el dato de la memoria en la nueva dirección de MAR y se almacena en MBR.
-  8. **`Rx`  $\leftarrow$ `MBR`**: Finalmente, el contenido de MBR se copia en el registro Rx.
+#### Destino registro
+* Entre registros `Rx`, `Ry`
+  4. MOV `Rx`, `Ry`:  **`Rx` $\leftarrow$ `Ry`** 
+  4. ADD `Rx`, `Ry`:  **`Rx` $\leftarrow$ `Rx` + `Ry`; update(Flags)** 
+  4. SUB `Rx`, `Ry`:  **`Rx` $\leftarrow$ `Rx` - `Ry`; update(Flags)**
+  4. CMP `Rx`, `Ry`:  **`Rx` - `Ry`; update(Flags)**
+
+*  Directo `Rx`, `[Dirección]`
+  4. **`MAR` $\leftarrow$ `IP`**
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**
+  6. **`MAR` $\leftarrow$ `MBR`**
+  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+
+Los pasos 4. 5. se obtiene el operando de la instrucción. El contenido de IP se transfiere al registro MAR. Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno.  El valor de MBR se transfiere a MAR. Se lee el dato de la memoria en la nueva dirección de MAR y se almacena en MBR.
+  8. MOV `Rx`, `[Dirección]`: **`Rx`  $\leftarrow$ `MBR`**
+  8. ADD `Rx`, `[Dirección]`: **`Rx`  $\leftarrow$ `Rx` + `MBR`; update(Flags)**
+  8. SUB `Rx`, `[Dirección]`: **`Rx`  $\leftarrow$ `Rx` - `MBR`; update(Flags)**
+  8. CMP `Rx`, `[Dirección]`: **`Rx` - `MBR`; update(Flags)**
 
 * MOV `Rx`, `Dato` (Inmediato)
   4. 5. Se obtiene el operando de la instrucción.
@@ -1473,8 +1481,8 @@ Tienen los mismos modos de direccionamiento que MOV, pero con una diferencia imp
 Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.
 
 #### Destino registro
-* ADD `Rx`, `Ry` (Entre registros)
-  4. **`Rx` $\leftarrow$ `Rx` + `Ry`; update(Flags)**
+* 
+
 
 * ADD `Rx`, `[Dirección]` (Directo)
   8. **`Rx`  $\leftarrow$ `Rx` + `MBR`; update(Flags)**
