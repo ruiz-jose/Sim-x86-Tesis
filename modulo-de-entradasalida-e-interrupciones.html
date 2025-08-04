@@ -457,6 +457,36 @@ No opera NOP. Detiene el CPU HLT
 </tr>
 </tbody>
 </table>
+<p>EL ciclo de ejecucion es estas instrucciones es similar al ciclo de instrucción básico, pero con pasos adicionales para manejar la pila y las interrupciones. A continuación se detallan los pasos específicos para cada tipo de instrucción:</p>
+<p>Subrutinas:<br />
+* CALL <code>Dirección</code>
+4. 5. Se obtiene el operando de la instrucción.
+6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
+7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>;
+8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>
+9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
+10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
+<ul>
+<li>RET
+4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
+5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
+6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
+7: <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+</ul>
+<p>Interrupciones:
+* INT <code>Dirección</code>
+4 y 5: Obtener segundo byte de memoria
+6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
+7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
+8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code>
+9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
+10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
+<ul>
+<li>IRET
+4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
+5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
+6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>;<code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+</ul>
 </div>
             </section>
 

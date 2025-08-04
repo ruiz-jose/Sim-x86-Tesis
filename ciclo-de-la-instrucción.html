@@ -530,12 +530,8 @@ Si la bandera esta en 1 el contenido del <code>MBR</code> se transfiere al regis
 Si la bandera esta en 0 no se realiza ninguna acción y se continua con la siguiente instrucción.</p></li>
 </ol></li>
 </ul>
-<p>En la instrucción de salto condicional <code>Jxx Dirección</code>, la indicación <code>xx</code> representa todas las combinaciones posibles de los <em>flags</em> donde <code>NZ</code> indica la negacion del <em>flags</em> <code>Z</code>:</p>
+<p>En la instrucción de salto condicional <code>Jxx Dirección</code>, el parámetro <code>xx</code> representa todas las combinaciones posibles de los <em>flags</em>. En este contexto, <code>NZ</code> indica la negación del <em>flag</em> <code>Z</code>. A continuación se detallan las instrucciones y su acción correspondiente:</p>
 <table>
-<colgroup>
-<col width="36%" />
-<col width="63%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Instrucción</th>
@@ -544,71 +540,42 @@ Si la bandera esta en 0 no se realiza ninguna acción y se continua con la sigui
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">[<code>JZ Dirección</code>]</td>
-<td align="left">Salta a <em>Dirección</em> si <code>Z=1</code></td>
+<td align="left"><code>JZ Dirección</code></td>
+<td align="left">Salta a <em>Dirección</em> si <code>Z = 1</code></td>
 </tr>
 <tr class="even">
-<td align="left">[<code>JNZ Dirección</code>]</td>
-<td align="left">Salta a <em>Dirección</em> si <code>Z=0</code></td>
+<td align="left"><code>JNZ Dirección</code></td>
+<td align="left">Salta a <em>Dirección</em> si <code>Z = 0</code></td>
 </tr>
 <tr class="odd">
-<td align="left">[<code>JC Dirección</code>]</td>
-<td align="left">Salta a <em>Dirección</em> si <code>C=1</code></td>
+<td align="left"><code>JC Dirección</code></td>
+<td align="left">Salta a <em>Dirección</em> si <code>C = 1</code></td>
 </tr>
 <tr class="even">
-<td align="left">[<code>JNC Dirección</code>]</td>
-<td align="left">Salta a <em>Dirección</em> si <code>C=0</code></td>
+<td align="left"><code>JNC Dirección</code></td>
+<td align="left">Salta a <em>Dirección</em> si <code>C = 0</code></td>
 </tr>
 <tr class="odd">
-<td align="left">[<code>JS Dirección</code>]</td>
-<td align="left">Salta a <em>Dirección</em> si <code>S=1</code></td>
+<td align="left"><code>JS Dirección</code></td>
+<td align="left">Salta a <em>Dirección</em> si <code>S = 1</code></td>
 </tr>
 <tr class="even">
-<td align="left">[<code>JNS Dirección</code>]</td>
-<td align="left">Salta a <em>Dirección</em> si <code>S=0</code></td>
+<td align="left"><code>JNS Dirección</code></td>
+<td align="left">Salta a <em>Dirección</em> si <code>S = 0</code></td>
 </tr>
 <tr class="odd">
-<td align="left">[<code>JO Dirección</code>]</td>
-<td align="left">Salta a <em>Dirección</em> si <code>O=1</code></td>
+<td align="left"><code>JO Dirección</code></td>
+<td align="left">Salta a <em>Dirección</em> si <code>O = 1</code></td>
 </tr>
 <tr class="even">
-<td align="left">[<code>JNO Dirección</code>]</td>
-<td align="left">Salta a <em>Dirección</em> si <code>O=0</code></td>
+<td align="left"><code>JNO Dirección</code></td>
+<td align="left">Salta a <em>Dirección</em> si <code>O = 0</code></td>
 </tr>
 </tbody>
 </table>
 <p>Instrucciones sin operandos
 * HLT
 4. Detiene CPU.</p>
-<p>Rutinas:<br />
-* CALL <code>Dirección</code>
-4. 5. Se obtiene el operando de la instrucción.
-6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
-7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>;
-8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>
-9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
-10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
-<ul>
-<li>RET
-4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
-5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
-6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
-7: <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
-</ul>
-<p>Interrupciones:
-* INT <code>Dirección</code>
-4 y 5: Obtener segundo byte de memoria
-6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
-7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
-8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code>
-9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
-10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
-<ul>
-<li>IRET
-4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
-5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
-6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>;<code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
-</ul>
 </div>
 </div>
 </div>

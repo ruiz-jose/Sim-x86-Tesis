@@ -3278,36 +3278,65 @@ Instrucciones con un operando:
   \end{enumerate}
 \end{itemize}
 
-En la instrucción de salto condicional \texttt{Jxx\ Dirección}, la indicación \texttt{xx} representa todas las combinaciones posibles de los \emph{flags} donde \texttt{NZ} indica la negacion del \emph{flags} \texttt{Z}:
+En la instrucción de salto condicional \texttt{Jxx\ Dirección}, el parámetro \texttt{xx} representa todas las combinaciones posibles de los \emph{flags}. En este contexto, \texttt{NZ} indica la negación del \emph{flag} \texttt{Z}. A continuación se detallan las instrucciones y su acción correspondiente:
 
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3676}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6324}}@{}}
+\begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Instrucción
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Acción
-\end{minipage} \\
+Instrucción & Acción \\
 \midrule\noalign{}
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-{[}\texttt{JZ\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{Z=1} \\
-{[}\texttt{JNZ\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{Z=0} \\
-{[}\texttt{JC\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{C=1} \\
-{[}\texttt{JNC\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{C=0} \\
-{[}\texttt{JS\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{S=1} \\
-{[}\texttt{JNS\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{S=0} \\
-{[}\texttt{JO\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{O=1} \\
-{[}\texttt{JNO\ Dirección}{]} & Salta a \emph{Dirección} si \texttt{O=0} \\
+\texttt{JZ\ Dirección} & Salta a \emph{Dirección} si \texttt{Z\ =\ 1} \\
+\texttt{JNZ\ Dirección} & Salta a \emph{Dirección} si \texttt{Z\ =\ 0} \\
+\texttt{JC\ Dirección} & Salta a \emph{Dirección} si \texttt{C\ =\ 1} \\
+\texttt{JNC\ Dirección} & Salta a \emph{Dirección} si \texttt{C\ =\ 0} \\
+\texttt{JS\ Dirección} & Salta a \emph{Dirección} si \texttt{S\ =\ 1} \\
+\texttt{JNS\ Dirección} & Salta a \emph{Dirección} si \texttt{S\ =\ 0} \\
+\texttt{JO\ Dirección} & Salta a \emph{Dirección} si \texttt{O\ =\ 1} \\
+\texttt{JNO\ Dirección} & Salta a \emph{Dirección} si \texttt{O\ =\ 0} \\
 \end{longtable}
 
 Instrucciones sin operandos
 * HLT
 4. Detiene CPU.
 
-Rutinas:\\
+\hypertarget{modulo-de-entradasalida-e-interrupciones}{%
+\section{Modulo de Entrada/Salida e interrupciones}\label{modulo-de-entradasalida-e-interrupciones}}
+
+En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
+A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\midrule
+\textbf{MOV} & Transferencia de datos & MOV destino, origen & 1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\\
+\addlinespace[10pt]
+\textbf{ADD} & Aritmética & ADD destino, origen & 1- Sumar  2- Restar 3- Comparar\\
+\addlinespace[10pt]
+\textbf{JMP} & Control de flujo & JMP destino & Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET\\
+\addlinespace[10pt]
+\textbf{PUSH, POP, OUT, IN} & Pila y E/S & PUSH, POP, OUT, IN & Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S\\
+\addlinespace[10pt]
+\textbf{INT , IRET} & Interrupciones & INT , IRET & Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{NOP , HLT} & Control & NOP , HLT & No opera NOP. Detiene el CPU HLT\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+EL ciclo de ejecucion es estas instrucciones es similar al ciclo de instrucción básico, pero con pasos adicionales para manejar la pila y las interrupciones. A continuación se detallan los pasos específicos para cada tipo de instrucción:
+
+Subrutinas:\\
 * CALL \texttt{Dirección}
 4. 5. Se obtiene el operando de la instrucción.
 6: \texttt{ri} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
@@ -3343,39 +3372,6 @@ Interrupciones:
   5: \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
   6: \texttt{IP} \(\leftarrow\) \texttt{MBR};\texttt{SP} \(\leftarrow\) \texttt{SP} + 1
 \end{itemize}
-
-\hypertarget{modulo-de-entradasalida-e-interrupciones}{%
-\section{Modulo de Entrada/Salida e interrupciones}\label{modulo-de-entradasalida-e-interrupciones}}
-
-En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
-A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
-\midrule
-\textbf{MOV} & Transferencia de datos & MOV destino, origen & 1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\\
-\addlinespace[10pt]
-\textbf{ADD} & Aritmética & ADD destino, origen & 1- Sumar  2- Restar 3- Comparar\\
-\addlinespace[10pt]
-\textbf{JMP} & Control de flujo & JMP destino & Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET\\
-\addlinespace[10pt]
-\textbf{PUSH, POP, OUT, IN} & Pila y E/S & PUSH, POP, OUT, IN & Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S\\
-\addlinespace[10pt]
-\textbf{INT , IRET} & Interrupciones & INT , IRET & Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET\\
-\addlinespace[10pt]
-\addlinespace
-\textbf{NOP , HLT} & Control & NOP , HLT & No opera NOP. Detiene el CPU HLT\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
 
 \hypertarget{aspectos-tecnoluxf3gicos-de-implementaciuxf3n}{%
 \section{Aspectos tecnológicos de implementación}\label{aspectos-tecnoluxf3gicos-de-implementaciuxf3n}}
