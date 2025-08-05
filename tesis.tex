@@ -3199,7 +3199,9 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \item
     \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
   \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}
+    MOV:\textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}
+  \item
+    ADD/SUB/CMP: \textbf{\texttt{id} \(\leftarrow\) \texttt{MBR}; \texttt{MAR} \(\leftarrow\) \texttt{ri}}
   \end{enumerate}
 
   En el paso 6 contenido de IP se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio (ri). El paso 7 se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. Paso 8 el contenido de ri se transfiere al registro MAR.
@@ -3221,7 +3223,7 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \setcounter{enumi}{8}
   \tightlist
   \item
-    ADD/SUB/CMP: \textbf{\texttt{id} \(\leftarrow\) \texttt{MBR}}
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
   \item
     ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id}; update(Flags)}
   \item

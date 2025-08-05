@@ -494,7 +494,8 @@ En el paso 5 se almacena en registro MBR el operando fuente y en el paso 6 se es
 Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucción.</p></li>
 <li><p><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>;<code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></p></li>
 <li><p><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong></p></li>
-<li><p><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong></p></li>
+<li><p>MOV:<strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong></p></li>
+<li><p>ADD/SUB/CMP: <strong><code>id</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong></p></li>
 </ol>
 <p>En el paso 6 contenido de IP se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio (ri). El paso 7 se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. Paso 8 el contenido de ri se transfiere al registro MAR.</p>
 <p>Para la instrucción MOV los pasos son:</p>
@@ -503,7 +504,7 @@ Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucci�
 </ol>
 <p>Para la instrucción ADD/SUB/CMP los pasos son:</p>
 <ol start="9" style="list-style-type: decimal">
-<li>ADD/SUB/CMP: <strong><code>id</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
 <li>ADD: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> + <code>id</code>; update(Flags)</strong></li>
 <li>SUB: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> - <code>id</code>; update(Flags)</strong></li>
 <li>CMP: <strong><code>MBR</code> - <code>id</code>; update(Flags)</strong></li>
