@@ -1510,22 +1510,22 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
 
   6. **`MAR` $\leftarrow$ `IP`;`ri` $\leftarrow$ `MBR`**
   7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**
-  8. **`MAR` $\leftarrow$ `ri`**
+  8. MOV:**`MAR` $\leftarrow$ `ri`**
+  8. ADD/SUB/CMP: **`id` $\leftarrow$ `MBR`; `MAR` $\leftarrow$ `ri`**
 
   En el paso 6 contenido de IP se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio (ri). El paso 7 se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. Paso 8 el contenido de ri se transfiere al registro MAR.   
 
   Para la instrucción MOV los pasos son:
   9. MOV: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
-  Para la instrucción ADD/SUB/CMP los pasos son:
-  9. ADD/SUB/CMP: **`id` $\leftarrow$ `MBR`; `MAR` $\leftarrow$ `ri`**
-  10. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
-  11. ADD: **`MBR` $\leftarrow$ `MBR` + `id`; update(Flags)**
-  11. SUB: **`MBR` $\leftarrow$ `MBR` - `id`; update(Flags)**
-  11. CMP: **`MBR` - `id`; update(Flags)**
+  Para la instrucción ADD/SUB/CMP los pasos son: 
+  9. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+  10. ADD: **`MBR` $\leftarrow$ `MBR` + `id`; update(Flags)**
+  10. SUB: **`MBR` $\leftarrow$ `MBR` - `id`; update(Flags)**
+  10. CMP: **`MBR` - `id`; update(Flags)**
 
   La instrucción CMP no realiza el paso 10 de escritura en memoria.
-  12. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`; update(Flags)**
+  11. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`; update(Flags)**
 
 * Inmediato `[BL]`, `Dato`  
   4. **`MAR` $\leftarrow$ `BL`**: El contenido de BL se transfiere al registro MAR.
