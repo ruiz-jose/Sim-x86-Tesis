@@ -1530,11 +1530,12 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
 * Inmediato `[BL]`, `Dato`
   4. **`MAR` $\leftarrow$ `IP`**
   5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**  
-  6. **`MAR` $\leftarrow$ `BL`**
 
   Para la instrucción MOV los pasos son:
+  6. **`MAR` $\leftarrow$ `BL`**
   7. MOV: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
+  Para la instrucción ADD/SUB/CMP los pasos son: 
   6. **`MAR` $\leftarrow$ `BL` | `id` $\leftarrow$ `MBR`**
   7. ADD/SUB/CMP: **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
   8. ADD: **`MBR` $\leftarrow$ `MBR` + `id`; update(Flags)**
