@@ -3251,18 +3251,27 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
   \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}\\
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
   \end{enumerate}
 
   Para la instrucción MOV los pasos son:
 
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{6}
+  \setcounter{enumi}{5}
+  \tightlist
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
   \item
     MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+  \end{enumerate}
+
+  Para la instrucción ADD/SUB/CMP los pasos son:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{5}
+  \tightlist
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}}
   \item

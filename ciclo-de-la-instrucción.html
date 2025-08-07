@@ -516,18 +516,20 @@ Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucci�
 <li><p>Inmediato <code>[BL]</code>, <code>Dato</code></p>
 <ol start="4" style="list-style-type: decimal">
 <li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong></li>
-<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong><br />
-</li>
-<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong></li>
 </ol>
 <p>Para la instrucción MOV los pasos son:</p>
-<ol start="7" style="list-style-type: decimal">
-<li><p>MOV: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></p></li>
-<li><p><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code> | <code>id</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></p></li>
-<li><p>ADD/SUB/CMP: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></p></li>
-<li><p>ADD: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> + <code>id</code>; update(Flags)</strong></p></li>
-<li><p>SUB: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> - <code>id</code>; update(Flags)</strong></p></li>
-<li><p>CMP: <strong><code>MBR</code> - <code>id</code>; update(Flags)</strong></p></li>
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong></li>
+<li>MOV: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+</ol>
+<p>Para la instrucción ADD/SUB/CMP los pasos son:</p>
+<ol start="6" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code> | <code>id</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<li>ADD/SUB/CMP: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
+<li>ADD: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> + <code>id</code>; update(Flags)</strong></li>
+<li>SUB: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> - <code>id</code>; update(Flags)</strong></li>
+<li>CMP: <strong><code>MBR</code> - <code>id</code>; update(Flags)</strong></li>
 </ol>
 <p>La instrucción CMP no realiza el paso 10 de escritura en memoria.</p>
 <ol start="9" style="list-style-type: decimal">
