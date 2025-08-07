@@ -2934,7 +2934,7 @@ Esta etapa, común a todas las instrucciones, consiste en la lectura de la instr
   \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}\\
   La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (\texttt{IP}) al registro de direcciones de memoria (\texttt{MAR}). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.
 \item
-  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} ; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}\\
+  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}\\
   La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el \texttt{MAR}. El dato leído se transfiere al registro de datos de memoria (\texttt{MBR}) mediante el bus de datos. Simultáneamente, el registro \texttt{IP} se incrementa en uno, apuntando así a la siguiente instrucción u operando en memoria.
 \item
   \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}\\
@@ -2985,7 +2985,7 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
 \item
   \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
 \item
-  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
 \item
   \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}
 \item
@@ -3019,7 +3019,7 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
   \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
   \end{enumerate}
 
   Los pasos 4. 5. se obtien el operando fuente de memoria y se almacena en el registro MBR, luego se realiza la operación dependiendo de la instrucción:
@@ -3031,9 +3031,9 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \item
     MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}
   \item
-    ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
+    ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR} \textbar{} update(Flags)}
   \item
-    SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR}; update(Flags)}
+    SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR} \textbar{} update(Flags)}
   \item
     CMP: \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}
   \end{enumerate}
@@ -3059,9 +3059,9 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \item
     MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}
   \item
-    ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
+    ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR} \textbar{} update(Flags)}
   \item
-    SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR}; update(Flags)}
+    SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR} \textbar{} update(Flags)}
   \item
     CMP: \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}
   \end{enumerate}
@@ -3081,7 +3081,7 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
   \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}
   \end{enumerate}
@@ -3117,9 +3117,9 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \setcounter{enumi}{7}
   \tightlist
   \item
-    ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry}; update(Flags)}
+    ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry} \textbar{} update(Flags)}
   \item
-    SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry}; update(Flags)}
+    SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
   \item
     CMP: \textbf{\texttt{MBR} - \texttt{Ry}; update(Flags)}
   \end{enumerate}
@@ -3167,11 +3167,11 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \item
     ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
   \item
-    ADD: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} + \texttt{Ry}; update(Flags)}
+    ADD: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} + \texttt{Ry}\textbar{} update(Flags)}
   \item
-    SUB \texttt{{[}BL{]}}, \texttt{Ry}: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} - \texttt{Ry}; update(Flags)}
+    SUB \texttt{{[}BL{]}}, \texttt{Ry}: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
   \item
-    CMP \texttt{{[}BL{]}}, \texttt{Ry}: \textbf{\texttt{MBR} - \texttt{Ry}; update(Flags)}
+    CMP \texttt{{[}BL{]}}, \texttt{Ry}: \textbf{\texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
   \end{enumerate}
 
   La instrucción CMP no realiza el paso 9 de escritura en memoria.
@@ -3192,16 +3192,16 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
   \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
     Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucción.
   \item
     \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP};\texttt{ri} \(\leftarrow\) \texttt{MBR}}
   \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
   \item
     MOV:\textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}
   \item
-    ADD/SUB/CMP: \textbf{\texttt{id} \(\leftarrow\) \texttt{MBR}; \texttt{MAR} \(\leftarrow\) \texttt{ri}}
+    ADD/SUB/CMP: \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}}
   \end{enumerate}
 
   En el paso 6 contenido de IP se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio (ri). El paso 7 se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. Paso 8 el contenido de ri se transfiere al registro MAR.
@@ -3239,7 +3239,7 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \setcounter{enumi}{10}
   \tightlist
   \item
-    ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+    ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} update(Flags)}
   \end{enumerate}
 \item
   Inmediato \texttt{{[}BL{]}}, \texttt{Dato}
@@ -3247,12 +3247,42 @@ Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para el
   \begin{enumerate}
   \def\labelenumi{\arabic{enumi}.}
   \setcounter{enumi}{3}
+  \tightlist
   \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL se transfiere al registro MAR.
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
   \item
-    MOV \texttt{{[}BL{]}}, \texttt{Dato}: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}\\
   \item
-    ADD \texttt{{[}BL{]}}, \texttt{Dato}: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}; update(Flags)}
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
+  \end{enumerate}
+
+  Para la instrucción MOV los pasos son:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{6}
+  \item
+    MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}}
+  \item
+    ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+  \item
+    ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id}; update(Flags)}
+  \item
+    SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id}; update(Flags)}
+  \item
+    CMP: \textbf{\texttt{MBR} - \texttt{id}; update(Flags)}
+  \end{enumerate}
+
+  La instrucción CMP no realiza el paso 10 de escritura en memoria.
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{8}
+  \tightlist
+  \item
+    ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} update(Flags)}
   \end{enumerate}
 \end{itemize}
 
@@ -3277,6 +3307,7 @@ Instrucciones con un operando:
     Jxx: \texttt{Si} xx== 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}} (Salto condicional)
     Si la bandera esta en 1 el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
     Si la bandera esta en 0 no se realiza ninguna acción y se continua con la siguiente instrucción.
+    :
   \end{enumerate}
 \end{itemize}
 
