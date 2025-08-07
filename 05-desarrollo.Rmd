@@ -1403,7 +1403,7 @@ Esta etapa, común a todas las instrucciones, consiste en la lectura de la instr
 1. **`MAR` $\leftarrow$ `IP`**  
    La Unidad de Control (UC) transfiere el contenido del registro puntero de instrucciones (`IP`) al registro de direcciones de memoria (`MAR`). Este paso prepara el sistema para acceder a la posición de memoria donde se encuentra la próxima instrucción.
 
-2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` ; `IP` $\leftarrow$ `IP` + 1**  
+2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**  
    La UC activa la señal de lectura para obtener el contenido de la memoria en la dirección especificada por el `MAR`. El dato leído se transfiere al registro de datos de memoria (`MBR`) mediante el bus de datos. Simultáneamente, el registro `IP` se incrementa en uno, apuntando así a la siguiente instrucción u operando en memoria.
 
 3. **`IR` $\leftarrow$ `MBR`**  
@@ -1428,7 +1428,7 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
 
 *  Directo `Rx`, `[Dirección]`
   4. **`MAR` $\leftarrow$ `IP`**
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**
   6. **`MAR` $\leftarrow$ `MBR`**
   7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
 
@@ -1441,13 +1441,13 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
 
 * Inmediato `Rx`, `Dato`
   4. **`MAR` $\leftarrow$ `IP`**
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**
   
   Los pasos 4. 5. se obtien el operando fuente de memoria y se almacena en el registro MBR, luego se realiza la operación dependiendo de la instrucción:
 
   6. MOV: **`Rx`  $\leftarrow$ `MBR`**
-  6. ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR`; update(Flags)**
-  6. SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR`; update(Flags)**
+  6. ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR` | update(Flags)**
+  6. SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR` | update(Flags)**
   6. CMP: **`Rx` - `MBR`; update(Flags)**
 
 * Indirecto `Rx`, `[BL]` 
@@ -1457,14 +1457,14 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
   En este caso, los pasos 4. 5. se obtiene el operando fuente de memoria en base a la direccion contenida en el registro BL y se almacena en registro MBR. Luego se realiza la operación dependiendo de la instrucción:
 
   6. MOV: **`Rx`  $\leftarrow$ `MBR`**
-  6. ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR`; update(Flags)**
-  6. SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR`; update(Flags)**
+  6. ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR` | update(Flags)**
+  6. SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR` | update(Flags)**
   6. CMP: **`Rx` - `MBR`; update(Flags)**
 
 #### Destino Memoria
 * Directo `[Dirección]`, `Ry`     
   4. **`MAR` $\leftarrow$ `IP`**
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**
   6. **`MAR` $\leftarrow$ `MBR`**  
 
   Los pasos 4. 5. se obtiene la dirección del operando destino de memoria, para ello el contenido de IP se transfiere al registro MAR. Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. El paso 6. establece la direccion de destino en memoria, para ello el valor de MBR se transfiere al registro MAR.
@@ -1478,8 +1478,8 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
   7. ADD/SUB/CMP: **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
 
   Pero luego se realiza la operación dependiendo de la instrucción:
-  8. ADD: **`MBR` $\leftarrow$ `MBR` + `Ry`; update(Flags)**
-  8. SUB: **`MBR` $\leftarrow$ `MBR` - `Ry`; update(Flags)**
+  8. ADD: **`MBR` $\leftarrow$ `MBR` + `Ry` | update(Flags)**
+  8. SUB: **`MBR` $\leftarrow$ `MBR` - `Ry` | update(Flags)**
   8. CMP: **`MBR` - `Ry`; update(Flags)**
   
   La instrucción CMP no realiza el paso 9 de escritura en memoria.
@@ -1496,22 +1496,22 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
 
   Para la instrucción ADD/SUB/CMP los pasos son:
   5. ADD/SUB/CMP: **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
-  6. ADD: **`write(Memoria[MAR])` $\leftarrow$ `MBR` + `Ry`; update(Flags)**
-  6. SUB `[BL]`, `Ry`: **`write(Memoria[MAR])` $\leftarrow$ `MBR` - `Ry`; update(Flags)**
-  6. CMP `[BL]`, `Ry`: **`MBR` - `Ry`; update(Flags)**
+  6. ADD: **`write(Memoria[MAR])` $\leftarrow$ `MBR` + `Ry`| update(Flags)**
+  6. SUB `[BL]`, `Ry`: **`write(Memoria[MAR])` $\leftarrow$ `MBR` - `Ry` | update(Flags)**
+  6. CMP `[BL]`, `Ry`: **`MBR` - `Ry` | update(Flags)**
 
   La instrucción CMP no realiza el paso 9 de escritura en memoria.
   7. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
 * Inmediato `[Dirección]`, `Dato` 
   4. **`MAR` $\leftarrow$ `IP`**
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**
   Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucción.
 
   6. **`MAR` $\leftarrow$ `IP`;`ri` $\leftarrow$ `MBR`**
-  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**
+  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**
   8. MOV:**`MAR` $\leftarrow$ `ri`**
-  8. ADD/SUB/CMP: **`id` $\leftarrow$ `MBR`; `MAR` $\leftarrow$ `ri`**
+  8. ADD/SUB/CMP: **`MAR` $\leftarrow$ `ri` | `id` $\leftarrow$ `MBR`**
 
   En el paso 6 contenido de IP se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio (ri). El paso 7 se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. Paso 8 el contenido de ri se transfiere al registro MAR.   
 
@@ -1525,14 +1525,24 @@ Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de l
   10. CMP: **`MBR` - `id`; update(Flags)**
 
   La instrucción CMP no realiza el paso 10 de escritura en memoria.
-  11. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`; update(Flags)**
+  11. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR` | update(Flags)**
 
-* Inmediato `[BL]`, `Dato`  
-  4. **`MAR` $\leftarrow$ `BL`**: El contenido de BL se transfiere al registro MAR.
+* Inmediato `[BL]`, `Dato`
+  4. **`MAR` $\leftarrow$ `IP`**
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**  
+  6. **`MAR` $\leftarrow$ `BL`**
 
-  7. MOV `[BL]`, `Dato`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**: Se escribe el valor de MBR en la posición de memoria indicada por MAR.
-  7. ADD `[BL]`, `Dato`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`; update(Flags)**
+  Para la instrucción MOV los pasos son:
+  7. MOV: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
+  6. **`MAR` $\leftarrow$ `BL` | `id` $\leftarrow$ `MBR`**
+  7. ADD/SUB/CMP: **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+  8. ADD: **`MBR` $\leftarrow$ `MBR` + `id`; update(Flags)**
+  8. SUB: **`MBR` $\leftarrow$ `MBR` - `id`; update(Flags)**
+  8. CMP: **`MBR` - `id`; update(Flags)**
+
+  La instrucción CMP no realiza el paso 10 de escritura en memoria.
+  9. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR` | update(Flags)**
 
 Instrucciones con un operando:
 
@@ -1545,7 +1555,7 @@ Instrucciones con un operando:
   6. Jxx: `Si ` xx== 1: **`IP` $\leftarrow$ `MBR`** (Salto condicional)
   Si la bandera esta en 1 el contenido del `MBR` se transfiere al registro `IP`.
   Si la bandera esta en 0 no se realiza ninguna acción y se continua con la siguiente instrucción.
-
+:
 
 En la instrucción de salto condicional `Jxx Dirección`, el parámetro `xx` representa todas las combinaciones posibles de los _flags_. En este contexto, `NZ` indica la negación del _flag_ `Z`. A continuación se detallan las instrucciones y su acción correspondiente:
 
