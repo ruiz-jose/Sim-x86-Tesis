@@ -2898,7 +2898,7 @@ El ciclo de la instrucción es la secuencia de pasos que la Unidad de Control (U
 
 Las microoperaciones que componen este ciclo se representan con una notación de transferencia entre registros, siguiendo el formato \texttt{destino} \(\leftarrow\) \texttt{origen} .
 
-La siguiente figura \ref{fig:flujoCicloInstruccion} muestra el flujo general de este ciclo, que se divide en dos etapas principales: Captación (fetch) y ejecución.
+La Figura \ref{fig:flujoCicloInstruccion} muestra el flujo general de este ciclo, que se divide en dos etapas principales: Captación (fetch) y ejecución.
 
 \begin{figure}
 
@@ -2912,30 +2912,34 @@ La siguiente figura \ref{fig:flujoCicloInstruccion} muestra el flujo general de 
 \hypertarget{etapa-1-captaciuxf3n}{%
 \subsection{Etapa 1: Captación}\label{etapa-1-captaciuxf3n}}
 
-Esta etapa es la misma para todas las instrucciones y tiene como objetivo principal leer la instrucción desde la memoria. Consta de tres microoperaciones:
+Esta etapa es idéntica para todas las instrucciones y su objetivo es leer la instrucción desde la memoria. Consta de las siguientes tres microoperaciones:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: La UC transfiere el contenido del Puntero de Instrucción (\texttt{IP}) al registro de direcciones de memoria (\texttt{MAR}). El IP contiene la dirección de la siguiente instrucción a ejecutar, por lo que este paso prepara el sistema para acceder a esa ubicación en la memoria.
+  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: La UC transfiere el contenido del \textbf{Puntero de Instrucción} (\texttt{IP}) al \textbf{Registro de Direcciones de Memoria} (\texttt{MAR}). El \texttt{IP} contiene la dirección de la próxima instrucción a ejecutar, por lo que este paso prepara el sistema para acceder a esa ubicación en la memoria.
 \item
-  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: La UC activa la señal de lectura para obtener la instrucción en la dirección especificada por el \texttt{MAR}. Este dato se almacena en el registro de datos de memoria (\texttt{MBR}) a través del bus de datos. Simultáneamente, el \texttt{IP} se incrementa en 1, apuntando así a la siguiente instrucción u operando en memoria.
+  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: La UC activa la señal de lectura para obtener la instrucción en la dirección especificada por el \texttt{MAR}. El dato leído se almacena en el \textbf{Registro de Datos de Memoria} (\texttt{MBR}) a través del bus de datos. Simultáneamente, el \texttt{IP} se incrementa en uno para apuntar a la siguiente instrucción u operando.
 \item
-  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}: El contenido del MBR se transfiere al registro de instrucciones (\texttt{IR}). En este punto, la instrucción ha sido captada y está lista para ser ejecutada.
+  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}: Finalmente, el contenido del \texttt{MBR} se transfiere al \textbf{Registro de Instrucciones} (\texttt{IR}). En este punto, la instrucción ha sido captada y está lista para ser ejecutada.
 \end{enumerate}
 
 \hypertarget{etapa-2-ejecuciuxf3n}{%
 \subsection{Etapa 2: Ejecución:}\label{etapa-2-ejecuciuxf3n}}
 
-En esta etapa, las operaciones varían según el tipo de instrucción. A continuación, se detallan los pasos para las instrucciones de dos operandos, como \texttt{MOV}, \texttt{ADD}, \texttt{SUB} y \texttt{CMP}, las cuales pueden tener como destino un registro o una dirección de memoria.
+En esta etapa, las operaciones varían según el tipo de instrucción. A continuación, se detallan los pasos para diferentes tipos de instrucciones.
 
-\textbf{Instrucciones con destino en un registro (Rx)}
+\hypertarget{instrucciones-con-dos-operandos-mov-add-sub-y-cmp}{%
+\subsubsection{\texorpdfstring{Instrucciones con dos operandos \texttt{MOV}, \texttt{ADD}, \texttt{SUB} y \texttt{CMP}:}{Instrucciones con dos operandos MOV, ADD, SUB y CMP:}}\label{instrucciones-con-dos-operandos-mov-add-sub-y-cmp}}
+
+\textbf{Instrucciones con destino registro (Rx)}
 
 Modo de direccionamiento: Entre registros (\texttt{Rx}, \texttt{Ry})
-4. MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}
-4. ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry}; update(Flags)}
-4. SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{Ry}; update(Flags)}
-4. CMP: \textbf{\texttt{Rx} - \texttt{Ry}; update(Flags)}
+4. Las instrucciones posibles son:
+- MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}
+- ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry}; update(Flags)}
+- SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{Ry}; update(Flags)}
+- CMP: \textbf{\texttt{Rx} - \texttt{Ry}; update(Flags)} (Solo actualiza los flags, no almacena el resultado)
 
 Modo de direccionamiento: Directo (\texttt{Rx}, \texttt{{[}Dirección{]}})
 4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: El IP se transfiere al MAR para obtener la dirección del operando fuente.
@@ -2986,208 +2990,86 @@ Si la instrucción es MOV:
 
 Si la instrucción es ADD, SUB, CMP:
 7. ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}: Se lee el dato de la memoria en la dirección del operando destino y se almacena en MBR.
-Luego se realiza la operación:
-8. ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry} \textbar{} update(Flags)}
-8. SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
-8. CMP: \textbf{\texttt{MBR} - \texttt{Ry}; update(Flags)}
+8. Luego se realiza la operación:
+- ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry} \textbar{} update(Flags)}
+- SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
+- CMP: \textbf{\texttt{MBR} - \texttt{Ry}; update(Flags)}
 
-Si la instrucción es ADD o SUB, se escribe el resultado en memoria:
-9. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
+9. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
 
 Modo de direccionamiento: Indirecto (\texttt{{[}BL{]}}, \texttt{Ry})
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
-  Si la instrucción es MOV:
-\item
-  MOV: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}: El contenido del registro Ry se mueve a MBR.
-\item
-  MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}: El dato de MBR se escribe en la memoria.
-\end{enumerate}
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
+6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
+Si la instrucción es MOV:
+7. MOV: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}: El contenido del registro Ry se mueve a MBR.
+8. MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}: El dato de MBR se escribe en la memoria.
 
 Si la instrucción es ADD, SUB, CMP:
-6 MBR ← read(Memoria{[}MAR{]}): Se lee el dato del operando destino en la memoria y se almacena en MBR.
-5. ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
-6. ADD: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} + \texttt{Ry}\textbar{} update(Flags)}
-6. SUB \texttt{{[}BL{]}}, \texttt{Ry}: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
-6. CMP \texttt{{[}BL{]}}, \texttt{Ry}: \textbf{\texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
+7. ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}: Se lee el dato del operando destino en la memoria y se almacena en MBR.
+8. Luego se realiza la operación:
+- ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry} \textbar{} update(Flags)}
+- SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
+- CMP: \textbf{\texttt{MBR} - \texttt{Ry}; update(Flags)}
 
-La instrucción CMP no realiza el paso 9 de escritura en memoria.
-7. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
+9. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
 
-\textbf{Instrucciones de 2 operandos}, como \texttt{MOV}, \texttt{ADD}, \texttt{SUB} y \texttt{CMP}, se ejecutan siguiendo un conjunto de pasos que varían según el destino de operando y el modo de direccionamiento. Estas instrucciones pueden tener como destino un registro o una posición de memoria, y pueden involucrar direccioniento entre registros, directo, indirecto o inmediato.
-Las instrucciones que utilizan la Unidad Aritmético-Lógica (ALU) actualizan las banderas del registro de estado \texttt{FLAGS}.
-Tienen los mismos modos de direccionamiento que MOV, pero con una diferencia importante: la instrucción ADD reliza la operación aritmetica suma entre los operandos fuente y destino y almacena el resultado de la operación en el operando destino. Es decir que solo cambia el ultimo paso de la etapa de ejecución.
-Las instrucciones SUB y CMP tienen los mismos modos de direccionamiento que ADD, pero con una diferencia importante: la instrucción CMP no almacena el resultado de la operación en el operando destino.
+Modo de direccionamiento: Inmediato (\texttt{{[}Dirección{]}}, \texttt{Dato})
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
+6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP};\texttt{ri} \(\leftarrow\) \texttt{MBR}}: El IP se transfiere a MAR para obtener el dato inmediato y la dirección de destino se guarda en un registro intermedio (ri).
+7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee el dato inmediato y se guarda en MBR; el IP se incrementa.
 
-Estas instrucciones se ejecutan en varios pasos, que incluyen la obtención de los operandos, la ejecución de la operación y la actualización de los registros o memoria según corresponda. A continuación, se detallan los pasos para cada tipo de instrucción:
+Si la instrucción es MOV:
+8. MOV:\textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}: La dirección de destino se transfiere de ri a MAR.
+9. MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
 
-Los pasos 4. 5. se obtiene la dirección del operando fuente de memoria, para ello el contenido de IP se transfiere al registro MAR. Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. Los pasos 6. 7. se obtiene el operando fuente de memoria, para ello el valor de MBR se transfiere a MAR. Se lee el dato de la memoria en la nueva dirección de MAR y se almacena en MBR. Luego se realiza la operación dependiendo de la instrucción:
+Si la instrucción es ADD, SUB, CMP:
+8. ADD/SUB/CMP: \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}}:el contenido de ri se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio id
+9. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+10. Luego se realiza la operación:
+- ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id}; update(Flags)}
+- SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id}; update(Flags)}
+- CMP: \textbf{\texttt{MBR} - \texttt{id}; update(Flags)}
 
-\begin{itemize}
-\tightlist
-\item
-  Los pasos 4. 5. se obtien el operando fuente de memoria y se almacena en el registro MBR, luego se realiza la operación dependiendo de la instrucción:
-\end{itemize}
+Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
+11. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
 
-En este caso, los pasos 4. 5. se obtiene el operando fuente de memoria en base a la direccion contenida en el registro BL y se almacena en registro MBR. Luego se realiza la operación dependiendo de la instrucción:
+Modo de direccionamiento: Inmediato (\texttt{{[}BL{]}}, \texttt{Dato})
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
+6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL, que es la dirección de destino, se transfiere a MAR.
 
-\hypertarget{destino-memoria}{%
-\subsubsection{Destino Memoria}\label{destino-memoria}}
+Si la instrucción es MOV:
+7. MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
 
-Los pasos 4. 5. se obtiene la dirección del operando destino de memoria, para ello el contenido de IP se transfiere al registro MAR. Se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. El paso 6. establece la direccion de destino en memoria, para ello el valor de MBR se transfiere al registro MAR.
+Si la instrucción es ADD, SUB, CMP:\\
+6. ADD/SUB/CMP: \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}}:El contenido de BL, que es la dirección de destino, se transfiere a MAR y simultaneamente el dato inmediato del MBR se transfiere a un registro temporal (id).
+7. ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}: Se lee el operando destino de la memoria.
+8. Luego se realiza la operación:\\
+- ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id}; update(Flags)}
+- SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id}; update(Flags)}
+- CMP: \textbf{\texttt{MBR} - \texttt{id}; update(Flags)}
 
-Dependiendo de la instruccion son los pasos que siguen, para la instruccion :
+Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
+9. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
 
-Las instrucciones aritmeticas requieren obtener el operando fuente de memoria, para ello se realiza los siguientes pasos:
+\hypertarget{instrucciones-con-un-operando-jmp-y-jxx}{%
+\subsubsection{\texorpdfstring{Instrucciones con un operando \texttt{JMP} y \texttt{Jxx}:}{Instrucciones con un operando JMP y Jxx:}}\label{instrucciones-con-un-operando-jmp-y-jxx}}
 
-Pero luego se realiza la operación dependiendo de la instrucción:
+Salto incondicional y condicionales (\texttt{Dirección})
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: El IP se transfiere al MAR.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de destino y se almacena en el MBR; el IP se incrementa.
 
-\begin{itemize}
-\item
-  Indirecto
-\item
-  Inmediato \texttt{{[}Dirección{]}}, \texttt{Dato}
+Si es salto incondicional \texttt{JMP} :
+6. JMP: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}
 
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
-    Los pasos 4. 5. se obtiene la direccion del operando destino de de la instrucción.
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP};\texttt{ri} \(\leftarrow\) \texttt{MBR}}
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
-  \item
-    MOV:\textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}
-  \item
-    ADD/SUB/CMP: \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}}
-  \end{enumerate}
+Si es salto condicional \texttt{Jxx} :
+6. Jxx: Si la condición del flag \texttt{xx} es verdadera, \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}. Si no, se continúa con la siguiente instrucción.
 
-  En el paso 6 contenido de IP se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio (ri). El paso 7 se lee el dato de la memoria en la dirección indicada por MAR y se almacena en MBR; luego, IP se incrementa en uno. Paso 8 el contenido de ri se transfiere al registro MAR.
-
-  Para la instrucción MOV los pasos son:
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{8}
-  \tightlist
-  \item
-    MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
-  \end{enumerate}
-
-  Para la instrucción ADD/SUB/CMP los pasos son:
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{8}
-  \tightlist
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
-  \item
-    ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id}; update(Flags)}
-  \item
-    SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id}; update(Flags)}
-  \item
-    CMP: \textbf{\texttt{MBR} - \texttt{id}; update(Flags)}
-  \end{enumerate}
-
-  La instrucción CMP no realiza el paso 10 de escritura en memoria.
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{10}
-  \tightlist
-  \item
-    ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} update(Flags)}
-  \end{enumerate}
-\item
-  Inmediato \texttt{{[}BL{]}}, \texttt{Dato}
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \tightlist
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
-  \end{enumerate}
-
-  Para la instrucción MOV los pasos son:
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{5}
-  \tightlist
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}
-  \item
-    MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
-  \end{enumerate}
-
-  Para la instrucción ADD/SUB/CMP los pasos son:
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{5}
-  \tightlist
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}}
-  \item
-    ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
-  \item
-    ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id}; update(Flags)}
-  \item
-    SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id}; update(Flags)}
-  \item
-    CMP: \textbf{\texttt{MBR} - \texttt{id}; update(Flags)}
-  \end{enumerate}
-
-  La instrucción CMP no realiza el paso 10 de escritura en memoria.
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{8}
-  \tightlist
-  \item
-    ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} update(Flags)}
-  \end{enumerate}
-\end{itemize}
-
-Instrucciones con un operando:
-
-\begin{itemize}
-\tightlist
-\item
-  Salto incondicional y condicionales: \texttt{Dirección}
-
-  \begin{enumerate}
-  \def\labelenumi{\arabic{enumi}.}
-  \setcounter{enumi}{3}
-  \item
-    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
-  \item
-    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
-    Los pasos 4. 5. se obtiene la direccion destino de la instrucción.
-  \item
-    JMP: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}} (Salto incondicional)
-  \item
-    Jxx: \texttt{Si} xx== 1: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}} (Salto condicional)
-    Si la bandera esta en 1 el contenido del \texttt{MBR} se transfiere al registro \texttt{IP}.
-    Si la bandera esta en 0 no se realiza ninguna acción y se continua con la siguiente instrucción.
-    :
-  \end{enumerate}
-\end{itemize}
-
-En la instrucción de salto condicional \texttt{Jxx\ Dirección}, el parámetro \texttt{xx} representa todas las combinaciones posibles de los \emph{flags}. En este contexto, \texttt{NZ} indica la negación del \emph{flag} \texttt{Z}. A continuación se detallan las instrucciones y su acción correspondiente:
+El parámetro \texttt{xx} en las instrucciones \texttt{Jxx} representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
@@ -3206,9 +3088,11 @@ Instrucción & Acción \\
 \texttt{JNO\ Dirección} & Salta a \emph{Dirección} si \texttt{O\ =\ 0} \\
 \end{longtable}
 
-Instrucciones sin operandos
-* HLT
-4. Detiene CPU.
+\hypertarget{instrucciones-sin-operandos}{%
+\subsubsection{Instrucciones sin operandos}\label{instrucciones-sin-operandos}}
+
+Instruccion de control CPU \texttt{HLT}
+4. HLT: Detiene la ejecución de la CPU.
 
 \hypertarget{modulo-de-entradasalida-e-interrupciones}{%
 \section{Modulo de Entrada/Salida e interrupciones}\label{modulo-de-entradasalida-e-interrupciones}}
