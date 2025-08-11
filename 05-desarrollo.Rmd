@@ -598,7 +598,6 @@ setreducido <- data.frame(
     "",
     "Control de flujo",
     "",
-    "",
     ""
   ),
   `Nemónico` = c(
@@ -607,8 +606,7 @@ setreducido <- data.frame(
     "SUB",
     "CMP",
     "JMP",
-    "JZ ",
-    "JC ",
+    "Jxx",
     "HLT"
   ),
   Acción = c(
@@ -616,9 +614,8 @@ setreducido <- data.frame(
   "Sumar",
   "Restar",
   "Comparar",
-  "Salto incondicional ",
-  "Salto condicional si Z=1",
-  "Salto condicional si C=1",
+  "Salto incondicional",
+  "Salto condicional si xx=1",
   "Detiene CPU"
   )
 )
@@ -657,6 +654,20 @@ if (knitr::is_latex_output()) {
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
+
+
+El parámetro `xx` en las instrucciones `Jxx` representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
+
+| Instrucción        | Acción                                         |
+| :----------------- | :--------------------------------------------- |
+| `JZ Dirección`     | Salta a _Dirección_ si `Z = 1`                 |
+| `JNZ Dirección`    | Salta a _Dirección_ si `Z = 0`                 |
+| `JC Dirección`     | Salta a _Dirección_ si `C = 1`                 |
+| `JNC Dirección`    | Salta a _Dirección_ si `C = 0`                 |
+| `JS Dirección`     | Salta a _Dirección_ si `S = 1`                 |
+| `JNS Dirección`    | Salta a _Dirección_ si `S = 0`                 |
+| `JO Dirección`     | Salta a _Dirección_ si `O = 1`                 |
+| `JNO Dirección`    | Salta a _Dirección_ si `O = 0`                 |
 
 En base a las entrevistas con los docentes y el análisis de los contenidos del curso, a continuación se establece para cada categorías de instrucciones su uso pedagógico esperado:
 
@@ -1106,7 +1117,6 @@ hlt
 ```")
 }
 ```
-       
 
 ### Codificación de instrucciones
 El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
@@ -1134,7 +1144,7 @@ instaccion <- data.frame(
     "ADD [M], Ry", "ADD [BL], Ry", "ADD [M], d", "ADD [BL], d",
     "SUB [M], Ry", "SUB [BL], Ry", "SUB [M], d", "SUB [BL], d",
     "CMP [M], Ry", "CMP [BL], Ry", "CMP [M], d", "CMP [BL], d",
-    "JMP M", "JZ M", "JC M", "HLT"
+    "JMP M", "Jxx M", "HLT"
   ),
   Acción = c(
     "Rx ← Ry", "Rx ← Rx + Ry", "Rx ← Rx - Ry", "Rx - Ry * ",
@@ -1144,7 +1154,7 @@ instaccion <- data.frame(
     "Mem[Dirección] ← Mem[Dirección] + Rx", "Mem[BL] ← Mem[BL] + Rx", "Mem[Dirección] ← Mem[Dirección] + dato", "Mem[BL] ← Mem[BL] + dato",
     "Mem[Dirección] ← Mem[Dirección] - Rx", "Mem[BL] ← Mem[BL] - Rx", "Mem[Dirección] ← Mem[Dirección] - dato", "Mem[BL] ← Mem[BL] - dato",
     "Mem[Dirección] - Rx", "Mem[BL] - Rx", "Mem[Dirección] - dato", "Mem[BL] - dato", 
-    "IP ← Dirección", "Si Z = 1 entonces IP ← Dirección", "Si C = 1 entonces IP ← Dirección", "Detiene el procesador"
+    "IP ← Dirección", "Si xx = 1 entonces IP ← Dirección", "Detiene el procesador"
   ),
   stringsAsFactors = FALSE
 )
@@ -1184,13 +1194,13 @@ library(kableExtra)
 
 instcodif <- data.frame(
   CodOp = c(
-    "0", "1", "1", "1", "2", "2", "2", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "C", "C", "C", "D"
+    "0", "1", "1", "1", "2", "2", "2", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "C", "D"
   ),
   Instrucción = c(
     "`MOV Rx, Ry`", "`MOV Rx, [M]`", "`MOV Rx, [BL]`", "`MOV Rx, D`",
     "`MOV [M], Ry`", "`MOV [BL], Ry`", "`MOV [M], D`", "`MOV [BL], D`",
     "`ADD Rx, Ry`", "`ADD Rx, --`", "`ADD [M], --`", "`SUB Rx, Ry`", "`SUB Rx, --`", "`SUB [M], --`",
-    "`CMP Rx, Ry`", "`CMP Rx, --`", "`CMP [M], --`", "`JMP M`", "`JZ M`", "`JC M`", "`Jxx M`", "`HLT`"
+    "`CMP Rx, Ry`", "`CMP Rx, --`", "`CMP [M], --`", "`JMP M`", "`Jxx M`", "`HLT`"
   ),
   Byte = c(
     "1", "2", "1", "2", "2", "2", "3", "2", "1", "Carga en registro", "Almacenar en memoria", "1", "Carga en registro", "Almacenar en memoria",
@@ -1201,7 +1211,7 @@ instcodif <- data.frame(
     "`0010 00Ry MMMMMMMM`", "`0010 01Ry`", "`0010 1100 MMMMMMMM dddddddd`", "`0010 1101 MMMMMMMM`",
     "`0011 RxRy`", "`0100 ---- --------`", "`0101 ---- -------- --------`", "`0110 RxRy`", "`0111 ---- --------`",
     "`1000 ---- -------- --------`", "`1001 RxRy`", "`1010 ---- --------`", "`1011 ---- -------- --------`",
-    "`1100 0000 MMMMMMMM`", "`1100 0001 MMMMMMMM`", "`1100 0011 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1101 0000`"
+    "`1100 0000 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1101 0000`"
   ),
   stringsAsFactors = FALSE
 )
@@ -1379,11 +1389,11 @@ El repertorio **x86** es reducido (8 bits)
 
 
 ## Ciclo de la instrucción
-El ciclo de la instrucción es la secuencia de pasos que la Unidad de Control (UC) sigue para ejecutar cada instrucción de un programa. Este proceso es fundamental para el funcionamiento de cualquier sistema computacional. A lo largo de este ciclo, se utilizan diversos componentes clave como los registros, los buses de datos, direcciones y control, y las señales de control generadas por la UC.
+El ciclo de la instrucción es la secuencia de pasos que la Unidad de Control (UC) para ejecutar cada instrucción de un programa. Es un proceso esencial para el funcionamiento de cualquier computadora. En este ciclo intervienen elementos clave como registros, buses de datos, direcciones y control, y las señales de control generadas por la UC.
 
-Las microoperaciones que componen este ciclo se representan con una notación de transferencia entre registros, siguiendo el formato `destino` $\leftarrow$ `origen` .
+Las microoperaciones que lo componen se expresan con la notación de transferencia entre registros: `destino` $\leftarrow$ `origen` .
 
-La Figura \@ref(fig:flujoCicloInstruccion) muestra el flujo general de este ciclo, que se divide en dos etapas principales: Captación (fetch) y ejecución.
+La Figura \@ref(fig:flujoCicloInstruccion) muestra el flujo general del ciclo, que se divide en dos etapas principales: captación (fetch) y ejecución.
 
 ```{r flujoCicloInstruccion, echo=FALSE, fig.cap="Flujo del ciclo de instrucción en VonSim8", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/cicloinstruccion2.png")
@@ -1391,27 +1401,30 @@ knitr::include_graphics(path = "images/cicloinstruccion2.png")
 
 ### Etapa 1: Captación
 
-Esta etapa es idéntica para todas las instrucciones y su objetivo es leer la instrucción desde la memoria. Consta de las siguientes tres microoperaciones:
+Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instrucción desde la memoria. Consta de tres microoperaciones:
 
-1. **`MAR` $\leftarrow$ `IP`**: La UC transfiere el contenido del **Puntero de Instrucción** (`IP`) al **Registro de Direcciones de Memoria** (`MAR`). El `IP` contiene la dirección de la próxima instrucción a ejecutar, por lo que este paso prepara el sistema para acceder a esa ubicación en la memoria.
+1. **`MAR` $\leftarrow$ `IP`**
+  La UC transfiere el contenido del **Puntero de Instrucción** (`IP`) al **Registro de Direcciones de Memoria** (`MAR`). El `IP` contiene la dirección de la próxima instrucción a ejecutar.
 
-2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: La UC activa la señal de lectura para obtener la instrucción en la dirección especificada por el `MAR`. El dato leído se almacena en el **Registro de Datos de Memoria** (`MBR`) a través del bus de datos. Simultáneamente, el  `IP` se incrementa en uno para apuntar a la siguiente instrucción u operando.
+2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**
+  La UC activa la señal de lectura para obtener la instrucción ubicada en la dirección indicada por  `MAR`. El dato leído se guarda en el **Registro de Datos de Memoria** (`MBR`) y, al mismo tiempo, el `IP` se incrementa para apuntar a la siguiente instrucción u operando.
 
-3. **`IR` $\leftarrow$ `MBR`**: Finalmente, el contenido del `MBR` se transfiere al **Registro de Instrucciones** (`IR`). En este punto, la instrucción ha sido captada y está lista para ser ejecutada.
+3. **`IR` $\leftarrow$ `MBR`**
+  El contenido del `MBR` se transfiere al **Registro de Instrucciones** (`IR`). A partir de este momento, la instrucción está lista para ejecutarse.
 
 ### Etapa 2: Ejecución:
-En esta etapa, las operaciones varían según el tipo de instrucción. A continuación, se detallan los pasos para diferentes tipos de instrucciones.
+En esta etapa, las operaciones dependen del tipo de instrucción. A continuación se explican los casos más comunes.
 
 #### Instrucciones con dos operandos `MOV`, `ADD`, `SUB` y `CMP`:
 
-**Instrucciones con destino registro (Rx)**
+A. **Destino en registro (Rx)**
 
-Modo de direccionamiento: Entre registros (`Rx`, `Ry`)
-  4. Las instrucciones posibles son:
+Modo entre registros (`Rx`, `Ry`)
+  4. La ejecución ocupa un paso y puede ser:
     - MOV: **`Rx` $\leftarrow$ `Ry`** 
     - ADD: **`Rx` $\leftarrow$ `Rx` + `Ry`; update(Flags)** 
     - SUB: **`Rx` $\leftarrow$ `Rx` - `Ry`; update(Flags)**
-    - CMP: **`Rx` - `Ry`; update(Flags)** (Solo actualiza los flags, no almacena el resultado)
+    - CMP: **`Rx` - `Ry`; update(Flags)** (solo actualiza flags, no guarda el resultado)
 
 Modo de direccionamiento: Directo (`Rx`, `[Dirección]`)
   4. **`MAR` $\leftarrow$ `IP`**: El IP se transfiere al MAR para obtener la dirección del operando fuente.
