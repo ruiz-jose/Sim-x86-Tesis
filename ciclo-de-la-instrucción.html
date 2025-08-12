@@ -404,8 +404,17 @@ El contenido del <code>MBR</code> se transfiere al <strong>Registro de Instrucci
 6. Se ejecuta la operación:
 - Igual que en los casos anteriores.</p>
 <p>B.*<strong>Destino en memoria (<code>[Dirección]</code> o <code>[BL]</code>)</strong>
-Los pasos varían según el modo de direccionamiento y la instrucción (MOV, ADD, SUB, CMP).
-En general, se obtiene la dirección destino, se lee o escribe el valor según corresponda, y se actualizan los flags en operaciones aritméticas.</p>
+En estas instrucciones, el resultado de la operación no se almacena en un registro, sino en una posición de memoria.
+El procedimiento depende del modo de direccionamiento y de la instrucción utilizada (MOV, ADD, SUB, CMP).
+En general, el flujo es:</p>
+<p>Obtener la dirección de memoria de destino (puede venir como valor inmediato, leerse desde la memoria o encontrarse en un registro como BL).</p>
+<p>Leer o escribir datos en esa dirección según la operación:</p>
+<ul>
+<li><p>MOV: solo escribe el valor fuente en la memoria destino.</p></li>
+<li><p>ADD/SUB: lee el valor destino, realiza la operación aritmética con el operando fuente y guarda el resultado.</p></li>
+<li><p>CMP: lee el valor destino, realiza la comparación con el operando fuente y actualiza los flags sin modificar la memoria.</p></li>
+</ul>
+<p>Actualizar los flags (Z, C, S, O) en operaciones aritméticas (ADD, SUB, CMP).</p>
 <p>Modo Directo (<code>[Dirección]</code>, <code>Ry</code>)
 4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del operando destino.
 5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.

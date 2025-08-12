@@ -2985,8 +2985,24 @@ Modo indirecto (\texttt{Rx}, \texttt{{[}BL{]}})
 - Igual que en los casos anteriores.
 
 B.*\textbf{Destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
-Los pasos varían según el modo de direccionamiento y la instrucción (MOV, ADD, SUB, CMP).
-En general, se obtiene la dirección destino, se lee o escribe el valor según corresponda, y se actualizan los flags en operaciones aritméticas.
+En estas instrucciones, el resultado de la operación no se almacena en un registro, sino en una posición de memoria.
+El procedimiento depende del modo de direccionamiento y de la instrucción utilizada (MOV, ADD, SUB, CMP).
+En general, el flujo es:
+
+Obtener la dirección de memoria de destino (puede venir como valor inmediato, leerse desde la memoria o encontrarse en un registro como BL).
+
+Leer o escribir datos en esa dirección según la operación:
+
+\begin{itemize}
+\item
+  MOV: solo escribe el valor fuente en la memoria destino.
+\item
+  ADD/SUB: lee el valor destino, realiza la operación aritmética con el operando fuente y guarda el resultado.
+\item
+  CMP: lee el valor destino, realiza la comparación con el operando fuente y actualiza los flags sin modificar la memoria.
+\end{itemize}
+
+Actualizar los flags (Z, C, S, O) en operaciones aritméticas (ADD, SUB, CMP).
 
 Modo Directo (\texttt{{[}Dirección{]}}, \texttt{Ry})
 4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
