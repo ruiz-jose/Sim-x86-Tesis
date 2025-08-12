@@ -348,9 +348,9 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="ciclo-de-la-instrucción" class="section level2 hasAnchor" number="5.10">
 <h2><span class="header-section-number">5.10</span> Ciclo de la instrucción<a href="ciclo-de-la-instrucción.html#ciclo-de-la-instrucción" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El ciclo de la instrucción es la secuencia de pasos que la Unidad de Control (UC) sigue para ejecutar cada instrucción de un programa. Este proceso es fundamental para el funcionamiento de cualquier sistema computacional. A lo largo de este ciclo, se utilizan diversos componentes clave como los registros, los buses de datos, direcciones y control, y las señales de control generadas por la UC.</p>
-<p>Las microoperaciones que componen este ciclo se representan con una notación de transferencia entre registros, siguiendo el formato <code>destino</code> <span class="math inline">\(\leftarrow\)</span> <code>origen</code> .</p>
-<p>La Figura <a href="ciclo-de-la-instrucción.html#fig:flujoCicloInstruccion">5.20</a> muestra el flujo general de este ciclo, que se divide en dos etapas principales: Captación (fetch) y ejecución.</p>
+<p>El ciclo de la instrucción es la secuencia de pasos que la Unidad de Control (UC) para ejecutar cada instrucción de un programa. Es un proceso esencial para el funcionamiento de cualquier computadora. En este ciclo intervienen elementos clave como registros, buses de datos, direcciones y control, y las señales de control generadas por la UC.</p>
+<p>Las microoperaciones que lo componen se expresan con la notación de transferencia entre registros: <code>destino</code> <span class="math inline">\(\leftarrow\)</span> <code>origen</code> .</p>
+<p>La Figura <a href="ciclo-de-la-instrucción.html#fig:flujoCicloInstruccion">5.20</a> muestra el flujo general del ciclo, que se divide en dos etapas principales: captación (fetch) y ejecución.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:flujoCicloInstruccion"></span>
 <img src="images/cicloinstruccion2.png" alt="Flujo del ciclo de instrucción en VonSim8" width="85%" />
 <p class="caption">
@@ -359,25 +359,28 @@ Figura 5.20: Flujo del ciclo de instrucción en VonSim8
 </div>
 <div id="etapa-1-captación" class="section level3 hasAnchor" number="5.10.1">
 <h3><span class="header-section-number">5.10.1</span> Etapa 1: Captación<a href="ciclo-de-la-instrucción.html#etapa-1-captación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Esta etapa es idéntica para todas las instrucciones y su objetivo es leer la instrucción desde la memoria. Consta de las siguientes tres microoperaciones:</p>
+<p>Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instrucción desde la memoria. Consta de tres microoperaciones:</p>
 <ol style="list-style-type: decimal">
-<li><p><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: La UC transfiere el contenido del <strong>Puntero de Instrucción</strong> (<code>IP</code>) al <strong>Registro de Direcciones de Memoria</strong> (<code>MAR</code>). El <code>IP</code> contiene la dirección de la próxima instrucción a ejecutar, por lo que este paso prepara el sistema para acceder a esa ubicación en la memoria.</p></li>
-<li><p><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: La UC activa la señal de lectura para obtener la instrucción en la dirección especificada por el <code>MAR</code>. El dato leído se almacena en el <strong>Registro de Datos de Memoria</strong> (<code>MBR</code>) a través del bus de datos. Simultáneamente, el <code>IP</code> se incrementa en uno para apuntar a la siguiente instrucción u operando.</p></li>
-<li><p><strong><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: Finalmente, el contenido del <code>MBR</code> se transfiere al <strong>Registro de Instrucciones</strong> (<code>IR</code>). En este punto, la instrucción ha sido captada y está lista para ser ejecutada.</p></li>
+<li><p><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>
+La UC transfiere el contenido del <strong>Puntero de Instrucción</strong> (<code>IP</code>) al <strong>Registro de Direcciones de Memoria</strong> (<code>MAR</code>). El <code>IP</code> contiene la dirección de la próxima instrucción a ejecutar.</p></li>
+<li><p><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>
+La UC activa la señal de lectura para obtener la instrucción ubicada en la dirección indicada por <code>MAR</code>. El dato leído se guarda en el <strong>Registro de Datos de Memoria</strong> (<code>MBR</code>) y, al mismo tiempo, el <code>IP</code> se incrementa para apuntar a la siguiente instrucción u operando.</p></li>
+<li><p><strong><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>
+El contenido del <code>MBR</code> se transfiere al <strong>Registro de Instrucciones</strong> (<code>IR</code>). A partir de este momento, la instrucción está lista para ejecutarse.</p></li>
 </ol>
 </div>
 <div id="etapa-2-ejecución" class="section level3 hasAnchor" number="5.10.2">
 <h3><span class="header-section-number">5.10.2</span> Etapa 2: Ejecución:<a href="ciclo-de-la-instrucción.html#etapa-2-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En esta etapa, las operaciones varían según el tipo de instrucción. A continuación, se detallan los pasos para diferentes tipos de instrucciones.</p>
+<p>En esta etapa, las operaciones dependen del tipo de instrucción. A continuación se explican los casos más comunes.</p>
 <div id="instrucciones-con-dos-operandos-mov-add-sub-y-cmp" class="section level4 hasAnchor" number="5.10.2.1">
 <h4><span class="header-section-number">5.10.2.1</span> Instrucciones con dos operandos <code>MOV</code>, <code>ADD</code>, <code>SUB</code> y <code>CMP</code>:<a href="ciclo-de-la-instrucción.html#instrucciones-con-dos-operandos-mov-add-sub-y-cmp" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p><strong>Instrucciones con destino registro (Rx)</strong></p>
-<p>Modo de direccionamiento: Entre registros (<code>Rx</code>, <code>Ry</code>)
-4. Las instrucciones posibles son:
+<p>A. <strong>Destino en registro (Rx)</strong></p>
+<p>Modo entre registros (<code>Rx</code>, <code>Ry</code>)
+4. La ejecución ocupa un paso y puede ser:
 - MOV: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong>
 - ADD: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>Ry</code>; update(Flags)</strong>
 - SUB: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>Ry</code>; update(Flags)</strong>
-- CMP: <strong><code>Rx</code> - <code>Ry</code>; update(Flags)</strong> (Solo actualiza los flags, no almacena el resultado)</p>
+- CMP: <strong><code>Rx</code> - <code>Ry</code>; update(Flags)</strong> (solo actualiza flags, no guarda el resultado)</p>
 <p>Modo de direccionamiento: Directo (<code>Rx</code>, <code>[Dirección]</code>)
 4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: El IP se transfiere al MAR para obtener la dirección del operando fuente.
 5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.

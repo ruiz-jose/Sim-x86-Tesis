@@ -2378,15 +2378,32 @@ Para facilitar el aprendizaje de la programación en ensamblador e introducir el
 \textbf{Control de flujo} & JMP & Salto incondicional\\
 \addlinespace[8pt]
 \addlinespace
-\textbf{} & JZ & Salto condicional si Z=1\\
-\addlinespace[8pt]
-\textbf{} & JC & Salto condicional si C=1\\
+\textbf{} & Jxx & Salto condicional si xx=1\\
 \addlinespace[8pt]
 \textbf{} & HLT & Detiene CPU\\
 \addlinespace[8pt]
 \bottomrule
 \end{tabular}}
 \end{table}
+
+El parámetro \texttt{xx} en las instrucciones \texttt{Jxx} representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Instrucción & Acción \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{JZ\ Dirección} & Salta a \emph{Dirección} si \texttt{Z\ =\ 1} \\
+\texttt{JNZ\ Dirección} & Salta a \emph{Dirección} si \texttt{Z\ =\ 0} \\
+\texttt{JC\ Dirección} & Salta a \emph{Dirección} si \texttt{C\ =\ 1} \\
+\texttt{JNC\ Dirección} & Salta a \emph{Dirección} si \texttt{C\ =\ 0} \\
+\texttt{JS\ Dirección} & Salta a \emph{Dirección} si \texttt{S\ =\ 1} \\
+\texttt{JNS\ Dirección} & Salta a \emph{Dirección} si \texttt{S\ =\ 0} \\
+\texttt{JO\ Dirección} & Salta a \emph{Dirección} si \texttt{O\ =\ 1} \\
+\texttt{JNO\ Dirección} & Salta a \emph{Dirección} si \texttt{O\ =\ 0} \\
+\end{longtable}
 
 En base a las entrevistas con los docentes y el análisis de los contenidos del curso, a continuación se establece para cada categorías de instrucciones su uso pedagógico esperado:
 
@@ -2704,9 +2721,7 @@ C: Almacenar en memoria & MOV [M], Ry & Mem[Dirección] ← Rx\\
  & CMP [M], d & Mem[Dirección] - dato\\
  & CMP [BL], d & Mem[BL] - dato\\
 D: control de flujo & JMP M & IP ← Dirección\\
- & JZ M & Si Z = 1 entonces IP ← Dirección\\
- & JC M & Si C = 1 entonces IP ← Dirección\\
-\addlinespace
+ & Jxx M & Si xx = 1 entonces IP ← Dirección\\
  & HLT & Detiene el procesador\\
 \bottomrule
 \end{tabular}
@@ -2766,11 +2781,6 @@ D: control de flujo & JMP M & IP ← Dirección\\
 \addlinespace[10pt]
 \textbf{C} & \texttt{JMP M} & 1 & \texttt{1100 0000 MMMMMMMM}\\
 \addlinespace[10pt]
-\textbf{C} & \texttt{JZ M} & 1 & \texttt{1100 0001 MMMMMMMM}\\
-\addlinespace[10pt]
-\textbf{C} & \texttt{JC M} & 1 & \texttt{1100 0011 MMMMMMMM}\\
-\addlinespace[10pt]
-\addlinespace
 \textbf{C} & \texttt{Jxx M} & 1 & \texttt{1100 ffff MMMMMMMM}\\
 \addlinespace[10pt]
 \textbf{D} & \texttt{HLT} & 1 & \texttt{1101 0000}\\
@@ -2889,16 +2899,16 @@ Acción
 
 \textbf{Manejo de pila y E/S} \textbar{} \texttt{PUSH\ /\ POP\ /\ OUT\ /\ IN} \textbar{} \{14\} \textbar{} \texttt{PUSH}: poner en la pila\texttt{POP}: retirar de la pila\texttt{OUT}: enviar a puerto \texttt{IN}: recibir desde puerto \textbar{}
 
-\textbf{Miscelánea} \textbar{} \texttt{AND\ /\ OR\ /\ XOR\ /\ NOT\ /\ INC\ /\ DEC} \textbar{} \{15\} \textbar{} Operaciones lógicas \textbar{}
+\textbf{Miscelánea} \textbar{} \texttt{AND\ /\ OR\ /\ XOR\ /\ NOT\ /\ INC\ /\ DEC} \textbar{} \{15\} \textbar{} Operaciones lógicas y aritméticas \textbar{}
 
 \hypertarget{ciclo-de-la-instrucciuxf3n}{%
 \section{Ciclo de la instrucción}\label{ciclo-de-la-instrucciuxf3n}}
 
-El ciclo de la instrucción es la secuencia de pasos que la Unidad de Control (UC) sigue para ejecutar cada instrucción de un programa. Este proceso es fundamental para el funcionamiento de cualquier sistema computacional. A lo largo de este ciclo, se utilizan diversos componentes clave como los registros, los buses de datos, direcciones y control, y las señales de control generadas por la UC.
+El ciclo de la instrucción es la secuencia de pasos que la Unidad de Control (UC) para ejecutar cada instrucción de un programa. Es un proceso esencial para el funcionamiento de cualquier computadora. En este ciclo intervienen elementos clave como registros, buses de datos, direcciones y control, y las señales de control generadas por la UC.
 
-Las microoperaciones que componen este ciclo se representan con una notación de transferencia entre registros, siguiendo el formato \texttt{destino} \(\leftarrow\) \texttt{origen} .
+Las microoperaciones que lo componen se expresan con la notación de transferencia entre registros: \texttt{destino} \(\leftarrow\) \texttt{origen} .
 
-La Figura \ref{fig:flujoCicloInstruccion} muestra el flujo general de este ciclo, que se divide en dos etapas principales: Captación (fetch) y ejecución.
+La Figura \ref{fig:flujoCicloInstruccion} muestra el flujo general del ciclo, que se divide en dos etapas principales: captación (fetch) y ejecución.
 
 \begin{figure}
 
@@ -2912,34 +2922,37 @@ La Figura \ref{fig:flujoCicloInstruccion} muestra el flujo general de este ciclo
 \hypertarget{etapa-1-captaciuxf3n}{%
 \subsection{Etapa 1: Captación}\label{etapa-1-captaciuxf3n}}
 
-Esta etapa es idéntica para todas las instrucciones y su objetivo es leer la instrucción desde la memoria. Consta de las siguientes tres microoperaciones:
+Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instrucción desde la memoria. Consta de tres microoperaciones:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: La UC transfiere el contenido del \textbf{Puntero de Instrucción} (\texttt{IP}) al \textbf{Registro de Direcciones de Memoria} (\texttt{MAR}). El \texttt{IP} contiene la dirección de la próxima instrucción a ejecutar, por lo que este paso prepara el sistema para acceder a esa ubicación en la memoria.
+  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
+  La UC transfiere el contenido del \textbf{Puntero de Instrucción} (\texttt{IP}) al \textbf{Registro de Direcciones de Memoria} (\texttt{MAR}). El \texttt{IP} contiene la dirección de la próxima instrucción a ejecutar.
 \item
-  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: La UC activa la señal de lectura para obtener la instrucción en la dirección especificada por el \texttt{MAR}. El dato leído se almacena en el \textbf{Registro de Datos de Memoria} (\texttt{MBR}) a través del bus de datos. Simultáneamente, el \texttt{IP} se incrementa en uno para apuntar a la siguiente instrucción u operando.
+  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+  La UC activa la señal de lectura para obtener la instrucción ubicada en la dirección indicada por \texttt{MAR}. El dato leído se guarda en el \textbf{Registro de Datos de Memoria} (\texttt{MBR}) y, al mismo tiempo, el \texttt{IP} se incrementa para apuntar a la siguiente instrucción u operando.
 \item
-  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}: Finalmente, el contenido del \texttt{MBR} se transfiere al \textbf{Registro de Instrucciones} (\texttt{IR}). En este punto, la instrucción ha sido captada y está lista para ser ejecutada.
+  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}
+  El contenido del \texttt{MBR} se transfiere al \textbf{Registro de Instrucciones} (\texttt{IR}). A partir de este momento, la instrucción está lista para ejecutarse.
 \end{enumerate}
 
 \hypertarget{etapa-2-ejecuciuxf3n}{%
 \subsection{Etapa 2: Ejecución:}\label{etapa-2-ejecuciuxf3n}}
 
-En esta etapa, las operaciones varían según el tipo de instrucción. A continuación, se detallan los pasos para diferentes tipos de instrucciones.
+En esta etapa, las operaciones dependen del tipo de instrucción. A continuación se explican los casos más comunes.
 
 \hypertarget{instrucciones-con-dos-operandos-mov-add-sub-y-cmp}{%
 \subsubsection{\texorpdfstring{Instrucciones con dos operandos \texttt{MOV}, \texttt{ADD}, \texttt{SUB} y \texttt{CMP}:}{Instrucciones con dos operandos MOV, ADD, SUB y CMP:}}\label{instrucciones-con-dos-operandos-mov-add-sub-y-cmp}}
 
-\textbf{Instrucciones con destino registro (Rx)}
+A. \textbf{Destino en registro (Rx)}
 
-Modo de direccionamiento: Entre registros (\texttt{Rx}, \texttt{Ry})
-4. Las instrucciones posibles son:
+Modo entre registros (\texttt{Rx}, \texttt{Ry})
+4. La ejecución ocupa un paso y puede ser:
 - MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}
 - ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry}; update(Flags)}
 - SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{Ry}; update(Flags)}
-- CMP: \textbf{\texttt{Rx} - \texttt{Ry}; update(Flags)} (Solo actualiza los flags, no almacena el resultado)
+- CMP: \textbf{\texttt{Rx} - \texttt{Ry}; update(Flags)} (solo actualiza flags, no guarda el resultado)
 
 Modo de direccionamiento: Directo (\texttt{Rx}, \texttt{{[}Dirección{]}})
 4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: El IP se transfiere al MAR para obtener la dirección del operando fuente.
