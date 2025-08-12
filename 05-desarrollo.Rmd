@@ -954,7 +954,7 @@ Los modos de direccionamiento definidos son:
 
   - Directo (`[M]`): un operando es un registro y el otro operando es el contenido de una dirección de memoria `[M]`.
 
-  - Indirecto por registro (`[BL]`): la dirección del operando se encuentra en el registro `[BL]`.
+  - Indirecto (`[BL]`): la dirección del operando se encuentra en el registro `[BL]`.
 
   - Inmediato (`d`): un operando es un valor contenido en la instrucción. 
 
@@ -1068,10 +1068,10 @@ mov x, cl
 ; Indirecto
 mov [bl], al
 
-; Inmediato
+; Directo-Inmediato
 mov x, 5
 
-; Inmediato
+; Indirecto-Inmediato
 mov [bl], 4
 
 hlt\\end{lstlisting}
@@ -1107,10 +1107,10 @@ mov x, cl
 ; Indirecto
 mov [bl], al
 
-; Inmediato
+; Directo-Inmediato
 mov x, 5
 
-; Inmediato
+; Indirecto-Inmediato
 mov [bl], 4
 
 hlt
@@ -1396,7 +1396,7 @@ Las microoperaciones que lo componen se expresan con la notación de transferenc
 La Figura \@ref(fig:flujoCicloInstruccion) muestra el flujo general del ciclo, que se divide en dos etapas principales: captación (fetch) y ejecución.
 
 ```{r flujoCicloInstruccion, echo=FALSE, fig.cap="Flujo del ciclo de instrucción en VonSim8", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/cicloinstruccion2.png")
+knitr::include_graphics(path = "images/cicloinstruccion3.png")
 ```
 
 ### Etapa 1: Captación
@@ -1426,39 +1426,35 @@ Modo entre registros (`Rx`, `Ry`)
     - SUB: **`Rx` $\leftarrow$ `Rx` - `Ry`; update(Flags)**
     - CMP: **`Rx` - `Ry`; update(Flags)** (solo actualiza flags, no guarda el resultado)
 
-Modo de direccionamiento: Directo (`Rx`, `[Dirección]`)
-  4. **`MAR` $\leftarrow$ `IP`**: El IP se transfiere al MAR para obtener la dirección del operando fuente.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-  6. **`MAR` $\leftarrow$ `MBR`**: La dirección del operando fuente se mueve de MBR al MAR.
-  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**: Se lee el dato del operando fuente de la memoria y se almacena en MBR.
+Modo directo (`Rx`, `[Dirección]`)
+  4. **`MAR` $\leftarrow$ `IP`** – Se obtiene la dirección del operando fuente.
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Se lee la dirección desde memoria y se incrementa IP.
+  6. **`MAR` $\leftarrow$ `MBR`** – Se transfiere la dirección al MAR.
+  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Se obtiene el dato del operando.
 
-  8. A continuación, se realiza la operación específica de la instrucción:
+  8. Se ejecuta la operación:
     - MOV: **`Rx`  $\leftarrow$ `MBR`**
     - ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR`; update(Flags)**
     - SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR`; update(Flags)**
     - CMP: **`Rx` - `MBR`; update(Flags)**
 
-Modo de direccionamiento: Inmediato (`Rx`, `Dato`)
-  4. **`MAR` $\leftarrow$ `IP`**: Se obtiene la dirección del dato (operando fuente).
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee el dato de la memoria y se almacena en MBR; el IP se incrementa.
-  6. A continuación, se realiza la operación específica de la instrucción:
-    - MOV: **`Rx`  $\leftarrow$ `MBR`**
-    - ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR` | update(Flags)**
-    - SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR` | update(Flags)**
-    - CMP: **`Rx` - `MBR`; update(Flags)**
+Modo inmediato (`Rx`, `Dato`)
+  4. **`MAR` $\leftarrow$ `IP`** – Dirección del dato inmediato.
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Se lee el dato y se incrementa IP.
+  6. Se ejecuta la operación:
+    - Igual que en el caso anterior.
 
-Modo de direccionamiento: Indirecto (`Rx`, `[BL]`)
-  4. **`MAR` $\leftarrow$ `BL`**: El contenido del registro BL, que contiene la dirección del operando fuente, se transfiere al MAR.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**: Se lee el dato de la memoria en la dirección de BL y se almacena en MBR.
-  6. A continuación, se realiza la operación específica de la instrucción:
-    - MOV: **`Rx`  $\leftarrow$ `MBR`**
-    - ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR` | update(Flags)**
-    - SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR` | update(Flags)**
-    - CMP: **`Rx` - `MBR`; update(Flags)**
+Modo indirecto (`Rx`, `[BL]`)
+  4. **`MAR` $\leftarrow$ `BL`** – Dirección del dato inmediato.
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Se lee el dato.
+  6. Se ejecuta la operación:
+    - Igual que en los casos anteriores.
 
-***Instrucciones con destino en memoria (`[Dirección]` o `[BL]`)**
+B.***Destino en memoria (`[Dirección]` o `[BL]`)**
+Los pasos varían según el modo de direccionamiento y la instrucción (MOV, ADD, SUB, CMP).
+En general, se obtiene la dirección destino, se lee o escribe el valor según corresponda, y se actualizan los flags en operaciones aritméticas.
 
-Modo de direccionamiento: Directo (`[Dirección]`, `Ry`)
+Modo Directo (`[Dirección]`, `Ry`)
   4. **`MAR` $\leftarrow$ `IP`**: Se obtiene la dirección del operando destino.
   5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
   6. **`MAR` $\leftarrow$ `MBR`**: La dirección de memoria se mueve de MBR a MAR.  
@@ -1477,7 +1473,7 @@ Modo de direccionamiento: Directo (`[Dirección]`, `Ry`)
   Si es `ADD` o `SUB`, el resultado se escribe en memoria: 
   9. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** CMP no realiza este paso.
 
-Modo de direccionamiento: Indirecto (`[BL]`, `Ry`)
+Modo Indirecto (`[BL]`, `Ry`)
   4. **`MAR` $\leftarrow$ `IP`**: Se obtiene la dirección del operando destino.
   5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
   6. **`MAR` $\leftarrow$ `BL`**: El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
@@ -1495,7 +1491,7 @@ Modo de direccionamiento: Indirecto (`[BL]`, `Ry`)
   Si es `ADD` o `SUB`, el resultado se escribe en memoria: 
   9. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** CMP no realiza este paso.
 
-Modo de direccionamiento: Inmediato (`[Dirección]`, `Dato`)
+Modo Directo-Inmediato (`[Dirección]`, `Dato`)
   4. **`MAR` $\leftarrow$ `IP`**: Se obtiene la dirección del operando destino.
   5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
   6. **`MAR` $\leftarrow$ `IP`;`ri` $\leftarrow$ `MBR`**: El IP se transfiere a MAR para obtener el dato inmediato y la dirección de destino se guarda en un registro intermedio (ri).
@@ -1516,7 +1512,7 @@ Modo de direccionamiento: Inmediato (`[Dirección]`, `Dato`)
   Si es `ADD` o `SUB`, el resultado se escribe en memoria: 
   11. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** CMP no realiza este paso.
 
-Modo de direccionamiento: Inmediato (`[BL]`, `Dato`)
+Modo Indirecto-Inmediato (`[BL]`, `Dato`)
   4. **`MAR` $\leftarrow$ `IP`**: Se obtiene la dirección del operando destino.
   5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
   6. **`MAR` $\leftarrow$ `BL`**: El contenido de BL, que es la dirección de destino, se transfiere a MAR.
@@ -1538,17 +1534,17 @@ Modo de direccionamiento: Inmediato (`[BL]`, `Dato`)
 #### Instrucciones con un operando `JMP` y `Jxx`:
 
   Salto incondicional y condicionales  (`Dirección`) 
-  4. **`MAR` $\leftarrow$ `IP`**: El IP se transfiere al MAR.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de destino y se almacena en el MBR; el IP se incrementa.
+  4. **`MAR` $\leftarrow$ `IP`** – Se obtiene la dirección del salto.
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1** – Se lee la dirección de destino y se incrementa IP.
 
   Si es salto incondicional `JMP` : 
   6. JMP: **`IP` $\leftarrow$ `MBR`**
 
   Si es salto condicional `Jxx` : 
-  6. Jxx: Si la condición del flag `xx` es verdadera, **`IP` $\leftarrow$ `MBR`**. Si no, se continúa con la siguiente instrucción.
+  6. Jxx: Si se cumple la condición del flag `xx`, **`IP` $\leftarrow$ `MBR`**; en caso contrario, continúa con la siguiente instrucción.
 
 
-El parámetro `xx` en las instrucciones `Jxx` representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
+Tabla de condiciones en las instrucciones `Jxx` el parámetro `xx` representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
 
 | Instrucción        | Acción                                         |
 | :----------------- | :--------------------------------------------- |
@@ -1564,7 +1560,7 @@ El parámetro `xx` en las instrucciones `Jxx` representa una combinación de los
 
 #### Instrucciones sin operandos
 Instruccion de control CPU `HLT`
-  4. HLT: Detiene la ejecución de la CPU.
+  4. HLT – Detiene la ejecución de la CPU.
 
 
 ## Modulo de Entrada/Salida e interrupciones
