@@ -352,7 +352,7 @@ div.csl-indent {
 <p>Las microoperaciones que lo componen se expresan con la notación de transferencia entre registros: <code>destino</code> <span class="math inline">\(\leftarrow\)</span> <code>origen</code> .</p>
 <p>La Figura <a href="ciclo-de-la-instrucción.html#fig:flujoCicloInstruccion">5.20</a> muestra el flujo general del ciclo, que se divide en dos etapas principales: captación (fetch) y ejecución.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:flujoCicloInstruccion"></span>
-<img src="images/cicloinstruccion2.png" alt="Flujo del ciclo de instrucción en VonSim8" width="85%" />
+<img src="images/cicloinstruccion3.png" alt="Flujo del ciclo de instrucción en VonSim8" width="85%" />
 <p class="caption">
 Figura 5.20: Flujo del ciclo de instrucción en VonSim8
 </p>
@@ -381,36 +381,32 @@ El contenido del <code>MBR</code> se transfiere al <strong>Registro de Instrucci
 - ADD: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>Ry</code>; update(Flags)</strong>
 - SUB: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>Ry</code>; update(Flags)</strong>
 - CMP: <strong><code>Rx</code> - <code>Ry</code>; update(Flags)</strong> (solo actualiza flags, no guarda el resultado)</p>
-<p>Modo de direccionamiento: Directo (<code>Rx</code>, <code>[Dirección]</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: El IP se transfiere al MAR para obtener la dirección del operando fuente.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: La dirección del operando fuente se mueve de MBR al MAR.
-7. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>: Se lee el dato del operando fuente de la memoria y se almacena en MBR.</p>
+<p>Modo directo (<code>Rx</code>, <code>[Dirección]</code>)
+4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Se obtiene la dirección del operando fuente.
+5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Se lee la dirección desde memoria y se incrementa IP.
+6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se transfiere la dirección al MAR.
+7. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Se obtiene el dato del operando.</p>
 <ol start="8" style="list-style-type: decimal">
-<li>A continuación, se realiza la operación específica de la instrucción:
+<li>Se ejecuta la operación:
 - MOV: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>
 - ADD: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code>; update(Flags)</strong>
 - SUB: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>MBR</code>; update(Flags)</strong>
 - CMP: <strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong></li>
 </ol>
-<p>Modo de direccionamiento: Inmediato (<code>Rx</code>, <code>Dato</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del dato (operando fuente).
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee el dato de la memoria y se almacena en MBR; el IP se incrementa.
-6. A continuación, se realiza la operación específica de la instrucción:
-- MOV: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>
-- ADD: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code> | update(Flags)</strong>
-- SUB: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>MBR</code> | update(Flags)</strong>
-- CMP: <strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong></p>
-<p>Modo de direccionamiento: Indirecto (<code>Rx</code>, <code>[BL]</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido del registro BL, que contiene la dirección del operando fuente, se transfiere al MAR.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>: Se lee el dato de la memoria en la dirección de BL y se almacena en MBR.
-6. A continuación, se realiza la operación específica de la instrucción:
-- MOV: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>
-- ADD: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code> | update(Flags)</strong>
-- SUB: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>MBR</code> | update(Flags)</strong>
-- CMP: <strong><code>Rx</code> - <code>MBR</code>; update(Flags)</strong></p>
-<p>*<strong>Instrucciones con destino en memoria (<code>[Dirección]</code> o <code>[BL]</code>)</strong></p>
-<p>Modo de direccionamiento: Directo (<code>[Dirección]</code>, <code>Ry</code>)
+<p>Modo inmediato (<code>Rx</code>, <code>Dato</code>)
+4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Dirección del dato inmediato.
+5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Se lee el dato y se incrementa IP.
+6. Se ejecuta la operación:
+- Igual que en el caso anterior.</p>
+<p>Modo indirecto (<code>Rx</code>, <code>[BL]</code>)
+4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong> – Dirección del dato inmediato.
+5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Se lee el dato.
+6. Se ejecuta la operación:
+- Igual que en los casos anteriores.</p>
+<p>B.*<strong>Destino en memoria (<code>[Dirección]</code> o <code>[BL]</code>)</strong>
+Los pasos varían según el modo de direccionamiento y la instrucción (MOV, ADD, SUB, CMP).
+En general, se obtiene la dirección destino, se lee o escribe el valor según corresponda, y se actualizan los flags en operaciones aritméticas.</p>
+<p>Modo Directo (<code>[Dirección]</code>, <code>Ry</code>)
 4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del operando destino.
 5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
 6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: La dirección de memoria se mueve de MBR a MAR.</p>
@@ -425,7 +421,7 @@ El contenido del <code>MBR</code> se transfiere al <strong>Registro de Instrucci
 - CMP: <strong><code>MBR</code> - <code>Ry</code>; update(Flags)</strong></p>
 <p>Si es <code>ADD</code> o <code>SUB</code>, el resultado se escribe en memoria:
 9. ADD/SUB: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> CMP no realiza este paso.</p>
-<p>Modo de direccionamiento: Indirecto (<code>[BL]</code>, <code>Ry</code>)
+<p>Modo Indirecto (<code>[BL]</code>, <code>Ry</code>)
 4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del operando destino.
 5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
 6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
@@ -440,7 +436,7 @@ Si la instrucción es MOV:
 - CMP: <strong><code>MBR</code> - <code>Ry</code>; update(Flags)</strong></p>
 <p>Si es <code>ADD</code> o <code>SUB</code>, el resultado se escribe en memoria:
 9. ADD/SUB: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> CMP no realiza este paso.</p>
-<p>Modo de direccionamiento: Inmediato (<code>[Dirección]</code>, <code>Dato</code>)
+<p>Modo Directo-Inmediato (<code>[Dirección]</code>, <code>Dato</code>)
 4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del operando destino.
 5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
 6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>;<code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El IP se transfiere a MAR para obtener el dato inmediato y la dirección de destino se guarda en un registro intermedio (ri).
@@ -457,7 +453,7 @@ Si la instrucción es MOV:
 - CMP: <strong><code>MBR</code> - <code>id</code>; update(Flags)</strong></p>
 <p>Si es <code>ADD</code> o <code>SUB</code>, el resultado se escribe en memoria:
 11. ADD/SUB: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> CMP no realiza este paso.</p>
-<p>Modo de direccionamiento: Inmediato (<code>[BL]</code>, <code>Dato</code>)
+<p>Modo Indirecto-Inmediato (<code>[BL]</code>, <code>Dato</code>)
 4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del operando destino.
 5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
 6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido de BL, que es la dirección de destino, se transfiere a MAR.</p>
@@ -476,13 +472,13 @@ Si la instrucción es MOV:
 <div id="instrucciones-con-un-operando-jmp-y-jxx" class="section level4 hasAnchor" number="5.10.2.2">
 <h4><span class="header-section-number">5.10.2.2</span> Instrucciones con un operando <code>JMP</code> y <code>Jxx</code>:<a href="ciclo-de-la-instrucción.html#instrucciones-con-un-operando-jmp-y-jxx" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Salto incondicional y condicionales (<code>Dirección</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: El IP se transfiere al MAR.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de destino y se almacena en el MBR; el IP se incrementa.</p>
+4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Se obtiene la dirección del salto.
+5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>; <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Se lee la dirección de destino y se incrementa IP.</p>
 <p>Si es salto incondicional <code>JMP</code> :
 6. JMP: <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></p>
 <p>Si es salto condicional <code>Jxx</code> :
-6. Jxx: Si la condición del flag <code>xx</code> es verdadera, <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>. Si no, se continúa con la siguiente instrucción.</p>
-<p>El parámetro <code>xx</code> en las instrucciones <code>Jxx</code> representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.</p>
+6. Jxx: Si se cumple la condición del flag <code>xx</code>, <strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>; en caso contrario, continúa con la siguiente instrucción.</p>
+<p>Tabla de condiciones en las instrucciones <code>Jxx</code> el parámetro <code>xx</code> representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.</p>
 <table>
 <thead>
 <tr class="header">
@@ -529,7 +525,7 @@ Si la instrucción es MOV:
 <div id="instrucciones-sin-operandos" class="section level4 hasAnchor" number="5.10.2.3">
 <h4><span class="header-section-number">5.10.2.3</span> Instrucciones sin operandos<a href="ciclo-de-la-instrucción.html#instrucciones-sin-operandos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Instruccion de control CPU <code>HLT</code>
-4. HLT: Detiene la ejecución de la CPU.</p>
+4. HLT – Detiene la ejecución de la CPU.</p>
 </div>
 </div>
 </div>

@@ -748,7 +748,7 @@ JMP operando / HLT
 <ul>
 <li><p>Registro a registro (<code>Rx</code>,<code>Ry</code>): operandos son registros del procesador y <code>Rx</code> indica registro destino y <code>Ry</code> indica registro fuente.</p></li>
 <li><p>Directo (<code>[M]</code>): un operando es un registro y el otro operando es el contenido de una dirección de memoria <code>[M]</code>.</p></li>
-<li><p>Indirecto por registro (<code>[BL]</code>): la dirección del operando se encuentra en el registro <code>[BL]</code>.</p></li>
+<li><p>Indirecto (<code>[BL]</code>): la dirección del operando se encuentra en el registro <code>[BL]</code>.</p></li>
 <li><p>Inmediato (<code>d</code>): un operando es un valor contenido en la instrucción.</p></li>
 </ul>
 <p>Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla <a href="interrupciones.html#tab:modosdireccionamiento">5.6</a> resume los modos de direccionamiento implementados en el simulador, junto con ejemplos de uso y su propósito pedagógico.</p>
@@ -883,10 +883,10 @@ mov x, cl
 ; Indirecto
 mov [bl], al
 
-; Inmediato
+; Directo-Inmediato
 mov x, 5
 
-; Inmediato
+; Indirecto-Inmediato
 mov [bl], 4
 
 hlt</code></pre>

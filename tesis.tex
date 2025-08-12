@@ -2589,7 +2589,7 @@ Los modos de direccionamiento definidos son:
 \item
   Directo (\texttt{{[}M{]}}): un operando es un registro y el otro operando es el contenido de una dirección de memoria \texttt{{[}M{]}}.
 \item
-  Indirecto por registro (\texttt{{[}BL{]}}): la dirección del operando se encuentra en el registro \texttt{{[}BL{]}}.
+  Indirecto (\texttt{{[}BL{]}}): la dirección del operando se encuentra en el registro \texttt{{[}BL{]}}.
 \item
   Inmediato (\texttt{d}): un operando es un valor contenido en la instrucción.
 \end{itemize}
@@ -2659,10 +2659,10 @@ mov x, cl
 ; Indirecto
 mov [bl], al
 
-; Inmediato
+; Directo-Inmediato
 mov x, 5
 
-; Inmediato
+; Indirecto-Inmediato
 mov [bl], 4
 
 hlt\end{lstlisting}
@@ -2912,7 +2912,7 @@ La Figura \ref{fig:flujoCicloInstruccion} muestra el flujo general del ciclo, qu
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.85\linewidth]{images/cicloinstruccion2} 
+{\centering \includegraphics[width=0.85\linewidth]{images/cicloinstruccion3} 
 
 }
 
@@ -2954,45 +2954,41 @@ Modo entre registros (\texttt{Rx}, \texttt{Ry})
 - SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{Ry}; update(Flags)}
 - CMP: \textbf{\texttt{Rx} - \texttt{Ry}; update(Flags)} (solo actualiza flags, no guarda el resultado)
 
-Modo de direccionamiento: Directo (\texttt{Rx}, \texttt{{[}Dirección{]}})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: El IP se transfiere al MAR para obtener la dirección del operando fuente.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}: La dirección del operando fuente se mueve de MBR al MAR.
-7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}: Se lee el dato del operando fuente de la memoria y se almacena en MBR.
+Modo directo (\texttt{Rx}, \texttt{{[}Dirección{]}})
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Se obtiene la dirección del operando fuente.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Se lee la dirección desde memoria y se incrementa IP.
+6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Se transfiere la dirección al MAR.
+7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Se obtiene el dato del operando.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{7}
 \tightlist
 \item
-  A continuación, se realiza la operación específica de la instrucción:
+  Se ejecuta la operación:
   - MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}
   - ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR}; update(Flags)}
   - SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR}; update(Flags)}
   - CMP: \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}
 \end{enumerate}
 
-Modo de direccionamiento: Inmediato (\texttt{Rx}, \texttt{Dato})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del dato (operando fuente).
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee el dato de la memoria y se almacena en MBR; el IP se incrementa.
-6. A continuación, se realiza la operación específica de la instrucción:
-- MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}
-- ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR} \textbar{} update(Flags)}
-- SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR} \textbar{} update(Flags)}
-- CMP: \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}
+Modo inmediato (\texttt{Rx}, \texttt{Dato})
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Dirección del dato inmediato.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Se lee el dato y se incrementa IP.
+6. Se ejecuta la operación:
+- Igual que en el caso anterior.
 
-Modo de direccionamiento: Indirecto (\texttt{Rx}, \texttt{{[}BL{]}})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido del registro BL, que contiene la dirección del operando fuente, se transfiere al MAR.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}: Se lee el dato de la memoria en la dirección de BL y se almacena en MBR.
-6. A continuación, se realiza la operación específica de la instrucción:
-- MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}
-- ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR} \textbar{} update(Flags)}
-- SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR} \textbar{} update(Flags)}
-- CMP: \textbf{\texttt{Rx} - \texttt{MBR}; update(Flags)}
+Modo indirecto (\texttt{Rx}, \texttt{{[}BL{]}})
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Dirección del dato inmediato.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Se lee el dato.
+6. Se ejecuta la operación:
+- Igual que en los casos anteriores.
 
-*\textbf{Instrucciones con destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
+B.*\textbf{Destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
+Los pasos varían según el modo de direccionamiento y la instrucción (MOV, ADD, SUB, CMP).
+En general, se obtiene la dirección destino, se lee o escribe el valor según corresponda, y se actualizan los flags en operaciones aritméticas.
 
-Modo de direccionamiento: Directo (\texttt{{[}Dirección{]}}, \texttt{Ry})
+Modo Directo (\texttt{{[}Dirección{]}}, \texttt{Ry})
 4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
 5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
 6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}: La dirección de memoria se mueve de MBR a MAR.
@@ -3011,7 +3007,7 @@ Si la instrucción es ADD, SUB, CMP:
 Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
 9. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
 
-Modo de direccionamiento: Indirecto (\texttt{{[}BL{]}}, \texttt{Ry})
+Modo Indirecto (\texttt{{[}BL{]}}, \texttt{Ry})
 4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
 5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
 6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
@@ -3029,7 +3025,7 @@ Si la instrucción es ADD, SUB, CMP:
 Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
 9. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
 
-Modo de direccionamiento: Inmediato (\texttt{{[}Dirección{]}}, \texttt{Dato})
+Modo Directo-Inmediato (\texttt{{[}Dirección{]}}, \texttt{Dato})
 4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
 5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
 6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP};\texttt{ri} \(\leftarrow\) \texttt{MBR}}: El IP se transfiere a MAR para obtener el dato inmediato y la dirección de destino se guarda en un registro intermedio (ri).
@@ -3050,7 +3046,7 @@ Si la instrucción es ADD, SUB, CMP:
 Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
 11. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
 
-Modo de direccionamiento: Inmediato (\texttt{{[}BL{]}}, \texttt{Dato})
+Modo Indirecto-Inmediato (\texttt{{[}BL{]}}, \texttt{Dato})
 4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
 5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
 6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL, que es la dirección de destino, se transfiere a MAR.
@@ -3073,16 +3069,16 @@ Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
 \subsubsection{\texorpdfstring{Instrucciones con un operando \texttt{JMP} y \texttt{Jxx}:}{Instrucciones con un operando JMP y Jxx:}}\label{instrucciones-con-un-operando-jmp-y-jxx}}
 
 Salto incondicional y condicionales (\texttt{Dirección})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: El IP se transfiere al MAR.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de destino y se almacena en el MBR; el IP se incrementa.
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Se obtiene la dirección del salto.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Se lee la dirección de destino y se incrementa IP.
 
 Si es salto incondicional \texttt{JMP} :
 6. JMP: \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}
 
 Si es salto condicional \texttt{Jxx} :
-6. Jxx: Si la condición del flag \texttt{xx} es verdadera, \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}. Si no, se continúa con la siguiente instrucción.
+6. Jxx: Si se cumple la condición del flag \texttt{xx}, \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}; en caso contrario, continúa con la siguiente instrucción.
 
-El parámetro \texttt{xx} en las instrucciones \texttt{Jxx} representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
+Tabla de condiciones en las instrucciones \texttt{Jxx} el parámetro \texttt{xx} representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
@@ -3105,7 +3101,7 @@ Instrucción & Acción \\
 \subsubsection{Instrucciones sin operandos}\label{instrucciones-sin-operandos}}
 
 Instruccion de control CPU \texttt{HLT}
-4. HLT: Detiene la ejecución de la CPU.
+4. HLT -- Detiene la ejecución de la CPU.
 
 \hypertarget{modulo-de-entradasalida-e-interrupciones}{%
 \section{Modulo de Entrada/Salida e interrupciones}\label{modulo-de-entradasalida-e-interrupciones}}
