@@ -1401,7 +1401,7 @@ knitr::include_graphics(path = "images/cicloinstruccion3.png")
 
 ### Etapa 1: Captación
 
-Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instrucción desde la memoria. Consta de tres microoperaciones:
+Esta etapa es igual para todas las instrucciones. La CPU lee la instrucción desde memoria y la coloca en el **Registro de Instrucciones** (`IR`). Consta de tres microoperaciones:
 
 1. **`MAR` $\leftarrow$ `IP`**
   La UC transfiere el contenido del **Puntero de Instrucción** (`IP`) al **Registro de Direcciones de Memoria** (`MAR`). El `IP` contiene la dirección de la próxima instrucción a ejecutar.
@@ -1410,10 +1410,17 @@ Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instruc
   La UC activa la señal de lectura para obtener la instrucción ubicada en la dirección indicada por  `MAR`. El dato leído se guarda en el **Registro de Datos de Memoria** (`MBR`) y, al mismo tiempo, el `IP` se incrementa para apuntar a la siguiente instrucción u operando.
 
 3. **`IR` $\leftarrow$ `MBR`**
-  El contenido del `MBR` se transfiere al **Registro de Instrucciones** (`IR`). A partir de este momento, la instrucción está lista para ejecutarse.
+  El contenido del `MBR` se transfiere al `IR`. A partir de este momento, la instrucción está lista para ejecutarse.
 
 ### Etapa 2: Ejecución:
-En esta etapa, las operaciones dependen del tipo de instrucción. A continuación se explican los casos más comunes.
+En esta etapa, l decodificador de instrucciones interpreta el valor almacenado en el registro `IR` y realiza las siguientes acciones:
+  - Según código de operación (opcode) lee las microinstrucciones correspondientes desde la memoria de control.
+  - Envia al secuenciador esas microinstrucciones para que genere las señales de control necesarias para ejecutar la instrucción.
+  - El tipo de instrucción segun código de operación (opcode).
+  - El número de operandos.
+  - El modo de direccionamiento.
+
+A continuación se explican las instrucciones más comunes.
 
 #### Instrucciones con dos operandos `MOV`, `ADD`, `SUB` y `CMP`:
 
