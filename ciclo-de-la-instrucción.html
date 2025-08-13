@@ -407,8 +407,8 @@ El contenido del <code>MBR</code> se transfiere al <strong>Registro de Instrucci
 En estas instrucciones, el resultado de la operación no se almacena en un registro, sino en una posición de memoria.
 El procedimiento depende del modo de direccionamiento y de la instrucción utilizada (MOV, ADD, SUB, CMP).
 En general, el flujo es:</p>
-<p>Obtener la dirección de memoria de destino (puede venir como valor inmediato, leerse desde la memoria o encontrarse en un registro como BL).</p>
-<p>Leer o escribir datos en esa dirección según la operación:</p>
+<p>Obtener la dirección de memoria de destino (puede venir desde la memoria o encontrarse en el registro BL).</p>
+<p>Escribir datos en esa dirección según la operación:</p>
 <ul>
 <li><p>MOV: solo escribe el valor fuente en la memoria destino.</p></li>
 <li><p>ADD/SUB: lee el valor destino, realiza la operación aritmética con el operando fuente y guarda el resultado.</p></li>
@@ -416,67 +416,69 @@ En general, el flujo es:</p>
 </ul>
 <p>Actualizar los flags (Z, C, S, O) en operaciones aritméticas (ADD, SUB, CMP).</p>
 <p>Modo Directo (<code>[Dirección]</code>, <code>Ry</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del operando destino.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: La dirección de memoria se mueve de MBR a MAR.</p>
-<p>Si la instrucción es MOV:
-7. MOV: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong>: El contenido del registro Ry se mueve a MBR.
-8. MOV: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El dato de MBR se escribe en la memoria.</p>
-<p>Si la instrucción es ADD, SUB, CMP:
-7. ADD/SUB/CMP: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>: Se lee el dato de la memoria en la dirección del operando destino y se almacena en MBR.
-8. Luego se realiza la operación:
+4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Se transfiere el segundo operando al MAR.
+5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Se obtiene la dirección de destino y se incrementa el IP.
+6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se transfiere la dirección obtenida al MAR.</p>
+<p>Según la instrucción:
+MOV:<br />
+7. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong> – El contenido de Ry se pasa a MBR.
+8. <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se escribe en memoria.</p>
+<p>ADD, SUB, CMP:
+7. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Se lee el valor actual del destino.
+8. Se realiza la operación:
 - ADD: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> + <code>Ry</code> | update(Flags)</strong>
 - SUB: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> - <code>Ry</code> | update(Flags)</strong>
 - CMP: <strong><code>MBR</code> - <code>Ry</code>; update(Flags)</strong></p>
-<p>Si es <code>ADD</code> o <code>SUB</code>, el resultado se escribe en memoria:
-9. ADD/SUB: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> CMP no realiza este paso.</p>
+<p>Si es <code>ADD</code> o <code>SUB</code>:
+9. <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se escribe el resultado.</p>
 <p>Modo Indirecto (<code>[BL]</code>, <code>Ry</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del operando destino.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
-Si la instrucción es MOV:
-7. MOV: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong>: El contenido del registro Ry se mueve a MBR.
-8. MOV: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El dato de MBR se escribe en la memoria.</p>
-<p>Si la instrucción es ADD, SUB, CMP:
-7. ADD/SUB/CMP: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>: Se lee el dato del operando destino en la memoria y se almacena en MBR.
-8. Luego se realiza la operación:
+4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong> – El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.</p>
+<p>Según la instrucción:
+MOV:
+5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong> – El contenido del registro Ry se mueve a MBR.
+6. <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – El dato de MBR se escribe en la memoria.</p>
+<p>ADD, SUB, CMP:
+7. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Se lee el valor actual de la dirección.
+8. Se realiza la operación:
 - ADD: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> + <code>Ry</code> | update(Flags)</strong>
 - SUB: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> - <code>Ry</code> | update(Flags)</strong>
 - CMP: <strong><code>MBR</code> - <code>Ry</code>; update(Flags)</strong></p>
-<p>Si es <code>ADD</code> o <code>SUB</code>, el resultado se escribe en memoria:
-9. ADD/SUB: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> CMP no realiza este paso.</p>
+<p>Si es <code>ADD</code> o <code>SUB</code>:
+9. <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se escribe el resultado.</p>
 <p>Modo Directo-Inmediato (<code>[Dirección]</code>, <code>Dato</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del operando destino.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>;<code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>: El IP se transfiere a MAR para obtener el dato inmediato y la dirección de destino se guarda en un registro intermedio (ri).
-7. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee el dato inmediato y se guarda en MBR; el IP se incrementa.</p>
-<p>Si la instrucción es MOV:
-8. MOV:<strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong>: La dirección de destino se transfiere de ri a MAR.
-9. MOV: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></p>
-<p>Si la instrucción es ADD, SUB, CMP:
-8. ADD/SUB/CMP: <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code> | <code>id</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>:el contenido de ri se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio id
-9. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>
-10. Luego se realiza la operación:
+4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Se obtiene la dirección destino.
+5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Se obtiene la dirección de destino y se incrementa el IP.
+6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>;<code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – El IP se transfiere a MAR para obtener el valor inmediato. y se guarda la dirección destino en un registro intermedio. (ri).
+7. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Se lee el dato inmediato y se incrementa el IP.</p>
+<p>Según la instrucción:
+MOV:
+8. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong>– Se carga la dirección destino.
+9. <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se escribe el valor inmediato en memoria.</p>
+<p>ADD, SUB, CMP:
+8. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code> | <code>id</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se carga la dirección destino y se guarda el valor inmediato en id.
+9. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Se lee el valor actual de destino.
+10. Se realiza la operación:
 - ADD: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> + <code>id</code>; update(Flags)</strong>
 - SUB: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> - <code>id</code>; update(Flags)</strong>
 - CMP: <strong><code>MBR</code> - <code>id</code>; update(Flags)</strong></p>
-<p>Si es <code>ADD</code> o <code>SUB</code>, el resultado se escribe en memoria:
-11. ADD/SUB: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> CMP no realiza este paso.</p>
+<p>Si es <code>ADD</code> o <code>SUB</code>:
+11. <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se escribe el resultado.</p>
 <p>Modo Indirecto-Inmediato (<code>[BL]</code>, <code>Dato</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>: Se obtiene la dirección del operando destino.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong>: El contenido de BL, que es la dirección de destino, se transfiere a MAR.</p>
-<p>Si la instrucción es MOV:
-7. MOV: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></p>
-<p>Si la instrucción es ADD, SUB, CMP:<br />
-6. ADD/SUB/CMP: <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code> | <code>id</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>:El contenido de BL, que es la dirección de destino, se transfiere a MAR y simultaneamente el dato inmediato del MBR se transfiere a un registro temporal (id).
-7. ADD/SUB/CMP: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong>: Se lee el operando destino de la memoria.
-8. Luego se realiza la operación:<br />
+4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Dirección del dato inmediato.
+5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Se lee el dato inmediato y el IP se incrementa.</p>
+<p>Según la instrucción:
+MOV:
+6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong> – Dirección de destino.
+7. <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></p>
+<p>ADD, SUB, CMP:<br />
+6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code> | <code>id</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se carga la dirección destino y se guarda el valor inmediato en id.
+7. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Se lee el valor actual de destino.
+8. Se realiza la operación:
 - ADD: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> + <code>id</code>; update(Flags)</strong>
 - SUB: <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> - <code>id</code>; update(Flags)</strong>
 - CMP: <strong><code>MBR</code> - <code>id</code>; update(Flags)</strong></p>
-<p>Si es <code>ADD</code> o <code>SUB</code>, el resultado se escribe en memoria:
-9. ADD/SUB: <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> CMP no realiza este paso.</p>
+<p>Si es <code>ADD</code> o <code>SUB</code>:
+9. <strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Se escribe el resultado.</p>
 </div>
 <div id="instrucciones-con-un-operando-jmp-y-jxx" class="section level4 hasAnchor" number="5.10.2.2">
 <h4><span class="header-section-number">5.10.2.2</span> Instrucciones con un operando <code>JMP</code> y <code>Jxx</code>:<a href="ciclo-de-la-instrucción.html#instrucciones-con-un-operando-jmp-y-jxx" class="anchor-section" aria-label="Anchor link to header"></a></h4>

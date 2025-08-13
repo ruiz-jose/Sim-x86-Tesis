@@ -2989,9 +2989,9 @@ En estas instrucciones, el resultado de la operación no se almacena en un regis
 El procedimiento depende del modo de direccionamiento y de la instrucción utilizada (MOV, ADD, SUB, CMP).
 En general, el flujo es:
 
-Obtener la dirección de memoria de destino (puede venir como valor inmediato, leerse desde la memoria o encontrarse en un registro como BL).
+Obtener la dirección de memoria de destino (puede venir desde la memoria o encontrarse en el registro BL).
 
-Leer o escribir datos en esa dirección según la operación:
+Escribir datos en esa dirección según la operación:
 
 \begin{itemize}
 \item
@@ -3005,81 +3005,84 @@ Leer o escribir datos en esa dirección según la operación:
 Actualizar los flags (Z, C, S, O) en operaciones aritméticas (ADD, SUB, CMP).
 
 Modo Directo (\texttt{{[}Dirección{]}}, \texttt{Ry})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}}: La dirección de memoria se mueve de MBR a MAR.
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Se transfiere el segundo operando al MAR.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Se obtiene la dirección de destino y se incrementa el IP.
+6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Se transfiere la dirección obtenida al MAR.
 
-Si la instrucción es MOV:
-7. MOV: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}: El contenido del registro Ry se mueve a MBR.
-8. MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}: El dato de MBR se escribe en la memoria.
+Según la instrucción:
+MOV:\\
+7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} -- El contenido de Ry se pasa a MBR.
+8. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Se escribe en memoria.
 
-Si la instrucción es ADD, SUB, CMP:
-7. ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}: Se lee el dato de la memoria en la dirección del operando destino y se almacena en MBR.
-8. Luego se realiza la operación:
+ADD, SUB, CMP:
+7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Se lee el valor actual del destino.
+8. Se realiza la operación:
 - ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry} \textbar{} update(Flags)}
 - SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
 - CMP: \textbf{\texttt{MBR} - \texttt{Ry}; update(Flags)}
 
-Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
-9. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
+Si es \texttt{ADD} o \texttt{SUB}:
+9. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Se escribe el resultado.
 
 Modo Indirecto (\texttt{{[}BL{]}}, \texttt{Ry})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
-Si la instrucción es MOV:
-7. MOV: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}}: El contenido del registro Ry se mueve a MBR.
-8. MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}: El dato de MBR se escribe en la memoria.
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
 
-Si la instrucción es ADD, SUB, CMP:
-7. ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}: Se lee el dato del operando destino en la memoria y se almacena en MBR.
-8. Luego se realiza la operación:
+Según la instrucción:
+MOV:
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} -- El contenido del registro Ry se mueve a MBR.
+6. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- El dato de MBR se escribe en la memoria.
+
+ADD, SUB, CMP:
+7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Se lee el valor actual de la dirección.
+8. Se realiza la operación:
 - ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry} \textbar{} update(Flags)}
 - SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
 - CMP: \textbf{\texttt{MBR} - \texttt{Ry}; update(Flags)}
 
-Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
-9. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
+Si es \texttt{ADD} o \texttt{SUB}:
+9. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Se escribe el resultado.
 
 Modo Directo-Inmediato (\texttt{{[}Dirección{]}}, \texttt{Dato})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP};\texttt{ri} \(\leftarrow\) \texttt{MBR}}: El IP se transfiere a MAR para obtener el dato inmediato y la dirección de destino se guarda en un registro intermedio (ri).
-7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee el dato inmediato y se guarda en MBR; el IP se incrementa.
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Se obtiene la dirección destino.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Se obtiene la dirección de destino y se incrementa el IP.
+6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP};\texttt{ri} \(\leftarrow\) \texttt{MBR}} -- El IP se transfiere a MAR para obtener el valor inmediato. y se guarda la dirección destino en un registro intermedio. (ri).
+7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Se lee el dato inmediato y se incrementa el IP.
 
-Si la instrucción es MOV:
-8. MOV:\textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}: La dirección de destino se transfiere de ri a MAR.
-9. MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+Según la instrucción:
+MOV:
+8. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}-- Se carga la dirección destino.
+9. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Se escribe el valor inmediato en memoria.
 
-Si la instrucción es ADD, SUB, CMP:
-8. ADD/SUB/CMP: \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}}:el contenido de ri se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio id
-9. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
-10. Luego se realiza la operación:
+ADD, SUB, CMP:
+8. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}} -- Se carga la dirección destino y se guarda el valor inmediato en id.
+9. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Se lee el valor actual de destino.
+10. Se realiza la operación:
 - ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id}; update(Flags)}
 - SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id}; update(Flags)}
 - CMP: \textbf{\texttt{MBR} - \texttt{id}; update(Flags)}
 
-Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
-11. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
+Si es \texttt{ADD} o \texttt{SUB}:
+11. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Se escribe el resultado.
 
 Modo Indirecto-Inmediato (\texttt{{[}BL{]}}, \texttt{Dato})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}: Se obtiene la dirección del operando destino.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}}: El contenido de BL, que es la dirección de destino, se transfiere a MAR.
+4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Dirección del dato inmediato.
+5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Se lee el dato inmediato y el IP se incrementa.
 
-Si la instrucción es MOV:
-7. MOV: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+Según la instrucción:
+MOV:
+6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Dirección de destino.
+7. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
 
-Si la instrucción es ADD, SUB, CMP:\\
-6. ADD/SUB/CMP: \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}}:El contenido de BL, que es la dirección de destino, se transfiere a MAR y simultaneamente el dato inmediato del MBR se transfiere a un registro temporal (id).
-7. ADD/SUB/CMP: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}: Se lee el operando destino de la memoria.
-8. Luego se realiza la operación:\\
+ADD, SUB, CMP:\\
+6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}} -- Se carga la dirección destino y se guarda el valor inmediato en id.
+7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Se lee el valor actual de destino.
+8. Se realiza la operación:
 - ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id}; update(Flags)}
 - SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id}; update(Flags)}
 - CMP: \textbf{\texttt{MBR} - \texttt{id}; update(Flags)}
 
-Si es \texttt{ADD} o \texttt{SUB}, el resultado se escribe en memoria:
-9. ADD/SUB: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} CMP no realiza este paso.
+Si es \texttt{ADD} o \texttt{SUB}:
+9. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Se escribe el resultado.
 
 \hypertarget{instrucciones-con-un-operando-jmp-y-jxx}{%
 \subsubsection{\texorpdfstring{Instrucciones con un operando \texttt{JMP} y \texttt{Jxx}:}{Instrucciones con un operando JMP y Jxx:}}\label{instrucciones-con-un-operando-jmp-y-jxx}}
