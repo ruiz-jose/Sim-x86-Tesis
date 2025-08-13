@@ -359,19 +359,25 @@ Figura 5.20: Flujo del ciclo de instrucción en VonSim8
 </div>
 <div id="etapa-1-captación" class="section level3 hasAnchor" number="5.10.1">
 <h3><span class="header-section-number">5.10.1</span> Etapa 1: Captación<a href="ciclo-de-la-instrucción.html#etapa-1-captación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instrucción desde la memoria. Consta de tres microoperaciones:</p>
+<p>Esta etapa es igual para todas las instrucciones. La CPU lee la instrucción desde memoria y la coloca en el <strong>Registro de Instrucciones</strong> (<code>IR</code>). Consta de tres microoperaciones:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong>
 La UC transfiere el contenido del <strong>Puntero de Instrucción</strong> (<code>IP</code>) al <strong>Registro de Direcciones de Memoria</strong> (<code>MAR</code>). El <code>IP</code> contiene la dirección de la próxima instrucción a ejecutar.</p></li>
 <li><p><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong>
 La UC activa la señal de lectura para obtener la instrucción ubicada en la dirección indicada por <code>MAR</code>. El dato leído se guarda en el <strong>Registro de Datos de Memoria</strong> (<code>MBR</code>) y, al mismo tiempo, el <code>IP</code> se incrementa para apuntar a la siguiente instrucción u operando.</p></li>
 <li><p><strong><code>IR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>
-El contenido del <code>MBR</code> se transfiere al <strong>Registro de Instrucciones</strong> (<code>IR</code>). A partir de este momento, la instrucción está lista para ejecutarse.</p></li>
+El contenido del <code>MBR</code> se transfiere al <code>IR</code>. A partir de este momento, la instrucción está lista para ejecutarse.</p></li>
 </ol>
 </div>
 <div id="etapa-2-ejecución" class="section level3 hasAnchor" number="5.10.2">
 <h3><span class="header-section-number">5.10.2</span> Etapa 2: Ejecución:<a href="ciclo-de-la-instrucción.html#etapa-2-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En esta etapa, las operaciones dependen del tipo de instrucción. A continuación se explican los casos más comunes.</p>
+<p>En esta etapa, l decodificador de instrucciones interpreta el valor almacenado en el registro <code>IR</code> y realiza las siguientes acciones:
+- Según código de operación (opcode) lee las microinstrucciones correspondientes desde la memoria de control.
+- Envia al secuenciador esas microinstrucciones para que genere las señales de control necesarias para ejecutar la instrucción.
+- El tipo de instrucción segun código de operación (opcode).
+- El número de operandos.
+- El modo de direccionamiento.</p>
+<p>A continuación se explican las instrucciones más comunes.</p>
 <div id="instrucciones-con-dos-operandos-mov-add-sub-y-cmp" class="section level4 hasAnchor" number="5.10.2.1">
 <h4><span class="header-section-number">5.10.2.1</span> Instrucciones con dos operandos <code>MOV</code>, <code>ADD</code>, <code>SUB</code> y <code>CMP</code>:<a href="ciclo-de-la-instrucción.html#instrucciones-con-dos-operandos-mov-add-sub-y-cmp" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A. <strong>Destino en registro (Rx)</strong></p>

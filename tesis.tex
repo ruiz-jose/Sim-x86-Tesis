@@ -2922,7 +2922,7 @@ La Figura \ref{fig:flujoCicloInstruccion} muestra el flujo general del ciclo, qu
 \hypertarget{etapa-1-captaciuxf3n}{%
 \subsection{Etapa 1: Captación}\label{etapa-1-captaciuxf3n}}
 
-Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instrucción desde la memoria. Consta de tres microoperaciones:
+Esta etapa es igual para todas las instrucciones. La CPU lee la instrucción desde memoria y la coloca en el \textbf{Registro de Instrucciones} (\texttt{IR}). Consta de tres microoperaciones:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2934,13 +2934,20 @@ Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instruc
   La UC activa la señal de lectura para obtener la instrucción ubicada en la dirección indicada por \texttt{MAR}. El dato leído se guarda en el \textbf{Registro de Datos de Memoria} (\texttt{MBR}) y, al mismo tiempo, el \texttt{IP} se incrementa para apuntar a la siguiente instrucción u operando.
 \item
   \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}
-  El contenido del \texttt{MBR} se transfiere al \textbf{Registro de Instrucciones} (\texttt{IR}). A partir de este momento, la instrucción está lista para ejecutarse.
+  El contenido del \texttt{MBR} se transfiere al \texttt{IR}. A partir de este momento, la instrucción está lista para ejecutarse.
 \end{enumerate}
 
 \hypertarget{etapa-2-ejecuciuxf3n}{%
 \subsection{Etapa 2: Ejecución:}\label{etapa-2-ejecuciuxf3n}}
 
-En esta etapa, las operaciones dependen del tipo de instrucción. A continuación se explican los casos más comunes.
+En esta etapa, l decodificador de instrucciones interpreta el valor almacenado en el registro \texttt{IR} y realiza las siguientes acciones:
+- Según código de operación (opcode) lee las microinstrucciones correspondientes desde la memoria de control.
+- Envia al secuenciador esas microinstrucciones para que genere las señales de control necesarias para ejecutar la instrucción.
+- El tipo de instrucción segun código de operación (opcode).
+- El número de operandos.
+- El modo de direccionamiento.
+
+A continuación se explican las instrucciones más comunes.
 
 \hypertarget{instrucciones-con-dos-operandos-mov-add-sub-y-cmp}{%
 \subsubsection{\texorpdfstring{Instrucciones con dos operandos \texttt{MOV}, \texttt{ADD}, \texttt{SUB} y \texttt{CMP}:}{Instrucciones con dos operandos MOV, ADD, SUB y CMP:}}\label{instrucciones-con-dos-operandos-mov-add-sub-y-cmp}}
