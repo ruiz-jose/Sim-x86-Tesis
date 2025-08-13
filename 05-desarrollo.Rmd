@@ -1455,9 +1455,9 @@ En estas instrucciones, el resultado de la operación no se almacena en un regis
 El procedimiento depende del modo de direccionamiento y de la instrucción utilizada (MOV, ADD, SUB, CMP).
 En general, el flujo es:
 
-Obtener la dirección de memoria de destino (puede venir como valor inmediato, leerse desde la memoria o encontrarse en un registro como BL).
+Obtener la dirección de memoria de destino (puede venir desde la memoria o encontrarse en el registro BL).
 
-Leer o escribir datos en esa dirección según la operación:
+Escribir datos en esa dirección según la operación:
 
   - MOV: solo escribe el valor fuente en la memoria destino.
 
@@ -1468,81 +1468,84 @@ Leer o escribir datos en esa dirección según la operación:
 Actualizar los flags (Z, C, S, O) en operaciones aritméticas (ADD, SUB, CMP).
 
 Modo Directo (`[Dirección]`, `Ry`)
-  4. **`MAR` $\leftarrow$ `IP`**: Se obtiene la dirección del operando destino.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-  6. **`MAR` $\leftarrow$ `MBR`**: La dirección de memoria se mueve de MBR a MAR.  
+  4. **`MAR` $\leftarrow$ `IP`** – Se transfiere el segundo operando al MAR.
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Se obtiene la dirección de destino y se incrementa el IP.
+  6. **`MAR` $\leftarrow$ `MBR`** – Se transfiere la dirección obtenida al MAR.  
 
-  Si la instrucción es MOV:
-  7. MOV: **`MBR` $\leftarrow$ `Ry`**: El contenido del registro Ry se mueve a MBR.
-  8. MOV: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**: El dato de MBR se escribe en la memoria.
+  Según la instrucción:
+  MOV:  
+  7. **`MBR` $\leftarrow$ `Ry`** – El contenido de Ry se pasa a MBR.
+  8. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Se escribe en memoria.
 
-  Si la instrucción es ADD, SUB, CMP:
-  7. ADD/SUB/CMP: **`MBR` $\leftarrow$ `read(Memoria[MAR])`**: Se lee el dato de la memoria en la dirección del operando destino y se almacena en MBR.
-  8. Luego se realiza la operación:
+  ADD, SUB, CMP:
+  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Se lee el valor actual del destino.
+  8. Se realiza la operación:
     - ADD: **`MBR` $\leftarrow$ `MBR` + `Ry` | update(Flags)**
     - SUB: **`MBR` $\leftarrow$ `MBR` - `Ry` | update(Flags)**
     - CMP: **`MBR` - `Ry`; update(Flags)**
 
-  Si es `ADD` o `SUB`, el resultado se escribe en memoria: 
-  9. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** CMP no realiza este paso.
+  Si es `ADD` o `SUB`:
+  9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Se escribe el resultado.
 
 Modo Indirecto (`[BL]`, `Ry`)
-  4. **`MAR` $\leftarrow$ `IP`**: Se obtiene la dirección del operando destino.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-  6. **`MAR` $\leftarrow$ `BL`**: El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
-  Si la instrucción es MOV:
-  7. MOV: **`MBR` $\leftarrow$ `Ry`**: El contenido del registro Ry se mueve a MBR.
-  8. MOV: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**: El dato de MBR se escribe en la memoria.
+  4. **`MAR` $\leftarrow$ `BL`** – El contenido de BL, que es la dirección del operando destino, se transfiere a MAR.
 
-  Si la instrucción es ADD, SUB, CMP:
-  7. ADD/SUB/CMP: **`MBR` $\leftarrow$ `read(Memoria[MAR])`**: Se lee el dato del operando destino en la memoria y se almacena en MBR.
-  8. Luego se realiza la operación:
+  Según la instrucción:
+  MOV:
+  5. **`MBR` $\leftarrow$ `Ry`** – El contenido del registro Ry se mueve a MBR.
+  6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – El dato de MBR se escribe en la memoria.
+
+  ADD, SUB, CMP:
+  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Se lee el valor actual de la dirección.
+  8. Se realiza la operación:
     - ADD: **`MBR` $\leftarrow$ `MBR` + `Ry` | update(Flags)**
     - SUB: **`MBR` $\leftarrow$ `MBR` - `Ry` | update(Flags)**
     - CMP: **`MBR` - `Ry`; update(Flags)**
 
-  Si es `ADD` o `SUB`, el resultado se escribe en memoria: 
-  9. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** CMP no realiza este paso.
+  Si es `ADD` o `SUB`: 
+  9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Se escribe el resultado.
 
 Modo Directo-Inmediato (`[Dirección]`, `Dato`)
-  4. **`MAR` $\leftarrow$ `IP`**: Se obtiene la dirección del operando destino.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-  6. **`MAR` $\leftarrow$ `IP`;`ri` $\leftarrow$ `MBR`**: El IP se transfiere a MAR para obtener el dato inmediato y la dirección de destino se guarda en un registro intermedio (ri).
-  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee el dato inmediato y se guarda en MBR; el IP se incrementa.
+  4. **`MAR` $\leftarrow$ `IP`** – Se obtiene la dirección destino.
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Se obtiene la dirección de destino y se incrementa el IP.
+  6. **`MAR` $\leftarrow$ `IP`;`ri` $\leftarrow$ `MBR`** – El IP se transfiere a MAR para obtener el valor inmediato. y se guarda la dirección destino en un registro intermedio. (ri).
+  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Se lee el dato inmediato y se incrementa el IP.
   
-  Si la instrucción es MOV:
-  8. MOV:**`MAR` $\leftarrow$ `ri`**: La dirección de destino se transfiere de ri a MAR.
-  9. MOV: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
+  Según la instrucción:
+  MOV:
+  8. **`MAR` $\leftarrow$ `ri`**– Se carga la dirección destino.
+  9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Se escribe el valor inmediato en memoria.
 
-  Si la instrucción es ADD, SUB, CMP:
-  8. ADD/SUB/CMP: **`MAR` $\leftarrow$ `ri` | `id` $\leftarrow$ `MBR`**:el contenido de ri se transfiere al registro MAR y simultaneamente se transfiere el valor de MBR a un registro intermedio id
-  9. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
-  10. Luego se realiza la operación:
+  ADD, SUB, CMP:
+  8. **`MAR` $\leftarrow$ `ri` | `id` $\leftarrow$ `MBR`** – Se carga la dirección destino y se guarda el valor inmediato en id.
+  9. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Se lee el valor actual de destino.
+  10. Se realiza la operación:
     - ADD: **`MBR` $\leftarrow$ `MBR` + `id`; update(Flags)**
     - SUB: **`MBR` $\leftarrow$ `MBR` - `id`; update(Flags)**
     - CMP: **`MBR` - `id`; update(Flags)**
 
-  Si es `ADD` o `SUB`, el resultado se escribe en memoria: 
-  11. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** CMP no realiza este paso.
+  Si es `ADD` o `SUB`: 
+  11. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Se escribe el resultado.
 
 Modo Indirecto-Inmediato (`[BL]`, `Dato`)
-  4. **`MAR` $\leftarrow$ `IP`**: Se obtiene la dirección del operando destino.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**: Se lee la dirección de memoria y se almacena en MBR; el IP se incrementa.
-  6. **`MAR` $\leftarrow$ `BL`**: El contenido de BL, que es la dirección de destino, se transfiere a MAR.
+  4. **`MAR` $\leftarrow$ `IP`** – Dirección del dato inmediato.
+  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Se lee el dato inmediato y el IP se incrementa.
 
-  Si la instrucción es MOV:
-  7. MOV: **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
+  Según la instrucción:
+  MOV:
+  6. **`MAR` $\leftarrow$ `BL`** – Dirección de destino.
+  7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
-  Si la instrucción es ADD, SUB, CMP:  
-  6. ADD/SUB/CMP: **`MAR` $\leftarrow$ `BL` | `id` $\leftarrow$ `MBR`**:El contenido de BL, que es la dirección de destino, se transfiere a MAR y simultaneamente el dato inmediato del MBR se transfiere a un registro temporal (id).
-  7. ADD/SUB/CMP: **`MBR` $\leftarrow$ `read(Memoria[MAR])`**: Se lee el operando destino de la memoria.
-  8. Luego se realiza la operación:  
+  ADD, SUB, CMP:  
+  6. **`MAR` $\leftarrow$ `BL` | `id` $\leftarrow$ `MBR`** – Se carga la dirección destino y se guarda el valor inmediato en id.
+  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Se lee el valor actual de destino.
+  8. Se realiza la operación: 
     - ADD: **`MBR` $\leftarrow$ `MBR` + `id`; update(Flags)**
     - SUB: **`MBR` $\leftarrow$ `MBR` - `id`; update(Flags)**
     - CMP: **`MBR` - `id`; update(Flags)**
 
-  Si es `ADD` o `SUB`, el resultado se escribe en memoria: 
-  9. ADD/SUB: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** CMP no realiza este paso.
+  Si es `ADD` o `SUB`: 
+  9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Se escribe el resultado.
 
 #### Instrucciones con un operando `JMP` y `Jxx`:
 
