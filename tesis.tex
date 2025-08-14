@@ -2607,16 +2607,15 @@ Estos modos de direccionamiento permiten al simulador representar una variedad d
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Parámetros}}}\\
 \midrule
-\textbf{} & A: Entre registros & Operandos son registros Rx, Ry\\
-\textbf{} & B: Cargar a registro & Operando destino es registro Rx y el operando fuente puede ser:\begin{itemize} \item dirección [M] (1)\item dirección registro [BL] (2)\item valor en la instrucción d  (3)\end{itemize}\\
-\textbf{Transferencia y procesamiento} & C: Almacenar en memoria & Operando destino puede ser: \begin{itemize} \item dirección [M]\item dirección registro [BL] \end{itemize} y operando fuente puede ser:\begin{itemize} \item Registro: Ry\item valor en la instrucción d \end{itemize}\\
+\textbf{} & A: Cargar a registro & Operando destino es registro Rx y el operando fuente puede ser:\begin{itemize} \item registro Ry  (1)\item dirección [M] (2)\item dirección registro [BL] (3)\item valor inmediato d  (4)\end{itemize}\\
+\textbf{Transferencia y procesamiento} & B: Almacenar en memoria & Operando destino puede ser: \begin{itemize} \item dirección [M]\item dirección registro [BL] \end{itemize} y operando fuente puede ser:\begin{itemize} \item Registro: Ry\item valor en la instrucción d \end{itemize}\\
+\textbf{Control} & C: control de flujo & Si tiene operando es una dirección de memoria M (*)\\
 \midrule
-\textbf{Control} & D: control de flujo & Si tiene operando es una dirección de memoria M (*)\\
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Nota: } 
-\item Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A, B y C.
+\item Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A y B.
 \item Rx y Ry puede ser un registro de proposito general: AL, BL, CL y DL.
 \item \textit{Notas numéricas: } 
 \item[1] La notación [M] indica el contenido de la dirección de memoria.
