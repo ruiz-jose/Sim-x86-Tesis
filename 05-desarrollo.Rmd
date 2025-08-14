@@ -965,14 +965,13 @@ library(knitr)
 library(kableExtra)
 
 modosdireccionamiento <- data.frame(
-  Tipo = c("", "",  "Transferencia y procesamiento", "Control"),
-  Operación = c("A: Entre registros", "B: Cargar a registro", "C: Almacenar en memoria", "D: control de flujo"),
+  Tipo = c("",  "Transferencia y procesamiento", "Control"),
+  Operación = c("A: Cargar a registro", "B: Almacenar en memoria", "C: control de flujo"),
   Parámetros = c(
-    "Operandos son registros Rx, Ry",
     if (knitr::is_latex_output()) {
-      "Operando destino es registro Rx y el operando fuente puede ser:\\begin{itemize} \\item dirección [M] (1)\\item dirección registro [BL] (2)\\item valor en la instrucción d  (3)\\end{itemize}" # nolint: line_length_linter.
+      "Operando destino es registro Rx y el operando fuente puede ser:\\begin{itemize} \\item registro Ry  (1)\\item dirección [M] (2)\\item dirección registro [BL] (3)\\item valor inmediato d  (4)\\end{itemize}" # nolint: line_length_linter.
     } else {
-      "Operando destino es registro `Rx` y el operando fuente puede ser:<ul><li>dirección `[M]`</li><li>dirección registro `[BL]`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
+      "Operando destino es registro `Rx` y el operando fuente puede ser:<li>registro Ry</li> <ul><li>dirección `[M]`</li><li>dirección registro `[BL]`</li><li>valor inmediato `d`</li></ul>" # nolint: line_length_linter.
     },
      if (knitr::is_latex_output()) {
       "Operando destino puede ser: \\begin{itemize} \\item dirección [M]\\item dirección registro [BL] \\end{itemize} y operando fuente puede ser:\\begin{itemize} \\item Registro: Ry\\item valor en la instrucción d \\end{itemize}" # nolint: line_length_linter.
@@ -1004,7 +1003,7 @@ if (knitr::is_latex_output()) {
     row_spec(3, extra_latex_after = "\\midrule") %>%
     footnote(
       general = c(
-        "Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A, B y C.",
+        "Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A y B.",
         "Rx y Ry puede ser un registro de proposito general: AL, BL, CL y DL."
       ),
       general_title = "Nota: ",
@@ -1027,7 +1026,7 @@ if (knitr::is_latex_output()) {
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
     row_spec(3, extra_css = "border-top: 2px solid #000;") %>%
     footnote(
-      general = "Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A, B y C.",
+      general = "Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A y B.",
       general_title = "Nota: ",
       threeparttable = TRUE
     )
