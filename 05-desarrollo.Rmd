@@ -25,7 +25,8 @@ knitr::include_graphics("images/editor.png")
 
 3. **Repertorio reducido de instrucciones con activación progresiva:**
 Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita en etapas secuenciales del proceso de enseñanza, en correspondencia con el avance de los contenidos curriculares. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva [@nationalacademies2018how]. Esta estrategia también se encuentra respaldada por autores como Hasan [@hasan_survey_2012], Null y Lobur [@null_essentials_2023], y Stallings [@stallings_computer_2021], quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
-    ```{r activacionprogresiva, echo=FALSE, message=FALSE, warning=FALSE}
+
+```{r activacionprogresiva, echo=FALSE, message=FALSE, warning=FALSE}
     library(knitr)
     library(kableExtra)
 
@@ -400,7 +401,20 @@ estructuravonsim8 <- data.frame(
   stringsAsFactors = FALSE
 )
 
-
+kable(
+  estructuravonsim8,
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Estructura VonSim8: componentes principales y características",
+  col.names = c("Componente", "Características"),
+  booktabs = TRUE,
+  escape = FALSE
+) %>%
+  kable_styling(
+    latex_options = c("scale_down", "hold_position"),
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    position = "center"
+  )
 ```
 
 Dentro de los registros específicos que no pueden ser accedidos por el usuario, se encuentra el registro `SP` (_stack pointer_) para el funcionamiento de la pila, el registro `FLAGS` (_flags register_), el `IP` (_instruction pointer_) que almacena la dirección de la próxima instrucción a ejecutar, el `IR` (_instruction register_) que almacena el byte de la instrucción que se está analizando/decodificando en un instante dado. También hay 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el `MAR` (_memory address register_) encargado de almacenar direcciones de memoria, y el `MBR` (_memory buffer register_) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.
@@ -959,6 +973,20 @@ Los modos de direccionamiento definidos son:
   - Inmediato (`d`): un operando es un valor contenido en la instrucción. 
 
 Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \@ref(tab:modosdireccionamiento) resume los modos de direccionamiento implementados en el simulador, junto con ejemplos de uso y su propósito pedagógico.
+
+| Destino   | Fuente    | Ejemplo         | Acción                                                                 |
+|-----------|-----------|-----------------|------------------------------------------------------------------------|
+| <td rowspan="4" align="center">Registro</td> | Registro   | MOV BL, AL       | Copiar el valor de un registro a otro                                  |
+|           | Directo   | MOV AL, [dir]   | Cargar el contenido de la dirección de memoria al registro             |
+|           | Indirecto | MOV AL, [BL]    | Cargar desde memoria según la dirección contenida en el registro BL    |
+|           | Inmediato | MOV AL, valor   | Cargar valor inmediato a un registro                                   |
+| <td rowspan="4" align="center">Memoria</td><td rowspan="2" align="center">Directo</td> | Registro   | MOV [dir], CL    | Almacenar el valor del registro en la dirección de memoria             |
+|           | Inmediato | MOV [dir], valor| Almacenar el valor inmediato en memoria                               |
+|           | <td rowspan="2" align="center">Indirecto</td> Registro   | MOV [BL], CL    | Almacenar en memoria según la dirección contenida en el registro BL    |
+|           | Inmediato | MOV [BL], valor | Almacenar en memoria, según la dirección de BL, el valor inmediato     |
+
+
+
 
 ```{r modosdireccionamiento, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
