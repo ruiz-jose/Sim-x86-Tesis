@@ -77,7 +77,8 @@ Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual
         column_spec(2:3, width = "28em") %>%
         row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
     }
-    ```
+```
+
 Una vez establecido el repertorio esencial, se plantea avanzar hacia una comprensión más profunda del ciclo de instrucción mediante su representación en el nivel microarquitectónico. Esta representación incluirá la visualización dinámica de registros activos y señales de control, en correspondencia directa con la ejecución de cada instrucción. Este enfoque promueve el desarrollo progresivo de competencias, al mitigar la sobrecarga cognitiva que implicaría abordar de forma prematura el repertorio completo de instrucciones. La activación progresiva del repertorio se fundamenta en teorías de aprendizaje que sugieren que la exposición gradual a nuevos conceptos mejora la comprensión y retención [@sweller2010cognitive]. Además, esta estrategia se alinea con las recomendaciones de autores como Null y Lobur [@null_essentials_2023], quienes destacan la importancia de introducir los conceptos de forma escalonada para facilitar el aprendizaje efectivo.
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
@@ -358,14 +359,7 @@ estructuravonsim8 <- data.frame(
     "Von Neumann: memoria compartida para datos e instrucciones.",
     "4 registros de propósito general de 8 bits (`AL`, `BL`, `CL`, `DL`).",
     if (knitr::is_latex_output()) {
-      "6 registros de propósito específico:\\begin{itemize}
-      \\item `IP` (Instruction Pointer)
-      \\item `IR` (Instruction Register)
-      \\item `SP` (Stack Pointer)
-      \\item `Flags` (registro de estado)
-      \\item `MAR` (Memory Address Register)
-      \\item `MBR` (Memory Buffer Register)
-      \\end{itemize}"
+      "6 registros de propósito específico: IP (Instruction Pointer); IR (Instruction Register); SP (Stack Pointer); Flags (registro de estado); MAR (Memory Address Register); MBR (Memory Buffer Register)."
     } else {
       "6 registros de propósito específico:<ul>
       <li>`IP` (Instruction Pointer)</li>
@@ -379,14 +373,7 @@ estructuravonsim8 <- data.frame(
     "Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.",
     "Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición almacena un byte. La memoria se organiza en celdas de 16 bytes, con dirección inicial `0x00` y final `0xFF`.",
     if (knitr::is_latex_output()) {
-      "Puertos de la CPU:\\begin{itemize}
-      \\item Bus de direcciones de 8 bits, gestionado por el buffer \\texttt{MAR}.
-      \\item Bus de datos de 8 bits, gestionado por el buffer \\texttt{MBR}.
-      \\item Señal de lectura (\\texttt{rd}) y escritura (\\texttt{wr}), cada una de 1 bit.
-      \\item Señal \\texttt{IO/M} (1 bit) para distinguir acceso a memoria o E/S.
-      \\item Señal de petición de interrupción (\\texttt{INTR}, 1 bit).
-      \\item Señal de reconocimiento de interrupción (\\texttt{INTA}, 1 bit).
-      \\end{itemize}"
+      "Puertos de la CPU: Bus de direcciones de 8 bits (MAR); Bus de datos de 8 bits (MBR); Señal de lectura (rd) y escritura (wr), cada una de 1 bit; Señal IO-M (1 bit) para distinguir acceso a memoria o E-S; Señal de petición de interrupción (INTR, 1 bit); Señal de reconocimiento de interrupción (INTA, 1 bit)."
     } else {
       "Puertos de la CPU:<ul>
       <li>Bus de direcciones de 8 bits, gestionado por el buffer <code>MAR</code>.</li>
@@ -974,26 +961,13 @@ Los modos de direccionamiento definidos son:
 
 Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \@ref(tab:modosdireccionamiento) resume los modos de direccionamiento implementados en el simulador, junto con ejemplos de uso y su propósito pedagógico.
 
-| Destino   | Fuente    | Ejemplo         | Acción                                                                 |
-|-----------|-----------|-----------------|------------------------------------------------------------------------|
-| <td rowspan="4" align="center">Registro</td> | Registro   | MOV BL, AL       | Copiar el valor de un registro a otro                                  |
-|           | Directo   | MOV AL, [dir]   | Cargar el contenido de la dirección de memoria al registro             |
-|           | Indirecto | MOV AL, [BL]    | Cargar desde memoria según la dirección contenida en el registro BL    |
-|           | Inmediato | MOV AL, valor   | Cargar valor inmediato a un registro                                   |
-| <td rowspan="4" align="center">Memoria</td><td rowspan="2" align="center">Directo</td> | Registro   | MOV [dir], CL    | Almacenar el valor del registro en la dirección de memoria             |
-|           | Inmediato | MOV [dir], valor| Almacenar el valor inmediato en memoria                               |
-|           | <td rowspan="2" align="center">Indirecto</td> Registro   | MOV [BL], CL    | Almacenar en memoria según la dirección contenida en el registro BL    |
-|           | Inmediato | MOV [BL], valor | Almacenar en memoria, según la dirección de BL, el valor inmediato     |
-
-
-
 
 ```{r modosdireccionamiento, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
 modosdireccionamiento <- data.frame(
-  Tipo = c("",  "Transferencia y procesamiento", "Control"),
+  Destino = c("",  "Registro", "Memoria"),
   Operación = c("A: Cargar a registro", "B: Almacenar en memoria", "C: control de flujo"),
   Parámetros = c(
     if (knitr::is_latex_output()) {
