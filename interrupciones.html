@@ -400,10 +400,10 @@ Figura 5.18: Buses
 Figura 5.19: Teclado y pantalla
 </p>
 </div>
-<p>La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla <a href="interrupciones.html#tab:bloquesfuncionales">5.3</a> resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.</p>
+<p>La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla <a href="interrupciones.html#tab:bloquesfuncionales">5.4</a> resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:bloquesfuncionales">Tabla 5.3: </span>Bloques funcionales principales
+<span id="tab:bloquesfuncionales">Tabla 5.4: </span>Bloques funcionales principales
 </caption>
 <thead>
 <tr>
@@ -453,12 +453,12 @@ Modelado de la comunicación entre componentes.
 </div>
 <div id="repertorio-de-instruciones" class="section level3 hasAnchor" number="5.8.2">
 <h3><span class="header-section-number">5.8.2</span> Repertorio de instruciones<a href="interrupciones.html#repertorio-de-instruciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque progresivo permite introducir los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>. La Tabla <a href="interrupciones.html#tab:setreducido">5.4</a> muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.</p>
+<p>El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque progresivo permite introducir los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>. La Tabla <a href="interrupciones.html#tab:setreducido">5.5</a> muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.</p>
 <p>Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.</p>
 <p>Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida de acuerdo al programa de estudio de la asignatura Arquitectura de Computadoras <span class="citation">(<a href="#ref-cd023_25_programa2025">Facultad de Ciencias de la Administración, UNER 2025</a>)</span>.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:setreducido">Tabla 5.4: </span>Tabla de instrucciones de VonSim8
+<span id="tab:setreducido">Tabla 5.5: </span>Tabla de instrucciones de VonSim8
 </caption>
 <thead>
 <tr>
@@ -701,7 +701,7 @@ Estas categorías se alinean con los objetivos pedagógicos del curso, permitien
 <p>Las instrucciones del simulador VonSim8 se definen con un formato de 1 a 3 bytes, donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:formatoinst">Tabla 5.5: </span>Tabla de formato de instrucciones
+<span id="tab:formatoinst">Tabla 5.6: </span>Tabla de formato de instrucciones
 </caption>
 <thead>
 <tr>
@@ -751,10 +751,10 @@ JMP operando / HLT
 <li><p>Indirecto (<code>[BL]</code>): la dirección del operando se encuentra en el registro <code>[BL]</code>.</p></li>
 <li><p>Inmediato (<code>d</code>): un operando es un valor contenido en la instrucción.</p></li>
 </ul>
-<p>Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla <a href="interrupciones.html#tab:modosdireccionamiento">5.6</a> resume los modos de direccionamiento implementados en el simulador, junto con ejemplos de uso y su propósito pedagógico.</p>
+<p>Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla <a href="interrupciones.html#tab:modosdireccionamiento">5.7</a> resume los modos de direccionamiento implementados en el simulador, junto con ejemplos de uso y su propósito pedagógico.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:modosdireccionamiento">Tabla 5.6: </span>Tabla de modos de direccionamiento
+<span id="tab:modosdireccionamiento">Tabla 5.7: </span>Tabla de modos de direccionamiento
 </caption>
 <thead>
 <tr>
@@ -796,7 +796,7 @@ valor inmediato <code>d</code>
 </tr>
 <tr>
 <td style="text-align:left;width: 15em; font-weight: bold;">
-Transferencia y procesamiento
+Registro
 </td>
 <td style="text-align:left;width: 25em; ">
 B: Almacenar en memoria
@@ -824,7 +824,7 @@ valor en la instrucción <code>d</code>
 </tr>
 <tr>
 <td style="text-align:left;width: 15em; font-weight: bold;border-top: 2px solid #000;">
-Control
+Memoria
 </td>
 <td style="text-align:left;width: 25em; border-top: 2px solid #000;">
 C: control de flujo
@@ -886,10 +886,10 @@ hlt</code></pre>
 </div>
 <div id="codificación-de-instrucciones" class="section level3 hasAnchor" number="5.8.5">
 <h3><span class="header-section-number">5.8.5</span> Codificación de instrucciones<a href="interrupciones.html#codificación-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla <a href="interrupciones.html#tab:instcodif">5.8</a> presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.</p>
+<p>El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla <a href="interrupciones.html#tab:instcodif">5.9</a> presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.</p>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:instaccion">Tabla 5.7: </span>Tabla de instrucciones y acciones
+<span id="tab:instaccion">Tabla 5.8: </span>Tabla de instrucciones y acciones
 </caption>
 <thead>
 <tr>
@@ -1275,7 +1275,7 @@ Detiene el procesador
 </table>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:instcodif">Tabla 5.8: </span>Tabla de codificación de instrucciones
+<span id="tab:instcodif">Tabla 5.9: </span>Tabla de codificación de instrucciones
 </caption>
 <thead>
 <tr>
@@ -1589,7 +1589,7 @@ D
 </ul>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:tablaregistros">Tabla 5.9: </span>Tabla de registros del simulador
+<span id="tab:tablaregistros">Tabla 5.10: </span>Tabla de registros del simulador
 </caption>
 <thead>
 <tr>
@@ -1663,10 +1663,10 @@ DL
 </tr>
 </tfoot>
 </table>
-<p>El formato ampliado para las instrucciones incluye los siguientes casos tabla <a href="interrupciones.html#tab:formatoampliado">5.10</a>:</p>
+<p>El formato ampliado para las instrucciones incluye los siguientes casos tabla <a href="interrupciones.html#tab:formatoampliado">5.11</a>:</p>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:formatoampliado">Tabla 5.10: </span>Tabla de codificación de instrucciones ampliado
+<span id="tab:formatoampliado">Tabla 5.11: </span>Tabla de codificación de instrucciones ampliado
 </caption>
 <thead>
 <tr>
