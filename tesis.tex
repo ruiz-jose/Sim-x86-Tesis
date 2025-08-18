@@ -2151,29 +2151,24 @@ Esta sección describe la estructura del simulador VonSims8, el diseño de los r
 \caption{\label{tab:estructuravonsim8}Estructura VonSim8: componentes principales y características}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{tabular}[t]{ll}
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|p{12cm}}
 \toprule
-Componente & Características\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{12cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
 \midrule
-Arquitectura & Von Neumann: memoria compartida para datos e instrucciones.\\
-Registros generales & 4 registros de propósito general de 8 bits (`AL`, `BL`, `CL`, `DL`).\\
-Registros específicos & 6 registros de propósito específico:\\
-      IP (Instruction Pointer)\\
-      IR (Instruction Register)\\
-      SP (Stack Pointer)\\
-      Flags (registro de estado)\\
-      MAR (Memory Address Register)\\
-      MBR (Memory Buffer Register)\\
-Acceso a registros & Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.\\
-Memoria & Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición almacena un byte. La memoria se organiza en celdas de 16 bytes, con dirección inicial `0x00` y final `0xFF`.\\
+\textbf{Arquitectura} & Von Neumann: memoria compartida para datos e instrucciones.\\
+\addlinespace[10pt]
+\textbf{Registros generales} & 4 registros de propósito general de 8 bits (`AL`, `BL`, `CL`, `DL`).\\
+\addlinespace[10pt]
+\textbf{Registros específicos} & 6 registros de propósito específico:\begin{itemize} \item IP (Instruction Pointer) \item IR (Instruction Register) \item SP (Stack Pointer) \item Flags (registro de estado) \item MAR (Memory Address Register) \item MBR (Memory Buffer Register)\end{itemize}\\
+\addlinespace[10pt]
+\textbf{Acceso a registros} & Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.\\
+\addlinespace[10pt]
+\textbf{Memoria} & Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición almacena un byte. La memoria se organiza en celdas de 16 bytes, con dirección inicial `0x00` y final `0xFF`.\\
+\addlinespace[10pt]
 \addlinespace
-Puertos & Puertos de la CPU:\\
-      -- Bus de direcciones de 8 bits (MAR)\\
-      -- Bus de datos de 8 bits (MBR)\\
-      -- Señal de lectura (rd) y escritura (wr), cada una de 1 bit\\
-      -- Señal IO-M (1 bit) para distinguir acceso a memoria o E-S\\
-      -- Señal de petición de interrupción (INTR, 1 bit)\\
-      -- Señal de reconocimiento de interrupción (INTA, 1 bit)\\
+\textbf{Puertos} & Puertos de la CPU:\begin{itemize} \item Bus de direcciones de 8 bits (MAR) \item Bus de datos de 8 bits (MBR) \item Señal de lectura (rd) y escritura (wr), cada una de 1 bit \item Señal IO-M (1 bit) para distinguir acceso a memoria o E-S \item Señal de petición de interrupción (INTR, 1 bit) \item Señal de reconocimiento de interrupción (INTA, 1 bit)\end{itemize}\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -2633,7 +2628,7 @@ Los modos de direccionamiento definidos son:
   Inmediato (\texttt{d}): un operando es un valor contenido en la instrucción.
 \end{itemize}
 
-Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \ref{tab:modosdireccionamiento} resume los modos de direccionamiento implementados en el simulador, junto con ejemplos de uso y su propósito pedagógico.
+Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \ref{tab:modosdireccionamiento} resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, junto con ejemplos de uso y su propósito pedagógico.
 
 \begin{table}[!h]
 \centering
