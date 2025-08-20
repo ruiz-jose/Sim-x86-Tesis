@@ -2243,7 +2243,7 @@ El procesador implementa la pila como método de almacenamiento accesible por el
 \hypertarget{subrutinas}{%
 \section{Subrutinas}\label{subrutinas}}
 
-El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción \href{./instructions/call}{\texttt{CALL}}. Esta instrucción almacena el \texttt{IP} en la \protect\hyperlink{pila}{pila}, y luego realiza un salto a la dirección de la subrutina, modificando el \texttt{IP} para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción \href{./instructions/ret}{\texttt{RET}}, que desapila la dirección apilada previamente por \texttt{CALL} y restaura el \texttt{IP}, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
+El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción {[}\texttt{CALL}{]}. Esta instrucción almacena el \texttt{IP} en la \protect\hyperlink{pila}{pila}, y luego realiza un salto a la dirección de la subrutina, modificando el \texttt{IP} para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción {[}\texttt{RET}{]}, que desapila la dirección apilada previamente por \texttt{CALL} y restaura el \texttt{IP}, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
 
 Ejemplo de subrutina:
 
