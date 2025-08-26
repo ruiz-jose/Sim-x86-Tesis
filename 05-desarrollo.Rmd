@@ -402,7 +402,6 @@ Dentro de los registros específicos que no pueden ser accedidos por el usuario,
 Además, dos registros específicos que sirven de intermediarios para realizar ejecutar instrucciones, como pueden ser el `ri` para almacenar una dirección temporal, el `id` para almacenar un dato temporal. 
 
 ## Unidad de Control
-
 La unidad de control es responsable de coordinar todas las operaciones de la CPU. Se encarga de:
 
 - **Decodificación de instrucciones**: Interpreta el código de operación de cada instrucción
@@ -410,11 +409,9 @@ La unidad de control es responsable de coordinar todas las operaciones de la CPU
 - **Secuenciación**: Controla el orden de ejecución de las operaciones
 
 ### Memoria de Control
-
 Para una comprensión más profunda de cómo funciona la unidad de control, puedes visualizar la memoria de control que muestra las microinstrucciones y microoperaciones de cada instrucción.
 
 ### Secuenciador
-
 El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
 
 ## Instrucciones
@@ -423,61 +420,11 @@ El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseña
 El repertorio de instrucciones incluye operaciones aritméticas, lógicas, de transferencia de datos y control de flujo. Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.
 
 ## ALU
-
 La ALU (_Arithmetic Logic Unit_) permite realizar operaciones aritméticas y lógicas de 8 bits. Las operaciones disponibles son: `ADD`, `INC`, `SUB`, `DEC`, `NEG`, `NOT`, `AND` y `OR`. Todas estas operaciones modifican el registro `FLAGS`.
 
 ### Flags
-
 El registro `FLAGS` es un registro de 8 bits que contiene las _flags_ mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
 
-```{r flags, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-flags <- data.frame(
-  `Bit` = c(0, 1, 2, 3, 4),
-  Abreviatura = c("Z", "C", "O", "S", "I"),
-  Descripción = c(
-    "Flag de cero (Zero)",
-    "Flag de acarreo (Carry)",
-    "Flag de desbordamiento (Overflow)",
-    "Flag de signo (Sign)",
-    "Flag de interrupción (Interrupt)"
-  )
-)
-
-tabla_flags <- kable(flags,
-              format = ifelse(knitr::is_latex_output(), "latex", "html"),
-              caption = "Registro FLAGS: descripción de las banderas",
-              col.names = c("Bit #", "Abreviatura", "Descripción"),
-              booktabs = TRUE,
-              escape = FALSE,
-              align = c("c", "c", "c"))
-
-if (knitr::is_latex_output()) {
-  tabla_flags %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "3cm") %>%
-    column_spec(3, width = "7cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(flags)), extra_latex_after = "\\addlinespace[10pt]")
-} else {
-  tabla_flags %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "8em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "12em") %>%
-    column_spec(3, width = "28em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-}
-```
 
 El resto de bits están reservados / no se utilizan.
 
@@ -640,22 +587,21 @@ El parámetro `xx` en las instrucciones `Jxx` representa una combinación de los
 
 ```{r jxx, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
-library(kableExtra)
 
 saltoscondicionales <- data.frame(
   Instruccion = c(
-    "`JZ Dirección`", "`JNZ Dirección`", "`JC Dirección`", "`JNC Dirección`",
-    "`JS Dirección`", "`JNS Dirección`", "`JO Dirección`", "`JNO Dirección`"
+    "JZ Dirección", "JNZ Dirección", "JC Dirección", "JNC Dirección",
+    "JS Dirección", "JNS Dirección", "JO Dirección", "JNO Dirección"
   ),
   Accion = c(
-    "Salta a _Dirección_ si `Z = 1`",
-    "Salta a _Dirección_ si `Z = 0`",
-    "Salta a _Dirección_ si `C = 1`",
-    "Salta a _Dirección_ si `C = 0`",
-    "Salta a _Dirección_ si `S = 1`",
-    "Salta a _Dirección_ si `S = 0`",
-    "Salta a _Dirección_ si `O = 1`",
-    "Salta a _Dirección_ si `O = 0`"
+    "Salta a _Dirección_ si Z = 1",
+    "Salta a _Dirección_ si Z = 0",
+    "Salta a _Dirección_ si C = 1",
+    "Salta a _Dirección_ si C = 0",
+    "Salta a _Dirección_ si S = 1",
+    "Salta a _Dirección_ si S = 0",
+    "Salta a _Dirección_ si O = 1",
+    "Salta a _Dirección_ si O = 0"
   )
 )
 
@@ -669,25 +615,36 @@ tabla_saltos <- kable(
   align = c("c", "c")
 )
 
+
+# Crear la tabla con formato dinámico
+tabla <- kable(setreducido,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Tabla de instrucciones de VonSim8",
+               col.names = c("Instrucciones", "nemónico", "Acción"), # nolint: line_length_linter.
+               booktabs = TRUE,
+               escape = FALSE)
+
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
 if (knitr::is_latex_output()) {
-  tabla_saltos %>%
+  tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
       font_size = 10
     ) %>%
-    column_spec(1, width = "5cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "9cm") %>%
+    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>% # nolint: line_length_linter.
+    column_spec(2, width = "6cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(saltoscondicionales)), extra_latex_after = "\\addlinespace[8pt]")
+    row_spec(seq_len(nrow( saltoscondicionales)), extra_latex_after = "\\addlinespace[8pt]") # Espacio adicional entre filas # nolint: line_length_linter.
 } else {
-  tabla_saltos %>%
+  tabla %>%
     kable_styling(
       bootstrap_options = c("striped", "hover", "condensed"),
       full_width = FALSE,
       position = "center"
     ) %>%
-    column_spec(1, width = "20em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "40em") %>%
+    column_spec(1, width = "25em", bold = TRUE) %>% # nolint: line_length_linter.
+    column_spec(2, width = "25em") %>%
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
