@@ -223,27 +223,57 @@ VonSim [@vonsim] es una herramienta diseñada específicamente para la enseñanz
 
 En síntesis, VonSim constituye una herramienta robusta y accesible que simplifica y facilita el aprendizaje de conceptos complejos de arquitectura de computadoras mediante simulación práctica y una interfaz pedagógicamente orientada.
 
-Las modificaciones principales de VonSim8, alineadas con objetivos pedagógicos, incluyen:
-
-
-El registro de estado contiene los siguientes flags o banderas:
-Z = cero (Zero)
-C = acarreo (Carry)
-S = signo (Sign)
-O = desbordamiento (Overflow)
-I = interrupción (Interrupt)
-
 ### Flags
+El registro `FLAGS` es un registro de 8 bits que contiene las _flags_ o banderas mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
 
-El registro `FLAGS` es un registro de 8 bits que contiene las _flags_ mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
+```{r flags, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
 
-| Bit # | Abreviatura | Descripción            |
-| :---: | :---------: | :--------------------- |
-|   0   |    `Z`     | _Flag_ de cero         |
-|   1   |    `C`     | _Flag_ de acarreo      |
-|   2   |    `O`     | _Flag_ de overflow     | 
-|   3   |    `S`     | _Flag_ de signo        |
-|   4   |    `I`     | _Flag_ de interrupción |
+flags <- data.frame(
+  `Bit #` = c(0, 1, 2, 3, 4),
+  Abreviatura = c("Z", "C", "O", "S", "I"),
+  Descripción = c(
+    "Flag de cero (Zero)",
+    "Flag de acarreo (Carry)",
+    "Flag de desbordamiento (Overflow)",
+    "Flag de signo (Sign)",
+    "Flag de interrupción (Interrupt)"
+  )
+)
+
+tabla_flags <- kable(flags,
+              format = ifelse(knitr::is_latex_output(), "latex", "html"),
+              caption = "Registro FLAGS: descripción de las banderas",
+              col.names = c("Bit #", "Abreviatura", "Descripción"),
+              booktabs = TRUE,
+              escape = FALSE,
+              align = c("c", "c", "c"))
+
+if (knitr::is_latex_output()) {
+  tabla_flags %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "3cm") %>%
+    column_spec(3, width = "7cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(flags)), extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla_flags %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "8em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "12em") %>%
+    column_spec(3, width = "28em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
 
 El resto de bits del registro de estado están reservados.
 
