@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.5 Participantes en la evaluación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="4.5 Participantes en la evaluación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>5.12 Ciclo de ejecución | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="5.12 Ciclo de ejecución | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.5 Participantes en la evaluación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="5.12 Ciclo de ejecución | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.5 Participantes en la evaluación | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="5.12 Ciclo de ejecución | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="selección-de-simuladores.html"/>
-<link rel="next" href="análisis-comparativo.html"/>
+<link rel="prev" href="interrupciones.html"/>
+<link rel="next" href="aspectos-tecnológicos-de-implementación.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -350,17 +350,46 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="participantes-en-la-evaluación" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> Participantes en la evaluación<a href="participantes-en-la-evaluación.html#participantes-en-la-evaluación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>La evaluación fue llevada a cabo por un equipo conformado por tres docentes de la asignatura Arquitectura de Computadoras —Marcelo A. Colombani, José M. Ruiz y Amalia G. Delduca—, quienes aportaron su experiencia en el uso pedagógico de simuladores. Asimismo, se contó con la participación de un asesor externo, Marcelo A. Falappa, quien aportó una perspectiva independiente y validó tanto la metodología como los resultados obtenidos.</p>
+<div id="ciclo-de-ejecución" class="section level2 hasAnchor" number="5.12">
+<h2><span class="header-section-number">5.12</span> Ciclo de ejecución<a href="ciclo-de-ejecución.html#ciclo-de-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El ciclo de ejecución de estas instrucciones es similar al ciclo de instrucción básico, pero con pasos adicionales para manejar la pila y las interrupciones. A continuación se detallan los pasos específicos para cada tipo de instrucción:</p>
+<p>Subrutinas:<br />
+* CALL <code>Dirección</code>
+4. 5. Se obtiene el operando de la instrucción.
+6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
+7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>;
+8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>
+9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
+10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
+<ul>
+<li>RET
+4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
+5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
+6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
+7: <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+</ul>
+<p>Interrupciones:
+* INT <code>Dirección</code>
+4 y 5: Obtener segundo byte de memoria
+6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
+7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
+8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code>
+9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
+10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
+<ul>
+<li>IRET
+4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
+5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
+6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>;<code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="selección-de-simuladores.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="análisis-comparativo.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="interrupciones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="aspectos-tecnológicos-de-implementación.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -391,7 +420,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/04-comparativa.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/05-desarrollo.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -399,7 +428,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/04-comparativa.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/05-desarrollo.Rmd",
     "text": null
   },
   "download": ["tesis.pdf"],
