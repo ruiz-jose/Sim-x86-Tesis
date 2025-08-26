@@ -425,6 +425,53 @@ La ALU (_Arithmetic Logic Unit_) permite realizar operaciones aritméticas y ló
 ### Flags
 El registro `FLAGS` es un registro de 8 bits que contiene las _flags_ mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
 
+```{r tflags, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+tflags <- data.frame(
+  `Bit` = c(0, 1, 2, 3, 4),
+  Abreviatura = c("Z", "C", "O", "S", "I"),
+  Descripción = c(
+    "Flag de cero (Zero)",
+    "Flag de acarreo (Carry)",
+    "Flag de desbordamiento (Overflow)",
+    "Flag de signo (Sign)",
+    "Flag de interrupción (Interrupt)"
+  )
+)
+
+tabla_kable <- kable(tflags,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Registro FLAGS: descripción de las banderas",
+               col.names = c("Bit N°", "Abreviatura", "Descripción"),
+               booktabs = TRUE,
+               escape = FALSE)
+
+
+
+if (knitr::is_latex_output()) {
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "5.5cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(tflags)), extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
 
 El resto de bits están reservados / no se utilizan.
 
