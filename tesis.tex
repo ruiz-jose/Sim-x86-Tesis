@@ -2192,6 +2192,30 @@ La ALU (\emph{Arithmetic Logic Unit}) permite realizar operaciones aritméticas 
 
 El registro \texttt{FLAGS} es un registro de 8 bits que contiene las \emph{flags} mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
 
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tflags}Registro FLAGS: descripción de las banderas}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedleft\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}p{5.5cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bit N°}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Abreviatura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
+\midrule
+\textbf{0} & Z & Flag de cero (Zero)\\
+\addlinespace[10pt]
+\textbf{1} & C & Flag de acarreo (Carry)\\
+\addlinespace[10pt]
+\textbf{2} & O & Flag de desbordamiento (Overflow)\\
+\addlinespace[10pt]
+\textbf{3} & S & Flag de signo (Sign)\\
+\addlinespace[10pt]
+\textbf{4} & I & Flag de interrupción (Interrupt)\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
 El resto de bits están reservados / no se utilizan.
 
 \hypertarget{memoria}{%
