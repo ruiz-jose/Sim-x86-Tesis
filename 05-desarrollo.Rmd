@@ -223,8 +223,8 @@ VonSim [@vonsim] es una herramienta diseñada específicamente para la enseñanz
 
 En síntesis, VonSim constituye una herramienta robusta y accesible que simplifica y facilita el aprendizaje de conceptos complejos de arquitectura de computadoras mediante simulación práctica y una interfaz pedagógicamente orientada.
 
-### Flags
-El registro `FLAGS` es un registro de 8 bits que contiene las _flags_ o banderas mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
+### Las modificaciones principales de VonSim
+En el VonSim8 el registro `FLAGS` es un registro de 8 bits que contiene las _flags_ o banderas mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
 
 ```{r flags, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -277,9 +277,9 @@ if (knitr::is_latex_output()) {
 
 El resto de bits del registro de estado están reservados.
 
-Del registro de estado del simulador original se ocultaron las banderas O y S ya que en los primeros ejercicios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador. 
+Del registro FLAGS del simulador VonSim se ocultaron las banderas O y S ya que en los primeros ejercicios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador. 
 
-```{r banderas, echo=FALSE, fig.cap="Registro de estado", fig.align = 'center', out.width = "85%"}
+```{r banderas, echo=FALSE, fig.cap="Registro FLAGS", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/flags.png")
 ```
 
