@@ -2921,8 +2921,73 @@ Instrucción de control CPU \texttt{HLT}
 \hypertarget{modulo-de-entradasalida-e-interrupciones}{%
 \section{Modulo de Entrada/Salida e interrupciones}\label{modulo-de-entradasalida-e-interrupciones}}
 
+El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos.
+
+Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
+
+\begin{itemize}
+\tightlist
+\item
+  Teclado y pantalla: un teclado y una pantalla.
+\item
+  PIC: un PIC, además de la tecla F10 para interrumpir, y un timer con su reloj.
+\item
+  PIO: un PIO que puede conectarse a llaves y luces o a una impresora Centronics.
+\item
+  Handshake: Una impresora Centronics conectada por un Handshake.
+\end{itemize}
+
 En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
 A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.
+
+La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones IN y OUT. Cuando se quiere acceder a un módulo de entrada/salida, la CPU activa la señal IO/M, lo que causa que un selector de chips (chip select) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
+
+El rango de direcciones de la memoria de entrada/salida es de 00h hasta FFh (256 direcciones).
+
+Registros de E/S
+Estos son las registros de entrada/salida disponibles en el simulador, todos de 8 bits:
+
+Dirección Nombre Módulo
+10h CONT Timer
+11h COMP Timer
+20h EOI PIC
+21h IMR PIC
+22h IRR PIC
+23h ISR PIC
+24h INT0 PIC
+25h INT1 PIC
+26h INT2 PIC
+27h INT3 PIC
+28h INT4 PIC
+29h INT5 PIC
+2Ah INT6 PIC
+2Bh INT7 PIC
+30h PA PIO
+31h PB PIO
+32h CA PIO
+33h CB PIO
+40h DATA Handshake
+41h STATE Handshake
+Edit this page
+
+Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
+- \texttt{OUT\ puerto,\ AL}: Esta instrucción envía el contenido del registro \texttt{AL} al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de \texttt{00h} a \texttt{FFh}). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
+- \texttt{IN\ AL,\ puerto}: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro \texttt{AL}. Al igual que la instrucción \texttt{OUT}, el puerto es una dirección de 8 bits.
+
+\begin{lstlisting}
+; Enciende las luces (una sí, una no): 1010 1010b
+; 31h = PB --> puerto de datos para las luces (LEDs)
+; 33h = CB --> puerto de control para las luces
+
+; Configura todos los bits de PB como salida para controlar las luces
+mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
+out 33h, al              ; Escribe en CB para configurar PB como salida
+
+; Enciende las luces alternadas: 1010 1010b (170 decimal)
+mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
+out 31h, al              ; Escribe el valor en PB para actualizar las luces
+
+hlt                      ; Detiene la ejecución del programa\end{lstlisting}
 
 \begin{table}[!h]
 \centering
@@ -2950,25 +3015,6 @@ A continuación, se detalla el conjunto completo de instrucciones, incluyendo su
 \bottomrule
 \end{tabular}}
 \end{table}
-
-Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
-- \texttt{OUT\ puerto,\ AL}: Esta instrucción envía el contenido del registro \texttt{AL} al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de \texttt{00h} a \texttt{FFh}). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
-- \texttt{IN\ AL,\ puerto}: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro \texttt{AL}. Al igual que la instrucción \texttt{OUT}, el puerto es una dirección de 8 bits.
-
-\begin{lstlisting}
-; Enciende las luces (una sí, una no): 1010 1010b
-; 31h = PB --> puerto de datos para las luces (LEDs)
-; 33h = CB --> puerto de control para las luces
-
-; Configura todos los bits de PB como salida para controlar las luces
-mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
-out 33h, al              ; Escribe en CB para configurar PB como salida
-
-; Enciende las luces alternadas: 1010 1010b (170 decimal)
-mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
-out 31h, al              ; Escribe el valor en PB para actualizar las luces
-
-hlt                      ; Detiene la ejecución del programa\end{lstlisting}
 
 Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el codigo de operacion 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
 
