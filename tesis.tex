@@ -2124,7 +2124,7 @@ Las modificaciones implementadas se alinean con los contenidos curriculares de l
 \hypertarget{estructura-del-vonsim8}{%
 \subsection{Estructura del VonSim8}\label{estructura-del-vonsim8}}
 
-Esta sección describe la estructura del simulador VonSims8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. Se describe en la siguiente tabla \ref{tab:estructuravonsim8} los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico:
+En esta sección se describe la estructura del simulador VonSim8. El diseño de los registros se concibió con un propósito pedagógico: facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, elementos fundamentales en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. Se describe en la siguiente tabla \ref{tab:estructuravonsim8} los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico:
 
 \begin{table}[!h]
 \centering
@@ -2155,7 +2155,7 @@ Esta sección describe la estructura del simulador VonSims8, el diseño de los r
 
 Dentro de los registros específicos que no pueden ser accedidos por el usuario, se encuentra el registro \texttt{SP} (\emph{stack pointer}) para el funcionamiento de la pila, el registro \texttt{FLAGS} (\emph{flags register}), el \texttt{IP} (\emph{instruction pointer}) que almacena la dirección de la próxima instrucción a ejecutar, el \texttt{IR} (\emph{instruction register}) que almacena el byte de la instrucción que se está analizando/decodificando en un instante dado. También hay 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el \texttt{MAR} (\emph{memory address register}) encargado de almacenar direcciones de memoria, y el \texttt{MBR} (\emph{memory buffer register}) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.
 
-Además, dos registros específicos que sirven de intermediarios para realizar ejecutar instrucciones, como pueden ser el \texttt{ri} para almacenar una dirección temporal, el \texttt{id} para almacenar un dato temporal.
+Adicionalmente, se incluyen dos registros auxiliares: \texttt{ri}, destinado al almacenamiento temporal de direcciones, e \texttt{id}, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones.
 
 \hypertarget{unidad-de-control}{%
 \subsection{Unidad de Control}\label{unidad-de-control}}
@@ -2246,7 +2246,7 @@ El bus de datos, direcciones y control se implementa como un conjunto de líneas
 \caption{Buses}\label{fig:buses}
 \end{figure}
 
-Dentro de los buses interno de la CPU se incluyen circulos que representan circuitos multiplexores, que son componentes clave en la selección de datos y direcciones durante el ciclo de instrucción. Estos multiplexores permiten dirigir las señales adecuadas a los registros y a la ALU (Unidad Aritmético Lógica), facilitando así el flujo de datos dentro del procesador. Un multiplexor (MUX) es un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una, y solo una, de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida
+Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Estos multiplexores permiten dirigir las señales adecuadas a los registros y a la ALU (Unidad Aritmético Lógica), facilitando así el flujo de datos dentro del procesador. Un multiplexor (MUX) es un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una, y solo una, de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida \protect\hyperlink{ref-mano2017digital}{{[}81{]}}.
 
 \hypertarget{perifuxe9ricos-teclado-y-pantalla}{%
 \subsection{Periféricos: teclado y pantalla}\label{perifuxe9ricos-teclado-y-pantalla}}
@@ -2306,7 +2306,7 @@ El repertorio de instrucciones se diseñó como una abstracción deliberada insp
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
-Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida de acuerdo al programa de estudio de la asignatura Arquitectura de Computadoras \protect\hyperlink{ref-cd023_25_programa2025}{{[}81{]}}.
+Para facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instruccion se propone el siguente repertorio de instrucciones, luego cuando se avance sobre los modulos de entrada y salida de acuerdo al programa de estudio de la asignatura Arquitectura de Computadoras \protect\hyperlink{ref-cd023_25_programa2025}{{[}82{]}}.
 
 \begin{table}[!h]
 \centering
@@ -3799,8 +3799,12 @@ Relevar necesidades, experiencias y percepciones de docentes especializados en l
 \CSLLeftMargin{{[}80{]} }%
 \CSLRightInline{Open Source Initiative, {``Open source licenses: Understanding {GPL}, {MIT}, and {Apache} licenses.''} 2024. Accessed: Jan. 15, 2024. {[}Online{]}. Available: \url{https://opensource.org/licenses/}}
 
-\leavevmode\vadjust pre{\hypertarget{ref-cd023_25_programa2025}{}}%
+\leavevmode\vadjust pre{\hypertarget{ref-mano2017digital}{}}%
 \CSLLeftMargin{{[}81{]} }%
+\CSLRightInline{M. M. Mano and M. D. Ciletti, \emph{Digital design: With an introduction to the verilog HDL, VHDL, and SystemVerilog}. Pearson, 2017.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-cd023_25_programa2025}{}}%
+\CSLLeftMargin{{[}82{]} }%
 \CSLRightInline{Facultad de Ciencias de la Administración, UNER, {``{Programa de la asignatura Arquitectura de Computadoras}.''} Consejo Directivo, Facultad de Ciencias de la Administración, UNER; \url{https://digesto.uner.edu.ar/documento.frame.php?cod=170316}, Mar. 2025.}
 
 \end{CSLReferences}

@@ -506,7 +506,7 @@ VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en
 </div>
 <div id="estructura-del-vonsim8" class="section level3 hasAnchor" number="5.2.4">
 <h3><span class="header-section-number">5.2.4</span> Estructura del VonSim8<a href="diseño-del-simulador.html#estructura-del-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Esta sección describe la estructura del simulador VonSims8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>. Se describe en la siguiente tabla <a href="diseño-del-simulador.html#tab:estructuravonsim8">5.3</a> los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico:</p>
+<p>En esta sección se describe la estructura del simulador VonSim8. El diseño de los registros se concibió con un propósito pedagógico: facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, elementos fundamentales en el estudio de la Arquitectura de Computadoras <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>. Se describe en la siguiente tabla <a href="diseño-del-simulador.html#tab:estructuravonsim8">5.3</a> los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico:</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:estructuravonsim8">Tabla 5.3: </span>Estructura VonSim8: componentes principales y características
@@ -613,7 +613,7 @@ Señal de reconocimiento de interrupción (<code>INTA</code>, 1 bit).
 </tbody>
 </table>
 <p>Dentro de los registros específicos que no pueden ser accedidos por el usuario, se encuentra el registro <code>SP</code> (<em>stack pointer</em>) para el funcionamiento de la pila, el registro <code>FLAGS</code> (<em>flags register</em>), el <code>IP</code> (<em>instruction pointer</em>) que almacena la dirección de la próxima instrucción a ejecutar, el <code>IR</code> (<em>instruction register</em>) que almacena el byte de la instrucción que se está analizando/decodificando en un instante dado. También hay 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el <code>MAR</code> (<em>memory address register</em>) encargado de almacenar direcciones de memoria, y el <code>MBR</code> (<em>memory buffer register</em>) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.</p>
-<p>Además, dos registros específicos que sirven de intermediarios para realizar ejecutar instrucciones, como pueden ser el <code>ri</code> para almacenar una dirección temporal, el <code>id</code> para almacenar un dato temporal.</p>
+<p>Adicionalmente, se incluyen dos registros auxiliares: <code>ri</code>, destinado al almacenamiento temporal de direcciones, e <code>id</code>, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones.</p>
 </div>
 <div id="unidad-de-control" class="section level3 hasAnchor" number="5.2.5">
 <h3><span class="header-section-number">5.2.5</span> Unidad de Control<a href="diseño-del-simulador.html#unidad-de-control" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -735,7 +735,7 @@ Figura 5.16: Memoria principal
 Figura 5.17: Buses
 </p>
 </div>
-<p>Dentro de los buses interno de la CPU se incluyen circulos que representan circuitos multiplexores, que son componentes clave en la selección de datos y direcciones durante el ciclo de instrucción. Estos multiplexores permiten dirigir las señales adecuadas a los registros y a la ALU (Unidad Aritmético Lógica), facilitando así el flujo de datos dentro del procesador. Un multiplexor (MUX) es un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una, y solo una, de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida</p>
+<p>Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Estos multiplexores permiten dirigir las señales adecuadas a los registros y a la ALU (Unidad Aritmético Lógica), facilitando así el flujo de datos dentro del procesador. Un multiplexor (MUX) es un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una, y solo una, de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida <span class="citation">(<a href="#ref-mano2017digital">Mano and Ciletti 2017</a>)</span>.</p>
 </div>
 <div id="periféricos-teclado-y-pantalla" class="section level3 hasAnchor" number="5.2.9">
 <h3><span class="header-section-number">5.2.9</span> Periféricos: teclado y pantalla<a href="diseño-del-simulador.html#periféricos-teclado-y-pantalla" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -2201,6 +2201,9 @@ Hennessy, John L., and David A. Patterson. 2017a. <em>Computer Architecture: A Q
 </div>
 <div id="ref-intel8086manual" class="csl-entry">
 Intel Corporation. 1979. <em>Intel 8086 Family User’s Manual</em>. Intel Corporation. <a href="https://bitsavers.org/components/intel/8086/9800722-03_The_8086_Family_Users_Manual_Oct79.pdf">https://bitsavers.org/components/intel/8086/9800722-03_The_8086_Family_Users_Manual_Oct79.pdf</a>.
+</div>
+<div id="ref-mano2017digital" class="csl-entry">
+Mano, M. Morris, and Michael D. Ciletti. 2017. <em>Digital Design: With an Introduction to the Verilog HDL, VHDL, and SystemVerilog</em>. Pearson.
 </div>
 <div id="ref-opensource_licensing_2024" class="csl-entry">
 Open Source Initiative. 2024. <span>“Open Source Licenses: Understanding <span>GPL</span>, <span>MIT</span>, and <span>Apache</span> Licenses.”</span> <a href="https://opensource.org/licenses/">https://opensource.org/licenses/</a>.
