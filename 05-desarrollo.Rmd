@@ -1448,8 +1448,8 @@ Instrucción de control CPU `HLT`
   4. HLT – Detiene la ejecución de la CPU.
 
 ## Modulo de Entrada/Salida e interrupciones
- El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos.
-
+En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
+El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos.
 Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
 
 - Teclado y pantalla: un teclado y una pantalla.
@@ -1457,41 +1457,49 @@ Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo 
 - PIO: un PIO que puede conectarse a llaves y luces o a una impresora Centronics.
 - Handshake: Una impresora Centronics conectada por un Handshake.
 
-En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
-A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.
+### Pantalla
+La pantalla es un dispositivo de salida que permite mostrar caracteres. La forma de comunicarse con la pantalla es mediante una llamada al sistema. Esto es así por simplicidad, ya que una pantalla real es mucho más compleja.
 
-La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones IN y OUT. Cuando se quiere acceder a un módulo de entrada/salida, la CPU activa la señal IO/M, lo que causa que un selector de chips (chip select) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
+Con la llamada INT 7 se escribe una cadena de caracteres en la pantalla. Recibe dos parámetros:
 
-El rango de direcciones de la memoria de entrada/salida es de 00h hasta FFh (256 direcciones).
+AL: longitud de la cadena a imprimir
+BL: dirección de memoria donde empieza la cadena
 
-Registros de E/S
-Estos son las registros de entrada/salida disponibles en el simulador, todos de 8 bits:
+```{r  code´pantalla, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+org 10h
+cadena db `Hola!`
 
-Dirección	Nombre	Módulo
-10h	CONT	Timer
-11h	COMP	Timer
-20h	EOI	PIC
-21h	IMR	PIC
-22h	IRR	PIC
-23h	ISR	PIC
-24h	INT0	PIC
-25h	INT1	PIC
-26h	INT2	PIC
-27h	INT3	PIC
-28h	INT4	PIC
-29h	INT5	PIC
-2Ah	INT6	PIC
-2Bh	INT7	PIC
-30h	PA	PIO
-31h	PB	PIO
-32h	CA	PIO
-33h	CB	PIO
-40h	DATA	Handshake
-41h	STATE	Handshake
-Edit this page
+org 20h
+mov BL, offset cadena
+mov AL, 5
+int 7
+; Se imprime Hola! (sin las comillas) en la pantalla.
+hlt\\end{lstlisting}
+  ")
+} else {
+  cat("
+  ```assembly
+org 10h
+cadena db `Hola!`
 
+org 20h
+mov BL, offset cadena
+mov AL, 5
+int 7
+; Se imprime Hola! (sin las comillas) en la pantalla.
+hlt
+```")
+}
+```
 
+Hay tres caracteres especiales:
 
+- el carácter de retroceso (`BS`, 8 en decimal) borra el carácter previo;
+- el carácter de salto de línea (`LF`, 10 en decimal) imprime, en efecto, un salto de línea — útil para no imprimir todo en una sola línea;
+- el carácter de _form feed_ (`FF`, 12 en decimal) limpia la pantalla.
 
 ### Teclado
 El teclado es un dispositivo de entrada que permite al usuario ingresar caracteres al sistema. La forma de comunicarse con el teclado es mediante una llamada al sistema. Esto es así por simplicidad, ya que un teclado real es mucho más complejo.
@@ -1533,6 +1541,44 @@ hlt
 ```")
 }
 ```
+### Memoria E/S: Instrucciones IN y OUT
+
+La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones IN y OUT. Cuando se quiere acceder a un módulo de entrada/salida, la CPU activa la señal IO/M, lo que causa que un selector de chips (chip select) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
+
+El rango de direcciones de la memoria de entrada/salida es de 00h hasta FFh (256 direcciones).
+ 
+La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones [`IN`] y [`OUT`]). Cuando se quiere acceder a un módulo de entrada/salida, la [CPU] activa la señal `IO/M`, lo que causa que un selector de chips (_chip select_) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
+
+El rango de direcciones de la memoria de entrada/salida es de `00h` hasta `FFh` (256 direcciones).
+
+### Registros de E/S
+
+Estos son las registros de entrada/salida disponibles en el simulador, todos de 8 bits:
+
+| Dirección | Nombre  | Módulo                   |
+| :-------: | :-----: | :----------------------- |
+|   `10h`   | `CONT`  | [Timer]         |
+|   `11h`   | `COMP`  | [Timer]         |
+|   `20h`   |  `EOI`  | [PIC]           |
+|   `21h`   |  `IMR`  | [PIC]            |
+|   `22h`   |  `IRR`  | [PIC]            |
+|   `23h`   |  `ISR`  | [PIC]             |
+|   `24h`   | `INT0`  | [PIC]             |
+|   `25h`   | `INT1`  | [PIC]            |
+|   `26h`   | `INT2`  | [PIC]            |
+|   `27h`   | `INT3`  | [PIC]            |
+|   `28h`   | `INT4`  | [PIC]           |
+|   `29h`   | `INT5`  | [PIC]             |
+|   `2Ah`   | `INT6`  | [PIC]             |
+|   `2Bh`   | `INT7`  | [PIC]            |
+|   `30h`   |  `PA`   | [PIO]          |
+|   `31h`   |  `PB`   | [PIO]            |
+|   `32h`   |  `CA`   | [PIO]            |
+|   `33h`   |  `CB`   | [PIO]             |
+|   `40h`   | `DATA`  | [Handshake] |
+|   `41h`   | `STATE` | [Handshake] |
+
+
 
 
 Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
