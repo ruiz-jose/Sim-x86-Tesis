@@ -553,7 +553,7 @@ knitr::include_graphics(path = "images/esquemavonsim8.png")
 ### Repertorio de instrucciones
 El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, permitiendo a los estudiantes familiarizarse con las operaciones básicas sin abrumarse con la complejidad del conjunto completo de instrucciones x86.
 
-El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque progresivo permite introducir los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje [@hennessy2017computer; @tanenbaum_structured_2016]. La Tabla \@ref(tab:setreducido) muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.  
+El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque progresivo permite introducir los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje [@hennessy2017computer; @tanenbaum_structured_2016]. La Tabla \@ref(tab:setreducido) muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. El repertorio se centra en instrucciones de transferencia y procesamiento de datos, junto con aquellas de control de flujo. Esta selección permite introducir los conceptos básicos de la arquitectura x86 de manera accesible, evitando la complejidad del repertorio completo y alineándose con los objetivos pedagógicos del curso.  
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
@@ -628,7 +628,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-El parámetro `xx` en las instrucciones `Jxx` representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
+El parámetro `xx` en las instrucciones `Jxx` hace referencia a diferentes combinaciones de banderas de estado (flags), tales como cero (Z), acarreo (C), signo (S) y desbordamiento (O). La negación de un flag se indica con la letra N, lo que amplía la flexibilidad de control del flujo de ejecución en programas condicionales.
 
 ```{r jxx, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -705,7 +705,7 @@ z=0
 z = x + y
 ```
 
-Su traduccion a ensamblador sería:
+La traducción equivalente al lenguaje ensamblador sería:
 
 ```{r  codearit, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -918,11 +918,9 @@ FinBucle: 	hlt```")
 }
 ```
 
-Estas instrucciones permiten a los estudiantes comprender cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
-Estas categorías de instrucciones se seleccionaron cuidadosamente para proporcionar una base sólida en los conceptos fundamentales de la arquitectura x86, permitiendo a los estudiantes familiarizarse con las operaciones más comunes y relevantes sin la complejidad adicional de un repertorio completo.
-Estas categorías se alinean con los objetivos pedagógicos del curso, permitiendo a los estudiantes familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo. 
+La selección de instrucciones busca facilitar la comprensión de los procesos fundamentales de la arquitectura de computadoras: la ejecución de operaciones aritméticas, la transferencia de datos entre registros y memoria, y el control del flujo de ejecución. Al tratarse de un repertorio reducido e inspirado en la arquitectura x86, se garantiza un equilibrio entre rigor conceptual y simplicidad pedagógica. 
 
-A traves de la implementación de estas instrucciones, el simulador VonSim8 busca proporcionar una experiencia de aprendizaje que facilite la comprensión de los principios fundamentales de la arquitectura de computadores, al tiempo que se minimiza la carga cognitiva en las etapas iniciales del aprendizaje. Permite al alumno entender como se ejecutan los operaciones artimeticas en la computadora, como se transfieren los datos entre registros y memoria, y como se controla el flujo de ejecución de un programa.
+La implementación de estas instrucciones en el simulador VonSim8 está orientada a proporcionar una experiencia de aprendizaje que apoye la comprensión de los principios fundamentales de la arquitectura de computadoras, reduciendo la carga cognitiva en las fases iniciales de la formación y fortaleciendo la transición hacia repertorios más complejos. El simulador facilita que el estudiante comprenda cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
 
 ### Formato de instrucciones
 Las instrucciones del simulador VonSim8 poseen una longitud variable (1, 2 o 3 bytes), donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
