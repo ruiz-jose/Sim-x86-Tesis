@@ -2951,6 +2951,58 @@ A continuación, se detalla el conjunto completo de instrucciones, incluyendo su
 \end{tabular}}
 \end{table}
 
+Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
+- \texttt{OUT\ puerto,\ AL}: Esta instrucción envía el contenido del registro \texttt{AL} al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de \texttt{00h} a \texttt{FFh}). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
+- \texttt{IN\ AL,\ puerto}: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro \texttt{AL}. Al igual que la instrucción \texttt{OUT}, el puerto es una dirección de 8 bits.
+
+\begin{lstlisting}
+; Enciende las luces (una sí, una no): 1010 1010b
+; 31h = PB --> puerto de datos para las luces (LEDs)
+; 33h = CB --> puerto de control para las luces
+
+; Configura todos los bits de PB como salida para controlar las luces
+mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
+out 33h, al              ; Escribe en CB para configurar PB como salida
+
+; Enciende las luces alternadas: 1010 1010b (170 decimal)
+mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
+out 31h, al              ; Escribe el valor en PB para actualizar las luces
+
+hlt                      ; Detiene la ejecución del programa\end{lstlisting}
+
+Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el codigo de operacion 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tisa}Categorías de instrucciones y códigos de operación en VonSim8}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\midrule
+\textbf{Transferencia de datos} & MOV & {0, 1, 2} & Copiar entre registros, cargar a registro, almacenar en memoria\\
+\addlinespace[10pt]
+\textbf{Procesamiento de datos} & ADD & {3, 4, 5} & Operación aritmética: operando1 ← operando1 + operando2\\
+\addlinespace[10pt]
+\textbf{} & SUB & {6, 7, 8} & Operación aritmética: operando1 ← operando1 - operando2\\
+\addlinespace[10pt]
+\textbf{} & CMP & {9, 10, 11} & Comparación: operando1 - operando2 (no actualiza el destino)\\
+\addlinespace[10pt]
+\textbf{Control de flujo} & JMP / Jxx / CALL / INT & {12} & Salto incondicional JMP, condicionales Jxx, llamada CALL, INT: llamar rutina de interrupción\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{Gestión de flujo} & RET / IRET / CLI / STI / HLT & {13} & RET: retorno, IRET: retornar de interrupción, NOP: no opera, HLT: detiene el CPU\\
+\addlinespace[10pt]
+\textbf{Manejo de pila y E/S} & PUSH / POP / OUT / IN & {14} & PUSH: poner en la pila, POP: retirar de la pila, OUT: enviar a puerto, IN: recibir desde puerto\\
+\addlinespace[10pt]
+\textbf{Miscelánea} & AND / OR / XOR / NOT / INC / DEC & {15} & Operaciones lógicas y aritméticas\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
 \hypertarget{pila}{%
 \section{Pila}\label{pila}}
 
@@ -3030,39 +3082,6 @@ El simulador permite realizar llamadas al sistema o \emph{syscalls}. En el simul
 Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
 
 El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones \texttt{A0h}, \texttt{B0h} y \texttt{C0h} respectivamente.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:tisa}Categorías de instrucciones y códigos de operación en VonSim8}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
-\midrule
-\textbf{Transferencia de datos} & MOV & {0, 1, 2} & Copiar entre registros, cargar a registro, almacenar en memoria\\
-\addlinespace[10pt]
-\textbf{Procesamiento de datos} & ADD & {3, 4, 5} & Operación aritmética: operando1 ← operando1 + operando2\\
-\addlinespace[10pt]
-\textbf{} & SUB & {6, 7, 8} & Operación aritmética: operando1 ← operando1 - operando2\\
-\addlinespace[10pt]
-\textbf{} & CMP & {9, 10, 11} & Comparación: operando1 - operando2 (no actualiza el destino)\\
-\addlinespace[10pt]
-\textbf{Control de flujo} & JMP / Jxx / CALL / INT & {12} & Salto incondicional JMP, condicionales Jxx, llamada CALL, INT: llamar rutina de interrupción\\
-\addlinespace[10pt]
-\addlinespace
-\textbf{Gestión de flujo} & RET / IRET / CLI / STI / HLT & {13} & RET: retorno, IRET: retornar de interrupción, NOP: no opera, HLT: detiene el CPU\\
-\addlinespace[10pt]
-\textbf{Manejo de pila y E/S} & PUSH / POP / OUT / IN & {14} & PUSH: poner en la pila, POP: retirar de la pila, OUT: enviar a puerto, IN: recibir desde puerto\\
-\addlinespace[10pt]
-\textbf{Miscelánea} & AND / OR / XOR / NOT / INC / DEC & {15} & Operaciones lógicas y aritméticas\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el codigo de operacion 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
 
 \hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones-de-pila-e-interrupciones}{%
 \subsection{Etapa de ejecución de instrucciones de pila e interrupciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones-de-pila-e-interrupciones}}
