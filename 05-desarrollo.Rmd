@@ -1508,59 +1508,51 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-## Pila
-El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo _Last In, First Out_ (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (`FFh`) y creciendo hacia las direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se guarda en el registro `SP`. Todos los elementos de la pila son de 8 bits.
+Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
+- `OUT puerto, AL`: Esta instrucción envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
+- `IN AL, puerto`: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro `AL`. Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
 
-## Subrutinas
-El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción [`CALL`]. Esta instrucción almacena el `IP` en la [pila], y luego realiza un salto a la dirección de la subrutina, modificando el `IP` para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción [`RET`], que desapila la dirección apilada previamente por `CALL` y restaura el `IP`, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
 
-Ejemplo de subrutina:
+```{r  codeluces, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+; Enciende las luces (una sí, una no): 1010 1010b
+; 31h = PB --> puerto de datos para las luces (LEDs)
+; 33h = CB --> puerto de control para las luces
 
-```vonsim
-      mov al, 1
-      mov bl, 2
-      mov cl, 3
-      call sum3
-      ; ax = 6
-      hlt
+; Configura todos los bits de PB como salida para controlar las luces
+mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
+out 33h, al              ; Escribe en CB para configurar PB como salida
 
-      ; suma al, bl y cl
-      sum3: add al, bl
-            add al, cl
-            ret
+; Enciende las luces alternadas: 1010 1010b (170 decimal)
+mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
+out 31h, al              ; Escribe el valor en PB para actualizar las luces
+
+hlt                      ; Detiene la ejecución del programa\\end{lstlisting}
+  ")
+} else {
+  cat("
+  ```assembly
+; Enciende las luces (una sí, una no): 1010 1010b
+; 31h = PB --> puerto de datos para las luces (LEDs)
+; 33h = CB --> puerto de control para las luces
+
+; Configura todos los bits de PB como salida para controlar las luces
+mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
+out 33h, al              ; Escribe en CB para configurar PB como salida
+
+; Enciende las luces alternadas: 1010 1010b (170 decimal)
+mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
+out 31h, al              ; Escribe el valor en PB para actualizar las luces
+
+hlt                      ; Detiene la ejecución del programa
+```")
+}
 ```
 
-## Interrupciones
-El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. 
-En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT` número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el codigo de operacion 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
 
-El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción `INT` respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, `IF=1` (la _flag_ de interrupciones activada).
-
-Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT`. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre `0` y `7`.
-
-Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
-
-Específicamente, el procesador:
-
-1. obtiene el número de la interrupción (0-7),
-2. apila el registro `FLAGS`,
-3. inhabilita las interrupciones `I=0`,
-4. apila el registro `IP`,
-5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
-6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
-
-Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en `IRET` en vez de `RET`.
-
-### Llamadas al sistema
-El simulador permite realizar llamadas al sistema o _syscalls_. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una _syscall_ basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
-
-- `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
-- `INT 6`: lee un carácter del teclado;
-- `INT 7`: escribe una cadena de caracteres en pantalla.
-
-Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
-
-El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones `A0h`, `B0h` y `C0h` respectivamente.
 
 ```{r tisa, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1639,7 +1631,62 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el codigo de operacion 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
+
+
+## Pila
+El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo _Last In, First Out_ (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (`FFh`) y creciendo hacia las direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se guarda en el registro `SP`. Todos los elementos de la pila son de 8 bits.
+
+## Subrutinas
+El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción [`CALL`]. Esta instrucción almacena el `IP` en la [pila], y luego realiza un salto a la dirección de la subrutina, modificando el `IP` para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción [`RET`], que desapila la dirección apilada previamente por `CALL` y restaura el `IP`, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
+
+Ejemplo de subrutina:
+
+```vonsim
+      mov al, 1
+      mov bl, 2
+      mov cl, 3
+      call sum3
+      ; ax = 6
+      hlt
+
+      ; suma al, bl y cl
+      sum3: add al, bl
+            add al, cl
+            ret
+```
+
+## Interrupciones
+El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. 
+En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT` número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción `INT` respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, `IF=1` (la _flag_ de interrupciones activada).
+
+Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT`. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre `0` y `7`.
+
+Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+Específicamente, el procesador:
+
+1. obtiene el número de la interrupción (0-7),
+2. apila el registro `FLAGS`,
+3. inhabilita las interrupciones `I=0`,
+4. apila el registro `IP`,
+5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
+6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
+
+Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en `IRET` en vez de `RET`.
+
+### Llamadas al sistema
+El simulador permite realizar llamadas al sistema o _syscalls_. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una _syscall_ basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
+
+- `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
+- `INT 6`: lee un carácter del teclado;
+- `INT 7`: escribe una cadena de caracteres en pantalla.
+
+Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
+
+El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones `A0h`, `B0h` y `C0h` respectivamente.
+
 
 ### Etapa de ejecución de instrucciones de pila e interrupciones
 A continuación se detallan los pasos específicos para cada tipo de instrucción:
