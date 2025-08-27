@@ -412,7 +412,7 @@ La unidad de control es responsable de coordinar todas las operaciones de la CPU
 - **Secuenciación**: Controla el orden de ejecución de las operaciones
 
 #### Memoria de Control
-Para una comprensión más profunda de cómo funciona la unidad de control, puedes visualizar la memoria de control que muestra las microinstrucciones y microoperaciones de cada instrucción.
+La memoria de control almacena microinstrucciones que guían la ejecución de cada instrucción en el simulador. Una representación visual de esta memoria, organizada en filas (microinstrucciones) y columnas (microoperaciones y señales de control), facilita la comprensión del papel que desempeña en la coordinación de la unidad de control [@stallings_computer_2021].
 
 #### Secuenciador
 El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
@@ -469,7 +469,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-El resto de bits están reservados / no se utilizan.
+Los bits restantes del registro FLAGS se encuentran reservados para futuras extensiones del simulador y no son utilizados en la versión actual.
 
 ### Memoria
 La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.
@@ -494,7 +494,7 @@ El simulador incluye la representación de un teclado y una pantalla con el obje
 knitr::include_graphics(path = "images/tecladopantalla.png")
 ```
 
-La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla \@ref(tab:bloquesfuncionales) resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
+La selección de estos bloques funcionales se fundamenta en dos criterios principales: por un lado, la necesidad de modelar los componentes esenciales de una computadora real; y por otro, la búsqueda de modularidad y claridad conceptual con fines pedagógicos. La Tabla \@ref(tab:bloquesfuncionales) resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
 
 ```{r bloquesfuncionales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -828,7 +828,6 @@ while x < 10:
     x = x + 1
 ```
 
-
 Su traduccion a ensamblador sería:
 
 ```{r  codewhile, results='asis', echo=FALSE}
@@ -983,7 +982,7 @@ Los modos de direccionamiento definidos son:
 
   - Inmediato (`d`): un operando es un valor contenido en la instrucción. 
 
-Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \@ref(tab:modosdireccionamiento) resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, junto con ejemplos de uso y su propósito pedagógico.
+Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \@ref(tab:modosdireccionamiento) resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, junto con ejemplos de uso:
 
 
 ```{r modosdireccionamiento, echo=FALSE, message=FALSE, warning=FALSE}
@@ -991,20 +990,33 @@ library(knitr)
 library(kableExtra)
 
 modosdireccionamiento <- data.frame(
-  Destino = c("Registro Rx",  "Memoria", "Dirección"),
+  Destino = c("Registro Rx",   
+    if (knitr::is_latex_output()) {
+      "Memoria puede ser: \\begin{itemize}\\item dirección [M]\\item dirección registro [BL] \\end{itemize}" # nolint: line_length_linter.
+    } else {
+      "Memoria puede ser: <ul><li>dirección `[M]`</li><li>dirección registro `[BL]`)</li></ul>" # nolint: line_length_linter.
+    }),
   Fuente = c(    
     if (knitr::is_latex_output()) {
-      "Puede ser:\\begin{itemize} \\item registro Ry (1)\\item dirección [M] (2)\\item dirección registro [BL] (3)\\item valor inmediato d (4)\\end{itemize}" # nolint: line_length_linter.
+      "Puede ser:\\begin{itemize} \\item registro Ry\\item dirección [M] \\item dirección registro [BL] \\item valor inmediato d \\end{itemize}" # nolint: line_length_linter.
     } else {
       "Puede ser:<li>registro `Ry`</li><ul><li>dirección `[M]`</li><li>dirección registro `[BL]`</li><li>valor inmediato `d`</li></ul>" # nolint: line_length_linter.
     }, if (knitr::is_latex_output()) {
-      "Operando destino puede ser: \\begin{itemize}\\item dirección [M]\\item dirección registro [BL] \\end{itemize} y operando fuente puede ser:\\begin{itemize} \\item Registro: Ry\\item valor en la instrucción d \\end{itemize}" # nolint: line_length_linter.
+      "Puede ser:\\begin{itemize} \\item Registro: Ry\\item valor en la instrucción d \\end{itemize}" # nolint: line_length_linter.
     } else {
-      "Operando destino puede ser: <ul><li>dirección `[M]`</li><li>dirección registro `[BL]`)</li></ul> y operando fuente puede ser:<ul><li>Registro: `Ry`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
-    }, "C: control de flujo"),
-  Ejemplo = c("MOV Rx, Ry", "MOV [M], Ry",
-    "Si tiene operando es una dirección de memoria M (*)"
-  ),
+      "Puede ser:<ul><li>Registro: `Ry`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
+    }),
+  Ejemplo = c(   
+    if (knitr::is_latex_output()) {
+      "\\begin{itemize} \\item Entre registro: MOV Rx, Ry\\item Directo: MOV Rx, [M] \\item Indirecto: MOV Rx, [BL]\\item Inmediato: MOV Rx, d \\end{itemize}" # nolint: line_length_linter.
+    } else {
+      "<li>Entre registro: MOV `Rx`,`Ry`</li><ul><li>Directo: MOV `Rx`,`[M]`</li><li>Indirecto: MOV `Rx`,`[BL]`</li><li>Inmediato: MOV `Rx`,`d`</li></ul>" # nolint: line_length_linter.
+    }, 
+    if (knitr::is_latex_output()) {
+      "\\begin{itemize} \\item Directo: MOV [M], Ry \\item Indirecto: MOV [BL], Ry\\item Directo-Inmediato: MOV [M], d\\item Indirecto-Inmediato: MOV [BL], d \\end{itemize}" # nolint: line_length_linter.
+    } else {
+      "<li>Directo: MOV `[M]`,`Ry`</li><li>Indirecto: MOV `[BL]`,`Ry`</li><li>Directo-Inmediato: MOV `[M]`,`d`</li><li>Indirecto-Inmediato: MOV `[BL]`,`d`</li></ul>" # nolint: line_length_linter.
+    }),
   stringsAsFactors = FALSE
 )
 
@@ -1028,7 +1040,7 @@ if (knitr::is_latex_output()) {
     row_spec(3, extra_latex_after = "\\midrule") %>%
     footnote(
       general = c(
-        "Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A y B.",
+        "Las instrucciones de dos operando, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
         "Rx y Ry puede ser un registro de proposito general: AL, BL, CL y DL."
       ),
       general_title = "Nota: ",
@@ -1051,7 +1063,7 @@ if (knitr::is_latex_output()) {
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
     row_spec(3, extra_css = "border-top: 2px solid #000;") %>%
     footnote(
-      general = "Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A y B.",
+      general = "Las instrucciones de dos operando, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
       general_title = "Nota: ",
       threeparttable = TRUE
     )
