@@ -2175,7 +2175,7 @@ La unidad de control es responsable de coordinar todas las operaciones de la CPU
 \hypertarget{memoria-de-control}{%
 \subsubsection{Memoria de Control}\label{memoria-de-control}}
 
-Para una comprensión más profunda de cómo funciona la unidad de control, puedes visualizar la memoria de control que muestra las microinstrucciones y microoperaciones de cada instrucción.
+La memoria de control almacena microinstrucciones que guían la ejecución de cada instrucción en el simulador. Una representación visual de esta memoria, organizada en filas (microinstrucciones) y columnas (microoperaciones y señales de control), facilita la comprensión del papel que desempeña en la coordinación de la unidad de control \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
 
 \hypertarget{secuenciador}{%
 \subsubsection{Secuenciador}\label{secuenciador}}
@@ -2216,7 +2216,7 @@ El registro \texttt{FLAGS} es un registro de 8 bits que contiene las \emph{flags
 \end{tabular}}
 \end{table}
 
-El resto de bits están reservados / no se utilizan.
+Los bits restantes del registro FLAGS se encuentran reservados para futuras extensiones del simulador y no son utilizados en la versión actual.
 
 \hypertarget{memoria}{%
 \subsection{Memoria}\label{memoria}}
@@ -2262,7 +2262,7 @@ El simulador incluye la representación de un teclado y una pantalla con el obje
 \caption{Teclado y pantalla}\label{fig:tecladopantalla}
 \end{figure}
 
-La elección de estos bloques funcionales responde tanto a la necesidad de modelar componentes esenciales de una computadora real como a criterios pedagógicos de modularidad y claridad conceptual. La Tabla \ref{tab:bloquesfuncionales} resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
+La selección de estos bloques funcionales se fundamenta en dos criterios principales: por un lado, la necesidad de modelar los componentes esenciales de una computadora real; y por otro, la búsqueda de modularidad y claridad conceptual con fines pedagógicos. La Tabla \ref{tab:bloquesfuncionales} resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
 
 \begin{table}[!h]
 \centering
@@ -2302,7 +2302,7 @@ La Figura \ref{fig:esquemavonsim8} presenta una visión esquemática de la arqui
 
 El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, permitiendo a los estudiantes familiarizarse con las operaciones básicas sin abrumarse con la complejidad del conjunto completo de instrucciones x86.
 
-El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque progresivo permite introducir los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}28{]}}. La Tabla \ref{tab:setreducido} muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.
+El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque progresivo permite introducir los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}28{]}}. La Tabla \ref{tab:setreducido} muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. El repertorio se centra en instrucciones de transferencia y procesamiento de datos, junto con aquellas de control de flujo. Esta selección permite introducir los conceptos básicos de la arquitectura x86 de manera accesible, evitando la complejidad del repertorio completo y alineándose con los objetivos pedagógicos del curso.
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
@@ -2337,7 +2337,7 @@ Para facilitar el aprendizaje de la programación en ensamblador e introducir el
 \end{tabular}}
 \end{table}
 
-El parámetro \texttt{xx} en las instrucciones \texttt{Jxx} representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
+El parámetro \texttt{xx} en las instrucciones \texttt{Jxx} hace referencia a diferentes combinaciones de banderas de estado (flags), tales como cero (Z), acarreo (C), signo (S) y desbordamiento (O). La negación de un flag se indica con la letra N, lo que amplía la flexibilidad de control del flujo de ejecución en programas condicionales.
 
 \begin{table}[!h]
 \centering
@@ -2385,7 +2385,7 @@ En base a las entrevistas con los docentes y el análisis de los contenidos del 
 \end{Highlighting}
 \end{Shaded}
 
-Su traduccion a ensamblador sería:
+La traducción equivalente al lenguaje ensamblador sería:
 
 \begin{lstlisting}
   x db 2
@@ -2512,11 +2512,9 @@ Proximo:    add BL, 1         ; BL = BL + 1
 FinBucle:   hlt
 \end{lstlisting}
 
-Estas instrucciones permiten a los estudiantes comprender cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
-Estas categorías de instrucciones se seleccionaron cuidadosamente para proporcionar una base sólida en los conceptos fundamentales de la arquitectura x86, permitiendo a los estudiantes familiarizarse con las operaciones más comunes y relevantes sin la complejidad adicional de un repertorio completo.
-Estas categorías se alinean con los objetivos pedagógicos del curso, permitiendo a los estudiantes familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.
+La selección de instrucciones busca facilitar la comprensión de los procesos fundamentales de la arquitectura de computadoras: la ejecución de operaciones aritméticas, la transferencia de datos entre registros y memoria, y el control del flujo de ejecución. Al tratarse de un repertorio reducido e inspirado en la arquitectura x86, se garantiza un equilibrio entre rigor conceptual y simplicidad pedagógica.
 
-A traves de la implementación de estas instrucciones, el simulador VonSim8 busca proporcionar una experiencia de aprendizaje que facilite la comprensión de los principios fundamentales de la arquitectura de computadores, al tiempo que se minimiza la carga cognitiva en las etapas iniciales del aprendizaje. Permite al alumno entender como se ejecutan los operaciones artimeticas en la computadora, como se transfieren los datos entre registros y memoria, y como se controla el flujo de ejecución de un programa.
+La implementación de estas instrucciones en el simulador VonSim8 está orientada a proporcionar una experiencia de aprendizaje que apoye la comprensión de los principios fundamentales de la arquitectura de computadoras, reduciendo la carga cognitiva en las fases iniciales de la formación y fortaleciendo la transición hacia repertorios más complejos. El simulador facilita que el estudiante comprenda cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
 
 \hypertarget{formato-de-instrucciones}{%
 \subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
@@ -2557,7 +2555,7 @@ Los modos de direccionamiento definidos son:
   Inmediato (\texttt{d}): un operando es un valor contenido en la instrucción.
 \end{itemize}
 
-Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \ref{tab:modosdireccionamiento} resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, junto con ejemplos de uso y su propósito pedagógico.
+Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \ref{tab:modosdireccionamiento} resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, junto con ejemplos de uso:
 
 \begin{table}[!h]
 \centering
@@ -2566,20 +2564,20 @@ Estos modos de direccionamiento permiten al simulador representar una variedad d
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
 \begin{threeparttable}
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{8cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}p{8cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Destino}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Fuente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ejemplo}}}\\
 \midrule
-\textbf{Registro Rx} & Puede ser:\begin{itemize} \item registro Ry (1)\item dirección [M] (2)\item dirección registro [BL] (3)\item valor inmediato d (4)\end{itemize} & MOV Rx, Ry\\
-\textbf{Memoria} & Operando destino puede ser: \begin{itemize}\item dirección [M]\item dirección registro [BL] \end{itemize} y operando fuente puede ser:\begin{itemize} \item Registro: Ry\item valor en la instrucción d \end{itemize} & MOV [M], Ry\\
-\textbf{Dirección} & C: control de flujo & Si tiene operando es una dirección de memoria M (*)\\
-\midrule
+\textbf{Registro Rx} & Puede ser:\begin{itemize} \item registro Ry\item dirección [M] \item dirección registro [BL] \item valor inmediato d \end{itemize} & \begin{itemize} \item Entre registro: MOV Rx, Ry\item Directo: MOV Rx, [M] \item Indirecto: MOV Rx, [BL]\item Inmediato: MOV Rx, d \end{itemize}\\
+\addlinespace[10pt]
+\textbf{Memoria puede ser: \begin{itemize}\item dirección [M]\item dirección registro [BL] \end{itemize}} & Puede ser:\begin{itemize} \item Registro: Ry\item valor en la instrucción d \end{itemize} & \begin{itemize} \item Directo: MOV [M], Ry \item Indirecto: MOV [BL], Ry\item Directo-Inmediato: MOV [M], d\item Indirecto-Inmediato: MOV [BL], d \end{itemize}\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Nota: } 
-\item Las instrucciones de transferencia y procesamiento tienen los mismos modos de direccionamiento A y B.
-\item Rx y Ry puede ser un registro de proposito general: AL, BL, CL y DL.
+\item Las instrucciones de dos operando, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.
+\item Rx y Ry puede ser un registro de propósito general: AL, BL, CL y DL.
 \item \textit{Notas numéricas: } 
 \item[1] La notación [M] indica el contenido de la dirección de memoria.
 \item[2] La notación [BL] indica el contenido de la dirección del registro BL.
@@ -2636,73 +2634,13 @@ El formato de las instrucciones se basa en la codificación binaria, donde cada 
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:instaccion}Tabla de instrucciones y acciones}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{threeparttable}
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ejemplo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
-\midrule
-A: Entre registros & MOV Rx, Ry & Rx ← Ry\\
- & ADD Rx, Ry & Rx ← Rx + Ry\\
- & SUB Rx, Ry & Rx ← Rx - Ry\\
- & CMP Rx, Ry & Rx - Ry *\\
-B: Cargar a registro & MOV Rx, [M] & Rx ← Mem[Dirección]\\
-\addlinespace
- & MOV Rx, [BL] & Rx ← Mem[BL]\\
- & MOV Rx, d & Rx ← dato\\
- & ADD Rx, [M] & Rx ← Rx + Mem[Dirección]\\
- & ADD Rx, [BL] & Rx ← Rx + Mem[BL]\\
- & ADD Rx, d & Rx ← Rx + dato\\
-\addlinespace
- & SUB Rx, [M] & Rx ← Rx - Mem[Dirección]\\
- & SUB Rx, [BL] & Rx ← Rx - Mem[BL]\\
- & SUB Rx, d & Rx ← Rx - dato\\
- & CMP Rx, [M] & Rx - Mem[Dirección] (*)\\
- & CMP Rx, [BL] & Rx - Mem[BL] (*)\\
-\addlinespace
- & CMP Rx, d & Rx - dato (*)\\
-C: Almacenar en memoria & MOV [M], Ry & Mem[Dirección] ← Rx\\
- & MOV [BL], Ry & Mem[BL] ← Rx\\
- & MOV [M], d & Mem[Dirección] ← dato\\
- & MOV [BL], d & Mem[BL] ← dato\\
-\addlinespace
- & ADD [M], Ry & Mem[Dirección] ← Mem[Dirección] + Rx\\
- & ADD [BL], Ry & Mem[BL] ← Mem[BL] + Rx\\
- & ADD [M], d & Mem[Dirección] ← Mem[Dirección] + dato\\
- & ADD [BL], d & Mem[BL] ← Mem[BL] + dato\\
- & SUB [M], Ry & Mem[Dirección] ← Mem[Dirección] - Rx\\
-\addlinespace
- & SUB [BL], Ry & Mem[BL] ← Mem[BL] - Rx\\
- & SUB [M], d & Mem[Dirección] ← Mem[Dirección] - dato\\
- & SUB [BL], d & Mem[BL] ← Mem[BL] - dato\\
- & CMP [M], Ry & Mem[Dirección] - Rx\\
- & CMP [BL], Ry & Mem[BL] - Rx\\
-\addlinespace
- & CMP [M], d & Mem[Dirección] - dato\\
- & CMP [BL], d & Mem[BL] - dato\\
-D: control de flujo & JMP M & IP ← Dirección\\
- & Jxx M & Si xx = 1 entonces IP ← Dirección\\
- & HLT & Detiene el procesador\\
-\bottomrule
-\end{tabular}
-\begin{tablenotes}
-\item \textit{Nota *: } 
-\item La instrucción CMP no almacena el resultado de la operación en el operando destino.
-\end{tablenotes}
-\end{threeparttable}}
-\end{table}
-
-\begin{table}[!h]
-\centering
 \caption{\label{tab:instcodif}Tabla de codificación de instrucciones}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}p{5.5cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CodOp}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Byte}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Codificación}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CodOp}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Byte}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Codificación}}}\\
 \midrule
 \textbf{0} & \texttt{MOV Rx, Ry} & 1 & \texttt{0000 RxRy}\\
 \addlinespace[10pt]
@@ -2723,23 +2661,23 @@ D: control de flujo & JMP M & IP ← Dirección\\
 \addlinespace[10pt]
 \textbf{3} & \texttt{ADD Rx, Ry} & 1 & \texttt{0011 RxRy}\\
 \addlinespace[10pt]
-\textbf{4} & \texttt{ADD Rx, --} & Carga en registro & \texttt{0100 ---- --------}\\
+\textbf{4} & \texttt{ADD Rx, --} & Modos direccionamiento: destino registro & \texttt{0100 ---- --------}\\
 \addlinespace[10pt]
 \addlinespace
-\textbf{5} & \texttt{ADD [M], --} & Almacenar en memoria & \texttt{0101 ---- -------- --------}\\
+\textbf{5} & \texttt{ADD [M], --} & Modos direccionamiento: destino memoria & \texttt{0101 ---- -------- --------}\\
 \addlinespace[10pt]
 \textbf{6} & \texttt{SUB Rx, Ry} & 1 & \texttt{0110 RxRy}\\
 \addlinespace[10pt]
-\textbf{7} & \texttt{SUB Rx, --} & Carga en registro & \texttt{0111 ---- --------}\\
+\textbf{7} & \texttt{SUB Rx, --} & Modos direccionamiento: destino registro & \texttt{0111 ---- --------}\\
 \addlinespace[10pt]
-\textbf{8} & \texttt{SUB [M], --} & Almacenar en memoria & \texttt{1000 ---- -------- --------}\\
+\textbf{8} & \texttt{SUB [M], --} & Modos direccionamiento: destino memoria & \texttt{1000 ---- -------- --------}\\
 \addlinespace[10pt]
 \textbf{9} & \texttt{CMP Rx, Ry} & 1 & \texttt{1001 RxRy}\\
 \addlinespace[10pt]
 \addlinespace
-\textbf{A} & \texttt{CMP Rx, --} & registro - memoria & \texttt{1010 ---- --------}\\
+\textbf{A} & \texttt{CMP Rx, --} & Modos direccionamiento: destino registro & \texttt{1010 ---- --------}\\
 \addlinespace[10pt]
-\textbf{B} & \texttt{CMP [M], --} & memoria - registro & \texttt{1011 ---- -------- --------}\\
+\textbf{B} & \texttt{CMP [M], --} & Modos direccionamiento: destino memoria & \texttt{1011 ---- -------- --------}\\
 \addlinespace[10pt]
 \textbf{C} & \texttt{JMP M} & 1 & \texttt{1100 0000 MMMMMMMM}\\
 \addlinespace[10pt]
@@ -2778,9 +2716,9 @@ Considerando:
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \begin{threeparttable}
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{2.5cm}>{\centering\arraybackslash}p{2.5cm}>{\centering\arraybackslash}p{2.5cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Registros R}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Binario}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Decimal}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{2.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Registros R}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Binario}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Decimal}}}\\
 \midrule
 AL & 00 & 0\\
 BL & 01 & 1\\
@@ -2794,74 +2732,6 @@ DL & 11 & 3\\
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
-
-El formato ampliado para las instrucciones incluye los siguientes casos tabla \ref{tab:formatoampliado}:
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:formatoampliado}Tabla de codificación de instrucciones ampliado}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{threeparttable}
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
-\toprule
-Tipo & Operación & Codificación & Parámetros\\
-\midrule
-Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino, YY = Registro fuente\\
- & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX00 = Registro destino y M = Dirección de memoria\\
- &  & \_\_\_\_XX01 & XX01 = Registro destino y direccion en registro [BL]\\
- &  & \_\_\_\_XX00 dddddddd & XX10 = Registro destino y d = Dato inmediato\\
-\midrule
- & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM dddddddd & YY = Registro fuente, `M` = Dirección de memoria,  `d` = Dato Inmediato\\
-\addlinespace
-Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
-\bottomrule
-\end{tabular}
-\begin{tablenotes}
-\item \textit{Nota: } 
-\item d = dato inmediato, no puede ser destino de la instrucción.
-\end{tablenotes}
-\end{threeparttable}}
-\end{table}
-
-\hypertarget{repertorio-de-instrucciones-2}{%
-\section{Repertorio de instrucciones}\label{repertorio-de-instrucciones-2}}
-
-El repertorio \textbf{x86} es reducido (8 bits)
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1915}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1702}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1277}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5106}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Categoría
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Instrucción
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Código operación
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Acción
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\textbf{Transferencia de datos} & \texttt{MOV} & \{0, 1, 2\} & Copiar entre registros, cargar a registro, almacenar en memoria \\
-\end{longtable}
-
-\textbf{Procesamiento de datos}\textbar{} \texttt{ADD} \textbar{} \{3, 4, 5\} \textbar{} Operación aritmética: \texttt{operando1\ ←\ operando1\ +\ operando2} \textbar{}\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\textbar{} \texttt{SUB} \textbar{} \{6, 7, 8\} \textbar{} Operación aritmética: \texttt{operando1\ ←\ operando1\ -\ operando2} \textbar{}\\
-\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\hspace*{0.333em}\textbar{} \texttt{CMP} \textbar{} \{9, 10, 11\} \textbar{} Comparación: \texttt{operando1\ -\ operando2} (no actualiza el destino) \textbar{}
-
-\textbf{Control de flujo} \textbar{} \texttt{JMP\ /\ Jxx\ /\ CALL\ /\ INT} \textbar{} \{12\} \textbar{} Salto incondicional \texttt{JMP}, condicionales \texttt{Jxx}, llamada \texttt{CALL},\texttt{INT}: llamar rutina de interrupción \textbar{}
-
-\textbf{Gestion de flujo} \textbar{} \texttt{RET\ /\ IRET\ /\ CLI/\ \ STI\ /\ HLT}\textbar{} \{13\} \textbar{} retorno \texttt{RET}, \texttt{IRET}: retornar de interrupción\texttt{NOP}: no opera\texttt{HLT}: detiene el CPU \textbar{}
-
-\textbf{Manejo de pila y E/S} \textbar{} \texttt{PUSH\ /\ POP\ /\ OUT\ /\ IN} \textbar{} \{14\} \textbar{} \texttt{PUSH}: poner en la pila\texttt{POP}: retirar de la pila\texttt{OUT}: enviar a puerto \texttt{IN}: recibir desde puerto \textbar{}
-
-\textbf{Miscelánea} \textbar{} \texttt{AND\ /\ OR\ /\ XOR\ /\ NOT\ /\ INC\ /\ DEC} \textbar{} \{15\} \textbar{} Operaciones lógicas y aritméticas \textbar{}
 
 \hypertarget{ciclo-de-la-instrucciuxf3n}{%
 \section{Ciclo de la instrucción}\label{ciclo-de-la-instrucciuxf3n}}
@@ -3042,25 +2912,6 @@ Si es salto incondicional \texttt{JMP} :
 Si es salto condicional \texttt{Jxx} :
 6. Si se cumple la condición del flag \texttt{xx}, \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}; en caso contrario, continúa con la siguiente instrucción.
 
-Tabla de condiciones en las instrucciones \texttt{Jxx} el parámetro \texttt{xx} representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule\noalign{}
-Instrucción & Acción \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\texttt{JZ\ Dirección} & Salta a \emph{Dirección} si \texttt{Z\ =\ 1} \\
-\texttt{JNZ\ Dirección} & Salta a \emph{Dirección} si \texttt{Z\ =\ 0} \\
-\texttt{JC\ Dirección} & Salta a \emph{Dirección} si \texttt{C\ =\ 1} \\
-\texttt{JNC\ Dirección} & Salta a \emph{Dirección} si \texttt{C\ =\ 0} \\
-\texttt{JS\ Dirección} & Salta a \emph{Dirección} si \texttt{S\ =\ 1} \\
-\texttt{JNS\ Dirección} & Salta a \emph{Dirección} si \texttt{S\ =\ 0} \\
-\texttt{JO\ Dirección} & Salta a \emph{Dirección} si \texttt{O\ =\ 1} \\
-\texttt{JNO\ Dirección} & Salta a \emph{Dirección} si \texttt{O\ =\ 0} \\
-\end{longtable}
-
 \hypertarget{instrucciones-sin-operandos}{%
 \subsubsection{Instrucciones sin operandos}\label{instrucciones-sin-operandos}}
 
@@ -3180,10 +3031,43 @@ Las direcciones del vector de interrupciones asociadas a estos números están p
 
 El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones \texttt{A0h}, \texttt{B0h} y \texttt{C0h} respectivamente.
 
-\hypertarget{ciclo-de-ejecuciuxf3n}{%
-\section{Ciclo de ejecución}\label{ciclo-de-ejecuciuxf3n}}
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tisa}Categorías de instrucciones y códigos de operación en VonSim8}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\midrule
+\textbf{Transferencia de datos} & MOV & {0, 1, 2} & Copiar entre registros, cargar a registro, almacenar en memoria\\
+\addlinespace[10pt]
+\textbf{Procesamiento de datos} & ADD & {3, 4, 5} & Operación aritmética: operando1 ← operando1 + operando2\\
+\addlinespace[10pt]
+\textbf{} & SUB & {6, 7, 8} & Operación aritmética: operando1 ← operando1 - operando2\\
+\addlinespace[10pt]
+\textbf{} & CMP & {9, 10, 11} & Comparación: operando1 - operando2 (no actualiza el destino)\\
+\addlinespace[10pt]
+\textbf{Control de flujo} & JMP / Jxx / CALL / INT & {12} & Salto incondicional JMP, condicionales Jxx, llamada CALL, INT: llamar rutina de interrupción\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{Gestión de flujo} & RET / IRET / CLI / STI / HLT & {13} & RET: retorno, IRET: retornar de interrupción, NOP: no opera, HLT: detiene el CPU\\
+\addlinespace[10pt]
+\textbf{Manejo de pila y E/S} & PUSH / POP / OUT / IN & {14} & PUSH: poner en la pila, POP: retirar de la pila, OUT: enviar a puerto, IN: recibir desde puerto\\
+\addlinespace[10pt]
+\textbf{Miscelánea} & AND / OR / XOR / NOT / INC / DEC & {15} & Operaciones lógicas y aritméticas\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
 
-El ciclo de ejecución de estas instrucciones es similar al ciclo de instrucción básico, pero con pasos adicionales para manejar la pila y las interrupciones. A continuación se detallan los pasos específicos para cada tipo de instrucción:
+Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el codigo de operacion 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
+
+\hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones-de-pila-e-interrupciones}{%
+\subsection{Etapa de ejecución de instrucciones de pila e interrupciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones-de-pila-e-interrupciones}}
+
+A continuación se detallan los pasos específicos para cada tipo de instrucción:
 
 Subrutinas:\\
 * CALL \texttt{Dirección}
@@ -3346,6 +3230,95 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 \item
   \textbf{Mantenibilidad}: el código modular y bien documentado facilita futuras actualizaciones y mejoras.
 \end{itemize}
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:instaccion}Tabla de instrucciones y acciones}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ejemplo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\midrule
+A: Entre registros & MOV Rx, Ry & Rx ← Ry\\
+ & ADD Rx, Ry & Rx ← Rx + Ry\\
+ & SUB Rx, Ry & Rx ← Rx - Ry\\
+ & CMP Rx, Ry & Rx - Ry *\\
+B: Cargar a registro & MOV Rx, [M] & Rx ← Mem[Dirección]\\
+\addlinespace
+ & MOV Rx, [BL] & Rx ← Mem[BL]\\
+ & MOV Rx, d & Rx ← dato\\
+ & ADD Rx, [M] & Rx ← Rx + Mem[Dirección]\\
+ & ADD Rx, [BL] & Rx ← Rx + Mem[BL]\\
+ & ADD Rx, d & Rx ← Rx + dato\\
+\addlinespace
+ & SUB Rx, [M] & Rx ← Rx - Mem[Dirección]\\
+ & SUB Rx, [BL] & Rx ← Rx - Mem[BL]\\
+ & SUB Rx, d & Rx ← Rx - dato\\
+ & CMP Rx, [M] & Rx - Mem[Dirección] (*)\\
+ & CMP Rx, [BL] & Rx - Mem[BL] (*)\\
+\addlinespace
+ & CMP Rx, d & Rx - dato (*)\\
+C: Almacenar en memoria & MOV [M], Ry & Mem[Dirección] ← Rx\\
+ & MOV [BL], Ry & Mem[BL] ← Rx\\
+ & MOV [M], d & Mem[Dirección] ← dato\\
+ & MOV [BL], d & Mem[BL] ← dato\\
+\addlinespace
+ & ADD [M], Ry & Mem[Dirección] ← Mem[Dirección] + Rx\\
+ & ADD [BL], Ry & Mem[BL] ← Mem[BL] + Rx\\
+ & ADD [M], d & Mem[Dirección] ← Mem[Dirección] + dato\\
+ & ADD [BL], d & Mem[BL] ← Mem[BL] + dato\\
+ & SUB [M], Ry & Mem[Dirección] ← Mem[Dirección] - Rx\\
+\addlinespace
+ & SUB [BL], Ry & Mem[BL] ← Mem[BL] - Rx\\
+ & SUB [M], d & Mem[Dirección] ← Mem[Dirección] - dato\\
+ & SUB [BL], d & Mem[BL] ← Mem[BL] - dato\\
+ & CMP [M], Ry & Mem[Dirección] - Rx\\
+ & CMP [BL], Ry & Mem[BL] - Rx\\
+\addlinespace
+ & CMP [M], d & Mem[Dirección] - dato\\
+ & CMP [BL], d & Mem[BL] - dato\\
+D: control de flujo & JMP M & IP ← Dirección\\
+ & Jxx M & Si xx = 1 entonces IP ← Dirección\\
+ & HLT & Detiene el procesador\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota *: } 
+\item La instrucción CMP no almacena el resultado de la operación en el operando destino.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
+
+El formato ampliado para las instrucciones incluye los siguientes casos tabla \ref{tab:formatoampliado}:
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:formatoampliado}Tabla de codificación de instrucciones ampliado}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{threeparttable}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
+\toprule
+Tipo & Operación & Codificación & Parámetros\\
+\midrule
+Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino, YY = Registro fuente\\
+ & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX00 = Registro destino y M = Dirección de memoria\\
+ &  & \_\_\_\_XX01 & XX01 = Registro destino y direccion en registro [BL]\\
+ &  & \_\_\_\_XX00 dddddddd & XX10 = Registro destino y d = Dato inmediato\\
+\midrule
+ & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM dddddddd & YY = Registro fuente, `M` = Dirección de memoria,  `d` = Dato Inmediato\\
+\addlinespace
+Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota: } 
+\item d = dato inmediato, no puede ser destino de la instrucción.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
 
 \hypertarget{apuxe9ndices}{%
 \chapter*{Apéndices}\label{apuxe9ndices}}
