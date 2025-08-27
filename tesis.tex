@@ -2921,8 +2921,8 @@ Instrucción de control CPU \texttt{HLT}
 \hypertarget{modulo-de-entradasalida-e-interrupciones}{%
 \section{Modulo de Entrada/Salida e interrupciones}\label{modulo-de-entradasalida-e-interrupciones}}
 
+En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
 El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos.
-
 Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
 
 \begin{itemize}
@@ -2937,42 +2937,136 @@ Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo 
   Handshake: Una impresora Centronics conectada por un Handshake.
 \end{itemize}
 
-En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
-A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.
+\hypertarget{pantalla}{%
+\subsection{Pantalla}\label{pantalla}}
+
+La pantalla es un dispositivo de salida que permite mostrar caracteres. La forma de comunicarse con la pantalla es mediante una llamada al sistema. Esto es así por simplicidad, ya que una pantalla real es mucho más compleja.
+
+Con la llamada INT 7 se escribe una cadena de caracteres en la pantalla. Recibe dos parámetros:
+
+AL: longitud de la cadena a imprimir
+BL: dirección de memoria donde empieza la cadena
+
+\begin{lstlisting}
+org 10h
+cadena db `Hola!`
+
+org 20h
+mov BL, offset cadena
+mov AL, 5
+int 7
+; Se imprime Hola! (sin las comillas) en la pantalla.
+hlt\end{lstlisting}
+
+Hay tres caracteres especiales:
+
+\begin{itemize}
+\tightlist
+\item
+  el carácter de retroceso (\texttt{BS}, 8 en decimal) borra el carácter previo;
+\item
+  el carácter de salto de línea (\texttt{LF}, 10 en decimal) imprime, en efecto, un salto de línea --- útil para no imprimir todo en una sola línea;
+\item
+  el carácter de \emph{form feed} (\texttt{FF}, 12 en decimal) limpia la pantalla.
+\end{itemize}
+
+\hypertarget{teclado}{%
+\subsection{Teclado}\label{teclado}}
+
+El teclado es un dispositivo de entrada que permite al usuario ingresar caracteres al sistema. La forma de comunicarse con el teclado es mediante una llamada al sistema. Esto es así por simplicidad, ya que un teclado real es mucho más complejo.
+
+Con la llamada INT 6 se detiene la ejecución del código hasta que se presione una tecla en el teclado. El carácter que correspona será guardado en la dirección de memoria almacenada en BL según su representación en ASCII.
+
+\begin{lstlisting}
+org 10h
+car db 0
+
+org 20h
+mov bl, offset car
+int 6
+; El usuario escribe un carácter
+hlt
+
+; El carácter escrito se almacenó en 'car'.
+; Por ejemplo, si el usuario presionó la tecla 'a', entonces
+; se almacena el valor 61h en 'car'.\end{lstlisting}
+
+\hypertarget{memoria-es-instrucciones-in-y-out}{%
+\subsection{Memoria E/S: Instrucciones IN y OUT}\label{memoria-es-instrucciones-in-y-out}}
 
 La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones IN y OUT. Cuando se quiere acceder a un módulo de entrada/salida, la CPU activa la señal IO/M, lo que causa que un selector de chips (chip select) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
 
 El rango de direcciones de la memoria de entrada/salida es de 00h hasta FFh (256 direcciones).
 
-Registros de E/S
+La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones {[}\texttt{IN}{]} y {[}\texttt{OUT}{]}). Cuando se quiere acceder a un módulo de entrada/salida, la {[}CPU{]} activa la señal \texttt{IO/M}, lo que causa que un selector de chips (\emph{chip select}) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
+
+El rango de direcciones de la memoria de entrada/salida es de \texttt{00h} hasta \texttt{FFh} (256 direcciones).
+
+\hypertarget{registros-de-es}{%
+\subsection{Registros de E/S}\label{registros-de-es}}
+
 Estos son las registros de entrada/salida disponibles en el simulador, todos de 8 bits:
 
-Dirección Nombre Módulo
-10h CONT Timer
-11h COMP Timer
-20h EOI PIC
-21h IMR PIC
-22h IRR PIC
-23h ISR PIC
-24h INT0 PIC
-25h INT1 PIC
-26h INT2 PIC
-27h INT3 PIC
-28h INT4 PIC
-29h INT5 PIC
-2Ah INT6 PIC
-2Bh INT7 PIC
-30h PA PIO
-31h PB PIO
-32h CA PIO
-33h CB PIO
-40h DATA Handshake
-41h STATE Handshake
-Edit this page
+\begin{longtable}[]{@{}ccl@{}}
+\toprule\noalign{}
+Dirección & Nombre & Módulo \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{10h} & \texttt{CONT} & {[}Timer{]} \\
+\texttt{11h} & \texttt{COMP} & {[}Timer{]} \\
+\texttt{20h} & \texttt{EOI} & {[}PIC{]} \\
+\texttt{21h} & \texttt{IMR} & {[}PIC{]} \\
+\texttt{22h} & \texttt{IRR} & {[}PIC{]} \\
+\texttt{23h} & \texttt{ISR} & {[}PIC{]} \\
+\texttt{24h} & \texttt{INT0} & {[}PIC{]} \\
+\texttt{25h} & \texttt{INT1} & {[}PIC{]} \\
+\texttt{26h} & \texttt{INT2} & {[}PIC{]} \\
+\texttt{27h} & \texttt{INT3} & {[}PIC{]} \\
+\texttt{28h} & \texttt{INT4} & {[}PIC{]} \\
+\texttt{29h} & \texttt{INT5} & {[}PIC{]} \\
+\texttt{2Ah} & \texttt{INT6} & {[}PIC{]} \\
+\texttt{2Bh} & \texttt{INT7} & {[}PIC{]} \\
+\texttt{30h} & \texttt{PA} & {[}PIO{]} \\
+\texttt{31h} & \texttt{PB} & {[}PIO{]} \\
+\texttt{32h} & \texttt{CA} & {[}PIO{]} \\
+\texttt{33h} & \texttt{CB} & {[}PIO{]} \\
+\texttt{40h} & \texttt{DATA} & {[}Handshake{]} \\
+\texttt{41h} & \texttt{STATE} & {[}Handshake{]} \\
+\end{longtable}
 
 Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
 - \texttt{OUT\ puerto,\ AL}: Esta instrucción envía el contenido del registro \texttt{AL} al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de \texttt{00h} a \texttt{FFh}). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
 - \texttt{IN\ AL,\ puerto}: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro \texttt{AL}. Al igual que la instrucción \texttt{OUT}, el puerto es una dirección de 8 bits.
+
+\hypertarget{llaves-y-luces}{%
+\subsection{Llaves y luces}\label{llaves-y-luces}}
+
+Las llaves o interruptores están conectados al puerto PA/CA del PIO y son dispositivos de entrada. Al cambiar su estado, estos se reflejarán en PA (si el PIO está configurado correctamente). Si se altera PA, los cambios no se verán reflejados en las llaves (no se mueven solas, por así decirlo).
+
+\begin{lstlisting}
+; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
+
+clave db 15               ; Contraseña esperada: 00001111 (en decimal 15)
+mensaje_ok db `Bienvenido!` ; Mensaje a mostrar si la contraseña es correcta
+
+; Configurar PA (Puerto A) como entrada
+mov al, 15                ; 00001111b: configura los primeros 4 bits de PA como entrada
+out 32h, al               ; Escribe en CA para configurar PA
+
+bucle:
+    in al, 30h            ; Lee el valor actual de las llaves desde PA
+    cmp al, clave         ; Compara el valor leído con la contraseña
+    jz Mostrar_Mensaje    ; Si coincide, salta a Mostrar_Mensaje
+    jmp bucle             ; Si no coincide, vuelve a intentar
+
+Mostrar_Mensaje:
+    mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
+    mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
+    hlt                       ; Detiene la ejecución del programa\end{lstlisting}
+
+Las luces o LED están conectadas al puerto PB/CB del PIO y son dispositivos de salida. La única forma de cambiar su estado es modificando PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente, de lo contrario, las luces se verán apagadas.
 
 \begin{lstlisting}
 ; Enciende las luces (una sí, una no): 1010 1010b

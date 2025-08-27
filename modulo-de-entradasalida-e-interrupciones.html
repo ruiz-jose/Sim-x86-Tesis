@@ -278,7 +278,14 @@ div.csl-indent {
 <li class="chapter" data-level="5.3.1" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#etapa-1-captación"><i class="fa fa-check"></i><b>5.3.1</b> Etapa 1: Captación</a></li>
 <li class="chapter" data-level="5.3.2" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#etapa-2-ejecución"><i class="fa fa-check"></i><b>5.3.2</b> Etapa 2: Ejecución:</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="modulo-de-entradasalida-e-interrupciones.html"><a href="modulo-de-entradasalida-e-interrupciones.html"><i class="fa fa-check"></i><b>5.4</b> Modulo de Entrada/Salida e interrupciones</a></li>
+<li class="chapter" data-level="5.4" data-path="modulo-de-entradasalida-e-interrupciones.html"><a href="modulo-de-entradasalida-e-interrupciones.html"><i class="fa fa-check"></i><b>5.4</b> Modulo de Entrada/Salida e interrupciones</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="modulo-de-entradasalida-e-interrupciones.html"><a href="modulo-de-entradasalida-e-interrupciones.html#pantalla"><i class="fa fa-check"></i><b>5.4.1</b> Pantalla</a></li>
+<li class="chapter" data-level="5.4.2" data-path="modulo-de-entradasalida-e-interrupciones.html"><a href="modulo-de-entradasalida-e-interrupciones.html#teclado"><i class="fa fa-check"></i><b>5.4.2</b> Teclado</a></li>
+<li class="chapter" data-level="5.4.3" data-path="modulo-de-entradasalida-e-interrupciones.html"><a href="modulo-de-entradasalida-e-interrupciones.html#memoria-es-instrucciones-in-y-out"><i class="fa fa-check"></i><b>5.4.3</b> Memoria E/S: Instrucciones IN y OUT</a></li>
+<li class="chapter" data-level="5.4.4" data-path="modulo-de-entradasalida-e-interrupciones.html"><a href="modulo-de-entradasalida-e-interrupciones.html#registros-de-es"><i class="fa fa-check"></i><b>5.4.4</b> Registros de E/S</a></li>
+<li class="chapter" data-level="5.4.5" data-path="modulo-de-entradasalida-e-interrupciones.html"><a href="modulo-de-entradasalida-e-interrupciones.html#llaves-y-luces"><i class="fa fa-check"></i><b>5.4.5</b> Llaves y luces</a></li>
+</ul></li>
 <li class="chapter" data-level="5.5" data-path="pila.html"><a href="pila.html"><i class="fa fa-check"></i><b>5.5</b> Pila</a></li>
 <li class="chapter" data-level="5.6" data-path="subrutinas.html"><a href="subrutinas.html"><i class="fa fa-check"></i><b>5.6</b> Subrutinas</a></li>
 <li class="chapter" data-level="5.7" data-path="interrupciones.html"><a href="interrupciones.html"><i class="fa fa-check"></i><b>5.7</b> Interrupciones</a>
@@ -343,45 +350,202 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="modulo-de-entradasalida-e-interrupciones" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> Modulo de Entrada/Salida e interrupciones<a href="modulo-de-entradasalida-e-interrupciones.html#modulo-de-entradasalida-e-interrupciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos.</p>
-<p>Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:</p>
+<p>En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
+El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos.
+Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:</p>
 <ul>
 <li>Teclado y pantalla: un teclado y una pantalla.</li>
 <li>PIC: un PIC, además de la tecla F10 para interrumpir, y un timer con su reloj.</li>
 <li>PIO: un PIO que puede conectarse a llaves y luces o a una impresora Centronics.</li>
 <li>Handshake: Una impresora Centronics conectada por un Handshake.</li>
 </ul>
-<p>En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
-A continuación, se detalla el conjunto completo de instrucciones, incluyendo su clasificación, nemónicos y las acciones que representan.</p>
+<div id="pantalla" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Pantalla<a href="modulo-de-entradasalida-e-interrupciones.html#pantalla" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La pantalla es un dispositivo de salida que permite mostrar caracteres. La forma de comunicarse con la pantalla es mediante una llamada al sistema. Esto es así por simplicidad, ya que una pantalla real es mucho más compleja.</p>
+<p>Con la llamada INT 7 se escribe una cadena de caracteres en la pantalla. Recibe dos parámetros:</p>
+<p>AL: longitud de la cadena a imprimir
+BL: dirección de memoria donde empieza la cadena</p>
+<pre class="assembly"><code>org 10h
+cadena db `Hola!`
+
+org 20h
+mov BL, offset cadena
+mov AL, 5
+int 7
+; Se imprime Hola! (sin las comillas) en la pantalla.
+hlt</code></pre>
+<p>Hay tres caracteres especiales:</p>
+<ul>
+<li>el carácter de retroceso (<code>BS</code>, 8 en decimal) borra el carácter previo;</li>
+<li>el carácter de salto de línea (<code>LF</code>, 10 en decimal) imprime, en efecto, un salto de línea — útil para no imprimir todo en una sola línea;</li>
+<li>el carácter de <em>form feed</em> (<code>FF</code>, 12 en decimal) limpia la pantalla.</li>
+</ul>
+</div>
+<div id="teclado" class="section level3 hasAnchor" number="5.4.2">
+<h3><span class="header-section-number">5.4.2</span> Teclado<a href="modulo-de-entradasalida-e-interrupciones.html#teclado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El teclado es un dispositivo de entrada que permite al usuario ingresar caracteres al sistema. La forma de comunicarse con el teclado es mediante una llamada al sistema. Esto es así por simplicidad, ya que un teclado real es mucho más complejo.</p>
+<p>Con la llamada INT 6 se detiene la ejecución del código hasta que se presione una tecla en el teclado. El carácter que correspona será guardado en la dirección de memoria almacenada en BL según su representación en ASCII.</p>
+<pre class="assembly"><code>org 10h
+car db 0
+
+org 20h
+mov bl, offset car
+int 6
+; El usuario escribe un carácter
+hlt
+
+; El carácter escrito se almacenó en &#39;car&#39;.
+; Por ejemplo, si el usuario presionó la tecla &#39;a&#39;, entonces
+; se almacena el valor 61h en &#39;car&#39;.</code></pre>
+</div>
+<div id="memoria-es-instrucciones-in-y-out" class="section level3 hasAnchor" number="5.4.3">
+<h3><span class="header-section-number">5.4.3</span> Memoria E/S: Instrucciones IN y OUT<a href="modulo-de-entradasalida-e-interrupciones.html#memoria-es-instrucciones-in-y-out" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones IN y OUT. Cuando se quiere acceder a un módulo de entrada/salida, la CPU activa la señal IO/M, lo que causa que un selector de chips (chip select) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.</p>
 <p>El rango de direcciones de la memoria de entrada/salida es de 00h hasta FFh (256 direcciones).</p>
-<p>Registros de E/S
-Estos son las registros de entrada/salida disponibles en el simulador, todos de 8 bits:</p>
-<p>Dirección Nombre Módulo
-10h CONT Timer
-11h COMP Timer
-20h EOI PIC
-21h IMR PIC
-22h IRR PIC
-23h ISR PIC
-24h INT0 PIC
-25h INT1 PIC
-26h INT2 PIC
-27h INT3 PIC
-28h INT4 PIC
-29h INT5 PIC
-2Ah INT6 PIC
-2Bh INT7 PIC
-30h PA PIO
-31h PB PIO
-32h CA PIO
-33h CB PIO
-40h DATA Handshake
-41h STATE Handshake
-Edit this page</p>
+<p>La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones [<code>IN</code>] y [<code>OUT</code>]). Cuando se quiere acceder a un módulo de entrada/salida, la [CPU] activa la señal <code>IO/M</code>, lo que causa que un selector de chips (<em>chip select</em>) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.</p>
+<p>El rango de direcciones de la memoria de entrada/salida es de <code>00h</code> hasta <code>FFh</code> (256 direcciones).</p>
+</div>
+<div id="registros-de-es" class="section level3 hasAnchor" number="5.4.4">
+<h3><span class="header-section-number">5.4.4</span> Registros de E/S<a href="modulo-de-entradasalida-e-interrupciones.html#registros-de-es" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Estos son las registros de entrada/salida disponibles en el simulador, todos de 8 bits:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Dirección</th>
+<th align="center">Nombre</th>
+<th align="left">Módulo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>10h</code></td>
+<td align="center"><code>CONT</code></td>
+<td align="left">[Timer]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>11h</code></td>
+<td align="center"><code>COMP</code></td>
+<td align="left">[Timer]</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>20h</code></td>
+<td align="center"><code>EOI</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>21h</code></td>
+<td align="center"><code>IMR</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>22h</code></td>
+<td align="center"><code>IRR</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>23h</code></td>
+<td align="center"><code>ISR</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>24h</code></td>
+<td align="center"><code>INT0</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>25h</code></td>
+<td align="center"><code>INT1</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>26h</code></td>
+<td align="center"><code>INT2</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>27h</code></td>
+<td align="center"><code>INT3</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>28h</code></td>
+<td align="center"><code>INT4</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>29h</code></td>
+<td align="center"><code>INT5</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>2Ah</code></td>
+<td align="center"><code>INT6</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>2Bh</code></td>
+<td align="center"><code>INT7</code></td>
+<td align="left">[PIC]</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>30h</code></td>
+<td align="center"><code>PA</code></td>
+<td align="left">[PIO]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>31h</code></td>
+<td align="center"><code>PB</code></td>
+<td align="left">[PIO]</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>32h</code></td>
+<td align="center"><code>CA</code></td>
+<td align="left">[PIO]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>33h</code></td>
+<td align="center"><code>CB</code></td>
+<td align="left">[PIO]</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>40h</code></td>
+<td align="center"><code>DATA</code></td>
+<td align="left">[Handshake]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>41h</code></td>
+<td align="center"><code>STATE</code></td>
+<td align="left">[Handshake]</td>
+</tr>
+</tbody>
+</table>
 <p>Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
 - <code>OUT puerto, AL</code>: Esta instrucción envía el contenido del registro <code>AL</code> al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de <code>00h</code> a <code>FFh</code>). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
 - <code>IN AL, puerto</code>: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro <code>AL</code>. Al igual que la instrucción <code>OUT</code>, el puerto es una dirección de 8 bits.</p>
+</div>
+<div id="llaves-y-luces" class="section level3 hasAnchor" number="5.4.5">
+<h3><span class="header-section-number">5.4.5</span> Llaves y luces<a href="modulo-de-entradasalida-e-interrupciones.html#llaves-y-luces" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Las llaves o interruptores están conectados al puerto PA/CA del PIO y son dispositivos de entrada. Al cambiar su estado, estos se reflejarán en PA (si el PIO está configurado correctamente). Si se altera PA, los cambios no se verán reflejados en las llaves (no se mueven solas, por así decirlo).</p>
+<pre class="assembly"><code>; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
+
+clave db 15               ; Contraseña esperada: 00001111 (en decimal 15)
+mensaje_ok db `Bienvenido!` ; Mensaje a mostrar si la contraseña es correcta
+
+; Configurar PA (Puerto A) como entrada
+mov al, 15                ; 00001111b: configura los primeros 4 bits de PA como entrada
+out 32h, al               ; Escribe en CA para configurar PA
+
+bucle:
+  in al, 30h            ; Lee el valor actual de las llaves desde PA
+  cmp al, clave         ; Compara el valor leído con la contraseña
+  jz Mostrar_Mensaje    ; Si coincide, salta a Mostrar_Mensaje
+  jmp bucle             ; Si no coincide, vuelve a intentar
+
+Mostrar_Mensaje:
+  mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
+  mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
+  hlt                       ; Detiene la ejecución del programa</code></pre>
+<p>Las luces o LED están conectadas al puerto PB/CB del PIO y son dispositivos de salida. La única forma de cambiar su estado es modificando PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente, de lo contrario, las luces se verán apagadas.</p>
 <pre class="assembly"><code>; Enciende las luces (una sí, una no): 1010 1010b
 ; 31h = PB --&gt; puerto de datos para las luces (LEDs)
 ; 33h = CB --&gt; puerto de control para las luces
@@ -636,6 +800,7 @@ Operaciones lógicas y aritméticas
 </tr>
 </tbody>
 </table>
+</div>
 </div>
             </section>
 
