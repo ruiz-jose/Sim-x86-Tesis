@@ -1491,10 +1491,108 @@ Dirección	Nombre	Módulo
 Edit this page
 
 
+
+
+### Teclado
+El teclado es un dispositivo de entrada que permite al usuario ingresar caracteres al sistema. La forma de comunicarse con el teclado es mediante una llamada al sistema. Esto es así por simplicidad, ya que un teclado real es mucho más complejo.
+
+Con la llamada INT 6 se detiene la ejecución del código hasta que se presione una tecla en el teclado. El carácter que correspona será guardado en la dirección de memoria almacenada en BL según su representación en ASCII.
+
+```{r  codeteclado, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+org 10h
+car db 0
+
+org 20h
+mov bl, offset car
+int 6
+; El usuario escribe un carácter
+hlt
+
+; El carácter escrito se almacenó en 'car'.
+; Por ejemplo, si el usuario presionó la tecla 'a', entonces
+; se almacena el valor 61h en 'car'.\\end{lstlisting}
+  ")
+} else {
+  cat("
+  ```assembly
+org 10h
+car db 0
+
+org 20h
+mov bl, offset car
+int 6
+; El usuario escribe un carácter
+hlt
+
+; El carácter escrito se almacenó en 'car'.
+; Por ejemplo, si el usuario presionó la tecla 'a', entonces
+; se almacena el valor 61h en 'car'.
+```")
+}
+```
+
+
 Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
 - `OUT puerto, AL`: Esta instrucción envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
 - `IN AL, puerto`: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro `AL`. Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
 
+### Llaves y luces
+Las llaves o interruptores están conectados al puerto PA/CA del PIO y son dispositivos de entrada. Al cambiar su estado, estos se reflejarán en PA (si el PIO está configurado correctamente). Si se altera PA, los cambios no se verán reflejados en las llaves (no se mueven solas, por así decirlo).
+
+```{r  codellaves, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
+
+clave db 15               ; Contraseña esperada: 00001111 (en decimal 15)
+mensaje_ok db `Bienvenido!` ; Mensaje a mostrar si la contraseña es correcta
+
+; Configurar PA (Puerto A) como entrada
+mov al, 15                ; 00001111b: configura los primeros 4 bits de PA como entrada
+out 32h, al               ; Escribe en CA para configurar PA
+
+bucle:
+    in al, 30h            ; Lee el valor actual de las llaves desde PA
+    cmp al, clave         ; Compara el valor leído con la contraseña
+    jz Mostrar_Mensaje    ; Si coincide, salta a Mostrar_Mensaje
+    jmp bucle             ; Si no coincide, vuelve a intentar
+
+Mostrar_Mensaje:
+    mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
+    mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
+    hlt                       ; Detiene la ejecución del programa\\end{lstlisting}
+  ")
+} else {
+  cat("
+  ```assembly
+; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
+
+clave db 15               ; Contraseña esperada: 00001111 (en decimal 15)
+mensaje_ok db `Bienvenido!` ; Mensaje a mostrar si la contraseña es correcta
+
+; Configurar PA (Puerto A) como entrada
+mov al, 15                ; 00001111b: configura los primeros 4 bits de PA como entrada
+out 32h, al               ; Escribe en CA para configurar PA
+
+bucle:
+    in al, 30h            ; Lee el valor actual de las llaves desde PA
+    cmp al, clave         ; Compara el valor leído con la contraseña
+    jz Mostrar_Mensaje    ; Si coincide, salta a Mostrar_Mensaje
+    jmp bucle             ; Si no coincide, vuelve a intentar
+
+Mostrar_Mensaje:
+    mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
+    mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
+    hlt                       ; Detiene la ejecución del programa
+```")
+}
+```
+
+Las luces o LED están conectadas al puerto PB/CB del PIO y son dispositivos de salida. La única forma de cambiar su estado es modificando PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente, de lo contrario, las luces se verán apagadas.
 
 ```{r  codeluces, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -1533,8 +1631,6 @@ hlt                      ; Detiene la ejecución del programa
 ```")
 }
 ```
-
-
 
 ```{r isacompleta, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
