@@ -1704,10 +1704,10 @@ En el capítulo anterior se analizaron y evaluaron las herramientas de simulaci�
 
 A partir de esta necesidad, se establecieron un conjunto de requisitos funcionales y pedagógicos que guiaron de manera integral el diseño, la implementación y la validación del simulador. Estos requisitos no solo responden a las limitaciones observadas en herramientas existentes, sino que se alinean con los objetivos educativos previamente definidos.
 
-\hypertarget{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}{%
-\section{Requisitos de la herramienta y su fundamentación}\label{requisitos-de-la-herramienta-y-su-fundamentaciuxf3n}}
+\hypertarget{requisitos-de-la-herramienta-y-su-justificaciuxf3n}{%
+\section{Requisitos de la herramienta y su justificación}\label{requisitos-de-la-herramienta-y-su-justificaciuxf3n}}
 
-Esta sección expone los requisitos que orientaron el diseño del simulador, clasificados en dos dimensiones complementarias: pedagógica y funcional. La primera se vincula con los objetivos formativos definidos en el capítulo introductorio (\ref{intro}), mientras que la segunda refiere a las características técnicas necesarias para garantizar su implementación eficaz. Su definición se apoyó en principios pedagógicos y técnicos, y se complementó con una validación empírica basada en entrevistas semiestructuradas a docentes expertos. Este proceso permitió identificar necesidades concretas del aula, así como carencias en las herramientas existentes (ver Anexo A \ref{anexoA}). La aplicación de una metodología cualitativa, centrada en entrevistas semiestructuradas a docentes expertos, permitió identificar necesidades auténticas del aula y carencias específicas en las herramientas existentes. Estos hallazgos aportaron una base empírica rigurosa para la formulación técnica y pedagógica de los requisitos que guían el diseño del simulador \protect\hyperlink{ref-huberman2019qualitative}{{[}66{]}}.
+Esta sección expone los requisitos que orientaron el diseño del simulador, clasificados en dos dimensiones complementarias: pedagógica y funcional. La primera se vincula con los objetivos formativos definidos en el capítulo introductorio (\ref{intro}), mientras que la segunda refiere a las características técnicas necesarias para garantizar su implementación eficaz. La definición de los requisitos se apoyó en principios pedagógicos y técnicos, complementados con una validación empírica realizada mediante entrevistas semiestructuradas a docentes expertos (ver Anexo A \ref{anexoA}). Este proceso permitió identificar necesidades auténticas del aula y carencias específicas en las herramientas existentes, aportando una base empírica rigurosa para la formulación pedagógica y técnica de los requisitos \protect\hyperlink{ref-huberman2019qualitative}{{[}66{]}}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1733,7 +1733,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \item
   \textbf{Soporte para la generación y ejecución de programas en ensamblador:}
   Incorporar la posibilidad de ejecutar programas escritos en lenguaje ensamblador tanto de forma paso a paso como en ejecución continua. Esta funcionalidad posibilita el análisis detallado de cada instrucción, fortaleciendo competencias en trazado y depuración de código ensamblador, fundamentales para comprender la relación entre software y hardware.
-  La inclusión de un editor de ensamblador con resaltado de sintaxis y autocompletado mejora la experiencia del usuario, facilitando la escritura y comprensión del código. Esta funcionalidad se basa en principios de diseño de interfaces que promueven la usabilidad y la accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}68{]}}. El editor debe permitir al usuario escribir, editar y guardar programas en ensamblador, así como ejecutar estos programas dentro del simulador. La incorporación de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios \protect\hyperlink{ref-mccracken2001does}{{[}69{]}}.
+  Para apoyar este proceso, se propone la inclusión de un editor de ensamblador que incorpore funciones como resaltado de sintaxis y autocompletado. Estas características mejoran la experiencia del usuario y facilitan la escritura y comprensión del código, en consonancia con principios de diseño de interfaces que priorizan la usabilidad y la accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}68{]}}. El editor debe permitir al usuario escribir, editar y guardar programas en ensamblador, así como ejecutar estos programas dentro del simulador. La incorporación de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios \protect\hyperlink{ref-mccracken2001does}{{[}69{]}}.
 \end{enumerate}
 
 \begin{figure}
@@ -1774,7 +1774,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \end{tabular}}
 \end{table}
 
-Una vez establecido el repertorio esencial, se plantea avanzar hacia una comprensión más profunda del ciclo de instrucción mediante su representación en el nivel microarquitectónico. Esta representación incluirá la visualización dinámica de registros activos y señales de control, en correspondencia directa con la ejecución de cada instrucción. Este enfoque promueve el desarrollo progresivo de competencias, al mitigar la sobrecarga cognitiva que implicaría abordar de forma prematura el repertorio completo de instrucciones. La activación progresiva del repertorio se fundamenta en teorías de aprendizaje que sugieren que la exposición gradual a nuevos conceptos mejora la comprensión y retención \protect\hyperlink{ref-sweller2010cognitive}{{[}71{]}}. Además, esta estrategia se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}33{]}}, quienes destacan la importancia de introducir los conceptos de forma escalonada para facilitar el aprendizaje efectivo.
+Tras la definición del repertorio esencial, el diseño contempla una progresión hacia la representación del ciclo de instrucción en el nivel microarquitectónico, incorporando la visualización dinámica de registros y señales de control. Esta representación incluirá la visualización dinámica de registros activos y señales de control, en correspondencia directa con la ejecución de cada instrucción. Este enfoque promueve el desarrollo progresivo de competencias, al mitigar la sobrecarga cognitiva que implicaría abordar de forma prematura el repertorio completo de instrucciones. La activación progresiva del repertorio se fundamenta en teorías de aprendizaje que sugieren que la exposición gradual a nuevos conceptos mejora la comprensión y retención \protect\hyperlink{ref-sweller2010cognitive}{{[}71{]}}. Además, esta estrategia se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}33{]}}, quienes destacan la importancia de introducir los conceptos de forma escalonada para facilitar el aprendizaje efectivo.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1801,7 +1801,7 @@ Una vez establecido el repertorio esencial, se plantea avanzar hacia una compren
 \tightlist
 \item
   \textbf{Gestión básica de interrupciones y periféricos:}
-  Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Estas interacciones permiten emular situaciones reales de asincronía, esenciales para la comprensión de mecanismos como la interrupción del flujo de ejecución. Esta funcionalidad tiene un alto valor pedagógico, ya que permite al estudiante explorar de forma interactiva conceptos fundamentales como la asincronía, el manejo de eventos y la interrupción del flujo secuencial de ejecución, los cuales son característicos del diseño de arquitecturas modernas y fundamentales para comprender el funcionamiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}33{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Además, se incorpora un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo permite simular operaciones mediante instrucciones como IN y OUT, facilitando la interacción del estudiante con dispositivos representados gráficamente, como interruptores y teclas. De esta forma, se promueve una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
+  Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Estas interacciones permiten emular situaciones de asincronía, esenciales para comprender mecanismos como la interrupción del flujo de ejecución. Desde el punto de vista pedagógico, esta funcionalidad ofrece al estudiante la posibilidad de explorar de manera interactiva conceptos clave como la asincronía, el manejo de eventos y la interrupción del flujo secuencial, todos ellos característicos del diseño de arquitecturas modernas y fundamentales para el entendimiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}33{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Además, se incorpora un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo permite simular operaciones mediante instrucciones como IN y OUT, facilitando la interacción del estudiante con dispositivos representados gráficamente, como interruptores y teclas. De esta forma, se promueve una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
 \end{enumerate}
 
 \begin{figure}
@@ -1819,7 +1819,7 @@ Una vez establecido el repertorio esencial, se plantea avanzar hacia una compren
 \tightlist
 \item
   \textbf{Métricas de rendimiento:}
-  Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. stos indicadores permiten al estudiante analizar cuantitativamente la eficiencia de la ejecución de un programa, facilitando comparaciones entre diferentes implementaciones. Su inclusión apunta a fortalecer la comprensión de aspectos clave del rendimiento del procesador, promoviendo una formación integral que contemple tanto aspectos funcionales como métricos del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}.
+  Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. Estos indicadores permiten al estudiante analizar cuantitativamente la eficiencia en la ejecución de un program, facilitando comparaciones entre diferentes implementaciones. Su inclusión apunta a fortalecer la comprensión de aspectos clave del rendimiento del procesador, promoviendo una formación integral que contemple tanto aspectos funcionales como métricos del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}.
 \end{enumerate}
 
 \begin{figure}
@@ -1879,12 +1879,12 @@ En conjunto, estos requisitos orientan el diseño del simulador para maximizar s
 \end{tabular}}
 \end{table}
 
-\hypertarget{fundamentaciuxf3n-de-los-requisitos-del-simulador}{%
-\subsection{Fundamentación de los requisitos del simulador}\label{fundamentaciuxf3n-de-los-requisitos-del-simulador}}
+\hypertarget{justificaciuxf3n-del-uso-de-una-arquitectura-simplificada-en-el-simulador}{%
+\subsection{Justificación del uso de una arquitectura simplificada en el simulador}\label{justificaciuxf3n-del-uso-de-una-arquitectura-simplificada-en-el-simulador}}
 
 A partir de los requisitos funcionales detallados anteriormente, se llevó a cabo un proceso colaborativo de análisis con docentes\footnote{Docentes: Marcelo A. Colombani y Amalia G. Delduca} de la asignatura Arquitectura de Computadoras, quienes aportaron su experiencia docente para identificar los elementos de la arquitectura x86 que resultaban prioritarios para representar, simplificar o adaptar en función de los objetivos pedagógicos del simulador. Este análisis condujo a la elección de una arquitectura simplificada de 8 bits, cuyas características se describen más adelante, justificado por su valor didáctico: una arquitectura de 8 bits permite reducir significativamente la complejidad del modelo, sin comprometer la enseñanza de conceptos fundamentales como el ciclo de instrucción, la manipulación de registros o el manejo de interrupciones, permitiendo representar procesos clave con mayor claridad y menor carga cognitiva. La menor cantidad de líneas de datos, registros y operaciones simplifica la visualización de procesos como la ejecución de instrucciones, el flujo de datos y el manejo de interrupciones, favoreciendo la comprensión por parte del estudiante en etapas iniciales del aprendizaje.
 
-La arquitectura x86 se caracteriza por su elevada complejidad, derivada de su extenso repertorio de instrucciones y sus múltiples características avanzadas. Frente a este panorama, el diseño del simulador adopta un enfoque instruccional basado en tres principios pedagógicos clave:
+La arquitectura x86 se caracteriza por su elevada complejidad, derivada de su extenso repertorio de instrucciones y sus múltiples características avanzadas. En respuesta a esta complejidad, el diseño del simulador se fundamenta en tres principios pedagógicos centrales:
 
 \begin{itemize}
 \tightlist
@@ -1896,10 +1896,7 @@ La arquitectura x86 se caracteriza por su elevada complejidad, derivada de su ex
   \textbf{Claridad pedagógica}: las prácticas son manejables en términos de tiempo y esfuerzo, favoreciendo un aprendizaje activo, centrado en la resolución progresiva de problemas y libre de sobrecarga cognitiva excesiva.
 \end{itemize}
 
-\hypertarget{beneficios-de-la-simplificaciuxf3n}{%
-\subsection{Beneficios de la simplificación}\label{beneficios-de-la-simplificaciuxf3n}}
-
-El diseño del simulador contribuye a:
+En este marco, el diseño del simulador contribuye a:
 
 \begin{itemize}
 \tightlist
@@ -1919,15 +1916,18 @@ En síntesis, la definición de estos requisitos busca integrar aspectos funcion
 \hypertarget{diseuxf1o-del-simulador}{%
 \section{Diseño del Simulador}\label{diseuxf1o-del-simulador}}
 
-El simulador implementado adopta la arquitectura de Von Neumann, reconocida por su simplicidad conceptual y operativa. En este modelo, los datos y las instrucciones comparten una única memoria, lo que permite tratar las instrucciones como datos. Esta característica facilita técnicas como la ejecución dinámica y la optimización del rendimiento \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
+El simulador implementado adopta la arquitectura de Von Neumann, reconocida por su simplicidad conceptual y operativa. En este modelo, los datos y las instrucciones comparten una única memoria, lo que permite tratar las instrucciones como datos \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
+
+\hypertarget{vonsim-1}{%
+\subsection{VonSim}\label{vonsim-1}}
 
 VonSim\footnote{VonSim: \url{https://vonsim.github.io/}} sirvió como referencia por su enfoque educativo e interfaz intuitiva. Sobre esta base se desarrolló VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}}, adaptado para operar con registros y memoria de 8\,bits y diseñado para el aprendizaje progresivo \protect\hyperlink{ref-vonsim}{{[}79{]}}.
 
-La arquitectura detallada de VonSim, con su amplio repertorio de instrucciones y componentes, ofrece una visión integral del sistema. Sin embargo, dicha riqueza funcional puede abrumar a estudiantes en etapas iniciales. Por esta razón, VonSim8 introduce una simplificación estrategica, con el objetivo de reducir la carga cognitiva en etapas iniciales, facilitando así una apropiación gradual de los conceptos fundamentales. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
+La arquitectura detallada de VonSim, con su amplio repertorio de instrucciones y componentes, ofrece una visión integral del sistema. Sin embargo, dicha riqueza funcional puede abrumar a estudiantes en etapas iniciales. Por esta razón, VonSim8 implementa una simplificación estratégica orientada a la reducción de la carga cognitiva en los primeros niveles de aprendizaje, promoviendo una asimilación progresiva de los conceptos fundamentales de la arquitectura de computadoras. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
 VonSim \protect\hyperlink{ref-vonsim}{{[}79{]}} es una herramienta diseñada específicamente para la enseñanza y el aprendizaje de la arquitectura y organización de computadoras. Sus principales características la posicionan como una solución educativa integral:
 
-\textbf{Características técnicas y pedagógicas de VonSim:}
+Características técnicas y pedagógicas de VonSim:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1956,7 +1956,7 @@ En síntesis, VonSim constituye una herramienta robusta y accesible que simplifi
 \hypertarget{las-modificaciones-principales-de-vonsim}{%
 \subsection{Las modificaciones principales de VonSim}\label{las-modificaciones-principales-de-vonsim}}
 
-Del registro FLAGS del simulador VonSim se ocultaron las banderas O y S ya que en los primeros ejercicios de ensamblador no se requiere su uso ya que se trabaja solamente con números enteros positivos, posteriormente las mismas se pueden habilitar en el menu configuración del simulador.
+En el registro FLAGS de VonSim se ocultaron inicialmente las banderas O (overflow) y S (signo), dado que en los primeros ejercicios de ensamblador solo se emplean números enteros positivos. No obstante, estas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, conforme se abordan ejercicios de mayor complejidad.
 
 \begin{figure}
 
@@ -1989,7 +1989,7 @@ Se modifico el menu de los controles del simulador.
 \caption{Controles del simulador}\label{fig:controles}
 \end{figure}
 
-Se eliminaron los registros de 16 bits y se redujo el tamaño de los registros a 8 bits, lo que simplifica la representación y manipulación de datos. Esta decisión se fundamenta en la necesidad de reducir la complejidad del modelo para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Tambien se unifico el criterio del diseño de los registro, ahora todos los registros tienen una entrada y una salida independiente, lo que permite una visualización más clara de cómo se transfieren los datos entre los registros y la ALU (Unidad Aritmético Lógica). Esta modificación es esencial para comprender el flujo de datos en el ciclo de instrucción y la interacción entre los componentes del procesador. Tambien se ocultaron los registros registro SP y (\texttt{ri} e \texttt{id}) que se habilitan automaticamente al ejecutar una instrucción que requiera su uso.
+Se eliminaron los registros de 16 bits y se redujo el tamaño de los registros a 8 bits, lo que simplifica la representación y manipulación de datos. Esta decisión se fundamenta en la necesidad de reducir la complejidad del modelo para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Asimismo, se unificó el criterio de diseño de los registros: todos ellos disponen ahora de una entrada y una salida independientes, lo que permite una visualización más clara de la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación es esencial para comprender el flujo de datos en el ciclo de instrucción y la interacción entre los componentes del procesador. Tambien se ocultaron los registros registro SP y (\texttt{ri} e \texttt{id}) que se habilitan automaticamente al ejecutar una instrucción que requiera su uso.
 
 \begin{figure}
 
@@ -2034,7 +2034,7 @@ Resaldo de la direccion de memoria apuntada por el registro IP.
 \caption{Resaltado registro IP}\label{fig:resaltadoip}
 \end{figure}
 
-Cuando el progrma tiene instrucciones INT o de manejo de pila se resalta en memoria el el vector de interrucciones, 8 posiciones de memoria desde \texttt{0x00} a \texttt{0x07} y la dirección apuntada por el registro SP:
+Cuando el programa tiene instrucciones INT o de manejo de pila se resalta en memoria el el vector de interrucciones, 8 posiciones de memoria desde \texttt{0x00} a \texttt{0x07} y la dirección apuntada por el registro SP:
 
 \begin{figure}
 
@@ -2058,34 +2058,12 @@ Visor de instrucciones y datos del programa en memoria, pudiendo ver la instrucc
 
 En el VonSim cuando se escribe un programa en el editor del simulador es obligatorio que la sección de codigo inicie con la directiva \texttt{org\ 0x2000h}, porque el simulador comienza a ejecutar la primer instrucción del programa a partir de la dirección de memoria \texttt{0x2000h}, esto se indica al comienzo del programa mediante la directiva \texttt{org\ 0x2000h} y los datos del programa generalmente se cargan a partir de la dirección de memoria \texttt{0x1000h} mediante la directiva \texttt{org\ 0x1000h}.
 
-En VonSim8 no es obligatorio la directiva \texttt{org} para indicar la dirección de inicio del programa sino opcional, por default si el programa no tiene la directiva \texttt{org} la primer instruccion del programa comienza a cargarse en la dirección \texttt{0x00h}, y en caso que el programa tenga instrucciones de interrupcion \texttt{INT} el programa se cargará a partir de la direccion \texttt{0x08h} para dejar espacio al vector de interrupciones.
-VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en utilizar la directiva \texttt{org\ 0x2000h} utiliza org \texttt{0x20h} y el simulador comienza a ejecutar la instruccion que se encuentra en la dirección \texttt{0x20h} de la memoria vez de cargar en la posicion ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
+En VonSim8 el uso de la directiva org para definir la dirección inicial del programa es opcional. De manera predeterminada, si el programa no incluye esta directiva, la primera instrucción se carga en la dirección 0x00h. En caso de contener instrucciones de interrupción (INT), el simulador asigna automáticamente la dirección 0x08h al inicio, reservando espacio para el vector de interrupciones.
+VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en utilizar la directiva \texttt{org\ 0x2000h} utiliza org \texttt{0x20h} y el simulador comienza a ejecutar la instrucción que se encuentra en la dirección \texttt{0x20h} de la memoria vez de cargar en la posición ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
 
 Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva \texttt{org} para establecerla. Por ejemplo, \texttt{org\ 0x20h} indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva \texttt{org} para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. Sino se especifica la directiva \texttt{org} en el programa el simulador comienza a ejecutar el programa desde la dirección \texttt{0x00h}, en caso de que el programa tenga instrucciones de interrupción \texttt{INT}, el simulador asigna automáticamente la dirección \texttt{0x08h} al primer byte del programa, dejando espacio para el vector de interrupciones.
 
-El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor.
-En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT} número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
-
-Específicamente, el procesador:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  obtiene el número de la interrupción (0-7),
-\item
-  apila el registro \texttt{FLAGS},
-\item
-  inhabilita las interrupciones \texttt{IF=0},
-\item
-  apila el registro \texttt{IP},
-\item
-  obtiene la dirección de la rutina de interrupción del vector de interrupciones,
-\item
-  modifica el \texttt{IP} para que apunte a la dirección de la rutina de interrupción.
-\end{enumerate}
-
-El simulador implementas las interrupciones por software mediante la instrucción \texttt{INT\ \textless{}n\textgreater{}}. Estos números son:
+VonSim8 solamente implementa las interrupciones por software:
 
 \begin{itemize}
 \tightlist
@@ -2096,6 +2074,35 @@ El simulador implementas las interrupciones por software mediante la instrucció
 \item
   \texttt{INT\ 7}: escribe una cadena de caracteres en pantalla.
 \end{itemize}
+
+A fin de sintetizar las diferencias más relevantes entre VonSim y VonSim8, se presenta la siguiente tabla comparativa. Esta permite visualizar de manera inmediata los cambios introducidos en el diseño y su impacto en la enseñanza de los conceptos fundamentales de arquitectura de computadoras.
+
+Con el fin de facilitar el aprendizaje del simulador VonSim8 se implementó un tour de aprendizaje que guía a los usuarios a través de las características y funcionalidades del simulador. Tambien en centro de aprendizaje con explicación de ejemplos basicos.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1649}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3711}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4639}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Característica
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+VonSim
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+VonSim8
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Registros} & Registros de 16 bits (AX, BX, CX, DX) & Registros de 8 bits, con entrada y salida independientes. Registros SP, RI e ID se ocultan y habilitan automáticamente. \\
+\textbf{Registro FLAGS} & Incluye todas las banderas del 8088 (O, S, Z, C, etc.) & Se ocultan inicialmente las banderas O (overflow) y S (signo). El flag I (interrupción) se muestra dinámicamente. \\
+\textbf{Directiva \texttt{org}} & Obligatoria. El código comienza en \texttt{0x2000h} y los datos en \texttt{0x1000h}. & Opcional. Por defecto, el código inicia en \texttt{0x00h}. Si hay interrupciones, comienza en \texttt{0x08h}. Compatible con \texttt{org\ 0x20h}. \\
+\textbf{Memoria principal} & 32 KB, organizada en páginas del 8088. & Matriz de 16×16 bytes (256 bytes), expresada en hexadecimal, con resaltado dinámico de IP y SP. \\
+\textbf{Interrupciones implementadas} & Completo soporte de interrupciones por hardware y software, con PIC. & Solo interrupciones por software: \texttt{INT\ 0} (fin), \texttt{INT\ 6} (entrada de teclado), \texttt{INT\ 7} (salida de cadena). \\
+\textbf{Temporales de la ALU} & Registros temporales \texttt{left} y \texttt{rigth} visibles. & Eliminados, para simplificar la representación del ciclo de instrucción. \\
+\textbf{Enfoque pedagógico} & Mayor fidelidad al procesador Intel 8088, con repertorio más amplio. & Simplificación estratégica para reducir carga cognitiva y favorecer aprendizaje progresivo. \\
+\end{longtable}
 
 \hypertarget{requisitos-funcionales-del-simulador-vonsim8}{%
 \subsection{Requisitos funcionales del simulador VonSim8}\label{requisitos-funcionales-del-simulador-vonsim8}}
@@ -2117,7 +2124,7 @@ Las modificaciones implementadas se alinean con los contenidos curriculares de l
 \hypertarget{estructura-del-vonsim8}{%
 \subsection{Estructura del VonSim8}\label{estructura-del-vonsim8}}
 
-Esta sección describe la estructura del simulador VonSims8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. Se describe en la siguiente tabla \ref{tab:estructuravonsim8} los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico.:
+Esta sección describe la estructura del simulador VonSims8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. Se describe en la siguiente tabla \ref{tab:estructuravonsim8} los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico:
 
 \begin{table}[!h]
 \centering
@@ -2151,7 +2158,7 @@ Dentro de los registros específicos que no pueden ser accedidos por el usuario,
 Además, dos registros específicos que sirven de intermediarios para realizar ejecutar instrucciones, como pueden ser el \texttt{ri} para almacenar una dirección temporal, el \texttt{id} para almacenar un dato temporal.
 
 \hypertarget{unidad-de-control}{%
-\section{Unidad de Control}\label{unidad-de-control}}
+\subsection{Unidad de Control}\label{unidad-de-control}}
 
 La unidad de control es responsable de coordinar todas las operaciones de la CPU. Se encarga de:
 
@@ -2166,29 +2173,22 @@ La unidad de control es responsable de coordinar todas las operaciones de la CPU
 \end{itemize}
 
 \hypertarget{memoria-de-control}{%
-\subsection{Memoria de Control}\label{memoria-de-control}}
+\subsubsection{Memoria de Control}\label{memoria-de-control}}
 
 Para una comprensión más profunda de cómo funciona la unidad de control, puedes visualizar la memoria de control que muestra las microinstrucciones y microoperaciones de cada instrucción.
 
 \hypertarget{secuenciador}{%
-\subsection{Secuenciador}\label{secuenciador}}
+\subsubsection{Secuenciador}\label{secuenciador}}
 
 El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
 
-\hypertarget{instrucciones}{%
-\section{Instrucciones}\label{instrucciones}}
-
-El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, permitiendo a los estudiantes familiarizarse con las operaciones básicas sin abrumarse con la complejidad del conjunto completo de instrucciones x86.
-
-El repertorio de instrucciones incluye operaciones aritméticas, lógicas, de transferencia de datos y control de flujo. Las instrucciones poseen una longitud variable (1, 2 o 3 bytes) y admiten diversos modos de direccionamiento: registro a registro, directo, indirecto e inmediato.
-
 \hypertarget{alu}{%
-\section{ALU}\label{alu}}
+\subsection{ALU}\label{alu}}
 
 La ALU (\emph{Arithmetic Logic Unit}) permite realizar operaciones aritméticas y lógicas de 8 bits. Las operaciones disponibles son: \texttt{ADD}, \texttt{INC}, \texttt{SUB}, \texttt{DEC}, \texttt{NEG}, \texttt{NOT}, \texttt{AND} y \texttt{OR}. Todas estas operaciones modifican el registro \texttt{FLAGS}.
 
 \hypertarget{flags}{%
-\subsection{Flags}\label{flags}}
+\subsubsection{Flags}\label{flags}}
 
 El registro \texttt{FLAGS} es un registro de 8 bits que contiene las \emph{flags} mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
 
@@ -2297,8 +2297,10 @@ La Figura \ref{fig:esquemavonsim8} presenta una visión esquemática de la arqui
 \caption{Arquitectura general del simulador}\label{fig:esquemavonsim8}
 \end{figure}
 
-\hypertarget{repertorio-de-instruciones}{%
-\subsection{Repertorio de instruciones}\label{repertorio-de-instruciones}}
+\hypertarget{repertorio-de-instrucciones-1}{%
+\subsection{Repertorio de instrucciones}\label{repertorio-de-instrucciones-1}}
+
+El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, permitiendo a los estudiantes familiarizarse con las operaciones básicas sin abrumarse con la complejidad del conjunto completo de instrucciones x86.
 
 El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque progresivo permite introducir los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}28{]}}. La Tabla \ref{tab:setreducido} muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. Este repertorio se centra en las instrucciones de transferencia y procesamiento de datos, así como en las instrucciones de control de flujo, permitiendo al estudiante familiarizarse con los conceptos básicos de la arquitectura x86 sin la complejidad adicional de un repertorio completo.
 
@@ -2519,7 +2521,7 @@ A traves de la implementación de estas instrucciones, el simulador VonSim8 busc
 \hypertarget{formato-de-instrucciones}{%
 \subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
 
-Las instrucciones del simulador VonSim8 se definen con un formato de 1 a 3 bytes, donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
+Las instrucciones del simulador VonSim8 poseen una longitud variable (1, 2 o 3 bytes), donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
 
 \begin{table}[!h]
 \centering
@@ -2822,8 +2824,8 @@ Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M 
 \end{threeparttable}}
 \end{table}
 
-\hypertarget{repertorio-de-instrucciones-1}{%
-\section{Repertorio de instrucciones}\label{repertorio-de-instrucciones-1}}
+\hypertarget{repertorio-de-instrucciones-2}{%
+\section{Repertorio de instrucciones}\label{repertorio-de-instrucciones-2}}
 
 El repertorio \textbf{x86} es reducido (8 bits)
 
@@ -3129,6 +3131,9 @@ Ejemplo de subrutina:
 \hypertarget{interrupciones}{%
 \section{Interrupciones}\label{interrupciones}}
 
+El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor.
+En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT} número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
 El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción \texttt{INT} respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, \texttt{IF=1} (la \emph{flag} de interrupciones activada).
 
 Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT}. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre \texttt{0} y \texttt{7}.
@@ -3145,7 +3150,7 @@ Específicamente, el procesador:
 \item
   apila el registro \texttt{FLAGS},
 \item
-  inhabilita las interrupciones \texttt{IF=0},
+  inhabilita las interrupciones \texttt{I=0},
 \item
   apila el registro \texttt{IP},
 \item
