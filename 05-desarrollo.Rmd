@@ -986,43 +986,48 @@ Estos modos de direccionamiento permiten al simulador representar una variedad d
 library(knitr)
 library(kableExtra)
 
-modosdireccionamiento <- data.frame(
-  Destino = c("Registro Rx",   
-    if (knitr::is_latex_output()) {
-      "Memoria puede ser: \\begin{itemize}\\item dirección [M]\\item dirección registro [BL] \\end{itemize}" # nolint: line_length_linter.
-    } else {
-      "Memoria puede ser: <ul><li>dirección `[M]`</li><li>dirección registro `[BL]`)</li></ul>" # nolint: line_length_linter.
-    }),
-  Fuente = c(    
-    if (knitr::is_latex_output()) {
-      "Puede ser:\\begin{itemize} \\item registro Ry\\item dirección [M] \\item dirección registro [BL] \\item valor inmediato d \\end{itemize}" # nolint: line_length_linter.
-    } else {
-      "Puede ser:<li>registro `Ry`</li><ul><li>dirección `[M]`</li><li>dirección registro `[BL]`</li><li>valor inmediato `d`</li></ul>" # nolint: line_length_linter.
-    }, if (knitr::is_latex_output()) {
-      "Puede ser:\\begin{itemize} \\item Registro: Ry\\item valor en la instrucción d \\end{itemize}" # nolint: line_length_linter.
-    } else {
-      "Puede ser:<ul><li>Registro: `Ry`</li><li>valor en la instrucción `d`</li></ul>" # nolint: line_length_linter.
-    }),
-  Ejemplo = c(   
-    if (knitr::is_latex_output()) {
-      "\\begin{itemize} \\item Entre registro: MOV Rx, Ry\\item Directo: MOV Rx, [M] \\item Indirecto: MOV Rx, [BL]\\item Inmediato: MOV Rx, d \\end{itemize}" # nolint: line_length_linter.
-    } else {
-      "<li>Entre registro: MOV `Rx`,`Ry`</li><ul><li>Directo: MOV `Rx`,`[M]`</li><li>Indirecto: MOV `Rx`,`[BL]`</li><li>Inmediato: MOV `Rx`,`d`</li></ul>" # nolint: line_length_linter.
-    }, 
-    if (knitr::is_latex_output()) {
-      "\\begin{itemize} \\item Directo: MOV [M], Ry \\item Indirecto: MOV [BL], Ry\\item Directo-Inmediato: MOV [M], d\\item Indirecto-Inmediato: MOV [BL], d \\end{itemize}" # nolint: line_length_linter.
-    } else {
-      "<li>Directo: MOV `[M]`,`Ry`</li><li>Indirecto: MOV `[BL]`,`Ry`</li><li>Directo-Inmediato: MOV `[M]`,`d`</li><li>Indirecto-Inmediato: MOV `[BL]`,`d`</li></ul>" # nolint: line_length_linter.
-    }),
-  stringsAsFactors = FALSE
-)
+if (knitr::is_latex_output()) {
+  modosdireccionamiento <- data.frame(
+    Destino = c(
+      "Registro Rx",
+      "Memoria puede ser: \\begin{itemize}\\item dirección [M]\\item dirección registro [BL] \\end{itemize}"
+    ),
+    Fuente = c(
+      "Puede ser:\\begin{itemize} \\item registro Ry\\item dirección [M] \\item dirección registro [BL] \\item valor inmediato d \\end{itemize}",
+      "Puede ser:\\begin{itemize} \\item Registro: Ry\\item valor en la instrucción d \\end{itemize}"
+    ),
+    Ejemplo = c(
+      "\\begin{itemize} \\item Entre registro: MOV Rx, Ry\\item Directo: MOV Rx, [M] \\item Indirecto: MOV Rx, [BL]\\item Inmediato: MOV Rx, d \\end{itemize}",
+      "\\begin{itemize} \\item Directo: MOV [M], Ry \\item Indirecto: MOV [BL], Ry\\item Directo-Inmediato: MOV [M], d\\item Indirecto-Inmediato: MOV [BL], d \\end{itemize}"
+    ),
+    stringsAsFactors = FALSE
+  )
+} else {
+  modosdireccionamiento <- data.frame(
+    Destino = c(
+      "Registro Rx",
+      "Memoria puede ser: <ul><li>dirección `[M]`</li><li>dirección registro `[BL]`</li></ul>"
+    ),
+    Fuente = c(
+      "Puede ser:<ul><li>registro `Ry`</li><li>dirección `[M]`</li><li>dirección registro `[BL]`</li><li>valor inmediato `d`</li></ul>",
+      "Puede ser:<ul><li>Registro: `Ry`</li><li>valor en la instrucción `d`</li></ul>"
+    ),
+    Ejemplo = c(
+      "<ul><li>Entre registro: MOV `Rx`,`Ry`</li><li>Directo: MOV `Rx`,`[M]`</li><li>Indirecto: MOV `Rx`,`[BL]`</li><li>Inmediato: MOV `Rx`,`d`</li></ul>",
+      "<ul><li>Directo: MOV `[M]`,`Ry`</li><li>Indirecto: MOV `[BL]`,`Ry`</li><li>Directo-Inmediato: MOV `[M]`,`d`</li><li>Indirecto-Inmediato: MOV `[BL]`,`d`</li></ul>"
+    ),
+    stringsAsFactors = FALSE
+  )
+}
 
-tabla <- kable(modosdireccionamiento,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Tabla de modos de direccionamiento",
-               col.names = c("Destino", "Fuente", "Ejemplo"),
-               booktabs = TRUE,
-               escape = FALSE)
+tabla <- kable(
+  modosdireccionamiento,
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Tabla de modos de direccionamiento",
+  col.names = c("Destino", "Fuente", "Ejemplo"),
+  booktabs = TRUE,
+  escape = FALSE
+)
 
 if (knitr::is_latex_output()) {
   tabla %>%
@@ -1032,13 +1037,13 @@ if (knitr::is_latex_output()) {
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "5cm") %>%
-    column_spec(3, width = "8cm") %>%
+    column_spec(3, width = "8cm", latex_column_spec = "p{8cm}") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(3, extra_latex_after = "\\midrule") %>%
+    row_spec(seq_len(nrow(modosdireccionamiento)), extra_latex_after = "\\addlinespace[10pt]") %>%
     footnote(
       general = c(
         "Las instrucciones de dos operando, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
-        "Rx y Ry puede ser un registro de proposito general: AL, BL, CL y DL."
+        "Rx y Ry puede ser un registro de propósito general: AL, BL, CL y DL."
       ),
       general_title = "Nota: ",
       number = c("La notación [M] indica el contenido de la dirección de memoria.", "La notación [BL] indica el contenido de la dirección del registro BL.", "La notación d indica dato inmediato."),
@@ -1058,7 +1063,7 @@ if (knitr::is_latex_output()) {
     column_spec(2, width = "25em") %>%
     column_spec(3, width = "35em") %>%
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
-    row_spec(3, extra_css = "border-top: 2px solid #000;") %>%
+    row_spec(seq_len(nrow(modosdireccionamiento)), extra_css = "border-top: 2px solid #000;") %>%
     footnote(
       general = "Las instrucciones de dos operando, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
       general_title = "Nota: ",
@@ -1557,28 +1562,87 @@ Las direcciones del vector de interrupciones asociadas a estos números están p
 
 El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones `A0h`, `B0h` y `C0h` respectivamente.
 
+```{r tisa, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
 
-| Categoría                  | Instrucción            | Código operación | Acción                                                                 |
-|---------------------------|------------------------|------------------|------------------------------------------------------------------------|
-| **Transferencia de datos**| `MOV`                  | {0, 1, 2}        | Copiar entre registros, cargar a registro, almacenar en memoria        |
+tisa <- data.frame(
+  Categoría = c(
+    "Transferencia de datos",
+    "Procesamiento de datos", "", "",
+    "Control de flujo",
+    "Gestión de flujo",
+    "Manejo de pila y E/S",
+    "Miscelánea"
+  ),
+  Instrucción = c(
+    "MOV",
+    "ADD", "SUB", "CMP",
+    "JMP / Jxx / CALL / INT",
+    "RET / IRET / CLI / STI / HLT",
+    "PUSH / POP / OUT / IN",
+    "AND / OR / XOR / NOT / INC / DEC"
+  ),
+  `Código operación` = c(
+    "{0, 1, 2}",
+    "{3, 4, 5}", "{6, 7, 8}", "{9, 10, 11}",
+    "{12}",
+    "{13}",
+    "{14}",
+    "{15}"
+  ),
+  Acción = c(
+    "Copiar entre registros, cargar a registro, almacenar en memoria",
+    "Operación aritmética: operando1 ← operando1 + operando2",
+    "Operación aritmética: operando1 ← operando1 - operando2",
+    "Comparación: operando1 - operando2 (no actualiza el destino)",
+    "Salto incondicional JMP, condicionales Jxx, llamada CALL, INT: llamar rutina de interrupción",
+    "RET: retorno, IRET: retornar de interrupción, NOP: no opera, HLT: detiene el CPU",
+    "PUSH: poner en la pila, POP: retirar de la pila, OUT: enviar a puerto, IN: recibir desde puerto",
+    "Operaciones lógicas y aritméticas"
+  ),
+  stringsAsFactors = FALSE
+)
 
-| **Procesamiento de datos**| `ADD`                  | {3, 4, 5}        | Operación aritmética: `operando1 ← operando1 + operando2`             |
-|                           | `SUB`                  | {6, 7, 8}        | Operación aritmética: `operando1 ← operando1 - operando2`             |
-|                           | `CMP`                  | {9, 10, 11}      | Comparación: `operando1 - operando2` (no actualiza el destino)        |
+tabla_kable <- kable(tisa,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Categorías de instrucciones y códigos de operación en VonSim8",
+               col.names = c("Categoría", "Instrucción", "Código operación", "Acción"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "c", "c", "l"))
 
-| **Control de flujo**      | `JMP / Jxx / CALL / INT`         | {12}             | Salto incondicional `JMP`, condicionales `Jxx`, llamada `CALL`,`INT`: llamar rutina de interrupción |
+if (knitr::is_latex_output()) {
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "4cm") %>%
+    column_spec(3, width = "3cm") %>%
+    column_spec(4, width = "8cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(tisa)), extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "12em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "16em") %>%
+    column_spec(3, width = "8em") %>%
+    column_spec(4, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
 
-| **Gestion de flujo**      | `RET / IRET / CLI/  STI / HLT`| {13}           | retorno `RET`, `IRET`: retornar de interrupción<br>`NOP`: no opera<br>`HLT`: detiene el CPU  |
+Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el codigo de operacion 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
 
-| **Manejo de pila y E/S**  | `PUSH / POP / OUT / IN` | {14}           | `PUSH`: poner en la pila<br>`POP`: retirar de la pila<br>`OUT`: enviar a puerto `IN`: recibir desde puerto |
-
-| **Miscelánea**            | `AND / OR / XOR / NOT / INC / DEC`  | {15}           | Operaciones lógicas y aritméticas                               |
-
-
-
-
-## Ciclo de ejecución
-El ciclo de ejecución de estas instrucciones es similar al ciclo de instrucción básico, pero con pasos adicionales para manejar la pila y las interrupciones. A continuación se detallan los pasos específicos para cada tipo de instrucción:
+### Etapa de ejecución de instrucciones de pila e interrupciones
+A continuación se detallan los pasos específicos para cada tipo de instrucción:
 
 Subrutinas:  
 * CALL  `Dirección` 
@@ -1608,8 +1672,6 @@ Interrupciones:
   4: `MAR` $\leftarrow$ `SP`
   5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
   6: `IP` $\leftarrow$ `MBR`;`SP` $\leftarrow$ `SP` + 1
-
-
 
 ## Aspectos tecnológicos de implementación
 Se utiliza un enfoque modular para la implementación del simulador, facilitando su mantenimiento y ampliación futura. La arquitectura del simulador se basa en una estructura de capas, donde cada capa se encarga de una parte específica del proceso de simulación.
