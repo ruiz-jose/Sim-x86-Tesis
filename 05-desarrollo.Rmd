@@ -982,7 +982,6 @@ Los modos de direccionamiento definidos son:
 
 Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \@ref(tab:modosdireccionamiento) resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, junto con ejemplos de uso:
 
-
 ```{r modosdireccionamiento, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
@@ -1155,73 +1154,6 @@ hlt
 ### Codificación de instrucciones
 El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
 
-```{r instaccion, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-instaccion <- data.frame(
-  Tipo = c(
-    "A: Entre registros",
-    "", "", "",
-    "B: Cargar a registro",
-    "", "", "", "", "", "", "", "", "", "", "",
-    "C: Almacenar en memoria",
-    "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-    "D: control de flujo",
-    "", ""
-  ),
-  Ejemplo = c(
-    "MOV Rx, Ry", "ADD Rx, Ry", "SUB Rx, Ry", "CMP Rx, Ry",
-    "MOV Rx, [M]", "MOV Rx, [BL]", "MOV Rx, d", "ADD Rx, [M]", "ADD Rx, [BL]", "ADD Rx, d",
-    "SUB Rx, [M]", "SUB Rx, [BL]", "SUB Rx, d", "CMP Rx, [M]", "CMP Rx, [BL]", "CMP Rx, d",
-    "MOV [M], Ry", "MOV [BL], Ry", "MOV [M], d", "MOV [BL], d",
-    "ADD [M], Ry", "ADD [BL], Ry", "ADD [M], d", "ADD [BL], d",
-    "SUB [M], Ry", "SUB [BL], Ry", "SUB [M], d", "SUB [BL], d",
-    "CMP [M], Ry", "CMP [BL], Ry", "CMP [M], d", "CMP [BL], d",
-    "JMP M", "Jxx M", "HLT"
-  ),
-  Acción = c(
-    "Rx ← Ry", "Rx ← Rx + Ry", "Rx ← Rx - Ry", "Rx - Ry * ",
-    "Rx ← Mem[Dirección]", "Rx ← Mem[BL]", "Rx ← dato", "Rx ← Rx + Mem[Dirección]", "Rx ← Rx + Mem[BL]", "Rx ← Rx + dato",
-    "Rx ← Rx - Mem[Dirección]", "Rx ← Rx - Mem[BL]", "Rx ← Rx - dato", "Rx - Mem[Dirección] (*)", "Rx - Mem[BL] (*)", "Rx - dato (*)",
-    "Mem[Dirección] ← Rx", "Mem[BL] ← Rx", "Mem[Dirección] ← dato", "Mem[BL] ← dato",
-    "Mem[Dirección] ← Mem[Dirección] + Rx", "Mem[BL] ← Mem[BL] + Rx", "Mem[Dirección] ← Mem[Dirección] + dato", "Mem[BL] ← Mem[BL] + dato",
-    "Mem[Dirección] ← Mem[Dirección] - Rx", "Mem[BL] ← Mem[BL] - Rx", "Mem[Dirección] ← Mem[Dirección] - dato", "Mem[BL] ← Mem[BL] - dato",
-    "Mem[Dirección] - Rx", "Mem[BL] - Rx", "Mem[Dirección] - dato", "Mem[BL] - dato", 
-    "IP ← Dirección", "Si xx = 1 entonces IP ← Dirección", "Detiene el procesador"
-  ),
-  stringsAsFactors = FALSE
-)
-
-if (knitr::is_latex_output()) {
-  kable(instaccion, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Ejemplo", "Acción"),
-        caption = "Tabla de instrucciones y acciones") %>%
-    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
-    column_spec(1, width = "4cm") %>%
-    column_spec(2, width = "3cm") %>%
-    column_spec(3, width = "8cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    footnote(
-      general = "La instrucción CMP no almacena el resultado de la operación en el operando destino.",
-      general_title = "Nota *: ",
-      threeparttable = TRUE
-    )
-
-} else {
-  kable(instaccion, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Ejemplo", "Acción"),
-        caption = "Tabla de instrucciones y acciones") %>%
-    kable_styling(full_width = FALSE, position = "center") %>%
-    column_spec(1, width = "20em") %>%
-    column_spec(2, width = "30em") %>%
-    column_spec(3, width = "30em") %>%
-    footnote(
-      general = "La instrucción CMP no almacena el resultado de la operación en el operando destino.",
-      general_title = "Nota *: ",
-      threeparttable = TRUE
-    )
-}
-```
-
 ```{r instcodif, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
@@ -1346,81 +1278,6 @@ if (knitr::is_latex_output()) {
     )
 }
 ```
-
-El formato ampliado para las instrucciones incluye los siguientes casos tabla \@ref(tab:formatoampliado):
-
-```{r formatoampliado, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-# Crear un dataframe con los datos
-formatoampliado <- data.frame(
-  Tipo = c("Transferencia y procesamiento", "", "", "", "", "Control"),
-  Operación = c("A: entre registros", "B: Cargar a registro", "", "", "C: Almacenar en memoria", "D: control de flujo"), # nolint: line_length_linter.
-  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____XX01", "____XX00 dddddddd", "____00YY MMMMMMMM dddddddd", "____ffff MMMMMMMM"), # nolint: line_length_linter, line_length_linter.
-  Parámetros = c(
-    "XX = Registro destino, YY = Registro fuente",
-    "XX00 = Registro destino y M = Dirección de memoria",
-    "XX01 = Registro destino y direccion en registro [BL]",
-    "XX10 = Registro destino y d = Dato inmediato",
-    "YY = Registro fuente, `M` = Dirección de memoria,  `d` = Dato Inmediato",
-    "ffff = funcionalidad, M = Dirección de memoria"
-  ),
-  stringsAsFactors = FALSE
-)
-
-# Mostrar la tabla en formato adecuado según el tipo de salida
-if (knitr::is_latex_output()) {
-  kable(formatoampliado, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
-        caption = "Tabla de codificación de instrucciones ampliado") %>%
-    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
-    column_spec(1, width = "4cm") %>%
-    column_spec(2, width = "5cm") %>%
-    column_spec(3, width = "5cm") %>%
-    column_spec(4, width = "6cm") %>%
-    row_spec(4, extra_latex_after = "\\midrule") %>%
-    footnote(
-      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
-      general_title = "Nota: ",
-      threeparttable = TRUE
-    )
-} else {
-  kable(formatoampliado, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
-        caption = "Tabla de codificación de instrucciones ampliado") %>%
-    kable_styling(full_width = FALSE, position = "center") %>%
-    column_spec(1, width = "20em") %>%
-    column_spec(2, width = "25em") %>%
-    column_spec(3, width = "25em") %>%
-    column_spec(4, width = "30em") %>%
-    row_spec(4, extra_css = "border-top: 2px solid #000;") %>%
-    footnote(
-      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
-      general_title = "Nota: ",
-      threeparttable = TRUE
-    )
-}
-```
-
-## Repertorio de instrucciones
-
-El repertorio **x86** es reducido (8 bits)
-
-| Categoría                  | Instrucción            | Código operación | Acción                                                                 |
-|---------------------------|------------------------|------------------|------------------------------------------------------------------------|
-| **Transferencia de datos**| `MOV`                  | {0, 1, 2}        | Copiar entre registros, cargar a registro, almacenar en memoria        |
-
-| **Procesamiento de datos**| `ADD`                  | {3, 4, 5}        | Operación aritmética: `operando1 ← operando1 + operando2`             |
-|                           | `SUB`                  | {6, 7, 8}        | Operación aritmética: `operando1 ← operando1 - operando2`             |
-|                           | `CMP`                  | {9, 10, 11}      | Comparación: `operando1 - operando2` (no actualiza el destino)        |
-
-| **Control de flujo**      | `JMP / Jxx / CALL / INT`         | {12}             | Salto incondicional `JMP`, condicionales `Jxx`, llamada `CALL`,`INT`: llamar rutina de interrupción |
-
-| **Gestion de flujo**      | `RET / IRET / CLI/  STI / HLT`| {13}           | retorno `RET`, `IRET`: retornar de interrupción<br>`NOP`: no opera<br>`HLT`: detiene el CPU  |
-
-| **Manejo de pila y E/S**  | `PUSH / POP / OUT / IN` | {14}           | `PUSH`: poner en la pila<br>`POP`: retirar de la pila<br>`OUT`: enviar a puerto `IN`: recibir desde puerto |
-
-| **Miscelánea**            | `AND / OR / XOR / NOT / INC / DEC`  | {15}           | Operaciones lógicas y aritméticas                               |
-
 
 ## Ciclo de la instrucción
 El ciclo de la instrucción es la secuencia de pasos que sigue la Unidad de Control (UC) para ejecutar cada instrucción de un programa. Es un proceso esencial para el funcionamiento de cualquier computadora, en el que intervienen elementos clave como registros, buses de datos, direcciones y control, y las señales de control generadas por la UC.
@@ -1579,24 +1436,9 @@ Modo Indirecto-Inmediato (`[BL]`, `Dato`)
   Si es salto condicional `Jxx` : 
   6. Si se cumple la condición del flag `xx`, **`IP` $\leftarrow$ `MBR`**; en caso contrario, continúa con la siguiente instrucción.
 
-Tabla de condiciones en las instrucciones `Jxx` el parámetro `xx` representa una combinación de los flags de estado. La negación de un flag se indica con la letra N.
-
-| Instrucción        | Acción                                         |
-| :----------------- | :--------------------------------------------- |
-| `JZ Dirección`     | Salta a _Dirección_ si `Z = 1`                 |
-| `JNZ Dirección`    | Salta a _Dirección_ si `Z = 0`                 |
-| `JC Dirección`     | Salta a _Dirección_ si `C = 1`                 |
-| `JNC Dirección`    | Salta a _Dirección_ si `C = 0`                 |
-| `JS Dirección`     | Salta a _Dirección_ si `S = 1`                 |
-| `JNS Dirección`    | Salta a _Dirección_ si `S = 0`                 |
-| `JO Dirección`     | Salta a _Dirección_ si `O = 1`                 |
-| `JNO Dirección`    | Salta a _Dirección_ si `O = 0`                 |
-
-
 #### Instrucciones sin operandos
 Instrucción de control CPU `HLT`
   4. HLT – Detiene la ejecución de la CPU.
-
 
 ## Modulo de Entrada/Salida e interrupciones
 En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
@@ -1659,8 +1501,6 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-
-
 ## Pila
 El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo _Last In, First Out_ (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (`FFh`) y creciendo hacia las direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se guarda en el registro `SP`. Todos los elementos de la pila son de 8 bits.
 
@@ -1714,6 +1554,26 @@ El simulador permite realizar llamadas al sistema o _syscalls_. En el simulador,
 Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
 
 El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones `A0h`, `B0h` y `C0h` respectivamente.
+
+
+| Categoría                  | Instrucción            | Código operación | Acción                                                                 |
+|---------------------------|------------------------|------------------|------------------------------------------------------------------------|
+| **Transferencia de datos**| `MOV`                  | {0, 1, 2}        | Copiar entre registros, cargar a registro, almacenar en memoria        |
+
+| **Procesamiento de datos**| `ADD`                  | {3, 4, 5}        | Operación aritmética: `operando1 ← operando1 + operando2`             |
+|                           | `SUB`                  | {6, 7, 8}        | Operación aritmética: `operando1 ← operando1 - operando2`             |
+|                           | `CMP`                  | {9, 10, 11}      | Comparación: `operando1 - operando2` (no actualiza el destino)        |
+
+| **Control de flujo**      | `JMP / Jxx / CALL / INT`         | {12}             | Salto incondicional `JMP`, condicionales `Jxx`, llamada `CALL`,`INT`: llamar rutina de interrupción |
+
+| **Gestion de flujo**      | `RET / IRET / CLI/  STI / HLT`| {13}           | retorno `RET`, `IRET`: retornar de interrupción<br>`NOP`: no opera<br>`HLT`: detiene el CPU  |
+
+| **Manejo de pila y E/S**  | `PUSH / POP / OUT / IN` | {14}           | `PUSH`: poner en la pila<br>`POP`: retirar de la pila<br>`OUT`: enviar a puerto `IN`: recibir desde puerto |
+
+| **Miscelánea**            | `AND / OR / XOR / NOT / INC / DEC`  | {15}           | Operaciones lógicas y aritméticas                               |
+
+
+
 
 ## Ciclo de ejecución
 El ciclo de ejecución de estas instrucciones es similar al ciclo de instrucción básico, pero con pasos adicionales para manejar la pila y las interrupciones. A continuación se detallan los pasos específicos para cada tipo de instrucción:
@@ -1800,3 +1660,125 @@ El proceso de validación garantiza que el simulador cumple con los requisitos p
 ## Portabilidad y Mantenibilidad
 - **Portabilidad**: la herramienta se implementa como una aplicación web, compatible con cualquier navegador moderno.
 - **Mantenibilidad**: el código modular y bien documentado facilita futuras actualizaciones y mejoras.
+
+
+```{r instaccion, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+instaccion <- data.frame(
+  Tipo = c(
+    "A: Entre registros",
+    "", "", "",
+    "B: Cargar a registro",
+    "", "", "", "", "", "", "", "", "", "", "",
+    "C: Almacenar en memoria",
+    "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+    "D: control de flujo",
+    "", ""
+  ),
+  Ejemplo = c(
+    "MOV Rx, Ry", "ADD Rx, Ry", "SUB Rx, Ry", "CMP Rx, Ry",
+    "MOV Rx, [M]", "MOV Rx, [BL]", "MOV Rx, d", "ADD Rx, [M]", "ADD Rx, [BL]", "ADD Rx, d",
+    "SUB Rx, [M]", "SUB Rx, [BL]", "SUB Rx, d", "CMP Rx, [M]", "CMP Rx, [BL]", "CMP Rx, d",
+    "MOV [M], Ry", "MOV [BL], Ry", "MOV [M], d", "MOV [BL], d",
+    "ADD [M], Ry", "ADD [BL], Ry", "ADD [M], d", "ADD [BL], d",
+    "SUB [M], Ry", "SUB [BL], Ry", "SUB [M], d", "SUB [BL], d",
+    "CMP [M], Ry", "CMP [BL], Ry", "CMP [M], d", "CMP [BL], d",
+    "JMP M", "Jxx M", "HLT"
+  ),
+  Acción = c(
+    "Rx ← Ry", "Rx ← Rx + Ry", "Rx ← Rx - Ry", "Rx - Ry * ",
+    "Rx ← Mem[Dirección]", "Rx ← Mem[BL]", "Rx ← dato", "Rx ← Rx + Mem[Dirección]", "Rx ← Rx + Mem[BL]", "Rx ← Rx + dato",
+    "Rx ← Rx - Mem[Dirección]", "Rx ← Rx - Mem[BL]", "Rx ← Rx - dato", "Rx - Mem[Dirección] (*)", "Rx - Mem[BL] (*)", "Rx - dato (*)",
+    "Mem[Dirección] ← Rx", "Mem[BL] ← Rx", "Mem[Dirección] ← dato", "Mem[BL] ← dato",
+    "Mem[Dirección] ← Mem[Dirección] + Rx", "Mem[BL] ← Mem[BL] + Rx", "Mem[Dirección] ← Mem[Dirección] + dato", "Mem[BL] ← Mem[BL] + dato",
+    "Mem[Dirección] ← Mem[Dirección] - Rx", "Mem[BL] ← Mem[BL] - Rx", "Mem[Dirección] ← Mem[Dirección] - dato", "Mem[BL] ← Mem[BL] - dato",
+    "Mem[Dirección] - Rx", "Mem[BL] - Rx", "Mem[Dirección] - dato", "Mem[BL] - dato", 
+    "IP ← Dirección", "Si xx = 1 entonces IP ← Dirección", "Detiene el procesador"
+  ),
+  stringsAsFactors = FALSE
+)
+
+if (knitr::is_latex_output()) {
+  kable(instaccion, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Ejemplo", "Acción"),
+        caption = "Tabla de instrucciones y acciones") %>%
+    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+    column_spec(1, width = "4cm") %>%
+    column_spec(2, width = "3cm") %>%
+    column_spec(3, width = "8cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    footnote(
+      general = "La instrucción CMP no almacena el resultado de la operación en el operando destino.",
+      general_title = "Nota *: ",
+      threeparttable = TRUE
+    )
+
+} else {
+  kable(instaccion, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Ejemplo", "Acción"),
+        caption = "Tabla de instrucciones y acciones") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%
+    column_spec(2, width = "30em") %>%
+    column_spec(3, width = "30em") %>%
+    footnote(
+      general = "La instrucción CMP no almacena el resultado de la operación en el operando destino.",
+      general_title = "Nota *: ",
+      threeparttable = TRUE
+    )
+}
+```
+
+El formato ampliado para las instrucciones incluye los siguientes casos tabla \@ref(tab:formatoampliado):
+
+```{r formatoampliado, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear un dataframe con los datos
+formatoampliado <- data.frame(
+  Tipo = c("Transferencia y procesamiento", "", "", "", "", "Control"),
+  Operación = c("A: entre registros", "B: Cargar a registro", "", "", "C: Almacenar en memoria", "D: control de flujo"), # nolint: line_length_linter.
+  Codificación = c("____XXYY", "____XX00 MMMMMMMM", "____XX01", "____XX00 dddddddd", "____00YY MMMMMMMM dddddddd", "____ffff MMMMMMMM"), # nolint: line_length_linter, line_length_linter.
+  Parámetros = c(
+    "XX = Registro destino, YY = Registro fuente",
+    "XX00 = Registro destino y M = Dirección de memoria",
+    "XX01 = Registro destino y direccion en registro [BL]",
+    "XX10 = Registro destino y d = Dato inmediato",
+    "YY = Registro fuente, `M` = Dirección de memoria,  `d` = Dato Inmediato",
+    "ffff = funcionalidad, M = Dirección de memoria"
+  ),
+  stringsAsFactors = FALSE
+)
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  kable(formatoampliado, format = "latex", booktabs = TRUE, align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
+        caption = "Tabla de codificación de instrucciones ampliado") %>%
+    kable_styling(latex_options = c("hold_position", "scale_down")) %>%
+    column_spec(1, width = "4cm") %>%
+    column_spec(2, width = "5cm") %>%
+    column_spec(3, width = "5cm") %>%
+    column_spec(4, width = "6cm") %>%
+    row_spec(4, extra_latex_after = "\\midrule") %>%
+    footnote(
+      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
+} else {
+  kable(formatoampliado, format = "html", table.attr = "class='table table-striped'", align = "l", col.names = c("Tipo", "Operación", "Codificación", "Parámetros"), # nolint: line_length_linter.
+        caption = "Tabla de codificación de instrucciones ampliado") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "20em") %>%
+    column_spec(2, width = "25em") %>%
+    column_spec(3, width = "25em") %>%
+    column_spec(4, width = "30em") %>%
+    row_spec(4, extra_css = "border-top: 2px solid #000;") %>%
+    footnote(
+      general = "d = dato inmediato, no puede ser destino de la instrucción.", # nolint: line_length_linter.
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
+}
+```
