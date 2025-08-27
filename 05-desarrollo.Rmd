@@ -319,7 +319,7 @@ Con el fin de facilitar el aprendizaje del simulador VonSim8 se implementó un t
 Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo [@bonwell1991active].
 
 ### Estructura del VonSim8
-Esta sección describe la estructura del simulador VonSims8, el diseño de los registros fue concebido para facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, ambos considerados fundamentos clave en el estudio de la Arquitectura de Computadoras [@stallings_computer_2021]. Se describe en la siguiente tabla \@ref(tab:estructuravonsim8) los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico:
+En esta sección se describe la estructura del simulador VonSim8. El diseño de los registros se concibió con un propósito pedagógico: facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, elementos fundamentales en el estudio de la Arquitectura de Computadoras [@stallings_computer_2021]. Se describe en la siguiente tabla \@ref(tab:estructuravonsim8) los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico:
 
 ```{r estructuravonsim8, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -402,7 +402,7 @@ if (knitr::is_latex_output()) {
 
 Dentro de los registros específicos que no pueden ser accedidos por el usuario, se encuentra el registro `SP` (_stack pointer_) para el funcionamiento de la pila, el registro `FLAGS` (_flags register_), el `IP` (_instruction pointer_) que almacena la dirección de la próxima instrucción a ejecutar, el `IR` (_instruction register_) que almacena el byte de la instrucción que se está analizando/decodificando en un instante dado. También hay 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el `MAR` (_memory address register_) encargado de almacenar direcciones de memoria, y el `MBR` (_memory buffer register_) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.
 
-Además, dos registros específicos que sirven de intermediarios para realizar ejecutar instrucciones, como pueden ser el `ri` para almacenar una dirección temporal, el `id` para almacenar un dato temporal. 
+Adicionalmente, se incluyen dos registros auxiliares: `ri`, destinado al almacenamiento temporal de direcciones, e `id`, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones. 
 
 ### Unidad de Control
 La unidad de control es responsable de coordinar todas las operaciones de la CPU. Se encarga de:
@@ -485,7 +485,7 @@ El bus de datos, direcciones y control se implementa como un conjunto de líneas
 knitr::include_graphics(path = "images/buses.png")
 ```
 
-Dentro de los buses interno de la CPU se incluyen circulos que representan circuitos multiplexores, que son componentes clave en la selección de datos y direcciones durante el ciclo de instrucción. Estos multiplexores permiten dirigir las señales adecuadas a los registros y a la ALU (Unidad Aritmético Lógica), facilitando así el flujo de datos dentro del procesador. Un multiplexor (MUX) es un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una, y solo una, de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida
+Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Estos multiplexores permiten dirigir las señales adecuadas a los registros y a la ALU (Unidad Aritmético Lógica), facilitando así el flujo de datos dentro del procesador. Un multiplexor (MUX) es un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una, y solo una, de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida [@mano2017digital]. 
 
 ### Periféricos: teclado y pantalla
 El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
