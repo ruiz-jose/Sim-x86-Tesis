@@ -2198,9 +2198,9 @@ El registro \texttt{FLAGS} es un registro de 8 bits que contiene las \emph{flags
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedleft\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}p{5.5cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bit N°}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Abreviatura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bit N°}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Abreviatura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
 \midrule
 \textbf{0} & Z & Flag de cero (Zero)\\
 \addlinespace[10pt]
@@ -2341,28 +2341,30 @@ El parámetro \texttt{xx} en las instrucciones \texttt{Jxx} hace referencia a di
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:jxx}Tabla de instrucciones de VonSim8}
+\caption{\label{tab:saltoscondicionales}Saltos condicionales: instrucciones y condiciones}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{6cm}l}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{6cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{nemónico}}} & \multicolumn{1}{c}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
 \midrule
-\textbf{Transferencia de datos} & MOV & Copiar\\
+\textbf{JZ Dirección} & Salta a \_Dirección\_ si Z = 1\\
 \addlinespace[8pt]
-\textbf{Procesamiento de datos} & ADD & Sumar\\
+\textbf{JNZ Dirección} & Salta a \_Dirección\_ si Z = 0\\
 \addlinespace[8pt]
-\textbf{} & SUB & Restar\\
+\textbf{JC Dirección} & Salta a \_Dirección\_ si C = 1\\
 \addlinespace[8pt]
-\textbf{} & CMP & Comparar\\
+\textbf{JNC Dirección} & Salta a \_Dirección\_ si C = 0\\
 \addlinespace[8pt]
-\textbf{Control de flujo} & JMP & Salto incondicional\\
+\textbf{JS Dirección} & Salta a \_Dirección\_ si S = 1\\
 \addlinespace[8pt]
 \addlinespace
-\textbf{} & Jxx & Salto condicional si xx=1\\
+\textbf{JNS Dirección} & Salta a \_Dirección\_ si S = 0\\
 \addlinespace[8pt]
-\textbf{} & HLT & Detiene CPU\\
+\textbf{JO Dirección} & Salta a \_Dirección\_ si O = 1\\
+\addlinespace[8pt]
+\textbf{JNO Dirección} & Salta a \_Dirección\_ si O = 0\\
 \addlinespace[8pt]
 \bottomrule
 \end{tabular}}
@@ -2542,7 +2544,7 @@ Las instrucciones del simulador VonSim8 poseen una longitud variable (1, 2 o 3 b
 \hypertarget{modos-de-direccionamiento-1}{%
 \subsection{Modos de direccionamiento}\label{modos-de-direccionamiento-1}}
 
-Los modos de direccionamiento definidos son:
+Los modos de direccionamiento en un repertorio de instrucciones son los métodos que tiene un procesador para especificar la ubicación de los datos (operandos) que se van a utilizar en una instrucción. Esto permite al procesador saber de dónde tomar los datos para realizar una operación y dónde guardar el resultado. A continuación, se describen los modos de direccionamiento definidos en VonSim8:
 
 \begin{itemize}
 \item
@@ -2555,7 +2557,7 @@ Los modos de direccionamiento definidos son:
   Inmediato (\texttt{d}): un operando es un valor contenido en la instrucción.
 \end{itemize}
 
-Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla \ref{tab:modosdireccionamiento} resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, junto con ejemplos de uso:
+Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones, desde la manipulación directa de registros hasta el acceso a la memoria. Esto proporciona una base sólida para comprender el flujo de datos en una arquitectura computacional. La Tabla \ref{tab:modosdireccionamiento} resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, e incluye ejemplos de su uso.
 
 \begin{table}[!h]
 \centering

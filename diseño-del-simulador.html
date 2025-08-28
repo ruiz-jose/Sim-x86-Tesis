@@ -650,10 +650,10 @@ Señal de reconocimiento de interrupción (<code>INTA</code>, 1 bit).
 </caption>
 <thead>
 <tr>
-<th style="text-align:right;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Bit N°
 </th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Abreviatura
 </th>
 <th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
@@ -663,57 +663,57 @@ Descripción
 </thead>
 <tbody>
 <tr>
-<td style="text-align:right;width: 10em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 0
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:center;width: 10em; ">
 Z
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:left;width: 22em; ">
 Flag de cero (Zero)
 </td>
 </tr>
 <tr>
-<td style="text-align:right;width: 10em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 1
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:center;width: 10em; ">
 C
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:left;width: 22em; ">
 Flag de acarreo (Carry)
 </td>
 </tr>
 <tr>
-<td style="text-align:right;width: 10em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 2
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:center;width: 10em; ">
 O
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:left;width: 22em; ">
 Flag de desbordamiento (Overflow)
 </td>
 </tr>
 <tr>
-<td style="text-align:right;width: 10em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 3
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:center;width: 10em; ">
 S
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:left;width: 22em; ">
 Flag de signo (Sign)
 </td>
 </tr>
 <tr>
-<td style="text-align:right;width: 10em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 4
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:center;width: 10em; ">
 I
 </td>
-<td style="text-align:left;width: 32em; ">
+<td style="text-align:left;width: 22em; ">
 Flag de interrupción (Interrupt)
 </td>
 </tr>
@@ -912,93 +912,81 @@ Detiene CPU
 <p>El parámetro <code>xx</code> en las instrucciones <code>Jxx</code> hace referencia a diferentes combinaciones de banderas de estado (flags), tales como cero (Z), acarreo (C), signo (S) y desbordamiento (O). La negación de un flag se indica con la letra N, lo que amplía la flexibilidad de control del flujo de ejecución en programas condicionales.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:jxx">Tabla 5.7: </span>Tabla de instrucciones de VonSim8
+<span id="tab:saltoscondicionales">Tabla 5.7: </span>Saltos condicionales: instrucciones y condiciones
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Instrucciones
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Instrucción
 </th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-nemónico
-</th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Acción
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;width: 25em; font-weight: bold;">
-Transferencia de datos
+<td style="text-align:center;width: 18em; font-weight: bold;">
+JZ Dirección
 </td>
-<td style="text-align:left;width: 25em; ">
-MOV
-</td>
-<td style="text-align:left;">
-Copiar
+<td style="text-align:center;width: 18em; ">
+Salta a <em>Dirección</em> si Z = 1
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 25em; font-weight: bold;">
-Procesamiento de datos
+<td style="text-align:center;width: 18em; font-weight: bold;">
+JNZ Dirección
 </td>
-<td style="text-align:left;width: 25em; ">
-ADD
-</td>
-<td style="text-align:left;">
-Sumar
+<td style="text-align:center;width: 18em; ">
+Salta a <em>Dirección</em> si Z = 0
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 25em; font-weight: bold;">
+<td style="text-align:center;width: 18em; font-weight: bold;">
+JC Dirección
 </td>
-<td style="text-align:left;width: 25em; ">
-SUB
-</td>
-<td style="text-align:left;">
-Restar
+<td style="text-align:center;width: 18em; ">
+Salta a <em>Dirección</em> si C = 1
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 25em; font-weight: bold;">
+<td style="text-align:center;width: 18em; font-weight: bold;">
+JNC Dirección
 </td>
-<td style="text-align:left;width: 25em; ">
-CMP
-</td>
-<td style="text-align:left;">
-Comparar
+<td style="text-align:center;width: 18em; ">
+Salta a <em>Dirección</em> si C = 0
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 25em; font-weight: bold;">
-Control de flujo
+<td style="text-align:center;width: 18em; font-weight: bold;">
+JS Dirección
 </td>
-<td style="text-align:left;width: 25em; ">
-JMP
-</td>
-<td style="text-align:left;">
-Salto incondicional
+<td style="text-align:center;width: 18em; ">
+Salta a <em>Dirección</em> si S = 1
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 25em; font-weight: bold;">
+<td style="text-align:center;width: 18em; font-weight: bold;">
+JNS Dirección
 </td>
-<td style="text-align:left;width: 25em; ">
-Jxx
-</td>
-<td style="text-align:left;">
-Salto condicional si xx=1
+<td style="text-align:center;width: 18em; ">
+Salta a <em>Dirección</em> si S = 0
 </td>
 </tr>
 <tr>
-<td style="text-align:left;width: 25em; font-weight: bold;">
+<td style="text-align:center;width: 18em; font-weight: bold;">
+JO Dirección
 </td>
-<td style="text-align:left;width: 25em; ">
-HLT
+<td style="text-align:center;width: 18em; ">
+Salta a <em>Dirección</em> si O = 1
 </td>
-<td style="text-align:left;">
-Detiene CPU
+</tr>
+<tr>
+<td style="text-align:center;width: 18em; font-weight: bold;">
+JNO Dirección
+</td>
+<td style="text-align:center;width: 18em; ">
+Salta a <em>Dirección</em> si O = 0
 </td>
 </tr>
 </tbody>
@@ -1153,14 +1141,14 @@ JMP operando / HLT
 </div>
 <div id="modos-de-direccionamiento-1" class="section level3 hasAnchor" number="5.2.12">
 <h3><span class="header-section-number">5.2.12</span> Modos de direccionamiento<a href="diseño-del-simulador.html#modos-de-direccionamiento-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Los modos de direccionamiento definidos son:</p>
+<p>Los modos de direccionamiento en un repertorio de instrucciones son los métodos que tiene un procesador para especificar la ubicación de los datos (operandos) que se van a utilizar en una instrucción. Esto permite al procesador saber de dónde tomar los datos para realizar una operación y dónde guardar el resultado. A continuación, se describen los modos de direccionamiento definidos en VonSim8:</p>
 <ul>
 <li><p>Registro a registro (<code>Rx</code>,<code>Ry</code>): operandos son registros del procesador y <code>Rx</code> indica registro destino y <code>Ry</code> indica registro fuente.</p></li>
 <li><p>Directo (<code>[M]</code>): un operando es un registro y el otro operando es el contenido de una dirección de memoria <code>[M]</code>.</p></li>
 <li><p>Indirecto (<code>[BL]</code>): la dirección del operando se encuentra en el registro <code>[BL]</code>.</p></li>
 <li><p>Inmediato (<code>d</code>): un operando es un valor contenido en la instrucción.</p></li>
 </ul>
-<p>Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones que abarcan desde la manipulación directa de registros hasta el acceso a memoria, proporcionando una base sólida para la comprensión del flujo de datos en una arquitectura computacional. La Tabla <a href="diseño-del-simulador.html#tab:modosdireccionamiento">5.9</a> resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, junto con ejemplos de uso:</p>
+<p>Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones, desde la manipulación directa de registros hasta el acceso a la memoria. Esto proporciona una base sólida para comprender el flujo de datos en una arquitectura computacional. La Tabla <a href="diseño-del-simulador.html#tab:modosdireccionamiento">5.9</a> resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, e incluye ejemplos de su uso.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
 <span id="tab:modosdireccionamiento">Tabla 5.9: </span>Tabla de modos de direccionamiento
