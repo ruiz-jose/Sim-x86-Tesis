@@ -918,53 +918,6 @@ La selección de instrucciones busca facilitar la comprensión de los procesos f
 
 La implementación de estas instrucciones en el simulador VonSim8 está orientada a proporcionar una experiencia de aprendizaje que apoye la comprensión de los principios fundamentales de la arquitectura de computadoras, reduciendo la carga cognitiva en las fases iniciales de la formación y fortaleciendo la transición hacia repertorios más complejos. El simulador facilita que el estudiante comprenda cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
 
-### Formato de instrucciones
-Las instrucciones del simulador VonSim8 poseen una longitud variable (1, 2 o 3 bytes), donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
-
-```{r formatoinst, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-formatoinst <- data.frame(
-  Tipo = c("Transferencia y procesamiento", "Control"),
-  Operandos = c("2", "1 / cero"),
-  Ejemplo = c("MOV operando-destino, operando-fuente", "JMP operando / HLT"),
-  stringsAsFactors = FALSE
-)
-
-tabla_kable <- kable(formatoinst,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Tabla de formato de instrucciones",
-               col.names = c("Tipo", "Operandos", "Ejemplo"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c", "c"))
-
-if (knitr::is_latex_output()) {
-  tabla_kable %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "4cm") %>%
-    column_spec(3, width = "7cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(formatoinst)),
-             extra_latex_after = "\\addlinespace[10pt]")
-} else {
-  tabla_kable %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:3, width = "32em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-}
-```
-
 ### Modos de direccionamiento
 Los modos de direccionamiento en un repertorio de instrucciones son los métodos que tiene un procesador para especificar la ubicación de los datos (operandos) que se van a utilizar en una instrucción. Esto permite al procesador saber de dónde tomar los datos para realizar una operación y dónde guardar el resultado. A continuación, se describen los modos de direccionamiento definidos en VonSim8:
 
@@ -1152,8 +1105,89 @@ hlt
 }
 ```
 
-### Codificación de instrucciones
-El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
+
+### Formato de instrucciones
+El formato de las instrucciones se basa en la codificación binaria, poseen una longitud variable (1, 2 o 3 bytes), donde los 4 bits de mayor peso del primer byte representa el código de operación (opcode) y los siguientes 4 bits pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación. 
+Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo.
+
+```{r tisaredu, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+tisaredu <- data.frame(
+  Categoría = c(
+    "Transferencia de datos",
+    "Procesamiento de datos", "", "",
+    "Control de flujo", ""
+
+  ),
+  Instrucción = c(
+    "MOV",
+    "ADD", "SUB", "CMP",
+    "JMP / Jxx",
+    "HLT"
+  ),
+  `Código operación` = c(
+    "{0, 1, 2}",
+    "{3, 4, 5}", "{6, 7, 8}", "{9, 10, 11}",
+    "{12}",
+    "{13}"
+  ),
+  `Operandos` = c(
+    "2",
+    "2", "2", "2",
+    "1",
+    "0"
+  ),
+  Acción = c(
+    "Copiar entre registros, cargar a registro, almacenar en memoria",
+    "Operación aritmética: operando1 ← operando1 + operando2",
+    "Operación aritmética: operando1 ← operando1 - operando2",
+    "Comparación: operando1 - operando2 (no actualiza el destino)",
+    "Salto incondicional JMP, condicionales Jxx",
+    "HLT: detiene el CPU"   
+  ),
+  stringsAsFactors = FALSE
+)
+
+tabla_kable <- kable(tisaredu,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Categorías de instrucciones y códigos de operación en VonSim8",
+               col.names = c("Categoría", "Instrucción","Código operación", "Operandos", "Acción"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "c", "c", "l"))
+
+if (knitr::is_latex_output()) {
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "4cm") %>%
+    column_spec(3, width = "3cm") %>%
+    column_spec(4, width = "3cm") %>%
+    column_spec(5, width = "8cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(tisaredu)), extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "12em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "16em") %>%
+    column_spec(3, width = "8em") %>%
+    column_spec(4, width = "8em") %>%
+    column_spec(5, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+
+Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
 
 ```{r instcodif, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1170,8 +1204,8 @@ instcodif <- data.frame(
     "`CMP Rx, Ry`", "`CMP Rx, --`", "`CMP [M], --`", "`JMP M`", "`Jxx M`", "`HLT`"
   ),
   Byte = c(
-    "1", "2", "1", "2", "2", "2", "3", "2", "1", "Modos direccionamiento: destino registro", "Modos direccionamiento: destino memoria", "1","Modos direccionamiento: destino registro", "Modos direccionamiento: destino memoria",
-    "1", "Modos direccionamiento: destino registro", "Modos direccionamiento: destino memoria", "1", "1", "1"
+    "1", "2", "1", "2", "2", "2", "3", "2", "1", "Idem", "Idem", "1","Idem", "Idem",
+    "1", "Idem", "Idem", "1", "1", "1"
   ),
   Codificación = c(
     "`0000 RxRy`", "`0001 Rx00 MMMMMMMM`", "`0001 Rx01`", "`0001 Rx10 MMMMMMMM`",
