@@ -2783,43 +2783,95 @@ A continuación se explican las instrucciones más comunes.
 \hypertarget{instrucciones-con-dos-operandos-mov-add-sub-y-cmp}{%
 \subsubsection{\texorpdfstring{Instrucciones con dos operandos \texttt{MOV}, \texttt{ADD}, \texttt{SUB} y \texttt{CMP}:}{Instrucciones con dos operandos MOV, ADD, SUB y CMP:}}\label{instrucciones-con-dos-operandos-mov-add-sub-y-cmp}}
 
-A. \textbf{Destino en registro (Rx)}
-
-Modo entre registros (\texttt{Rx}, \texttt{Ry})
-4. La ejecución ocupa un paso y puede ser:
-- MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}
-- ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry} \textbar{} update(Flags)}
-- SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{Ry} \textbar{} update(Flags)}
-- CMP: \textbf{\texttt{Rx} - \texttt{Ry} \textbar{} update(Flags)} (solo actualiza flags, no guarda el resultado)
-
-Modo directo (\texttt{Rx}, \texttt{{[}Dirección{]}})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del operando fuente.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección desde memoria e incrementar IP.
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Transferir la dirección al MAR.
-7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Obtener el dato.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{7}
+\begin{itemize}
 \tightlist
 \item
-  Ejecutar la operación:
-  - MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}
-  - ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR} \textbar{} update(Flags)}
-  - SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR} \textbar{} update(Flags)}
-  - CMP: \textbf{\texttt{Rx} - \texttt{MBR} \textbar{} update(Flags)}
-\end{enumerate}
+  \textbf{Destino en registro (\texttt{Rx})}
 
-Modo inmediato (\texttt{Rx}, \texttt{Dato})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del dato inmediato.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer el dato e incrementar IP.
-6. Ejecutar la operación (Igual que en el caso anterior).
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Modo entre registros (\texttt{Rx}, \texttt{Ry})}
 
-Modo indirecto (\texttt{Rx}, \texttt{{[}BL{]}})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Obtener dirección del dato desde el registro BL.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
-6. Ejecutar la operación:
-- Igual que en los casos anteriores.
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      La ejecución ocupa un paso y puede ser:
+
+      \begin{itemize}
+      \tightlist
+      \item
+        MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Ry}}
+      \item
+        ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{Ry} \textbar{} update(Flags)}
+      \item
+        SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{Ry} \textbar{} update(Flags)}
+      \item
+        CMP: \textbf{\texttt{Rx} - \texttt{Ry} \textbar{} update(Flags)} (solo actualiza flags, no guarda el resultado)
+      \end{itemize}
+    \end{enumerate}
+  \item
+    \textbf{Modo directo (\texttt{Rx}, \texttt{{[}Dirección{]}})}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del operando fuente.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección desde memoria e incrementar IP.
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Transferir la dirección al MAR.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Obtener el dato.
+    \item
+      Ejecutar la operación:
+
+      \begin{itemize}
+      \tightlist
+      \item
+        MOV: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}}
+      \item
+        ADD: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + \texttt{MBR} \textbar{} update(Flags)}
+      \item
+        SUB: \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - \texttt{MBR} \textbar{} update(Flags)}
+      \item
+        CMP: \textbf{\texttt{Rx} - \texttt{MBR} \textbar{} update(Flags)}
+      \end{itemize}
+    \end{enumerate}
+  \item
+    \textbf{Modo inmediato (\texttt{Rx}, \texttt{Dato})}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del dato inmediato.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer el dato e incrementar IP.
+    \item
+      Ejecutar la operación (igual que en el caso anterior).
+    \end{enumerate}
+  \item
+    \textbf{Modo indirecto (\texttt{Rx}, \texttt{{[}BL{]}})}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Obtener dirección del dato desde el registro BL.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
+    \item
+      Ejecutar la operación (igual que en el caso anterior).
+    \end{enumerate}
+  \end{itemize}
+\end{itemize}
 
 B.*\textbf{Destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
 En este caso, el resultado de la operación no se almacena en un registro, sino en una posición de memoria especificada directamente en la instrucción o indicada por el contenido del registro BL.

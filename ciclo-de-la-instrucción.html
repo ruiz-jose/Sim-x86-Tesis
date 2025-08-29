@@ -378,34 +378,47 @@ El contenido del <code>MBR</code> se transfiere al <code>IR</code>. A partir de 
 <p>A continuación se explican las instrucciones más comunes.</p>
 <div id="instrucciones-con-dos-operandos-mov-add-sub-y-cmp" class="section level4 hasAnchor" number="5.3.2.1">
 <h4><span class="header-section-number">5.3.2.1</span> Instrucciones con dos operandos <code>MOV</code>, <code>ADD</code>, <code>SUB</code> y <code>CMP</code>:<a href="ciclo-de-la-instrucción.html#instrucciones-con-dos-operandos-mov-add-sub-y-cmp" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>A. <strong>Destino en registro (Rx)</strong></p>
-<p>Modo entre registros (<code>Rx</code>, <code>Ry</code>)
-4. La ejecución ocupa un paso y puede ser:
-- MOV: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong>
-- ADD: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>Ry</code> | update(Flags)</strong>
-- SUB: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>Ry</code> | update(Flags)</strong>
-- CMP: <strong><code>Rx</code> - <code>Ry</code> | update(Flags)</strong> (solo actualiza flags, no guarda el resultado)</p>
-<p>Modo directo (<code>Rx</code>, <code>[Dirección]</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Obtener dirección del operando fuente.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Leer la dirección desde memoria e incrementar IP.
-6. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Transferir la dirección al MAR.
-7. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Obtener el dato.</p>
-<ol start="8" style="list-style-type: decimal">
+<ul>
+<li><strong>Destino en registro (<code>Rx</code>)</strong>
+<ul>
+<li><strong>Modo entre registros (<code>Rx</code>, <code>Ry</code>)</strong>
+<ol start="4" style="list-style-type: decimal">
+<li>La ejecución ocupa un paso y puede ser:
+<ul>
+<li>MOV: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></strong></li>
+<li>ADD: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>Ry</code> | update(Flags)</strong></li>
+<li>SUB: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>Ry</code> | update(Flags)</strong></li>
+<li>CMP: <strong><code>Rx</code> - <code>Ry</code> | update(Flags)</strong> (solo actualiza flags, no guarda el resultado)</li>
+</ul></li>
+</ol></li>
+<li><strong>Modo directo (<code>Rx</code>, <code>[Dirección]</code>)</strong>
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Obtener dirección del operando fuente.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Leer la dirección desde memoria e incrementar IP.</li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Transferir la dirección al MAR.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Obtener el dato.</li>
 <li>Ejecutar la operación:
-- MOV: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong>
-- ADD: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code> | update(Flags)</strong>
-- SUB: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>MBR</code> | update(Flags)</strong>
-- CMP: <strong><code>Rx</code> - <code>MBR</code> | update(Flags)</strong></li>
-</ol>
-<p>Modo inmediato (<code>Rx</code>, <code>Dato</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Obtener dirección del dato inmediato.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Leer el dato e incrementar IP.
-6. Ejecutar la operación (Igual que en el caso anterior).</p>
-<p>Modo indirecto (<code>Rx</code>, <code>[BL]</code>)
-4. <strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong> – Obtener dirección del dato desde el registro BL.
-5. <strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Leer el dato.
-6. Ejecutar la operación:
-- Igual que en los casos anteriores.</p>
+<ul>
+<li>MOV: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong></li>
+<li>ADD: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> + <code>MBR</code> | update(Flags)</strong></li>
+<li>SUB: <strong><code>Rx</code> <span class="math inline">\(\leftarrow\)</span> <code>Rx</code> - <code>MBR</code> | update(Flags)</strong></li>
+<li>CMP: <strong><code>Rx</code> - <code>MBR</code> | update(Flags)</strong></li>
+</ul></li>
+</ol></li>
+<li><strong>Modo inmediato (<code>Rx</code>, <code>Dato</code>)</strong>
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Obtener dirección del dato inmediato.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Leer el dato e incrementar IP.</li>
+<li>Ejecutar la operación (igual que en el caso anterior).</li>
+</ol></li>
+<li><strong>Modo indirecto (<code>Rx</code>, <code>[BL]</code>)</strong>
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>BL</code></strong> – Obtener dirección del dato desde el registro BL.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Leer el dato.</li>
+<li>Ejecutar la operación (igual que en el caso anterior).</li>
+</ol></li>
+</ul></li>
+</ul>
 <p>B.*<strong>Destino en memoria (<code>[Dirección]</code> o <code>[BL]</code>)</strong>
 En este caso, el resultado de la operación no se almacena en un registro, sino en una posición de memoria especificada directamente en la instrucción o indicada por el contenido del registro BL.</p>
 <p>Modo Directo (<code>[Dirección]</code>, <code>Ry</code>)
