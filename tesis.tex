@@ -2871,113 +2871,282 @@ A continuación se explican las instrucciones más comunes.
       Ejecutar la operación (igual que en el caso anterior).
     \end{enumerate}
   \end{itemize}
+\item
+  \textbf{Destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
+  En este caso, el resultado de la operación no se almacena en un registro, sino en una posición de memoria especificada directamente en la instrucción o indicada por el contenido del registro BL.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Modo Directo (\texttt{{[}Dirección{]}}, \texttt{Ry})}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Transferir dirección a MAR.
+      Según la instrucción:
+    \end{enumerate}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      MOV:
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{6}
+      \tightlist
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} -- Copiar Ry al MBR.
+      \item
+        \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+      \end{enumerate}
+    \item
+      ADD, SUB, CMP:
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{6}
+      \tightlist
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
+      \item
+        Ejecutar la operación:
+
+        \begin{itemize}
+        \tightlist
+        \item
+          ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry} \textbar{} update(Flags)}
+        \item
+          SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
+        \item
+          CMP: \textbf{\texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
+        \end{itemize}
+      \item
+        Si es \texttt{ADD} o \texttt{SUB}: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+      \end{enumerate}
+    \end{itemize}
+  \item
+    \textbf{Modo Indirecto (\texttt{{[}BL{]}}, \texttt{Ry})}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Transferir dirección de destino (en BL) a MAR.
+      Según la instrucción:
+    \end{enumerate}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      MOV:
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{4}
+      \tightlist
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} -- Copiar Ry al MBR.
+      \item
+        \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+      \end{enumerate}
+    \item
+      ADD, SUB, CMP:
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{4}
+      \tightlist
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
+      \item
+        Ejecutar la operación (igual que en el caso anterior).
+      \item
+        Si es \texttt{ADD} o \texttt{SUB}: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+      \end{enumerate}
+    \end{itemize}
+  \item
+    \textbf{Modo Directo-Inmediato (\texttt{{[}Dirección{]}}, \texttt{Dato})}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer dirección e incrementar IP.
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}; \texttt{ri} \(\leftarrow\) \texttt{MBR}} -- Preparar para leer el dato y guardar la dirección destino en un registro intermedio (ri).
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer dato e incrementar IP.
+      Según la instrucción:
+    \end{enumerate}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      MOV:
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{7}
+      \tightlist
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}} -- Copiar dirección destino.
+      \item
+        \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+      \end{enumerate}
+    \item
+      ADD, SUB, CMP:
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{7}
+      \tightlist
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}} -- Cargar dirección destino y guardar el valor inmediato en id.
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el valor actual de destino.
+      \item
+        Ejecutar la operación:
+
+        \begin{itemize}
+        \tightlist
+        \item
+          ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id} \textbar{} update(Flags)}
+        \item
+          SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id} \textbar{} update(Flags)}
+        \item
+          CMP: \textbf{\texttt{MBR} - \texttt{id} \textbar{} update(Flags)}
+        \end{itemize}
+      \item
+        Si es \texttt{ADD} o \texttt{SUB}: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+      \end{enumerate}
+    \end{itemize}
+  \item
+    \textbf{Modo Indirecto-Inmediato (\texttt{{[}BL{]}}, \texttt{Dato})}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del dato inmediato.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer dato e incrementar IP.
+      Según la instrucción:
+    \end{enumerate}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      MOV:
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{5}
+      \tightlist
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Copiar dirección de destino.
+      \item
+        \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+      \end{enumerate}
+    \item
+      ADD, SUB, CMP:
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{5}
+      \tightlist
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}} -- Cargar la dirección destino y guardar el valor inmediato en id.
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el valor actual de destino.
+      \item
+        Ejecutar la operación:
+
+        \begin{itemize}
+        \tightlist
+        \item
+          ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id} \textbar{} update(Flags)}
+        \item
+          SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id} \textbar{} update(Flags)}
+        \item
+          CMP: \textbf{\texttt{MBR} - \texttt{id} \textbar{} update(Flags)}
+        \end{itemize}
+      \item
+        Si es \texttt{ADD} o \texttt{SUB}: \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+      \end{enumerate}
+    \end{itemize}
+  \end{itemize}
 \end{itemize}
-
-B.*\textbf{Destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
-En este caso, el resultado de la operación no se almacena en un registro, sino en una posición de memoria especificada directamente en la instrucción o indicada por el contenido del registro BL.
-
-Modo Directo (\texttt{{[}Dirección{]}}, \texttt{Ry})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Transferir dirección a MAR.
-
-Según la instrucción:
-MOV:\\
-7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} -- Copiar Ry al MBR.
-8. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
-
-ADD, SUB, CMP:
-7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
-8. Ejecutar la operación:
-- ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{Ry} \textbar{} update(Flags)}
-- SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
-- CMP: \textbf{\texttt{MBR} - \texttt{Ry} \textbar{} update(Flags)}
-
-Si es \texttt{ADD} o \texttt{SUB}:
-9. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
-
-Modo Indirecto (\texttt{{[}BL{]}}, \texttt{Ry})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Transferir dirección de destino (en BL) a MAR.
-
-Según la instrucción:
-MOV:
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} -- Copiar Ry al MBR.
-6. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
-
-ADD, SUB, CMP:
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
-6. Ejecutar la operación (Igual que en el caso anterior).
-
-Si es \texttt{ADD} o \texttt{SUB}:
-7. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
-
-Modo Directo-Inmediato (\texttt{{[}Dirección{]}}, \texttt{Dato})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer dirección e incrementar IP.
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP};\texttt{ri} \(\leftarrow\) \texttt{MBR}} -- Preparar para leer el dato y guardar la dirección destino en un registro intermedio (ri).
-7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer dato e incrementar IP.
-
-Según la instrucción:
-MOV:
-8. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}}-- Copiar dirección destino.
-9. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
-
-ADD, SUB, CMP:
-8. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}} -- Cargar dirección destino y guardar el valor inmediato en id.
-9. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el valor actual de destino.
-10. Ejecutar la operación:
-- ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id} \textbar{} update(Flags)}
-- SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id} \textbar{} update(Flags)}
-- CMP: \textbf{\texttt{MBR} - \texttt{id} \textbar{} update(Flags)}
-
-Si es \texttt{ADD} o \texttt{SUB}:
-11. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
-
-Modo Indirecto-Inmediato (\texttt{{[}BL{]}}, \texttt{Dato})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del dato inmediato.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer dato e incrementar IP.
-
-Según la instrucción:
-MOV:
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Copiar dirección de destino.
-7. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
-
-ADD, SUB, CMP:\\
-6. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL} \textbar{} \texttt{id} \(\leftarrow\) \texttt{MBR}} -- Cargar la dirección destino y guardar el valor inmediato en id.
-7. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el valor actual de destino.
-8. Ejecutar la operación:
-- ADD: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + \texttt{id} \textbar{} update(Flags)}
-- SUB: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - \texttt{id} \textbar{} update(Flags)}
-- CMP: \textbf{\texttt{MBR} - \texttt{id} \textbar{} update(Flags)}
-
-Si es \texttt{ADD} o \texttt{SUB}:
-9. \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
 
 \hypertarget{instrucciones-con-un-operando-jmp-y-jxx}{%
 \subsubsection{\texorpdfstring{Instrucciones con un operando \texttt{JMP} y \texttt{Jxx}:}{Instrucciones con un operando JMP y Jxx:}}\label{instrucciones-con-un-operando-jmp-y-jxx}}
 
-Salto incondicional y condicionales (\texttt{Dirección})
-4. \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener la dirección del salto.
-5. \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección de destino e incrementar IP.
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Salto a (\texttt{Dirección})}
+  Tanto incondicional \texttt{JMP} como condicionales \texttt{Jxx} tienen estos pasos:
 
-Si es salto incondicional \texttt{JMP} :
-6. \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener la dirección del salto.
+  \item
+    \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}; \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección de destino e incrementar IP.
+  \end{enumerate}
 
-Si es salto condicional \texttt{Jxx} :
-6. Si se cumple la condición del flag \texttt{xx}, \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}; en caso contrario, continúa con la siguiente instrucción.
+  Según la instrucción:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    JMP:
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{5}
+    \tightlist
+    \item
+      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}}
+    \end{enumerate}
+  \item
+    Jxx:
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{5}
+    \tightlist
+    \item
+      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}} si se cumple la condición del flag \texttt{xx}; en caso contrario, continúa con la siguiente instrucción.
+    \end{enumerate}
+  \end{itemize}
+\end{itemize}
 
 \hypertarget{instrucciones-sin-operandos}{%
 \subsubsection{Instrucciones sin operandos}\label{instrucciones-sin-operandos}}
 
-Instrucción de control CPU \texttt{HLT}
-4. HLT -- Detiene la ejecución de la CPU.
+Según la instrucción:
+- HLT:
+4. Detiene la ejecución de la CPU.
 
-\hypertarget{modulo-de-entradasalida-e-interrupciones}{%
-\section{Modulo de Entrada/Salida e interrupciones}\label{modulo-de-entradasalida-e-interrupciones}}
+\hypertarget{modulo-de-entradasalida}{%
+\section{Modulo de Entrada/Salida}\label{modulo-de-entradasalida}}
 
-En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
-El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos.
-Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
+El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos. Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
 
 \begin{itemize}
 \tightlist
@@ -2990,6 +3159,124 @@ Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo 
 \item
   Handshake: Una impresora Centronics conectada por un Handshake.
 \end{itemize}
+
+Para poder utilizar los dispositivos de entrada y salida es necesario presentar nuevas instrucciones al conjunto de instrucciones del procesador.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\midrule
+\textbf{MOV} & Transferencia de datos & MOV destino, origen & 1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\\
+\addlinespace[10pt]
+\textbf{ADD} & Aritmética & ADD destino, origen & 1- Sumar  2- Restar 3- Comparar\\
+\addlinespace[10pt]
+\textbf{JMP} & Control de flujo & JMP destino & Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET\\
+\addlinespace[10pt]
+\textbf{PUSH, POP, OUT, IN} & Pila y E/S & PUSH, POP, OUT, IN & Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S\\
+\addlinespace[10pt]
+\textbf{INT , IRET} & Interrupciones & INT , IRET & Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{NOP , HLT} & Control & NOP , HLT & No opera NOP. Detiene el CPU HLT\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+\hypertarget{subrutinas}{%
+\subsection{Subrutinas}\label{subrutinas}}
+
+El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción {[}\texttt{CALL}{]}. Esta instrucción almacena el \texttt{IP} en la \protect\hyperlink{pila}{pila}, y luego realiza un salto a la dirección de la subrutina, modificando el \texttt{IP} para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción {[}\texttt{RET}{]}, que desapila la dirección apilada previamente por \texttt{CALL} y restaura el \texttt{IP}, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
+
+Ejemplo de subrutina:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{      mov al, 1}
+\NormalTok{      mov bl, 2}
+\NormalTok{      mov cl, 3}
+\NormalTok{      call sum3}
+\NormalTok{      ; ax = 6}
+\NormalTok{      hlt}
+
+\NormalTok{      ; suma al, bl y cl}
+\NormalTok{      sum3: add al, bl}
+\NormalTok{            add al, cl}
+\NormalTok{            ret}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{interrupciones}{%
+\subsection{Interrupciones}\label{interrupciones}}
+
+El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor.
+En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT} número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción \texttt{INT} respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, \texttt{IF=1} (la \emph{flag} de interrupciones activada).
+
+Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT}. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre \texttt{0} y \texttt{7}.
+
+Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+Específicamente, el procesador:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  obtiene el número de la interrupción (0-7),
+\item
+  apila el registro \texttt{FLAGS},
+\item
+  inhabilita las interrupciones \texttt{I=0},
+\item
+  apila el registro \texttt{IP},
+\item
+  obtiene la dirección de la rutina de interrupción del vector de interrupciones,
+\item
+  modifica el \texttt{IP} para que apunte a la dirección de la rutina de interrupción.
+\end{enumerate}
+
+Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en \texttt{IRET} en vez de \texttt{RET}.
+
+\hypertarget{llamadas-al-sistema}{%
+\subsubsection{Llamadas al sistema}\label{llamadas-al-sistema}}
+
+El simulador permite realizar llamadas al sistema o \emph{syscalls}. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una \emph{syscall} basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{INT\ 0}: termina la ejecución del programa, equivalente a la instrucción \texttt{HLT};
+\item
+  \texttt{INT\ 6}: lee un carácter del teclado;
+\item
+  \texttt{INT\ 7}: escribe una cadena de caracteres en pantalla.
+\end{itemize}
+
+Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
+
+El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones \texttt{A0h}, \texttt{B0h} y \texttt{C0h} respectivamente.
+
+\hypertarget{pila}{%
+\section{Pila}\label{pila}}
+
+En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
+
+El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo \emph{Last In, First Out} (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (\texttt{FFh}) y creciendo hacia las direcciones más bajas (\texttt{FEh}, \texttt{FCh}, etc.). El tope de la pila se guarda en el registro \texttt{SP}. Todos los elementos de la pila son de 8 bits.
+
+\hypertarget{instrucciones-in-y-out}{%
+\subsection{Instrucciones IN y OUT}\label{instrucciones-in-y-out}}
+
+Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
+- \texttt{OUT\ puerto,\ AL}: Esta instrucción envía el contenido del registro \texttt{AL} al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de \texttt{00h} a \texttt{FFh}). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
+- \texttt{IN\ AL,\ puerto}: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro \texttt{AL}. Al igual que la instrucción \texttt{OUT}, el puerto es una dirección de 8 bits.
 
 \hypertarget{pantalla}{%
 \subsection{Pantalla}\label{pantalla}}
@@ -3045,21 +3332,14 @@ hlt
 ; Por ejemplo, si el usuario presionó la tecla 'a', entonces
 ; se almacena el valor 61h en 'car'.\end{lstlisting}
 
-\hypertarget{memoria-es-instrucciones-in-y-out}{%
-\subsection{Memoria E/S: Instrucciones IN y OUT}\label{memoria-es-instrucciones-in-y-out}}
-
-La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones IN y OUT. Cuando se quiere acceder a un módulo de entrada/salida, la CPU activa la señal IO/M, lo que causa que un selector de chips (chip select) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
-
-El rango de direcciones de la memoria de entrada/salida es de 00h hasta FFh (256 direcciones).
+\hypertarget{puertos-de-es}{%
+\subsection{Puertos de E/S}\label{puertos-de-es}}
 
 La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones {[}\texttt{IN}{]} y {[}\texttt{OUT}{]}). Cuando se quiere acceder a un módulo de entrada/salida, la {[}CPU{]} activa la señal \texttt{IO/M}, lo que causa que un selector de chips (\emph{chip select}) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
 
 El rango de direcciones de la memoria de entrada/salida es de \texttt{00h} hasta \texttt{FFh} (256 direcciones).
 
-\hypertarget{registros-de-es}{%
-\subsection{Registros de E/S}\label{registros-de-es}}
-
-Estos son las registros de entrada/salida disponibles en el simulador, todos de 8 bits:
+Estos son las direcciones de entrada/salida disponibles en el simulador, todos de 8 bits:
 
 \begin{longtable}[]{@{}ccl@{}}
 \toprule\noalign{}
@@ -3089,10 +3369,6 @@ Dirección & Nombre & Módulo \\
 \texttt{40h} & \texttt{DATA} & {[}Handshake{]} \\
 \texttt{41h} & \texttt{STATE} & {[}Handshake{]} \\
 \end{longtable}
-
-Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
-- \texttt{OUT\ puerto,\ AL}: Esta instrucción envía el contenido del registro \texttt{AL} al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de \texttt{00h} a \texttt{FFh}). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
-- \texttt{IN\ AL,\ puerto}: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro \texttt{AL}. Al igual que la instrucción \texttt{OUT}, el puerto es una dirección de 8 bits.
 
 \hypertarget{llaves-y-luces}{%
 \subsection{Llaves y luces}\label{llaves-y-luces}}
@@ -3137,33 +3413,6 @@ out 31h, al              ; Escribe el valor en PB para actualizar las luces
 
 hlt                      ; Detiene la ejecución del programa\end{lstlisting}
 
-\begin{table}[!h]
-\centering
-\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
-\midrule
-\textbf{MOV} & Transferencia de datos & MOV destino, origen & 1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\\
-\addlinespace[10pt]
-\textbf{ADD} & Aritmética & ADD destino, origen & 1- Sumar  2- Restar 3- Comparar\\
-\addlinespace[10pt]
-\textbf{JMP} & Control de flujo & JMP destino & Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET\\
-\addlinespace[10pt]
-\textbf{PUSH, POP, OUT, IN} & Pila y E/S & PUSH, POP, OUT, IN & Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S\\
-\addlinespace[10pt]
-\textbf{INT , IRET} & Interrupciones & INT , IRET & Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET\\
-\addlinespace[10pt]
-\addlinespace
-\textbf{NOP , HLT} & Control & NOP , HLT & No opera NOP. Detiene el CPU HLT\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
 Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el codigo de operacion 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
 
 \begin{table}[!h]
@@ -3197,90 +3446,8 @@ Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce 
 \end{tabular}}
 \end{table}
 
-\hypertarget{pila}{%
-\section{Pila}\label{pila}}
-
-El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo \emph{Last In, First Out} (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (\texttt{FFh}) y creciendo hacia las direcciones más bajas (\texttt{FEh}, \texttt{FCh}, etc.). El tope de la pila se guarda en el registro \texttt{SP}. Todos los elementos de la pila son de 8 bits.
-
-\hypertarget{subrutinas}{%
-\section{Subrutinas}\label{subrutinas}}
-
-El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción {[}\texttt{CALL}{]}. Esta instrucción almacena el \texttt{IP} en la \protect\hyperlink{pila}{pila}, y luego realiza un salto a la dirección de la subrutina, modificando el \texttt{IP} para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción {[}\texttt{RET}{]}, que desapila la dirección apilada previamente por \texttt{CALL} y restaura el \texttt{IP}, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
-
-Ejemplo de subrutina:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{      mov al, 1}
-\NormalTok{      mov bl, 2}
-\NormalTok{      mov cl, 3}
-\NormalTok{      call sum3}
-\NormalTok{      ; ax = 6}
-\NormalTok{      hlt}
-
-\NormalTok{      ; suma al, bl y cl}
-\NormalTok{      sum3: add al, bl}
-\NormalTok{            add al, cl}
-\NormalTok{            ret}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{interrupciones}{%
-\section{Interrupciones}\label{interrupciones}}
-
-El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor.
-En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT} número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
-
-El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción \texttt{INT} respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, \texttt{IF=1} (la \emph{flag} de interrupciones activada).
-
-Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT}. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre \texttt{0} y \texttt{7}.
-
-Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
-
-Específicamente, el procesador:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  obtiene el número de la interrupción (0-7),
-\item
-  apila el registro \texttt{FLAGS},
-\item
-  inhabilita las interrupciones \texttt{I=0},
-\item
-  apila el registro \texttt{IP},
-\item
-  obtiene la dirección de la rutina de interrupción del vector de interrupciones,
-\item
-  modifica el \texttt{IP} para que apunte a la dirección de la rutina de interrupción.
-\end{enumerate}
-
-Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en \texttt{IRET} en vez de \texttt{RET}.
-
-\hypertarget{llamadas-al-sistema}{%
-\subsection{Llamadas al sistema}\label{llamadas-al-sistema}}
-
-El simulador permite realizar llamadas al sistema o \emph{syscalls}. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una \emph{syscall} basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{INT\ 0}: termina la ejecución del programa, equivalente a la instrucción \texttt{HLT};
-\item
-  \texttt{INT\ 6}: lee un carácter del teclado;
-\item
-  \texttt{INT\ 7}: escribe una cadena de caracteres en pantalla.
-\end{itemize}
-
-Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
-
-El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones \texttt{A0h}, \texttt{B0h} y \texttt{C0h} respectivamente.
-
-\hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones-de-pila-e-interrupciones}{%
-\subsection{Etapa de ejecución de instrucciones de pila e interrupciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones-de-pila-e-interrupciones}}
-
-A continuación se detallan los pasos específicos para cada tipo de instrucción:
+\hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones}{%
+\subsection{Etapa de ejecución de instrucciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones}}
 
 Subrutinas:\\
 * CALL \texttt{Dirección}
@@ -3319,130 +3486,96 @@ Interrupciones:
   6: \texttt{IP} \(\leftarrow\) \texttt{MBR};\texttt{SP} \(\leftarrow\) \texttt{SP} + 1
 \end{itemize}
 
-\hypertarget{aspectos-tecnoluxf3gicos-de-implementaciuxf3n}{%
-\section{Aspectos tecnológicos de implementación}\label{aspectos-tecnoluxf3gicos-de-implementaciuxf3n}}
+\hypertarget{principales-caracteruxedsticas-tecnoluxf3gicas}{%
+\section{Principales características tecnológicas}\label{principales-caracteruxedsticas-tecnoluxf3gicas}}
 
-Se utiliza un enfoque modular para la implementación del simulador, facilitando su mantenimiento y ampliación futura. La arquitectura del simulador se basa en una estructura de capas, donde cada capa se encarga de una parte específica del proceso de simulación.
+Su desarrollo integra tecnología moderna del ecosistema web y buenas prácticas de software, proporcionando una experiencia didáctica visual, modular y accesible.
 
-\hypertarget{simulaciuxf3n-visual-e-interactiva}{%
-\section{Simulación visual e interactiva}\label{simulaciuxf3n-visual-e-interactiva}}
-
-Esta sección detalla la implementación de las características visuales e interactivas del simulador, diseñadas para facilitar la comprensión del flujo de datos y las microoperaciones dentro de la arquitectura x86.
-
-\hypertarget{representaciuxf3n-gruxe1fica-de-componentes}{%
-\subsection{Representación gráfica de componentes}\label{representaciuxf3n-gruxe1fica-de-componentes}}
+\hypertarget{stack-tecnoluxf3gico}{%
+\subsection{Stack Tecnológico}\label{stack-tecnoluxf3gico}}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Diseño de la interfaz visual}: incluye elementos como registros, buses y memoria, presentados de manera clara y organizada.
+  React: Framework de interfaz moderna para construir componentes interactivos y reactividad eficiente.
 \item
-  \textbf{Resaltado dinámico}: los componentes relevantes se destacan visualmente durante la ejecución, proporcionando un seguimiento en tiempo real del flujo de datos.
+  TypeScript: Tipado estático que aporta robustez y facilita el mantenimiento del código.
+\item
+  React Spring: Animaciones fluidas para mejorar la experiencia visual y pedagógica.
+\item
+  Jotai: Gestión de estado global, permitiendo sincronización y modularidad entre los distintos componentes.
+\item
+  Tailwind CSS: Framework de estilos utilitario para lograr interfaces responsivas y coherentes.
+\item
+  Pruebas Automatizadas: Tests unitarios, de integración y de accesibilidad (incluyendo ARIA, navegación por teclado y roles semánticos) para garantizar calidad y accesibilidad.
 \end{itemize}
 
-\hypertarget{ejecuciuxf3n-paso-a-paso}{%
-\subsection{Ejecución paso a paso}\label{ejecuciuxf3n-paso-a-paso}}
+\hypertarget{arquitectura-modular-y-educativa}{%
+\subsection{Arquitectura modular y educativa}\label{arquitectura-modular-y-educativa}}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Flujo interactivo}: permite avanzar por cada etapa del ciclo de instrucción, desde la captura hasta la finalización.
+  Componentes independientes y reutilizables, lo que facilita tanto la extensión como el mantenimiento.
 \item
-  \textbf{Opciones de visualización}: se pueden observar los micropasos que conforman cada etapa de la ejecución, fomentando una comprensión detallada del proceso.
+  Integración de paneles educativos, tutoriales interactivos y gamificación mediante sistemas de logros y niveles de aprendizaje.
+\item
+  Adaptabilidad a distintos niveles (básico, intermedio, avanzado) y retroalimentación visual en tiempo real.
 \end{itemize}
 
-\hypertarget{gestiuxf3n-de-interrupciones-y-perifuxe9ricos}{%
-\section{Gestión de interrupciones y periféricos}\label{gestiuxf3n-de-interrupciones-y-perifuxe9ricos}}
-
-Se describe la simulación de interrupciones y operaciones de entrada/salida, proporcionando una implementación básica para la interacción con periféricos.
-
-\hypertarget{manejo-del-vector-de-interrupciones}{%
-\subsection{Manejo del vector de interrupciones}\label{manejo-del-vector-de-interrupciones}}
+\hypertarget{simulaciuxf3n-fiel-de-arquitectura-de-computadoras}{%
+\subsection{Simulación fiel de arquitectura de computadoras}\label{simulaciuxf3n-fiel-de-arquitectura-de-computadoras}}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Vector predefinido}: se incluye un conjunto de interrupciones estándar.
+  CPU de 8 bits: Registros, ALU, buses, ciclo de instrucción y modos de direccionamiento.
 \item
-  \textbf{Simulación de interrupciones}: ejemplos como las interacciones con teclado y pantalla están modeladas para su análisis práctico.
+  Memoria RAM: Simulación de 256 bytes con direccionamiento de 8 bits.
+\item
+  Lenguaje ensamblador: Permite escribir, ejecutar y depurar programas, visualizando el flujo de instrucciones y operandos.
+\item
+  Sistema de E/S configurable: Integración de periféricos como teclado, pantalla, PIC, PIO y temporizador, siguiendo especificaciones reales de la familia Intel iAPX 88.
 \end{itemize}
 
-\hypertarget{instrucciones-in-y-out}{%
-\subsection{Instrucciones IN y OUT}\label{instrucciones-in-y-out}}
+\hypertarget{visualizaciuxf3n-y-experiencia-de-usuario}{%
+\subsection{Visualización y experiencia de usuario}\label{visualizaciuxf3n-y-experiencia-de-usuario}}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Operaciones de entrada/salida}: se implementan y simulan las instrucciones básicas para la interacción con periféricos.
+  Indicadores visuales avanzados para las fases de ejecución (fetch-decode-execute).
+\item
+  Animaciones de flujo de datos y cambios de estado en tiempo real.
+\item
+  Paneles flotantes y tooltips educativos para explicar conceptos clave y apoyar el aprendizaje autónomo.
 \end{itemize}
 
-\hypertarget{segunda-etapa}{%
-\subsection{Segunda etapa}\label{segunda-etapa}}
-
-En esta etapa, se amplían los modos de direccionamiento e instrucciones:
-
-\hypertarget{integraciuxf3n-de-muxe9tricas-de-rendimiento}{%
-\section{Integración de métricas de rendimiento}\label{integraciuxf3n-de-muxe9tricas-de-rendimiento}}
-
-El simulador incorpora métricas clave para analizar el impacto del rendimiento en la arquitectura de computadoras.
-
-\hypertarget{muxe9tricas-calculadas}{%
-\subsection{Métricas calculadas}\label{muxe9tricas-calculadas}}
+\hypertarget{documentaciuxf3n-y-recursos}{%
+\subsection{Documentación y recursos}\label{documentaciuxf3n-y-recursos}}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Indicadores}: tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI).
+  Documentación exhaustiva que facilita la comprensión de cada componente y concepto abordado.
 \item
-  \textbf{Visualización}: las métricas se presentan en tiempo real durante la simulación, facilitando su análisis.
+  Recursos adicionales como tutoriales interactivos, referencia de instrucciones y guías de arquitectura.
 \end{itemize}
 
-\hypertarget{anuxe1lisis-de-casos-de-estudio}{%
-\subsection{Análisis de casos de estudio}\label{anuxe1lisis-de-casos-de-estudio}}
+\hypertarget{accesibilidad-y-buenas-pruxe1cticas}{%
+\subsection{Accesibilidad y buenas prácticas}\label{accesibilidad-y-buenas-pruxe1cticas}}
 
 \begin{itemize}
 \tightlist
 \item
-  Se incluyen ejemplos que ilustran cómo interpretar las métricas para optimizar el rendimiento.
+  Cumplimiento de estándares WCAG 2.1 AA.
+\item
+  Enfoque en la accesibilidad y la inclusión educativa.
+\item
+  Estrategias de testing, documentación y contribución enfocadas en el impacto pedagógico.
 \end{itemize}
 
-\hypertarget{proceso-de-validaciuxf3n}{%
-\section{Proceso de validación}\label{proceso-de-validaciuxf3n}}
-
-El proceso de validación garantiza que el simulador cumple con los requisitos pedagógicos y funcionales.
-
-\hypertarget{validaciuxf3n-funcional}{%
-\subsection{Validación funcional}\label{validaciuxf3n-funcional}}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Pruebas de módulos}: cada componente se verificó de manera individual.
-\item
-  \textbf{Ejecución completa}: programas de prueba comprobaron la correcta implementación de las instrucciones.
-\end{itemize}
-
-\hypertarget{evaluaciuxf3n-pedaguxf3gica}{%
-\subsection{Evaluación pedagógica}\label{evaluaciuxf3n-pedaguxf3gica}}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Retroalimentación}: opiniones de estudiantes y docentes guiaron los ajustes realizados.
-\item
-  \textbf{Objetivos educativos}: el simulador prioriza la claridad conceptual sin sacrificar la precisión técnica.
-\end{itemize}
-
-\hypertarget{portabilidad-y-mantenibilidad}{%
-\section{Portabilidad y Mantenibilidad}\label{portabilidad-y-mantenibilidad}}
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Portabilidad}: la herramienta se implementa como una aplicación web, compatible con cualquier navegador moderno.
-\item
-  \textbf{Mantenibilidad}: el código modular y bien documentado facilita futuras actualizaciones y mejoras.
-\end{itemize}
+VonSim8 se consolida como una herramienta educativa robusta y moderna, que combina simulación fiel, interactividad y accesibilidad, facilitando el aprendizaje profundo de los fundamentos de la arquitectura de computadoras.
 
 \begin{table}[!h]
 \centering
