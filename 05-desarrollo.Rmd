@@ -1839,34 +1839,34 @@ if (knitr::is_latex_output()) {
 
 ### Etapa de ejecución de instrucciones
 
-Subrutinas:  
-* CALL  `Dirección` 
-  4. 5. Se obtiene el operando de la instrucción.
-  6: `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
-  7: `MAR` $\leftarrow$ `SP`;
-  8: `MBR` $\leftarrow$ `IP`
-  9: `write(Memoria[MAR])` $\leftarrow$ `MBR`
-  10: `IP` $\leftarrow$ `ri`
+- **Subrutinas**
+  - **CALL `Dirección`**
+    4. Se obtiene el operando de la instrucción.
+    5. Se obtiene el operando de la instrucción.
+    6. `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
+    7. `MAR` $\leftarrow$ `SP`
+    8. `MBR` $\leftarrow$ `IP`
+    9. `write(Memoria[MAR])` $\leftarrow$ `MBR`
+    10. `IP` $\leftarrow$ `ri`
+  - **RET**
+    4. `MAR` $\leftarrow$ `SP`
+    5. `MBR` $\leftarrow$ `read(Memoria[MAR])`
+    6. `IP` $\leftarrow$ `MBR`
+    7. `SP` $\leftarrow$ `SP` + 1
 
-* RET
-  4: `MAR` $\leftarrow$ `SP`
-  5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
-  6: `IP` $\leftarrow$ `MBR`
-  7: `SP` $\leftarrow$ `SP` + 1
-
-Interrupciones:
-* INT  `Dirección` 
-  4 y 5: Obtener segundo byte de memoria
-  6: `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
-  7: `MAR` $\leftarrow$ `SP`
-  8: `MBR` $\leftarrow$ `Ry`
-  9: `write(Memoria[MAR])` $\leftarrow$ `MBR`
-  10: `IP` $\leftarrow$ `ri`
-  
-* IRET
-  4: `MAR` $\leftarrow$ `SP`
-  5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
-  6: `IP` $\leftarrow$ `MBR`;`SP` $\leftarrow$ `SP` + 1
+- **Interrupciones**
+  - **INT `Dirección`**
+    4. Obtener segundo byte de memoria
+    5. Obtener segundo byte de memoria
+    6. `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
+    7. `MAR` $\leftarrow$ `SP`
+    8. `MBR` $\leftarrow$ `Ry`
+    9. `write(Memoria[MAR])` $\leftarrow$ `MBR`
+    10. `IP` $\leftarrow$ `ri`
+  - **IRET**
+    4. `MAR` $\leftarrow$ `SP`
+    5. `MBR` $\leftarrow$ `read(Memoria[MAR])`
+    6. `IP` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` + 1
 
 ## Principales características tecnológicas
 Su desarrollo integra tecnología moderna del ecosistema web y buenas prácticas de software, proporcionando una experiencia didáctica visual, modular y accesible.
