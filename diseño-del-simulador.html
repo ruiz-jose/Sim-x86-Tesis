@@ -269,9 +269,8 @@ div.csl-indent {
 <li class="chapter" data-level="5.2.8" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#buses-y-multiplexores"><i class="fa fa-check"></i><b>5.2.8</b> Buses y multiplexores</a></li>
 <li class="chapter" data-level="5.2.9" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#periféricos-teclado-y-pantalla"><i class="fa fa-check"></i><b>5.2.9</b> Periféricos: teclado y pantalla</a></li>
 <li class="chapter" data-level="5.2.10" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#repertorio-de-instrucciones-1"><i class="fa fa-check"></i><b>5.2.10</b> Repertorio de instrucciones</a></li>
-<li class="chapter" data-level="5.2.11" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.2.11</b> Formato de instrucciones</a></li>
-<li class="chapter" data-level="5.2.12" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.2.12</b> Modos de direccionamiento</a></li>
-<li class="chapter" data-level="5.2.13" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#codificación-de-instrucciones"><i class="fa fa-check"></i><b>5.2.13</b> Codificación de instrucciones</a></li>
+<li class="chapter" data-level="5.2.11" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.2.11</b> Modos de direccionamiento</a></li>
+<li class="chapter" data-level="5.2.12" data-path="diseño-del-simulador.html"><a href="diseño-del-simulador.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.2.12</b> Formato de instrucciones</a></li>
 </ul></li>
 <li class="chapter" data-level="5.3" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html"><i class="fa fa-check"></i><b>5.3</b> Ciclo de la instrucción</a>
 <ul>
@@ -1078,54 +1077,8 @@ FinBucle: hlt```</p>
 <p>La selección de instrucciones busca facilitar la comprensión de los procesos fundamentales de la arquitectura de computadoras: la ejecución de operaciones aritméticas, la transferencia de datos entre registros y memoria, y el control del flujo de ejecución. Al tratarse de un repertorio reducido e inspirado en la arquitectura x86, se garantiza un equilibrio entre rigor conceptual y simplicidad pedagógica.</p>
 <p>La implementación de estas instrucciones en el simulador VonSim8 está orientada a proporcionar una experiencia de aprendizaje que apoye la comprensión de los principios fundamentales de la arquitectura de computadoras, reduciendo la carga cognitiva en las fases iniciales de la formación y fortaleciendo la transición hacia repertorios más complejos. El simulador facilita que el estudiante comprenda cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.</p>
 </div>
-<div id="formato-de-instrucciones" class="section level3 hasAnchor" number="5.2.11">
-<h3><span class="header-section-number">5.2.11</span> Formato de instrucciones<a href="diseño-del-simulador.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Las instrucciones del simulador VonSim8 poseen una longitud variable (1, 2 o 3 bytes), donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.</p>
-<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
-<caption>
-<span id="tab:formatoinst">Tabla 5.8: </span>Tabla de formato de instrucciones
-</caption>
-<thead>
-<tr>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Tipo
-</th>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Operandos
-</th>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Ejemplo
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center;width: 10em; font-weight: bold;border-right:1px solid;">
-Transferencia y procesamiento
-</td>
-<td style="text-align:center;width: 32em; ">
-2
-</td>
-<td style="text-align:center;width: 32em; ">
-MOV operando-destino, operando-fuente
-</td>
-</tr>
-<tr>
-<td style="text-align:center;width: 10em; font-weight: bold;border-right:1px solid;">
-Control
-</td>
-<td style="text-align:center;width: 32em; ">
-1 / cero
-</td>
-<td style="text-align:center;width: 32em; ">
-JMP operando / HLT
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="modos-de-direccionamiento-1" class="section level3 hasAnchor" number="5.2.12">
-<h3><span class="header-section-number">5.2.12</span> Modos de direccionamiento<a href="diseño-del-simulador.html#modos-de-direccionamiento-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="modos-de-direccionamiento-1" class="section level3 hasAnchor" number="5.2.11">
+<h3><span class="header-section-number">5.2.11</span> Modos de direccionamiento<a href="diseño-del-simulador.html#modos-de-direccionamiento-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Los modos de direccionamiento en un repertorio de instrucciones son los métodos que tiene un procesador para especificar la ubicación de los datos (operandos) que se van a utilizar en una instrucción. Esto permite al procesador saber de dónde tomar los datos para realizar una operación y dónde guardar el resultado. A continuación, se describen los modos de direccionamiento definidos en VonSim8:</p>
 <ul>
 <li><p>Registro a registro (<code>Rx</code>,<code>Ry</code>): operandos son registros del procesador y <code>Rx</code> indica registro destino y <code>Ry</code> indica registro fuente.</p></li>
@@ -1133,10 +1086,10 @@ JMP operando / HLT
 <li><p>Indirecto (<code>[BL]</code>): la dirección del operando se encuentra en el registro <code>[BL]</code>.</p></li>
 <li><p>Inmediato (<code>d</code>): un operando es un valor contenido en la instrucción.</p></li>
 </ul>
-<p>Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones, desde la manipulación directa de registros hasta el acceso a la memoria. Esto proporciona una base sólida para comprender el flujo de datos en una arquitectura computacional. La Tabla <a href="diseño-del-simulador.html#tab:modosdireccionamiento">5.9</a> resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, e incluye ejemplos de su uso.</p>
+<p>Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones, desde la manipulación directa de registros hasta el acceso a la memoria. Esto proporciona una base sólida para comprender el flujo de datos en una arquitectura computacional. La Tabla <a href="diseño-del-simulador.html#tab:modosdireccionamiento">5.8</a> resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, e incluye ejemplos de su uso.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:modosdireccionamiento">Tabla 5.9: </span>Tabla de modos de direccionamiento
+<span id="tab:modosdireccionamiento">Tabla 5.8: </span>Tabla de modos de direccionamiento
 </caption>
 <thead>
 <tr>
@@ -1281,9 +1234,136 @@ mov [bl], 4
 
 hlt</code></pre>
 </div>
-<div id="codificación-de-instrucciones" class="section level3 hasAnchor" number="5.2.13">
-<h3><span class="header-section-number">5.2.13</span> Codificación de instrucciones<a href="diseño-del-simulador.html#codificación-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla <a href="diseño-del-simulador.html#tab:instcodif">5.10</a> presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.</p>
+<div id="formato-de-instrucciones" class="section level3 hasAnchor" number="5.2.12">
+<h3><span class="header-section-number">5.2.12</span> Formato de instrucciones<a href="diseño-del-simulador.html#formato-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El formato de las instrucciones se basa en la codificación binaria, poseen una longitud variable (1, 2 o 3 bytes), donde los 4 bits de mayor peso del primer byte representa el código de operación (opcode) y los siguientes 4 bits pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
+Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo.</p>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tisaredu">Tabla 5.9: </span>Categorías de instrucciones y códigos de operación en VonSim8
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Categoría
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Instrucción
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Código operación
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Operandos
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Acción
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+Transferencia de datos
+</td>
+<td style="text-align:center;width: 16em; ">
+MOV
+</td>
+<td style="text-align:center;width: 8em; ">
+{0, 1, 2}
+</td>
+<td style="text-align:left;width: 8em; ">
+2
+</td>
+<td style="text-align:center;width: 32em; ">
+Copiar entre registros, cargar a registro, almacenar en memoria
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+Procesamiento de datos
+</td>
+<td style="text-align:center;width: 16em; ">
+ADD
+</td>
+<td style="text-align:center;width: 8em; ">
+{3, 4, 5}
+</td>
+<td style="text-align:left;width: 8em; ">
+2
+</td>
+<td style="text-align:center;width: 32em; ">
+Operación aritmética: operando1 ← operando1 + operando2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+</td>
+<td style="text-align:center;width: 16em; ">
+SUB
+</td>
+<td style="text-align:center;width: 8em; ">
+{6, 7, 8}
+</td>
+<td style="text-align:left;width: 8em; ">
+2
+</td>
+<td style="text-align:center;width: 32em; ">
+Operación aritmética: operando1 ← operando1 - operando2
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+</td>
+<td style="text-align:center;width: 16em; ">
+CMP
+</td>
+<td style="text-align:center;width: 8em; ">
+{9, 10, 11}
+</td>
+<td style="text-align:left;width: 8em; ">
+2
+</td>
+<td style="text-align:center;width: 32em; ">
+Comparación: operando1 - operando2 (no actualiza el destino)
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+Control de flujo
+</td>
+<td style="text-align:center;width: 16em; ">
+JMP / Jxx
+</td>
+<td style="text-align:center;width: 8em; ">
+{12}
+</td>
+<td style="text-align:left;width: 8em; ">
+1
+</td>
+<td style="text-align:center;width: 32em; ">
+Salto incondicional JMP, condicionales Jxx
+</td>
+</tr>
+<tr>
+<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+</td>
+<td style="text-align:center;width: 16em; ">
+HLT
+</td>
+<td style="text-align:center;width: 8em; ">
+{13}
+</td>
+<td style="text-align:left;width: 8em; ">
+0
+</td>
+<td style="text-align:center;width: 32em; ">
+HLT: detiene el CPU
+</td>
+</tr>
+</tbody>
+</table>
+<p>Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla <a href="diseño-del-simulador.html#tab:instcodif">5.10</a> presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:instcodif">Tabla 5.10: </span>Tabla de codificación de instrucciones
@@ -1439,7 +1519,7 @@ Codificación
 <code>ADD Rx, --</code>
 </td>
 <td style="text-align:left;width: 35em; ">
-Modos direccionamiento: destino registro
+Idem
 </td>
 <td style="text-align:left;width: 35em; ">
 <code>0100 ---- --------</code>
@@ -1453,7 +1533,7 @@ Modos direccionamiento: destino registro
 <code>ADD [M], --</code>
 </td>
 <td style="text-align:left;width: 35em; ">
-Modos direccionamiento: destino memoria
+Idem
 </td>
 <td style="text-align:left;width: 35em; ">
 <code>0101 ---- -------- --------</code>
@@ -1481,7 +1561,7 @@ Modos direccionamiento: destino memoria
 <code>SUB Rx, --</code>
 </td>
 <td style="text-align:left;width: 35em; ">
-Modos direccionamiento: destino registro
+Idem
 </td>
 <td style="text-align:left;width: 35em; ">
 <code>0111 ---- --------</code>
@@ -1495,7 +1575,7 @@ Modos direccionamiento: destino registro
 <code>SUB [M], --</code>
 </td>
 <td style="text-align:left;width: 35em; ">
-Modos direccionamiento: destino memoria
+Idem
 </td>
 <td style="text-align:left;width: 35em; ">
 <code>1000 ---- -------- --------</code>
@@ -1523,7 +1603,7 @@ A
 <code>CMP Rx, --</code>
 </td>
 <td style="text-align:left;width: 35em; ">
-Modos direccionamiento: destino registro
+Idem
 </td>
 <td style="text-align:left;width: 35em; ">
 <code>1010 ---- --------</code>
@@ -1537,7 +1617,7 @@ B
 <code>CMP [M], --</code>
 </td>
 <td style="text-align:left;width: 35em; ">
-Modos direccionamiento: destino memoria
+Idem
 </td>
 <td style="text-align:left;width: 35em; ">
 <code>1011 ---- -------- --------</code>

@@ -2518,29 +2518,6 @@ La selección de instrucciones busca facilitar la comprensión de los procesos f
 
 La implementación de estas instrucciones en el simulador VonSim8 está orientada a proporcionar una experiencia de aprendizaje que apoye la comprensión de los principios fundamentales de la arquitectura de computadoras, reduciendo la carga cognitiva en las fases iniciales de la formación y fortaleciendo la transición hacia repertorios más complejos. El simulador facilita que el estudiante comprenda cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
 
-\hypertarget{formato-de-instrucciones}{%
-\subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
-
-Las instrucciones del simulador VonSim8 poseen una longitud variable (1, 2 o 3 bytes), donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:formatoinst}Tabla de formato de instrucciones}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{7cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ejemplo}}}\\
-\midrule
-\textbf{Transferencia y procesamiento} & 2 & MOV operando-destino, operando-fuente\\
-\addlinespace[10pt]
-\textbf{Control} & 1 / cero & JMP operando / HLT\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
 \hypertarget{modos-de-direccionamiento-1}{%
 \subsection{Modos de direccionamiento}\label{modos-de-direccionamiento-1}}
 
@@ -2629,10 +2606,40 @@ mov [bl], 4
 
 hlt\end{lstlisting}
 
-\hypertarget{codificaciuxf3n-de-instrucciones}{%
-\subsection{Codificación de instrucciones}\label{codificaciuxf3n-de-instrucciones}}
+\hypertarget{formato-de-instrucciones}{%
+\subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
 
-El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \ref{tab:instcodif} presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
+El formato de las instrucciones se basa en la codificación binaria, poseen una longitud variable (1, 2 o 3 bytes), donde los 4 bits de mayor peso del primer byte representa el código de operación (opcode) y los siguientes 4 bits pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
+Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tisaredu}Categorías de instrucciones y códigos de operación en VonSim8}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3cm}>{\centering\arraybackslash}p{8cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\midrule
+\textbf{Transferencia de datos} & MOV & {0, 1, 2} & 2 & Copiar entre registros, cargar a registro, almacenar en memoria\\
+\addlinespace[10pt]
+\textbf{Procesamiento de datos} & ADD & {3, 4, 5} & 2 & Operación aritmética: operando1 ← operando1 + operando2\\
+\addlinespace[10pt]
+\textbf{} & SUB & {6, 7, 8} & 2 & Operación aritmética: operando1 ← operando1 - operando2\\
+\addlinespace[10pt]
+\textbf{} & CMP & {9, 10, 11} & 2 & Comparación: operando1 - operando2 (no actualiza el destino)\\
+\addlinespace[10pt]
+\textbf{Control de flujo} & JMP / Jxx & {12} & 1 & Salto incondicional JMP, condicionales Jxx\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{} & HLT & {13} & 0 & HLT: detiene el CPU\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \ref{tab:instcodif} presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
 
 \begin{table}[!h]
 \centering
@@ -2663,23 +2670,23 @@ El formato de las instrucciones se basa en la codificación binaria, donde cada 
 \addlinespace[10pt]
 \textbf{3} & \texttt{ADD Rx, Ry} & 1 & \texttt{0011 RxRy}\\
 \addlinespace[10pt]
-\textbf{4} & \texttt{ADD Rx, --} & Modos direccionamiento: destino registro & \texttt{0100 ---- --------}\\
+\textbf{4} & \texttt{ADD Rx, --} & Idem & \texttt{0100 ---- --------}\\
 \addlinespace[10pt]
 \addlinespace
-\textbf{5} & \texttt{ADD [M], --} & Modos direccionamiento: destino memoria & \texttt{0101 ---- -------- --------}\\
+\textbf{5} & \texttt{ADD [M], --} & Idem & \texttt{0101 ---- -------- --------}\\
 \addlinespace[10pt]
 \textbf{6} & \texttt{SUB Rx, Ry} & 1 & \texttt{0110 RxRy}\\
 \addlinespace[10pt]
-\textbf{7} & \texttt{SUB Rx, --} & Modos direccionamiento: destino registro & \texttt{0111 ---- --------}\\
+\textbf{7} & \texttt{SUB Rx, --} & Idem & \texttt{0111 ---- --------}\\
 \addlinespace[10pt]
-\textbf{8} & \texttt{SUB [M], --} & Modos direccionamiento: destino memoria & \texttt{1000 ---- -------- --------}\\
+\textbf{8} & \texttt{SUB [M], --} & Idem & \texttt{1000 ---- -------- --------}\\
 \addlinespace[10pt]
 \textbf{9} & \texttt{CMP Rx, Ry} & 1 & \texttt{1001 RxRy}\\
 \addlinespace[10pt]
 \addlinespace
-\textbf{A} & \texttt{CMP Rx, --} & Modos direccionamiento: destino registro & \texttt{1010 ---- --------}\\
+\textbf{A} & \texttt{CMP Rx, --} & Idem & \texttt{1010 ---- --------}\\
 \addlinespace[10pt]
-\textbf{B} & \texttt{CMP [M], --} & Modos direccionamiento: destino memoria & \texttt{1011 ---- -------- --------}\\
+\textbf{B} & \texttt{CMP [M], --} & Idem & \texttt{1011 ---- -------- --------}\\
 \addlinespace[10pt]
 \textbf{C} & \texttt{JMP M} & 1 & \texttt{1100 0000 MMMMMMMM}\\
 \addlinespace[10pt]
