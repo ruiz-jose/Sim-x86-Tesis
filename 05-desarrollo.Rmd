@@ -1315,37 +1315,31 @@ A continuación se explican las instrucciones más comunes.
 
 #### Instrucciones con dos operandos `MOV`, `ADD`, `SUB` y `CMP`:
 
-A. **Destino en registro (Rx)**
-
-Modo entre registros (`Rx`, `Ry`)
-  4. La ejecución ocupa un paso y puede ser:
-    - MOV: **`Rx` $\leftarrow$ `Ry`** 
-    - ADD: **`Rx` $\leftarrow$ `Rx` + `Ry` | update(Flags)** 
-    - SUB: **`Rx` $\leftarrow$ `Rx` - `Ry` | update(Flags)**
-    - CMP: **`Rx` - `Ry` | update(Flags)** (solo actualiza flags, no guarda el resultado)
-
-Modo directo (`Rx`, `[Dirección]`)
-  4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del operando fuente.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección desde memoria e incrementar IP.
-  6. **`MAR` $\leftarrow$ `MBR`** – Transferir la dirección al MAR.
-  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Obtener el dato.
-
-  8. Ejecutar la operación:
-    - MOV: **`Rx`  $\leftarrow$ `MBR`**
-    - ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR` | update(Flags)**
-    - SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR` | update(Flags)**
-    - CMP: **`Rx` - `MBR` | update(Flags)**
-
-Modo inmediato (`Rx`, `Dato`)
-  4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer el dato e incrementar IP.
-  6. Ejecutar la operación (Igual que en el caso anterior).
-
-Modo indirecto (`Rx`, `[BL]`)
-  4. **`MAR` $\leftarrow$ `BL`** – Obtener dirección del dato desde el registro BL.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
-  6. Ejecutar la operación:
-    - Igual que en los casos anteriores.
+- **Destino en registro (`Rx`)**
+  - **Modo entre registros (`Rx`, `Ry`)**
+    4. La ejecución ocupa un paso y puede ser:
+        - MOV: **`Rx` $\leftarrow$ `Ry`**
+        - ADD: **`Rx` $\leftarrow$ `Rx` + `Ry` | update(Flags)**
+        - SUB: **`Rx` $\leftarrow$ `Rx` - `Ry` | update(Flags)**
+        - CMP: **`Rx` - `Ry` | update(Flags)** (solo actualiza flags, no guarda el resultado)
+  - **Modo directo (`Rx`, `[Dirección]`)**
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del operando fuente.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección desde memoria e incrementar IP.
+    6. **`MAR` $\leftarrow$ `MBR`** – Transferir la dirección al MAR.
+    7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Obtener el dato.
+    8. Ejecutar la operación:
+        - MOV: **`Rx`  $\leftarrow$ `MBR`**
+        - ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR` | update(Flags)**
+        - SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR` | update(Flags)**
+        - CMP: **`Rx` - `MBR` | update(Flags)**
+  - **Modo inmediato (`Rx`, `Dato`)**
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer el dato e incrementar IP.
+    6. Ejecutar la operación (igual que en el caso anterior).
+  - **Modo indirecto (`Rx`, `[BL]`)**
+    4. **`MAR` $\leftarrow$ `BL`** – Obtener dirección del dato desde el registro BL.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
+    6. Ejecutar la operación (igual que en el caso anterior).
 
 B.***Destino en memoria (`[Dirección]` o `[BL]`)**
 En este caso, el resultado de la operación no se almacena en un registro, sino en una posición de memoria especificada directamente en la instrucción o indicada por el contenido del registro BL.
