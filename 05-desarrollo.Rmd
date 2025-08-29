@@ -1341,111 +1341,212 @@ A continuación se explican las instrucciones más comunes.
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
     6. Ejecutar la operación (igual que en el caso anterior).
 
-B.***Destino en memoria (`[Dirección]` o `[BL]`)**
+- **Destino en memoria (`[Dirección]` o `[BL]`)**
 En este caso, el resultado de la operación no se almacena en un registro, sino en una posición de memoria especificada directamente en la instrucción o indicada por el contenido del registro BL.
-
-Modo Directo (`[Dirección]`, `Ry`)
-  4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
-  6. **`MAR` $\leftarrow$ `MBR`** – Transferir dirección a MAR.  
-
-  Según la instrucción:
-  MOV:  
-  7. **`MBR` $\leftarrow$ `Ry`** – Copiar Ry al MBR.
-  8. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
-
-  ADD, SUB, CMP:
-  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
-  8. Ejecutar la operación:
-    - ADD: **`MBR` $\leftarrow$ `MBR` + `Ry` | update(Flags)**
-    - SUB: **`MBR` $\leftarrow$ `MBR` - `Ry` | update(Flags)**
-    - CMP: **`MBR` - `Ry` | update(Flags)**
-
-  Si es `ADD` o `SUB`:
-  9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
-
-Modo Indirecto (`[BL]`, `Ry`)
-  4. **`MAR` $\leftarrow$ `BL`** – Transferir dirección de destino (en BL) a MAR.
-
-  Según la instrucción:
-  MOV:
-  5. **`MBR` $\leftarrow$ `Ry`** – Copiar Ry al MBR.
-  6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
-
-  ADD, SUB, CMP:
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
-  6. Ejecutar la operación (Igual que en el caso anterior).
-
-  Si es `ADD` o `SUB`: 
-  7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
-
-Modo Directo-Inmediato (`[Dirección]`, `Dato`)
-  4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dirección e incrementar IP.
-  6. **`MAR` $\leftarrow$ `IP`;`ri` $\leftarrow$ `MBR`** – Preparar para leer el dato y guardar la dirección destino en un registro intermedio (ri).
-  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dato e incrementar IP.
-  
-  Según la instrucción:
-  MOV:
-  8. **`MAR` $\leftarrow$ `ri`**– Copiar dirección destino.
-  9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
-
-  ADD, SUB, CMP:
-  8. **`MAR` $\leftarrow$ `ri` | `id` $\leftarrow$ `MBR`** – Cargar dirección destino y guardar el valor inmediato en id.
-  9. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el valor actual de destino.
-  10. Ejecutar la operación:
-    - ADD: **`MBR` $\leftarrow$ `MBR` + `id` | update(Flags)**
-    - SUB: **`MBR` $\leftarrow$ `MBR` - `id` | update(Flags)**
-    - CMP: **`MBR` - `id` | update(Flags)**
-
-  Si es `ADD` o `SUB`: 
-  11. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
-
-Modo Indirecto-Inmediato (`[BL]`, `Dato`)
-  4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
-  5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dato e incrementar IP.
-
-  Según la instrucción:
-  MOV:
-  6. **`MAR` $\leftarrow$ `BL`** – Copiar dirección de destino.
-  7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
-
-  ADD, SUB, CMP:  
-  6. **`MAR` $\leftarrow$ `BL` | `id` $\leftarrow$ `MBR`** – Cargar la dirección destino y guardar el valor inmediato en id.
-  7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el valor actual de destino.
-  8. Ejecutar la operación: 
-    - ADD: **`MBR` $\leftarrow$ `MBR` + `id` | update(Flags)**
-    - SUB: **`MBR` $\leftarrow$ `MBR` - `id` | update(Flags)**
-    - CMP: **`MBR` - `id` | update(Flags)**
-
-  Si es `ADD` o `SUB`: 
-  9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+  - **Modo Directo (`[Dirección]`, `Ry`)**
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
+    6. **`MAR` $\leftarrow$ `MBR`** – Transferir dirección a MAR.
+    Según la instrucción:
+      - MOV:
+          7. **`MBR` $\leftarrow$ `Ry`** – Copiar Ry al MBR.
+          8. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+      - ADD, SUB, CMP:
+          7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
+          8. Ejecutar la operación:
+              - ADD: **`MBR` $\leftarrow$ `MBR` + `Ry` | update(Flags)**
+              - SUB: **`MBR` $\leftarrow$ `MBR` - `Ry` | update(Flags)**
+              - CMP: **`MBR` - `Ry` | update(Flags)**
+          9. Si es `ADD` o `SUB`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+  - **Modo Indirecto (`[BL]`, `Ry`)**
+    4. **`MAR` $\leftarrow$ `BL`** – Transferir dirección de destino (en BL) a MAR.
+    Según la instrucción:
+      - MOV:
+          5. **`MBR` $\leftarrow$ `Ry`** – Copiar Ry al MBR.
+          6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+      - ADD, SUB, CMP:
+          5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
+          6. Ejecutar la operación (igual que en el caso anterior).
+          7. Si es `ADD` o `SUB`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+  - **Modo Directo-Inmediato (`[Dirección]`, `Dato`)**
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dirección e incrementar IP.
+    6. **`MAR` $\leftarrow$ `IP`; `ri` $\leftarrow$ `MBR`** – Preparar para leer el dato y guardar la dirección destino en un registro intermedio (ri).
+    7. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dato e incrementar IP.
+    Según la instrucción:
+      - MOV:
+          8. **`MAR` $\leftarrow$ `ri`** – Copiar dirección destino.
+          9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+      - ADD, SUB, CMP:
+          8. **`MAR` $\leftarrow$ `ri` | `id` $\leftarrow$ `MBR`** – Cargar dirección destino y guardar el valor inmediato en id.
+          9. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el valor actual de destino.
+          10. Ejecutar la operación:
+              - ADD: **`MBR` $\leftarrow$ `MBR` + `id` | update(Flags)**
+              - SUB: **`MBR` $\leftarrow$ `MBR` - `id` | update(Flags)**
+              - CMP: **`MBR` - `id` | update(Flags)**
+          11. Si es `ADD` o `SUB`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+  - **Modo Indirecto-Inmediato (`[BL]`, `Dato`)**
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dato e incrementar IP.
+    Según la instrucción:
+      - MOV:
+          6. **`MAR` $\leftarrow$ `BL`** – Copiar dirección de destino.
+          7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
+      - ADD, SUB, CMP:
+          6. **`MAR` $\leftarrow$ `BL` | `id` $\leftarrow$ `MBR`** – Cargar la dirección destino y guardar el valor inmediato en id.
+          7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el valor actual de destino.
+          8. Ejecutar la operación:
+              - ADD: **`MBR` $\leftarrow$ `MBR` + `id` | update(Flags)**
+              - SUB: **`MBR` $\leftarrow$ `MBR` - `id` | update(Flags)**
+              - CMP: **`MBR` - `id` | update(Flags)**
+          9. Si es `ADD` o `SUB`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
 
 #### Instrucciones con un operando `JMP` y `Jxx`:
-
-  Salto incondicional y condicionales  (`Dirección`) 
+- **Salto a (`Dirección`)**
+  Tanto incondicional `JMP` como condicionales `Jxx` tienen estos pasos:
   4. **`MAR` $\leftarrow$ `IP`** – Obtener la dirección del salto.
   5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1** – Leer la dirección de destino e incrementar IP.
 
-  Si es salto incondicional `JMP` : 
-  6. **`IP` $\leftarrow$ `MBR`**
+  Según la instrucción:
+    - JMP: 
+      6. **`IP` $\leftarrow$ `MBR`**
 
-  Si es salto condicional `Jxx` : 
-  6. Si se cumple la condición del flag `xx`, **`IP` $\leftarrow$ `MBR`**; en caso contrario, continúa con la siguiente instrucción.
+    - Jxx: 
+      6. **`IP` $\leftarrow$ `MBR`** si se cumple la condición del flag `xx`; en caso contrario, continúa con la siguiente instrucción.
 
 #### Instrucciones sin operandos
-Instrucción de control CPU `HLT`
-  4. HLT – Detiene la ejecución de la CPU.
+  Según la instrucción:
+    - HLT: 
+      4. Detiene la ejecución de la CPU.
 
-## Modulo de Entrada/Salida e interrupciones
+## Modulo de Entrada/Salida
+El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos. Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
+
+  - Teclado y pantalla: un teclado y una pantalla.
+  - PIC: un PIC, además de la tecla F10 para interrumpir, y un timer con su reloj.
+  - PIO: un PIO que puede conectarse a llaves y luces o a una impresora Centronics.
+  - Handshake: Una impresora Centronics conectada por un Handshake.
+
+Para poder utilizar los dispositivos de entrada y salida es necesario presentar nuevas instrucciones al conjunto de instrucciones del procesador.
+
+```{r isacompleta, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+isacompleta <- data.frame(
+  `Código operación` = c("MOV", "ADD", "JMP", "PUSH, POP, OUT, IN", "INT , IRET", "NOP , HLT"),
+  Instrucciones = c("Transferencia de datos", "Aritmética", "Control de flujo", "Pila y E/S", "Interrupciones", "Control"),
+  nemónico = c(
+    "MOV destino, origen",
+    "ADD destino, origen",
+    "JMP destino",
+    "PUSH, POP, OUT, IN",
+    "INT , IRET",
+    "NOP , HLT"
+  ),
+  Acción = c(
+    "1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria",
+    "1- Sumar  2- Restar 3- Comparar",
+    "Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET",
+    "Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S",
+    "Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET",
+    "No opera NOP. Detiene el CPU HLT"
+  )
+)
+
+tabla_kable <- kable(isacompleta,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86",
+               col.names = c("Código operación", "Instrucciones", "Nemónico", "Acción"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "c", "c", "c"))
+
+if (knitr::is_latex_output()) {
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "5.5cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(isacompleta)),
+             extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+
+### Subrutinas
+El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción [`CALL`]. Esta instrucción almacena el `IP` en la [pila], y luego realiza un salto a la dirección de la subrutina, modificando el `IP` para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción [`RET`], que desapila la dirección apilada previamente por `CALL` y restaura el `IP`, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
+
+Ejemplo de subrutina:
+
+```vonsim
+      mov al, 1
+      mov bl, 2
+      mov cl, 3
+      call sum3
+      ; ax = 6
+      hlt
+
+      ; suma al, bl y cl
+      sum3: add al, bl
+            add al, cl
+            ret
+```
+
+### Interrupciones
+El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. 
+En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT` número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción `INT` respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, `IF=1` (la _flag_ de interrupciones activada).
+
+Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT`. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre `0` y `7`.
+
+Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+
+Específicamente, el procesador:
+
+1. obtiene el número de la interrupción (0-7),
+2. apila el registro `FLAGS`,
+3. inhabilita las interrupciones `I=0`,
+4. apila el registro `IP`,
+5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
+6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
+
+Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en `IRET` en vez de `RET`.
+
+#### Llamadas al sistema
+El simulador permite realizar llamadas al sistema o _syscalls_. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una _syscall_ basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
+
+- `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
+- `INT 6`: lee un carácter del teclado;
+- `INT 7`: escribe una cadena de caracteres en pantalla.
+
+Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
+
+El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones `A0h`, `B0h` y `C0h` respectivamente.
+
+## Pila
 En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
-El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos.
-Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
 
-- Teclado y pantalla: un teclado y una pantalla.
-- PIC: un PIC, además de la tecla F10 para interrumpir, y un timer con su reloj.
-- PIO: un PIO que puede conectarse a llaves y luces o a una impresora Centronics.
-- Handshake: Una impresora Centronics conectada por un Handshake.
+El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo _Last In, First Out_ (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (`FFh`) y creciendo hacia las direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se guarda en el registro `SP`. Todos los elementos de la pila son de 8 bits.
+
+### Instrucciones IN y OUT
+Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
+- `OUT puerto, AL`: Esta instrucción envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
+- `IN AL, puerto`: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro `AL`. Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
+
 
 ### Pantalla
 La pantalla es un dispositivo de salida que permite mostrar caracteres. La forma de comunicarse con la pantalla es mediante una llamada al sistema. Esto es así por simplicidad, ya que una pantalla real es mucho más compleja.
@@ -1531,19 +1632,13 @@ hlt
 ```")
 }
 ```
-### Memoria E/S: Instrucciones IN y OUT
 
-La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones IN y OUT. Cuando se quiere acceder a un módulo de entrada/salida, la CPU activa la señal IO/M, lo que causa que un selector de chips (chip select) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
-
-El rango de direcciones de la memoria de entrada/salida es de 00h hasta FFh (256 direcciones).
- 
+### Puertos de E/S
 La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones [`IN`] y [`OUT`]). Cuando se quiere acceder a un módulo de entrada/salida, la [CPU] activa la señal `IO/M`, lo que causa que un selector de chips (_chip select_) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
 
 El rango de direcciones de la memoria de entrada/salida es de `00h` hasta `FFh` (256 direcciones).
 
-### Registros de E/S
-
-Estos son las registros de entrada/salida disponibles en el simulador, todos de 8 bits:
+Estos son las direcciones de entrada/salida disponibles en el simulador, todos de 8 bits:
 
 | Dirección | Nombre  | Módulo                   |
 | :-------: | :-----: | :----------------------- |
@@ -1567,13 +1662,6 @@ Estos son las registros de entrada/salida disponibles en el simulador, todos de 
 |   `33h`   |  `CB`   | [PIO]             |
 |   `40h`   | `DATA`  | [Handshake] |
 |   `41h`   | `STATE` | [Handshake] |
-
-
-
-
-Para la comunicacion con los modulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
-- `OUT puerto, AL`: Esta instrucción envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
-- `IN AL, puerto`: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro `AL`. Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
 
 ### Llaves y luces
 Las llaves o interruptores están conectados al puerto PA/CA del PIO y son dispositivos de entrada. Al cambiar su estado, estos se reflejarán en PA (si el PIO está configurado correctamente). Si se altera PA, los cambios no se verán reflejados en las llaves (no se mueven solas, por así decirlo).
@@ -1668,65 +1756,7 @@ hlt                      ; Detiene la ejecución del programa
 }
 ```
 
-```{r isacompleta, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-isacompleta <- data.frame(
-  `Código operación` = c("MOV", "ADD", "JMP", "PUSH, POP, OUT, IN", "INT , IRET", "NOP , HLT"),
-  Instrucciones = c("Transferencia de datos", "Aritmética", "Control de flujo", "Pila y E/S", "Interrupciones", "Control"),
-  nemónico = c(
-    "MOV destino, origen",
-    "ADD destino, origen",
-    "JMP destino",
-    "PUSH, POP, OUT, IN",
-    "INT , IRET",
-    "NOP , HLT"
-  ),
-  Acción = c(
-    "1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria",
-    "1- Sumar  2- Restar 3- Comparar",
-    "Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET",
-    "Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S",
-    "Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET",
-    "No opera NOP. Detiene el CPU HLT"
-  )
-)
-
-tabla_kable <- kable(isacompleta,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86",
-               col.names = c("Código operación", "Instrucciones", "Nemónico", "Acción"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c", "c", "c"))
-
-if (knitr::is_latex_output()) {
-  tabla_kable %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:4, width = "5.5cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(isacompleta)),
-             extra_latex_after = "\\addlinespace[10pt]")
-} else {
-  tabla_kable %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:4, width = "32em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-}
-```
-
 Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el codigo de operacion 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
-
 
 ```{r tisa, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1807,63 +1837,7 @@ if (knitr::is_latex_output()) {
 
 
 
-## Pila
-El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo _Last In, First Out_ (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (`FFh`) y creciendo hacia las direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se guarda en el registro `SP`. Todos los elementos de la pila son de 8 bits.
-
-## Subrutinas
-El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción [`CALL`]. Esta instrucción almacena el `IP` en la [pila], y luego realiza un salto a la dirección de la subrutina, modificando el `IP` para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción [`RET`], que desapila la dirección apilada previamente por `CALL` y restaura el `IP`, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
-
-Ejemplo de subrutina:
-
-```vonsim
-      mov al, 1
-      mov bl, 2
-      mov cl, 3
-      call sum3
-      ; ax = 6
-      hlt
-
-      ; suma al, bl y cl
-      sum3: add al, bl
-            add al, cl
-            ret
-```
-
-## Interrupciones
-El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. 
-En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT` número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
-
-El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción `INT` respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, `IF=1` (la _flag_ de interrupciones activada).
-
-Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT`. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre `0` y `7`.
-
-Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
-
-Específicamente, el procesador:
-
-1. obtiene el número de la interrupción (0-7),
-2. apila el registro `FLAGS`,
-3. inhabilita las interrupciones `I=0`,
-4. apila el registro `IP`,
-5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
-6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
-
-Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en `IRET` en vez de `RET`.
-
-### Llamadas al sistema
-El simulador permite realizar llamadas al sistema o _syscalls_. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una _syscall_ basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
-
-- `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
-- `INT 6`: lee un carácter del teclado;
-- `INT 7`: escribe una cadena de caracteres en pantalla.
-
-Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
-
-El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones `A0h`, `B0h` y `C0h` respectivamente.
-
-
-### Etapa de ejecución de instrucciones de pila e interrupciones
-A continuación se detallan los pasos específicos para cada tipo de instrucción:
+### Etapa de ejecución de instrucciones
 
 Subrutinas:  
 * CALL  `Dirección` 
@@ -1894,57 +1868,48 @@ Interrupciones:
   5: `MBR` $\leftarrow$ `read(Memoria[MAR])`
   6: `IP` $\leftarrow$ `MBR`;`SP` $\leftarrow$ `SP` + 1
 
-## Aspectos tecnológicos de implementación
-Se utiliza un enfoque modular para la implementación del simulador, facilitando su mantenimiento y ampliación futura. La arquitectura del simulador se basa en una estructura de capas, donde cada capa se encarga de una parte específica del proceso de simulación.
+## Principales características tecnológicas
+Su desarrollo integra tecnología moderna del ecosistema web y buenas prácticas de software, proporcionando una experiencia didáctica visual, modular y accesible.
 
-## Simulación visual e interactiva
-Esta sección detalla la implementación de las características visuales e interactivas del simulador, diseñadas para facilitar la comprensión del flujo de datos y las microoperaciones dentro de la arquitectura x86.
 
-### Representación gráfica de componentes
-- **Diseño de la interfaz visual**: incluye elementos como registros, buses y memoria, presentados de manera clara y organizada.
-- **Resaltado dinámico**: los componentes relevantes se destacan visualmente durante la ejecución, proporcionando un seguimiento en tiempo real del flujo de datos.
+### Stack Tecnológico
 
-### Ejecución paso a paso
-- **Flujo interactivo**: permite avanzar por cada etapa del ciclo de instrucción, desde la captura hasta la finalización.
-- **Opciones de visualización**: se pueden observar los micropasos que conforman cada etapa de la ejecución, fomentando una comprensión detallada del proceso.
+  - React: Framework de interfaz moderna para construir componentes interactivos y reactividad eficiente.
+  - TypeScript: Tipado estático que aporta robustez y facilita el mantenimiento del código.
+  - React Spring: Animaciones fluidas para mejorar la experiencia visual y pedagógica.
+  - Jotai: Gestión de estado global, permitiendo sincronización y modularidad entre los distintos componentes.
+  - Tailwind CSS: Framework de estilos utilitario para lograr interfaces responsivas y coherentes.
+  - Pruebas Automatizadas: Tests unitarios, de integración y de accesibilidad (incluyendo ARIA, navegación por teclado y roles semánticos) para garantizar calidad y accesibilidad.
 
-## Gestión de interrupciones y periféricos
-Se describe la simulación de interrupciones y operaciones de entrada/salida, proporcionando una implementación básica para la interacción con periféricos.
+### Arquitectura modular y educativa
 
-### Manejo del vector de interrupciones
-- **Vector predefinido**: se incluye un conjunto de interrupciones estándar.
-- **Simulación de interrupciones**: ejemplos como las interacciones con teclado y pantalla están modeladas para su análisis práctico.
+  - Componentes independientes y reutilizables, lo que facilita tanto la extensión como el mantenimiento.
+  - Integración de paneles educativos, tutoriales interactivos y gamificación mediante sistemas de logros y niveles de aprendizaje.
+  - Adaptabilidad a distintos niveles (básico, intermedio, avanzado) y retroalimentación visual en tiempo real.
 
-### Instrucciones IN y OUT
-- **Operaciones de entrada/salida**: se implementan y simulan las instrucciones básicas para la interacción con periféricos.
+### Simulación fiel de arquitectura de computadoras
 
-### Segunda etapa
-En esta etapa, se amplían los modos de direccionamiento e instrucciones:
+  - CPU de 8 bits: Registros, ALU, buses, ciclo de instrucción y modos de direccionamiento.
+  - Memoria RAM: Simulación de 256 bytes con direccionamiento de 8 bits.
+  - Lenguaje ensamblador: Permite escribir, ejecutar y depurar programas, visualizando el flujo de instrucciones y operandos.
+  - Sistema de E/S configurable: Integración de periféricos como teclado, pantalla, PIC, PIO y temporizador, siguiendo especificaciones reales de la familia Intel iAPX 88.
 
-## Integración de métricas de rendimiento
-El simulador incorpora métricas clave para analizar el impacto del rendimiento en la arquitectura de computadoras.
+### Visualización y experiencia de usuario
 
-### Métricas calculadas
-- **Indicadores**: tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI).
-- **Visualización**: las métricas se presentan en tiempo real durante la simulación, facilitando su análisis.
+  - Indicadores visuales avanzados para las fases de ejecución (fetch-decode-execute).
+  - Animaciones de flujo de datos y cambios de estado en tiempo real.
+  - Paneles flotantes y tooltips educativos para explicar conceptos clave y apoyar el aprendizaje autónomo.
 
-### Análisis de casos de estudio
-- Se incluyen ejemplos que ilustran cómo interpretar las métricas para optimizar el rendimiento.
+### Documentación y recursos
+  - Documentación exhaustiva que facilita la comprensión de cada componente y concepto abordado.
+  - Recursos adicionales como tutoriales interactivos, referencia de instrucciones y guías de arquitectura.
 
-## Proceso de validación
-El proceso de validación garantiza que el simulador cumple con los requisitos pedagógicos y funcionales.
+### Accesibilidad y buenas prácticas
+  - Cumplimiento de estándares WCAG 2.1 AA.
+  - Enfoque en la accesibilidad y la inclusión educativa.
+  - Estrategias de testing, documentación y contribución enfocadas en el impacto pedagógico.
 
-### Validación funcional
-- **Pruebas de módulos**: cada componente se verificó de manera individual.
-- **Ejecución completa**: programas de prueba comprobaron la correcta implementación de las instrucciones.
-
-### Evaluación pedagógica
-- **Retroalimentación**: opiniones de estudiantes y docentes guiaron los ajustes realizados.
-- **Objetivos educativos**: el simulador prioriza la claridad conceptual sin sacrificar la precisión técnica.
-
-## Portabilidad y Mantenibilidad
-- **Portabilidad**: la herramienta se implementa como una aplicación web, compatible con cualquier navegador moderno.
-- **Mantenibilidad**: el código modular y bien documentado facilita futuras actualizaciones y mejoras.
+VonSim8 se consolida como una herramienta educativa robusta y moderna, que combina simulación fiel, interactividad y accesibilidad, facilitando el aprendizaje profundo de los fundamentos de la arquitectura de computadoras.
 
 
 ```{r instaccion, echo=FALSE, message=FALSE, warning=FALSE}
