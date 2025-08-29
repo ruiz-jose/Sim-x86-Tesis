@@ -672,34 +672,46 @@ Operaciones lógicas y aritméticas
 </div>
 <div id="etapa-de-ejecución-de-instrucciones" class="section level3 hasAnchor" number="5.5.6">
 <h3><span class="header-section-number">5.5.6</span> Etapa de ejecución de instrucciones<a href="pila.html#etapa-de-ejecución-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Subrutinas:<br />
-* CALL <code>Dirección</code>
-4. 5. Se obtiene el operando de la instrucción.
-6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
-7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>;
-8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code>
-9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
-10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
 <ul>
-<li>RET
-4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
-5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
-6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
-7: <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
-</ul>
-<p>Interrupciones:
-* INT <code>Dirección</code>
-4 y 5: Obtener segundo byte de memoria
-6: <code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1
-7: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
-8: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code>
-9: <code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>
-10: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></p>
+<li><strong>Subrutinas</strong>
 <ul>
-<li>IRET
-4: <code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code>
-5: <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code>
-6: <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>;<code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+<li><strong>CALL <code>Dirección</code></strong>
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Obtener dirección destino.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Leer la dirección e incrementar IP.</li>
+<li><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</li>
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></li>
+<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></li>
+<li><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
+<li><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></li>
+</ol></li>
+<li><strong>RET</strong>
+<ol start="4" style="list-style-type: decimal">
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></li>
+<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></li>
+<li><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
+<li><code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+</ol></li>
+</ul></li>
+<li><strong>Interrupciones</strong>
+<ul>
+<li><strong>INT <code>Dirección</code></strong>
+<ol start="4" style="list-style-type: decimal">
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Obtener dirección destino.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Leer la dirección e incrementar IP.</li>
+<li><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</li>
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></li>
+<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></li>
+<li><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
+<li><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></li>
+</ol></li>
+<li><strong>IRET</strong>
+<ol start="4" style="list-style-type: decimal">
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></li>
+<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></li>
+<li><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+</ol></li>
+</ul></li>
 </ul>
 </div>
 </div>

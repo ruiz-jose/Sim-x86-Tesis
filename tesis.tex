@@ -3449,41 +3449,94 @@ Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce 
 \hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones}{%
 \subsection{Etapa de ejecución de instrucciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones}}
 
-Subrutinas:\\
-* CALL \texttt{Dirección}
-4. 5. Se obtiene el operando de la instrucción.
-6: \texttt{ri} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
-7: \texttt{MAR} \(\leftarrow\) \texttt{SP};
-8: \texttt{MBR} \(\leftarrow\) \texttt{IP}
-9: \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}
-10: \texttt{IP} \(\leftarrow\) \texttt{ri}
-
 \begin{itemize}
 \tightlist
 \item
-  RET
-  4: \texttt{MAR} \(\leftarrow\) \texttt{SP}
-  5: \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
-  6: \texttt{IP} \(\leftarrow\) \texttt{MBR}
-  7: \texttt{SP} \(\leftarrow\) \texttt{SP} + 1
-\end{itemize}
+  \textbf{Subrutinas}
 
-Interrupciones:
-* INT \texttt{Dirección}
-4 y 5: Obtener segundo byte de memoria
-6: \texttt{ri} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
-7: \texttt{MAR} \(\leftarrow\) \texttt{SP}
-8: \texttt{MBR} \(\leftarrow\) \texttt{Ry}
-9: \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}
-10: \texttt{IP} \(\leftarrow\) \texttt{ri}
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{CALL \texttt{Dirección}}
 
-\begin{itemize}
-\tightlist
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
+    \item
+      \texttt{ri} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
+    \item
+      \texttt{MAR} \(\leftarrow\) \texttt{SP}
+    \item
+      \texttt{MBR} \(\leftarrow\) \texttt{IP}
+    \item
+      \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}
+    \item
+      \texttt{IP} \(\leftarrow\) \texttt{ri}
+    \end{enumerate}
+  \item
+    \textbf{RET}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \texttt{MAR} \(\leftarrow\) \texttt{SP}
+    \item
+      \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
+    \item
+      \texttt{IP} \(\leftarrow\) \texttt{MBR}
+    \item
+      \texttt{SP} \(\leftarrow\) \texttt{SP} + 1
+    \end{enumerate}
+  \end{itemize}
 \item
-  IRET
-  4: \texttt{MAR} \(\leftarrow\) \texttt{SP}
-  5: \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
-  6: \texttt{IP} \(\leftarrow\) \texttt{MBR};\texttt{SP} \(\leftarrow\) \texttt{SP} + 1
+  \textbf{Interrupciones}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{INT \texttt{Dirección}}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
+    \item
+      \texttt{ri} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
+    \item
+      \texttt{MAR} \(\leftarrow\) \texttt{SP}
+    \item
+      \texttt{MBR} \(\leftarrow\) \texttt{Ry}
+    \item
+      \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}
+    \item
+      \texttt{IP} \(\leftarrow\) \texttt{ri}
+    \end{enumerate}
+  \item
+    \textbf{IRET}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \texttt{MAR} \(\leftarrow\) \texttt{SP}
+    \item
+      \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
+    \item
+      \texttt{IP} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} + 1
+    \end{enumerate}
+  \end{itemize}
 \end{itemize}
 
 \hypertarget{principales-caracteruxedsticas-tecnoluxf3gicas}{%
