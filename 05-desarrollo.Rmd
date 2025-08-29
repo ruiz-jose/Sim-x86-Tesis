@@ -1841,8 +1841,8 @@ if (knitr::is_latex_output()) {
 
 - **Subrutinas**
   - **CALL `Dirección`**
-    4. Se obtiene el operando de la instrucción.
-    5. Se obtiene el operando de la instrucción.
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
     6. `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
     7. `MAR` $\leftarrow$ `SP`
     8. `MBR` $\leftarrow$ `IP`
@@ -1856,8 +1856,8 @@ if (knitr::is_latex_output()) {
 
 - **Interrupciones**
   - **INT `Dirección`**
-    4. Obtener segundo byte de memoria
-    5. Obtener segundo byte de memoria
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
     6. `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
     7. `MAR` $\leftarrow$ `SP`
     8. `MBR` $\leftarrow$ `Ry`
