@@ -1877,11 +1877,9 @@ if (knitr::is_latex_output()) {
   - **CALL `Dirección`**
     4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
-    6. `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
-    7. `MAR` $\leftarrow$ `SP`
-    8. `MBR` $\leftarrow$ `IP`
-    9. `write(Memoria[MAR])` $\leftarrow$ `MBR`
-    10. `IP` $\leftarrow$ `ri`
+    6. `ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1
+    7. `MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `IP`
+    8. `write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`
   - **RET**
     4. `MAR` $\leftarrow$ `SP`
     5. `MBR` $\leftarrow$ `read(Memoria[MAR])`
