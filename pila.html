@@ -678,11 +678,9 @@ Operaciones lógicas y aritméticas
 <ol start="4" style="list-style-type: decimal">
 <li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Obtener dirección destino.</li>
 <li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Leer la dirección e incrementar IP.</li>
-<li><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</li>
-<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></li>
-<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></li>
-<li><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
-<li><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></li>
+<li><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</li>
+<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> | <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></li>
+<li><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></li>
 </ol></li>
 <li><strong>RET</strong>
 <ol start="4" style="list-style-type: decimal">

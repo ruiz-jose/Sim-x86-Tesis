@@ -3475,15 +3475,11 @@ Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce 
     \item
       \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
     \item
-      \texttt{ri} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
+      \texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
     \item
-      \texttt{MAR} \(\leftarrow\) \texttt{SP}
+      \texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{IP}
     \item
-      \texttt{MBR} \(\leftarrow\) \texttt{IP}
-    \item
-      \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}
-    \item
-      \texttt{IP} \(\leftarrow\) \texttt{ri}
+      \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}
     \end{enumerate}
   \item
     \textbf{RET}
