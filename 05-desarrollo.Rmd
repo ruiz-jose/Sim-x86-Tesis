@@ -1877,28 +1877,36 @@ if (knitr::is_latex_output()) {
   - **CALL `Dirección`**
     4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
-    6. `ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1
-    7. `MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `IP`
-    8. `write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`
+    6. **`ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1**
+    7. **`MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `IP`**
+    8. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`**
   - **RET**
-    4. `MAR` $\leftarrow$ `SP`
-    5. `MBR` $\leftarrow$ `read(Memoria[MAR])`
-    6. `IP` $\leftarrow$ `MBR`
-    7. `SP` $\leftarrow$ `SP` + 1
+    4. **`MAR` $\leftarrow$ `SP`**
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+    6. **`IP` $\leftarrow$ `MBR`| `SP` $\leftarrow$ `SP` + 1**
 
 - **Interrupciones**
   - **INT `Dirección`**
     4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
-    6. `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
-    7. `MAR` $\leftarrow$ `SP`
-    8. `MBR` $\leftarrow$ `Ry`
-    9. `write(Memoria[MAR])` $\leftarrow$ `MBR`
-    10. `IP` $\leftarrow$ `ri`
+    6. **`ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1**
+    7. **`MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `Flags`**
+    8. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | update(Flags I=0)**
+    9. **`MBR` $\leftarrow$ `IP` | `SP` $\leftarrow$ `SP` - 1**
+    10. **`MAR` $\leftarrow$ `SP`**
+    11. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`**
   - **IRET**
-    4. `MAR` $\leftarrow$ `SP`
-    5. `MBR` $\leftarrow$ `read(Memoria[MAR])`
-    6. `IP` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` + 1
+    4. **`MAR` $\leftarrow$ `SP`**
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+    6. **`IP` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` + 1**
+    7. **`MAR` $\leftarrow$ `SP`**
+    8. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+    9. **`Flags` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1**
+  - **CLI**
+    4. **update(Flags I=1)**
+  - **STI**
+    4. **update(Flags I=0)**
+
 
 ## Principales características tecnológicas
 Su desarrollo integra tecnología moderna del ecosistema web y buenas prácticas de software, proporcionando una experiencia didáctica visual, modular y accesible.
