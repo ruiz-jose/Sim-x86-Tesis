@@ -678,16 +678,15 @@ Operaciones lógicas y aritméticas
 <ol start="4" style="list-style-type: decimal">
 <li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Obtener dirección destino.</li>
 <li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Leer la dirección e incrementar IP.</li>
-<li><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</li>
-<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> | <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></li>
-<li><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></li>
+<li><strong><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</strong></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> | <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong></li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong></li>
 </ol></li>
 <li><strong>RET</strong>
 <ol start="4" style="list-style-type: decimal">
-<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></li>
-<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></li>
-<li><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
-<li><code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
+<li><strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>| <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</strong></li>
 </ol></li>
 </ul></li>
 <li><strong>Interrupciones</strong>
@@ -696,17 +695,29 @@ Operaciones lógicas y aritméticas
 <ol start="4" style="list-style-type: decimal">
 <li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code></strong> – Obtener dirección destino.</li>
 <li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> + 1</strong> – Leer la dirección e incrementar IP.</li>
-<li><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</li>
-<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></li>
-<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Ry</code></li>
-<li><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></li>
-<li><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></li>
+<li><strong><code>ri</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</strong></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> | <code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>Flags</code></strong></li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | update(Flags I=0)</strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> | <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</strong></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></strong></li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong></li>
 </ol></li>
 <li><strong>IRET</strong>
 <ol start="4" style="list-style-type: decimal">
-<li><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></li>
-<li><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></li>
-<li><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code>; <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
+<li><strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> + 1</strong></li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></strong></li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong></li>
+<li><strong><code>Flags</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</strong></li>
+</ol></li>
+<li><strong>CLI</strong>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>update(Flags I=1)</strong></li>
+</ol></li>
+<li><strong>STI</strong>
+<ol start="4" style="list-style-type: decimal">
+<li><strong>update(Flags I=0)</strong></li>
 </ol></li>
 </ul></li>
 </ul>

@@ -3475,11 +3475,11 @@ Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce 
     \item
       \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
     \item
-      \texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
+      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1}
     \item
-      \texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{IP}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{IP}}
     \item
-      \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}}
     \end{enumerate}
   \item
     \textbf{RET}
@@ -3489,13 +3489,11 @@ Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce 
     \setcounter{enumi}{3}
     \tightlist
     \item
-      \texttt{MAR} \(\leftarrow\) \texttt{SP}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
     \item
-      \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
     \item
-      \texttt{IP} \(\leftarrow\) \texttt{MBR}
-    \item
-      \texttt{SP} \(\leftarrow\) \texttt{SP} + 1
+      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}\textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1}
     \end{enumerate}
   \end{itemize}
 \item
@@ -3515,15 +3513,17 @@ Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce 
     \item
       \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
     \item
-      \texttt{ri} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
+      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1}
     \item
-      \texttt{MAR} \(\leftarrow\) \texttt{SP}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{Flags}}
     \item
-      \texttt{MBR} \(\leftarrow\) \texttt{Ry}
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} update(Flags I=0)}
     \item
-      \texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{IP} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1}
     \item
-      \texttt{IP} \(\leftarrow\) \texttt{ri}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
+    \item
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}}
     \end{enumerate}
   \item
     \textbf{IRET}
@@ -3533,11 +3533,37 @@ Actualmente el codigo de operacion de las instrucciones son 4 bits, esto reduce 
     \setcounter{enumi}{3}
     \tightlist
     \item
-      \texttt{MAR} \(\leftarrow\) \texttt{SP}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
     \item
-      \texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
     \item
-      \texttt{IP} \(\leftarrow\) \texttt{MBR}; \texttt{SP} \(\leftarrow\) \texttt{SP} + 1
+      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1}
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+    \item
+      \textbf{\texttt{Flags} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1}
+    \end{enumerate}
+  \item
+    \textbf{CLI}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{update(Flags I=1)}
+    \end{enumerate}
+  \item
+    \textbf{STI}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{update(Flags I=0)}
     \end{enumerate}
   \end{itemize}
 \end{itemize}
