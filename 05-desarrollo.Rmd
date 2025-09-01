@@ -220,6 +220,44 @@ Características técnicas y pedagógicas de VonSim:
 
 9. **Accesibilidad y sostenibilidad:** Distribuido bajo licencia GNU Affero General Public License v3.0 con código fuente disponible en GitHub, y documentación bajo licencia CC BY-SA 4.0, facilitando su estudio, modificación y mejora continua [@opensource_licensing_2024].
 
+#### Principales características tecnológicas
+Su desarrollo integra tecnología moderna del ecosistema web y buenas prácticas de software, proporcionando una experiencia didáctica visual, modular y accesible.
+
+  - React: Framework de interfaz moderna para construir componentes interactivos y reactividad eficiente.
+  - TypeScript: Tipado estático que aporta robustez y facilita el mantenimiento del código.
+  - React Spring: Animaciones fluidas para mejorar la experiencia visual y pedagógica.
+  - Jotai: Gestión de estado global, permitiendo sincronización y modularidad entre los distintos componentes.
+  - Tailwind CSS: Framework de estilos utilitario para lograr interfaces responsivas y coherentes.
+  - Pruebas Automatizadas: Tests unitarios, de integración y de accesibilidad (incluyendo ARIA, navegación por teclado y roles semánticos) para garantizar calidad y accesibilidad.
+
+- Arquitectura modular y educativa
+
+  - Componentes independientes y reutilizables, lo que facilita tanto la extensión como el mantenimiento.
+  - Integración de paneles educativos, tutoriales interactivos y gamificación mediante sistemas de logros y niveles de aprendizaje.
+  - Adaptabilidad a distintos niveles (básico, intermedio, avanzado) y retroalimentación visual en tiempo real.
+
+- Simulación fiel de arquitectura de computadoras
+
+  - CPU de 8 bits: Registros, ALU, buses, ciclo de instrucción y modos de direccionamiento.
+  - Memoria RAM: Simulación de 256 bytes con direccionamiento de 8 bits.
+  - Lenguaje ensamblador: Permite escribir, ejecutar y depurar programas, visualizando el flujo de instrucciones y operandos.
+  - Sistema de E/S configurable: Integración de periféricos como teclado, pantalla, PIC, PIO y temporizador, siguiendo especificaciones reales de la familia Intel iAPX 88.
+
+- Visualización y experiencia de usuario
+
+  - Indicadores visuales avanzados para las fases de ejecución (fetch-decode-execute).
+  - Animaciones de flujo de datos y cambios de estado en tiempo real.
+  - Paneles flotantes y tooltips educativos para explicar conceptos clave y apoyar el aprendizaje autónomo.
+
+- Documentación y recursos
+  - Documentación exhaustiva que facilita la comprensión de cada componente y concepto abordado.
+  - Recursos adicionales como tutoriales interactivos, referencia de instrucciones y guías de arquitectura.
+
+- Accesibilidad y buenas prácticas
+  - Cumplimiento de estándares WCAG 2.1 AA.
+  - Enfoque en la accesibilidad y la inclusión educativa.
+  - Estrategias de testing, documentación y contribución enfocadas en el impacto pedagógico.
+
 En síntesis, VonSim es una herramienta robusta y accesible que, mediante la simulación práctica y una interfaz pedagógicamente orientada, simplifica y facilita la comprensión de conceptos complejos en arquitectura de computadoras.
 
 ### Las modificaciones principales de VonSim
@@ -259,16 +297,16 @@ La memoria principal se modela como una matriz de 16×16 expresada en hexadecima
 knitr::include_graphics(path = "images/memoriacomp.png")
 ```
 
-Resaldo de la direccion de memoria apuntada por el registro IP.
+Resalto de la direccion de memoria apuntada por el registro IP en memoria y también resalta la dirección de memoria apuntada por el registro SP.
 
-```{r resaltadoip, echo=FALSE, fig.cap="Resaltado registro IP", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/resaltadoip.png")
+```{r resaltadoip, echo=FALSE, fig.cap="Resaltado registro IP y registro SP", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/resaltadoipsp.png")
 ```
 
-Cuando el programa tiene instrucciones INT o de manejo de pila se resalta en memoria el el vector de interrucciones, 8 posiciones de memoria desde ` 0x00` a ` 0x07` y la dirección apuntada por el registro SP:
+Cuando el programa tiene instrucciones INT o de manejo de pila se resalta en memoria el el vector de interrucciones, 8 posiciones de memoria desde ` 0x00` a ` 0x07`:
 
-```{r resaltadointsp, echo=FALSE, fig.cap="Resaltado vector de interrupciones y registro SP", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/resaltadointsp.png")
+```{r resaltadointsp, echo=FALSE, fig.cap="Resaltado vector de interrupciones", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/resaltadoint.png")
 ```
 
 Visor de instrucciones y datos del programa en memoria, pudiendo ver la instruccion y su tamaño en bytes que ocupa en memoria, ademas la etiqueta asociada a los datos.
