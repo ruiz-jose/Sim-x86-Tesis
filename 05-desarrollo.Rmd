@@ -258,7 +258,8 @@ Su desarrollo integra tecnología moderna del ecosistema web y buenas prácticas
   - Enfoque en la accesibilidad y la inclusión educativa.
   - Estrategias de testing, documentación y contribución enfocadas en el impacto pedagógico.
 
-En síntesis, VonSim es una herramienta robusta y accesible que, mediante la simulación práctica y una interfaz pedagógicamente orientada, simplifica y facilita la comprensión de conceptos complejos en arquitectura de computadoras.
+VonSim8 se consolida como una herramienta educativa robusta y moderna, que combina simulación fiel, interactividad y accesibilidad, facilitando el aprendizaje profundo de los fundamentos de la arquitectura de computadoras.
+
 
 ### Las modificaciones principales de VonSim
 En el registro FLAGS de VonSim se ocultaron inicialmente las banderas O (overflow) y S (signo), dado que en los primeros ejercicios de ensamblador solo se emplean números enteros positivos. No obstante, estas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, conforme se abordan ejercicios de mayor complejidad. 
@@ -303,7 +304,13 @@ Resalto de la direccion de memoria apuntada por el registro IP en memoria y tamb
 knitr::include_graphics(path = "images/resaltadoipsp.png")
 ```
 
-Cuando el programa tiene instrucciones INT o de manejo de pila se resalta en memoria el el vector de interrucciones, 8 posiciones de memoria desde ` 0x00` a ` 0x07`:
+El espacio destinado al vector de interrupciones en el VonSim8 es de 8 posiciones de memoria desde `0x00` a `0x07` y solamente implementa las interrupciones por software:
+
+- `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
+- `INT 6`: lee un carácter del teclado;
+- `INT 7`: escribe una cadena de caracteres en pantalla.
+
+Resaltado vector de interrupciones en memoria:
 
 ```{r resaltadointsp, echo=FALSE, fig.cap="Resaltado vector de interrupciones", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/resaltadoint.png")
@@ -311,41 +318,96 @@ knitr::include_graphics(path = "images/resaltadoint.png")
 
 Visor de instrucciones y datos del programa en memoria, pudiendo ver la instruccion y su tamaño en bytes que ocupa en memoria, ademas la etiqueta asociada a los datos.
 
-```{r visorprog, echo=FALSE, fig.cap="Resaltado vector de interrupciones y registro SP", fig.align = 'center', out.width = "85%"}
+```{r visorprog, echo=FALSE, fig.cap="Visor de instrucciones y datos del programa en memoria", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/visorprog.png")
 ```
 
 En el VonSim cuando se escribe un programa en el editor del simulador es obligatorio que la sección de codigo inicie con la directiva `org 0x2000h`, porque el simulador comienza a ejecutar la primer instrucción del programa a partir de la dirección de memoria `0x2000h`, esto se indica al comienzo del programa mediante la directiva `org 0x2000h` y los datos del programa generalmente se cargan a partir de la dirección de memoria `0x1000h` mediante la directiva `org 0x1000h`.
-
-```{r compeditor, echo=FALSE, fig.cap="Editor ensamblador", fig.align = 'center', out.width = "90%"}
-knitr::include_graphics("images/compeditor.png")
-```
 
 En VonSim8 el uso de la directiva org para definir la dirección inicial del programa es opcional. De manera predeterminada, si el programa no incluye esta directiva, la primera instrucción se carga en la dirección 0x00h. En caso de contener instrucciones de interrupción (INT), el simulador asigna automáticamente la dirección 0x08h al inicio, reservando espacio para el vector de interrupciones.
 VonSim8 tambien permite cargar el programa de manera similar como VonSim pero en utilizar la directiva `org 0x2000h` utiliza org `0x20h` y el simulador comienza a ejecutar la instrucción que se encuentra en la dirección `0x20h` de la memoria vez de cargar en la posición ya que el simulador asigna automáticamente la dirección 0x00 al primer byte del programa. Esto simplifica la escritura de programas y evita errores comunes relacionados con la asignación manual de direcciones.
 
 Pero si el programa requiere una dirección de inicio específica, se puede utilizar la directiva `org` para establecerla. Por ejemplo, `org 0x20h` indicaría que el programa debe comenzar en la dirección 0x20 de la memoria. Por compatibilidad con el simulador VonSim, se mantiene la directiva `org` para aquellos usuarios que deseen especificar una dirección de inicio diferente a la predeterminada. Sino se especifica la directiva `org` en el programa el simulador comienza a ejecutar el programa desde la dirección `0x00h`, en caso de que el programa tenga instrucciones de interrupción `INT`, el simulador asigna automáticamente la dirección `0x08h` al primer byte del programa, dejando espacio para el vector de interrupciones.
 
-VonSim8 solamente implementa las interrupciones por software:
+Se incorporó la opción de ampliación de fuente en el editor, así como ejemplos prácticos que permiten al estudiante probar y experimentar directamente con el simulador.
 
-- `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
-- `INT 6`: lee un carácter del teclado;
-- `INT 7`: escribe una cadena de caracteres en pantalla.
+```{r editorvonsim, echo=FALSE, fig.cap="Resaltado vector de interrupciones y registro SP", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/editor.png")
+```
 
 A fin de sintetizar las diferencias más relevantes entre VonSim y VonSim8, se presenta la siguiente tabla comparativa. Esta permite visualizar de manera inmediata los cambios introducidos en el diseño y su impacto en la enseñanza de los conceptos fundamentales de arquitectura de computadoras.
 
 Con el fin de facilitar el aprendizaje del simulador VonSim8 se implementó un tour de aprendizaje que guía a los usuarios a través de las características y funcionalidades del simulador. Tambien en centro de aprendizaje con explicación de ejemplos basicos.
 
-| Característica                 | VonSim                                                                 | VonSim8                                                                                  |
-|--------------------------------|------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
-| **Registros**                  | Registros de 16 bits (AX, BX, CX, DX)                                  | Registros de 8 bits, con entrada y salida independientes. Registros SP, RI e ID se ocultan y habilitan automáticamente. |
-| **Registro FLAGS**             | Incluye todas las banderas del 8088 (O, S, Z, C, etc.)                  | Se ocultan inicialmente las banderas O (overflow) y S (signo). El flag I (interrupción) se muestra dinámicamente. |
-| **Directiva `org`**            | Obligatoria. El código comienza en `0x2000h` y los datos en `0x1000h`.  | Opcional. Por defecto, el código inicia en `0x00h`. Si hay interrupciones, comienza en `0x08h`. Compatible con `org 0x20h`. |
-| **Memoria principal**          | 32 KB, organizada en páginas del 8088.                                 | Matriz de 16×16 bytes (256 bytes), expresada en hexadecimal, con resaltado dinámico de IP y SP. |
-| **Interrupciones implementadas** | Completo soporte de interrupciones por hardware y software, con PIC.    | Solo interrupciones por software: `INT 0` (fin), `INT 6` (entrada de teclado), `INT 7` (salida de cadena). |
-| **Temporales de la ALU**       | Registros temporales `left` y `rigth` visibles.                        | Eliminados, para simplificar la representación del ciclo de instrucción. |
-| **Enfoque pedagógico**         | Mayor fidelidad al procesador Intel 8088, con repertorio más amplio.   | Simplificación estratégica para reducir carga cognitiva y favorecer aprendizaje progresivo. |
+```{r comparativavonsim, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
 
+comparativa_vonsim <- data.frame(
+  Característica = c(
+    "Registros",
+    "Registro FLAGS",
+    "Directiva org",
+    "Memoria principal",
+    "Interrupciones implementadas",
+    "Temporales de la ALU",
+    "Enfoque pedagógico"
+  ),
+  VonSim = c(
+    "Registros de 16 bits (AX, BX, CX, DX)",
+    "Incluye todas las banderas del 8088 (O, S, Z, C, etc.)",
+    "Obligatoria. El código comienza en `0x2000h` y los datos en `0x1000h`.",
+    "32 KB, organizada en páginas del 8088.",
+    "Completo soporte de interrupciones por hardware y software, con PIC.",
+    "Registros temporales `left` y `rigth` visibles.",
+    "Mayor fidelidad al procesador Intel 8088, con repertorio más amplio."
+  ),
+  VonSim8 = c(
+    "Registros de 8 bits, con entrada y salida independientes. Registros SP, RI e ID se ocultan y habilitan automáticamente.",
+    "Se ocultan inicialmente las banderas O (overflow) y S (signo). El flag I (interrupción) se muestra dinámicamente.",
+    "Opcional. Por defecto, el código inicia en `0x00h`. Si hay interrupciones, comienza en `0x08h`. Compatible con `org 0x20h`.",
+    "Matriz de 16×16 bytes (256 bytes), expresada en hexadecimal, con resaltado dinámico de IP y SP.",
+    "Solo interrupciones por software: `INT 0` (fin), `INT 6` (entrada de teclado), `INT 7` (salida de cadena).",
+    "Eliminados, para simplificar la representación del ciclo de instrucción.",
+    "Simplificación estratégica para reducir carga cognitiva y favorecer aprendizaje progresivo."
+  ),
+  stringsAsFactors = FALSE
+)
+
+tabla_comparativa <- kable(
+  comparativa_vonsim,
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Comparativa de características entre VonSim y VonSim8",
+  col.names = c("Característica", "VonSim", "VonSim8"),
+  booktabs = TRUE,
+  escape = FALSE,
+  align = c("l", "l", "l")
+)
+
+if (knitr::is_latex_output()) {
+  tabla_comparativa %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "5cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "7cm") %>%
+    column_spec(3, width = "8cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(comparativa_vonsim)), extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla_comparativa %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "16em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "28em") %>%
+    column_spec(3, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
 
 ### Requisitos funcionales del simulador VonSim8
 
@@ -459,7 +521,7 @@ La memoria de control almacena microinstrucciones que guían la ejecución de ca
 El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
 
 ### ALU
-La ALU (_Arithmetic Logic Unit_) permite realizar operaciones aritméticas y lógicas de 8 bits. Las operaciones disponibles son: `ADD`, `INC`, `SUB`, `DEC`, `NEG`, `NOT`, `AND` y `OR`. Todas estas operaciones modifican el registro `FLAGS`.
+La ALU (_Arithmetic Logic Unit_) permite realizar operaciones aritméticas y lógicas de 8 bits. Las operaciones disponibles son: `ADD`, `INC`, `SUB`, `DEC`, `NEG`, `NOT`, `AND`, `OR` y `XOR`. Todas estas operaciones modifican el registro `FLAGS`.
 
 #### Flags
 El registro `FLAGS` es un registro de 8 bits que contiene las _flags_ mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
@@ -959,53 +1021,6 @@ La selección de instrucciones busca facilitar la comprensión de los procesos f
 
 La implementación de estas instrucciones en el simulador VonSim8 está orientada a proporcionar una experiencia de aprendizaje que apoye la comprensión de los principios fundamentales de la arquitectura de computadoras, reduciendo la carga cognitiva en las fases iniciales de la formación y fortaleciendo la transición hacia repertorios más complejos. El simulador facilita que el estudiante comprenda cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
 
-### Formato de instrucciones
-Las instrucciones del simulador VonSim8 poseen una longitud variable (1, 2 o 3 bytes), donde el primer byte contiene el código de operación (opcode) y los siguientes bytes pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación.
-
-```{r formatoinst, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-formatoinst <- data.frame(
-  Tipo = c("Transferencia y procesamiento", "Control"),
-  Operandos = c("2", "1 / cero"),
-  Ejemplo = c("MOV operando-destino, operando-fuente", "JMP operando / HLT"),
-  stringsAsFactors = FALSE
-)
-
-tabla_kable <- kable(formatoinst,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Tabla de formato de instrucciones",
-               col.names = c("Tipo", "Operandos", "Ejemplo"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c", "c"))
-
-if (knitr::is_latex_output()) {
-  tabla_kable %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "4cm") %>%
-    column_spec(3, width = "7cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(formatoinst)),
-             extra_latex_after = "\\addlinespace[10pt]")
-} else {
-  tabla_kable %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:3, width = "32em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-}
-```
-
 ### Modos de direccionamiento
 Los modos de direccionamiento en un repertorio de instrucciones son los métodos que tiene un procesador para especificar la ubicación de los datos (operandos) que se van a utilizar en una instrucción. Esto permite al procesador saber de dónde tomar los datos para realizar una operación y dónde guardar el resultado. A continuación, se describen los modos de direccionamiento definidos en VonSim8:
 
@@ -1193,8 +1208,89 @@ hlt
 }
 ```
 
-### Codificación de instrucciones
-El formato de las instrucciones se basa en la codificación binaria, donde cada instrucción se representa mediante un código de operación (opcode) seguido de los operandos. Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
+
+### Formato de instrucciones
+El formato de las instrucciones se basa en la codificación binaria, poseen una longitud variable (1, 2 o 3 bytes), donde los 4 bits de mayor peso del primer byte representa el código de operación (opcode) y los siguientes 4 bits pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación. 
+Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo.
+
+```{r tisaredu, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+tisaredu <- data.frame(
+  Categoría = c(
+    "Transferencia de datos",
+    "Procesamiento de datos", "", "",
+    "Control de flujo", ""
+
+  ),
+  Instrucción = c(
+    "MOV",
+    "ADD", "SUB", "CMP",
+    "JMP / Jxx",
+    "HLT"
+  ),
+  `Código operación` = c(
+    "{0, 1, 2}",
+    "{3, 4, 5}", "{6, 7, 8}", "{9, 10, 11}",
+    "{12}",
+    "{13}"
+  ),
+  `Operandos` = c(
+    "2",
+    "2", "2", "2",
+    "1",
+    "0"
+  ),
+  Acción = c(
+    "Copiar entre registros, cargar a registro, almacenar en memoria",
+    "Operación aritmética: operando1 ← operando1 + operando2",
+    "Operación aritmética: operando1 ← operando1 - operando2",
+    "Comparación: operando1 - operando2 (no actualiza el destino)",
+    "Salto incondicional JMP, condicionales Jxx",
+    "HLT: detiene el CPU"   
+  ),
+  stringsAsFactors = FALSE
+)
+
+tabla_kable <- kable(tisaredu,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Categorías de instrucciones y códigos de operación en VonSim8",
+               col.names = c("Categoría", "Instrucción","Código operación", "Operandos", "Acción"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "c", "c", "l"))
+
+if (knitr::is_latex_output()) {
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "4cm") %>%
+    column_spec(3, width = "3cm") %>%
+    column_spec(4, width = "3cm") %>%
+    column_spec(5, width = "8cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(tisaredu)), extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "12em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "16em") %>%
+    column_spec(3, width = "8em") %>%
+    column_spec(4, width = "8em") %>%
+    column_spec(5, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+
+Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
 
 ```{r instcodif, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1211,8 +1307,8 @@ instcodif <- data.frame(
     "`CMP Rx, Ry`", "`CMP Rx, --`", "`CMP [M], --`", "`JMP M`", "`Jxx M`", "`HLT`"
   ),
   Byte = c(
-    "1", "2", "1", "2", "2", "2", "3", "2", "1", "Modos direccionamiento: destino registro", "Modos direccionamiento: destino memoria", "1","Modos direccionamiento: destino registro", "Modos direccionamiento: destino memoria",
-    "1", "Modos direccionamiento: destino registro", "Modos direccionamiento: destino memoria", "1", "1", "1"
+    "1", "2", "1", "2", "2", "2", "3", "2", "1", "Idem", "Idem", "1","Idem", "Idem",
+    "1", "Idem", "Idem", "1", "1", "1"
   ),
   Codificación = c(
     "`0000 RxRy`", "`0001 Rx00 MMMMMMMM`", "`0001 Rx01`", "`0001 Rx10 MMMMMMMM`",
@@ -1876,78 +1972,92 @@ if (knitr::is_latex_output()) {
 }
 ```
 
+
+
 ### Etapa de ejecución de instrucciones
 
 - **Subrutinas**
   - **CALL `Dirección`**
     4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
-    6. `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
-    7. `MAR` $\leftarrow$ `SP`
-    8. `MBR` $\leftarrow$ `IP`
-    9. `write(Memoria[MAR])` $\leftarrow$ `MBR`
-    10. `IP` $\leftarrow$ `ri`
+    6. **`ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1**
+    7. **`MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `IP`**
+    8. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`**
   - **RET**
-    4. `MAR` $\leftarrow$ `SP`
-    5. `MBR` $\leftarrow$ `read(Memoria[MAR])`
-    6. `IP` $\leftarrow$ `MBR`
-    7. `SP` $\leftarrow$ `SP` + 1
+    4. **`MAR` $\leftarrow$ `SP`**
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+    6. **`IP` $\leftarrow$ `MBR`| `SP` $\leftarrow$ `SP` + 1**
 
 - **Interrupciones**
   - **INT `Dirección`**
     4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
-    6. `ri` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` - 1
-    7. `MAR` $\leftarrow$ `SP`
-    8. `MBR` $\leftarrow$ `Ry`
-    9. `write(Memoria[MAR])` $\leftarrow$ `MBR`
-    10. `IP` $\leftarrow$ `ri`
+    6. **`ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1**
+    7. **`MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `Flags`**
+    8. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | update(Flags I=0)**
+    9. **`MBR` $\leftarrow$ `IP` | `SP` $\leftarrow$ `SP` - 1**
+    10. **`MAR` $\leftarrow$ `SP`**
+    11. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`**
   - **IRET**
-    4. `MAR` $\leftarrow$ `SP`
-    5. `MBR` $\leftarrow$ `read(Memoria[MAR])`
-    6. `IP` $\leftarrow$ `MBR`; `SP` $\leftarrow$ `SP` + 1
+    4. **`MAR` $\leftarrow$ `SP`**
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+    6. **`IP` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` + 1**
+    7. **`MAR` $\leftarrow$ `SP`**
+    8. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+    9. **`Flags` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1**
+  - **CLI**
+    4. **update(Flags I=1)**
+  - **STI**
+    4. **update(Flags I=0)**
+- **E/S**
+  - **OUT**
+    - Direccion destino en registro **OUT DL, AL**
+        4. **`MAR` $\leftarrow$ `DL`** – Dirección destino.
+        5. **`MBR` $\leftarrow$ `AL`** – Contenido a escribir.
+        6. **`write(E-S[MAR])` $\leftarrow$ `MBR`**.
+    - Direccion destino inmediato **OUT inmediato, AL**  
+        4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
+        5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer el dato e incrementar IP.
+        6. **`MAR` $\leftarrow$ `MBR`** – Dirección destino.
+        7. **`MBR` $\leftarrow$ `AL`** – Contenido a escribir.
+        8. **`write(E-S[MAR])` $\leftarrow$ `MBR`**
+  - **IN**
+    - Direccion destino en registro **IN AL, DL**
+      4. **`MAR` $\leftarrow$ `DL`** – Dirección destino.
+      5. **`MBR` $\leftarrow$ `read(E-S[MAR])`** – Contenido a leer.
+      6. **`AL` $\leftarrow$ `MBR`**
+    - Direccion destino inmediato **IN  AL, inmediato**
+      4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
+      5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer el dato e incrementar IP.
+      6. **`MAR` $\leftarrow$ `MBR`** – Dirección destino.
+      7. **`MBR` $\leftarrow$ `read(E-S[MAR])`** – Contenido a leer.
+      8. **`AL` $\leftarrow$ `MBR`**
+- **Pila**
+  - **POP Rx**
+    4. **`MAR` $\leftarrow$ `SP`** 
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`**
+    6. **`Rx` $\leftarrow$ `MBR`** | `SP` $\leftarrow$ `SP` + 1
+  - **PUSH Ry**
+    4. **`MAR` $\leftarrow$ `SP`** 
+    5. **`MBR` $\leftarrow$ `Ry`** | `SP` $\leftarrow$ `SP` - 1
+    5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
 
-## Principales características tecnológicas
-Su desarrollo integra tecnología moderna del ecosistema web y buenas prácticas de software, proporcionando una experiencia didáctica visual, modular y accesible.
 
-### Stack Tecnológico
+Se implementaron operaciones lógicas con dos operandos AND, OR y XOR que tienen los mismos pasos de ejecución que las operaciones ADD y SUB, donde cambia únicamente la operación que realiza la ALU.
 
-  - React: Framework de interfaz moderna para construir componentes interactivos y reactividad eficiente.
-  - TypeScript: Tipado estático que aporta robustez y facilita el mantenimiento del código.
-  - React Spring: Animaciones fluidas para mejorar la experiencia visual y pedagógica.
-  - Jotai: Gestión de estado global, permitiendo sincronización y modularidad entre los distintos componentes.
-  - Tailwind CSS: Framework de estilos utilitario para lograr interfaces responsivas y coherentes.
-  - Pruebas Automatizadas: Tests unitarios, de integración y de accesibilidad (incluyendo ARIA, navegación por teclado y roles semánticos) para garantizar calidad y accesibilidad.
+Se agregaron operaciones aritméticas y lógicas de un solo operando:
+- **INC `Rx`** 
+  4 - **`Rx`  $\leftarrow$ `Rx` + 1 | update(Flags)**
 
-### Arquitectura modular y educativa
+- **DEC `Rx`** 
+  4 - **`Rx`  $\leftarrow$ `Rx` - 1 | update(Flags)**
 
-  - Componentes independientes y reutilizables, lo que facilita tanto la extensión como el mantenimiento.
-  - Integración de paneles educativos, tutoriales interactivos y gamificación mediante sistemas de logros y niveles de aprendizaje.
-  - Adaptabilidad a distintos niveles (básico, intermedio, avanzado) y retroalimentación visual en tiempo real.
+- **NOT `Rx`** 
+  4 - **`Rx`  $\leftarrow$ NOT `Rx` | update(Flags)**
 
-### Simulación fiel de arquitectura de computadoras
+- **NEG `Rx`** 
+  4 - **`Rx`  $\leftarrow$ CA2 `Rx` | update(Flags)**
 
-  - CPU de 8 bits: Registros, ALU, buses, ciclo de instrucción y modos de direccionamiento.
-  - Memoria RAM: Simulación de 256 bytes con direccionamiento de 8 bits.
-  - Lenguaje ensamblador: Permite escribir, ejecutar y depurar programas, visualizando el flujo de instrucciones y operandos.
-  - Sistema de E/S configurable: Integración de periféricos como teclado, pantalla, PIC, PIO y temporizador, siguiendo especificaciones reales de la familia Intel iAPX 88.
-
-### Visualización y experiencia de usuario
-
-  - Indicadores visuales avanzados para las fases de ejecución (fetch-decode-execute).
-  - Animaciones de flujo de datos y cambios de estado en tiempo real.
-  - Paneles flotantes y tooltips educativos para explicar conceptos clave y apoyar el aprendizaje autónomo.
-
-### Documentación y recursos
-  - Documentación exhaustiva que facilita la comprensión de cada componente y concepto abordado.
-  - Recursos adicionales como tutoriales interactivos, referencia de instrucciones y guías de arquitectura.
-
-### Accesibilidad y buenas prácticas
-  - Cumplimiento de estándares WCAG 2.1 AA.
-  - Enfoque en la accesibilidad y la inclusión educativa.
-  - Estrategias de testing, documentación y contribución enfocadas en el impacto pedagógico.
-
-VonSim8 se consolida como una herramienta educativa robusta y moderna, que combina simulación fiel, interactividad y accesibilidad, facilitando el aprendizaje profundo de los fundamentos de la arquitectura de computadoras.
 
 
 ```{r instaccion, echo=FALSE, message=FALSE, warning=FALSE}
