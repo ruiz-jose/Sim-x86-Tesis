@@ -224,13 +224,13 @@ El proyecto VonSim está desarrollado íntegramente en TypeScript, lo que permit
 
 La organización del código sigue la estructura de un monorepositorio, compuesto por diversos paquetes especializados que cumplen funciones específicas:
 
-  - @vonsim/assembler: ensamblador que traduce el código en lenguaje ensamblador a binario ejecutable.
-  - @vonsim/simulator: motor que ejecuta los programas ensamblados.
-  - @vonsim/app: aplicación web que proporciona la interfaz gráfica de usuario e integra el simulador.
-  - @vonsim/common: utilidades compartidas entre los distintos módulos.
+  - vonsim/assembler: ensamblador que traduce el código en lenguaje ensamblador a binario ejecutable.
+  - vonsim/simulator: motor que ejecuta los programas ensamblados.
+  - vonsim/app: aplicación web que proporciona la interfaz gráfica de usuario e integra el simulador.
+  - vonsim/common: utilidades compartidas entre los distintos módulos.
   - eslint-config-vonsim: paquete para la configuración de reglas de estilo y buenas prácticas mediante ESLint.
-  - @vonsim/scripts y @vonsim/tsconfig: paquetes de soporte con scripts de desarrollo y configuraciones específicas para TypeScript.
-  - @vonsim/docs: módulo destinado a la gestión de la documentación del proyecto.
+  - vonsim/scripts y vonsim/tsconfig: paquetes de soporte con scripts de desarrollo y configuraciones específicas para TypeScript.
+  - vonsim/docs: módulo destinado a la gestión de la documentación del proyecto.
 
 Para el desarrollo y la ejecución del proyecto se utilizan herramientas modernas como Node.js v22 y el gestor de paquetes pnpm v10. Asimismo, el repositorio incluye una serie de scripts predefinidos para facilitar las tareas de instalación, compilación y despliegue: pnpm install, pnpm dev, pnpm docs:dev y pnpm build.
 
@@ -238,13 +238,13 @@ Para el desarrollo y la ejecución del proyecto se utilizan herramientas moderna
 
 Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo [@bonwell1991active].
 
-1. Simplificación del repertorio instruccional para una introducción gradual;
+  1. Simplificación del repertorio instruccional para una introducción gradual;
 
-2. Reducción a registros y memoria de 8 bits, coherente con la escala de enseñanza;
+  2. Reducción a registros y memoria de 8 bits, coherente con la escala de enseñanza;
 
-3. Interfaz gráfica esquemática que muestra el flujo de ejecución;
+  3. Interfaz gráfica esquemática que muestra el flujo de ejecución;
 
-4. Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.
+  4. Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.
 
 A continuacion se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:
 
@@ -279,7 +279,7 @@ knitr::include_graphics(path = "images/leftrigth.png")
 
 Los registros `SP`, `ri` e `id` se mantienen ocultos y solo se habilitan automáticamente cuando una instrucción requiere su utilización.
 
-```{r leftrigth, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "85%"}    
+```{r idrisp, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "85%"}    
 knitr::include_graphics(path = "images/idrisp.png")
 ```
 
@@ -1973,8 +1973,6 @@ if (knitr::is_latex_output()) {
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
-
-
 
 ### Etapa de ejecución de instrucciones
 
