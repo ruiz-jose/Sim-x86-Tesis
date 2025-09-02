@@ -597,69 +597,6 @@ knitr::include_graphics(path = "images/buses.png")
 
 Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Los multiplexores dirigen las señales hacia los registros y la ALU (Unidad Aritmético-Lógica), facilitando el flujo de datos dentro del procesador. Un multiplexor (MUX) funciona como un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una y solo una de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida [@mano2017digital]. 
 
-### Periféricos: teclado y pantalla
-El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
-
-```{r tecladopantalla, echo=FALSE, fig.cap="Teclado y pantalla", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/tecladopantalla.png")
-```
-
-La selección de estos bloques funcionales responde a dos criterios principales: modelar los componentes esenciales de una computadora real y garantizar la modularidad y claridad conceptual con fines pedagógicos. La Tabla \@ref(tab:bloquesfuncionales) resume los principales bloques que conforman la arquitectura simulada, junto con una breve descripción de su funcionalidad.
-
-```{r bloquesfuncionales, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-bloquesfuncionales <- data.frame(
-  Bloque = c("Unidad Central de Procesamiento (CPU)",
-             "Memoria",
-             "Sistema de Entrada/Salida (E/S)",
-             "Bus de datos, direcciones y control"),
-  Descripción = c("Simulación de registros, Unidad de Control (UC) y Unidad Aritmético Lógica (ALU).", # nolint
-                  "Estructura de memoria y simulación de operaciones de lectura y escritura.", # nolint
-                  "Interacción con periféricos y manejo de interrupciones.",
-                  "Modelado de la comunicación entre componentes.")
-)
-
-# Crear la tabla con formato dinámico
-tabla <- kable(bloquesfuncionales,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Bloques funcionales principales",
-               col.names = c("Bloque Funcional", "Descripción"),
-               booktabs = TRUE,
-               escape = FALSE)
-
-# Convertir a HTML o LaTeX según el formato de salida
-if (knitr::is_latex_output()) {
-  tabla %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "9cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(bloquesfuncionales)),
-             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
-} else {
-  tabla %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "25em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "40em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-}
-```
-
-La Figura \@ref(fig:esquemavonsim8) presenta una visión esquemática de la arquitectura general del simulador. En ella se distinguen los flujos de datos y de control, representando gráficamente la interacción entre los distintos módulos funcionales durante la ejecución de programas. Dicha representación facilita la comprensión estructural del sistema y su analogía con una arquitectura computacional real, simplificada para fines educativos.
-
-```{r esquemavonsim8, echo=FALSE, fig.cap="Arquitectura general del simulador", fig.align = 'center', out.width = "85%"}
-knitr::include_graphics(path = "images/esquemavonsim8.png")
-```
-
 ### Repertorio de instrucciones
 El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, permitiendo a los estudiantes familiarizarse con las operaciones básicas sin abrumarse con la complejidad del conjunto completo de instrucciones x86.
 
@@ -1210,7 +1147,6 @@ hlt
 }
 ```
 
-
 ### Formato de instrucciones
 El formato de las instrucciones se basa en la codificación binaria, poseen una longitud variable (1, 2 o 3 bytes), donde los 4 bits de mayor peso del primer byte representa el código de operación (opcode) y los siguientes 4 bits pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación. 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo.
@@ -1558,74 +1494,7 @@ En este caso, el resultado de la operación no se almacena en un registro, sino 
     - HLT: 
       4. Detiene la ejecución de la CPU.
 
-## Modulo de Entrada/Salida
-El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos. Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
-
-  - Teclado y pantalla: un teclado y una pantalla.
-  - PIC: un PIC, además de la tecla F10 para interrumpir, y un timer con su reloj.
-  - PIO: un PIO que puede conectarse a llaves y luces o a una impresora Centronics.
-  - Handshake: Una impresora Centronics conectada por un Handshake.
-
-Para poder utilizar los dispositivos de entrada y salida es necesario presentar nuevas instrucciones al conjunto de instrucciones del procesador.
-
-```{r isacompleta, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-isacompleta <- data.frame(
-  `Código operación` = c("MOV", "ADD", "JMP", "PUSH, POP, OUT, IN", "INT , IRET", "NOP , HLT"),
-  Instrucciones = c("Transferencia de datos", "Aritmética", "Control de flujo", "Pila y E/S", "Interrupciones", "Control"),
-  nemónico = c(
-    "MOV destino, origen",
-    "ADD destino, origen",
-    "JMP destino",
-    "PUSH, POP, OUT, IN",
-    "INT , IRET",
-    "NOP , HLT"
-  ),
-  Acción = c(
-    "1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria",
-    "1- Sumar  2- Restar 3- Comparar",
-    "Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET",
-    "Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S",
-    "Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET",
-    "No opera NOP. Detiene el CPU HLT"
-  )
-)
-
-tabla_kable <- kable(isacompleta,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86",
-               col.names = c("Código operación", "Instrucciones", "Nemónico", "Acción"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c", "c", "c"))
-
-if (knitr::is_latex_output()) {
-  tabla_kable %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:4, width = "5.5cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(isacompleta)),
-             extra_latex_after = "\\addlinespace[10pt]")
-} else {
-  tabla_kable %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:4, width = "32em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-}
-```
-
-### Subrutinas
+### Subrutinas y interrupciones
 El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción [`CALL`]. Esta instrucción almacena el `IP` en la [pila], y luego realiza un salto a la dirección de la subrutina, modificando el `IP` para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción [`RET`], que desapila la dirección apilada previamente por `CALL` y restaura el `IP`, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
 
 Ejemplo de subrutina:
@@ -1644,7 +1513,12 @@ Ejemplo de subrutina:
             ret
 ```
 
-### Interrupciones
+El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
+
+```{r tecladopantalla, echo=FALSE, fig.cap="Teclado y pantalla", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/tecladopantalla.png")
+```
+
 El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. 
 En el caso de las interrupciones por software, esta es dada por el operando de la instrucción `INT` número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas `00h` hasta `07h` de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en `0h`, el segundo en `1h`, el tercero en `2h`, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
 
@@ -1665,7 +1539,7 @@ Específicamente, el procesador:
 
 Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en `IRET` en vez de `RET`.
 
-#### Llamadas al sistema
+####  Llamadas al sistema
 El simulador permite realizar llamadas al sistema o _syscalls_. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una _syscall_ basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
 
 - `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
@@ -1676,16 +1550,7 @@ Las direcciones del vector de interrupciones asociadas a estos números están p
 
 El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones `A0h`, `B0h` y `C0h` respectivamente.
 
-## Pila
-En esta etapa se incorporaron las instrucciones de manejo de pila y de interrupciones, ampliando la funcionalidad del simulador para cubrir un conjunto más completo de operaciones propias de la arquitectura x86.
-
-El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo _Last In, First Out_ (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (`FFh`) y creciendo hacia las direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se guarda en el registro `SP`. Todos los elementos de la pila son de 8 bits.
-
-### Instrucciones IN y OUT
-Para la comunicacion con los módulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
-- `OUT puerto, AL`: Esta instrucción envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
-- `IN AL, puerto`: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro `AL`. Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
-
+Ejemplo de hola mundo en ensamblador para el simulador VonSim8:
 
 ### Pantalla
 La pantalla es un dispositivo de salida que permite mostrar caracteres. La forma de comunicarse con la pantalla es mediante una llamada al sistema. Esto es así por simplicidad, ya que una pantalla real es mucho más compleja.
@@ -1771,6 +1636,92 @@ hlt
 ```")
 }
 ```
+
+Para poder interactuar con los módulos de entrada y salida y la pila es necesario presentar nuevas instrucciones al conjunto de instrucciones del procesador.
+
+```{r isacompleta, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+isacompleta <- data.frame(
+  `Código operación` = c("MOV", "ADD", "JMP", "PUSH, POP, OUT, IN", "INT , IRET", "NOP , HLT"),
+  Instrucciones = c("Transferencia de datos", "Aritmética", "Control de flujo", "Pila y E/S", "Interrupciones", "Control"),
+  nemónico = c(
+    "MOV destino, origen",
+    "ADD destino, origen",
+    "JMP destino",
+    "PUSH, POP, OUT, IN",
+    "INT , IRET",
+    "NOP , HLT"
+  ),
+  Acción = c(
+    "1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria",
+    "1- Sumar  2- Restar 3- Comparar",
+    "Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET",
+    "Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S",
+    "Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET",
+    "No opera NOP. Detiene el CPU HLT"
+  )
+)
+
+tabla_kable <- kable(isacompleta,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86",
+               col.names = c("Código operación", "Instrucciones", "Nemónico", "Acción"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "c", "c", "c"))
+
+if (knitr::is_latex_output()) {
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "5.5cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(isacompleta)),
+             extra_latex_after = "\\addlinespace[10pt]")
+} else {
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+
+### Módulo de Entrada/Salida
+El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos. Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
+
+  - Teclado y pantalla.
+  - Un PIO que puede conectarse a llaves y leds o a una impresora.
+  - Un PIC que interactura con la tecla F10 para interrumpir, y un timer con su reloj.
+  - Handshake: que puede conectar a un PIO o un PIC.
+
+La Figura \@ref(fig:dispositivos) presenta una visión de los dispositivos que pueden conectarse al simulador.
+
+```{r dispositivos, echo=FALSE, fig.cap="Arquitectura general del simulador", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/esquemavonsim8.png")
+```
+
+El componente chipSelect se encarga de habilitar el dispositivo que se desea utilizar en cada momento. Este componente recibe las señales de control del CPU y las señales de estado de los dispositivos, y genera las señales de selección de chip (CS) para cada dispositivo.
+
+
+
+### Instrucciones IN y OUT
+Para la comunicacion con los módulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
+- `OUT puerto, AL`: Esta instrucción envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
+- `IN AL, puerto`: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro `AL`. Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
+
+#### Pila
+El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo _Last In, First Out_ (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (`FFh`) y creciendo hacia las direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se guarda en el registro `SP`. Todos los elementos de la pila son de 8 bits.
+
 
 ### Puertos de E/S
 La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones [`IN`] y [`OUT`]). Cuando se quiere acceder a un módulo de entrada/salida, la [CPU] activa la señal `IO/M`, lo que causa que un selector de chips (_chip select_) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
