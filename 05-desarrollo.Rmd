@@ -1185,7 +1185,7 @@ tisaredu <- data.frame(
     "Operación aritmética: operando1 ← operando1 - operando2",
     "Comparación: operando1 - operando2 (no actualiza el destino)",
     "Salto incondicional JMP, condicionales Jxx",
-    "HLT: detiene el CPU"   
+    "HLT: detiene el CPU"
   ),
   stringsAsFactors = FALSE
 )
@@ -1542,12 +1542,12 @@ Una vez interrumpido, el procesador ejecutará la rutina de interrupción asocia
 
 Específicamente, el procesador:
 
-1. obtiene el número de la interrupción (0-7),
-2. apila el registro `FLAGS`,
-3. inhabilita las interrupciones `I=0`,
-4. apila el registro `IP`,
-5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
-6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
+  1. obtiene el número de la interrupción (0-7),
+  2. apila el registro `FLAGS`,
+  3. inhabilita las interrupciones `I=0`,
+  4. apila el registro `IP`,
+  5. obtiene la dirección de la rutina de interrupción del vector de interrupciones,
+  6. modifica el `IP` para que apunte a la dirección de la rutina de interrupción.
 
 Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en `IRET` en vez de `RET`.
 
@@ -1576,10 +1576,7 @@ BL: dirección de memoria donde empieza la cadena
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
-org 10h
 cadena db `Hola!`
-
-org 20h
 mov BL, offset cadena
 mov AL, 5
 int 7
@@ -1589,10 +1586,7 @@ hlt\\end{lstlisting}
 } else {
   cat("
   ```assembly
-org 10h
 cadena db `Hola!`
-
-org 20h
 mov BL, offset cadena
 mov AL, 5
 int 7
@@ -1604,9 +1598,9 @@ hlt
 
 Hay tres caracteres especiales:
 
-- el carácter de retroceso (`BS`, 8 en decimal) borra el carácter previo;
-- el carácter de salto de línea (`LF`, 10 en decimal) imprime, en efecto, un salto de línea — útil para no imprimir todo en una sola línea;
-- el carácter de _form feed_ (`FF`, 12 en decimal) limpia la pantalla.
+  - el carácter de retroceso (`BS`, 8 en decimal) borra el carácter previo;
+  - el carácter de salto de línea (`LF`, 10 en decimal) imprime, en efecto, un salto de línea — útil para no imprimir todo en una sola línea;
+  - el carácter de _form feed_ (`FF`, 12 en decimal) limpia la pantalla.
 
 ### Teclado
 El teclado es un dispositivo de entrada que permite al usuario ingresar caracteres al sistema. La forma de comunicarse con el teclado es mediante una llamada al sistema. Esto es así por simplicidad, ya que un teclado real es mucho más complejo.
@@ -1617,13 +1611,9 @@ Con la llamada INT 6 se detiene la ejecución del código hasta que se presione 
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
-org 10h
 car db 0
-
-org 20h
 mov bl, offset car
 int 6
-; El usuario escribe un carácter
 hlt
 
 ; El carácter escrito se almacenó en 'car'.
@@ -1633,13 +1623,9 @@ hlt
 } else {
   cat("
   ```assembly
-org 10h
 car db 0
-
-org 20h
 mov bl, offset car
 int 6
-; El usuario escribe un carácter
 hlt
 
 ; El carácter escrito se almacenó en 'car'.
@@ -1723,8 +1709,6 @@ knitr::include_graphics(path = "images/esquemavonsim8.png")
 ```
 
 El componente chipSelect se encarga de habilitar el dispositivo que se desea utilizar en cada momento. Este componente recibe las señales de control del CPU y las señales de estado de los dispositivos, y genera las señales de selección de chip (CS) para cada dispositivo.
-
-
 
 ### Instrucciones IN y OUT
 Para la comunicacion con los módulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
