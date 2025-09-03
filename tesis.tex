@@ -2195,7 +2195,7 @@ A fin de sintetizar las diferencias más relevantes entre VonSim y VonSim8, se p
 \hypertarget{estructura-del-vonsim8}{%
 \subsection{Estructura del VonSim8}\label{estructura-del-vonsim8}}
 
-En esta sección se describe la estructura del simulador VonSim8. El diseño de los registros se concibió con un propósito pedagógico: facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, elementos fundamentales en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. En la tabla \ref{tab:estructuravonsim8} se describen los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura y su propósito pedagógico:
+En esta sección se describe la estructura del simulador VonSim8. El diseño de los registros se concibió con un propósito pedagógico: facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, elementos fundamentales en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. En la tabla \ref{tab:estructuravonsim8} se describen los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura:
 
 \begin{table}[!h]
 \centering
@@ -2218,13 +2218,13 @@ En esta sección se describe la estructura del simulador VonSim8. El diseño de 
 \textbf{Memoria} & Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición almacena un byte. La memoria se organiza en celdas de 16 bytes, con dirección inicial `0x00` y final `0xFF`.\\
 \addlinespace[10pt]
 \addlinespace
-\textbf{Puertos} & Puertos de la CPU:\begin{itemize} \item Bus de direcciones de 8 bits (MAR) \item Bus de datos de 8 bits (MBR) \item Señal de lectura (rd) y escritura (wr), cada una de 1 bit \item Señal IO-M (1 bit) para distinguir acceso a memoria o E-S \item Señal de petición de interrupción (INTR, 1 bit) \item Señal de reconocimiento de interrupción (INTA, 1 bit)\end{itemize}\\
+\textbf{Puertos} & Puertos de la CPU:\begin{itemize} \item Bus de direcciones de 8 bits (MAR) \item Bus de datos de 8 bits (MBR) \item Señal de lectura (rd) y escritura (wr), cada una de 1 bit \item Señal IO/M (1 bit) para distinguir acceso a memoria o E/S \item Señal de petición de interrupción (INTR, 1 bit) \item Señal de reconocimiento de interrupción (INTA, 1 bit)\end{itemize}\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
 
-Dentro de los registros específicos que no pueden ser accedidos por el usuario, se encuentra el registro \texttt{SP} (\emph{Stack Pointer}) para el funcionamiento de la pila, el registro \texttt{Flags} (\emph{flags register}), el \texttt{IP} (\emph{Instruction Pointer}) que almacena la dirección de la próxima instrucción a ejecutar, el \texttt{IR} (\emph{Instruction Register}) que almacena el byte de la instrucción que se está analizando/decodificando en un instante dado. También hay 2 registros dedicados a la transferencia de información entre la CPU y la memoria principal: el \texttt{MAR} (\emph{Memory Address Register}) encargado de almacenar direcciones de memoria, y el \texttt{MBR} (\emph{Memory Buffer Register}) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.
+Entre los registros específicos, no accesibles directamente por el programador, se encuentran: \texttt{SP} (\emph{Stack Pointer}), utilizado para la gestión de la pila; el registro \texttt{Flags} (\emph{flags register}); el \texttt{IP} (\emph{Instruction Pointer}), que contiene la dirección de la próxima instrucción a ejecutar; y el \texttt{IR} (\emph{Instruction Register}), que almacena el byte de la instrucción actualmente en proceso de decodificación y ejecución. Además, existen dos registros dedicados a la transferencia de información entre la CPU y la memoria principal: el \texttt{MAR} (\emph{Memory Address Register}) encargado de almacenar direcciones de memoria, y el \texttt{MBR} (\emph{Memory Buffer Register}) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.
 
 Adicionalmente, se incluyen dos registros auxiliares: \texttt{ri}, destinado al almacenamiento temporal de direcciones, e \texttt{id}, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones.
 
@@ -2261,7 +2261,7 @@ La ALU (\emph{Arithmetic Logic Unit}) permite realizar operaciones aritméticas 
 \hypertarget{flags}{%
 \subsubsection{Flags}\label{flags}}
 
-El registro \texttt{Flags} es un registro de 8 bits que contiene las \emph{flags} mostradas en la siguiente tabla. Este registro no es directamente accesible por el usuario, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
+El registro \texttt{Flags} (banderas de estado) es un registro de 8 bits que contiene las \emph{flags} mostradas en la siguiente tabla. Este registro no es directamente accesible por el programador, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
 
 \begin{table}[!h]
 \centering
@@ -2287,12 +2287,12 @@ El registro \texttt{Flags} es un registro de 8 bits que contiene las \emph{flags
 \end{tabular}}
 \end{table}
 
-Los bits restantes del registro Flags están reservados para futuras extensiones del simulador y no se utilizan en la versión actual.
+Los bits restantes del registro Flags se encuentran reservados para posibles extensiones del simulador y no están en uso en la versión actual.
 
-\hypertarget{memoria}{%
-\subsection{Memoria}\label{memoria}}
+\hypertarget{memoria-principal}{%
+\subsection{Memoria principal}\label{memoria-principal}}
 
-La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad es suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales de la memoria en una computadora.
+La memoria principal se modela como una matriz de 16×16 expresada en formato hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad resulta suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales asociados a la memoria principal en una computadora.
 
 \begin{figure}
 
@@ -2306,7 +2306,7 @@ La memoria principal se modela como una matriz de 16×16 expresada en hexadecima
 \hypertarget{buses-y-multiplexores}{%
 \subsection{Buses y multiplexores}\label{buses-y-multiplexores}}
 
-El bus de datos, direcciones y control se modela como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Este bus es esencial para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida, y su diseño modular permite una fácil expansión en futuras versiones del simulador.
+Los buses de datos, direcciones y control se modelan como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Estos buses resultan esenciales para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida. Además, su diseño modular favorece la posibilidad de expansión en futuras versiones del simulador.
 
 \begin{figure}
 
@@ -2322,13 +2322,13 @@ Dentro de los buses internos de la CPU se incluyen representaciones gráficas de
 \hypertarget{repertorio-de-instrucciones-1}{%
 \subsection{Repertorio de instrucciones}\label{repertorio-de-instrucciones-1}}
 
-El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, permitiendo a los estudiantes familiarizarse con las operaciones básicas sin abrumarse con la complejidad del conjunto completo de instrucciones x86.
+El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, lo que facilita que los estudiantes se familiaricen con las operaciones básicas, evitando la complejidad del repertorio completo de instrucciones x86.
 
-El repertorio de instrucciones se diseñó como una abstracción deliberada inspirada en la arquitectura x86, con el objetivo de optimizar los procesos de enseñanza y aprendizaje en entornos educativos. En una etapa inicial del proceso de enseñanza, se incluyen únicamente aquellas instrucciones esenciales que permiten introducir progresivamente los contenidos básicos de la asignatura Arquitectura de Computadoras. Este enfoque permite introducir progresivamente los conceptos fundamentales de manera accesible, minimizando la complejidad innecesaria que podría obstaculizar la comprensión en las etapas iniciales del aprendizaje \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}28{]}}. La Tabla \ref{tab:setreducido} muestra un conjunto reducido de instrucciones que abarca las operaciones más frecuentes y pertinentes para una etapa introductoria de aprendizaje. El repertorio se centra en instrucciones de transferencia y procesamiento de datos, junto con aquellas de control de flujo. Esta selección permite introducir los conceptos básicos de la arquitectura x86 de manera accesible, evitando la complejidad del repertorio completo y alineándose con los objetivos pedagógicos del curso.
+El repertorio de instrucciones del simulador fue concebido como una abstracción pedagógica basada en la arquitectura x86, orientada a optimizar los procesos de enseñanza y aprendizaje en el ámbito educativo. En las primeras etapas del curso, se seleccionan únicamente las instrucciones esenciales, lo que permite introducir de forma gradual y accesible los contenidos fundamentales de la asignatura Arquitectura de Computadoras. Este enfoque progresivo facilita la comprensión de los conceptos clave, evitando la complejidad innecesaria que podría dificultar el aprendizaje inicial \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}28{]}}. La Tabla \protect\hyperlink{ref-ref}{\textbf{ref?}}(tab:setreducido) presenta un conjunto reducido de instrucciones que abarca las operaciones más relevantes para una etapa introductoria, centradas en la transferencia y procesamiento de datos, así como en el control de flujo. Esta selección estratégica garantiza la accesibilidad de los conceptos básicos de la arquitectura x86 y se ajusta a los objetivos pedagógicos del curso.
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
-Con el fin de facilitar el aprendizaje de la programación en ensamblador e introducir el ciclo de instrucción, se propone el siguiente repertorio de instrucciones conforme al programa de estudio de la asignatura Arquitectura de Computadoras \protect\hyperlink{ref-cd023_25_programa2025}{{[}82{]}}.
+Con el objetivo de favorecer el aprendizaje de la programación en ensamblador y la comprensión del ciclo de instrucción, se presenta a continuación un repertorio de instrucciones alineado con el programa de estudio de la asignatura Arquitectura de Computadoras \protect\hyperlink{ref-cd023_25_programa2025}{{[}82{]}}.
 
 \begin{table}[!h]
 \centering
@@ -2392,12 +2392,12 @@ El parámetro \texttt{xx} en las instrucciones \texttt{Jxx} hace referencia a di
 \end{tabular}}
 \end{table}
 
-En base a las entrevistas con los docentes y el análisis de los contenidos del curso, a continuación se establece para cada categorías de instrucciones su uso pedagógico esperado:
+Con base en las entrevistas realizadas a los docentes y el análisis de los contenidos del curso, a continuación se presenta el uso pedagógico esperado para cada categoría de instrucciones.
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Transferencia y procesamiento de datos}: Instrucciones que permiten mover datos entre registros y memoria y realizar operaciones aritméticas. Estas instrucciones son fundamentales para la comprensión del flujo de datos en una arquitectura computacional mostrando como se llevan a cabo operaciones aritméticas como de lenguaje de alto nivel como Python:
+  \textbf{Transferencia y procesamiento de datos}: instrucciones que permiten mover datos entre registros y memoria, así como realizar operaciones aritméticas. Estas instrucciones son fundamentales para comprender el flujo de datos en una arquitectura computacional, mostrando cómo se ejecutan operaciones aritméticas de manera análoga a las implementadas en lenguajes de alto nivel como Python:
 \end{itemize}
 
 \begin{Shaded}
@@ -2409,7 +2409,7 @@ En base a las entrevistas con los docentes y el análisis de los contenidos del 
 \end{Highlighting}
 \end{Shaded}
 
-La traducción equivalente al lenguaje ensamblador sería:
+La traducción equivalente en lenguaje ensamblador es:
 
 \begin{lstlisting}
   x db 2
@@ -2423,7 +2423,7 @@ La traducción equivalente al lenguaje ensamblador sería:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Control de flujo}: Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa. Por ejemplo, permiten implementar estructuras condicionales similares a las de lenguajes de alto nivel como Python:
+  \textbf{Control de flujo}: Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa. Por ejemplo, lo que posibilita la implementación de estructuras condicionales análogas a las de lenguajes de alto nivel, como Python:
 \end{itemize}
 
 \begin{Shaded}
@@ -2436,7 +2436,7 @@ La traducción equivalente al lenguaje ensamblador sería:
 \end{Highlighting}
 \end{Shaded}
 
-Su traduccion a ensamblador sería:
+La traducción equivalente en lenguaje ensamblador es:
 
 \begin{lstlisting}
 x db 2 
@@ -2460,7 +2460,7 @@ Fin:      hlt\end{lstlisting}
 \end{Highlighting}
 \end{Shaded}
 
-Su traduccion a ensamblador sería:
+La traducción equivalente en lenguaje ensamblador es:
 
 \begin{lstlisting}
 x db 2 
@@ -2487,7 +2487,7 @@ Por ejemplo, la estructura iterativa \texttt{while} en Python:
 \end{Highlighting}
 \end{Shaded}
 
-Su traduccion a ensamblador sería:
+La traducción equivalente en lenguaje ensamblador es:
 
 \begin{lstlisting}
 x     db 1   
@@ -2516,7 +2516,7 @@ Tratamiento de vectores: El simulador permite trabajar con vectores y matrices, 
 \end{Highlighting}
 \end{Shaded}
 
-Su traduccion a ensamblador sería:
+La traducción equivalente en lenguaje ensamblador es:
 
 \begin{lstlisting}
 max     db 0
@@ -2536,27 +2536,28 @@ Proximo:    add BL, 1         ; BL = BL + 1
 FinBucle:   hlt
 \end{lstlisting}
 
-La selección de instrucciones busca facilitar la comprensión de los procesos fundamentales de la arquitectura de computadoras: la ejecución de operaciones aritméticas, la transferencia de datos entre registros y memoria, y el control del flujo de ejecución. Al tratarse de un repertorio reducido e inspirado en la arquitectura x86, se garantiza un equilibrio entre rigor conceptual y simplicidad pedagógica.
+La selección de instrucciones está diseñada para facilitar la comprensión de los procesos esenciales de la arquitectura de computadoras, como la ejecución de operaciones aritméticas, la transferencia de datos entre registros y memoria, y el control del flujo de ejecución. Al emplear un repertorio reducido e inspirado en la arquitectura x86, se logra un equilibrio entre el rigor conceptual y la simplicidad pedagógica.
 
-La implementación de estas instrucciones en el simulador VonSim8 está orientada a proporcionar una experiencia de aprendizaje que apoye la comprensión de los principios fundamentales de la arquitectura de computadoras, reduciendo la carga cognitiva en las fases iniciales de la formación y fortaleciendo la transición hacia repertorios más complejos. El simulador facilita que el estudiante comprenda cómo se ejecutan las operaciones aritméticas en la computadora, cómo se transfieren los datos entre registros y memoria, y cómo se controla el flujo de ejecución de un programa.
+La implementación de estas instrucciones en el simulador VonSim8 tiene como objetivo ofrecer una experiencia de aprendizaje que favorezca la asimilación de los principios fundamentales de la arquitectura de computadoras, disminuyendo la carga cognitiva en las etapas iniciales y fortaleciendo la transición hacia repertorios más avanzados. El simulador permite al estudiante comprender de manera clara cómo se ejecutan las operaciones aritméticas, cómo se transfieren los datos entre registros y memoria, y cómo se gestiona el flujo de ejecución de un programa.
 
 \hypertarget{modos-de-direccionamiento-1}{%
 \subsection{Modos de direccionamiento}\label{modos-de-direccionamiento-1}}
 
-Los modos de direccionamiento en un repertorio de instrucciones son los métodos que tiene un procesador para especificar la ubicación de los datos (operandos) que se van a utilizar en una instrucción. Esto permite al procesador saber de dónde tomar los datos para realizar una operación y dónde guardar el resultado. A continuación, se describen los modos de direccionamiento definidos en VonSim8:
+Los modos de direccionamiento especifican cómo el procesador determina la ubicación de los operandos de una instrucción. Estos mecanismos permiten identificar de dónde se obtienen los datos necesarios para ejecutar una operación y dónde se almacena el resultado. En VonSim8 se implementan los siguientes modos de direccionamiento:
 
 \begin{itemize}
+\tightlist
 \item
-  Registro a registro (\texttt{Rx},\texttt{Ry}): operandos son registros del procesador y \texttt{Rx} indica registro destino y \texttt{Ry} indica registro fuente.
+  \textbf{Registro a registro (\texttt{Rx}, \texttt{Ry})}: ambos operandos corresponden a registros del procesador; \texttt{Rx} es el registro destino y \texttt{Ry} el registro fuente.
 \item
-  Directo (\texttt{{[}M{]}}): un operando es un registro y el otro operando es el contenido de una dirección de memoria \texttt{{[}M{]}}.
+  \textbf{Directo (\texttt{{[}M{]}})}: uno de los operandos es el contenido de una dirección de memoria \texttt{{[}M{]}}.
 \item
-  Indirecto (\texttt{{[}BL{]}}): la dirección del operando se encuentra en el registro \texttt{{[}BL{]}}.
+  \textbf{Indirecto (\texttt{{[}BL{]}})}: la dirección del operando se encuentra almacenada en el registro \texttt{{[}BL{]}}.
 \item
-  Inmediato (\texttt{d}): un operando es un valor contenido en la instrucción.
+  \textbf{Inmediato (\texttt{d})}: uno de los operandos es un valor inmediato incluido en la propia instrucción.
 \end{itemize}
 
-Estos modos de direccionamiento permiten al simulador representar una variedad de operaciones, desde la manipulación directa de registros hasta el acceso a la memoria. Esto proporciona una base sólida para comprender el flujo de datos en una arquitectura computacional. La Tabla \ref{tab:modosdireccionamiento} resume los modos de direccionamiento implementados en el simulador para instrucciones de dos operandos, e incluye ejemplos de su uso.
+La Tabla \ref{tab:modosdireccionamiento} resume los modos de direccionamiento disponibles en el simulador para instrucciones de dos operandos e incluye ejemplos ilustrativos de su uso.
 
 \begin{table}[!h]
 \centering
@@ -2577,8 +2578,8 @@ Estos modos de direccionamiento permiten al simulador representar una variedad d
 \end{tabular}
 \begin{tablenotes}
 \item \textit{Nota: } 
-\item Las instrucciones de dos operando, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.
-\item Rx y Ry puede ser un registro de propósito general: AL, BL, CL y DL.
+\item Las instrucciones de dos operandos, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.
+\item Rx y Ry pueden ser un registro de propósito general: AL, BL, CL y DL.
 \item \textit{Notas numéricas: } 
 \item[1] La notación [M] indica el contenido de la dirección de memoria.
 \item[2] La notación [BL] indica el contenido de la dirección del registro BL.
@@ -2589,13 +2590,15 @@ Estos modos de direccionamiento permiten al simulador representar una variedad d
 \end{threeparttable}}
 \end{table}
 
+Estos modos de direccionamiento permiten al simulador ejecutar una variedad de operaciones, desde la manipulación directa de registros hasta el acceso flexible a la memoria. Constituyen una base esencial para comprender el flujo de datos en una arquitectura computacional.
+
 Ejemplo de los modos de direccionamiento:
 
 \begin{lstlisting}
 x db 2 
 y db 3
 
-; ejemplo modos direccionamiento
+; Ejemplo modos direccionamiento
 ;----------------------
 ; carga en registro
 ;----------------------
@@ -2614,7 +2617,7 @@ mov cl, [bl] ; celda 16 = bl
 ;----------------------
 ; Almacenar en memoria
 ;----------------------
-; Diecto
+; Directo
 mov x, cl
 
 ; Indirecto
@@ -2636,7 +2639,7 @@ Las instrucciones del simulador VonSim8 se dividen en dos categorías principale
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:tisaredu}Categorías de instrucciones y códigos de operación en VonSim8}
+\caption{\label{tab:tisaredu}Categoría de instrucciones y códigos de operación en VonSim8}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
@@ -3255,7 +3258,7 @@ Las direcciones del vector de interrupciones asociadas a estos números están p
 
 El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones \texttt{A0h}, \texttt{B0h} y \texttt{C0h} respectivamente.
 
-Ejemplo de hola mundo en ensamblador para el simulador VonSim8:
+Ejemplo de hola mundo en lenguaje ensamblador para el simulador VonSim8:
 
 \hypertarget{pantalla}{%
 \subsection{Pantalla}\label{pantalla}}
@@ -3467,7 +3470,7 @@ Actualmente el código de operación de las instrucciones son 4 bits, esto reduc
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:tisa}Categorías de instrucciones y códigos de operación en VonSim8}
+\caption{\label{tab:tisa}Categoría de instrucciones y códigos de operación en VonSim8}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
