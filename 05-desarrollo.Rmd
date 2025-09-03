@@ -1146,8 +1146,9 @@ hlt
 ```
 
 ### Formato de instrucciones
-El formato de las instrucciones se basa en la codificación binaria, poseen una longitud variable (1, 2 o 3 bytes), donde los 4 bits de mayor peso del primer byte representa el código de operación (opcode) y los siguientes 4 bits pueden contener operandos adicionales según el modo de direccionamiento utilizado. El opcode determina la operación a realizar, mientras que los operandos especifican los datos o registros involucrados en la operación. 
-Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo.
+El formato de las instrucciones en VonSim8 se fundamenta en una codificación binaria de longitud variable (1, 2 o 3 bytes). Los 4 bits de mayor peso del primer byte corresponden al código de operación (opcode), mientras que los 4 bits restantes pueden contener información adicional sobre los operandos, dependiendo del modo de direccionamiento utilizado. El opcode determina la operación a ejecutar, y los operandos especifican los datos o registros implicados en la instrucción.
+
+Las instrucciones del simulador VonSim8 se agrupan en dos categorías principales: instrucciones de transferencia y procesamiento de datos, e instrucciones de control de flujo.
 
 ```{r tisaredu, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1226,7 +1227,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su acción correspondiente y su codificación binaria.
+Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su codificación binaria.
 
 ```{r instcodif, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1280,7 +1281,22 @@ if (knitr::is_latex_output()) {
     column_spec(2, width = "3.5cm") %>%
     column_spec(3:4, width = "6cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(instcodif)), extra_latex_after = "\\addlinespace[10pt]")
+    row_spec(seq_len(nrow(instcodif)), extra_latex_after = "\\addlinespace[10pt]") %>%
+    footnote(
+      general = c(
+        "Las instrucciones de dos operandos, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
+        "Considerando:",
+        "____: Código de operación de la instrucción, 4 bits.",
+        "Rx o Ry: Índices de registros de propósito general, 0 a 3, 2 bits cada uno.",
+        "M: Dirección de memoria 8 bits.",
+        "ffff: representa el comportamiento de la instrucción 4 bits.",
+        "d: Dato inmediato 8 bits.",
+        "MMMMMMMM: Dirección de memoria 8 bits.",
+        "dddddddd: Dato inmediato 8 bits."
+      ),
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
 } else {
   tabla_kable %>%
     kable_styling(
@@ -1291,28 +1307,27 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "25em") %>%
     column_spec(3:4, width = "35em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    footnote(
+      general = paste(
+        "Las instrucciones de dos operandos, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
+        "Considerando:",
+        "____: Código de operación de la instrucción, 4 bits.",
+        "Rx o Ry: Índices de registros de propósito general, 0 a 3, 2 bits cada uno.",
+        "M: Dirección de memoria 8 bits.",
+        "ffff: representa el comportamiento de la instrucción 4 bits.",
+        "d: Dato inmediato 8 bits.",
+        "MMMMMMMM: Dirección de memoria 8 bits.",
+        "dddddddd: Dato inmediato 8 bits.",
+        sep = "<br>"
+      ),
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
 }
 ```
 
-Considerando:
-
-  - `____`: Código de operación de la instrucción, número de 4 bits.
-
-  - `Rx` o `Ry`: Índices de registros, número entre `0` y `3`, cada índice es de 2 bits.
-
-  - `00`: Junto con el código de operación indica si la operación es tipo B o C.
-
-  - `M`: Dirección de memoria, número de 8 bits.
-
-  - `ffff`: representan el comportamiento de la instrucción, número de 4 bits.
-
-  - `d`: Dato inmediato, número de 8 bits.
-
-  - `MMMMMMMM`: Dirección de memoria, número de 8 bits.
-
-  - `dddddddd`: Dato inmediato, número de 8 bits.
-
+La tabla @ref(tab:tablaregistros) presenta los códigos binarios y decimales correspondientes a los registros de propósito general AL, BL, CL y DL, los cuales pueden ser utilizados como Rx y Ry en las instrucciones del simulador.
 
 ```{r tablaregistros, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1356,41 +1371,40 @@ if (knitr::is_latex_output()) {
 ```
 
 ## Ciclo de la instrucción
-El ciclo de la instrucción es la secuencia de pasos que sigue la Unidad de Control (UC) para ejecutar cada instrucción de un programa. Es un proceso esencial para el funcionamiento de cualquier computadora, en el que intervienen elementos clave como registros, buses de datos, direcciones y control, y las señales de control generadas por la UC.
+El ciclo de la instrucción es la secuencia de pasos que realiza la Unidad de Control (UC) para ejecutar cada instrucción de un programa. Este proceso es fundamental para el funcionamiento de cualquier computadora, ya que involucra elementos clave como registros, buses de datos, direcciones y señales de control generadas por la UC.
 
-Las microoperaciones que lo componen se expresan con la notación de transferencia entre registros: `destino` $\leftarrow$ `origen` .
+Las microoperaciones que lo componen se expresan mediante la notación de transferencia entre registros: `destino` $\leftarrow$ `origen`.
 
-La Figura \@ref(fig:flujoCicloInstruccion) muestra el flujo general del ciclo, que se divide en dos etapas principales: captación (fetch) y ejecución.
+La Figura \@ref(fig:flujoCicloInstruccion) ilustra el flujo general del ciclo, el cual se divide en dos etapas principales: captación (fetch) y ejecución.
 
 ```{r flujoCicloInstruccion, echo=FALSE, fig.cap="Flujo del ciclo de instrucción en VonSim8", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/cicloinstruccion3.png")
 ```
 
 ### Etapa 1: Captación
-
 Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instrucción desde la memoria y cargarla en el **Registro de Instrucciones** (`IR`). Consta de tres microoperaciones:
 
 1. **`MAR` $\leftarrow$ `IP`**
-  La UC transfiere la dirección de la próxima instrucción, almacenada en el **Puntero de Instrucción** (`IP`) al **Registro de Direcciones de Memoria** (`MAR`).
+  La UC transfiere al **Registro de Direcciones de Memoria** (`MAR`) la dirección de la próxima instrucción, almacenada en el **Puntero de Instrucción** (`IP`) .
 
 2. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**
-  La UC activa la señal de lectura a través del bus de control para obtener la instrucción indicada en la dirección del `MAR`. El valor leído se guarda en el **Registro de Datos de Memoria** (`MBR`) y, al mismo tiempo, el `IP` se incrementa para apuntar a la siguiente instrucción u operando.
+  La UC activa la señal de lectura para leer la instrucción ubicada en la dirección contenida en el `MAR`. El valor leído se guarda en el **Registro de Datos de Memoria** (`MBR`) y, al mismo tiempo, el `IP` se incrementa para apuntar a la siguiente instrucción u operando.
 
 3. **`IR` $\leftarrow$ `MBR`**
-  El contenido del `MBR` se transfiere al `IR`. A partir de este momento, la instrucción está lista para ser decodificada y ejecutada.
+  El contenido del `MBR` se transfiere al `IR`, dejando la instrucción lista para ser decodificada y ejecutada.
 
-### Etapa 2: Ejecución:
-En esta etapa, el **decodificador de instrucciones** interpreta el valor en el registro `IR`. A partir del código de operación (opcode), lee las microinstrucciones necesarias desde la **memoria de control** para determinar el tipo de instrucción, la cantidad de operandos y el modo de direccionamiento.
+### Etapa 2: Ejecución
+En esta etapa, el **decodificador de instrucciones** interpreta el valor en el registro `IR`. A partir del código de operación, lee las microinstrucciones necesarias en la **memoria de control** para determinar el tipo de instrucción, la cantidad de operandos y el modo de direccionamiento.
 
-Luego, envía estas microinstrucciones al **secuenciador**, que genera las señales de control exactas para ejecutar la operación.
+Luego, estas microinstrucciones se envían a **secuenciador**, que genera las señales de control precisas para ejecutar la operación.
 
-A continuación se explican las instrucciones más comunes.
+A continuación se detallan las instrucciones más comunes:
 
 #### Instrucciones con dos operandos `MOV`, `ADD`, `SUB` y `CMP`:
 
 - **Destino en registro (`Rx`)**
   - **Modo entre registros (`Rx`, `Ry`)**
-    4. La ejecución ocupa un paso y puede ser:
+    4. La ejecución se realiza en un solo paso:
         - MOV: **`Rx` $\leftarrow$ `Ry`**
         - ADD: **`Rx` $\leftarrow$ `Rx` + `Ry` | update(Flags)**
         - SUB: **`Rx` $\leftarrow$ `Rx` - `Ry` | update(Flags)**
@@ -1415,7 +1429,7 @@ A continuación se explican las instrucciones más comunes.
     6. Ejecutar la operación (igual que en el caso anterior).
 
 - **Destino en memoria (`[Dirección]` o `[BL]`)**
-En este caso, el resultado de la operación no se almacena en un registro, sino en una posición de memoria especificada directamente en la instrucción o indicada por el contenido del registro BL.
+En este caso, el resultado de la operación se almacena en una posición de memoria especificada en la instrucción o indicada por el contenido del registro BL.
   - **Modo Directo (`[Dirección]`, `Ry`)**
     4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
@@ -1492,7 +1506,7 @@ En este caso, el resultado de la operación no se almacena en un registro, sino 
     - HLT: 
       4. Detiene la ejecución de la CPU.
 
-### Subrutinas y interrupciones
+## Subrutinas y interrupciones
 El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción [`CALL`]. Esta instrucción almacena el `IP` en la [pila], y luego realiza un salto a la dirección de la subrutina, modificando el `IP` para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción [`RET`], que desapila la dirección apilada previamente por `CALL` y restaura el `IP`, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
 
 Ejemplo de subrutina:
@@ -1537,7 +1551,7 @@ Específicamente, el procesador:
 
 Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en `IRET` en vez de `RET`.
 
-####  Llamadas al sistema
+###  Llamadas al sistema
 El simulador permite realizar llamadas al sistema o _syscalls_. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una _syscall_ basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
 
 - `INT 0`: termina la ejecución del programa, equivalente a la instrucción `HLT`;
@@ -1751,7 +1765,7 @@ Estos son las direcciones de entrada/salida disponibles en el simulador, todos d
 |   `40h`   | `DATA`  | [Handshake] |
 |   `41h`   | `STATE` | [Handshake] |
 
-### Llaves y luces
+### Llaves y Leds
 Las llaves o interruptores están conectados al puerto PA/CA del PIO y son dispositivos de entrada. Al cambiar su estado, estos se reflejarán en PA (si el PIO está configurado correctamente). Si se altera PA, los cambios no se verán reflejados en las llaves (no se mueven solas, por así decirlo).
 
 ```{r  codellaves, results='asis', echo=FALSE}
