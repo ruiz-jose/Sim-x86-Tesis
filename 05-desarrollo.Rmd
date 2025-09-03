@@ -110,7 +110,7 @@ Proporcionar documentación clara y accesible que explique el funcionamiento del
 knitr::include_graphics("images/documentacion.png")
 ```
 
-En conjunto, estos requisitos constituyen la base del diseño del simulador, garantizando tanto su pertinencia pedagógica como su viabilidad técnica. Su formulación responde a la necesidad de contar con un recurso didáctico que facilite la enseñanza y el aprendizaje de la arquitectura x86, integrando aspectos visuales, interactivos y de análisis del rendimiento. La Tabla @ref(tab:requisitosresumen) presenta un resumen de los principales requisitos funcionales, junto con su fundamentación pedagógica y técnica.
+En conjunto, estos requisitos constituyen la base del diseño del simulador, garantizando tanto su pertinencia pedagógica como su viabilidad técnica. Su formulación responde a la necesidad de contar con un recurso didáctico que facilite la enseñanza y el aprendizaje de la arquitectura x86, integrando aspectos visuales, interactivos y de análisis del rendimiento. La Tabla \@ref(tab:requisitosresumen) presenta un resumen de los principales requisitos funcionales, junto con su fundamentación pedagógica y técnica.
 
 ```{r requisitosresumen, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -599,7 +599,7 @@ Dentro de los buses internos de la CPU se incluyen representaciones gráficas de
 ### Repertorio de instrucciones
 El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, lo que facilita que los estudiantes se familiaricen con las operaciones básicas, evitando la complejidad del repertorio completo de instrucciones x86.
 
-El repertorio de instrucciones del simulador fue concebido como una abstracción pedagógica basada en la arquitectura x86, orientada a optimizar los procesos de enseñanza y aprendizaje en el ámbito educativo. En las primeras etapas del curso, se seleccionan únicamente las instrucciones esenciales, lo que permite introducir de forma gradual y accesible los contenidos fundamentales de la asignatura Arquitectura de Computadoras. Este enfoque progresivo facilita la comprensión de los conceptos clave, evitando la complejidad innecesaria que podría dificultar el aprendizaje inicial [@hennessy2017computer; @tanenbaum_structured_2016]. La Tabla @ref(tab:setreducido) presenta un conjunto reducido de instrucciones que abarca las operaciones más relevantes para una etapa introductoria, centradas en la transferencia y procesamiento de datos, así como en el control de flujo. Esta selección estratégica garantiza la accesibilidad de los conceptos básicos de la arquitectura x86 y se ajusta a los objetivos pedagógicos del curso.
+El repertorio de instrucciones del simulador fue concebido como una abstracción pedagógica basada en la arquitectura x86, orientada a optimizar los procesos de enseñanza y aprendizaje en el ámbito educativo. En las primeras etapas del curso, se seleccionan únicamente las instrucciones esenciales, lo que permite introducir de forma gradual y accesible los contenidos fundamentales de la asignatura Arquitectura de Computadoras. Este enfoque progresivo facilita la comprensión de los conceptos clave, evitando la complejidad innecesaria que podría dificultar el aprendizaje inicial [@hennessy2017computer; @tanenbaum_structured_2016]. La Tabla \@ref(tab:setreducido) presenta un conjunto reducido de instrucciones que abarca las operaciones más relevantes para una etapa introductoria, centradas en la transferencia y procesamiento de datos, así como en el control de flujo. Esta selección estratégica garantiza la accesibilidad de los conceptos básicos de la arquitectura x86 y se ajusta a los objetivos pedagógicos del curso.
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
@@ -1033,10 +1033,10 @@ if (knitr::is_latex_output()) {
         "Rx y Ry pueden ser un registro de propósito general: AL, BL, CL y DL."
       ),
       general_title = "Nota: ",
-      number = c("La notación [M] indica el contenido de la dirección de memoria.", "La notación [BL] indica el contenido de la dirección del registro BL.", "La notación d indica dato inmediato."),
-      number_title = "Notas numéricas: ",
       symbol = c("La notación M indica dirección de memoria."),
       symbol_title = "Símbolos: ",
+      number = c("La notación [M] indica el contenido de la dirección de memoria.", "La notación [BL] indica el contenido de la dirección del registro BL.", "La notación d indica dato inmediato."),
+      number_title = "Notas numéricas: ",
       threeparttable = TRUE
     )
 } else {
@@ -1327,7 +1327,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-La tabla @ref(tab:tablaregistros) presenta los códigos binarios y decimales correspondientes a los registros de propósito general AL, BL, CL y DL, los cuales pueden ser utilizados como Rx y Ry en las instrucciones del simulador.
+La tabla \@ref(tab:tablaregistros) presenta los códigos binarios y decimales correspondientes a los registros de propósito general AL, BL, CL y DL, los cuales pueden ser utilizados como Rx y Ry en las instrucciones del simulador.
 
 ```{r tablaregistros, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
