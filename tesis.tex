@@ -3171,10 +3171,15 @@ Según la instrucción:
 - HLT:
 4. Detiene la ejecución de la CPU.
 
-\hypertarget{subrutinas-y-interrupciones}{%
-\section{Subrutinas y interrupciones}\label{subrutinas-y-interrupciones}}
+\hypertarget{gestion-dispositivos-e-interrupciones}{%
+\section{Gestion dispositivos e interrupciones}\label{gestion-dispositivos-e-interrupciones}}
 
-El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción {[}\texttt{CALL}{]}. Esta instrucción almacena el \texttt{IP} en la \protect\hyperlink{pila}{pila}, y luego realiza un salto a la dirección de la subrutina, modificando el \texttt{IP} para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción {[}\texttt{RET}{]}, que desapila la dirección apilada previamente por \texttt{CALL} y restaura el \texttt{IP}, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
+\hypertarget{pila-y-subrutinas}{%
+\subsection{Pila y Subrutinas}\label{pila-y-subrutinas}}
+
+El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo \emph{Last In, First Out} (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (\texttt{FFh}) y creciendo hacia las direcciones más bajas (\texttt{FEh}, \texttt{FCh}, etc.). El tope de la pila se guarda en el registro \texttt{SP}. Todos los elementos de la pila son de 8 bits.
+
+El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción {[}\texttt{CALL}{]}. Esta instrucción almacena el \texttt{IP} en la {[}pila{]}, y luego realiza un salto a la dirección de la subrutina, modificando el \texttt{IP} para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción {[}\texttt{RET}{]}, que desapila la dirección apilada previamente por \texttt{CALL} y restaura el \texttt{IP}, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
 
 Ejemplo de subrutina:
 
@@ -3194,7 +3199,10 @@ Ejemplo de subrutina:
 \end{Highlighting}
 \end{Shaded}
 
-El simulador incluye la representación de un teclado y una pantalla con el objetivo de emular la interacción básica entre el usuario y el sistema. El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
+\hypertarget{interrupciones-y-llamadas-al-sistema}{%
+\subsection{Interrupciones y llamadas al sistema}\label{interrupciones-y-llamadas-al-sistema}}
+
+El simulador VonSim8 incluye un teclado y una pantalla como dispositivos de entrada y salida, respectivamente. Estos dispositivos permiten la interacción básica entre el usuario y el sistema, facilitando la entrada de datos y la visualización de resultados.
 
 \begin{figure}
 
@@ -3205,8 +3213,7 @@ El simulador incluye la representación de un teclado y una pantalla con el obje
 \caption{Teclado y pantalla}\label{fig:tecladopantalla}
 \end{figure}
 
-El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor.
-En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT} número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT} número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
 
 El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción \texttt{INT} respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, \texttt{IF=1} (la \emph{flag} de interrupciones activada).
 
@@ -3289,6 +3296,8 @@ Hay tres caracteres especiales:
 \hypertarget{teclado}{%
 \subsection{Teclado}\label{teclado}}
 
+El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
+
 El teclado es un dispositivo de entrada que permite al usuario ingresar caracteres al sistema. La forma de comunicarse con el teclado es mediante una llamada al sistema. Esto es así por simplicidad, ya que un teclado real es mucho más complejo.
 
 Con la llamada INT 6 se detiene la ejecución del código hasta que se presione una tecla en el teclado. El carácter que correspona será guardado en la dirección de memoria almacenada en BL según su representación en ASCII.
@@ -3368,11 +3377,6 @@ El componente chipSelect se encarga de habilitar el dispositivo que se desea uti
 Para la comunicacion con los módulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
 - \texttt{OUT\ puerto,\ AL}: Esta instrucción envía el contenido del registro \texttt{AL} al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de \texttt{00h} a \texttt{FFh}). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
 - \texttt{IN\ AL,\ puerto}: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro \texttt{AL}. Al igual que la instrucción \texttt{OUT}, el puerto es una dirección de 8 bits.
-
-\hypertarget{pila}{%
-\subsubsection{Pila}\label{pila}}
-
-El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo \emph{Last In, First Out} (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (\texttt{FFh}) y creciendo hacia las direcciones más bajas (\texttt{FEh}, \texttt{FCh}, etc.). El tope de la pila se guarda en el registro \texttt{SP}. Todos los elementos de la pila son de 8 bits.
 
 \hypertarget{puertos-de-es}{%
 \subsection{Puertos de E/S}\label{puertos-de-es}}
