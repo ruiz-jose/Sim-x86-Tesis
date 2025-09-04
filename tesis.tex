@@ -2901,7 +2901,7 @@ A continuación se detallan las instrucciones más comunes:
   \end{itemize}
 \item
   \textbf{Destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
-  En este caso, el resultado de la operación se almacena en una posición de memoria especificada en la instrucción o indicada por el contenido del registro BL.
+  En este caso, el resultado de la operación se almacena en una dirección de memoria especificada en la instrucción o indicada por el contenido del registro BL.
 
   \begin{itemize}
   \tightlist
@@ -3167,19 +3167,89 @@ A continuación se detallan las instrucciones más comunes:
 \hypertarget{instrucciones-sin-operandos}{%
 \subsubsection{Instrucciones sin operandos}\label{instrucciones-sin-operandos}}
 
-Según la instrucción:
-- HLT:
-4. Detiene la ejecución de la CPU.
+\begin{itemize}
+\tightlist
+\item
+  HLT:
 
-\hypertarget{gestion-dispositivos-e-interrupciones}{%
-\section{Gestion dispositivos e interrupciones}\label{gestion-dispositivos-e-interrupciones}}
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Detiene la ejecución de la CPU.
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{muxf3dulo-de-entradasalida-e-interrupciones}{%
+\section{Módulo de Entrada/Salida e interrupciones}\label{muxf3dulo-de-entradasalida-e-interrupciones}}
+
+El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal. Estos módulos se agrupan en las siguientes categorías:
+
+\begin{itemize}
+\tightlist
+\item
+  Teclado y pantalla.
+\item
+  Un PIO, que puede conectarse a llaves, LEDs o una impresora.
+\item
+  Un PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador (timer) y su reloj.
+\item
+  Handshake, que puede conectarse tanto a un PIO como a un PIC.
+\end{itemize}
+
+La Figura \ref{fig:dispositivos} presenta una visión de los dispositivos que pueden conectarse al simulador.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/esquemavonsim8} 
+
+}
+
+\caption{Arquitectura general del simulador}\label{fig:dispositivos}
+\end{figure}
+
+El componente chipSelect se encarga de activar el dispositivo correspondiente en cada momento. Para ello, recibe las señales de control del CPU junto con el bus de direcciones, y genera las señales de selección de chip (CS) necesarias para habilitar el dispositivo adecuado.
+
+Para interactuar con los módulos de entrada y salida, es necesario incorporar nuevas instrucciones al repertorio del procesador. Estas instrucciones permiten la comunicación con los puertos de E/S y la gestión de interrupciones. La Tabla \ref{tab:tisa} detalla las categorías de instrucciones, sus códigos de operación y las acciones que realizan.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tisa}Categoría de instrucciones y códigos de operación en VonSim8}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\midrule
+\textbf{Transferencia de datos} & MOV & {0, 1, 2} & Copiar entre registros, cargar a registro, almacenar en memoria\\
+\addlinespace[10pt]
+\textbf{Procesamiento de datos} & ADD & {3, 4, 5} & Operación aritmética: operando1 ← operando1 + operando2\\
+\addlinespace[10pt]
+\textbf{} & SUB & {6, 7, 8} & Operación aritmética: operando1 ← operando1 - operando2\\
+\addlinespace[10pt]
+\textbf{} & CMP & {9, 10, 11} & Comparación: operando1 - operando2 (no actualiza el destino)\\
+\addlinespace[10pt]
+\textbf{Control de flujo} & JMP / Jxx / CALL / INT & {12} & Salto incondicional JMP, condicionales Jxx, subrutina CALL, llamar rutina de interrupción INT\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{Gestión de flujo} & RET / IRET / CLI / STI / HLT & {13} & Retorno subrutina RET, retornar de interrupción IRET,  deshabilita interrupciones CLI, habilita interrupciones STI, detener CPU HLT\\
+\addlinespace[10pt]
+\textbf{Manejo de pila y E/S} & PUSH / POP / OUT / IN & {14} & Poner en la pila PUSH, retirar de la pila POP, enviar a puerto OUT, recibir desde puerto IN\\
+\addlinespace[10pt]
+\textbf{Miscelánea} & AND / OR / XOR / NOT / NEG / INC / DEC & {15} & Operaciones lógicas y aritméticas\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
 
 \hypertarget{pila-y-subrutinas}{%
-\subsection{Pila y Subrutinas}\label{pila-y-subrutinas}}
+\subsection{Pila y subrutinas}\label{pila-y-subrutinas}}
 
-El procesador implementa la pila como método de almacenamiento accesible por el usuario y por la misma CPU para su correcto funcionamiento. Esta es del estilo \emph{Last In, First Out} (LIFO), es decir, el último elemento en entrar es el primero en salir. La pila se encuentra en la memoria principal, comenzando en la dirección más alta de la misma (\texttt{FFh}) y creciendo hacia las direcciones más bajas (\texttt{FEh}, \texttt{FCh}, etc.). El tope de la pila se guarda en el registro \texttt{SP}. Todos los elementos de la pila son de 8 bits.
+El procesador implementa una pila como método de almacenamiento, accesible tanto por el usuario como por la CPU para su funcionamiento interno. La pila opera bajo el esquema \emph{Last In, First Out} (LIFO), es decir, el último elemento en ingresar es el primero en salir. Está ubicada en la memoria principal, comenzando en la dirección más alta (\texttt{FFh}) y creciendo hacia direcciones más bajas (\texttt{FEh}, \texttt{FCh}, etc.). El tope de la pila se gestiona mediante el registro \texttt{SP}, y cada elemento almacenado ocupa 8 bits.
 
-El procesador también implementa subrutinas. Estas son pequeños fragmentos de código que pueden ser llamados desde cualquier parte del programa. Para ello, se utiliza la instrucción {[}\texttt{CALL}{]}. Esta instrucción almacena el \texttt{IP} en la {[}pila{]}, y luego realiza un salto a la dirección de la subrutina, modificando el \texttt{IP} para que este apunte a la primera instrucción de la subrutina. Para volver de la subrutina, se utiliza la instrucción {[}\texttt{RET}{]}, que desapila la dirección apilada previamente por \texttt{CALL} y restaura el \texttt{IP}, volviendo a el punto de ejecución posterior a la llamada a la subrutina.
+Además, el procesador permite el uso de subrutinas, que son fragmentos de código reutilizables y pueden ser invocados desde cualquier parte del programa. Para llamar a una subrutina se utiliza la instrucción {[}\texttt{CALL}{]}, que apila el valor actual de \texttt{IP} y salta a la dirección de la subrutina, modificando el \texttt{IP} para apuntar a la primera instrucción de la misma. El retorno se realiza mediante la instrucción {[}\texttt{RET}{]}, que desapila la dirección previamente guardada y restaura el \texttt{IP}, permitiendo continuar la ejecución justo después de la llamada.
 
 Ejemplo de subrutina:
 
@@ -3202,7 +3272,7 @@ Ejemplo de subrutina:
 \hypertarget{interrupciones-y-llamadas-al-sistema}{%
 \subsection{Interrupciones y llamadas al sistema}\label{interrupciones-y-llamadas-al-sistema}}
 
-El simulador VonSim8 incluye un teclado y una pantalla como dispositivos de entrada y salida, respectivamente. Estos dispositivos permiten la interacción básica entre el usuario y el sistema, facilitando la entrada de datos y la visualización de resultados.
+El simulador VonSim8 incorpora un teclado y una pantalla como dispositivos de entrada y salida, permitiendo la interacción básica entre el usuario y el sistema para la entrada de datos y la visualización de resultados.
 
 \begin{figure}
 
@@ -3213,15 +3283,11 @@ El simulador VonSim8 incluye un teclado y una pantalla como dispositivos de entr
 \caption{Teclado y pantalla}\label{fig:tecladopantalla}
 \end{figure}
 
-El simulador tiene predefinido el vector de interrupción en ciertas posiciones de reservadas de memoria, dentro de dicho vector encontraremos las rutinas del sistema predefinidas para interactuar con el teclado y monitor. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT} número. Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
+El vector de interrupciones está predefinido en posiciones reservadas de la memoria principal, donde se almacenan las direcciones de las rutinas del sistema para interactuar con el teclado y la pantalla. En el caso de las interrupciones por software, el número de interrupción se indica como operando en la instrucción \texttt{INT}. Al producirse una interrupción, el procesador ejecuta la rutina asociada al número de interrupción, cuya dirección de inicio se obtiene del vector de interrupciones. Este vector ocupa las celdas de memoria desde \texttt{00h} hasta \texttt{07h}, y cada elemento tiene 1 byte de longitud, correspondiendo cada uno a la dirección de inicio de la rutina respectiva.
 
-El procesador admite interrupciones por hardware y por software, que pueden ser emitidas por el PIC o por la instrucción \texttt{INT} respectivamente. Para ejecutar interrupciones por hardware, el procesador debe estar habilitado para recibir interrupciones. Esto es, \texttt{IF=1} (la \emph{flag} de interrupciones activada).
+El procesador admite interrupciones tanto por hardware como por software, generadas por el PIC o por la instrucción \texttt{INT}, respectivamente. Para que las interrupciones por hardware sean atendidas, el procesador debe tener habilitada la bandera de interrupciones (I=1). En ambos casos, se debe proporcionar un número de interrupción entre \texttt{0} y \texttt{7}.
 
-Ambas interrupciones deben propocionar un número de interrupción. En el caso de las interrupciones por software, esta es dada por el operando de la instrucción \texttt{INT}. En el caso de las interrupciones por hardware, esta es dada por el PIC. El número de interrupción debe ser un número entre \texttt{0} y \texttt{7}.
-
-Una vez interrumpido, el procesador ejecutará la rutina de interrupción asociada a ese número de interrupción. La dirección de comienzo de esta rutina estará almacenada en el vector de interrupciones. Este vector ocupa las celdas \texttt{00h} hasta \texttt{07h} de la memoria principal, y cada elemento del vector tiene 1 byte de largo -- el primer elemento se encuentra en \texttt{0h}, el segundo en \texttt{1h}, el tercero en \texttt{2h}, y así. Cada elemento corresponde con la dirección de inicio de la rutina de interrupción.
-
-Específicamente, el procesador:
+El procedimiento que sigue el procesador ante una interrupción es el siguiente:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -3229,39 +3295,35 @@ Específicamente, el procesador:
 \item
   obtiene el número de la interrupción (0-7),
 \item
-  apila el registro \texttt{FLAGS},
+  apila el registro \texttt{Flags},
 \item
   inhabilita las interrupciones \texttt{I=0},
 \item
   apila el registro \texttt{IP},
 \item
-  obtiene la dirección de la rutina de interrupción del vector de interrupciones,
+  obtiene la dirección de la rutina de interrupción desde el vector de interrupciones,
 \item
-  modifica el \texttt{IP} para que apunte a la dirección de la rutina de interrupción.
+  carga en el \texttt{IP} la dirección de la rutina de interrupción.
 \end{enumerate}
 
-Y así se comienza a ejecutar la rutina de interrupción. Estas tienen el mismo formato que una subrutina salvo que terminan en \texttt{IRET} en vez de \texttt{RET}.
+La rutina de interrupción se ejecuta como una subrutina, pero finaliza con la instrucción \texttt{IRET} en lugar de \texttt{RET}.
 
 \hypertarget{llamadas-al-sistema}{%
 \subsection{Llamadas al sistema}\label{llamadas-al-sistema}}
 
-El simulador permite realizar llamadas al sistema o \emph{syscalls}. En el simulador, estas llamadas son realizadas idénticamente a las interrupciones. Así, para realizar una \emph{syscall} basta con interrumpir a la CPU con el número de interrupción correspondiente. Estos números son:
+El simulador permite realizar llamadas al sistema (syscalls) mediante interrupciones, utilizando el número de interrupción correspondiente. Los números de interrupción reservados para llamadas al sistema son:
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{INT\ 0}: termina la ejecución del programa, equivalente a la instrucción \texttt{HLT};
+  \texttt{INT\ 0}: termina la ejecución del programa (equivalente a \texttt{HLT});
 \item
   \texttt{INT\ 6}: lee un carácter del teclado;
 \item
   \texttt{INT\ 7}: escribe una cadena de caracteres en pantalla.
 \end{itemize}
 
-Las direcciones del vector de interrupciones asociadas a estos números están protegidas por el sistema, impidiendo que el usuario las modifique.
-
-El contenido de estas rutinas se encuentran almacenadas en el monitor del sistema en las direcciones \texttt{A0h}, \texttt{B0h} y \texttt{C0h} respectivamente.
-
-Ejemplo de hola mundo en lenguaje ensamblador para el simulador VonSim8:
+Las direcciones del vector de interrupciones asociadas a estas llamadas están protegidas por el sistema y no pueden ser modificadas por el usuario. El contenido de las rutinas correspondientes se encuentra almacenado en el monitor del sistema en las direcciones \texttt{A0h}, \texttt{B0h} y \texttt{C0h}, respectivamente.
 
 \hypertarget{pantalla}{%
 \subsection{Pantalla}\label{pantalla}}
@@ -3272,6 +3334,8 @@ Con la llamada INT 7 se escribe una cadena de caracteres en la pantalla. Recibe 
 
 AL: longitud de la cadena a imprimir
 BL: dirección de memoria donde empieza la cadena
+
+Ejemplo de hola mundo en lenguaje ensamblador para el simulador VonSim8:
 
 \begin{lstlisting}
 cadena db `Hola!`
@@ -3311,65 +3375,6 @@ hlt
 ; El carácter escrito se almacenó en 'car'.
 ; Por ejemplo, si el usuario presionó la tecla 'a', entonces
 ; se almacena el valor 61h en 'car'.\end{lstlisting}
-
-Para poder interactuar con los módulos de entrada y salida y la pila es necesario presentar nuevas instrucciones al conjunto de instrucciones del procesador.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:isacompleta}Tabla de Instrucciones y Códigos de Operación de la Arquitectura x86}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
-\midrule
-\textbf{MOV} & Transferencia de datos & MOV destino, origen & 1- Copiar entre registros 2- Cargar a registro 3- Almacenar en memoria\\
-\addlinespace[10pt]
-\textbf{ADD} & Aritmética & ADD destino, origen & 1- Sumar  2- Restar 3- Comparar\\
-\addlinespace[10pt]
-\textbf{JMP} & Control de flujo & JMP destino & Salto incondicional JMP. Saltos condicionales Jxx. Llamadas a rutinas CALL y retorno RET\\
-\addlinespace[10pt]
-\textbf{PUSH, POP, OUT, IN} & Pila y E/S & PUSH, POP, OUT, IN & Poner en la pila PUSH. Retirar de la pila POP. Enviar un byte al puerto del dispositivo de E/S. Recibir un byte del dispositivo de E/S\\
-\addlinespace[10pt]
-\textbf{INT , IRET} & Interrupciones & INT , IRET & Llamar a una rutina de tratamiento de interrupción INT. Retornar de una rutina de tratamiento de interrupción IRET\\
-\addlinespace[10pt]
-\addlinespace
-\textbf{NOP , HLT} & Control & NOP , HLT & No opera NOP. Detiene el CPU HLT\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\hypertarget{muxf3dulo-de-entradasalida}{%
-\subsection{Módulo de Entrada/Salida}\label{muxf3dulo-de-entradasalida}}
-
-El simulador puede configurarse para conectar módulos de entrada/salida al bus y otros dispositivos. Estos se encuentran agrupados, y cada uno de estos grupos puede conectarse solo si lo desea el usuario:
-
-\begin{itemize}
-\tightlist
-\item
-  Teclado y pantalla.
-\item
-  Un PIO que puede conectarse a llaves y leds o a una impresora.
-\item
-  Un PIC que interactura con la tecla F10 para interrumpir, y un timer con su reloj.
-\item
-  Handshake: que puede conectar a un PIO o un PIC.
-\end{itemize}
-
-La Figura \ref{fig:dispositivos} presenta una visión de los dispositivos que pueden conectarse al simulador.
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.85\linewidth]{images/esquemavonsim8} 
-
-}
-
-\caption{Arquitectura general del simulador}\label{fig:dispositivos}
-\end{figure}
-
-El componente chipSelect se encarga de habilitar el dispositivo que se desea utilizar en cada momento. Este componente recibe las señales de control del CPU y las señales de estado de los dispositivos, y genera las señales de selección de chip (CS) para cada dispositivo.
 
 \hypertarget{instrucciones-in-y-out}{%
 \subsection{Instrucciones IN y OUT}\label{instrucciones-in-y-out}}
@@ -3460,37 +3465,6 @@ out 31h, al              ; Escribe el valor en PB para actualizar las luces
 hlt                      ; Detiene la ejecución del programa\end{lstlisting}
 
 Actualmente el código de operación de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el código de operación 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:tisa}Categoría de instrucciones y códigos de operación en VonSim8}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
-\midrule
-\textbf{Transferencia de datos} & MOV & {0, 1, 2} & Copiar entre registros, cargar a registro, almacenar en memoria\\
-\addlinespace[10pt]
-\textbf{Procesamiento de datos} & ADD & {3, 4, 5} & Operación aritmética: operando1 ← operando1 + operando2\\
-\addlinespace[10pt]
-\textbf{} & SUB & {6, 7, 8} & Operación aritmética: operando1 ← operando1 - operando2\\
-\addlinespace[10pt]
-\textbf{} & CMP & {9, 10, 11} & Comparación: operando1 - operando2 (no actualiza el destino)\\
-\addlinespace[10pt]
-\textbf{Control de flujo} & JMP / Jxx / CALL / INT & {12} & Salto incondicional JMP, condicionales Jxx, llamada CALL, INT: llamar rutina de interrupción\\
-\addlinespace[10pt]
-\addlinespace
-\textbf{Gestión de flujo} & RET / IRET / CLI / STI / HLT & {13} & RET: retorno, IRET: retornar de interrupción, NOP: no opera, HLT: detiene el CPU\\
-\addlinespace[10pt]
-\textbf{Manejo de pila y E/S} & PUSH / POP / OUT / IN & {14} & PUSH: poner en la pila, POP: retirar de la pila, OUT: enviar a puerto, IN: recibir desde puerto\\
-\addlinespace[10pt]
-\textbf{Miscelánea} & AND / OR / XOR / NOT / INC / DEC & {15} & Operaciones lógicas y aritméticas\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
 
 \hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones}{%
 \subsection{Etapa de ejecución de instrucciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones}}
