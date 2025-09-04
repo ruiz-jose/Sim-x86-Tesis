@@ -980,7 +980,7 @@ if (knitr::is_latex_output()) {
       "Memoria puede ser: \\begin{itemize}\\item dirección [M]\\item dirección registro [BL] \\end{itemize}"
     ),
     Fuente = c(
-      "Puede ser:\\begin{itemize} \\item registro Ry\\item dirección [M] \\item dirección registro [BL] \\item valor inmediato d \\end{itemize}",
+      "Puede ser:\\begin{itemize} \\item registro Ry\\item dirección [M] (1) \\item dirección registro [BL] (2)\\item valor inmediato d (3)\\end{itemize}",
       "Puede ser:\\begin{itemize} \\item Registro: Ry\\item valor en la instrucción d \\end{itemize}"
     ),
     Ejemplo = c(
@@ -996,7 +996,7 @@ if (knitr::is_latex_output()) {
       "Memoria puede ser: <ul><li>dirección `[M]`</li><li>dirección registro `[BL]`</li></ul>"
     ),
     Fuente = c(
-      "Puede ser:<ul><li>registro `Ry`</li><li>dirección `[M]`</li><li>dirección registro `[BL]`</li><li>valor inmediato `d`</li></ul>",
+      "Puede ser:<ul><li>registro `Ry`</li><li>dirección `[M]` (1)</li><li>dirección registro `[BL]` (2)</li><li>valor inmediato `d` (3)</li></ul>",
       "Puede ser:<ul><li>Registro: `Ry`</li><li>valor en la instrucción `d`</li></ul>"
     ),
     Ejemplo = c(
@@ -1667,22 +1667,22 @@ Ejemplo de hola mundo en lenguaje ensamblador para el simulador VonSim8:
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
-cadena db `Hola!`
-mov BL, offset cadena
-mov AL, 5
-int 7
+cadena DB `Hola!`
+MOV BL, offset cadena
+MOV AL, 5
+INT 7
 ; Se imprime Hola! (sin las comillas) en la pantalla.
-hlt\\end{lstlisting}
+HLT\\end{lstlisting}
   ")
 } else {
   cat("
   ```assembly
-cadena db `Hola!`
-mov BL, offset cadena
-mov AL, 5
-int 7
+cadena DB `Hola!`
+MOV BL, offset cadena
+MOV AL, 5
+INT 7
 ; Se imprime Hola! (sin las comillas) en la pantalla.
-hlt
+HLT
 ```")
 }
 ```
@@ -1728,45 +1728,85 @@ hlt
 }
 ```
 
-
-
-### Instrucciones IN y OUT
-Para la comunicacion con los módulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
-- `OUT puerto, AL`: Esta instrucción envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
-- `IN AL, puerto`: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro `AL`. Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
-
 ### Puertos de E/S
-La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones [`IN`] y [`OUT`]). Cuando se quiere acceder a un módulo de entrada/salida, la [CPU] activa la señal `IO/M`, lo que causa que un selector de chips (_chip select_) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
+La memoria de entrada/salida está completamente separada de la memoria principal. Para interactuar con ella, se emplean exclusivamente las instrucciones [IN] y [OUT]. Cuando se requiere acceder a un módulo de entrada/salida, la [CPU] activa la señal IO/M, lo que provoca que un selector de chips (chip select) interprete la dirección presente en el bus de direcciones y envíe la señal de activación al módulo correspondiente.
+
+El rango de direcciones asignado a la memoria de entrada/salida abarca desde `00h` hasta `FFh`, lo que permite un total de 256 direcciones.
 
 El rango de direcciones de la memoria de entrada/salida es de `00h` hasta `FFh` (256 direcciones).
 
+
+mejorame la redaccion de este texto:
+
+Puertos de E/S
+La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones [IN] y [OUT]. Cuando se quiere acceder a un módulo de entrada/salida, la [CPU] activa la señal IO/M, lo que causa que un selector de chips (chip select) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
+
+El rango de direcciones de la memoria de entrada/salida es de 00h hasta FFh (256 direcciones).
+
 Estos son las direcciones de entrada/salida disponibles en el simulador, todos de 8 bits:
 
-| Dirección | Nombre  | Módulo                   |
-| :-------: | :-----: | :----------------------- |
-|   `10h`   | `CONT`  | [Timer]         |
-|   `11h`   | `COMP`  | [Timer]         |
-|   `20h`   |  `EOI`  | [PIC]           |
-|   `21h`   |  `IMR`  | [PIC]            |
-|   `22h`   |  `IRR`  | [PIC]            |
-|   `23h`   |  `ISR`  | [PIC]             |
-|   `24h`   | `INT0`  | [PIC]             |
-|   `25h`   | `INT1`  | [PIC]            |
-|   `26h`   | `INT2`  | [PIC]            |
-|   `27h`   | `INT3`  | [PIC]            |
-|   `28h`   | `INT4`  | [PIC]           |
-|   `29h`   | `INT5`  | [PIC]             |
-|   `2Ah`   | `INT6`  | [PIC]             |
-|   `2Bh`   | `INT7`  | [PIC]            |
-|   `30h`   |  `PA`   | [PIO]          |
-|   `31h`   |  `PB`   | [PIO]            |
-|   `32h`   |  `CA`   | [PIO]            |
-|   `33h`   |  `CB`   | [PIO]             |
-|   `40h`   | `DATA`  | [Handshake] |
-|   `41h`   | `STATE` | [Handshake] |
+Aquí tienes una versión mejorada del texto con un estilo más claro y formal:
+
+Puertos de E/S
+La memoria de entrada/salida está completamente separada de la memoria principal. Para interactuar con ella, se emplean exclusivamente las instrucciones [IN] y [OUT]. Cuando se requiere acceder a un módulo de entrada/salida, la [CPU] activa la señal IO/M, lo que provoca que un selector de chips (chip select) interprete la dirección presente en el bus de direcciones y envíe la señal de lectura o escritura al módulo correspondiente.
+
+El rango de direcciones asignado a la memoria de entrada/salida abarca desde 00h hasta FFh, lo que permite un total de 256 direcciones.
+
+A continuación, se presentan las direcciones de entrada/salida disponibles en el simulador, todas de 8 bits:
+
+```{r tabla_direcciones, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+# Crear los datos de la tabla
+tabla_direcciones <- data.frame(
+  Dirección = c("10h", "11h", "20h", "21h", "22h", "23h", "24h", "25h", "26h", "27h", "28h", "29h", "2Ah", "2Bh", "30h", "31h", "32h", "33h", "40h", "41h"),
+  Nombre = c("CONT", "COMP", "EOI", "IMR", "IRR", "ISR", "INT0", "INT1", "INT2", "INT3", "INT4", "INT5", "INT6", "INT7", "PA", "PB", "CA", "CB", "DATA", "STATE"),
+  Módulo = c("[Timer]", "[Timer]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIO]", "[PIO]", "[PIO]", "[PIO]", "[Handshake]", "[Handshake]")
+)
+
+# Generar la tabla con kable
+tabla_formateada <- kable(tabla_direcciones,
+                          format = ifelse(knitr::is_latex_output(), "latex", "html"),
+                          caption = "Direcciones, nombres y módulos del simulador",
+                          col.names = c("Dirección", "Nombre", "Módulo"),
+                          booktabs = TRUE,
+                          escape = FALSE,
+                          align = c("c", "c", "c"))
+
+# Aplicar estilos condicionales según el formato de salida
+if (knitr::is_latex_output()) {
+  tabla_formateada %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "3cm") %>%
+    column_spec(3, width = "4cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3")
+} else {
+  tabla_formateada %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "12em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:3, width = "28em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+
+### Instrucciones IN y OUT
+La comunicación con los módulos de entrada/salida se realiza a través de puertos, que son direcciones específicas dentro del espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones fundamentales para gestionar esta comunicación:
+
+  - `OUT puerto, AL`: envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para transmitir datos a dispositivos externos, como impresoras o pantallas.
+  - `IN AL, puerto`: recibe un byte desde el puerto especificado y lo almacena en el registro `AL`.  Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
 
 ### Llaves y Leds
-Las llaves o interruptores están conectados al puerto PA/CA del PIO y son dispositivos de entrada. Al cambiar su estado, estos se reflejarán en PA (si el PIO está configurado correctamente). Si se altera PA, los cambios no se verán reflejados en las llaves (no se mueven solas, por así decirlo).
+Las llaves o interruptores están conectados al puerto PA/CA del PIO y funcionan como dispositivos de entrada. Al cambiar su estado, este se refleja en el puerto PA, siempre que el PIO esté configurado correctamente. Sin embargo, si se modifica directamente el valor de PA, los cambios no se reflejarán en las llaves, ya que estas no se actualizan automáticamente.
 
 ```{r  codellaves, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -1818,7 +1858,7 @@ Mostrar_Mensaje:
 }
 ```
 
-Las luces o LED están conectadas al puerto PB/CB del PIO y son dispositivos de salida. La única forma de cambiar su estado es modificando PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente, de lo contrario, las luces se verán apagadas.
+Por otro lado, las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.
 
 ```{r  codeluces, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
