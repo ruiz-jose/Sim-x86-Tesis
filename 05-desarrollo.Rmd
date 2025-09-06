@@ -308,13 +308,17 @@ Se incorporó un visor de instrucciones y datos del programa en memoria, que per
 knitr::include_graphics(path = "images/visorprog.png")
 ```
 
-En VonSim, cuando se escribe un programa en el editor del simulador, es obligatorio que la sección de código inicie con la directiva `org 0x2000h` y que termine con la directiva `end`. Esto se debe a que el simulador comienza a ejecutar la primera instrucción a partir de la dirección de memoria `0x2000h`. De manera complementaria, los datos del programa suelen cargarse a partir de la dirección `0x1000h` mediante la directiva `org 0x1000h`.
+En VonSim, cuando se escribe un programa en el editor del simulador, es obligatorio que la sección de código inicie con la directiva `ORG 0x2000h` y que termine con la directiva `END`. Esto se debe a que el simulador comienza a ejecutar la primera instrucción a partir de la dirección de memoria `0x2000h`. De manera complementaria, los datos del programa suelen cargarse a partir de la dirección `0x1000h` mediante la directiva `ORG 0x1000h`.
 
-En VonSim8, el uso de la directiva `org` para definir la dirección inicial es opcional. Por defecto, si el programa no incluye esta directiva, la primera instrucción se carga en la dirección `0x00h`. En caso de contener instrucciones de interrupción (INT), el simulador asigna automáticamente la dirección `0x08h` como punto de inicio, reservando espacio para el vector de interrupciones.
+En VonSim8, el uso de la directiva `ORG` para definir la dirección inicial es opcional. Por defecto, si el programa no incluye esta directiva, la primera instrucción se carga en la dirección `0x00h`. En caso de contener instrucciones de interrupción (INT), el simulador asigna automáticamente la dirección `0x08h` como punto de inicio, reservando espacio para el vector de interrupciones.
 
 Por una cuestion de compatibilidad se permite cargar programas de manera similar a VonSim, pero en lugar de cargar el programa en la direccion `0x2000h` se debe cargar en la `0x20h`. En este caso, el simulador comienza a ejecutar las instrucciones a partir de la dirección `0x20h`. Para mantener compatibilidad con VonSim, se conserva esta directiva, permitiendo a los usuarios establecer direcciones personalizadas.
 
-Además, en VonSim8 se incorporó la opción de ampliar la fuente en el editor y se añadieron ejemplos prácticos para que el estudiante pueda experimentar directamente con el simulador. También se desarrolló un tour de aprendizaje que guía al usuario a través de las principales funcionalidades, junto con un centro de aprendizaje que ofrece explicaciones y ejemplos básicos.
+```{r org, echo=FALSE, fig.cap="Compatibilitad directiva ORG y END", fig.align = 'center', out.width = "85%"}
+knitr::include_graphics(path = "images/org.png")
+```
+
+Además, en VonSim8 se incorporó la opción de abrir ejemplos prácticos para que el estudiante pueda experimentar directamente con el simulador. También se desarrolló un tour de aprendizaje que guía al usuario a través de las principales funcionalidades, junto con un centro de aprendizaje que ofrece explicaciones y ejemplos básicos.
 
 ```{r editorvonsim, echo=FALSE, fig.cap="Editor con ampliación de fuente y ejemplos", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/editorfuenteejemplo.png")
@@ -1663,7 +1667,7 @@ BL: dirección de memoria donde empieza la cadena
 
 Ejemplo de hola mundo en lenguaje ensamblador para el simulador VonSim8:
 
-```{r  code´pantalla, results='asis', echo=FALSE}
+```{r  codepantalla, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
@@ -1731,70 +1735,64 @@ hlt
 ### Puertos de E/S
 La memoria de entrada/salida está completamente separada de la memoria principal. Para interactuar con ella, se emplean exclusivamente las instrucciones [IN] y [OUT]. Cuando se requiere acceder a un módulo de entrada/salida, la [CPU] activa la señal IO/M, lo que provoca que un selector de chips (chip select) interprete la dirección presente en el bus de direcciones y envíe la señal de activación al módulo correspondiente.
 
-El rango de direcciones asignado a la memoria de entrada/salida abarca desde `00h` hasta `FFh`, lo que permite un total de 256 direcciones.
+El rango de direcciones asignado a la memoria de entrada/salida abarca desde `00h` hasta `FFh`, lo que permite un total de 256 direcciones. A continuación, se presentan las direcciones de entrada/salida disponibles en el simulador, todas de 8 bits:
 
-El rango de direcciones de la memoria de entrada/salida es de `00h` hasta `FFh` (256 direcciones).
-
-
-mejorame la redaccion de este texto:
-
-Puertos de E/S
-La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones [IN] y [OUT]. Cuando se quiere acceder a un módulo de entrada/salida, la [CPU] activa la señal IO/M, lo que causa que un selector de chips (chip select) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.
-
-El rango de direcciones de la memoria de entrada/salida es de 00h hasta FFh (256 direcciones).
-
-Estos son las direcciones de entrada/salida disponibles en el simulador, todos de 8 bits:
-
-Aquí tienes una versión mejorada del texto con un estilo más claro y formal:
-
-Puertos de E/S
-La memoria de entrada/salida está completamente separada de la memoria principal. Para interactuar con ella, se emplean exclusivamente las instrucciones [IN] y [OUT]. Cuando se requiere acceder a un módulo de entrada/salida, la [CPU] activa la señal IO/M, lo que provoca que un selector de chips (chip select) interprete la dirección presente en el bus de direcciones y envíe la señal de lectura o escritura al módulo correspondiente.
-
-El rango de direcciones asignado a la memoria de entrada/salida abarca desde 00h hasta FFh, lo que permite un total de 256 direcciones.
-
-A continuación, se presentan las direcciones de entrada/salida disponibles en el simulador, todas de 8 bits:
-
-```{r tabla_direcciones, echo=FALSE, message=FALSE, warning=FALSE}
+```{r tpuertos, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
-# Crear los datos de la tabla
-tabla_direcciones <- data.frame(
-  Dirección = c("10h", "11h", "20h", "21h", "22h", "23h", "24h", "25h", "26h", "27h", "28h", "29h", "2Ah", "2Bh", "30h", "31h", "32h", "33h", "40h", "41h"),
-  Nombre = c("CONT", "COMP", "EOI", "IMR", "IRR", "ISR", "INT0", "INT1", "INT2", "INT3", "INT4", "INT5", "INT6", "INT7", "PA", "PB", "CA", "CB", "DATA", "STATE"),
-  Módulo = c("[Timer]", "[Timer]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIC]", "[PIO]", "[PIO]", "[PIO]", "[PIO]", "[Handshake]", "[Handshake]")
+
+# Crear los datos de la tabla reorganizada
+tpuertos <- data.frame(
+  Modulo = c(
+    "Timer", "Timer",
+    "PIC", "PIC", "PIC", "PIC", "PIC", "PIC", "PIC", "PIC",
+    "PIC", "PIC", "PIC", "PIC",
+    "PIO", "PIO", "PIO", "PIO",
+    "Handshake", "Handshake"
+  ),
+  Direccion = c(
+    "10h", "11h", "20h", "21h", "22h", "23h", "24h", "25h", "26h", "27h",
+    "28h", "29h", "2Ah", "2Bh", "30h", "31h", "32h", "33h", "40h", "41h"
+  ),
+  Nombre = c(
+    "CONT", "COMP", "EOI", "IMR", "IRR", "ISR", "INT0", "INT1", "INT2", "INT3",
+    "INT4", "INT5", "INT6", "INT7", "PA", "PB", "CA", "CB", "DATA", "STATE"
+  ),
+  stringsAsFactors = FALSE
 )
 
-# Generar la tabla con kable
-tabla_formateada <- kable(tabla_direcciones,
-                          format = ifelse(knitr::is_latex_output(), "latex", "html"),
-                          caption = "Direcciones, nombres y módulos del simulador",
-                          col.names = c("Dirección", "Nombre", "Módulo"),
-                          booktabs = TRUE,
-                          escape = FALSE,
-                          align = c("c", "c", "c"))
+# Crear la tabla con el nuevo orden
+tpuertos <- kable(tpuertos,
+  format               = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption              = "Módulos, direcciones y nombres del simulador",
+  col.names            = c("Módulo", "Dirección", "Nombre"),
+  booktabs             = TRUE,
+  escape               = FALSE,
+  align                = c("c", "c", "c"))
 
-# Aplicar estilos condicionales según el formato de salida
 if (knitr::is_latex_output()) {
-  tabla_formateada %>%
+  tpuertos %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
       font_size = 10,
-      position = "center"
+      position = "right"
     ) %>%
-    column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "3cm") %>%
-    column_spec(3, width = "4cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3")
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "2cm") %>%
+    column_spec(3, width = "6cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(3, extra_latex_after = "\\addlinespace[10pt]")
 } else {
-  tabla_formateada %>%
+  tpuertos %>%
     kable_styling(
       bootstrap_options = c("striped", "hover", "condensed", "responsive"),
       full_width = FALSE,
       position = "center"
     ) %>%
-    column_spec(1, width = "12em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:3, width = "28em") %>%
+    column_spec(1, width = "16em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "12em") %>%
+    column_spec(3, width = "28em") %>%
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
