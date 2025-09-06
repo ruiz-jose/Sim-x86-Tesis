@@ -1803,7 +1803,63 @@ La comunicación con los módulos de entrada/salida se realiza a través de puer
   - `OUT puerto, AL`: envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para transmitir datos a dispositivos externos, como impresoras o pantallas.
   - `IN AL, puerto`: recibe un byte desde el puerto especificado y lo almacena en el registro `AL`.  Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
 
-### Llaves y Leds
+
+### Módulo PIO
+El _programmed input-output_ (PIO) es un módulo que hace de interfaz para conectar dispositivos genéricos al CPU. Está basado en el PPI 8255 de Intel en su modo "0", pero con algunas modificaciones para simplificar su funcionamiento.
+
+Cuenta con dos puertos de 8 bits (A y B) programables. Los registros disponibles son:
+
+  - `PA` (dirección `30h` de la [memoria E/S]),
+  - `PB` (dirección `31h` de la [memoria E/S]),
+  - `CA` (dirección `32h` de la [memoria E/S]),
+  - y `CB` (dirección `33h` de la [memoria E/S]).
+
+El valor del puerto A se encuentra en el registro `PA` y su configuración en el registro `CA`. El registro `CA` también es de 8 bits y le indica al PIO el modo cada bit: un `0` si es de salida y un `1` si es de entrada. Por ejemplo, para `CA = 00001111b`, los cuatro bits más significativos son de salida y los cuatro menos significativos son de entrada. El puerto B funciona idénticamente.
+
+El PIO puede estar conectado a [Leds y llaves] o a una [impresora].
+
+#### Leds
+Las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.
+
+```{r  codeluces, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+; Enciende las luces (una sí, una no): 1010 1010b
+; 31h = PB --> puerto de datos para las luces (LEDs)
+; 33h = CB --> puerto de control para las luces
+
+; Configura todos los bits de PB como salida para controlar las luces
+mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
+out 33h, al              ; Escribe en CB para configurar PB como salida
+
+; Enciende las luces alternadas: 1010 1010b (170 decimal)
+mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
+out 31h, al              ; Escribe el valor en PB para actualizar las luces
+
+hlt                      ; Detiene la ejecución del programa\\end{lstlisting}
+  ")
+} else {
+  cat("
+  ```assembly
+; Enciende las luces (una sí, una no): 1010 1010b
+; 31h = PB --> puerto de datos para las luces (LEDs)
+; 33h = CB --> puerto de control para las luces
+
+; Configura todos los bits de PB como salida para controlar las luces
+mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
+out 33h, al              ; Escribe en CB para configurar PB como salida
+
+; Enciende las luces alternadas: 1010 1010b (170 decimal)
+mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
+out 31h, al              ; Escribe el valor en PB para actualizar las luces
+
+hlt                      ; Detiene la ejecución del programa
+```")
+}
+```
+
+#### Llaves
 Las llaves o interruptores están conectados al puerto PA/CA del PIO y funcionan como dispositivos de entrada. Al cambiar su estado, este se refleja en el puerto PA, siempre que el PIO esté configurado correctamente. Sin embargo, si se modifica directamente el valor de PA, los cambios no se reflejarán en las llaves, ya que estas no se actualizan automáticamente.
 
 ```{r  codellaves, results='asis', echo=FALSE}
@@ -1856,45 +1912,78 @@ Mostrar_Mensaje:
 }
 ```
 
-Por otro lado, las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.
+#### Impresora con PIO
+Una opción es conectar la impresora al [PIO]. La conexión queda así:
 
-```{r  codeluces, results='asis', echo=FALSE}
-if (knitr::is_latex_output()) {
-  cat("
-  \\begin{lstlisting}
-; Enciende las luces (una sí, una no): 1010 1010b
-; 31h = PB --> puerto de datos para las luces (LEDs)
-; 33h = CB --> puerto de control para las luces
-
-; Configura todos los bits de PB como salida para controlar las luces
-mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
-out 33h, al              ; Escribe en CB para configurar PB como salida
-
-; Enciende las luces alternadas: 1010 1010b (170 decimal)
-mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
-out 31h, al              ; Escribe el valor en PB para actualizar las luces
-
-hlt                      ; Detiene la ejecución del programa\\end{lstlisting}
-  ")
-} else {
-  cat("
-  ```assembly
-; Enciende las luces (una sí, una no): 1010 1010b
-; 31h = PB --> puerto de datos para las luces (LEDs)
-; 33h = CB --> puerto de control para las luces
-
-; Configura todos los bits de PB como salida para controlar las luces
-mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
-out 33h, al              ; Escribe en CB para configurar PB como salida
-
-; Enciende las luces alternadas: 1010 1010b (170 decimal)
-mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
-out 31h, al              ; Escribe el valor en PB para actualizar las luces
-
-hlt                      ; Detiene la ejecución del programa
-```")
-}
+```vonsim
+PA = ____ __SB
+PB = DDDD DDDD
 ```
+
+En `PB` se almacenará carácter a imprimir, expresado en ASCII. En `PA`, los seis bits más significativos no hacen nada. El bit menos significativo es la flag _busy_. Y el que queda es el _strobe_.
+
+El _strobe_ es el bit que le indica a la impresora que queremos imprimir. Las impresoras Centronics toman el valor en `PB` cuando detectan un flanco ascendente en el _strobe_. Es decir, una transición de `S=0` a `S=1`.
+
+En resumen, para imprimir un carácter, hay que
+
+  1. verificar que el _buffer_ no esté lleno (flag _busy_),
+  2. escribir el carácter en `PB`,
+  3. poner el _strobe_ en 0,
+  4. poner el _strobe_ en 1.
+
+
+```vonsim
+; Imprime el string "hola" en la impresora usando PIO
+
+dato db "hola", 0         ; String a imprimir, terminado en 0
+
+PA EQU 30h                ; Puerto A: strobe y busy
+PB EQU 31h                ; Puerto B: datos
+CA EQU 32h                ; Control A
+CB EQU 33h                ; Control B
+
+; --- Configuración de PIO ---
+mov al, 0                 ; PA como salida (strobe)
+out CA, al
+mov al, 0                 ; PB como salida (datos)
+out CB, al
+
+; --- Inicializar strobe en 0 ---
+in  al, PA
+and al, 11111101b         ; Bit 1 (strobe) a 0
+out PA, al
+
+mov bl, offset dato       ; BL apunta al inicio del string
+
+sondeo:
+    in  al, PA
+    and al, 00000001b     ; ¿Buffer lleno? (busy)
+    jz  imprimir_cadena   ; Si busy es 0, salta a imprimir
+    jmp sondeo            ; Si busy es 1, sigue esperando
+
+imprimir_cadena:
+    mov al, [bl]          ; Siguiente carácter
+    cmp al, 0             ; ¿Fin del string?
+    jz  fin
+
+    out PB, al            ; Enviar carácter a PB
+
+    ; --- Generar flanco ascendente en strobe ---
+    in  al, PA
+    or  al, 00000010b     ; Strobe a 1
+    out PA, al
+    in  al, PA
+    and al, 11111101b     ; Strobe a 0
+    out PA, al
+
+    inc bl                ; Siguiente carácter
+    jmp sondeo
+
+fin:
+    hlt
+```
+
+
 
 Actualmente el código de operación de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el código de operación 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
 
