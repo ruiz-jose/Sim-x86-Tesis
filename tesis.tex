@@ -3443,8 +3443,51 @@ La comunicación con los módulos de entrada/salida se realiza a través de puer
   \texttt{IN\ AL,\ puerto}: recibe un byte desde el puerto especificado y lo almacena en el registro \texttt{AL}. Al igual que la instrucción \texttt{OUT}, el puerto es una dirección de 8 bits.
 \end{itemize}
 
-\hypertarget{llaves-y-leds}{%
-\subsection{Llaves y Leds}\label{llaves-y-leds}}
+\hypertarget{muxf3dulo-pio}{%
+\subsection{Módulo PIO}\label{muxf3dulo-pio}}
+
+El \emph{programmed input-output} (PIO) es un módulo que hace de interfaz para conectar dispositivos genéricos al CPU. Está basado en el PPI 8255 de Intel en su modo ``0'', pero con algunas modificaciones para simplificar su funcionamiento.
+
+Cuenta con dos puertos de 8 bits (A y B) programables. Los registros disponibles son:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{PA} (dirección \texttt{30h} de la {[}memoria E/S{]}),
+\item
+  \texttt{PB} (dirección \texttt{31h} de la {[}memoria E/S{]}),
+\item
+  \texttt{CA} (dirección \texttt{32h} de la {[}memoria E/S{]}),
+\item
+  y \texttt{CB} (dirección \texttt{33h} de la {[}memoria E/S{]}).
+\end{itemize}
+
+El valor del puerto A se encuentra en el registro \texttt{PA} y su configuración en el registro \texttt{CA}. El registro \texttt{CA} también es de 8 bits y le indica al PIO el modo cada bit: un \texttt{0} si es de salida y un \texttt{1} si es de entrada. Por ejemplo, para \texttt{CA\ =\ 00001111b}, los cuatro bits más significativos son de salida y los cuatro menos significativos son de entrada. El puerto B funciona idénticamente.
+
+El PIO puede estar conectado a {[}Leds y llaves{]} o a una {[}impresora{]}.
+
+\hypertarget{leds}{%
+\subsubsection{Leds}\label{leds}}
+
+Las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.
+
+\begin{lstlisting}
+; Enciende las luces (una sí, una no): 1010 1010b
+; 31h = PB --> puerto de datos para las luces (LEDs)
+; 33h = CB --> puerto de control para las luces
+
+; Configura todos los bits de PB como salida para controlar las luces
+mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
+out 33h, al              ; Escribe en CB para configurar PB como salida
+
+; Enciende las luces alternadas: 1010 1010b (170 decimal)
+mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
+out 31h, al              ; Escribe el valor en PB para actualizar las luces
+
+hlt                      ; Detiene la ejecución del programa\end{lstlisting}
+
+\hypertarget{llaves}{%
+\subsubsection{Llaves}\label{llaves}}
 
 Las llaves o interruptores están conectados al puerto PA/CA del PIO y funcionan como dispositivos de entrada. Al cambiar su estado, este se refleja en el puerto PA, siempre que el PIO esté configurado correctamente. Sin embargo, si se modifica directamente el valor de PA, los cambios no se reflejarán en las llaves, ya que estas no se actualizan automáticamente.
 
@@ -3469,22 +3512,89 @@ Mostrar_Mensaje:
     mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
     hlt                       ; Detiene la ejecución del programa\end{lstlisting}
 
-Por otro lado, las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.
+\hypertarget{impresora-con-pio}{%
+\subsubsection{Impresora con PIO}\label{impresora-con-pio}}
 
-\begin{lstlisting}
-; Enciende las luces (una sí, una no): 1010 1010b
-; 31h = PB --> puerto de datos para las luces (LEDs)
-; 33h = CB --> puerto de control para las luces
+Una opción es conectar la impresora al {[}PIO{]}. La conexión queda así:
 
-; Configura todos los bits de PB como salida para controlar las luces
-mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
-out 33h, al              ; Escribe en CB para configurar PB como salida
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{PA = \_\_\_\_ \_\_SB}
+\NormalTok{PB = DDDD DDDD}
+\end{Highlighting}
+\end{Shaded}
 
-; Enciende las luces alternadas: 1010 1010b (170 decimal)
-mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
-out 31h, al              ; Escribe el valor en PB para actualizar las luces
+En \texttt{PB} se almacenará carácter a imprimir, expresado en ASCII. En \texttt{PA}, los seis bits más significativos no hacen nada. El bit menos significativo es la flag \emph{busy}. Y el que queda es el \emph{strobe}.
 
-hlt                      ; Detiene la ejecución del programa\end{lstlisting}
+El \emph{strobe} es el bit que le indica a la impresora que queremos imprimir. Las impresoras Centronics toman el valor en \texttt{PB} cuando detectan un flanco ascendente en el \emph{strobe}. Es decir, una transición de \texttt{S=0} a \texttt{S=1}.
+
+En resumen, para imprimir un carácter, hay que
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  verificar que el \emph{buffer} no esté lleno (flag \emph{busy}),
+\item
+  escribir el carácter en \texttt{PB},
+\item
+  poner el \emph{strobe} en 0,
+\item
+  poner el \emph{strobe} en 1.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{; Imprime el string "hola" en la impresora usando PIO}
+
+\NormalTok{dato db "hola", 0         ; String a imprimir, terminado en 0}
+
+\NormalTok{PA EQU 30h                ; Puerto A: strobe y busy}
+\NormalTok{PB EQU 31h                ; Puerto B: datos}
+\NormalTok{CA EQU 32h                ; Control A}
+\NormalTok{CB EQU 33h                ; Control B}
+
+\NormalTok{; {-}{-}{-} Configuración de PIO {-}{-}{-}}
+\NormalTok{mov al, 0                 ; PA como salida (strobe)}
+\NormalTok{out CA, al}
+\NormalTok{mov al, 0                 ; PB como salida (datos)}
+\NormalTok{out CB, al}
+
+\NormalTok{; {-}{-}{-} Inicializar strobe en 0 {-}{-}{-}}
+\NormalTok{in  al, PA}
+\NormalTok{and al, 11111101b         ; Bit 1 (strobe) a 0}
+\NormalTok{out PA, al}
+
+\NormalTok{mov bl, offset dato       ; BL apunta al inicio del string}
+
+\NormalTok{sondeo:}
+\NormalTok{    in  al, PA}
+\NormalTok{    and al, 00000001b     ; ¿Buffer lleno? (busy)}
+\NormalTok{    jz  imprimir\_cadena   ; Si busy es 0, salta a imprimir}
+\NormalTok{    jmp sondeo            ; Si busy es 1, sigue esperando}
+
+\NormalTok{imprimir\_cadena:}
+\NormalTok{    mov al, [bl]          ; Siguiente carácter}
+\NormalTok{    cmp al, 0             ; ¿Fin del string?}
+\NormalTok{    jz  fin}
+
+\NormalTok{    out PB, al            ; Enviar carácter a PB}
+
+\NormalTok{    ; {-}{-}{-} Generar flanco ascendente en strobe {-}{-}{-}}
+\NormalTok{    in  al, PA}
+\NormalTok{    or  al, 00000010b     ; Strobe a 1}
+\NormalTok{    out PA, al}
+\NormalTok{    in  al, PA}
+\NormalTok{    and al, 11111101b     ; Strobe a 0}
+\NormalTok{    out PA, al}
+
+\NormalTok{    inc bl                ; Siguiente carácter}
+\NormalTok{    jmp sondeo}
+
+\NormalTok{fin:}
+\NormalTok{    hlt}
+\end{Highlighting}
+\end{Shaded}
 
 Actualmente el código de operación de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el código de operación 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
 

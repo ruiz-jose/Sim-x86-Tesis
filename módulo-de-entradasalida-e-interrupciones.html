@@ -284,7 +284,7 @@ div.csl-indent {
 <li class="chapter" data-level="5.4.5" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#teclado"><i class="fa fa-check"></i><b>5.4.5</b> Teclado</a></li>
 <li class="chapter" data-level="5.4.6" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#puertos-de-es"><i class="fa fa-check"></i><b>5.4.6</b> Puertos de E/S</a></li>
 <li class="chapter" data-level="5.4.7" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out"><i class="fa fa-check"></i><b>5.4.7</b> Instrucciones IN y OUT</a></li>
-<li class="chapter" data-level="5.4.8" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#llaves-y-leds"><i class="fa fa-check"></i><b>5.4.8</b> Llaves y Leds</a></li>
+<li class="chapter" data-level="5.4.8" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#módulo-pio"><i class="fa fa-check"></i><b>5.4.8</b> Módulo PIO</a></li>
 <li class="chapter" data-level="5.4.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#etapa-de-ejecución-de-instrucciones"><i class="fa fa-check"></i><b>5.4.9</b> Etapa de ejecución de instrucciones</a></li>
 </ul></li>
 </ul></li>
@@ -806,8 +806,37 @@ STATE
 <li><code>IN AL, puerto</code>: recibe un byte desde el puerto especificado y lo almacena en el registro <code>AL</code>. Al igual que la instrucción <code>OUT</code>, el puerto es una dirección de 8 bits.</li>
 </ul>
 </div>
-<div id="llaves-y-leds" class="section level3 hasAnchor" number="5.4.8">
-<h3><span class="header-section-number">5.4.8</span> Llaves y Leds<a href="módulo-de-entradasalida-e-interrupciones.html#llaves-y-leds" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="módulo-pio" class="section level3 hasAnchor" number="5.4.8">
+<h3><span class="header-section-number">5.4.8</span> Módulo PIO<a href="módulo-de-entradasalida-e-interrupciones.html#módulo-pio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El <em>programmed input-output</em> (PIO) es un módulo que hace de interfaz para conectar dispositivos genéricos al CPU. Está basado en el PPI 8255 de Intel en su modo “0”, pero con algunas modificaciones para simplificar su funcionamiento.</p>
+<p>Cuenta con dos puertos de 8 bits (A y B) programables. Los registros disponibles son:</p>
+<ul>
+<li><code>PA</code> (dirección <code>30h</code> de la [memoria E/S]),</li>
+<li><code>PB</code> (dirección <code>31h</code> de la [memoria E/S]),</li>
+<li><code>CA</code> (dirección <code>32h</code> de la [memoria E/S]),</li>
+<li>y <code>CB</code> (dirección <code>33h</code> de la [memoria E/S]).</li>
+</ul>
+<p>El valor del puerto A se encuentra en el registro <code>PA</code> y su configuración en el registro <code>CA</code>. El registro <code>CA</code> también es de 8 bits y le indica al PIO el modo cada bit: un <code>0</code> si es de salida y un <code>1</code> si es de entrada. Por ejemplo, para <code>CA = 00001111b</code>, los cuatro bits más significativos son de salida y los cuatro menos significativos son de entrada. El puerto B funciona idénticamente.</p>
+<p>El PIO puede estar conectado a [Leds y llaves] o a una [impresora].</p>
+<div id="leds" class="section level4 hasAnchor" number="5.4.8.1">
+<h4><span class="header-section-number">5.4.8.1</span> Leds<a href="módulo-de-entradasalida-e-interrupciones.html#leds" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.</p>
+<pre class="assembly"><code>; Enciende las luces (una sí, una no): 1010 1010b
+; 31h = PB --&gt; puerto de datos para las luces (LEDs)
+; 33h = CB --&gt; puerto de control para las luces
+
+; Configura todos los bits de PB como salida para controlar las luces
+mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
+out 33h, al              ; Escribe en CB para configurar PB como salida
+
+; Enciende las luces alternadas: 1010 1010b (170 decimal)
+mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
+out 31h, al              ; Escribe el valor en PB para actualizar las luces
+
+hlt                      ; Detiene la ejecución del programa</code></pre>
+</div>
+<div id="llaves" class="section level4 hasAnchor" number="5.4.8.2">
+<h4><span class="header-section-number">5.4.8.2</span> Llaves<a href="módulo-de-entradasalida-e-interrupciones.html#llaves" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Las llaves o interruptores están conectados al puerto PA/CA del PIO y funcionan como dispositivos de entrada. Al cambiar su estado, este se refleja en el puerto PA, siempre que el PIO esté configurado correctamente. Sin embargo, si se modifica directamente el valor de PA, los cambios no se reflejarán en las llaves, ya que estas no se actualizan automáticamente.</p>
 <pre class="assembly"><code>; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
 
@@ -828,21 +857,71 @@ Mostrar_Mensaje:
   mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
   mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
   hlt                       ; Detiene la ejecución del programa</code></pre>
-<p>Por otro lado, las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.</p>
-<pre class="assembly"><code>; Enciende las luces (una sí, una no): 1010 1010b
-; 31h = PB --&gt; puerto de datos para las luces (LEDs)
-; 33h = CB --&gt; puerto de control para las luces
+</div>
+<div id="impresora-con-pio" class="section level4 hasAnchor" number="5.4.8.3">
+<h4><span class="header-section-number">5.4.8.3</span> Impresora con PIO<a href="módulo-de-entradasalida-e-interrupciones.html#impresora-con-pio" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Una opción es conectar la impresora al [PIO]. La conexión queda así:</p>
+<pre class="vonsim"><code>PA = ____ __SB
+PB = DDDD DDDD</code></pre>
+<p>En <code>PB</code> se almacenará carácter a imprimir, expresado en ASCII. En <code>PA</code>, los seis bits más significativos no hacen nada. El bit menos significativo es la flag <em>busy</em>. Y el que queda es el <em>strobe</em>.</p>
+<p>El <em>strobe</em> es el bit que le indica a la impresora que queremos imprimir. Las impresoras Centronics toman el valor en <code>PB</code> cuando detectan un flanco ascendente en el <em>strobe</em>. Es decir, una transición de <code>S=0</code> a <code>S=1</code>.</p>
+<p>En resumen, para imprimir un carácter, hay que</p>
+<ol style="list-style-type: decimal">
+<li>verificar que el <em>buffer</em> no esté lleno (flag <em>busy</em>),</li>
+<li>escribir el carácter en <code>PB</code>,</li>
+<li>poner el <em>strobe</em> en 0,</li>
+<li>poner el <em>strobe</em> en 1.</li>
+</ol>
+<pre class="vonsim"><code>; Imprime el string &quot;hola&quot; en la impresora usando PIO
 
-; Configura todos los bits de PB como salida para controlar las luces
-mov al, 0                ; 0000 0000b: todos los bits de PB en modo salida
-out 33h, al              ; Escribe en CB para configurar PB como salida
+dato db &quot;hola&quot;, 0         ; String a imprimir, terminado en 0
 
-; Enciende las luces alternadas: 1010 1010b (170 decimal)
-mov al, 170              ; 1010 1010b: enciende LEDs pares, apaga impares
-out 31h, al              ; Escribe el valor en PB para actualizar las luces
+PA EQU 30h                ; Puerto A: strobe y busy
+PB EQU 31h                ; Puerto B: datos
+CA EQU 32h                ; Control A
+CB EQU 33h                ; Control B
 
-hlt                      ; Detiene la ejecución del programa</code></pre>
+; --- Configuración de PIO ---
+mov al, 0                 ; PA como salida (strobe)
+out CA, al
+mov al, 0                 ; PB como salida (datos)
+out CB, al
+
+; --- Inicializar strobe en 0 ---
+in  al, PA
+and al, 11111101b         ; Bit 1 (strobe) a 0
+out PA, al
+
+mov bl, offset dato       ; BL apunta al inicio del string
+
+sondeo:
+    in  al, PA
+    and al, 00000001b     ; ¿Buffer lleno? (busy)
+    jz  imprimir_cadena   ; Si busy es 0, salta a imprimir
+    jmp sondeo            ; Si busy es 1, sigue esperando
+
+imprimir_cadena:
+    mov al, [bl]          ; Siguiente carácter
+    cmp al, 0             ; ¿Fin del string?
+    jz  fin
+
+    out PB, al            ; Enviar carácter a PB
+
+    ; --- Generar flanco ascendente en strobe ---
+    in  al, PA
+    or  al, 00000010b     ; Strobe a 1
+    out PA, al
+    in  al, PA
+    and al, 11111101b     ; Strobe a 0
+    out PA, al
+
+    inc bl                ; Siguiente carácter
+    jmp sondeo
+
+fin:
+    hlt</code></pre>
 <p>Actualmente el código de operación de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el código de operación 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.</p>
+</div>
 </div>
 <div id="etapa-de-ejecución-de-instrucciones" class="section level3 hasAnchor" number="5.4.9">
 <h3><span class="header-section-number">5.4.9</span> Etapa de ejecución de instrucciones<a href="módulo-de-entradasalida-e-interrupciones.html#etapa-de-ejecución-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
