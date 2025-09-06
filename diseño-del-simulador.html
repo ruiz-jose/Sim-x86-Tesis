@@ -282,8 +282,8 @@ div.csl-indent {
 <li class="chapter" data-level="5.4.3" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#llamadas-al-sistema"><i class="fa fa-check"></i><b>5.4.3</b> Llamadas al sistema</a></li>
 <li class="chapter" data-level="5.4.4" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#pantalla"><i class="fa fa-check"></i><b>5.4.4</b> Pantalla</a></li>
 <li class="chapter" data-level="5.4.5" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#teclado"><i class="fa fa-check"></i><b>5.4.5</b> Teclado</a></li>
-<li class="chapter" data-level="5.4.6" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out"><i class="fa fa-check"></i><b>5.4.6</b> Instrucciones IN y OUT</a></li>
-<li class="chapter" data-level="5.4.7" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#puertos-de-es"><i class="fa fa-check"></i><b>5.4.7</b> Puertos de E/S</a></li>
+<li class="chapter" data-level="5.4.6" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#puertos-de-es"><i class="fa fa-check"></i><b>5.4.6</b> Puertos de E/S</a></li>
+<li class="chapter" data-level="5.4.7" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out"><i class="fa fa-check"></i><b>5.4.7</b> Instrucciones IN y OUT</a></li>
 <li class="chapter" data-level="5.4.8" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#llaves-y-leds"><i class="fa fa-check"></i><b>5.4.8</b> Llaves y Leds</a></li>
 <li class="chapter" data-level="5.4.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#etapa-de-ejecución-de-instrucciones"><i class="fa fa-check"></i><b>5.4.9</b> Etapa de ejecución de instrucciones</a></li>
 </ul></li>
@@ -435,28 +435,34 @@ Figura 5.15: Resaltado vector de interrupciones
 Figura 5.16: Visor de instrucciones y datos del programa en memoria
 </p>
 </div>
-<p>En VonSim, cuando se escribe un programa en el editor del simulador, es obligatorio que la sección de código inicie con la directiva <code>org 0x2000h</code> y que termine con la directiva <code>end</code>. Esto se debe a que el simulador comienza a ejecutar la primera instrucción a partir de la dirección de memoria <code>0x2000h</code>. De manera complementaria, los datos del programa suelen cargarse a partir de la dirección <code>0x1000h</code> mediante la directiva <code>org 0x1000h</code>.</p>
-<p>En VonSim8, el uso de la directiva <code>org</code> para definir la dirección inicial es opcional. Por defecto, si el programa no incluye esta directiva, la primera instrucción se carga en la dirección <code>0x00h</code>. En caso de contener instrucciones de interrupción (INT), el simulador asigna automáticamente la dirección <code>0x08h</code> como punto de inicio, reservando espacio para el vector de interrupciones.</p>
+<p>En VonSim, cuando se escribe un programa en el editor del simulador, es obligatorio que la sección de código inicie con la directiva <code>ORG 0x2000h</code> y que termine con la directiva <code>END</code>. Esto se debe a que el simulador comienza a ejecutar la primera instrucción a partir de la dirección de memoria <code>0x2000h</code>. De manera complementaria, los datos del programa suelen cargarse a partir de la dirección <code>0x1000h</code> mediante la directiva <code>ORG 0x1000h</code>.</p>
+<p>En VonSim8, el uso de la directiva <code>ORG</code> para definir la dirección inicial es opcional. Por defecto, si el programa no incluye esta directiva, la primera instrucción se carga en la dirección <code>0x00h</code>. En caso de contener instrucciones de interrupción (INT), el simulador asigna automáticamente la dirección <code>0x08h</code> como punto de inicio, reservando espacio para el vector de interrupciones.</p>
 <p>Por una cuestion de compatibilidad se permite cargar programas de manera similar a VonSim, pero en lugar de cargar el programa en la direccion <code>0x2000h</code> se debe cargar en la <code>0x20h</code>. En este caso, el simulador comienza a ejecutar las instrucciones a partir de la dirección <code>0x20h</code>. Para mantener compatibilidad con VonSim, se conserva esta directiva, permitiendo a los usuarios establecer direcciones personalizadas.</p>
-<p>Además, en VonSim8 se incorporó la opción de ampliar la fuente en el editor y se añadieron ejemplos prácticos para que el estudiante pueda experimentar directamente con el simulador. También se desarrolló un tour de aprendizaje que guía al usuario a través de las principales funcionalidades, junto con un centro de aprendizaje que ofrece explicaciones y ejemplos básicos.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:org"></span>
+<img src="images/org.png" alt="Compatibilitad directiva ORG y END" width="85%" />
+<p class="caption">
+Figura 5.17: Compatibilitad directiva ORG y END
+</p>
+</div>
+<p>Además, en VonSim8 se incorporó la opción de abrir ejemplos prácticos para que el estudiante pueda experimentar directamente con el simulador. También se desarrolló un tour de aprendizaje que guía al usuario a través de las principales funcionalidades, junto con un centro de aprendizaje que ofrece explicaciones y ejemplos básicos.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:editorvonsim"></span>
 <img src="images/editorfuenteejemplo.png" alt="Editor con ampliación de fuente y ejemplos" width="85%" />
 <p class="caption">
-Figura 5.17: Editor con ampliación de fuente y ejemplos
+Figura 5.18: Editor con ampliación de fuente y ejemplos
 </p>
 </div>
 <p>Se ha mejorado el diseño de la unidad de control incorporando, dentro del decodificador, una memoria de control y un secuenciador. Estos componentes permiten representar el ciclo de instrucción de manera detallada, mostrando las microoperaciones y las señales de control generadas en cada etapa del proceso.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:decodificador"></span>
 <img src="images/decodificador.png" alt="Decodificador en VonSim8" width="85%" />
 <p class="caption">
-Figura 5.18: Decodificador en VonSim8
+Figura 5.19: Decodificador en VonSim8
 </p>
 </div>
 <p>Con el fin de facilitar el aprendizaje del simulador VonSim8 se implementó un tour de aprendizaje que guía a los usuarios a través de las características y funcionalidades del simulador. También se incluye un centro de aprendizaje con explicación de ejemplos básicos.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tour"></span>
 <img src="images/tour.png" alt="Tour de aprendizaje en VonSim8" width="85%" />
 <p class="caption">
-Figura 5.19: Tour de aprendizaje en VonSim8
+Figura 5.20: Tour de aprendizaje en VonSim8
 </p>
 </div>
 <p>A fin de sintetizar las diferencias más relevantes entre VonSim y VonSim8, se presenta la siguiente tabla comparativa. Esta permite visualizar de manera inmediata los cambios introducidos en el diseño y su impacto en la enseñanza de los conceptos fundamentales de arquitectura de computadoras.</p>
@@ -842,7 +848,7 @@ Flag de interrupción (Interrupt)
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:memoria"></span>
 <img src="images/memoria.png" alt="Memoria principal" width="85%" />
 <p class="caption">
-Figura 5.20: Memoria principal
+Figura 5.21: Memoria principal
 </p>
 </div>
 </div>
@@ -852,7 +858,7 @@ Figura 5.20: Memoria principal
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:buses"></span>
 <img src="images/buses.png" alt="Buses" width="85%" />
 <p class="caption">
-Figura 5.21: Buses
+Figura 5.22: Buses
 </p>
 </div>
 <p>Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Los multiplexores dirigen las señales hacia los registros y la ALU (Unidad Aritmético-Lógica), facilitando el flujo de datos dentro del procesador. Un multiplexor (MUX) funciona como un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una y solo una de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida <span class="citation">(<a href="#ref-mano2017digital">Mano and Ciletti 2017</a>)</span>.</p>
@@ -1179,13 +1185,13 @@ Puede ser:
 registro <code>Ry</code>
 </li>
 <li>
-dirección <code>[M]</code>
+dirección <code>[M]</code> (1)
 </li>
 <li>
-dirección registro <code>[BL]</code>
+dirección registro <code>[BL]</code> (2)
 </li>
 <li>
-valor inmediato <code>d</code>
+valor inmediato <code>d</code> (3)
 </li>
 </ul>
 </td>

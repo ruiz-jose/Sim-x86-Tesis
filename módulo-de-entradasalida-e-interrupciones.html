@@ -282,8 +282,8 @@ div.csl-indent {
 <li class="chapter" data-level="5.4.3" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#llamadas-al-sistema"><i class="fa fa-check"></i><b>5.4.3</b> Llamadas al sistema</a></li>
 <li class="chapter" data-level="5.4.4" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#pantalla"><i class="fa fa-check"></i><b>5.4.4</b> Pantalla</a></li>
 <li class="chapter" data-level="5.4.5" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#teclado"><i class="fa fa-check"></i><b>5.4.5</b> Teclado</a></li>
-<li class="chapter" data-level="5.4.6" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out"><i class="fa fa-check"></i><b>5.4.6</b> Instrucciones IN y OUT</a></li>
-<li class="chapter" data-level="5.4.7" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#puertos-de-es"><i class="fa fa-check"></i><b>5.4.7</b> Puertos de E/S</a></li>
+<li class="chapter" data-level="5.4.6" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#puertos-de-es"><i class="fa fa-check"></i><b>5.4.6</b> Puertos de E/S</a></li>
+<li class="chapter" data-level="5.4.7" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out"><i class="fa fa-check"></i><b>5.4.7</b> Instrucciones IN y OUT</a></li>
 <li class="chapter" data-level="5.4.8" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#llaves-y-leds"><i class="fa fa-check"></i><b>5.4.8</b> Llaves y Leds</a></li>
 <li class="chapter" data-level="5.4.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#etapa-de-ejecución-de-instrucciones"><i class="fa fa-check"></i><b>5.4.9</b> Etapa de ejecución de instrucciones</a></li>
 </ul></li>
@@ -328,11 +328,11 @@ div.csl-indent {
 <li>Un PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador (timer) y su reloj.</li>
 <li>Handshake, que puede conectarse tanto a un PIO como a un PIC.</li>
 </ul>
-<p>La Figura <a href="módulo-de-entradasalida-e-interrupciones.html#fig:dispositivos">5.23</a> presenta una visión de los dispositivos que pueden conectarse al simulador.</p>
+<p>La Figura <a href="módulo-de-entradasalida-e-interrupciones.html#fig:dispositivos">5.24</a> presenta una visión de los dispositivos que pueden conectarse al simulador.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:dispositivos"></span>
 <img src="images/esquemavonsim8.png" alt="Arquitectura general del simulador" width="85%" />
 <p class="caption">
-Figura 5.23: Arquitectura general del simulador
+Figura 5.24: Arquitectura general del simulador
 </p>
 </div>
 <p>El componente chipSelect se encarga de activar el dispositivo correspondiente en cada momento. Para ello, recibe las señales de control del CPU junto con el bus de direcciones, y genera las señales de selección de chip (CS) necesarias para habilitar el dispositivo adecuado.</p>
@@ -493,7 +493,7 @@ Operaciones lógicas y aritméticas
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tecladopantalla"></span>
 <img src="images/tecladopantalla.png" alt="Teclado y pantalla" width="85%" />
 <p class="caption">
-Figura 5.24: Teclado y pantalla
+Figura 5.25: Teclado y pantalla
 </p>
 </div>
 <p>El vector de interrupciones está predefinido en posiciones reservadas de la memoria principal, donde se almacenan las direcciones de las rutinas del sistema para interactuar con el teclado y la pantalla. En el caso de las interrupciones por software, el número de interrupción se indica como operando en la instrucción <code>INT</code>. Al producirse una interrupción, el procesador ejecuta la rutina asociada al número de interrupción, cuya dirección de inicio se obtiene del vector de interrupciones. Este vector ocupa las celdas de memoria desde <code>00h</code> hasta <code>07h</code>, y cada elemento tiene 1 byte de longitud, correspondiendo cada uno a la dirección de inicio de la rutina respectiva.</p>
@@ -526,12 +526,12 @@ Figura 5.24: Teclado y pantalla
 <p>AL: longitud de la cadena a imprimir
 BL: dirección de memoria donde empieza la cadena</p>
 <p>Ejemplo de hola mundo en lenguaje ensamblador para el simulador VonSim8:</p>
-<pre class="assembly"><code>cadena db `Hola!`
-mov BL, offset cadena
-mov AL, 5
-int 7
+<pre class="assembly"><code>cadena DB `Hola!`
+MOV BL, offset cadena
+MOV AL, 5
+INT 7
 ; Se imprime Hola! (sin las comillas) en la pantalla.
-hlt</code></pre>
+HLT</code></pre>
 <p>Hay tres caracteres especiales:</p>
 <ul>
 <li>el carácter de retroceso (<code>BS</code>, 8 en decimal) borra el carácter previo;</li>
@@ -553,132 +553,262 @@ hlt
 ; Por ejemplo, si el usuario presionó la tecla &#39;a&#39;, entonces
 ; se almacena el valor 61h en &#39;car&#39;.</code></pre>
 </div>
-<div id="instrucciones-in-y-out" class="section level3 hasAnchor" number="5.4.6">
-<h3><span class="header-section-number">5.4.6</span> Instrucciones IN y OUT<a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Para la comunicacion con los módulos de entrada/salida se utilizan puertos, que son direcciones especiales en el espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones para manejar la comunicación con los puertos:
-- <code>OUT puerto, AL</code>: Esta instrucción envía el contenido del registro <code>AL</code> al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de <code>00h</code> a <code>FFh</code>). Esta instrucción se utiliza para enviar datos a dispositivos externos, como impresoras o pantallas.
-- <code>IN AL, puerto</code>: Esta instrucción recibe un byte desde el puerto especificado y lo almacena en el registro <code>AL</code>. Al igual que la instrucción <code>OUT</code>, el puerto es una dirección de 8 bits.</p>
-</div>
-<div id="puertos-de-es" class="section level3 hasAnchor" number="5.4.7">
-<h3><span class="header-section-number">5.4.7</span> Puertos de E/S<a href="módulo-de-entradasalida-e-interrupciones.html#puertos-de-es" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La memoria de entrada/salida se encuentra aislada de la memoria principal. Es decir, para acceder a ella se utilizan exclusivamente las instrucciones [<code>IN</code>] y [<code>OUT</code>]). Cuando se quiere acceder a un módulo de entrada/salida, la [CPU] activa la señal <code>IO/M</code>, lo que causa que un selector de chips (<em>chip select</em>) lea la dirección del bus del direcciones y envíe la señal de lectura/escritura al módulo correspondiente.</p>
-<p>El rango de direcciones de la memoria de entrada/salida es de <code>00h</code> hasta <code>FFh</code> (256 direcciones).</p>
-<p>Estos son las direcciones de entrada/salida disponibles en el simulador, todos de 8 bits:</p>
-<table>
+<div id="puertos-de-es" class="section level3 hasAnchor" number="5.4.6">
+<h3><span class="header-section-number">5.4.6</span> Puertos de E/S<a href="módulo-de-entradasalida-e-interrupciones.html#puertos-de-es" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La memoria de entrada/salida está completamente separada de la memoria principal. Para interactuar con ella, se emplean exclusivamente las instrucciones [IN] y [OUT]. Cuando se requiere acceder a un módulo de entrada/salida, la [CPU] activa la señal IO/M, lo que provoca que un selector de chips (chip select) interprete la dirección presente en el bus de direcciones y envíe la señal de activación al módulo correspondiente.</p>
+<p>El rango de direcciones asignado a la memoria de entrada/salida abarca desde <code>00h</code> hasta <code>FFh</code>, lo que permite un total de 256 direcciones. A continuación, se presentan las direcciones de entrada/salida disponibles en el simulador, todas de 8 bits:</p>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:tpuertos">Tabla 5.13: </span>Módulos, direcciones y nombres del simulador
+</caption>
 <thead>
-<tr class="header">
-<th align="center">Dirección</th>
-<th align="center">Nombre</th>
-<th align="left">Módulo</th>
+<tr>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Módulo
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Dirección
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Nombre
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td align="center"><code>10h</code></td>
-<td align="center"><code>CONT</code></td>
-<td align="left">[Timer]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+Timer
+</td>
+<td style="text-align:center;width: 12em; ">
+10h
+</td>
+<td style="text-align:center;width: 28em; ">
+CONT
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>11h</code></td>
-<td align="center"><code>COMP</code></td>
-<td align="left">[Timer]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+Timer
+</td>
+<td style="text-align:center;width: 12em; ">
+11h
+</td>
+<td style="text-align:center;width: 28em; ">
+COMP
+</td>
 </tr>
-<tr class="odd">
-<td align="center"><code>20h</code></td>
-<td align="center"><code>EOI</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+20h
+</td>
+<td style="text-align:center;width: 28em; ">
+EOI
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>21h</code></td>
-<td align="center"><code>IMR</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+21h
+</td>
+<td style="text-align:center;width: 28em; ">
+IMR
+</td>
 </tr>
-<tr class="odd">
-<td align="center"><code>22h</code></td>
-<td align="center"><code>IRR</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+22h
+</td>
+<td style="text-align:center;width: 28em; ">
+IRR
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>23h</code></td>
-<td align="center"><code>ISR</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+23h
+</td>
+<td style="text-align:center;width: 28em; ">
+ISR
+</td>
 </tr>
-<tr class="odd">
-<td align="center"><code>24h</code></td>
-<td align="center"><code>INT0</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+24h
+</td>
+<td style="text-align:center;width: 28em; ">
+INT0
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>25h</code></td>
-<td align="center"><code>INT1</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+25h
+</td>
+<td style="text-align:center;width: 28em; ">
+INT1
+</td>
 </tr>
-<tr class="odd">
-<td align="center"><code>26h</code></td>
-<td align="center"><code>INT2</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+26h
+</td>
+<td style="text-align:center;width: 28em; ">
+INT2
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>27h</code></td>
-<td align="center"><code>INT3</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+27h
+</td>
+<td style="text-align:center;width: 28em; ">
+INT3
+</td>
 </tr>
-<tr class="odd">
-<td align="center"><code>28h</code></td>
-<td align="center"><code>INT4</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+28h
+</td>
+<td style="text-align:center;width: 28em; ">
+INT4
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>29h</code></td>
-<td align="center"><code>INT5</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+29h
+</td>
+<td style="text-align:center;width: 28em; ">
+INT5
+</td>
 </tr>
-<tr class="odd">
-<td align="center"><code>2Ah</code></td>
-<td align="center"><code>INT6</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+2Ah
+</td>
+<td style="text-align:center;width: 28em; ">
+INT6
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>2Bh</code></td>
-<td align="center"><code>INT7</code></td>
-<td align="left">[PIC]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIC
+</td>
+<td style="text-align:center;width: 12em; ">
+2Bh
+</td>
+<td style="text-align:center;width: 28em; ">
+INT7
+</td>
 </tr>
-<tr class="odd">
-<td align="center"><code>30h</code></td>
-<td align="center"><code>PA</code></td>
-<td align="left">[PIO]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIO
+</td>
+<td style="text-align:center;width: 12em; ">
+30h
+</td>
+<td style="text-align:center;width: 28em; ">
+PA
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>31h</code></td>
-<td align="center"><code>PB</code></td>
-<td align="left">[PIO]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIO
+</td>
+<td style="text-align:center;width: 12em; ">
+31h
+</td>
+<td style="text-align:center;width: 28em; ">
+PB
+</td>
 </tr>
-<tr class="odd">
-<td align="center"><code>32h</code></td>
-<td align="center"><code>CA</code></td>
-<td align="left">[PIO]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIO
+</td>
+<td style="text-align:center;width: 12em; ">
+32h
+</td>
+<td style="text-align:center;width: 28em; ">
+CA
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>33h</code></td>
-<td align="center"><code>CB</code></td>
-<td align="left">[PIO]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+PIO
+</td>
+<td style="text-align:center;width: 12em; ">
+33h
+</td>
+<td style="text-align:center;width: 28em; ">
+CB
+</td>
 </tr>
-<tr class="odd">
-<td align="center"><code>40h</code></td>
-<td align="center"><code>DATA</code></td>
-<td align="left">[Handshake]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+Handshake
+</td>
+<td style="text-align:center;width: 12em; ">
+40h
+</td>
+<td style="text-align:center;width: 28em; ">
+DATA
+</td>
 </tr>
-<tr class="even">
-<td align="center"><code>41h</code></td>
-<td align="center"><code>STATE</code></td>
-<td align="left">[Handshake]</td>
+<tr>
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+Handshake
+</td>
+<td style="text-align:center;width: 12em; ">
+41h
+</td>
+<td style="text-align:center;width: 28em; ">
+STATE
+</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div id="instrucciones-in-y-out" class="section level3 hasAnchor" number="5.4.7">
+<h3><span class="header-section-number">5.4.7</span> Instrucciones IN y OUT<a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>La comunicación con los módulos de entrada/salida se realiza a través de puertos, que son direcciones específicas dentro del espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones fundamentales para gestionar esta comunicación:</p>
+<ul>
+<li><code>OUT puerto, AL</code>: envía el contenido del registro <code>AL</code> al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de <code>00h</code> a <code>FFh</code>). Esta instrucción se utiliza para transmitir datos a dispositivos externos, como impresoras o pantallas.</li>
+<li><code>IN AL, puerto</code>: recibe un byte desde el puerto especificado y lo almacena en el registro <code>AL</code>. Al igual que la instrucción <code>OUT</code>, el puerto es una dirección de 8 bits.</li>
+</ul>
+</div>
 <div id="llaves-y-leds" class="section level3 hasAnchor" number="5.4.8">
 <h3><span class="header-section-number">5.4.8</span> Llaves y Leds<a href="módulo-de-entradasalida-e-interrupciones.html#llaves-y-leds" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Las llaves o interruptores están conectados al puerto PA/CA del PIO y son dispositivos de entrada. Al cambiar su estado, estos se reflejarán en PA (si el PIO está configurado correctamente). Si se altera PA, los cambios no se verán reflejados en las llaves (no se mueven solas, por así decirlo).</p>
+<p>Las llaves o interruptores están conectados al puerto PA/CA del PIO y funcionan como dispositivos de entrada. Al cambiar su estado, este se refleja en el puerto PA, siempre que el PIO esté configurado correctamente. Sin embargo, si se modifica directamente el valor de PA, los cambios no se reflejarán en las llaves, ya que estas no se actualizan automáticamente.</p>
 <pre class="assembly"><code>; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
 
 clave db 15               ; Contraseña esperada: 00001111 (en decimal 15)
@@ -698,7 +828,7 @@ Mostrar_Mensaje:
   mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
   mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
   hlt                       ; Detiene la ejecución del programa</code></pre>
-<p>Las luces o LED están conectadas al puerto PB/CB del PIO y son dispositivos de salida. La única forma de cambiar su estado es modificando PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente, de lo contrario, las luces se verán apagadas.</p>
+<p>Por otro lado, las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.</p>
 <pre class="assembly"><code>; Enciende las luces (una sí, una no): 1010 1010b
 ; 31h = PB --&gt; puerto de datos para las luces (LEDs)
 ; 33h = CB --&gt; puerto de control para las luces
@@ -832,7 +962,7 @@ hlt                      ; Detiene la ejecución del programa</code></pre>
 </ul>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:instaccion">Tabla 5.13: </span>Tabla de instrucciones y acciones
+<span id="tab:instaccion">Tabla 5.14: </span>Tabla de instrucciones y acciones
 </caption>
 <thead>
 <tr>
@@ -1216,10 +1346,10 @@ Detiene el procesador
 </tr>
 </tfoot>
 </table>
-<p>El formato ampliado para las instrucciones incluye los siguientes casos tabla <a href="módulo-de-entradasalida-e-interrupciones.html#tab:formatoampliado">5.14</a>:</p>
+<p>El formato ampliado para las instrucciones incluye los siguientes casos tabla <a href="módulo-de-entradasalida-e-interrupciones.html#tab:formatoampliado">5.15</a>:</p>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:formatoampliado">Tabla 5.14: </span>Tabla de codificación de instrucciones ampliado
+<span id="tab:formatoampliado">Tabla 5.15: </span>Tabla de codificación de instrucciones ampliado
 </caption>
 <thead>
 <tr>
