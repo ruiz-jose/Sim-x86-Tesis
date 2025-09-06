@@ -1611,8 +1611,25 @@ El procesador implementa una pila como método de almacenamiento, accesible tant
 Además, el procesador permite el uso de subrutinas, que son fragmentos de código reutilizables y pueden ser invocados desde cualquier parte del programa. Para llamar a una subrutina se utiliza la instrucción [`CALL`], que apila el valor actual de `IP` y salta a la dirección de la subrutina, modificando el `IP` para apuntar a la primera instrucción de la misma. El retorno se realiza mediante la instrucción [`RET`], que desapila la dirección previamente guardada y restaura el `IP`, permitiendo continuar la ejecución justo después de la llamada.
 
 Ejemplo de subrutina:
+```{r  codeteclado, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+      mov al, 1
+      mov bl, 2
+      mov cl, 3
+      call sum3
+      ; ax = 6
+      hlt
 
-```vonsim
+      ; suma al, bl y cl
+      sum3: add al, bl
+            add al, cl
+            ret\\end{lstlisting}
+  ")
+} else {
+  cat("
+  ```assembly
       mov al, 1
       mov bl, 2
       mov cl, 3
@@ -1624,6 +1641,8 @@ Ejemplo de subrutina:
       sum3: add al, bl
             add al, cl
             ret
+```")
+}
 ```
 
 ###  Interrupciones y llamadas al sistema
@@ -1745,11 +1764,11 @@ library(kableExtra)
 # Crear los datos de la tabla reorganizada
 tpuertos <- data.frame(
   Modulo = c(
-    "Timer", "Timer",
-    "PIC", "PIC", "PIC", "PIC", "PIC", "PIC", "PIC", "PIC",
-    "PIC", "PIC", "PIC", "PIC",
-    "PIO", "PIO", "PIO", "PIO",
-    "Handshake", "Handshake"
+    "Timer", "",
+    "PIC", "", "", "", "", "", "", "",
+    "", "", "", "",
+    "PIO", "", "", "",
+    "Handshake", ""
   ),
   Direccion = c(
     "10h", "11h", "20h", "21h", "22h", "23h", "24h", "25h", "26h", "27h",
@@ -1763,7 +1782,7 @@ tpuertos <- data.frame(
 )
 
 # Crear la tabla con el nuevo orden
-tpuertos <- kable(tpuertos,
+tabla_puertos <- kable(tpuertos,
   format               = ifelse(knitr::is_latex_output(), "latex", "html"),
   caption              = "Módulos, direcciones y nombres del simulador",
   col.names            = c("Módulo", "Dirección", "Nombre"),
@@ -1772,19 +1791,24 @@ tpuertos <- kable(tpuertos,
   align                = c("c", "c", "c"))
 
 if (knitr::is_latex_output()) {
-  tpuertos %>%
+  tabla_puertos %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
       font_size = 10,
-      position = "right"
+      position = "center"
     ) %>%
-    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "2cm") %>%
-    column_spec(3, width = "6cm") %>%
+    column_spec(3, width = "3cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(3, extra_latex_after = "\\addlinespace[10pt]")
+    # Agregar espacios después de cada grupo de módulos
+    row_spec(2, extra_latex_after = "\\addlinespace[5pt]") %>%   # Después de Timer
+    row_spec(14, extra_latex_after = "\\addlinespace[5pt]") %>%  # Después de PIC
+    row_spec(18, extra_latex_after = "\\addlinespace[5pt]") %>%  # Después de PIO
+    # Resaltar las filas de inicio de cada módulo
+    row_spec(c(1, 3, 15, 19), background = "#F0F0F0")
 } else {
-  tpuertos %>%
+  tabla_puertos %>%
     kable_styling(
       bootstrap_options = c("striped", "hover", "condensed", "responsive"),
       full_width = FALSE,
@@ -1792,8 +1816,10 @@ if (knitr::is_latex_output()) {
     ) %>%
     column_spec(1, width = "16em", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "12em") %>%
-    column_spec(3, width = "28em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+    column_spec(3, width = "16em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    # Resaltar las filas de inicio de cada módulo
+    row_spec(c(1, 3, 15, 19), background = "#F0F0F0")
 }
 ```
 
@@ -1803,22 +1829,27 @@ La comunicación con los módulos de entrada/salida se realiza a través de puer
   - `OUT puerto, AL`: envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para transmitir datos a dispositivos externos, como impresoras o pantallas.
   - `IN AL, puerto`: recibe un byte desde el puerto especificado y lo almacena en el registro `AL`.  Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
 
-
 ### Módulo PIO
-El _programmed input-output_ (PIO) es un módulo que hace de interfaz para conectar dispositivos genéricos al CPU. Está basado en el PPI 8255 de Intel en su modo "0", pero con algunas modificaciones para simplificar su funcionamiento.
+El módulo de entrada/salida programada (Programmed Input-Output, PIO) actúa como interfaz entre la CPU y los dispositivos periféricos genéricos. Su diseño está basado en el controlador PPI 8255 de Intel, específicamente en su modo `0`, pero incorpora modificaciones orientadas a simplificar su funcionamiento para fines educativos [@intel8086manual].
 
-Cuenta con dos puertos de 8 bits (A y B) programables. Los registros disponibles son:
+El módulo cuenta con dos puertos bidireccionales de 8 bits (A y B) que pueden ser configurados de manera independiente. Su arquitectura incluye cuatro registros accesibles:
 
-  - `PA` (dirección `30h` de la [memoria E/S]),
-  - `PB` (dirección `31h` de la [memoria E/S]),
-  - `CA` (dirección `32h` de la [memoria E/S]),
-  - y `CB` (dirección `33h` de la [memoria E/S]).
+  - PA (dirección 30h en el espacio de memoria E/S): registro de datos del puerto A
+  - PB (dirección 31h en el espacio de memoria E/S): registro de datos del puerto B
+  - CA (dirección 32h en el espacio de memoria E/S): registro de configuración del puerto A
+  - CB (dirección 33h en el espacio de memoria E/S): registro de configuración del puerto B
 
-El valor del puerto A se encuentra en el registro `PA` y su configuración en el registro `CA`. El registro `CA` también es de 8 bits y le indica al PIO el modo cada bit: un `0` si es de salida y un `1` si es de entrada. Por ejemplo, para `CA = 00001111b`, los cuatro bits más significativos son de salida y los cuatro menos significativos son de entrada. El puerto B funciona idénticamente.
+La configuración de cada puerto se define a través de sus respectivos registros de control (CA y CB). Cada bit del registro de configuración determina la dirección del bit correspondiente en el puerto de datos: un valor `0` configura el bit como salida, mientras que un valor `1` lo configura como entrada. Por ejemplo, si CA = 00001111b, los cuatro bits más significativos del puerto A funcionarán como salidas, y los cuatro bits menos significativos como entradas. El puerto B opera de manera idéntica mediante su registro CB.
 
-El PIO puede estar conectado a [Leds y llaves] o a una [impresora].
+Este módulo PIO puede conectarse a diferentes tipos de dispositivos periféricos, como LEDs y interruptores, o a dispositivos más complejos como una impresora, proporcionando así una interfaz versátil para la comunicación con el mundo exterior.
 
 #### Leds
+Los diodos emisores de luz (LEDs) funcionan como dispositivos de salida y están conectados al puerto B del módulo PIO. Su control se realiza mediante la manipulación del registro de datos PB (dirección 31h) en conjunto con el registro de configuración CB (dirección 33h).
+
+Para que los LEDs respondan correctamente, es necesario configurar previamente el puerto B como salida escribiendo el valor apropiado en el registro CB. Una vez configurado correctamente el PIO, cualquier modificación en el valor del registro PB se reflejará inmediatamente en el estado de los LEDs correspondientes. En caso de que la configuración del puerto sea incorrecta o se omita este paso, los LEDs permanecerán apagados independientemente de los valores escritos en PB.
+
+Esta configuración permite controlar individualmente cada LED mediante los bits del puerto, ofreciendo flexibilidad para crear patrones luminosos o indicadores visuales en aplicaciones educativas y de demostración.
+
 Las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.
 
 ```{r  codeluces, results='asis', echo=FALSE}
@@ -1859,8 +1890,12 @@ hlt                      ; Detiene la ejecución del programa
 }
 ```
 
-#### Llaves
-Las llaves o interruptores están conectados al puerto PA/CA del PIO y funcionan como dispositivos de entrada. Al cambiar su estado, este se refleja en el puerto PA, siempre que el PIO esté configurado correctamente. Sin embargo, si se modifica directamente el valor de PA, los cambios no se reflejarán en las llaves, ya que estas no se actualizan automáticamente.
+#### interruptores
+Los interruptores (también denominados llaves) funcionan como dispositivos de entrada conectados al puerto A del módulo PIO. Su operación se gestiona mediante el registro de datos PA (dirección 30h) y el registro de configuración CA (dirección 32h).
+
+Para que los interruptores operen correctamente, es fundamental configurar previamente el puerto A como entrada mediante el registro CA. Una vez establecida la configuración apropiada, cualquier cambio en el estado físico de los interruptores se reflejará automáticamente en los bits correspondientes del registro PA, permitiendo al programa leer su estado actual.
+
+Es importante destacar que la comunicación es unidireccional desde los dispositivos hacia el procesador: aunque es posible escribir valores directamente en el registro PA mediante software, estos cambios no alterarán el estado físico de los interruptores. Los dispositivos de entrada mantienen su estado independientemente de las modificaciones realizadas por programa en sus registros asociados, garantizando así la integridad de la información proveniente del mundo exterior.
 
 ```{r  codellaves, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -1884,6 +1919,7 @@ bucle:
 Mostrar_Mensaje:
     mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
     mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
+    int 7
     hlt                       ; Detiene la ejecución del programa\\end{lstlisting}
   ")
 } else {
@@ -1907,12 +1943,14 @@ bucle:
 Mostrar_Mensaje:
     mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
     mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
+    int 7
     hlt                       ; Detiene la ejecución del programa
 ```")
 }
 ```
 
 #### Impresora con PIO
+El simulador permite conectar una impresora al módulo PIO, emulando el protocolo de comunicación utilizado por las impresoras paralelas estándar tipo Centronics. La configuración de los puertos para esta conexión se organiza de la siguiente manera:
 Una opción es conectar la impresora al [PIO]. La conexión queda así:
 
 ```vonsim
@@ -1920,17 +1958,24 @@ PA = ____ __SB
 PB = DDDD DDDD
 ```
 
-En `PB` se almacenará carácter a imprimir, expresado en ASCII. En `PA`, los seis bits más significativos no hacen nada. El bit menos significativo es la flag _busy_. Y el que queda es el _strobe_.
+Donde:
+- Puerto B (PB): almacena el carácter a imprimir codificado en ASCII (8 bits de datos: DDDD DDDD)
+- Puerto A (PA): controla las señales de comunicación, donde:
+  - Los seis bits más significativos no se utilizan
+  - Bit S (strobe): señal de control que indica a la impresora cuándo debe capturar los datos
+  - Bit B (busy): señal de estado que indica si la impresora está ocupada
 
-El _strobe_ es el bit que le indica a la impresora que queremos imprimir. Las impresoras Centronics toman el valor en `PB` cuando detectan un flanco ascendente en el _strobe_. Es decir, una transición de `S=0` a `S=1`.
+El protocolo de comunicación se basa en el strobe, una señal de control que notifica a la impresora cuándo debe leer los datos del puerto B. Las impresoras compatibles con el estándar Centronics capturan el valor presente en PB al detectar un flanco ascendente en la señal strobe, es decir, cuando esta transiciona de S=0 a S=1.
 
-En resumen, para imprimir un carácter, hay que
 
-  1. verificar que el _buffer_ no esté lleno (flag _busy_),
-  2. escribir el carácter en `PB`,
-  3. poner el _strobe_ en 0,
-  4. poner el _strobe_ en 1.
+Secuencia para imprimir un carácter:
 
+  1. Verificar disponibilidad: comprobar que la bandera busy esté en 0, indicando que la impresora no está ocupada
+  2. Cargar datos: escribir el carácter deseado (código ASCII) en el puerto PB
+  3. Preparar strobe: establecer la señal strobe en 0
+  4. Activar impresión: cambiar la señal strobe a 1 para generar el flanco ascendente que iniciará la impresión
+
+Esta implementación proporciona una comprensión práctica de los protocolos de comunicación paralela y el control de dispositivos periféricos en sistemas computacionales.
 
 ```vonsim
 ; Imprime el string "hola" en la impresora usando PIO
