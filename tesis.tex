@@ -3200,7 +3200,7 @@ El simulador permite configurar la conexión de diversos módulos de entrada/sal
 \item
   Teclado y pantalla.
 \item
-  Un PIO, que puede conectarse a llaves, LEDs o una impresora.
+  Un PIO, que puede conectarse a LEDs e interruptores.
 \item
   Un PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador (timer) y su reloj.
 \item
@@ -3253,6 +3253,12 @@ Para interactuar con los módulos de entrada y salida, es necesario incorporar n
 \end{tabular}}
 \end{table}
 
+El simulador utiliza un código de operación de 4 bits para las instrucciones, lo que simplifica la arquitectura del sistema pero limita el número máximo de instrucciones implementables a 16 opciones diferentes. Con el objetivo de ampliar el repertorio de instrucciones sin incrementar el tamaño de la codificación, se adoptó una estrategia de agrupación para el código de operación 15.
+
+Bajo esta implementación, las instrucciones lógicas (AND, OR y XOR) comparten el código de operación 15 con las instrucciones aritméticas de un operando (INC, DEC, NEG y NOT). Esta decisión de diseño permite mantener la compatibilidad con los modos de direccionamiento establecidos para las instrucciones aritméticas de dos operandos (ADD, SUB y CMP), garantizando consistencia en la interfaz del simulador mientras se maximiza la funcionalidad dentro de las limitaciones impuestas por el esquema de codificación de 4 bits.
+
+Esta solución representa un compromiso eficaz entre la simplicidad arquitectural y la capacidad funcional del simulador, permitiendo una mayor diversidad de operaciones sin comprometer la claridad pedagógica del diseño.
+
 \hypertarget{pila-y-subrutinas}{%
 \subsection{Pila y subrutinas}\label{pila-y-subrutinas}}
 
@@ -3262,21 +3268,18 @@ Además, el procesador permite el uso de subrutinas, que son fragmentos de códi
 
 Ejemplo de subrutina:
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{      mov al, 1}
-\NormalTok{      mov bl, 2}
-\NormalTok{      mov cl, 3}
-\NormalTok{      call sum3}
-\NormalTok{      ; ax = 6}
-\NormalTok{      hlt}
+\begin{lstlisting}
+      mov al, 1
+      mov bl, 2
+      mov cl, 3
+      call sum3
+      ; ax = 6
+      hlt
 
-\NormalTok{      ; suma al, bl y cl}
-\NormalTok{      sum3: add al, bl}
-\NormalTok{            add al, cl}
-\NormalTok{            ret}
-\end{Highlighting}
-\end{Shaded}
+      ; suma al, bl y cl
+      sum3: add al, bl
+            add al, cl
+            ret\end{lstlisting}
 
 \hypertarget{interrupciones-y-llamadas-al-sistema}{%
 \subsection{Interrupciones y llamadas al sistema}\label{interrupciones-y-llamadas-al-sistema}}
@@ -3398,34 +3401,36 @@ El rango de direcciones asignado a la memoria de entrada/salida abarca desde \te
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{6cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{3cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Módulo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Dirección}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nombre}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Módulo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Dirección}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nombre}}}\\
 \midrule
-\textbf{Timer} & 10h & CONT\\
-\textbf{Timer} & 11h & COMP\\
-\textbf{PIC} & 20h & EOI\\
-\addlinespace[10pt]
-\textbf{PIC} & 21h & IMR\\
-\textbf{PIC} & 22h & IRR\\
+\cellcolor[HTML]{F0F0F0}{\textbf{Timer}} & \cellcolor[HTML]{F0F0F0}{10h} & \cellcolor[HTML]{F0F0F0}{CONT}\\
+\textbf{} & 11h & COMP\\
+\addlinespace[5pt]
+\cellcolor[HTML]{F0F0F0}{\textbf{PIC}} & \cellcolor[HTML]{F0F0F0}{20h} & \cellcolor[HTML]{F0F0F0}{EOI}\\
+\textbf{} & 21h & IMR\\
+\textbf{} & 22h & IRR\\
 \addlinespace
-\textbf{PIC} & 23h & ISR\\
-\textbf{PIC} & 24h & INT0\\
-\textbf{PIC} & 25h & INT1\\
-\textbf{PIC} & 26h & INT2\\
-\textbf{PIC} & 27h & INT3\\
+\textbf{} & 23h & ISR\\
+\textbf{} & 24h & INT0\\
+\textbf{} & 25h & INT1\\
+\textbf{} & 26h & INT2\\
+\textbf{} & 27h & INT3\\
 \addlinespace
-\textbf{PIC} & 28h & INT4\\
-\textbf{PIC} & 29h & INT5\\
-\textbf{PIC} & 2Ah & INT6\\
-\textbf{PIC} & 2Bh & INT7\\
-\textbf{PIO} & 30h & PA\\
+\textbf{} & 28h & INT4\\
+\textbf{} & 29h & INT5\\
+\textbf{} & 2Ah & INT6\\
+\textbf{} & 2Bh & INT7\\
+\addlinespace[5pt]
+\cellcolor[HTML]{F0F0F0}{\textbf{PIO}} & \cellcolor[HTML]{F0F0F0}{30h} & \cellcolor[HTML]{F0F0F0}{PA}\\
 \addlinespace
-\textbf{PIO} & 31h & PB\\
-\textbf{PIO} & 32h & CA\\
-\textbf{PIO} & 33h & CB\\
-\textbf{Handshake} & 40h & DATA\\
-\textbf{Handshake} & 41h & STATE\\
+\textbf{} & 31h & PB\\
+\textbf{} & 32h & CA\\
+\textbf{} & 33h & CB\\
+\addlinespace[5pt]
+\cellcolor[HTML]{F0F0F0}{\textbf{Handshake}} & \cellcolor[HTML]{F0F0F0}{40h} & \cellcolor[HTML]{F0F0F0}{DATA}\\
+\textbf{} & 41h & STATE\\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -3446,28 +3451,34 @@ La comunicación con los módulos de entrada/salida se realiza a través de puer
 \hypertarget{muxf3dulo-pio}{%
 \subsection{Módulo PIO}\label{muxf3dulo-pio}}
 
-El \emph{programmed input-output} (PIO) es un módulo que hace de interfaz para conectar dispositivos genéricos al CPU. Está basado en el PPI 8255 de Intel en su modo ``0'', pero con algunas modificaciones para simplificar su funcionamiento.
+El módulo de entrada/salida programada (Programmed Input-Output, PIO) actúa como interfaz entre la CPU y los dispositivos periféricos genéricos. Su diseño está basado en el controlador PPI 8255 de Intel, específicamente en su modo \texttt{0}, pero incorpora modificaciones orientadas a simplificar su funcionamiento para fines educativos \protect\hyperlink{ref-intel8086manual}{{[}51{]}}.
 
-Cuenta con dos puertos de 8 bits (A y B) programables. Los registros disponibles son:
+El módulo cuenta con dos puertos bidireccionales de 8 bits (A y B) que pueden ser configurados de manera independiente. Su arquitectura incluye cuatro registros accesibles:
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{PA} (dirección \texttt{30h} de la {[}memoria E/S{]}),
+  PA (dirección 30h en el espacio de memoria E/S): registro de datos del puerto A
 \item
-  \texttt{PB} (dirección \texttt{31h} de la {[}memoria E/S{]}),
+  PB (dirección 31h en el espacio de memoria E/S): registro de datos del puerto B
 \item
-  \texttt{CA} (dirección \texttt{32h} de la {[}memoria E/S{]}),
+  CA (dirección 32h en el espacio de memoria E/S): registro de configuración del puerto A
 \item
-  y \texttt{CB} (dirección \texttt{33h} de la {[}memoria E/S{]}).
+  CB (dirección 33h en el espacio de memoria E/S): registro de configuración del puerto B
 \end{itemize}
 
-El valor del puerto A se encuentra en el registro \texttt{PA} y su configuración en el registro \texttt{CA}. El registro \texttt{CA} también es de 8 bits y le indica al PIO el modo cada bit: un \texttt{0} si es de salida y un \texttt{1} si es de entrada. Por ejemplo, para \texttt{CA\ =\ 00001111b}, los cuatro bits más significativos son de salida y los cuatro menos significativos son de entrada. El puerto B funciona idénticamente.
+La configuración de cada puerto se define a través de sus respectivos registros de control (CA y CB). Cada bit del registro de configuración determina la dirección del bit correspondiente en el puerto de datos: un valor \texttt{0} configura el bit como salida, mientras que un valor \texttt{1} lo configura como entrada. Por ejemplo, si CA = 00001111b, los cuatro bits más significativos del puerto A funcionarán como salidas, y los cuatro bits menos significativos como entradas. El puerto B opera de manera idéntica mediante su registro CB.
 
-El PIO puede estar conectado a {[}Leds y llaves{]} o a una {[}impresora{]}.
+Este módulo PIO puede conectarse a diferentes tipos de dispositivos periféricos, como LEDs y interruptores, o a dispositivos más complejos como una impresora, proporcionando así una interfaz versátil para la comunicación con el mundo exterior.
 
 \hypertarget{leds}{%
 \subsubsection{Leds}\label{leds}}
+
+Los diodos emisores de luz (LEDs) funcionan como dispositivos de salida y están conectados al puerto B del módulo PIO. Su control se realiza mediante la manipulación del registro de datos PB (dirección 31h) en conjunto con el registro de configuración CB (dirección 33h).
+
+Para que los LEDs respondan correctamente, es necesario configurar previamente el puerto B como salida escribiendo el valor apropiado en el registro CB. Una vez configurado correctamente el PIO, cualquier modificación en el valor del registro PB se reflejará inmediatamente en el estado de los LEDs correspondientes. En caso de que la configuración del puerto sea incorrecta o se omita este paso, los LEDs permanecerán apagados independientemente de los valores escritos en PB.
+
+Esta configuración permite controlar individualmente cada LED mediante los bits del puerto, ofreciendo flexibilidad para crear patrones luminosos o indicadores visuales en aplicaciones educativas y de demostración.
 
 Las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.
 
@@ -3486,10 +3497,14 @@ out 31h, al              ; Escribe el valor en PB para actualizar las luces
 
 hlt                      ; Detiene la ejecución del programa\end{lstlisting}
 
-\hypertarget{llaves}{%
-\subsubsection{Llaves}\label{llaves}}
+\hypertarget{interruptores}{%
+\subsubsection{interruptores}\label{interruptores}}
 
-Las llaves o interruptores están conectados al puerto PA/CA del PIO y funcionan como dispositivos de entrada. Al cambiar su estado, este se refleja en el puerto PA, siempre que el PIO esté configurado correctamente. Sin embargo, si se modifica directamente el valor de PA, los cambios no se reflejarán en las llaves, ya que estas no se actualizan automáticamente.
+Los interruptores (también denominados llaves) funcionan como dispositivos de entrada conectados al puerto A del módulo PIO. Su operación se gestiona mediante el registro de datos PA (dirección 30h) y el registro de configuración CA (dirección 32h).
+
+Para que los interruptores operen correctamente, es fundamental configurar previamente el puerto A como entrada mediante el registro CA. Una vez establecida la configuración apropiada, cualquier cambio en el estado físico de los interruptores se reflejará automáticamente en los bits correspondientes del registro PA, permitiendo al programa leer su estado actual.
+
+Es importante destacar que la comunicación es unidireccional desde los dispositivos hacia el procesador: aunque es posible escribir valores directamente en el registro PA mediante software, estos cambios no alterarán el estado físico de los interruptores. Los dispositivos de entrada mantienen su estado independientemente de las modificaciones realizadas por programa en sus registros asociados, garantizando así la integridad de la información proveniente del mundo exterior.
 
 \begin{lstlisting}
 ; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
@@ -3510,93 +3525,333 @@ bucle:
 Mostrar_Mensaje:
     mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
     mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
+    int 7
     hlt                       ; Detiene la ejecución del programa\end{lstlisting}
 
-\hypertarget{impresora-con-pio}{%
-\subsubsection{Impresora con PIO}\label{impresora-con-pio}}
+\hypertarget{muxf3dulo-handshake}{%
+\subsection{Módulo Handshake}\label{muxf3dulo-handshake}}
 
-Una opción es conectar la impresora al {[}PIO{]}. La conexión queda así:
+El módulo Handshake es un controlador especializado diseñado para facilitar la comunicación con impresoras que utilizan el protocolo Centronics. Su diseño se inspira en el controlador PPI 8255 de Intel, operando en modo ``1'', pero incluye modificaciones específicas para simplificar su uso y comprensión en entornos educativos.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{PA = \_\_\_\_ \_\_SB}
-\NormalTok{PB = DDDD DDDD}
-\end{Highlighting}
-\end{Shaded}
+El módulo cuenta con una arquitectura simplificada basada en dos registros de 8 bits:
 
-En \texttt{PB} se almacenará carácter a imprimir, expresado en ASCII. En \texttt{PA}, los seis bits más significativos no hacen nada. El bit menos significativo es la flag \emph{busy}. Y el que queda es el \emph{strobe}.
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Registro de datos}: ubicado en la dirección 40h del espacio de memoria de E/S.
+\item
+  \textbf{Registro de estado}: ubicado en la dirección 41h del espacio de memoria de E/S.
+\end{itemize}
 
-El \emph{strobe} es el bit que le indica a la impresora que queremos imprimir. Las impresoras Centronics toman el valor en \texttt{PB} cuando detectan un flanco ascendente en el \emph{strobe}. Es decir, una transición de \texttt{S=0} a \texttt{S=1}.
+La estructura de estos registros se organiza de la siguiente manera:
 
-En resumen, para imprimir un carácter, hay que
+\begin{verbatim}
+Datos  = DDDD DDDD
+Estado = I___ __SB
+\end{verbatim}
+
+\hypertarget{funcionamiento-del-registro-de-datos}{%
+\subsubsection{Funcionamiento del registro de datos}\label{funcionamiento-del-registro-de-datos}}
+
+El registro de datos almacena el carácter que se desea imprimir, codificado en formato ASCII. Una característica destacada del módulo Handshake es su capacidad de automatización: cada vez que la CPU escribe un valor en este registro, el controlador genera automáticamente un flanco ascendente en la señal strobe, iniciando el proceso de impresión sin necesidad de intervención adicional por parte del software.
+
+\hypertarget{funcionamiento-del-registro-de-estado}{%
+\subsubsection{Funcionamiento del registro de estado}\label{funcionamiento-del-registro-de-estado}}
+
+El registro de estado gestiona las señales de control y supervisión del protocolo de comunicación. Sus principales componentes son:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Bits S y B (strobe y busy)}: los dos bits menos significativos controlan las señales de comunicación, con diferencias clave respecto a la implementación en el PIO:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    El bit busy es de solo lectura y refleja automáticamente el estado de la impresora
+  \item
+    El bit strobe permanece normalmente en 0 y es gestionado automáticamente por el módulo. Cuando la CPU escribe un 1 en el bit strobe, se genera un flanco ascendente que transmite los datos almacenados en el registro de datos, retornando automáticamente a 0.
+  \end{itemize}
+\item
+  \textbf{Bit I (interrupción)}: El bit más significativo controla el sistema de interrupciones del módulo. Cuando este bit está habilitado (I=1) y la impresora se encuentra disponible (B=0), el módulo Handshake genera una interrupción por hardware a través de la línea INT2 del controlador PIC, notificando al sistema que la impresora está lista para recibir nuevos datos.
+\end{itemize}
+
+Esta implementación ofrece una interfaz intuitiva para el control de impresoras, automatizando aspectos críticos del protocolo de comunicación y manteniendo la flexibilidad necesaria para comprender los fundamentos de la interacción con dispositivos periféricos.
+
+\hypertarget{ejemplo-de-uso-del-muxf3dulo-handshake}{%
+\subsubsection{Ejemplo de uso del módulo Handshake}\label{ejemplo-de-uso-del-muxf3dulo-handshake}}
+
+Para imprimir utilizando el módulo Handshake, se deben seguir los siguientes pasos:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \tightlist
 \item
-  verificar que el \emph{buffer} no esté lleno (flag \emph{busy}),
+  Verificar que el buffer no esté lleno (flag busy).
 \item
-  escribir el carácter en \texttt{PB},
-\item
-  poner el \emph{strobe} en 0,
-\item
-  poner el \emph{strobe} en 1.
+  Escribir el carácter en el registro de datos.
 \end{enumerate}
+
+Además de los caracteres ASCII comunes, el módulo admite caracteres especiales útiles para la impresión:
+- Salto de línea (\texttt{LF}, 10 en decimal): Imprime un salto de línea, evitando que todo el texto se imprima en una sola línea.
+- Form feed (\texttt{FF}, 12 en decimal): Limpia la impresora, equivalente a arrancar una hoja.
+
+A continuación, se presenta un ejemplo en ensamblador para imprimir la cadena ``Hola'' utilizando el módulo Handshake:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{; Imprime el string "hola" en la impresora usando PIO}
+\NormalTok{; Imprime el string "Hola" en la impresora usando sondeo}
 
-\NormalTok{dato db "hola", 0         ; String a imprimir, terminado en 0}
+\NormalTok{dato DB "Hola", 0         ; String a imprimir, terminado en 0 (carácter nulo)}
 
-\NormalTok{PA EQU 30h                ; Puerto A: strobe y busy}
-\NormalTok{PB EQU 31h                ; Puerto B: datos}
-\NormalTok{CA EQU 32h                ; Control A}
-\NormalTok{CB EQU 33h                ; Control B}
+\NormalTok{HS\_DATA   EQU 40h         ; Dirección del registro de datos del Handshake}
+\NormalTok{HS\_STATUS EQU 41h         ; Dirección del registro de estado del Handshake}
 
-\NormalTok{; {-}{-}{-} Configuración de PIO {-}{-}{-}}
-\NormalTok{mov al, 0                 ; PA como salida (strobe)}
-\NormalTok{out CA, al}
-\NormalTok{mov al, 0                 ; PB como salida (datos)}
-\NormalTok{out CB, al}
+\NormalTok{; {-}{-}{-} Deshabilita las interrupciones del Handshake (bit 7 en 0) {-}{-}{-}}
+\NormalTok{IN  AL, HS\_STATUS}
+\NormalTok{AND AL, 01111111b         ; Fuerza el bit 7 a 0 (sin interrupciones)}
+\NormalTok{OUT HS\_STATUS, AL}
 
-\NormalTok{; {-}{-}{-} Inicializar strobe en 0 {-}{-}{-}}
-\NormalTok{in  al, PA}
-\NormalTok{and al, 11111101b         ; Bit 1 (strobe) a 0}
-\NormalTok{out PA, al}
+\NormalTok{; {-}{-}{-} Inicializa el puntero al string {-}{-}{-}}
+\NormalTok{MOV BL, OFFSET dato       ; BL apunta al primer carácter del string}
 
-\NormalTok{mov bl, offset dato       ; BL apunta al inicio del string}
+\NormalTok{; {-}{-}{-} Bucle principal: espera espacio en el buffer e imprime {-}{-}{-}}
+\NormalTok{Sondeo:}
+\NormalTok{    IN  AL, HS\_STATUS}
+\NormalTok{    AND AL, 00000001b     ; Lee el flag busy (bit 0): 1=lleno, 0=libre}
+\NormalTok{    JZ  ImprimirCadena   ; Si busy=0, hay espacio y puede imprimir}
+\NormalTok{    JMP Sondeo            ; Si busy=1, espera hasta que haya espacio}
 
-\NormalTok{sondeo:}
-\NormalTok{    in  al, PA}
-\NormalTok{    and al, 00000001b     ; ¿Buffer lleno? (busy)}
-\NormalTok{    jz  imprimir\_cadena   ; Si busy es 0, salta a imprimir}
-\NormalTok{    jmp sondeo            ; Si busy es 1, sigue esperando}
+\NormalTok{ImprimirCadena:}
+\NormalTok{    MOV AL, [BL]          ; Carga el siguiente carácter del string}
+\NormalTok{    CMP AL, 0             ; ¿Es el final del string? (carácter nulo)}
+\NormalTok{    JZ fin                ; Si sí, termina el programa}
 
-\NormalTok{imprimir\_cadena:}
-\NormalTok{    mov al, [bl]          ; Siguiente carácter}
-\NormalTok{    cmp al, 0             ; ¿Fin del string?}
-\NormalTok{    jz  fin}
+\NormalTok{    OUT HS\_DATA, AL       ; Envía el carácter al registro de datos del Handshake}
 
-\NormalTok{    out PB, al            ; Enviar carácter a PB}
-
-\NormalTok{    ; {-}{-}{-} Generar flanco ascendente en strobe {-}{-}{-}}
-\NormalTok{    in  al, PA}
-\NormalTok{    or  al, 00000010b     ; Strobe a 1}
-\NormalTok{    out PA, al}
-\NormalTok{    in  al, PA}
-\NormalTok{    and al, 11111101b     ; Strobe a 0}
-\NormalTok{    out PA, al}
-
-\NormalTok{    inc bl                ; Siguiente carácter}
-\NormalTok{    jmp sondeo}
+\NormalTok{    INC BL                ; Avanza al siguiente carácter del string}
+\NormalTok{    JMP Sondeo            ; Repite el proceso para el próximo carácter}
 
 \NormalTok{fin:}
-\NormalTok{    hlt}
+\NormalTok{    HLT   ; Detiene la ejecución}
 \end{Highlighting}
 \end{Shaded}
 
-Actualmente el código de operación de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el código de operación 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
+Para mejorar la lectura del programa se utilizan constantes en ensamblador ``EQU'' para definir las direcciones de los puertos del módulo Handshake.
+
+\hypertarget{muxf3dulo-pic}{%
+\subsection{Módulo PIC}\label{muxf3dulo-pic}}
+
+El Programmable Interrupt Controller (PIC) es un módulo que actúa como intermediario entre los dispositivos que generan interrupciones y la CPU. Dado que la CPU dispone de una única línea de entrada para interrupciones, el PIC se encarga de recibir solicitudes de múltiples dispositivos y multiplexarlas en esta línea única.
+
+Este módulo está basado en el PIC 8259A de Intel, aunque se han realizado modificaciones para simplificar su funcionamiento y adaptarlo a fines educativos.
+
+\hypertarget{luxedneas-de-interrupciuxf3n}{%
+\subsubsection{Líneas de interrupción}\label{luxedneas-de-interrupciuxf3n}}
+
+El PIC dispone de 8 líneas de interrupción, denominadas INT0 a INT7 (aunque no todas son utilizadas). Cada línea está asociada a un registro de 8 bits en la memoria de E/S. Por ejemplo, la línea INT0 corresponde a la dirección 24h, la línea INT1 a la dirección 25h, y así sucesivamente hasta la línea INT7, que utiliza la dirección 2Bh. En estos registros se almacena el número de interrupción asociado a cada línea.
+
+Cuando un dispositivo o módulo solicita una interrupción, el PIC envía a la CPU el número de interrupción almacenado en el registro correspondiente, desacoplando así el número de línea del número de interrupción.
+
+Las líneas están conectadas a los siguientes dispositivos:
+
+\begin{longtable}[]{@{}cl@{}}
+\toprule\noalign{}
+Línea & Módulo/Disp. \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{INT0} & \protect\hyperlink{tecla-f10}{Tecla F10} \\
+\texttt{INT1} & \protect\hyperlink{timer}{Timer} \\
+\texttt{INT2} & {[}Handshake{]} \\
+\texttt{INT3} & -- \\
+\texttt{INT4} & -- \\
+\texttt{INT5} & -- \\
+\texttt{INT6} & -- \\
+\texttt{INT7} & -- \\
+\end{longtable}
+
+\hypertarget{registros-de-control}{%
+\subsubsection{Registros de control}\label{registros-de-control}}
+
+El PIC cuenta con tres registros adicionales para gestionar las interrupciones. Cada bit de estos registros corresponde a una línea de interrupción, donde el bit menos significativo representa la línea da bit corresponde con una línea de interrupción: el bit menos significativo corresponde a la línea y el más significativo la línea \texttt{INT7}.
+
+\begin{itemize}
+\item
+  \textbf{Registro IMR (Interrupt Mask Register)}: Ubicado en la dirección \texttt{21h} de la memoria de E/S, este registro permite enmascarar (inhabilitar) líneas de interrupción. Si un bit está en 1, la línea correspondiente está enmascarada y no generará interrupciones en la CPU. Si el bit está en 0, la línea está habilitada. Este registro puede ser modificado por la CPU.
+\item
+  \textbf{Registro IRR (Interrupt Request Register)}: Ubicado en la dirección \texttt{22h}, este registro indica las interrupciones pendientes. Si un bit está en 1, la línea correspondiente tiene una interrupción pendiente. Este registro es de solo lectura para la CPU y es gestionado por el PIC.
+\item
+  \textbf{Registro ISR (In-Service Register)}: Ubicado en la dirección \texttt{23h}, este registro muestra qué interrupción está siendo atendida en un momento dado. Si un bit está en 1, la línea correspondiente está en servicio. Este registro también es de solo lectura para la CPU y es gestionado por el PIC.
+\end{itemize}
+
+\hypertarget{funcionamiento}{%
+\subsubsection{Funcionamiento}\label{funcionamiento}}
+
+Cuando una línea de interrupción se activa, el PIC la registra en el \texttt{IRR}. Si la línea no está enmascarada y no hay otra interrupción en servicio (es decir, si \texttt{ISR\ =\ 00h}), el PIC envía una señal de interrupción a la CPU activando la línea \texttt{INTR}.
+
+El proceso de atención de la interrupción sigue estos pasos:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  La CPU responde a la señal \texttt{INTR} enviando un pulso por la línea \texttt{INTA}.
+\item
+  Al recibir la señal, el PIC marca la línea como \emph{in-service} en el registro \texttt{ISR} y la elimina del registro \texttt{IRR}.
+\item
+  El PIC envía a la CPU, a través del bus de datos, el número de interrupción correspondiente a la línea activa.
+\item
+  La CPU envía un segundo pulso por la línea \texttt{INTA}.
+\item
+  El PIC desactiva la línea \texttt{INTR}.
+\end{enumerate}
+
+Para finalizar la atención de la interrupción, la CPU escribe el byte EOI (End of Interrupt) en la dirección 20h de la memoria de E/S. Al recibir este byte, el PIC desmarca la línea como in-service en el registro ISR. Si hay interrupciones pendientes, el PIC reactiva la línea INTR y repite el proceso.
+
+Este PIC no admite interrupciones anidadas. Si ocurre una nueva interrupción mientras otra está siendo atendida, la nueva solicitud se encola en el registro IRR y se procesará una vez que la interrupción en curso haya finalizado, sin importar su prioridad.
+
+\hypertarget{prioridades}{%
+\subsubsection{Prioridades}\label{prioridades}}
+
+Cuando hay múltiples interrupciones pendientes, el PIC atiende primero la de mayor prioridad. La prioridad de cada línea está determinada por su número de interrupción: las líneas con números más bajos tienen mayor prioridad. Por ejemplo, la línea \texttt{INT0} tiene mayor prioridad que la línea \texttt{INT1}.
+
+\hypertarget{timer}{%
+\subsubsection{Timer}\label{timer}}
+
+El timer es un módulo que dispone de dos registros internos:
+
+\begin{itemize}
+\tightlist
+\item
+  Registro \texttt{CONT}: ubicado en la dirección \texttt{10h} de la memoria E/S.
+\item
+  Registro \texttt{COMP}: ubicado en la dirección \texttt{11h} de la memoria E/S.
+\end{itemize}
+
+Este módulo está basado en el PIT 8253 de Intel, aunque se han realizado modificaciones para simplificar su funcionamiento. El registro \texttt{COMP} permite establecer el valor de comparación con \texttt{CONT}. Si se escribe un valor de \texttt{0} en \texttt{COMP}, el timer se desactiva y no genera interrupciones. Cualquier otro valor habilita el timer y permite su funcionamiento normal.
+
+El reloj es un dispositivo que hace tic cada segundo. Al hacer tic, incrementa el registro \texttt{CONT} del {[}\emph{timer}{]} en uno.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{; Programa: Imprime "Hola" a los 3 segundos de iniciado y luego termina.}
+\NormalTok{; Utiliza la interrupción del TIMER (ID = 5).}
+
+\NormalTok{org 10h}
+\NormalTok{mensaje db "hola"        ; Mensaje a imprimir}
+\NormalTok{imprimio db 0            ; Flag para saber si ya imprimió}
+
+\NormalTok{; Definición de direcciones de registros de dispositivos}
+\NormalTok{CONT equ 10h             ; Registro de conteo del timer}
+\NormalTok{COMP equ 11h             ; Registro de comparación del timer}
+
+\NormalTok{EOI  equ 20h             ; End Of Interrupt (para PIC)}
+\NormalTok{IMR  equ 21h             ; Interrupt Mask Register (PIC)}
+\NormalTok{INT1 equ 25h             ; Registro de vector de interrupción 1}
+
+\NormalTok{org 20h                  ; Comienzo del código principal}
+
+\NormalTok{; {-}{-}{-} Habilitar interrupciones del timer {-}{-}{-}}
+\NormalTok{; IMR = 1111 1101b (solo habilita interrupciones del timer y teclado)}
+\NormalTok{mov al, 11111101b        ; Habilita interrupciones del timer (bit 1 en 0)}
+\NormalTok{out IMR, al}
+
+\NormalTok{; {-}{-}{-} Configurar vector de interrupción del timer {-}{-}{-}}
+\NormalTok{mov al, 5                ; ID de interrupción del timer}
+\NormalTok{out INT1, al             ; Asigna rutina de atención a la posición 5}
+
+\NormalTok{; {-}{-}{-} Instalar rutina de interrupción en el vector {-}{-}{-}}
+\NormalTok{mov bl, 5                ; Vector de interrupción 5}
+\NormalTok{mov [bl], imp\_msj        ; Apunta a la rutina imp\_msj}
+
+\NormalTok{; {-}{-}{-} Configurar timer para 3 segundos {-}{-}{-}}
+\NormalTok{mov al, 3                ; Valor de comparación (3 segundos)}
+\NormalTok{out COMP, al}
+
+\NormalTok{mov al, 0                ; Reinicia el contador del timer}
+\NormalTok{out CONT, al}
+
+\NormalTok{; {-}{-}{-} Esperar a que se imprima el mensaje {-}{-}{-}}
+\NormalTok{loopinf: cmp imprimio, 0 ; ¿Ya imprimió?}
+\NormalTok{         jz loopinf      ; Si no, sigue esperando}
+
+\NormalTok{hlt                      ; Termina el programa}
+
+\NormalTok{; {-}{-}{-} Rutina de interrupción del timer {-}{-}{-}}
+\NormalTok{org 50h}
+\NormalTok{imp\_msj:}
+\NormalTok{         mov bl, offset mensaje ; Dirección del mensaje}
+\NormalTok{         mov al, 4             ; Servicio de impresión}
+\NormalTok{         int 7                 ; Llama a la interrupción de impresión}
+\NormalTok{         mov imprimio, 1       ; Marca que ya imprimió}
+\NormalTok{         mov al, 20h           ; Señal de fin de interrupción}
+\NormalTok{         out EOI, al           ; Notifica al PIC}
+\NormalTok{         iret                  ; Retorna de la interrupción}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{tecla-f10}{%
+\subsubsection{Tecla F10}\label{tecla-f10}}
+
+La tecla F10 es un dispositivo que habilita una forma rápida y práctica de ejecutar una interrupción por hardware. Está conectada a la línea \texttt{INT0} del {[}PIC{]}. Puede accionarse presionando la tecla F10 el teclado físicamente o haciendo clic en el ``botón rojo de interrupción'' en la interfaz gráfica.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{; Programa: Contador de pulsaciones de la tecla F10 usando interrupciones}
+
+\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{; 1) Definiciones y variables}
+\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\NormalTok{org 10h                ; Dirección de inicio de datos}
+\NormalTok{cantidad db 0          ; Variable: almacena la cantidad de veces que se presionó F10}
+
+\NormalTok{ID   EQU 1             ; ID de la interrupción para F10 (puede ser 0{-}7)}
+\NormalTok{IMR  EQU 21h           ; Dirección del registro IMR (máscara de interrupciones)}
+\NormalTok{EOI  EQU 20h           ; Dirección para enviar End Of Interrupt al PIC}
+\NormalTok{INT0 EQU 24h           ; Dirección para configurar la línea INT0 (F10)}
+
+\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{; 2) Inicialización del PIC y vector de interrupción}
+\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\NormalTok{org 20h                ; Dirección de inicio del código principal}
+
+\NormalTok{; 2.1) Habilitar solo la interrupción de F10 (INT0)}
+\NormalTok{mov al, 11111110b      ; Habilita solo INT0 (bit 0 en 0), el resto deshabilitado}
+\NormalTok{out IMR, al}
+
+\NormalTok{; 2.2) Configurar el ID de la interrupción para INT0}
+\NormalTok{mov al, ID             ; Cargar el ID elegido para F10}
+\NormalTok{out INT0, al}
+
+\NormalTok{; 2.3) Asociar el vector de interrupción con la subrutina atenderf10}
+\NormalTok{mov bl, ID             ; BL = ID de la interrupción}
+\NormalTok{mov [bl], atenderf10   ; Vector de interrupción: dirección de la rutina}
+
+\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{; 3) Bucle principal (espera activa)}
+\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\NormalTok{loop: jmp loop         ; Espera indefinida (el programa queda esperando interrupciones)}
+
+\NormalTok{hlt                    ; (Opcional) Detiene la CPU si sale del bucle}
+
+\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+\NormalTok{; 4) Rutina de atención de la interrupción F10}
+\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
+
+\NormalTok{org 50h                ; Dirección de la subrutina de atención}
+
+\NormalTok{atenderf10:}
+\NormalTok{    inc cantidad       ; Incrementa el contador cada vez que se presiona F10}
+\NormalTok{    mov al, 20h        ; Código de End Of Interrupt (EOI)}
+\NormalTok{    out EOI, al        ; Notifica al PIC que terminó la atención}
+\NormalTok{    iret               ; Retorna de la interrupción}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones}{%
 \subsection{Etapa de ejecución de instrucciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones}}

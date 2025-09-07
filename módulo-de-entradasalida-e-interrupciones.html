@@ -285,7 +285,9 @@ div.csl-indent {
 <li class="chapter" data-level="5.4.6" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#puertos-de-es"><i class="fa fa-check"></i><b>5.4.6</b> Puertos de E/S</a></li>
 <li class="chapter" data-level="5.4.7" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out"><i class="fa fa-check"></i><b>5.4.7</b> Instrucciones IN y OUT</a></li>
 <li class="chapter" data-level="5.4.8" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#módulo-pio"><i class="fa fa-check"></i><b>5.4.8</b> Módulo PIO</a></li>
-<li class="chapter" data-level="5.4.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#etapa-de-ejecución-de-instrucciones"><i class="fa fa-check"></i><b>5.4.9</b> Etapa de ejecución de instrucciones</a></li>
+<li class="chapter" data-level="5.4.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#módulo-handshake"><i class="fa fa-check"></i><b>5.4.9</b> Módulo Handshake</a></li>
+<li class="chapter" data-level="5.4.10" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#módulo-pic"><i class="fa fa-check"></i><b>5.4.10</b> Módulo PIC</a></li>
+<li class="chapter" data-level="5.4.11" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#etapa-de-ejecución-de-instrucciones"><i class="fa fa-check"></i><b>5.4.11</b> Etapa de ejecución de instrucciones</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="apéndices.html"><a href="apéndices.html"><i class="fa fa-check"></i>Apéndices</a>
@@ -324,7 +326,7 @@ div.csl-indent {
 <p>El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal. Estos módulos se agrupan en las siguientes categorías:</p>
 <ul>
 <li>Teclado y pantalla.</li>
-<li>Un PIO, que puede conectarse a llaves, LEDs o una impresora.</li>
+<li>Un PIO, que puede conectarse a LEDs e interruptores.</li>
 <li>Un PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador (timer) y su reloj.</li>
 <li>Handshake, que puede conectarse tanto a un PIO como a un PIC.</li>
 </ul>
@@ -470,22 +472,25 @@ Operaciones lógicas y aritméticas
 </tr>
 </tbody>
 </table>
+<p>El simulador utiliza un código de operación de 4 bits para las instrucciones, lo que simplifica la arquitectura del sistema pero limita el número máximo de instrucciones implementables a 16 opciones diferentes. Con el objetivo de ampliar el repertorio de instrucciones sin incrementar el tamaño de la codificación, se adoptó una estrategia de agrupación para el código de operación 15.</p>
+<p>Bajo esta implementación, las instrucciones lógicas (AND, OR y XOR) comparten el código de operación 15 con las instrucciones aritméticas de un operando (INC, DEC, NEG y NOT). Esta decisión de diseño permite mantener la compatibilidad con los modos de direccionamiento establecidos para las instrucciones aritméticas de dos operandos (ADD, SUB y CMP), garantizando consistencia en la interfaz del simulador mientras se maximiza la funcionalidad dentro de las limitaciones impuestas por el esquema de codificación de 4 bits.</p>
+<p>Esta solución representa un compromiso eficaz entre la simplicidad arquitectural y la capacidad funcional del simulador, permitiendo una mayor diversidad de operaciones sin comprometer la claridad pedagógica del diseño.</p>
 <div id="pila-y-subrutinas" class="section level3 hasAnchor" number="5.4.1">
 <h3><span class="header-section-number">5.4.1</span> Pila y subrutinas<a href="módulo-de-entradasalida-e-interrupciones.html#pila-y-subrutinas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El procesador implementa una pila como método de almacenamiento, accesible tanto por el usuario como por la CPU para su funcionamiento interno. La pila opera bajo el esquema <em>Last In, First Out</em> (LIFO), es decir, el último elemento en ingresar es el primero en salir. Está ubicada en la memoria principal, comenzando en la dirección más alta (<code>FFh</code>) y creciendo hacia direcciones más bajas (<code>FEh</code>, <code>FCh</code>, etc.). El tope de la pila se gestiona mediante el registro <code>SP</code>, y cada elemento almacenado ocupa 8 bits.</p>
 <p>Además, el procesador permite el uso de subrutinas, que son fragmentos de código reutilizables y pueden ser invocados desde cualquier parte del programa. Para llamar a una subrutina se utiliza la instrucción [<code>CALL</code>], que apila el valor actual de <code>IP</code> y salta a la dirección de la subrutina, modificando el <code>IP</code> para apuntar a la primera instrucción de la misma. El retorno se realiza mediante la instrucción [<code>RET</code>], que desapila la dirección previamente guardada y restaura el <code>IP</code>, permitiendo continuar la ejecución justo después de la llamada.</p>
 <p>Ejemplo de subrutina:</p>
-<pre class="vonsim"><code>      mov al, 1
-      mov bl, 2
-      mov cl, 3
-      call sum3
-      ; ax = 6
-      hlt
+<pre class="assembly"><code>    mov al, 1
+    mov bl, 2
+    mov cl, 3
+    call sum3
+    ; ax = 6
+    hlt
 
-      ; suma al, bl y cl
-      sum3: add al, bl
-            add al, cl
-            ret</code></pre>
+    ; suma al, bl y cl
+    sum3: add al, bl
+          add al, cl
+          ret</code></pre>
 </div>
 <div id="interrupciones-y-llamadas-al-sistema" class="section level3 hasAnchor" number="5.4.2">
 <h3><span class="header-section-number">5.4.2</span> Interrupciones y llamadas al sistema<a href="módulo-de-entradasalida-e-interrupciones.html#interrupciones-y-llamadas-al-sistema" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -576,222 +581,206 @@ Nombre
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;background-color: rgba(240, 240, 240, 255) !important;">
 Timer
 </td>
-<td style="text-align:center;width: 12em; ">
+<td style="text-align:center;width: 12em; background-color: rgba(240, 240, 240, 255) !important;">
 10h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; background-color: rgba(240, 240, 240, 255) !important;">
 CONT
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-Timer
 </td>
 <td style="text-align:center;width: 12em; ">
 11h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 COMP
 </td>
 </tr>
 <tr>
-<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;background-color: rgba(240, 240, 240, 255) !important;">
 PIC
 </td>
-<td style="text-align:center;width: 12em; ">
+<td style="text-align:center;width: 12em; background-color: rgba(240, 240, 240, 255) !important;">
 20h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; background-color: rgba(240, 240, 240, 255) !important;">
 EOI
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 21h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 IMR
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 22h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 IRR
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 23h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 ISR
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 24h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 INT0
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 25h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 INT1
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 26h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 INT2
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 27h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 INT3
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 28h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 INT4
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 29h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 INT5
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 2Ah
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 INT6
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIC
 </td>
 <td style="text-align:center;width: 12em; ">
 2Bh
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 INT7
 </td>
 </tr>
 <tr>
-<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;background-color: rgba(240, 240, 240, 255) !important;">
 PIO
 </td>
-<td style="text-align:center;width: 12em; ">
+<td style="text-align:center;width: 12em; background-color: rgba(240, 240, 240, 255) !important;">
 30h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; background-color: rgba(240, 240, 240, 255) !important;">
 PA
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIO
 </td>
 <td style="text-align:center;width: 12em; ">
 31h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 PB
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIO
 </td>
 <td style="text-align:center;width: 12em; ">
 32h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 CA
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-PIO
 </td>
 <td style="text-align:center;width: 12em; ">
 33h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 CB
 </td>
 </tr>
 <tr>
-<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;background-color: rgba(240, 240, 240, 255) !important;">
 Handshake
 </td>
-<td style="text-align:center;width: 12em; ">
+<td style="text-align:center;width: 12em; background-color: rgba(240, 240, 240, 255) !important;">
 40h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; background-color: rgba(240, 240, 240, 255) !important;">
 DATA
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
-Handshake
 </td>
 <td style="text-align:center;width: 12em; ">
 41h
 </td>
-<td style="text-align:center;width: 28em; ">
+<td style="text-align:center;width: 16em; ">
 STATE
 </td>
 </tr>
@@ -808,18 +797,21 @@ STATE
 </div>
 <div id="módulo-pio" class="section level3 hasAnchor" number="5.4.8">
 <h3><span class="header-section-number">5.4.8</span> Módulo PIO<a href="módulo-de-entradasalida-e-interrupciones.html#módulo-pio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El <em>programmed input-output</em> (PIO) es un módulo que hace de interfaz para conectar dispositivos genéricos al CPU. Está basado en el PPI 8255 de Intel en su modo “0”, pero con algunas modificaciones para simplificar su funcionamiento.</p>
-<p>Cuenta con dos puertos de 8 bits (A y B) programables. Los registros disponibles son:</p>
+<p>El módulo de entrada/salida programada (Programmed Input-Output, PIO) actúa como interfaz entre la CPU y los dispositivos periféricos genéricos. Su diseño está basado en el controlador PPI 8255 de Intel, específicamente en su modo <code>0</code>, pero incorpora modificaciones orientadas a simplificar su funcionamiento para fines educativos <span class="citation">(<a href="#ref-intel8086manual">Intel Corporation 1979</a>)</span>.</p>
+<p>El módulo cuenta con dos puertos bidireccionales de 8 bits (A y B) que pueden ser configurados de manera independiente. Su arquitectura incluye cuatro registros accesibles:</p>
 <ul>
-<li><code>PA</code> (dirección <code>30h</code> de la [memoria E/S]),</li>
-<li><code>PB</code> (dirección <code>31h</code> de la [memoria E/S]),</li>
-<li><code>CA</code> (dirección <code>32h</code> de la [memoria E/S]),</li>
-<li>y <code>CB</code> (dirección <code>33h</code> de la [memoria E/S]).</li>
+<li>PA (dirección 30h en el espacio de memoria E/S): registro de datos del puerto A</li>
+<li>PB (dirección 31h en el espacio de memoria E/S): registro de datos del puerto B</li>
+<li>CA (dirección 32h en el espacio de memoria E/S): registro de configuración del puerto A</li>
+<li>CB (dirección 33h en el espacio de memoria E/S): registro de configuración del puerto B</li>
 </ul>
-<p>El valor del puerto A se encuentra en el registro <code>PA</code> y su configuración en el registro <code>CA</code>. El registro <code>CA</code> también es de 8 bits y le indica al PIO el modo cada bit: un <code>0</code> si es de salida y un <code>1</code> si es de entrada. Por ejemplo, para <code>CA = 00001111b</code>, los cuatro bits más significativos son de salida y los cuatro menos significativos son de entrada. El puerto B funciona idénticamente.</p>
-<p>El PIO puede estar conectado a [Leds y llaves] o a una [impresora].</p>
+<p>La configuración de cada puerto se define a través de sus respectivos registros de control (CA y CB). Cada bit del registro de configuración determina la dirección del bit correspondiente en el puerto de datos: un valor <code>0</code> configura el bit como salida, mientras que un valor <code>1</code> lo configura como entrada. Por ejemplo, si CA = 00001111b, los cuatro bits más significativos del puerto A funcionarán como salidas, y los cuatro bits menos significativos como entradas. El puerto B opera de manera idéntica mediante su registro CB.</p>
+<p>Este módulo PIO puede conectarse a diferentes tipos de dispositivos periféricos, como LEDs y interruptores, o a dispositivos más complejos como una impresora, proporcionando así una interfaz versátil para la comunicación con el mundo exterior.</p>
 <div id="leds" class="section level4 hasAnchor" number="5.4.8.1">
 <h4><span class="header-section-number">5.4.8.1</span> Leds<a href="módulo-de-entradasalida-e-interrupciones.html#leds" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Los diodos emisores de luz (LEDs) funcionan como dispositivos de salida y están conectados al puerto B del módulo PIO. Su control se realiza mediante la manipulación del registro de datos PB (dirección 31h) en conjunto con el registro de configuración CB (dirección 33h).</p>
+<p>Para que los LEDs respondan correctamente, es necesario configurar previamente el puerto B como salida escribiendo el valor apropiado en el registro CB. Una vez configurado correctamente el PIO, cualquier modificación en el valor del registro PB se reflejará inmediatamente en el estado de los LEDs correspondientes. En caso de que la configuración del puerto sea incorrecta o se omita este paso, los LEDs permanecerán apagados independientemente de los valores escritos en PB.</p>
+<p>Esta configuración permite controlar individualmente cada LED mediante los bits del puerto, ofreciendo flexibilidad para crear patrones luminosos o indicadores visuales en aplicaciones educativas y de demostración.</p>
 <p>Las luces o LEDs están conectadas al puerto PB/CB del PIO y funcionan como dispositivos de salida. Su estado solo puede modificarse alterando el valor del puerto PB. Estos cambios se reflejarán en las luces si el PIO está configurado correctamente; de lo contrario, las luces permanecerán apagadas.</p>
 <pre class="assembly"><code>; Enciende las luces (una sí, una no): 1010 1010b
 ; 31h = PB --&gt; puerto de datos para las luces (LEDs)
@@ -835,9 +827,11 @@ out 31h, al              ; Escribe el valor en PB para actualizar las luces
 
 hlt                      ; Detiene la ejecución del programa</code></pre>
 </div>
-<div id="llaves" class="section level4 hasAnchor" number="5.4.8.2">
-<h4><span class="header-section-number">5.4.8.2</span> Llaves<a href="módulo-de-entradasalida-e-interrupciones.html#llaves" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Las llaves o interruptores están conectados al puerto PA/CA del PIO y funcionan como dispositivos de entrada. Al cambiar su estado, este se refleja en el puerto PA, siempre que el PIO esté configurado correctamente. Sin embargo, si se modifica directamente el valor de PA, los cambios no se reflejarán en las llaves, ya que estas no se actualizan automáticamente.</p>
+<div id="interruptores" class="section level4 hasAnchor" number="5.4.8.2">
+<h4><span class="header-section-number">5.4.8.2</span> interruptores<a href="módulo-de-entradasalida-e-interrupciones.html#interruptores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Los interruptores (también denominados llaves) funcionan como dispositivos de entrada conectados al puerto A del módulo PIO. Su operación se gestiona mediante el registro de datos PA (dirección 30h) y el registro de configuración CA (dirección 32h).</p>
+<p>Para que los interruptores operen correctamente, es fundamental configurar previamente el puerto A como entrada mediante el registro CA. Una vez establecida la configuración apropiada, cualquier cambio en el estado físico de los interruptores se reflejará automáticamente en los bits correspondientes del registro PA, permitiendo al programa leer su estado actual.</p>
+<p>Es importante destacar que la comunicación es unidireccional desde los dispositivos hacia el procesador: aunque es posible escribir valores directamente en el registro PA mediante software, estos cambios no alterarán el estado físico de los interruptores. Los dispositivos de entrada mantienen su estado independientemente de las modificaciones realizadas por programa en sus registros asociados, garantizando así la integridad de la información proveniente del mundo exterior.</p>
 <pre class="assembly"><code>; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
 
 clave db 15               ; Contraseña esperada: 00001111 (en decimal 15)
@@ -856,75 +850,286 @@ bucle:
 Mostrar_Mensaje:
   mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
   mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
+  int 7
   hlt                       ; Detiene la ejecución del programa</code></pre>
 </div>
-<div id="impresora-con-pio" class="section level4 hasAnchor" number="5.4.8.3">
-<h4><span class="header-section-number">5.4.8.3</span> Impresora con PIO<a href="módulo-de-entradasalida-e-interrupciones.html#impresora-con-pio" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Una opción es conectar la impresora al [PIO]. La conexión queda así:</p>
-<pre class="vonsim"><code>PA = ____ __SB
-PB = DDDD DDDD</code></pre>
-<p>En <code>PB</code> se almacenará carácter a imprimir, expresado en ASCII. En <code>PA</code>, los seis bits más significativos no hacen nada. El bit menos significativo es la flag <em>busy</em>. Y el que queda es el <em>strobe</em>.</p>
-<p>El <em>strobe</em> es el bit que le indica a la impresora que queremos imprimir. Las impresoras Centronics toman el valor en <code>PB</code> cuando detectan un flanco ascendente en el <em>strobe</em>. Es decir, una transición de <code>S=0</code> a <code>S=1</code>.</p>
-<p>En resumen, para imprimir un carácter, hay que</p>
+</div>
+<div id="módulo-handshake" class="section level3 hasAnchor" number="5.4.9">
+<h3><span class="header-section-number">5.4.9</span> Módulo Handshake<a href="módulo-de-entradasalida-e-interrupciones.html#módulo-handshake" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El módulo Handshake es un controlador especializado diseñado para facilitar la comunicación con impresoras que utilizan el protocolo Centronics. Su diseño se inspira en el controlador PPI 8255 de Intel, operando en modo “1”, pero incluye modificaciones específicas para simplificar su uso y comprensión en entornos educativos.</p>
+<p>El módulo cuenta con una arquitectura simplificada basada en dos registros de 8 bits:</p>
+<ul>
+<li><strong>Registro de datos</strong>: ubicado en la dirección 40h del espacio de memoria de E/S.</li>
+<li><strong>Registro de estado</strong>: ubicado en la dirección 41h del espacio de memoria de E/S.</li>
+</ul>
+<p>La estructura de estos registros se organiza de la siguiente manera:</p>
+<pre><code>Datos  = DDDD DDDD
+Estado = I___ __SB</code></pre>
+<div id="funcionamiento-del-registro-de-datos" class="section level4 hasAnchor" number="5.4.9.1">
+<h4><span class="header-section-number">5.4.9.1</span> Funcionamiento del registro de datos<a href="módulo-de-entradasalida-e-interrupciones.html#funcionamiento-del-registro-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>El registro de datos almacena el carácter que se desea imprimir, codificado en formato ASCII. Una característica destacada del módulo Handshake es su capacidad de automatización: cada vez que la CPU escribe un valor en este registro, el controlador genera automáticamente un flanco ascendente en la señal strobe, iniciando el proceso de impresión sin necesidad de intervención adicional por parte del software.</p>
+</div>
+<div id="funcionamiento-del-registro-de-estado" class="section level4 hasAnchor" number="5.4.9.2">
+<h4><span class="header-section-number">5.4.9.2</span> Funcionamiento del registro de estado<a href="módulo-de-entradasalida-e-interrupciones.html#funcionamiento-del-registro-de-estado" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>El registro de estado gestiona las señales de control y supervisión del protocolo de comunicación. Sus principales componentes son:</p>
+<ul>
+<li><strong>Bits S y B (strobe y busy)</strong>: los dos bits menos significativos controlan las señales de comunicación, con diferencias clave respecto a la implementación en el PIO:
+<ul>
+<li>El bit busy es de solo lectura y refleja automáticamente el estado de la impresora</li>
+<li>El bit strobe permanece normalmente en 0 y es gestionado automáticamente por el módulo. Cuando la CPU escribe un 1 en el bit strobe, se genera un flanco ascendente que transmite los datos almacenados en el registro de datos, retornando automáticamente a 0.</li>
+</ul></li>
+<li><strong>Bit I (interrupción)</strong>: El bit más significativo controla el sistema de interrupciones del módulo. Cuando este bit está habilitado (I=1) y la impresora se encuentra disponible (B=0), el módulo Handshake genera una interrupción por hardware a través de la línea INT2 del controlador PIC, notificando al sistema que la impresora está lista para recibir nuevos datos.</li>
+</ul>
+<p>Esta implementación ofrece una interfaz intuitiva para el control de impresoras, automatizando aspectos críticos del protocolo de comunicación y manteniendo la flexibilidad necesaria para comprender los fundamentos de la interacción con dispositivos periféricos.</p>
+</div>
+<div id="ejemplo-de-uso-del-módulo-handshake" class="section level4 hasAnchor" number="5.4.9.3">
+<h4><span class="header-section-number">5.4.9.3</span> Ejemplo de uso del módulo Handshake<a href="módulo-de-entradasalida-e-interrupciones.html#ejemplo-de-uso-del-módulo-handshake" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Para imprimir utilizando el módulo Handshake, se deben seguir los siguientes pasos:</p>
 <ol style="list-style-type: decimal">
-<li>verificar que el <em>buffer</em> no esté lleno (flag <em>busy</em>),</li>
-<li>escribir el carácter en <code>PB</code>,</li>
-<li>poner el <em>strobe</em> en 0,</li>
-<li>poner el <em>strobe</em> en 1.</li>
+<li>Verificar que el buffer no esté lleno (flag busy).</li>
+<li>Escribir el carácter en el registro de datos.</li>
 </ol>
-<pre class="vonsim"><code>; Imprime el string &quot;hola&quot; en la impresora usando PIO
+<p>Además de los caracteres ASCII comunes, el módulo admite caracteres especiales útiles para la impresión:
+- Salto de línea (<code>LF</code>, 10 en decimal): Imprime un salto de línea, evitando que todo el texto se imprima en una sola línea.
+- Form feed (<code>FF</code>, 12 en decimal): Limpia la impresora, equivalente a arrancar una hoja.</p>
+<p>A continuación, se presenta un ejemplo en ensamblador para imprimir la cadena “Hola” utilizando el módulo Handshake:</p>
+<pre class="vonsim"><code>; Imprime el string &quot;Hola&quot; en la impresora usando sondeo
 
-dato db &quot;hola&quot;, 0         ; String a imprimir, terminado en 0
+dato DB &quot;Hola&quot;, 0         ; String a imprimir, terminado en 0 (carácter nulo)
 
-PA EQU 30h                ; Puerto A: strobe y busy
-PB EQU 31h                ; Puerto B: datos
-CA EQU 32h                ; Control A
-CB EQU 33h                ; Control B
+HS_DATA   EQU 40h         ; Dirección del registro de datos del Handshake
+HS_STATUS EQU 41h         ; Dirección del registro de estado del Handshake
 
-; --- Configuración de PIO ---
-mov al, 0                 ; PA como salida (strobe)
-out CA, al
-mov al, 0                 ; PB como salida (datos)
-out CB, al
+; --- Deshabilita las interrupciones del Handshake (bit 7 en 0) ---
+IN  AL, HS_STATUS
+AND AL, 01111111b         ; Fuerza el bit 7 a 0 (sin interrupciones)
+OUT HS_STATUS, AL
 
-; --- Inicializar strobe en 0 ---
-in  al, PA
-and al, 11111101b         ; Bit 1 (strobe) a 0
-out PA, al
+; --- Inicializa el puntero al string ---
+MOV BL, OFFSET dato       ; BL apunta al primer carácter del string
 
-mov bl, offset dato       ; BL apunta al inicio del string
+; --- Bucle principal: espera espacio en el buffer e imprime ---
+Sondeo:
+    IN  AL, HS_STATUS
+    AND AL, 00000001b     ; Lee el flag busy (bit 0): 1=lleno, 0=libre
+    JZ  ImprimirCadena   ; Si busy=0, hay espacio y puede imprimir
+    JMP Sondeo            ; Si busy=1, espera hasta que haya espacio
 
-sondeo:
-    in  al, PA
-    and al, 00000001b     ; ¿Buffer lleno? (busy)
-    jz  imprimir_cadena   ; Si busy es 0, salta a imprimir
-    jmp sondeo            ; Si busy es 1, sigue esperando
+ImprimirCadena:
+    MOV AL, [BL]          ; Carga el siguiente carácter del string
+    CMP AL, 0             ; ¿Es el final del string? (carácter nulo)
+    JZ fin                ; Si sí, termina el programa
 
-imprimir_cadena:
-    mov al, [bl]          ; Siguiente carácter
-    cmp al, 0             ; ¿Fin del string?
-    jz  fin
+    OUT HS_DATA, AL       ; Envía el carácter al registro de datos del Handshake
 
-    out PB, al            ; Enviar carácter a PB
-
-    ; --- Generar flanco ascendente en strobe ---
-    in  al, PA
-    or  al, 00000010b     ; Strobe a 1
-    out PA, al
-    in  al, PA
-    and al, 11111101b     ; Strobe a 0
-    out PA, al
-
-    inc bl                ; Siguiente carácter
-    jmp sondeo
+    INC BL                ; Avanza al siguiente carácter del string
+    JMP Sondeo            ; Repite el proceso para el próximo carácter
 
 fin:
-    hlt</code></pre>
-<p>Actualmente el código de operación de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el código de operación 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.</p>
+    HLT   ; Detiene la ejecución</code></pre>
+<p>Para mejorar la lectura del programa se utilizan constantes en ensamblador “EQU” para definir las direcciones de los puertos del módulo Handshake.</p>
 </div>
 </div>
-<div id="etapa-de-ejecución-de-instrucciones" class="section level3 hasAnchor" number="5.4.9">
-<h3><span class="header-section-number">5.4.9</span> Etapa de ejecución de instrucciones<a href="módulo-de-entradasalida-e-interrupciones.html#etapa-de-ejecución-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="módulo-pic" class="section level3 hasAnchor" number="5.4.10">
+<h3><span class="header-section-number">5.4.10</span> Módulo PIC<a href="módulo-de-entradasalida-e-interrupciones.html#módulo-pic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El Programmable Interrupt Controller (PIC) es un módulo que actúa como intermediario entre los dispositivos que generan interrupciones y la CPU. Dado que la CPU dispone de una única línea de entrada para interrupciones, el PIC se encarga de recibir solicitudes de múltiples dispositivos y multiplexarlas en esta línea única.</p>
+<p>Este módulo está basado en el PIC 8259A de Intel, aunque se han realizado modificaciones para simplificar su funcionamiento y adaptarlo a fines educativos.</p>
+<div id="líneas-de-interrupción" class="section level4 hasAnchor" number="5.4.10.1">
+<h4><span class="header-section-number">5.4.10.1</span> Líneas de interrupción<a href="módulo-de-entradasalida-e-interrupciones.html#líneas-de-interrupción" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>El PIC dispone de 8 líneas de interrupción, denominadas INT0 a INT7 (aunque no todas son utilizadas). Cada línea está asociada a un registro de 8 bits en la memoria de E/S. Por ejemplo, la línea INT0 corresponde a la dirección 24h, la línea INT1 a la dirección 25h, y así sucesivamente hasta la línea INT7, que utiliza la dirección 2Bh. En estos registros se almacena el número de interrupción asociado a cada línea.</p>
+<p>Cuando un dispositivo o módulo solicita una interrupción, el PIC envía a la CPU el número de interrupción almacenado en el registro correspondiente, desacoplando así el número de línea del número de interrupción.</p>
+<p>Las líneas están conectadas a los siguientes dispositivos:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Línea</th>
+<th align="left">Módulo/Disp.</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><code>INT0</code></td>
+<td align="left"><a href="módulo-de-entradasalida-e-interrupciones.html#tecla-f10">Tecla F10</a></td>
+</tr>
+<tr class="even">
+<td align="center"><code>INT1</code></td>
+<td align="left"><a href="módulo-de-entradasalida-e-interrupciones.html#timer">Timer</a></td>
+</tr>
+<tr class="odd">
+<td align="center"><code>INT2</code></td>
+<td align="left">[Handshake]</td>
+</tr>
+<tr class="even">
+<td align="center"><code>INT3</code></td>
+<td align="left">–</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>INT4</code></td>
+<td align="left">–</td>
+</tr>
+<tr class="even">
+<td align="center"><code>INT5</code></td>
+<td align="left">–</td>
+</tr>
+<tr class="odd">
+<td align="center"><code>INT6</code></td>
+<td align="left">–</td>
+</tr>
+<tr class="even">
+<td align="center"><code>INT7</code></td>
+<td align="left">–</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="registros-de-control" class="section level4 hasAnchor" number="5.4.10.2">
+<h4><span class="header-section-number">5.4.10.2</span> Registros de control<a href="módulo-de-entradasalida-e-interrupciones.html#registros-de-control" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>El PIC cuenta con tres registros adicionales para gestionar las interrupciones. Cada bit de estos registros corresponde a una línea de interrupción, donde el bit menos significativo representa la línea da bit corresponde con una línea de interrupción: el bit menos significativo corresponde a la línea y el más significativo la línea <code>INT7</code>.</p>
+<ul>
+<li><p><strong>Registro IMR (Interrupt Mask Register)</strong>: Ubicado en la dirección <code>21h</code> de la memoria de E/S, este registro permite enmascarar (inhabilitar) líneas de interrupción. Si un bit está en 1, la línea correspondiente está enmascarada y no generará interrupciones en la CPU. Si el bit está en 0, la línea está habilitada. Este registro puede ser modificado por la CPU.</p></li>
+<li><p><strong>Registro IRR (Interrupt Request Register)</strong>: Ubicado en la dirección <code>22h</code>, este registro indica las interrupciones pendientes. Si un bit está en 1, la línea correspondiente tiene una interrupción pendiente. Este registro es de solo lectura para la CPU y es gestionado por el PIC.</p></li>
+<li><p><strong>Registro ISR (In-Service Register)</strong>: Ubicado en la dirección <code>23h</code>, este registro muestra qué interrupción está siendo atendida en un momento dado. Si un bit está en 1, la línea correspondiente está en servicio. Este registro también es de solo lectura para la CPU y es gestionado por el PIC.</p></li>
+</ul>
+</div>
+<div id="funcionamiento" class="section level4 hasAnchor" number="5.4.10.3">
+<h4><span class="header-section-number">5.4.10.3</span> Funcionamiento<a href="módulo-de-entradasalida-e-interrupciones.html#funcionamiento" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Cuando una línea de interrupción se activa, el PIC la registra en el <code>IRR</code>. Si la línea no está enmascarada y no hay otra interrupción en servicio (es decir, si <code>ISR = 00h</code>), el PIC envía una señal de interrupción a la CPU activando la línea <code>INTR</code>.</p>
+<p>El proceso de atención de la interrupción sigue estos pasos:</p>
+<ol style="list-style-type: decimal">
+<li>La CPU responde a la señal <code>INTR</code> enviando un pulso por la línea <code>INTA</code>.</li>
+<li>Al recibir la señal, el PIC marca la línea como <em>in-service</em> en el registro <code>ISR</code> y la elimina del registro <code>IRR</code>.</li>
+<li>El PIC envía a la CPU, a través del bus de datos, el número de interrupción correspondiente a la línea activa.</li>
+<li>La CPU envía un segundo pulso por la línea <code>INTA</code>.</li>
+<li>El PIC desactiva la línea <code>INTR</code>.</li>
+</ol>
+<p>Para finalizar la atención de la interrupción, la CPU escribe el byte EOI (End of Interrupt) en la dirección 20h de la memoria de E/S. Al recibir este byte, el PIC desmarca la línea como in-service en el registro ISR. Si hay interrupciones pendientes, el PIC reactiva la línea INTR y repite el proceso.</p>
+<p>Este PIC no admite interrupciones anidadas. Si ocurre una nueva interrupción mientras otra está siendo atendida, la nueva solicitud se encola en el registro IRR y se procesará una vez que la interrupción en curso haya finalizado, sin importar su prioridad.</p>
+</div>
+<div id="prioridades" class="section level4 hasAnchor" number="5.4.10.4">
+<h4><span class="header-section-number">5.4.10.4</span> Prioridades<a href="módulo-de-entradasalida-e-interrupciones.html#prioridades" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Cuando hay múltiples interrupciones pendientes, el PIC atiende primero la de mayor prioridad. La prioridad de cada línea está determinada por su número de interrupción: las líneas con números más bajos tienen mayor prioridad. Por ejemplo, la línea <code>INT0</code> tiene mayor prioridad que la línea <code>INT1</code>.</p>
+</div>
+<div id="timer" class="section level4 hasAnchor" number="5.4.10.5">
+<h4><span class="header-section-number">5.4.10.5</span> Timer<a href="módulo-de-entradasalida-e-interrupciones.html#timer" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>El timer es un módulo que dispone de dos registros internos:</p>
+<ul>
+<li>Registro <code>CONT</code>: ubicado en la dirección <code>10h</code> de la memoria E/S.</li>
+<li>Registro <code>COMP</code>: ubicado en la dirección <code>11h</code> de la memoria E/S.</li>
+</ul>
+<p>Este módulo está basado en el PIT 8253 de Intel, aunque se han realizado modificaciones para simplificar su funcionamiento. El registro <code>COMP</code> permite establecer el valor de comparación con <code>CONT</code>. Si se escribe un valor de <code>0</code> en <code>COMP</code>, el timer se desactiva y no genera interrupciones. Cualquier otro valor habilita el timer y permite su funcionamiento normal.</p>
+<p>El reloj es un dispositivo que hace tic cada segundo. Al hacer tic, incrementa el registro <code>CONT</code> del [<em>timer</em>] en uno.</p>
+<pre class="vonsim"><code>; Programa: Imprime &quot;Hola&quot; a los 3 segundos de iniciado y luego termina.
+; Utiliza la interrupción del TIMER (ID = 5).
+
+org 10h
+mensaje db &quot;hola&quot;        ; Mensaje a imprimir
+imprimio db 0            ; Flag para saber si ya imprimió
+
+; Definición de direcciones de registros de dispositivos
+CONT equ 10h             ; Registro de conteo del timer
+COMP equ 11h             ; Registro de comparación del timer
+
+EOI  equ 20h             ; End Of Interrupt (para PIC)
+IMR  equ 21h             ; Interrupt Mask Register (PIC)
+INT1 equ 25h             ; Registro de vector de interrupción 1
+
+org 20h                  ; Comienzo del código principal
+
+; --- Habilitar interrupciones del timer ---
+; IMR = 1111 1101b (solo habilita interrupciones del timer y teclado)
+mov al, 11111101b        ; Habilita interrupciones del timer (bit 1 en 0)
+out IMR, al
+
+; --- Configurar vector de interrupción del timer ---
+mov al, 5                ; ID de interrupción del timer
+out INT1, al             ; Asigna rutina de atención a la posición 5
+
+; --- Instalar rutina de interrupción en el vector ---
+mov bl, 5                ; Vector de interrupción 5
+mov [bl], imp_msj        ; Apunta a la rutina imp_msj
+
+; --- Configurar timer para 3 segundos ---
+mov al, 3                ; Valor de comparación (3 segundos)
+out COMP, al
+
+mov al, 0                ; Reinicia el contador del timer
+out CONT, al
+
+; --- Esperar a que se imprima el mensaje ---
+loopinf: cmp imprimio, 0 ; ¿Ya imprimió?
+         jz loopinf      ; Si no, sigue esperando
+
+hlt                      ; Termina el programa
+
+; --- Rutina de interrupción del timer ---
+org 50h
+imp_msj:
+         mov bl, offset mensaje ; Dirección del mensaje
+         mov al, 4             ; Servicio de impresión
+         int 7                 ; Llama a la interrupción de impresión
+         mov imprimio, 1       ; Marca que ya imprimió
+         mov al, 20h           ; Señal de fin de interrupción
+         out EOI, al           ; Notifica al PIC
+         iret                  ; Retorna de la interrupción</code></pre>
+</div>
+<div id="tecla-f10" class="section level4 hasAnchor" number="5.4.10.6">
+<h4><span class="header-section-number">5.4.10.6</span> Tecla F10<a href="módulo-de-entradasalida-e-interrupciones.html#tecla-f10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>La tecla F10 es un dispositivo que habilita una forma rápida y práctica de ejecutar una interrupción por hardware. Está conectada a la línea <code>INT0</code> del [PIC]. Puede accionarse presionando la tecla F10 el teclado físicamente o haciendo clic en el “botón rojo de interrupción” en la interfaz gráfica.</p>
+<pre class="vonsim"><code>; Programa: Contador de pulsaciones de la tecla F10 usando interrupciones
+
+;-----------------------------------------------
+; 1) Definiciones y variables
+;-----------------------------------------------
+
+org 10h                ; Dirección de inicio de datos
+cantidad db 0          ; Variable: almacena la cantidad de veces que se presionó F10
+
+ID   EQU 1             ; ID de la interrupción para F10 (puede ser 0-7)
+IMR  EQU 21h           ; Dirección del registro IMR (máscara de interrupciones)
+EOI  EQU 20h           ; Dirección para enviar End Of Interrupt al PIC
+INT0 EQU 24h           ; Dirección para configurar la línea INT0 (F10)
+
+;-----------------------------------------------
+; 2) Inicialización del PIC y vector de interrupción
+;-----------------------------------------------
+
+org 20h                ; Dirección de inicio del código principal
+
+; 2.1) Habilitar solo la interrupción de F10 (INT0)
+mov al, 11111110b      ; Habilita solo INT0 (bit 0 en 0), el resto deshabilitado
+out IMR, al
+
+; 2.2) Configurar el ID de la interrupción para INT0
+mov al, ID             ; Cargar el ID elegido para F10
+out INT0, al
+
+; 2.3) Asociar el vector de interrupción con la subrutina atenderf10
+mov bl, ID             ; BL = ID de la interrupción
+mov [bl], atenderf10   ; Vector de interrupción: dirección de la rutina
+
+;-----------------------------------------------
+; 3) Bucle principal (espera activa)
+;-----------------------------------------------
+
+loop: jmp loop         ; Espera indefinida (el programa queda esperando interrupciones)
+
+hlt                    ; (Opcional) Detiene la CPU si sale del bucle
+
+;-----------------------------------------------
+; 4) Rutina de atención de la interrupción F10
+;-----------------------------------------------
+
+org 50h                ; Dirección de la subrutina de atención
+
+atenderf10:
+    inc cantidad       ; Incrementa el contador cada vez que se presiona F10
+    mov al, 20h        ; Código de End Of Interrupt (EOI)
+    out EOI, al        ; Notifica al PIC que terminó la atención
+    iret               ; Retorna de la interrupción</code></pre>
+</div>
+</div>
+<div id="etapa-de-ejecución-de-instrucciones" class="section level3 hasAnchor" number="5.4.11">
+<h3><span class="header-section-number">5.4.11</span> Etapa de ejecución de instrucciones<a href="módulo-de-entradasalida-e-interrupciones.html#etapa-de-ejecución-de-instrucciones" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ul>
 <li><strong>Subrutinas</strong>
 <ul>
@@ -1543,6 +1748,12 @@ ffff = funcionalidad, M = Dirección de memoria
 </div>
 </div>
 <!-- </div> -->
+<h3> Bibliografía<a href="Biblio.html#Biblio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-intel8086manual" class="csl-entry">
+Intel Corporation. 1979. <em>Intel 8086 Family User’s Manual</em>. Intel Corporation. <a href="https://bitsavers.org/components/intel/8086/9800722-03_The_8086_Family_Users_Manual_Oct79.pdf">https://bitsavers.org/components/intel/8086/9800722-03_The_8086_Family_Users_Manual_Oct79.pdf</a>.
+</div>
+</div>
             </section>
 
           </div>
