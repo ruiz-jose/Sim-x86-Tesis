@@ -1514,7 +1514,7 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
 El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal. Estos módulos se agrupan en las siguientes categorías:
 
 - Teclado y pantalla.
-- Un PIO, que puede conectarse a llaves, LEDs o una impresora.
+- Un PIO, que puede conectarse a LEDs e interruptores.
 - Un PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador (timer) y su reloj.
 - Handshake, que puede conectarse tanto a un PIO como a un PIC.
 
@@ -1605,13 +1605,19 @@ if (knitr::is_latex_output()) {
 }
 ```
 
+El simulador utiliza un código de operación de 4 bits para las instrucciones, lo que simplifica la arquitectura del sistema pero limita el número máximo de instrucciones implementables a 16 opciones diferentes. Con el objetivo de ampliar el repertorio de instrucciones sin incrementar el tamaño de la codificación, se adoptó una estrategia de agrupación para el código de operación 15.
+
+Bajo esta implementación, las instrucciones lógicas (AND, OR y XOR) comparten el código de operación 15 con las instrucciones aritméticas de un operando (INC, DEC, NEG y NOT). Esta decisión de diseño permite mantener la compatibilidad con los modos de direccionamiento establecidos para las instrucciones aritméticas de dos operandos (ADD, SUB y CMP), garantizando consistencia en la interfaz del simulador mientras se maximiza la funcionalidad dentro de las limitaciones impuestas por el esquema de codificación de 4 bits.
+
+Esta solución representa un compromiso eficaz entre la simplicidad arquitectural y la capacidad funcional del simulador, permitiendo una mayor diversidad de operaciones sin comprometer la claridad pedagógica del diseño.
+
 ###  Pila y subrutinas 
 El procesador implementa una pila como método de almacenamiento, accesible tanto por el usuario como por la CPU para su funcionamiento interno. La pila opera bajo el esquema _Last In, First Out_ (LIFO), es decir, el último elemento en ingresar es el primero en salir. Está ubicada en la memoria principal, comenzando en la dirección más alta (`FFh`) y creciendo hacia direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se gestiona mediante el registro `SP`, y cada elemento almacenado ocupa 8 bits.
 
 Además, el procesador permite el uso de subrutinas, que son fragmentos de código reutilizables y pueden ser invocados desde cualquier parte del programa. Para llamar a una subrutina se utiliza la instrucción [`CALL`], que apila el valor actual de `IP` y salta a la dirección de la subrutina, modificando el `IP` para apuntar a la primera instrucción de la misma. El retorno se realiza mediante la instrucción [`RET`], que desapila la dirección previamente guardada y restaura el `IP`, permitiendo continuar la ejecución justo después de la llamada.
 
 Ejemplo de subrutina:
-```{r  codeteclado, results='asis', echo=FALSE}
+```{r  codecall, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
   cat("
   \\begin{lstlisting}
@@ -1949,88 +1955,261 @@ Mostrar_Mensaje:
 }
 ```
 
-#### Impresora con PIO
-El simulador permite conectar una impresora al módulo PIO, emulando el protocolo de comunicación utilizado por las impresoras paralelas estándar tipo Centronics. La configuración de los puertos para esta conexión se organiza de la siguiente manera:
-Una opción es conectar la impresora al [PIO]. La conexión queda así:
+### Módulo Handshake
+El módulo Handshake es un controlador especializado diseñado para facilitar la comunicación con impresoras que utilizan el protocolo Centronics. Su diseño se inspira en el controlador PPI 8255 de Intel, operando en modo "1", pero incluye modificaciones específicas para simplificar su uso y comprensión en entornos educativos.
 
-```vonsim
-PA = ____ __SB
-PB = DDDD DDDD
+El módulo cuenta con una arquitectura simplificada basada en dos registros de 8 bits:
+
+  - **Registro de datos**: ubicado en la dirección 40h del espacio de memoria de E/S.
+  - **Registro de estado**: ubicado en la dirección 41h del espacio de memoria de E/S.
+
+La estructura de estos registros se organiza de la siguiente manera:
+
+```
+Datos  = DDDD DDDD
+Estado = I___ __SB
 ```
 
-Donde:
-- Puerto B (PB): almacena el carácter a imprimir codificado en ASCII (8 bits de datos: DDDD DDDD)
-- Puerto A (PA): controla las señales de comunicación, donde:
-  - Los seis bits más significativos no se utilizan
-  - Bit S (strobe): señal de control que indica a la impresora cuándo debe capturar los datos
-  - Bit B (busy): señal de estado que indica si la impresora está ocupada
+#### Funcionamiento del registro de datos
 
-El protocolo de comunicación se basa en el strobe, una señal de control que notifica a la impresora cuándo debe leer los datos del puerto B. Las impresoras compatibles con el estándar Centronics capturan el valor presente en PB al detectar un flanco ascendente en la señal strobe, es decir, cuando esta transiciona de S=0 a S=1.
+El registro de datos almacena el carácter que se desea imprimir, codificado en formato ASCII. Una característica destacada del módulo Handshake es su capacidad de automatización: cada vez que la CPU escribe un valor en este registro, el controlador genera automáticamente un flanco ascendente en la señal strobe, iniciando el proceso de impresión sin necesidad de intervención adicional por parte del software.
 
+#### Funcionamiento del registro de estado
 
-Secuencia para imprimir un carácter:
+El registro de estado gestiona las señales de control y supervisión del protocolo de comunicación. Sus principales componentes son:
 
-  1. Verificar disponibilidad: comprobar que la bandera busy esté en 0, indicando que la impresora no está ocupada
-  2. Cargar datos: escribir el carácter deseado (código ASCII) en el puerto PB
-  3. Preparar strobe: establecer la señal strobe en 0
-  4. Activar impresión: cambiar la señal strobe a 1 para generar el flanco ascendente que iniciará la impresión
+  - **Bits S y B (strobe y busy)**: los dos bits menos significativos controlan las señales de comunicación, con diferencias clave respecto a la implementación en el PIO:
+    - El bit busy es de solo lectura y refleja automáticamente el estado de la impresora
+    - El bit strobe permanece normalmente en 0 y es gestionado automáticamente por el módulo. Cuando la CPU escribe un 1 en el bit strobe, se genera un flanco ascendente que transmite los datos almacenados en el registro de datos, retornando automáticamente a 0.
+  - **Bit I (interrupción)**: El bit más significativo controla el sistema de interrupciones del módulo. Cuando este bit está habilitado (I=1) y la impresora se encuentra disponible (B=0), el módulo Handshake genera una interrupción por hardware a través de la línea INT2 del controlador PIC, notificando al sistema que la impresora está lista para recibir nuevos datos.
 
-Esta implementación proporciona una comprensión práctica de los protocolos de comunicación paralela y el control de dispositivos periféricos en sistemas computacionales.
+Esta implementación ofrece una interfaz intuitiva para el control de impresoras, automatizando aspectos críticos del protocolo de comunicación y manteniendo la flexibilidad necesaria para comprender los fundamentos de la interacción con dispositivos periféricos.
+
+#### Ejemplo de uso del módulo Handshake
+Para imprimir utilizando el módulo Handshake, se deben seguir los siguientes pasos:
+
+  1. Verificar que el buffer no esté lleno (flag busy).
+  2. Escribir el carácter en el registro de datos.
+
+Además de los caracteres ASCII comunes, el módulo admite caracteres especiales útiles para la impresión:
+  - Salto de línea (`LF`, 10 en decimal): Imprime un salto de línea, evitando que todo el texto se imprima en una sola línea.
+  - Form feed (`FF`, 12 en decimal): Limpia la impresora, equivalente a arrancar una hoja.
+
+A continuación, se presenta un ejemplo en ensamblador para imprimir la cadena "Hola" utilizando el módulo Handshake:
 
 ```vonsim
-; Imprime el string "hola" en la impresora usando PIO
+; Imprime el string "Hola" en la impresora usando sondeo
 
-dato db "hola", 0         ; String a imprimir, terminado en 0
+dato DB "Hola", 0         ; String a imprimir, terminado en 0 (carácter nulo)
 
-PA EQU 30h                ; Puerto A: strobe y busy
-PB EQU 31h                ; Puerto B: datos
-CA EQU 32h                ; Control A
-CB EQU 33h                ; Control B
+HS_DATA   EQU 40h         ; Dirección del registro de datos del Handshake
+HS_STATUS EQU 41h         ; Dirección del registro de estado del Handshake
 
-; --- Configuración de PIO ---
-mov al, 0                 ; PA como salida (strobe)
-out CA, al
-mov al, 0                 ; PB como salida (datos)
-out CB, al
+; --- Deshabilita las interrupciones del Handshake (bit 7 en 0) ---
+IN  AL, HS_STATUS
+AND AL, 01111111b         ; Fuerza el bit 7 a 0 (sin interrupciones)
+OUT HS_STATUS, AL
 
-; --- Inicializar strobe en 0 ---
-in  al, PA
-and al, 11111101b         ; Bit 1 (strobe) a 0
-out PA, al
+; --- Inicializa el puntero al string ---
+MOV BL, OFFSET dato       ; BL apunta al primer carácter del string
 
-mov bl, offset dato       ; BL apunta al inicio del string
+; --- Bucle principal: espera espacio en el buffer e imprime ---
+Sondeo:
+    IN  AL, HS_STATUS
+    AND AL, 00000001b     ; Lee el flag busy (bit 0): 1=lleno, 0=libre
+    JZ  ImprimirCadena   ; Si busy=0, hay espacio y puede imprimir
+    JMP Sondeo            ; Si busy=1, espera hasta que haya espacio
 
-sondeo:
-    in  al, PA
-    and al, 00000001b     ; ¿Buffer lleno? (busy)
-    jz  imprimir_cadena   ; Si busy es 0, salta a imprimir
-    jmp sondeo            ; Si busy es 1, sigue esperando
+ImprimirCadena:
+    MOV AL, [BL]          ; Carga el siguiente carácter del string
+    CMP AL, 0             ; ¿Es el final del string? (carácter nulo)
+    JZ fin                ; Si sí, termina el programa
 
-imprimir_cadena:
-    mov al, [bl]          ; Siguiente carácter
-    cmp al, 0             ; ¿Fin del string?
-    jz  fin
+    OUT HS_DATA, AL       ; Envía el carácter al registro de datos del Handshake
 
-    out PB, al            ; Enviar carácter a PB
-
-    ; --- Generar flanco ascendente en strobe ---
-    in  al, PA
-    or  al, 00000010b     ; Strobe a 1
-    out PA, al
-    in  al, PA
-    and al, 11111101b     ; Strobe a 0
-    out PA, al
-
-    inc bl                ; Siguiente carácter
-    jmp sondeo
+    INC BL                ; Avanza al siguiente carácter del string
+    JMP Sondeo            ; Repite el proceso para el próximo carácter
 
 fin:
-    hlt
+    HLT   ; Detiene la ejecución
 ```
 
+Para mejorar la lectura del programa se utilizan constantes en ensamblador "EQU" para definir las direcciones de los puertos del módulo Handshake.
+
+### Módulo PIC
+El Programmable Interrupt Controller (PIC) es un módulo que actúa como intermediario entre los dispositivos que generan interrupciones y la CPU. Dado que la CPU dispone de una única línea de entrada para interrupciones, el PIC se encarga de recibir solicitudes de múltiples dispositivos y multiplexarlas en esta línea única.
+
+Este módulo está basado en el PIC 8259A de Intel, aunque se han realizado modificaciones para simplificar su funcionamiento y adaptarlo a fines educativos.
+
+#### Líneas de interrupción
+El PIC dispone de 8 líneas de interrupción, denominadas INT0 a INT7 (aunque no todas son utilizadas). Cada línea está asociada a un registro de 8 bits en la memoria de E/S. Por ejemplo, la línea INT0 corresponde a la dirección 24h, la línea INT1 a la dirección 25h, y así sucesivamente hasta la línea INT7, que utiliza la dirección 2Bh. En estos registros se almacena el número de interrupción asociado a cada línea.
+
+Cuando un dispositivo o módulo solicita una interrupción, el PIC envía a la CPU el número de interrupción almacenado en el registro correspondiente, desacoplando así el número de línea del número de interrupción.
+
+Las líneas están conectadas a los siguientes dispositivos:
+
+| Línea  | Módulo/Disp.                |
+| :----: | :-------------------------- |
+| `INT0` | [Tecla F10] |
+| `INT1` | [Timer]            |
+| `INT2` | [Handshake]    |
+| `INT3` | --                          |
+| `INT4` | --                          |
+| `INT5` | --                          |
+| `INT6` | --                          |
+| `INT7` | --                          |
+
+#### Registros de control
+El PIC cuenta con tres registros adicionales para gestionar las interrupciones. Cada bit de estos registros corresponde a una línea de interrupción, donde el bit menos significativo representa la línea da bit corresponde con una línea de interrupción: el bit menos significativo corresponde a la línea  y el más significativo la línea `INT7`.
+
+  - **Registro IMR (Interrupt Mask Register)**: Ubicado en la dirección `21h` de la memoria de E/S, este registro permite enmascarar (inhabilitar) líneas de interrupción. Si un bit está en 1, la línea correspondiente está enmascarada y no generará interrupciones en la CPU. Si el bit está en 0, la línea está habilitada. Este registro puede ser modificado por la CPU.
+
+  - **Registro IRR (Interrupt Request Register)**: Ubicado en la dirección `22h`, este registro indica las interrupciones pendientes. Si un bit está en 1, la línea correspondiente tiene una interrupción pendiente. Este registro es de solo lectura para la CPU y es gestionado por el PIC.
+
+  - **Registro ISR (In-Service Register)**: Ubicado en la dirección `23h`, este registro muestra qué interrupción está siendo atendida en un momento dado. Si un bit está en 1, la línea correspondiente está en servicio. Este registro también es de solo lectura para la CPU y es gestionado por el PIC.
+
+#### Funcionamiento
+Cuando una línea de interrupción se activa, el PIC la registra en el `IRR`. Si la línea no está enmascarada y no hay otra interrupción en servicio (es decir, si `ISR = 00h`), el PIC envía una señal de interrupción a la CPU activando la línea `INTR`.
+
+El proceso de atención de la interrupción sigue estos pasos:
+
+  1. La CPU responde a la señal `INTR` enviando un pulso por la línea `INTA`.
+  2. Al recibir la señal, el PIC marca la línea como _in-service_ en el registro `ISR` y la elimina del registro `IRR`.
+  3. El PIC envía a la CPU, a través del bus de datos, el número de interrupción correspondiente a la línea activa.
+  4. La CPU envía un segundo pulso por la línea `INTA`.
+  5. El PIC desactiva la línea `INTR`.
+
+Para finalizar la atención de la interrupción, la CPU escribe el byte EOI (End of Interrupt) en la dirección 20h de la memoria de E/S. Al recibir este byte, el PIC desmarca la línea como in-service en el registro ISR. Si hay interrupciones pendientes, el PIC reactiva la línea INTR y repite el proceso.
+
+Este PIC no admite interrupciones anidadas. Si ocurre una nueva interrupción mientras otra está siendo atendida, la nueva solicitud se encola en el registro IRR y se procesará una vez que la interrupción en curso haya finalizado, sin importar su prioridad. 
+
+#### Prioridades
+Cuando hay múltiples interrupciones pendientes, el PIC atiende primero la de mayor prioridad. La prioridad de cada línea está determinada por su número de interrupción: las líneas con números más bajos tienen mayor prioridad. Por ejemplo, la línea `INT0` tiene mayor prioridad que la línea `INT1`.
+  
+
+#### Timer
+El timer es un módulo que dispone de dos registros internos:
+
+  - Registro `CONT`: ubicado en la dirección `10h` de la memoria E/S.
+  - Registro `COMP`: ubicado en la dirección `11h` de la memoria E/S.
+
+Este módulo está basado en el PIT 8253 de Intel, aunque se han realizado modificaciones para simplificar su funcionamiento. El registro `COMP` permite establecer el valor de comparación con `CONT`. Si se escribe un valor de `0` en `COMP`, el timer se desactiva y no genera interrupciones. Cualquier otro valor habilita el timer y permite su funcionamiento normal.
+
+El reloj es un dispositivo que hace tic cada segundo. Al hacer tic, incrementa el registro `CONT` del [_timer_] en uno.
 
 
-Actualmente el código de operación de las instrucciones son 4 bits, esto reduce a complejidad del simulador y el numero de instrucciones que se pueden implementar, para no tener que ampliar el tamaño de las instrucciones, pero poder mostrar más instrucciones, por ejemplo logicas y aritmeticas de 1 operando, se implementaron instrucciones con el código de operación 15, entonces las instrucciones logicas con código operación 15 (AND, OR y XOR) tienen los mismos modos de direccionamiento que las instrucciones aritméticas (ADD, SUB y CMP) pero comparten el mismo código de operación.
+```vonsim
+; Programa: Imprime "Hola" a los 3 segundos de iniciado y luego termina.
+; Utiliza la interrupción del TIMER (ID = 5).
+
+org 10h
+mensaje db "hola"        ; Mensaje a imprimir
+imprimio db 0            ; Flag para saber si ya imprimió
+
+; Definición de direcciones de registros de dispositivos
+CONT equ 10h             ; Registro de conteo del timer
+COMP equ 11h             ; Registro de comparación del timer
+
+EOI  equ 20h             ; End Of Interrupt (para PIC)
+IMR  equ 21h             ; Interrupt Mask Register (PIC)
+INT1 equ 25h             ; Registro de vector de interrupción 1
+
+org 20h                  ; Comienzo del código principal
+
+; --- Habilitar interrupciones del timer ---
+; IMR = 1111 1101b (solo habilita interrupciones del timer y teclado)
+mov al, 11111101b        ; Habilita interrupciones del timer (bit 1 en 0)
+out IMR, al
+
+; --- Configurar vector de interrupción del timer ---
+mov al, 5                ; ID de interrupción del timer
+out INT1, al             ; Asigna rutina de atención a la posición 5
+
+; --- Instalar rutina de interrupción en el vector ---
+mov bl, 5                ; Vector de interrupción 5
+mov [bl], imp_msj        ; Apunta a la rutina imp_msj
+
+; --- Configurar timer para 3 segundos ---
+mov al, 3                ; Valor de comparación (3 segundos)
+out COMP, al
+
+mov al, 0                ; Reinicia el contador del timer
+out CONT, al
+
+; --- Esperar a que se imprima el mensaje ---
+loopinf: cmp imprimio, 0 ; ¿Ya imprimió?
+         jz loopinf      ; Si no, sigue esperando
+
+hlt                      ; Termina el programa
+
+; --- Rutina de interrupción del timer ---
+org 50h
+imp_msj:
+         mov bl, offset mensaje ; Dirección del mensaje
+         mov al, 4             ; Servicio de impresión
+         int 7                 ; Llama a la interrupción de impresión
+         mov imprimio, 1       ; Marca que ya imprimió
+         mov al, 20h           ; Señal de fin de interrupción
+         out EOI, al           ; Notifica al PIC
+         iret                  ; Retorna de la interrupción
+```
+
+#### Tecla F10
+La tecla F10 es un dispositivo que habilita una forma rápida y práctica de ejecutar una interrupción por hardware. Está conectada a la línea `INT0` del [PIC]. Puede accionarse presionando la tecla F10 el teclado físicamente o haciendo clic en el "botón rojo de interrupción" en la interfaz gráfica.
+
+```vonsim
+; Programa: Contador de pulsaciones de la tecla F10 usando interrupciones
+
+;-----------------------------------------------
+; 1) Definiciones y variables
+;-----------------------------------------------
+
+org 10h                ; Dirección de inicio de datos
+cantidad db 0          ; Variable: almacena la cantidad de veces que se presionó F10
+
+ID   EQU 1             ; ID de la interrupción para F10 (puede ser 0-7)
+IMR  EQU 21h           ; Dirección del registro IMR (máscara de interrupciones)
+EOI  EQU 20h           ; Dirección para enviar End Of Interrupt al PIC
+INT0 EQU 24h           ; Dirección para configurar la línea INT0 (F10)
+
+;-----------------------------------------------
+; 2) Inicialización del PIC y vector de interrupción
+;-----------------------------------------------
+
+org 20h                ; Dirección de inicio del código principal
+
+; 2.1) Habilitar solo la interrupción de F10 (INT0)
+mov al, 11111110b      ; Habilita solo INT0 (bit 0 en 0), el resto deshabilitado
+out IMR, al
+
+; 2.2) Configurar el ID de la interrupción para INT0
+mov al, ID             ; Cargar el ID elegido para F10
+out INT0, al
+
+; 2.3) Asociar el vector de interrupción con la subrutina atenderf10
+mov bl, ID             ; BL = ID de la interrupción
+mov [bl], atenderf10   ; Vector de interrupción: dirección de la rutina
+
+;-----------------------------------------------
+; 3) Bucle principal (espera activa)
+;-----------------------------------------------
+
+loop: jmp loop         ; Espera indefinida (el programa queda esperando interrupciones)
+
+hlt                    ; (Opcional) Detiene la CPU si sale del bucle
+
+;-----------------------------------------------
+; 4) Rutina de atención de la interrupción F10
+;-----------------------------------------------
+
+org 50h                ; Dirección de la subrutina de atención
+
+atenderf10:
+    inc cantidad       ; Incrementa el contador cada vez que se presiona F10
+    mov al, 20h        ; Código de End Of Interrupt (EOI)
+    out EOI, al        ; Notifica al PIC que terminó la atención
+    iret               ; Retorna de la interrupción
+```
 
 ### Etapa de ejecución de instrucciones
 
