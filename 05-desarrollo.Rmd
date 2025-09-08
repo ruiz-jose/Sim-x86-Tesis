@@ -1499,10 +1499,7 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
       - ADD, SUB, CMP:
           6. **`MAR` $\leftarrow$ `BL` | `id` $\leftarrow$ `MBR`** – Cargar la dirección destino y guardar el valor inmediato en id.
           7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el valor actual de destino.
-          8. Ejecutar la operación:
-              - ADD: **`MBR` $\leftarrow$ `MBR` + `id` | update(Flags)**
-              - SUB: **`MBR` $\leftarrow$ `MBR` - `id` | update(Flags)**
-              - CMP: **`MBR` - `id` | update(Flags)**
+          8. Ejecutar la operación (igual que en el caso anterior).
           9. Si es `ADD` o `SUB`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
 
 #### Instrucciones con un operando `JMP` y `Jxx`:
