@@ -3222,21 +3222,13 @@ A continuación se detallan las instrucciones más comunes:
 \hypertarget{muxf3dulo-de-entradasalida-e-interrupciones}{%
 \section{Módulo de Entrada/Salida e interrupciones}\label{muxf3dulo-de-entradasalida-e-interrupciones}}
 
-El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal. Estos módulos se agrupan en las siguientes categorías:
+El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal, agrupados en las siguientes categorías:
+- Teclado y pantalla.
+- Un módulo PIO, que puede conectarse a LEDs e interruptores.
+- Módulo Handshake, con posibilidad de conexión a una impresora, con o sin controlador PIC.
+- Un controlador PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador y su reloj asociado.
 
-\begin{itemize}
-\tightlist
-\item
-  Teclado y pantalla.
-\item
-  Un PIO, que puede conectarse a LEDs e interruptores.
-\item
-  Un PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador (timer) y su reloj.
-\item
-  Handshake, que puede conectarse tanto a un PIO como a un PIC.
-\end{itemize}
-
-La Figura \ref{fig:dispositivos} presenta una visión de los dispositivos que pueden conectarse al simulador.
+La Figura \ref{fig:dispositivos} muestra una visión general de los dispositivos que pueden conectarse al simulador.
 
 \begin{figure}
 
