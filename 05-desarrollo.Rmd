@@ -1475,7 +1475,7 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
   - **Modo Directo-Inmediato (`[Dirección]`, `Dato`)**
     4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dirección e incrementar IP.
-    6. **`MAR` $\leftarrow$ `IP`; `ri` $\leftarrow$ `MBR`** – Preparar para leer el dato y guardar la dirección destino en un registro intermedio (ri).
+    6. **`MAR` $\leftarrow$ `IP` | `ri` $\leftarrow$ `MBR`** – Preparar para leer el dato y guardar la dirección destino en un registro intermedio (ri).
     7. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dato e incrementar IP.
     Según la instrucción:
       - MOV:
