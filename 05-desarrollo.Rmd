@@ -1523,15 +1523,13 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
     4. Detiene la ejecución de la CPU.
 
 ## Módulo de Entrada/Salida e interrupciones
+El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal, agrupados en las siguientes categorías:
+  - Teclado y pantalla.
+  - Un módulo PIO, que puede conectarse a LEDs e interruptores.
+  - Módulo Handshake, con posibilidad de conexión a una impresora, con o sin controlador PIC.
+  - Un controlador PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador y su reloj asociado.
 
-El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal. Estos módulos se agrupan en las siguientes categorías:
-
-- Teclado y pantalla.
-- Un PIO, que puede conectarse a LEDs e interruptores.
-- Un PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador (timer) y su reloj.
-- Handshake, que puede conectarse tanto a un PIO como a un PIC.
-
-La Figura \@ref(fig:dispositivos) presenta una visión de los dispositivos que pueden conectarse al simulador.
+La Figura \@ref(fig:dispositivos) muestra una visión general de los dispositivos que pueden conectarse al simulador.
 
 ```{r dispositivos, echo=FALSE, fig.cap="Arquitectura general del simulador", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/esquemavonsim8.png")
