@@ -1714,7 +1714,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \tightlist
 \item
   \textbf{Visualización de la estructura general de la computadora:}
-  Incluir una representación gráfica de la arquitectura básica de la computadora ---compuesta por CPU, buses, memoria y dispositivos de entrada/salida--- durante la ejecución de los programas. La visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora \protect\hyperlink{ref-w3c_accessibility_2021}{{[}67{]}}. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas \protect\hyperlink{ref-sorva2013visualizations}{{[}68{]}}. La Figura \ref{fig:diagramasimulador} presenta un diagrama estructural que representa los principales módulos del simulador y sus interacciones. Este recurso visual permite integrar, de forma esquemática, los componentes funcionales implementados y su correspondencia con los objetivos pedagógicos definidos.
+  Representar gráficamente la CPU, los buses, la memoria y los dispositivos de entrada/salida. Esta visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora \protect\hyperlink{ref-w3c_accessibility_2021}{{[}67{]}}. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas \protect\hyperlink{ref-sorva2013visualizations}{{[}68{]}}. La Figura \ref{fig:diagramasimulador} ilustra la estructura general del simulador, destacando los principales módulos funcionales y sus interacciones. Esta representación gráfica facilita la comprensión de cómo los componentes del simulador trabajan en conjunto durante la ejecución de un programa.
 \end{enumerate}
 
 \begin{figure}
@@ -1783,7 +1783,7 @@ Este enfoque promueve el desarrollo progresivo de competencias, al mitigar la so
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
   Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción \protect\hyperlink{ref-harris2015digital}{{[}32{]}}, \protect\hyperlink{ref-ASMVisualizer2025}{{[}72{]}}. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}} propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y señales de control en cada etapa del proceso.
-  Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion} ilustra un ciclo de instrucción típico utilizando la operación MOV AL, BL como ejemplo. Esta representación facilita la identificación de las etapas \emph{fetch} y \emph{execute}, así como los registros que participan activamente en cada fase.
+  Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion} muestra un ciclo de instrucción típico utilizando la operación \texttt{MOV\ AL,\ BL}. En la etapa de captación (\emph{fetch}), la dirección de la instrucción se carga desde el registro \texttt{IP} al \texttt{MAR}, y el contenido de la memoria se transfiere al \texttt{MBR} y luego al \texttt{IR} . En la etapa de ejecución (\emph{execute}), los datos se mueven desde el registro \texttt{BL} al registro \texttt{AL}.
 \end{enumerate}
 
 \begin{figure}
@@ -1801,7 +1801,7 @@ Este enfoque promueve el desarrollo progresivo de competencias, al mitigar la so
 \tightlist
 \item
   \textbf{Gestión básica de interrupciones y periféricos:}
-  Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Estas interacciones permiten emular situaciones de asincronía, esenciales para comprender mecanismos como la interrupción del flujo de ejecución. Desde el punto de vista pedagógico, esta funcionalidad ofrece al estudiante la posibilidad de explorar de manera interactiva conceptos clave como la asincronía, el manejo de eventos y la interrupción del flujo secuencial, todos ellos característicos del diseño de arquitecturas modernas y fundamentales para el entendimiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}33{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Además, se incorpora un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo permite simular operaciones mediante instrucciones como IN y OUT, facilitando la interacción del estudiante con dispositivos representados gráficamente, como interruptores y teclas. De esta forma, se promueve una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
+  Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. El vector de interrupciones predefinido permite simular eventos externos, como la entrada de datos mediante teclado. Por ejemplo, al recibir una interrupción de teclado, el simulador activa la señal \texttt{INTR}, detiene la ejecución actual y transfiere el control a la rutina de tratamiento de interrupciones correspondiente. Desde el punto de vista pedagógico, esta funcionalidad ofrece al estudiante la posibilidad de explorar de manera interactiva conceptos clave como la asincronía, el manejo de eventos y la interrupción del flujo secuencial, todos ellos característicos del diseño de arquitecturas modernas y fundamentales para el entendimiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}33{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Además, se incorpora un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo permite simular operaciones mediante instrucciones como IN y OUT, facilitando la interacción del estudiante con dispositivos representados gráficamente, como interruptores y teclas. De esta forma, se promueve una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
 \end{enumerate}
 
 \begin{figure}
@@ -1880,6 +1880,8 @@ En conjunto, estos requisitos constituyen la base del diseño del simulador, gar
 \end{tabular}}
 \end{table}
 
+La definición de los requisitos funcionales y pedagógicos permitió identificar la necesidad de simplificar la arquitectura x86 para adaptarla a los objetivos educativos. Esta simplificación asegura que los estudiantes puedan concentrarse en los conceptos fundamentales sin verse abrumados por la complejidad técnica. A continuación, se detalla la justificación de esta decisión.
+
 \hypertarget{justificaciuxf3n-del-uso-de-una-arquitectura-simplificada-en-el-simulador}{%
 \subsection{Justificación del uso de una arquitectura simplificada en el simulador}\label{justificaciuxf3n-del-uso-de-una-arquitectura-simplificada-en-el-simulador}}
 
@@ -1913,6 +1915,8 @@ Diversos autores como Patterson \& Hennessy \protect\hyperlink{ref-hennessy2017c
 
 El modelo propuesto se inspira en los principios de la arquitectura x86 \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}45{]}}, pero implementa un repertorio reducido de instrucciones en una arquitectura de 8 bits. Esta elección responde a criterios pedagógicos: simplifica el modelo sin sacrificar los principios esenciales del repertorio x86, y facilita una comprensión progresiva de sus componentes \protect\hyperlink{ref-patt2019introduction}{{[}74{]}}, \protect\hyperlink{ref-majid1999design}{{[}75{]}}, \protect\hyperlink{ref-morlan_sap1_2021}{{[}76{]}}, \protect\hyperlink{ref-Guald_2015_thesis}{{[}77{]}}, \protect\hyperlink{ref-silber_tinycpu}{{[}78{]}}.
 
+Aunque la simplificación a 8 bits reduce la fidelidad del modelo respecto a la arquitectura x86 real, esta decisión permite a los estudiantes concentrarse en los principios fundamentales, como el ciclo de instrucciones y la interacción entre registros. Para abordar esta limitación, el simulador incluye funcionalidades avanzadas que pueden activarse progresivamente, como la gestión de interrupciones y el repertorio completo de instrucciones.
+
 En síntesis, la definición de estos requisitos integra aspectos funcionales, pedagógicos y técnicos en una herramienta que no solo simula el comportamiento del sistema, sino que además facilita activamente los procesos de enseñanza y aprendizaje en arquitectura de computadoras. La combinación entre visualización, ejecución progresiva y análisis de rendimiento ofrece un entorno didáctico rico que responde tanto a las necesidades del aula como a los desafíos de la disciplina.
 
 \hypertarget{diseuxf1o-del-simulador}{%
@@ -1925,7 +1929,7 @@ El simulador implementado adopta la arquitectura de Von Neumann, reconocida por 
 
 VonSim\footnote{VonSim: \url{https://vonsim.github.io/}} \protect\hyperlink{ref-vonsim}{{[}79{]}} es una herramienta diseñada específicamente para la enseñanza y el aprendizaje de la arquitectura y organización de computadoras, que sirvió de referencia por su enfoque educativo e interfaz intuitiva. A partir de esta herramienta se desarrolló VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}}, adaptado para operar con registros y memoria de 8\,bits, y diseñado para favorecer el aprendizaje progresivo.
 
-La arquitectura detallada de VonSim, con su amplio repertorio de instrucciones y componentes, ofrece una visión integral del sistema. Sin embargo, dicha riqueza funcional puede abrumar a estudiantes en etapas iniciales. Por esta razón, VonSim8 implementa una simplificación estratégica para reducir la carga cognitiva en los primeros niveles de aprendizaje, promoviendo una asimilación progresiva de los conceptos fundamentales de la arquitectura de computadoras. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
+VonSim ofrece una arquitectura detallada con un amplio repertorio de instrucciones y componentes. Aunque esta riqueza funcional es valiosa, puede resultar abrumadora para estudiantes en etapas iniciales. Por esta razón, VonSim8 implementa una simplificación estratégica para reducir la carga cognitiva en los primeros niveles de aprendizaje, promoviendo una asimilación progresiva de los conceptos fundamentales de la arquitectura de computadoras. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
 Las siguientes características posicionan a VonSim como una solución educativa integral:
 
@@ -1981,10 +1985,13 @@ Para el desarrollo y la ejecución del proyecto se utilizan herramientas moderna
 \hypertarget{las-modificaciones-principales-de-vonsim}{%
 \subsection{Las modificaciones principales de VonSim}\label{las-modificaciones-principales-de-vonsim}}
 
+Si bien VonSim ofrece una base sólida para la enseñanza de arquitectura de computadoras, su complejidad funcional puede resultar abrumadora para estudiantes en etapas iniciales. Por esta razón, se implementaron modificaciones estratégicas en VonSim8, orientadas a simplificar el modelo y alinearlo con los objetivos pedagógicos de la asignatura. A continuación, se describen las principales mejoras realizadas.
+
 Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo \protect\hyperlink{ref-bonwell1991active}{{[}73{]}}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\tightlist
 \item
   Simplificación del repertorio instruccional para una introducción gradual;
 \item
@@ -2041,7 +2048,7 @@ En lugar de utilizar registros de 16 bits completos, se emplea únicamente la pa
 \caption{Registro de 8 bits}\label{fig:registros}
 \end{figure}
 
-Se elimino el uso de los registros temporales de la ALU (\texttt{left}, \texttt{right} y \texttt{result}).
+La eliminación de los registros temporales \texttt{left}, \texttt{right} y \texttt{result} en la ALU responde a la necesidad de simplificar el flujo de datos y reducir la carga cognitiva de los estudiantes. En lugar de utilizar registros intermedios, el simulador muestra directamente las operaciones realizadas en los operandos, lo que facilita la comprensión del proceso aritmético y lógico.
 
 \begin{figure}
 
@@ -2233,7 +2240,29 @@ En esta sección se describe la estructura del simulador VonSim8. El diseño de 
 \end{tabular}}
 \end{table}
 
-Entre los registros específicos, no accesibles directamente por el programador, se encuentran: \texttt{SP} (\emph{Stack Pointer}), utilizado para la gestión de la pila; el registro \texttt{Flags} (\emph{flags register}); el \texttt{IP} (\emph{Instruction Pointer}), que contiene la dirección de la próxima instrucción a ejecutar; y el \texttt{IR} (\emph{Instruction Register}), que almacena el byte de la instrucción actualmente en proceso de decodificación y ejecución. Además, existen dos registros dedicados a la transferencia de información entre la CPU y la memoria principal: el \texttt{MAR} (\emph{Memory Address Register}) encargado de almacenar direcciones de memoria, y el \texttt{MBR} (\emph{Memory Buffer Register}) que almacena el byte que se quiere propagar o se ha recibido por el bus de datos.
+Entre los registros específicos, no accesibles directamente por el programador, se incluyen los siguientes:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\texttt{SP} (\emph{Stack Pointer})}: Responsable de la gestión de la pila, permitiendo el seguimiento de las direcciones de memoria asociadas a las operaciones de apilamiento y desapilamiento.\\
+\item
+  \textbf{\texttt{Flags} (\emph{Flags Register})}: Registro que almacena las banderas de estado, utilizadas para reflejar el resultado de operaciones aritméticas y lógicas, así como para controlar el flujo del programa.\\
+\item
+  \textbf{\texttt{IP} (\emph{Instruction Pointer})}: Contiene la dirección de memoria de la próxima instrucción a ejecutar, asegurando la secuenciación correcta del programa.\\
+\item
+  \textbf{\texttt{IR} (\emph{Instruction Register})}: Almacena el byte correspondiente a la instrucción que está siendo decodificada y ejecutada en el momento.
+\end{itemize}
+
+Adicionalmente, se disponen de dos registros esenciales para la transferencia de datos entre la CPU y la memoria principal:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\texttt{MAR} (\emph{Memory Address Register})}: Encargado de almacenar las direcciones de memoria que se desean acceder.\\
+\item
+  \textbf{\texttt{MBR} (\emph{Memory Buffer Register})}: Almacena temporalmente el byte de datos que se transfiere hacia o desde la memoria principal a través del bus de datos.
+\end{itemize}
 
 Adicionalmente, se incluyen dos registros auxiliares: \texttt{ri}, destinado al almacenamiento temporal de direcciones, e \texttt{id}, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones.
 
@@ -2262,15 +2291,15 @@ La memoria de control almacena microinstrucciones que guían la ejecución de ca
 
 El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
 
-\hypertarget{alu}{%
-\subsection{ALU}\label{alu}}
+\hypertarget{unidad-aritmuxe9tico-luxf3gica-alu}{%
+\subsection{Unidad Aritmético-Lógica (ALU)}\label{unidad-aritmuxe9tico-luxf3gica-alu}}
 
-La ALU (\emph{Arithmetic Logic Unit}) permite realizar operaciones aritméticas y lógicas de 8 bits. Las operaciones disponibles son: \texttt{ADD}, \texttt{INC}, \texttt{SUB}, \texttt{DEC}, \texttt{NEG}, \texttt{NOT}, \texttt{AND}, \texttt{OR} y \texttt{XOR}. Todas estas operaciones modifican el registro \texttt{Flags}.
+La ALU (\emph{Arithmetic Logic Unit}) realiza operaciones aritméticas y lógicas, como \texttt{ADD} y \texttt{SUB}. Durante el ciclo de instrucción, la unidad de control genera señales específicas que activan las operaciones de la ALU. Por ejemplo, al ejecutar una instrucción \texttt{ADD}, la unidad de control activa las señales necesarias para transferir los operandos desde los registros hacia la ALU y almacenar el resultado en el registro de destino. Todas estas operaciones modifican el registro \texttt{Flags}.
 
-\hypertarget{flags}{%
-\subsubsection{Flags}\label{flags}}
+\hypertarget{registro-de-banderas-flags}{%
+\subsubsection{Registro de Banderas (Flags)}\label{registro-de-banderas-flags}}
 
-El registro \texttt{Flags} (banderas de estado) es un registro de 8 bits que contiene las \emph{flags} mostradas en la siguiente tabla. Este registro no es directamente accesible por el programador, pero puede ser modificado por las operaciones de la ALU y pueden realizarse saltos condicionales en base a sus valores.
+El registro de banderas \texttt{Flags} almacena las banderas de estado que reflejan el resultado de operaciones aritméticas y lógicas. Por ejemplo, después de una operación de suma, la bandera \texttt{Z} (Zero) se activa si el resultado es cero, lo que permite al procesador tomar decisiones condicionales basadas en este estado.
 
 \begin{table}[!h]
 \centering
@@ -3418,18 +3447,13 @@ El rango de direcciones asignado a la memoria de entrada/salida abarca desde \te
 \textbf{} & 26h & INT2\\
 \textbf{} & 27h & INT3\\
 \addlinespace
-\textbf{} & 28h & INT4\\
-\textbf{} & 29h & INT5\\
-\textbf{} & 2Ah & INT6\\
-\textbf{} & 2Bh & INT7\\
-\addlinespace[5pt]
-\cellcolor[HTML]{F0F0F0}{\textbf{PIO}} & \cellcolor[HTML]{F0F0F0}{30h} & \cellcolor[HTML]{F0F0F0}{PA}\\
-\addlinespace
-\textbf{} & 31h & PB\\
-\textbf{} & 32h & CA\\
-\textbf{} & 33h & CB\\
+\cellcolor[HTML]{F0F0F0}{\textbf{PIO}} & \cellcolor[HTML]{F0F0F0}{28h} & \cellcolor[HTML]{F0F0F0}{PA}\\
+\textbf{} & 29h & PB\\
+\textbf{} & 2Ah & CA\\
+\textbf{} & 2Bh & CB\\
 \addlinespace[5pt]
 \cellcolor[HTML]{F0F0F0}{\textbf{Handshake}} & \cellcolor[HTML]{F0F0F0}{40h} & \cellcolor[HTML]{F0F0F0}{DATA}\\
+\addlinespace
 \textbf{} & 41h & STATE\\
 \bottomrule
 \end{tabular}}
@@ -3510,7 +3534,7 @@ Es importante destacar que la comunicación es unidireccional desde los disposit
 ; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
 
 clave db 15               ; Contraseña esperada: 00001111 (en decimal 15)
-mensaje_ok db `Bienvenido!` ; Mensaje a mostrar si la contraseña es correcta
+mensaje_ok db 'Bienvenido!' ; Mensaje a mostrar si la contraseña es correcta
 
 ; Configurar PA (Puerto A) como entrada
 mov al, 15                ; 00001111b: configura los primeros 4 bits de PA como entrada
@@ -3578,8 +3602,8 @@ El registro de estado gestiona las señales de control y supervisión del protoc
 
 Esta implementación ofrece una interfaz intuitiva para el control de impresoras, automatizando aspectos críticos del protocolo de comunicación y manteniendo la flexibilidad necesaria para comprender los fundamentos de la interacción con dispositivos periféricos.
 
-\hypertarget{ejemplo-de-uso-del-muxf3dulo-handshake}{%
-\subsubsection{Ejemplo de uso del módulo Handshake}\label{ejemplo-de-uso-del-muxf3dulo-handshake}}
+\hypertarget{ejemplo-de-uso-del-muxf3dulo-handshake-con-sondeo}{%
+\subsubsection{Ejemplo de uso del módulo Handshake con sondeo}\label{ejemplo-de-uso-del-muxf3dulo-handshake-con-sondeo}}
 
 Para imprimir utilizando el módulo Handshake, se deben seguir los siguientes pasos:
 
@@ -3598,44 +3622,41 @@ Además de los caracteres ASCII comunes, el módulo admite caracteres especiales
 
 A continuación, se presenta un ejemplo en ensamblador para imprimir la cadena ``Hola'' utilizando el módulo Handshake:
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{; Imprime el string "Hola" en la impresora usando sondeo}
+\begin{lstlisting}
+; Imprime el string 'Hola' en la impresora usando sondeo
 
-\NormalTok{dato DB "Hola", 0         ; String a imprimir, terminado en 0 (carácter nulo)}
+dato DB 'Hola', 0         ; String a imprimir, terminado en (carácter nulo)
 
-\NormalTok{HS\_DATA   EQU 40h         ; Dirección del registro de datos del Handshake}
-\NormalTok{HS\_STATUS EQU 41h         ; Dirección del registro de estado del Handshake}
+HS_DATA   EQU 40h         ; Dirección del registro de datos del Handshake
+HS_STATUS EQU 41h         ; Dirección del registro de estado del Handshake
 
-\NormalTok{; {-}{-}{-} Deshabilita las interrupciones del Handshake (bit 7 en 0) {-}{-}{-}}
-\NormalTok{IN  AL, HS\_STATUS}
-\NormalTok{AND AL, 01111111b         ; Fuerza el bit 7 a 0 (sin interrupciones)}
-\NormalTok{OUT HS\_STATUS, AL}
+;  Deshabilita las interrupciones del Handshake (bit 7 en 0) 
+IN  AL, HS_STATUS
+AND AL, 01111111b         ; Fuerza el bit 7 a 0 (sin interrupciones)
+OUT HS_STATUS, AL
 
-\NormalTok{; {-}{-}{-} Inicializa el puntero al string {-}{-}{-}}
-\NormalTok{MOV BL, OFFSET dato       ; BL apunta al primer carácter del string}
+;  Inicializa el puntero al string 
+MOV BL, OFFSET dato       ; BL apunta al primer carácter del string
 
-\NormalTok{; {-}{-}{-} Bucle principal: espera espacio en el buffer e imprime {-}{-}{-}}
-\NormalTok{Sondeo:}
-\NormalTok{    IN  AL, HS\_STATUS}
-\NormalTok{    AND AL, 00000001b     ; Lee el flag busy (bit 0): 1=lleno, 0=libre}
-\NormalTok{    JZ  ImprimirCadena   ; Si busy=0, hay espacio y puede imprimir}
-\NormalTok{    JMP Sondeo            ; Si busy=1, espera hasta que haya espacio}
+; - Bucle principal: espera espacio en el buffer e imprime 
+Sondeo:
+    IN  AL, HS_STATUS
+    AND AL, 00000001b     ; Lee el flag busy (bit 0) 1=lleno, 0=libre
+    JZ  ImprimirCadena   ; Si busy=0, hay espacio y puede imprimir
+    JMP Sondeo            ; Si busy=1, espera hasta que haya espacio
 
-\NormalTok{ImprimirCadena:}
-\NormalTok{    MOV AL, [BL]          ; Carga el siguiente carácter del string}
-\NormalTok{    CMP AL, 0             ; ¿Es el final del string? (carácter nulo)}
-\NormalTok{    JZ fin                ; Si sí, termina el programa}
+ImprimirCadena:
+    MOV AL, [BL]          ; Carga el siguiente carácter del string
+    CMP AL, 0             ; Es el final del string carácter nulo
+    JZ fin                ; Si sí, termina el programa
 
-\NormalTok{    OUT HS\_DATA, AL       ; Envía el carácter al registro de datos del Handshake}
+    OUT HS_DATA, AL       ; Envía el carácter al registro de datos del Handshake
 
-\NormalTok{    INC BL                ; Avanza al siguiente carácter del string}
-\NormalTok{    JMP Sondeo            ; Repite el proceso para el próximo carácter}
+    INC BL                ; Avanza al siguiente carácter del string
+    JMP Sondeo            ; Repite el proceso para el próximo carácter
 
-\NormalTok{fin:}
-\NormalTok{    HLT   ; Detiene la ejecución}
-\end{Highlighting}
-\end{Shaded}
+fin:
+    HLT   ; Detiene la ejecución\end{lstlisting}
 
 Para mejorar la lectura del programa se utilizan constantes en ensamblador ``EQU'' para definir las direcciones de los puertos del módulo Handshake.
 
@@ -3649,33 +3670,38 @@ Este módulo está basado en el PIC 8259A de Intel, aunque se han realizado modi
 \hypertarget{luxedneas-de-interrupciuxf3n}{%
 \subsubsection{Líneas de interrupción}\label{luxedneas-de-interrupciuxf3n}}
 
-El PIC dispone de 8 líneas de interrupción, denominadas INT0 a INT7 (aunque no todas son utilizadas). Cada línea está asociada a un registro de 8 bits en la memoria de E/S. Por ejemplo, la línea INT0 corresponde a la dirección 24h, la línea INT1 a la dirección 25h, y así sucesivamente hasta la línea INT7, que utiliza la dirección 2Bh. En estos registros se almacena el número de interrupción asociado a cada línea.
+El PIC dispone de 4 líneas de interrupción, denominadas INT0 a INT3 (aunque no todas son utilizadas). Cada línea está asociada a un registro de 8 bits en la memoria de E/S. Por ejemplo, la línea INT0 corresponde a la dirección 24h, la línea INT1 a la dirección 25h, y así sucesivamente hasta la línea INT3, que utiliza la dirección 26h. En estos registros se almacena el número de interrupción asociado a cada línea.
 
 Cuando un dispositivo o módulo solicita una interrupción, el PIC envía a la CPU el número de interrupción almacenado en el registro correspondiente, desacoplando así el número de línea del número de interrupción.
 
 Las líneas están conectadas a los siguientes dispositivos:
 
-\begin{longtable}[]{@{}cl@{}}
-\toprule\noalign{}
-Línea & Módulo/Disp. \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-\texttt{INT0} & \protect\hyperlink{tecla-f10}{Tecla F10} \\
-\texttt{INT1} & \protect\hyperlink{timer}{Timer} \\
-\texttt{INT2} & {[}Handshake{]} \\
-\texttt{INT3} & -- \\
-\texttt{INT4} & -- \\
-\texttt{INT5} & -- \\
-\texttt{INT6} & -- \\
-\texttt{INT7} & -- \\
-\end{longtable}
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tPIC}Líneas de interrupción y dispositivos asociados}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{7cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Línea}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Módulo/Disp.}}}\\
+\midrule
+\textbf{INT0} & {}[Tecla F10]\\
+\addlinespace[10pt]
+\textbf{INT1} & {}[Timer]\\
+\addlinespace[10pt]
+\textbf{INT2} & {}[Handshake]\\
+\addlinespace[10pt]
+\textbf{INT3} & --\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
 
 \hypertarget{registros-de-control}{%
 \subsubsection{Registros de control}\label{registros-de-control}}
 
-El PIC cuenta con tres registros adicionales para gestionar las interrupciones. Cada bit de estos registros corresponde a una línea de interrupción, donde el bit menos significativo representa la línea da bit corresponde con una línea de interrupción: el bit menos significativo corresponde a la línea y el más significativo la línea \texttt{INT7}.
+El PIC cuenta con tres registros adicionales para gestionar las interrupciones. Cada bit de estos registros corresponde a una línea de interrupción, donde el bit menos significativo representa la línea da bit corresponde con una línea de interrupción: el bit menos significativo corresponde a la línea y el más significativo la línea \texttt{INT3}.
 
 \begin{itemize}
 \item
@@ -3717,8 +3743,188 @@ Este PIC no admite interrupciones anidadas. Si ocurre una nueva interrupción mi
 
 Cuando hay múltiples interrupciones pendientes, el PIC atiende primero la de mayor prioridad. La prioridad de cada línea está determinada por su número de interrupción: las líneas con números más bajos tienen mayor prioridad. Por ejemplo, la línea \texttt{INT0} tiene mayor prioridad que la línea \texttt{INT1}.
 
-\hypertarget{timer}{%
-\subsubsection{Timer}\label{timer}}
+\hypertarget{ejemplo-de-uso-del-muxf3dulo-handshake-con-interrupciones}{%
+\subsubsection{Ejemplo de uso del módulo Handshake con interrupciones}\label{ejemplo-de-uso-del-muxf3dulo-handshake-con-interrupciones}}
+
+A continuación, se presenta un ejemplo en ensamblador que utiliza el módulo Handshake junto con el PIC para imprimir la cadena ``Hola'' mediante interrupciones por hardware. En este ejemplo, se configura el PIC para que solo la línea \texttt{INT2} (asociada al módulo Handshake) esté habilitada, y se define una rutina de interrupción que se ejecuta automáticamente cuando la impresora está lista para recibir un nuevo carácter.
+
+\begin{lstlisting}
+; 
+; PROGRAMA Impresión de string usando Handshake con interrupciones
+; DESCRIPCIÓN Imprime el string 'Hola' en la impresora utilizando el módulo
+;              Handshake con interrupciones por hardware (INT2)
+; 
+
+; SECCIÓN DE DATOS 
+mensaje     db 'Hola', 0    ; String a imprimir, terminado en carácter nulo
+restantes   db 4           ; Contador de caracteres restantes por imprimir
+puntero     db 0           ; Puntero al siguiente carácter (8 bits)
+
+;  CONSTANTES DE HANDSHAKE 
+HS_DATA     EQU 40h        ; Registro de datos del Handshake (puerto E-S)
+HS_STATUS   EQU 41h        ; Registro de estado del Handshake (puerto E-S)
+
+; CONSTANTES DE INTERRUPCIONES 
+ID          EQU 2          ; ID de la interrupción para Handshake (0-7)
+IMR         EQU 21h        ; Registro de máscara de interrupciones del PIC
+EOI         EQU 20h        ; Puerto para enviar End Of Interrupt al PIC
+INT2        EQU 26h        ; Puerto para configurar la línea INT2
+
+; PROGRAMA PRINCIPAL
+
+
+
+;  1) CONFIGURACIÓN INICIAL 
+cli                        ; Deshabilitar interrupciones globales
+
+;  2) CONFIGURACIÓN DEL HANDSHAKE
+; Habilitar interrupciones del Handshake (bit 7 = 1)
+in  al, HS_STATUS         ; Leer estado actual del Handshake
+or  al, 10000000b         ; Activar bit 7 (habilitar interrupciones)
+out HS_STATUS, al         ; Escribir configuración al Handshake
+
+;  3) CONFIGURACIÓN DEL PIC (Controlador de Interrupciones)
+
+; 3.1) Configurar máscara de interrupciones - Solo habilitar INT2
+mov al, 11111011b         ; Máscara: habilita solo INT2 (bit 2=0), resto deshabilitado
+out IMR, al               ; Aplicar máscara al PIC
+
+; 3.2) Asignar ID de interrupción a la línea INT2
+mov al, ID                ; Cargar ID de interrupción (2)
+out INT2, al              ; Configurar línea INT2 con este ID
+
+; 3.3) Configurar vector de interrupción en memoria
+mov bl, ID                ; BL = posición en tabla de vectores (ID=2)
+mov [bl], int2_handler    ; Almacenar dirección de rutina en vector[2]
+
+;  4) INICIALIZACIÓN DE VARIABLES 
+mov al, offset mensaje    ; AL = dirección del primer carácter del string
+mov puntero, al           ; Guardar en variable puntero
+
+;  5) ENVIAR PRIMER CARÁCTER PARA INICIAR EL PROCESO 
+; Esperar que la impresora esté lista
+esperar_listo:
+    in al, HS_STATUS
+    and al, 00000001b     ; Verificar bit busy
+    jnz esperar_listo     ; Si busy=1, esperar
+
+; Enviar primer carácter
+mov bl, puntero           ; Cargar puntero
+mov al, [bl]              ; Obtener primer carácter
+cmp al, 0                 ; Es string vacío
+jz fin                    ; Si está vacío, terminar
+
+out HS_DATA, al           ; Enviar primer carácter
+inc bl                    ; Avanzar puntero
+mov puntero, bl           ; Guardar puntero actualizado
+dec restantes             ; Decrementar contador
+
+;  6) HABILITAR INTERRUPCIONES Y ESPERAR 
+sti                       ; Habilitar interrupciones globales
+
+;  7) BUCLE DE ESPERA
+; El programa principal espera hasta que se impriman todos los caracteres
+bucle_espera:
+    cmp restantes, 0      ; Quedan caracteres por imprimir
+    jnz bucle_espera      ; Si quedan, seguir esperando
+
+;  8) FINALIZACIÓN 
+fin:
+hlt                       ; Detener ejecución del programa
+
+
+; RUTINA DE INTERRUPCIÓN INT2 - HANDSHAKE
+; DESCRIPCIÓN Se ejecuta automáticamente cuando la impresora está lista
+;              para recibir un nuevo carácter (busy = 0)
+; ENTRADA Variable puntero = dirección del siguiente carácter a imprimir
+; SALIDA Carácter enviado a la impresora, puntero actualizado
+
+org 80h
+int2_handler:
+    ;  PRESERVAR CONTEXTO 
+    push al               ; Guardar registros que se van a modificar
+    push bl
+
+    ;  VERIFICAR SI HAY MÁS CARACTERES 
+    cmp restantes, 0      ; Quedan caracteres por imprimir
+    jz fin_interrupcion   ; Si no quedan, terminar
+
+    ;  OBTENER SIGUIENTE CARÁCTER 
+    mov bl, puntero       ; BL = puntero al siguiente carácter
+    mov al, [bl]          ; AL = carácter apuntado por BL
+    cmp al, 0             ; Es el carácter nulo (fin de string)
+    jz fin_interrupcion   ; Si es 0, terminar
+
+    ;  ENVIAR CARÁCTER A LA IMPRESORA 
+    out HS_DATA, al       ; Escribir carácter al registro de datos del Handshake
+
+    ;  ACTUALIZAR PUNTEROS Y CONTADORES 
+    inc bl                ; Avanzar al siguiente carácter
+    mov puntero, bl       ; Guardar puntero actualizado
+    dec restantes         ; Decrementar contador de caracteres restantes
+
+fin_interrupcion:
+    ; - ENVIAR EOI AL PIC 
+    mov al, 20h           ; Señal de fin de interrupción
+    out EOI, al           ; Notificar al PIC
+
+    ;  RESTAURAR CONTEXTO 
+    pop bl                ; Restaurar registros preservados
+    pop al
+
+    ;  RETORNO DE INTERRUPCIÓN 
+    iret                  ; Retorno de interrupción
+\end{lstlisting}
+
+\hypertarget{tecla-f10}{%
+\subsubsection{Tecla F10}\label{tecla-f10}}
+
+La tecla F10 es un dispositivo que habilita una forma rápida y práctica de ejecutar una interrupción por hardware. Está conectada a la línea \texttt{INT0} del {[}PIC{]}. Puede accionarse presionando la tecla F10 el teclado físicamente o haciendo clic en el ``botón rojo de interrupción'' en la interfaz gráfica.
+
+\begin{lstlisting}
+; Programa Contador de pulsaciones de la tecla F10 usando interrupciones
+
+; 1) Definiciones y variables
+
+cantidad db 0          ; Variable almacena la cantidad de veces que se presionó F10
+
+ID   EQU 1             ; ID de la interrupción para F10 (puede ser 0-7)
+IMR  EQU 21h           ; Dirección del registro IMR (máscara de interrupciones)
+EOI  EQU 20h           ; Dirección para enviar End Of Interrupt al PIC
+INT0 EQU 24h           ; Dirección para configurar la línea INT0 (F10)
+
+; 2) Inicialización del PIC y vector de interrupción
+
+; 2.1) Habilitar solo la interrupción de F10 (INT0)
+mov al, 11111110b      ; Habilita solo INT0 (bit 0 en 0), el resto deshabilitado
+out IMR, al
+
+; 2.2) Configurar el ID de la interrupción para INT0
+mov al, ID             ; Cargar el ID elegido para F10
+out INT0, al
+
+; 2.3) Asociar el vector de interrupción con la subrutina atenderf10
+mov bl, ID             ; BL = ID de la interrupción
+mov [bl], atenderf10   ; Vector de interrupción: dirección de la rutina
+
+; 3) Bucle principal (espera activa)
+
+loop: jmp loop         ; Espera indefinida (el programa queda esperando interrupciones)
+
+hlt                    ; (Opcional) Detiene la CPU si sale del bucle
+
+; 4) Rutina de atención de la interrupción F10
+
+org 50h                ; Dirección de la subrutina de atención
+
+atenderf10:
+    inc cantidad       ; Incrementa el contador cada vez que se presiona F10
+    mov al, 20h        ; Código de End Of Interrupt (EOI)
+    out EOI, al        ; Notifica al PIC que terminó la atención
+    iret               ; Retorna de la interrupción\end{lstlisting}
+
+\hypertarget{muxf3dulo-timer}{%
+\subsection{Módulo Timer}\label{muxf3dulo-timer}}
 
 El timer es un módulo que dispone de dos registros internos:
 
@@ -3734,127 +3940,62 @@ Este módulo está basado en el PIT 8253 de Intel, aunque se han realizado modif
 
 El reloj es un dispositivo que hace tic cada segundo. Al hacer tic, incrementa el registro \texttt{CONT} del {[}\emph{timer}{]} en uno.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{; Programa: Imprime "Hola" a los 3 segundos de iniciado y luego termina.}
-\NormalTok{; Utiliza la interrupción del TIMER (ID = 5).}
+\begin{lstlisting}
+; Programa Imprime 'Hola' a los 10 segundos de iniciado y luego termina.
+; Utiliza la interrupción del TIMER (ID = 5).
 
-\NormalTok{org 10h}
-\NormalTok{mensaje db "hola"        ; Mensaje a imprimir}
-\NormalTok{imprimio db 0            ; Flag para saber si ya imprimió}
+mensaje db 'Hola'        ; Mensaje a imprimir
+imprimio db 0            ; Flag para saber si ya imprimió
 
-\NormalTok{; Definición de direcciones de registros de dispositivos}
-\NormalTok{CONT equ 10h             ; Registro de conteo del timer}
-\NormalTok{COMP equ 11h             ; Registro de comparación del timer}
+; Definición de direcciones de registros de dispositivos
+CONT equ 10h             ; Registro de conteo del timer
+COMP equ 11h             ; Registro de comparación del timer
 
-\NormalTok{EOI  equ 20h             ; End Of Interrupt (para PIC)}
-\NormalTok{IMR  equ 21h             ; Interrupt Mask Register (PIC)}
-\NormalTok{INT1 equ 25h             ; Registro de vector de interrupción 1}
+EOI  equ 20h             ; End Of Interrupt (para PIC)
+IMR  equ 21h             ; Interrupt Mask Register (PIC)
+INT1 equ 25h             ; Registro de vector de interrupción 1
 
-\NormalTok{org 20h                  ; Comienzo del código principal}
+;  Habilitar interrupciones del timer 
+; IMR = 1111 1101b (solo habilita interrupciones del timer y teclado)
+mov al, 11111101b        ; Habilita interrupciones del timer (bit 1 en 0)
+out IMR, al
 
-\NormalTok{; {-}{-}{-} Habilitar interrupciones del timer {-}{-}{-}}
-\NormalTok{; IMR = 1111 1101b (solo habilita interrupciones del timer y teclado)}
-\NormalTok{mov al, 11111101b        ; Habilita interrupciones del timer (bit 1 en 0)}
-\NormalTok{out IMR, al}
+; Configurar vector de interrupción del timer 
+mov al, 5                ; ID de interrupción del timer
+out INT1, al             ; Asigna rutina de atención a la posición 5
 
-\NormalTok{; {-}{-}{-} Configurar vector de interrupción del timer {-}{-}{-}}
-\NormalTok{mov al, 5                ; ID de interrupción del timer}
-\NormalTok{out INT1, al             ; Asigna rutina de atención a la posición 5}
+;  Instalar rutina de interrupción en el vector 
+mov bl, 5                ; Vector de interrupción 5
+mov [bl], imp_msj        ; Apunta a la rutina imp_msj
 
-\NormalTok{; {-}{-}{-} Instalar rutina de interrupción en el vector {-}{-}{-}}
-\NormalTok{mov bl, 5                ; Vector de interrupción 5}
-\NormalTok{mov [bl], imp\_msj        ; Apunta a la rutina imp\_msj}
+;  Configurar timer para 3 segundos 
+mov al, 10                ; Valor de comparación (10 segundos)
+out COMP, al
 
-\NormalTok{; {-}{-}{-} Configurar timer para 3 segundos {-}{-}{-}}
-\NormalTok{mov al, 3                ; Valor de comparación (3 segundos)}
-\NormalTok{out COMP, al}
+mov al, 0                ; Reinicia el contador del timer
+out CONT, al
 
-\NormalTok{mov al, 0                ; Reinicia el contador del timer}
-\NormalTok{out CONT, al}
+;  Esperar a que se imprima el mensaje 
+loopinf: cmp imprimio, 0 ; Ya imprimió
+         jz loopinf      ; Si no, sigue esperando
 
-\NormalTok{; {-}{-}{-} Esperar a que se imprima el mensaje {-}{-}{-}}
-\NormalTok{loopinf: cmp imprimio, 0 ; ¿Ya imprimió?}
-\NormalTok{         jz loopinf      ; Si no, sigue esperando}
+hlt                      ; Termina el programa
 
-\NormalTok{hlt                      ; Termina el programa}
-
-\NormalTok{; {-}{-}{-} Rutina de interrupción del timer {-}{-}{-}}
-\NormalTok{org 50h}
-\NormalTok{imp\_msj:}
-\NormalTok{         mov bl, offset mensaje ; Dirección del mensaje}
-\NormalTok{         mov al, 4             ; Servicio de impresión}
-\NormalTok{         int 7                 ; Llama a la interrupción de impresión}
-\NormalTok{         mov imprimio, 1       ; Marca que ya imprimió}
-\NormalTok{         mov al, 20h           ; Señal de fin de interrupción}
-\NormalTok{         out EOI, al           ; Notifica al PIC}
-\NormalTok{         iret                  ; Retorna de la interrupción}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{tecla-f10}{%
-\subsubsection{Tecla F10}\label{tecla-f10}}
-
-La tecla F10 es un dispositivo que habilita una forma rápida y práctica de ejecutar una interrupción por hardware. Está conectada a la línea \texttt{INT0} del {[}PIC{]}. Puede accionarse presionando la tecla F10 el teclado físicamente o haciendo clic en el ``botón rojo de interrupción'' en la interfaz gráfica.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{; Programa: Contador de pulsaciones de la tecla F10 usando interrupciones}
-
-\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\NormalTok{; 1) Definiciones y variables}
-\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-
-\NormalTok{org 10h                ; Dirección de inicio de datos}
-\NormalTok{cantidad db 0          ; Variable: almacena la cantidad de veces que se presionó F10}
-
-\NormalTok{ID   EQU 1             ; ID de la interrupción para F10 (puede ser 0{-}7)}
-\NormalTok{IMR  EQU 21h           ; Dirección del registro IMR (máscara de interrupciones)}
-\NormalTok{EOI  EQU 20h           ; Dirección para enviar End Of Interrupt al PIC}
-\NormalTok{INT0 EQU 24h           ; Dirección para configurar la línea INT0 (F10)}
-
-\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\NormalTok{; 2) Inicialización del PIC y vector de interrupción}
-\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-
-\NormalTok{org 20h                ; Dirección de inicio del código principal}
-
-\NormalTok{; 2.1) Habilitar solo la interrupción de F10 (INT0)}
-\NormalTok{mov al, 11111110b      ; Habilita solo INT0 (bit 0 en 0), el resto deshabilitado}
-\NormalTok{out IMR, al}
-
-\NormalTok{; 2.2) Configurar el ID de la interrupción para INT0}
-\NormalTok{mov al, ID             ; Cargar el ID elegido para F10}
-\NormalTok{out INT0, al}
-
-\NormalTok{; 2.3) Asociar el vector de interrupción con la subrutina atenderf10}
-\NormalTok{mov bl, ID             ; BL = ID de la interrupción}
-\NormalTok{mov [bl], atenderf10   ; Vector de interrupción: dirección de la rutina}
-
-\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\NormalTok{; 3) Bucle principal (espera activa)}
-\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-
-\NormalTok{loop: jmp loop         ; Espera indefinida (el programa queda esperando interrupciones)}
-
-\NormalTok{hlt                    ; (Opcional) Detiene la CPU si sale del bucle}
-
-\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-\NormalTok{; 4) Rutina de atención de la interrupción F10}
-\NormalTok{;{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}}
-
-\NormalTok{org 50h                ; Dirección de la subrutina de atención}
-
-\NormalTok{atenderf10:}
-\NormalTok{    inc cantidad       ; Incrementa el contador cada vez que se presiona F10}
-\NormalTok{    mov al, 20h        ; Código de End Of Interrupt (EOI)}
-\NormalTok{    out EOI, al        ; Notifica al PIC que terminó la atención}
-\NormalTok{    iret               ; Retorna de la interrupción}
-\end{Highlighting}
-\end{Shaded}
+;  Rutina de interrupción del timer 
+org 50h
+imp_msj:
+         mov bl, offset mensaje ; Dirección del mensaje
+         mov al, 4             ; Servicio de impresión
+         int 7                 ; Llama a la interrupción de impresión
+         mov imprimio, 1       ; Marca que ya imprimió
+         mov al, 20h           ; Señal de fin de interrupción
+         out EOI, al           ; Notifica al PIC
+         iret                  ; Retorna de la interrupción\end{lstlisting}
 
 \hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones}{%
 \subsection{Etapa de ejecución de instrucciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones}}
+
+Finalmente, se detallan los pasos correspondientes a las instrucciones restantes del repertorio de instrucciones:
 
 \begin{itemize}
 \tightlist
@@ -3875,11 +4016,11 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
     \item
       \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
     \item
-      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1}
+      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} - Guardar la dirección en ri y decrementar SP.
     \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{IP}}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{IP}} - Preparar para apilar.
     \item
-      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}}
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}} - Guardar IP en la pila y saltar a la subrutina.
     \end{enumerate}
   \item
     \textbf{RET}
@@ -3889,11 +4030,11 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
     \setcounter{enumi}{3}
     \tightlist
     \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Obtener dirección de retorno desde la pila.
     \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer la dirección de retorno.
     \item
-      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}\textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1}
+      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}\textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1} -- Restaurar IP y actualizar SP.
     \end{enumerate}
   \end{itemize}
 \item
@@ -3913,17 +4054,17 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
     \item
       \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
     \item
-      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1}
+      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} -- Guardar la dirección en ri y decrementar SP.
     \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{Flags}}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{Flags}} -- Preparar para apilar los registros de estado.
     \item
-      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} update(Flags I=0)}
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} update(Flags I=0)} -- Guardar los registros de estado y desactivar interrupciones.
     \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{IP} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1}
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{IP} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} -- Guardar IP en la pila.
     \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar para apilar.
     \item
-      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}}
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}} - Guardar en la pila y saltar a la rutina de interrupción.
     \end{enumerate}
   \item
     \textbf{IRET}
@@ -3933,17 +4074,17 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
     \setcounter{enumi}{3}
     \tightlist
     \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Obtener dirección de retorno desde la pil
     \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer la dirección de retorno.
     \item
-      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1}
+      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1} -- Restaurar IP y actualizar SP.
     \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar para leer los registros de estado.
     \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer los registros de estado
     \item
-      \textbf{\texttt{Flags} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1}
+      \textbf{\texttt{Flags} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} -- Restaurar los registros de estado y actualizar SP.
     \end{enumerate}
   \item
     \textbf{CLI}
@@ -3953,7 +4094,7 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
     \setcounter{enumi}{3}
     \tightlist
     \item
-      \textbf{update(Flags I=1)}
+      \textbf{update(Flags I=1)} -- Desactivar interrupciones.
     \end{enumerate}
   \item
     \textbf{STI}
@@ -3963,7 +4104,7 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
     \setcounter{enumi}{3}
     \tightlist
     \item
-      \textbf{update(Flags I=0)}
+      \textbf{update(Flags I=0)} -- Activar interrupciones.
     \end{enumerate}
   \end{itemize}
 \item
@@ -3984,11 +4125,11 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
       \setcounter{enumi}{3}
       \tightlist
       \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{DL}} -- Dirección destino.
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{DL}} -- Obtener dirección destino.
       \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{AL}} -- Contenido a escribir.
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{AL}} -- Preparar el contenido a escribir.
       \item
-        \textbf{\texttt{write(E-S{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}.
+        \textbf{\texttt{write(E-S{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en el puerto de E/S.
       \end{enumerate}
     \item
       Direccion destino inmediato \textbf{OUT inmediato, AL}
@@ -4002,11 +4143,11 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
       \item
         \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer el dato e incrementar IP.
       \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Dirección destino.
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Preparar la dirección destino.
       \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{AL}} -- Contenido a escribir.
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{AL}} -- Preparar el contenido a escribir.
       \item
-        \textbf{\texttt{write(E-S{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+        \textbf{\texttt{write(E-S{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en el puerto de E/S.
       \end{enumerate}
     \end{itemize}
   \item
@@ -4022,11 +4163,11 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
       \setcounter{enumi}{3}
       \tightlist
       \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{DL}} -- Dirección destino.
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{DL}} -- Obtener dirección del puerto de entrada.
       \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(E-S{[}MAR{]})}} -- Contenido a leer.
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(E-S{[}MAR{]})}} -- Leer el contenido del puerto.
       \item
-        \textbf{\texttt{AL} \(\leftarrow\) \texttt{MBR}}
+        \textbf{\texttt{AL} \(\leftarrow\) \texttt{MBR}} -- Almacenar el contenido en AL.
       \end{enumerate}
     \item
       Direccion destino inmediato \textbf{IN AL, inmediato}
@@ -4040,11 +4181,11 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
       \item
         \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer el dato e incrementar IP.
       \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Dirección destino.
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Preparar la dirección del puerto de entrada..
       \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(E-S{[}MAR{]})}} -- Contenido a leer.
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(E-S{[}MAR{]})}} -- Leer el contenido del puerto.
       \item
-        \textbf{\texttt{AL} \(\leftarrow\) \texttt{MBR}}
+        \textbf{\texttt{AL} \(\leftarrow\) \texttt{MBR}} -- Almacenar el contenido en AL.
       \end{enumerate}
     \end{itemize}
   \end{itemize}
@@ -4061,11 +4202,11 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
     \setcounter{enumi}{3}
     \tightlist
     \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Obtener dirección de la pila.
     \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}}
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el contenido de la pila.
     \item
-      \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1
+      \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1 -- Almacenar el contenido en Rx y actualizar SP.
     \end{enumerate}
   \item
     \textbf{PUSH Ry}
@@ -4075,121 +4216,192 @@ La tecla F10 es un dispositivo que habilita una forma rápida y práctica de eje
     \setcounter{enumi}{3}
     \tightlist
     \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}}
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar la dirección de la pila.
     \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1 -- Preparar el contenido a escribir y actualizar SP.
     \item
-      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}}
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en la pila.
     \end{enumerate}
+  \end{itemize}
+\item
+  \textbf{Operaciones Lógicas y Aritméticas}
+
+  \begin{itemize}
+  \item
+    \textbf{Operaciones con dos operandos (AND, OR, XOR)}
+  \item
+    Siguen los mismos pasos de ejecución que las operaciones aritméticas ADD y SUB, con la diferencia en la operación realizada por la ALU.
+  \item
+    \textbf{Operaciones con un operando (NOT, NEG, INC, DEC)}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \textbf{Destino en registro (\texttt{Rx})}
+
+      \begin{itemize}
+      \tightlist
+      \item
+        \textbf{INC \texttt{Rx}}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + 1 \textbar{} update(Flags)} - Incrementar el valor del registro y actualizar los flags.
+        \end{enumerate}
+      \item
+        \textbf{DEC \texttt{Rx}}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - 1 \textbar{} update(Flags)} - Decrementar el valor del registro y actualizar los flags.
+        \end{enumerate}
+      \item
+        \textbf{NOT \texttt{Rx}}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{Rx} \(\leftarrow\) NOT \texttt{Rx} \textbar{} update(Flags)} - Realizar la operación lógica NOT y actualizar los flags.
+        \end{enumerate}
+      \item
+        \textbf{NEG \texttt{Rx}}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{Rx} \(\leftarrow\) CA2 \texttt{Rx} \textbar{} update(Flags)} - Realizar la operación de complemento a dos y actualizar los flags.
+        \end{enumerate}
+      \end{itemize}
+    \item
+      \textbf{Destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
+
+      \begin{itemize}
+      \tightlist
+      \item
+        \textbf{Modo Directo (\texttt{{[}Dirección{]}})}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
+        \item
+          \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
+        \item
+          \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Transferir dirección a MAR.
+        \item
+          \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
+        \item
+          Ejecutar la operación:
+          - INC: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + 1 \textbar{} update(Flags)}
+          - DEC: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - 1 \textbar{} update(Flags)}
+          - NOT: \textbf{\texttt{MBR} \(\leftarrow\) NOT \texttt{MBR} \textbar{} update(Flags)}
+          - NEG: \textbf{\texttt{MBR} \(\leftarrow\) CA2 \texttt{MBR} \textbar{} update(Flags)}
+        \item
+          \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+        \end{enumerate}
+      \item
+        \textbf{Modo Indirecto (\texttt{{[}BL{]}})}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Transferir dirección de destino (en BL) a MAR.
+        \item
+          \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
+        \item
+          Ejecutar la operación (igual que en el caso anterior).
+        \item
+          \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+        \end{enumerate}
+      \end{itemize}
+    \end{itemize}
   \end{itemize}
 \end{itemize}
 
-Se implementaron operaciones lógicas con dos operandos AND, OR y XOR que tienen los mismos pasos de ejecución que las operaciones ADD y SUB, donde cambia únicamente la operación que realiza la ALU.
+\hypertarget{aportes-y-contribuciones-del-simulador-vonsim8}{%
+\section{Aportes y contribuciones del simulador VonSim8}\label{aportes-y-contribuciones-del-simulador-vonsim8}}
 
-Se agregaron operaciones aritméticas y lógicas de un solo operando:
-- \textbf{INC \texttt{Rx}}
-4 - \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + 1 \textbar{} update(Flags)}
+El simulador VonSim8 constituye una valiosa contribución al ámbito educativo en la enseñanza de arquitectura de computadoras, destacándose por los siguientes aspectos:
 
-\begin{itemize}
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
 \item
-  \textbf{DEC \texttt{Rx}}
-  4 - \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - 1 \textbar{} update(Flags)}
+  \textbf{Simplificación pedagógica de la arquitectura x86:}
+  VonSim8 implementa una arquitectura simplificada de 8 bits, diseñada para reducir la complejidad inherente a la arquitectura x86. Esta simplificación permite a los estudiantes concentrarse en conceptos fundamentales, como el ciclo de instrucciones, la interacción entre registros y la gestión de interrupciones, sin verse abrumados por detalles técnicos avanzados. La selección de un repertorio reducido de instrucciones se fundamenta en principios de la psicología cognitiva, que destacan la importancia de introducir gradualmente conceptos técnicos para mejorar la retención y reducir la sobrecarga cognitiva \protect\hyperlink{ref-nationalacademies2018how}{{[}70{]}}, \protect\hyperlink{ref-sweller2010cognitive}{{[}71{]}}.
 \item
-  \textbf{NOT \texttt{Rx}}
-  4 - \textbf{\texttt{Rx} \(\leftarrow\) NOT \texttt{Rx} \textbar{} update(Flags)}
+  \textbf{Activación progresiva del repertorio de instrucciones:}
+  El simulador habilita de manera escalonada un repertorio reducido de instrucciones, en correspondencia con el avance de los contenidos curriculares. Este enfoque progresivo facilita la asimilación de conceptos más complejos, mitigando la sobrecarga cognitiva y promoviendo un aprendizaje gradual y efectivo.
 \item
-  \textbf{NEG \texttt{Rx}}
-  4 - \textbf{\texttt{Rx} \(\leftarrow\) CA2 \texttt{Rx} \textbar{} update(Flags)}
-\end{itemize}
+  \textbf{Visualización interactiva del ciclo de instrucciones:}
+  VonSim8 incorpora una representación visual basada en el modelo de Nivel de Transferencia entre Registros (RTL), que permite observar el flujo de datos y las señales de control en cada etapa del ciclo de instrucción. Esta funcionalidad refuerza la conexión entre teoría y práctica, facilitando la comprensión de procesos internos del procesador mediante una representación clara y dinámica.
+\item
+  \textbf{Simulación de periféricos y gestión de interrupciones:}
+  El simulador incluye un módulo de entrada/salida programada (PIO) y un vector de interrupciones predefinido, que emulan interacciones con dispositivos externos como teclados y monitores. Estas características permiten explorar conceptos clave como la asincronía y el manejo de eventos, esenciales para comprender sistemas reales.
+\item
+  \textbf{Entorno integrado de desarrollo y simulación:}
+  VonSim8 ofrece un editor de ensamblador con funciones como resaltado de sintaxis, autocompletado y ejemplos predefinidos, junto con un simulador que permite ejecutar programas paso a paso o de manera continua. Este entorno integrado mejora la experiencia del usuario y fomenta un aprendizaje práctico y autónomo.
+\item
+  \textbf{Métricas de rendimiento y análisis cuantitativo:}
+  El simulador proporciona indicadores clave como ciclos por instrucción (CPI), tiempo de CPU y tiempo de ciclo, que permiten a los estudiantes analizar la eficiencia de sus programas. Estas métricas promueven una comprensión integral del rendimiento del procesador y su impacto en la ejecución de programas.
+\item
+  \textbf{Documentación y recursos de apoyo:}
+  VonSim8 incluye una documentación clara y accesible, complementada con tutoriales interactivos y ejemplos prácticos que guían al estudiante en el uso del simulador. Este recurso fomenta un aprendizaje activo y reflexivo, facilitando la adquisición de competencias técnicas.
+\item
+  \textbf{Compatibilidad y accesibilidad:}
+  El simulador es de código abierto y se distribuye bajo licencias que permiten su estudio, modificación y mejora continua. Su diseño accesible y sostenible asegura su utilidad en diversos contextos educativos.
+\end{enumerate}
 
-\begin{table}[!h]
-\centering
-\caption{\label{tab:instaccion}Tabla de instrucciones y acciones}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{threeparttable}
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ejemplo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
-\midrule
-A: Entre registros & MOV Rx, Ry & Rx ← Ry\\
- & ADD Rx, Ry & Rx ← Rx + Ry\\
- & SUB Rx, Ry & Rx ← Rx - Ry\\
- & CMP Rx, Ry & Rx - Ry *\\
-B: Cargar a registro & MOV Rx, [M] & Rx ← Mem[Dirección]\\
-\addlinespace
- & MOV Rx, [BL] & Rx ← Mem[BL]\\
- & MOV Rx, d & Rx ← dato\\
- & ADD Rx, [M] & Rx ← Rx + Mem[Dirección]\\
- & ADD Rx, [BL] & Rx ← Rx + Mem[BL]\\
- & ADD Rx, d & Rx ← Rx + dato\\
-\addlinespace
- & SUB Rx, [M] & Rx ← Rx - Mem[Dirección]\\
- & SUB Rx, [BL] & Rx ← Rx - Mem[BL]\\
- & SUB Rx, d & Rx ← Rx - dato\\
- & CMP Rx, [M] & Rx - Mem[Dirección] (*)\\
- & CMP Rx, [BL] & Rx - Mem[BL] (*)\\
-\addlinespace
- & CMP Rx, d & Rx - dato (*)\\
-C: Almacenar en memoria & MOV [M], Ry & Mem[Dirección] ← Rx\\
- & MOV [BL], Ry & Mem[BL] ← Rx\\
- & MOV [M], d & Mem[Dirección] ← dato\\
- & MOV [BL], d & Mem[BL] ← dato\\
-\addlinespace
- & ADD [M], Ry & Mem[Dirección] ← Mem[Dirección] + Rx\\
- & ADD [BL], Ry & Mem[BL] ← Mem[BL] + Rx\\
- & ADD [M], d & Mem[Dirección] ← Mem[Dirección] + dato\\
- & ADD [BL], d & Mem[BL] ← Mem[BL] + dato\\
- & SUB [M], Ry & Mem[Dirección] ← Mem[Dirección] - Rx\\
-\addlinespace
- & SUB [BL], Ry & Mem[BL] ← Mem[BL] - Rx\\
- & SUB [M], d & Mem[Dirección] ← Mem[Dirección] - dato\\
- & SUB [BL], d & Mem[BL] ← Mem[BL] - dato\\
- & CMP [M], Ry & Mem[Dirección] - Rx\\
- & CMP [BL], Ry & Mem[BL] - Rx\\
-\addlinespace
- & CMP [M], d & Mem[Dirección] - dato\\
- & CMP [BL], d & Mem[BL] - dato\\
-D: control de flujo & JMP M & IP ← Dirección\\
- & Jxx M & Si xx = 1 entonces IP ← Dirección\\
- & HLT & Detiene el procesador\\
-\bottomrule
-\end{tabular}
-\begin{tablenotes}
-\item \textit{Nota *: } 
-\item La instrucción CMP no almacena el resultado de la operación en el operando destino.
-\end{tablenotes}
-\end{threeparttable}}
-\end{table}
+En resumen, VonSim8 se presenta como una herramienta educativa integral que combina visualización interactiva, ejecución progresiva y análisis de rendimiento. Su diseño responde a las necesidades pedagógicas y técnicas de la enseñanza de arquitectura de computadoras, promoviendo un aprendizaje activo, reflexivo y centrado en la comprensión de los principios fundamentales de la disciplina.
 
-El formato ampliado para las instrucciones incluye los siguientes casos tabla \ref{tab:formatoampliado}:
+\hypertarget{resumen-1}{%
+\subsection{Resumen}\label{resumen-1}}
 
-\begin{table}[!h]
-\centering
-\caption{\label{tab:formatoampliado}Tabla de codificación de instrucciones ampliado}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\begin{threeparttable}
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
-\toprule
-Tipo & Operación & Codificación & Parámetros\\
-\midrule
-Transferencia y procesamiento & A: entre registros & \_\_\_\_XXYY & XX = Registro destino, YY = Registro fuente\\
- & B: Cargar a registro & \_\_\_\_XX00 MMMMMMMM & XX00 = Registro destino y M = Dirección de memoria\\
- &  & \_\_\_\_XX01 & XX01 = Registro destino y direccion en registro [BL]\\
- &  & \_\_\_\_XX00 dddddddd & XX10 = Registro destino y d = Dato inmediato\\
-\midrule
- & C: Almacenar en memoria & \_\_\_\_00YY MMMMMMMM dddddddd & YY = Registro fuente, `M` = Dirección de memoria,  `d` = Dato Inmediato\\
-\addlinespace
-Control & D: control de flujo & \_\_\_\_ffff MMMMMMMM & ffff = funcionalidad, M = Dirección de memoria\\
-\bottomrule
-\end{tabular}
-\begin{tablenotes}
-\item \textit{Nota: } 
-\item d = dato inmediato, no puede ser destino de la instrucción.
-\end{tablenotes}
-\end{threeparttable}}
-\end{table}
+En este capítulo se ha descrito el diseño y desarrollo del simulador VonSim8, destacando sus características pedagógicas y técnicas. Las modificaciones implementadas, como la simplificación de la arquitectura y la visualización interactiva, están orientadas a facilitar la enseñanza de la arquitectura de computadoras. Estas mejoras aseguran que el simulador no solo sea una herramienta funcional, sino también un recurso educativo efectivo.
+
+Para evaluar su efectividad pedagógica, se planea realizar pruebas piloto con estudiantes de la asignatura Arquitectura de Computadoras. Estas pruebas incluirán encuestas y análisis de desempeño para medir la comprensión de conceptos clave antes y después de utilizar el simulador.
+
+\hypertarget{futuro}{%
+\chapter{Trabajos Futuros}\label{futuro}}
+
+El desarrollo del simulador VonSim8 ha permitido establecer una base sólida para la enseñanza de los principios fundamentales de la arquitectura de computadoras. Sin embargo, existen múltiples oportunidades para expandir y mejorar sus capacidades, alineándose con las necesidades de formación avanzada y los avances tecnológicos en el ámbito de la simulación. A continuación, se describen las principales líneas de trabajo propuestas para el futuro:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \textbf{Compatibilidad con el lenguaje NASM}\\
+  Una de las extensiones más relevantes consiste en habilitar el soporte para el lenguaje ensamblador NASM (Netwide Assembler). Este lenguaje es ampliamente utilizado en entornos profesionales y educativos, especialmente en la programación de bajo nivel para arquitecturas x86 y x86-64. La integración de NASM en el simulador permitiría a los estudiantes trabajar con un lenguaje estándar de la industria, facilitando la transición hacia entornos reales de desarrollo. Además, se planea incorporar un ensamblador interno que traduzca el código NASM a las instrucciones del simulador, asegurando una experiencia fluida y consistente.
+\item
+  \textbf{Ampliación a 16 registros de 64 bits}\\
+  Actualmente, el simulador opera con registros de 8 bits, lo que resulta adecuado para la enseñanza introductoria. Sin embargo, para abordar conceptos avanzados, se propone implementar un conjunto de 16 registros de 64 bits, similar al modelo utilizado en arquitecturas modernas como x86-64. Esta ampliación permitiría explorar temas como la manipulación de datos de mayor tamaño, la optimización de operaciones aritméticas y lógicas, y el uso eficiente de registros en aplicaciones complejas.
+\item
+  \textbf{Implementación de interrupciones de Linux x86}\\
+  La incorporación de un sistema de interrupciones basado en las llamadas al sistema de Linux (syscalls) para arquitecturas x86 representa una oportunidad para conectar el simulador con entornos operativos reales. Esto permitiría a los estudiantes comprender cómo las aplicaciones interactúan con el sistema operativo a través de interrupciones, abordando conceptos como la gestión de archivos, la entrada/salida estándar y la asignación de memoria. Además, esta funcionalidad facilitaría la simulación de programas que dependen de servicios del sistema operativo, enriqueciendo la experiencia de aprendizaje.
+\item
+  \textbf{Módulo de entrada/salida con DMA}\\
+  Se propone desarrollar un módulo de entrada/salida basado en el uso de acceso directo a memoria (DMA, por sus siglas en inglés). Este módulo permitiría simular la transferencia de datos entre dispositivos periféricos y la memoria principal sin la intervención directa de la CPU, replicando un mecanismo clave en arquitecturas modernas. La implementación de DMA ofrecería a los estudiantes una comprensión más profunda de los procesos de entrada/salida eficientes y su impacto en el rendimiento del sistema.
+\item
+  \textbf{Simulación de una pantalla gráfica de 16x16 píxeles}\\
+  Finalmente, se plantea la incorporación de un módulo gráfico que permita simular una pantalla de 16x16 píxeles. Este componente ofrecería una representación visual básica para explorar conceptos como la manipulación de gráficos, la representación de datos en memoria y la interacción entre la CPU y dispositivos de salida. Además, este módulo podría integrarse con el sistema de interrupciones y el módulo DMA, proporcionando un entorno más completo y realista para la simulación.
+\end{enumerate}
+
+\hypertarget{conclusiuxf3n}{%
+\subsection{Conclusión}\label{conclusiuxf3n}}
+
+Estas líneas de trabajo futuro no solo expanden las capacidades técnicas del simulador, sino que también fortalecen su valor pedagógico al abordar temas avanzados de arquitectura de computadoras y programación de bajo nivel. La implementación de estas mejoras permitirá que el simulador evolucione hacia una herramienta más versátil y alineada con las necesidades de formación en entornos académicos y profesionales. Asimismo, estas extensiones abren la posibilidad de colaborar con la comunidad educativa y de desarrollo, promoviendo la adopción y mejora continua del simulador.
 
 \hypertarget{apuxe9ndices}{%
 \chapter*{Apéndices}\label{apuxe9ndices}}

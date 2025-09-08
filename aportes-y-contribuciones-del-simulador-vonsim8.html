@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.2 Simuladores bajo análisis | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
-  <meta name="description" content="4.2 Simuladores bajo análisis | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <title>5.5 Aportes y contribuciones del simulador VonSim8 | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="5.5 Aportes y contribuciones del simulador VonSim8 | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta name="generator" content="bookdown 0.44 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.2 Simuladores bajo análisis | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:title" content="5.5 Aportes y contribuciones del simulador VonSim8 | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   <meta property="og:type" content="book" />
   
   
   <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.2 Simuladores bajo análisis | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="twitter:title" content="5.5 Aportes y contribuciones del simulador VonSim8 | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="estudios-similares.html"/>
-<link rel="next" href="criterios-de-evaluación.html"/>
+<link rel="prev" href="módulo-de-entradasalida-e-interrupciones.html"/>
+<link rel="next" href="futuro.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -330,30 +330,43 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="simuladores-bajo-análisis" class="section level2 hasAnchor" number="4.2">
-<h2><span class="header-section-number">4.2</span> Simuladores bajo análisis<a href="simuladores-bajo-análisis.html#simuladores-bajo-análisis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Un simulador de arquitectura es una herramienta de software que emula el hardware de un sistema de cómputo, permitiendo representar aspectos arquitectónicos y funcionales del mismo. Estos simuladores ofrecen un entorno controlado para realizar pruebas, modificaciones y ejecución de programas sin riesgo de dañar componentes físicos o enfrentar limitaciones de hardware <span class="citation">(<a href="#ref-radivojevic_design_2011">Radivojevic, Cvetanovic, and Ðordevic 2011</a>)</span>.</p>
-<p>Algunos simuladores destacan por proporcionar una representación visual e interactiva de la organización y arquitectura interna de una computadora, facilitando la comprensión de su funcionamiento. Algunos ejemplos relevantes de simuladores son: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits y Emu8086. Estas herramientas juegan un papel fundamental en el aprendizaje de la arquitectura de computadoras, al conectar conceptos teóricos con experiencias prácticas y simplificar abstracciones complejas, además de servir como soporte en la labor docente <span class="citation">(<a href="#ref-nikolic_survey_2009">Nikolic et al. 2009</a>; <a href="#ref-hasan_survey_2012">Akram and Sawalha 2019a</a>; <a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a> ; <a href="#ref-stallings_computer_2021">Stallings 2021</a>; <a href="#ref-behrooz_computer_2005">BEHROOZ 2005</a>)</span>.</p>
+<div id="aportes-y-contribuciones-del-simulador-vonsim8" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Aportes y contribuciones del simulador VonSim8<a href="aportes-y-contribuciones-del-simulador-vonsim8.html#aportes-y-contribuciones-del-simulador-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>El simulador VonSim8 constituye una valiosa contribución al ámbito educativo en la enseñanza de arquitectura de computadoras, destacándose por los siguientes aspectos:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Simplificación pedagógica de la arquitectura x86:</strong>
+VonSim8 implementa una arquitectura simplificada de 8 bits, diseñada para reducir la complejidad inherente a la arquitectura x86. Esta simplificación permite a los estudiantes concentrarse en conceptos fundamentales, como el ciclo de instrucciones, la interacción entre registros y la gestión de interrupciones, sin verse abrumados por detalles técnicos avanzados. La selección de un repertorio reducido de instrucciones se fundamenta en principios de la psicología cognitiva, que destacan la importancia de introducir gradualmente conceptos técnicos para mejorar la retención y reducir la sobrecarga cognitiva <span class="citation">(<a href="#ref-sweller2010cognitive">Sweller, Ayres, and Kalyuga 2010</a>; <a href="#ref-nationalacademies2018how">National Academies of Sciences, Engineering, and Medicine 2018</a>)</span>.</p></li>
+<li><p><strong>Activación progresiva del repertorio de instrucciones:</strong>
+El simulador habilita de manera escalonada un repertorio reducido de instrucciones, en correspondencia con el avance de los contenidos curriculares. Este enfoque progresivo facilita la asimilación de conceptos más complejos, mitigando la sobrecarga cognitiva y promoviendo un aprendizaje gradual y efectivo.</p></li>
+<li><p><strong>Visualización interactiva del ciclo de instrucciones:</strong>
+VonSim8 incorpora una representación visual basada en el modelo de Nivel de Transferencia entre Registros (RTL), que permite observar el flujo de datos y las señales de control en cada etapa del ciclo de instrucción. Esta funcionalidad refuerza la conexión entre teoría y práctica, facilitando la comprensión de procesos internos del procesador mediante una representación clara y dinámica.</p></li>
+<li><p><strong>Simulación de periféricos y gestión de interrupciones:</strong>
+El simulador incluye un módulo de entrada/salida programada (PIO) y un vector de interrupciones predefinido, que emulan interacciones con dispositivos externos como teclados y monitores. Estas características permiten explorar conceptos clave como la asincronía y el manejo de eventos, esenciales para comprender sistemas reales.</p></li>
+<li><p><strong>Entorno integrado de desarrollo y simulación:</strong>
+VonSim8 ofrece un editor de ensamblador con funciones como resaltado de sintaxis, autocompletado y ejemplos predefinidos, junto con un simulador que permite ejecutar programas paso a paso o de manera continua. Este entorno integrado mejora la experiencia del usuario y fomenta un aprendizaje práctico y autónomo.</p></li>
+<li><p><strong>Métricas de rendimiento y análisis cuantitativo:</strong>
+El simulador proporciona indicadores clave como ciclos por instrucción (CPI), tiempo de CPU y tiempo de ciclo, que permiten a los estudiantes analizar la eficiencia de sus programas. Estas métricas promueven una comprensión integral del rendimiento del procesador y su impacto en la ejecución de programas.</p></li>
+<li><p><strong>Documentación y recursos de apoyo:</strong>
+VonSim8 incluye una documentación clara y accesible, complementada con tutoriales interactivos y ejemplos prácticos que guían al estudiante en el uso del simulador. Este recurso fomenta un aprendizaje activo y reflexivo, facilitando la adquisición de competencias técnicas.</p></li>
+<li><p><strong>Compatibilidad y accesibilidad:</strong>
+El simulador es de código abierto y se distribuye bajo licencias que permiten su estudio, modificación y mejora continua. Su diseño accesible y sostenible asegura su utilidad en diversos contextos educativos.</p></li>
+</ol>
+<p>En resumen, VonSim8 se presenta como una herramienta educativa integral que combina visualización interactiva, ejecución progresiva y análisis de rendimiento. Su diseño responde a las necesidades pedagógicas y técnicas de la enseñanza de arquitectura de computadoras, promoviendo un aprendizaje activo, reflexivo y centrado en la comprensión de los principios fundamentales de la disciplina.</p>
+<div id="resumen-1" class="section level3 hasAnchor" number="5.5.1">
+<h3><span class="header-section-number">5.5.1</span> Resumen<a href="aportes-y-contribuciones-del-simulador-vonsim8.html#resumen-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En este capítulo se ha descrito el diseño y desarrollo del simulador VonSim8, destacando sus características pedagógicas y técnicas. Las modificaciones implementadas, como la simplificación de la arquitectura y la visualización interactiva, están orientadas a facilitar la enseñanza de la arquitectura de computadoras. Estas mejoras aseguran que el simulador no solo sea una herramienta funcional, sino también un recurso educativo efectivo.</p>
+<p>Para evaluar su efectividad pedagógica, se planea realizar pruebas piloto con estudiantes de la asignatura Arquitectura de Computadoras. Estas pruebas incluirán encuestas y análisis de desempeño para medir la comprensión de conceptos clave antes y después de utilizar el simulador.</p>
+
 </div>
+</div>
+<!-- </div> -->
 <h3> Bibliografía<a href="Biblio.html#Biblio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-hasan_survey_2012" class="csl-entry">
-Akram, Ayaz, and Lina Sawalha. 2019a. <span>“A Survey of Computer Architecture Simulation Techniques and Tools.”</span> <em>IEEE Access</em> 7: 78120–45. <a href="https://doi.org/10.1109/ACCESS.2019.2917698">https://doi.org/10.1109/ACCESS.2019.2917698</a>.
+<div id="ref-nationalacademies2018how" class="csl-entry">
+National Academies of Sciences, Engineering, and Medicine. 2018. <em>How People Learn II: Learners, Contexts, and Cultures</em>. Washington, DC: National Academies Press. <a href="https://doi.org/10.17226/24783">https://doi.org/10.17226/24783</a>.
 </div>
-<div id="ref-behrooz_computer_2005" class="csl-entry">
-BEHROOZ, PARHAMI. 2005. <em>Computer <span>Architecture</span>: <span>From</span> <span>Microprocessors</span> to <span>Supercomputers</span></em>. Oxford University Press Inc.
-</div>
-<div id="ref-hennessy2017computer" class="csl-entry">
-Hennessy, John L., and David A. Patterson. 2017a. <em>Computer Architecture: A Quantitative Approach</em>. 6th ed. Boston: Morgan Kaufmann.
-</div>
-<div id="ref-nikolic_survey_2009" class="csl-entry">
-Nikolic, B., Z. Radivojevic, J. Djordjevic, and V. Milutinovic. 2009. <span>“A <span>Survey</span> and <span>Evaluation</span> of <span>Simulators</span> <span>Suitable</span> for <span>Teaching</span> <span>Courses</span> in <span>Computer</span> <span>Architecture</span> and <span>Organization</span>.”</span> <em>IEEE Transactions on Education</em> 52 (4): 449–58. <a href="https://doi.org/10.1109/TE.2008.930097">https://doi.org/10.1109/TE.2008.930097</a>.
-</div>
-<div id="ref-radivojevic_design_2011" class="csl-entry">
-Radivojevic, Zaharije, Milos Cvetanovic, and Jovan Ðordevic. 2011. <span>“Design of the Simulator for Teaching Computer Architecture and Organization.”</span> In <em>2011 <span>Second</span> <span>Eastern</span> <span>European</span> <span>Regional</span> <span>Conference</span> on the <span>Engineering</span> of <span>Computer</span> <span>Based</span> <span>Systems</span></em>, 124–30. IEEE.
-</div>
-<div id="ref-stallings_computer_2021" class="csl-entry">
-Stallings, William. 2021. <em>Computer Organization and Architecture: Designing for Performance</em>. 11th ed. Boston, MA: Pearson.
+<div id="ref-sweller2010cognitive" class="csl-entry">
+Sweller, John, Paul Ayres, and Slava Kalyuga. 2010. <em>Cognitive Load Theory</em>. New York: Springer. <a href="https://doi.org/10.1007/978-1-4419-8126-3">https://doi.org/10.1007/978-1-4419-8126-3</a>.
 </div>
 </div>
             </section>
@@ -361,8 +374,8 @@ Stallings, William. 2021. <em>Computer Organization and Architecture: Designing 
           </div>
         </div>
       </div>
-<a href="estudios-similares.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="criterios-de-evaluación.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="módulo-de-entradasalida-e-interrupciones.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="futuro.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -393,7 +406,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/04-comparativa.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/05-desarrollo.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -401,7 +414,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/04-comparativa.Rmd",
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/05-desarrollo.Rmd",
     "text": null
   },
   "download": ["tesis.pdf"],
