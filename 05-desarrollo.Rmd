@@ -1616,6 +1616,110 @@ Bajo esta implementación, las instrucciones lógicas (AND, OR y XOR) comparten 
 
 Esta solución representa un compromiso eficaz entre la simplicidad arquitectural y la capacidad funcional del simulador, permitiendo una mayor diversidad de operaciones sin comprometer la claridad pedagógica del diseño.
 
+
+### Etapa de ejecución de instrucciones
+Finalmente, se detallan los pasos correspondientes a las instrucciones restantes del repertorio de instrucciones:
+
+- **Subrutinas**
+  - **CALL `Dirección`**
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
+    6. **`ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1** -  Guardar la dirección en ri y decrementar SP.
+    7. **`MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `IP`** - Preparar para apilar.
+    8. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`** - Guardar IP en la pila y saltar a la subrutina.
+  - **RET**
+    4. **`MAR` $\leftarrow$ `SP`** – Obtener dirección de retorno desde la pila.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer la dirección de retorno.
+    6. **`IP` $\leftarrow$ `MBR`| `SP` $\leftarrow$ `SP` + 1** – Restaurar IP y actualizar SP.
+
+- **Interrupciones**
+  - **INT `Dirección`**
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
+    6. **`ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1** – Guardar la dirección en ri y decrementar SP.
+    7. **`MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `Flags`** – Preparar para apilar los registros de estado.
+    8. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | update(Flags I=0)** – Guardar los registros de estado y desactivar interrupciones.
+    9. **`MBR` $\leftarrow$ `IP` | `SP` $\leftarrow$ `SP` - 1** – Guardar IP en la pila.
+    10. **`MAR` $\leftarrow$ `SP`** – Preparar para apilar.
+    11. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`** - Guardar en la pila y saltar a la rutina de interrupción.
+  - **IRET**
+    4. **`MAR` $\leftarrow$ `SP`** – Obtener dirección de retorno desde la pil
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer la dirección de retorno.
+    6. **`IP` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` + 1** – Restaurar IP y actualizar SP.
+    7. **`MAR` $\leftarrow$ `SP`** – Preparar para leer los registros de estado.
+    8. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer los registros de estado
+    9. **`Flags` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1** – Restaurar los registros de estado y actualizar SP.
+  - **CLI**
+    4. **update(Flags I=1)** – Desactivar interrupciones.
+  - **STI**
+    4. **update(Flags I=0)** – Activar interrupciones.
+- **E/S**
+  - **OUT**
+    - Direccion destino en registro **OUT DL, AL**
+        4. **`MAR` $\leftarrow$ `DL`** – Obtener dirección destino.
+        5. **`MBR` $\leftarrow$ `AL`** – Preparar el contenido a escribir.
+        6. **`write(E-S[MAR])` $\leftarrow$ `MBR`** – Escribir el contenido en el puerto de E/S.
+    - Direccion destino inmediato **OUT inmediato, AL**  
+        4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
+        5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer el dato e incrementar IP.
+        6. **`MAR` $\leftarrow$ `MBR`** – Preparar la dirección destino.
+        7. **`MBR` $\leftarrow$ `AL`** – Preparar el contenido a escribir.
+        8. **`write(E-S[MAR])` $\leftarrow$ `MBR`** – Escribir el contenido en el puerto de E/S.
+  - **IN**
+    - Direccion destino en registro **IN AL, DL**
+      4. **`MAR` $\leftarrow$ `DL`**  – Obtener dirección del puerto de entrada.
+      5. **`MBR` $\leftarrow$ `read(E-S[MAR])`** – Leer el contenido del puerto.
+      6. **`AL` $\leftarrow$ `MBR`** – Almacenar el contenido en AL.
+    - Direccion destino inmediato **IN  AL, inmediato**
+      4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
+      5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer el dato e incrementar IP.
+      6. **`MAR` $\leftarrow$ `MBR`** – Preparar la dirección del puerto de entrada..
+      7. **`MBR` $\leftarrow$ `read(E-S[MAR])`** – Leer el contenido del puerto.
+      8. **`AL` $\leftarrow$ `MBR`** – Almacenar el contenido en AL.
+- **Pila**
+  - **POP Rx**
+    4. **`MAR` $\leftarrow$ `SP`** – Obtener dirección de la pila.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el contenido de la pila.
+    6. **`Rx` $\leftarrow$ `MBR`** | `SP` $\leftarrow$ `SP` + 1 – Almacenar el contenido en Rx y actualizar SP.
+  - **PUSH Ry**
+    4. **`MAR` $\leftarrow$ `SP`** – Preparar la dirección de la pila.
+    5. **`MBR` $\leftarrow$ `Ry`** | `SP` $\leftarrow$ `SP` - 1 – Preparar el contenido a escribir y actualizar SP.
+    5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir el contenido en la pila.
+
+
+- **Operaciones Lógicas y Aritméticas**
+  - **Operaciones con dos operandos (AND, OR, XOR)**
+  -   Siguen los mismos pasos de ejecución que las operaciones aritméticas ADD y SUB, con la diferencia en la operación realizada por la ALU.
+
+  - **Operaciones con un operando (NOT, NEG, INC, DEC)**
+    - **Destino en registro (`Rx`)**
+      - **INC `Rx`** 
+        4. **`Rx`  $\leftarrow$ `Rx` + 1 | update(Flags)** - Incrementar el valor del registro y actualizar los flags.
+      - **DEC `Rx`** 
+        4. **`Rx`  $\leftarrow$ `Rx` - 1 | update(Flags)** - Decrementar el valor del registro y actualizar los flags.
+      - **NOT `Rx`** 
+        4. **`Rx`  $\leftarrow$ NOT `Rx` | update(Flags)** - Realizar la operación lógica NOT y actualizar los flags.
+      - **NEG `Rx`** 
+        4. **`Rx`  $\leftarrow$ CA2 `Rx` | update(Flags)** - Realizar la operación de complemento a dos y actualizar los flags.
+    - **Destino en memoria (`[Dirección]` o `[BL]`)**
+      - **Modo Directo (`[Dirección]`)**
+        4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
+        5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
+        6. **`MAR` $\leftarrow$ `MBR`** – Transferir dirección a MAR.
+        7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
+        8. Ejecutar la operación:
+                  - INC: **`MBR` $\leftarrow$ `MBR` + 1 | update(Flags)**
+                  - DEC: **`MBR` $\leftarrow$ `MBR` - 1 | update(Flags)**
+                  - NOT: **`MBR` $\leftarrow$ NOT `MBR` | update(Flags)**
+                  - NEG: **`MBR` $\leftarrow$ CA2 `MBR` | update(Flags)**
+        9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+      - **Modo Indirecto (`[BL]`)**
+        4. **`MAR` $\leftarrow$ `BL`** – Transferir dirección de destino (en BL) a MAR.
+        5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
+        6. Ejecutar la operación (igual que en el caso anterior).
+        7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+
+
 ###  Pila y subrutinas 
 El procesador implementa una pila como método de almacenamiento, accesible tanto por el usuario como por la CPU para su funcionamiento interno. La pila opera bajo el esquema _Last In, First Out_ (LIFO), es decir, el último elemento en ingresar es el primero en salir. Está ubicada en la memoria principal, comenzando en la dirección más alta (`FFh`) y creciendo hacia direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se gestiona mediante el registro `SP`, y cada elemento almacenado ocupa 8 bits.
 
@@ -2648,107 +2752,39 @@ imp_msj:
 }
 ```
 
-### Etapa de ejecución de instrucciones
-Finalmente, se detallan los pasos correspondientes a las instrucciones restantes del repertorio de instrucciones:
 
-- **Subrutinas**
-  - **CALL `Dirección`**
-    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
-    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
-    6. **`ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1** -  Guardar la dirección en ri y decrementar SP.
-    7. **`MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `IP`** - Preparar para apilar.
-    8. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`** - Guardar IP en la pila y saltar a la subrutina.
-  - **RET**
-    4. **`MAR` $\leftarrow$ `SP`** – Obtener dirección de retorno desde la pila.
-    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer la dirección de retorno.
-    6. **`IP` $\leftarrow$ `MBR`| `SP` $\leftarrow$ `SP` + 1** – Restaurar IP y actualizar SP.
+## Validación Pedagógica del Simulador
 
-- **Interrupciones**
-  - **INT `Dirección`**
-    4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
-    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
-    6. **`ri` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1** – Guardar la dirección en ri y decrementar SP.
-    7. **`MAR` $\leftarrow$ `SP` | `MBR` $\leftarrow$ `Flags`** – Preparar para apilar los registros de estado.
-    8. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | update(Flags I=0)** – Guardar los registros de estado y desactivar interrupciones.
-    9. **`MBR` $\leftarrow$ `IP` | `SP` $\leftarrow$ `SP` - 1** – Guardar IP en la pila.
-    10. **`MAR` $\leftarrow$ `SP`** – Preparar para apilar.
-    11. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`** - Guardar en la pila y saltar a la rutina de interrupción.
-  - **IRET**
-    4. **`MAR` $\leftarrow$ `SP`** – Obtener dirección de retorno desde la pil
-    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer la dirección de retorno.
-    6. **`IP` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` + 1** – Restaurar IP y actualizar SP.
-    7. **`MAR` $\leftarrow$ `SP`** – Preparar para leer los registros de estado.
-    8. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer los registros de estado
-    9. **`Flags` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1** – Restaurar los registros de estado y actualizar SP.
-  - **CLI**
-    4. **update(Flags I=1)** – Desactivar interrupciones.
-  - **STI**
-    4. **update(Flags I=0)** – Activar interrupciones.
-- **E/S**
-  - **OUT**
-    - Direccion destino en registro **OUT DL, AL**
-        4. **`MAR` $\leftarrow$ `DL`** – Obtener dirección destino.
-        5. **`MBR` $\leftarrow$ `AL`** – Preparar el contenido a escribir.
-        6. **`write(E-S[MAR])` $\leftarrow$ `MBR`** – Escribir el contenido en el puerto de E/S.
-    - Direccion destino inmediato **OUT inmediato, AL**  
-        4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
-        5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer el dato e incrementar IP.
-        6. **`MAR` $\leftarrow$ `MBR`** – Preparar la dirección destino.
-        7. **`MBR` $\leftarrow$ `AL`** – Preparar el contenido a escribir.
-        8. **`write(E-S[MAR])` $\leftarrow$ `MBR`** – Escribir el contenido en el puerto de E/S.
-  - **IN**
-    - Direccion destino en registro **IN AL, DL**
-      4. **`MAR` $\leftarrow$ `DL`**  – Obtener dirección del puerto de entrada.
-      5. **`MBR` $\leftarrow$ `read(E-S[MAR])`** – Leer el contenido del puerto.
-      6. **`AL` $\leftarrow$ `MBR`** – Almacenar el contenido en AL.
-    - Direccion destino inmediato **IN  AL, inmediato**
-      4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección del dato inmediato.
-      5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer el dato e incrementar IP.
-      6. **`MAR` $\leftarrow$ `MBR`** – Preparar la dirección del puerto de entrada..
-      7. **`MBR` $\leftarrow$ `read(E-S[MAR])`** – Leer el contenido del puerto.
-      8. **`AL` $\leftarrow$ `MBR`** – Almacenar el contenido en AL.
-- **Pila**
-  - **POP Rx**
-    4. **`MAR` $\leftarrow$ `SP`** – Obtener dirección de la pila.
-    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el contenido de la pila.
-    6. **`Rx` $\leftarrow$ `MBR`** | `SP` $\leftarrow$ `SP` + 1 – Almacenar el contenido en Rx y actualizar SP.
-  - **PUSH Ry**
-    4. **`MAR` $\leftarrow$ `SP`** – Preparar la dirección de la pila.
-    5. **`MBR` $\leftarrow$ `Ry`** | `SP` $\leftarrow$ `SP` - 1 – Preparar el contenido a escribir y actualizar SP.
-    5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir el contenido en la pila.
+Con el objetivo de evaluar la eficacia del simulador VonSim8 en la enseñanza de arquitectura de computadoras, se diseñó una prueba piloto con estudiantes de segundo año de la carrera de Licenciatura en Sistemas. La validación se orientó a medir la comprensión de conceptos fundamentales tales como el ciclo de instrucción, la manipulación de registros y la gestión de interrupciones.
 
+### Objetivos de la validación
 
-- **Operaciones Lógicas y Aritméticas**
-  - **Operaciones con dos operandos (AND, OR, XOR)**
-  -   Siguen los mismos pasos de ejecución que las operaciones aritméticas ADD y SUB, con la diferencia en la operación realizada por la ALU.
+- Determinar el impacto del simulador en la comprensión de los conceptos clave de arquitectura de computadoras.
+- Identificar mejoras en la capacidad de los estudiantes para analizar y depurar programas en ensamblador.
+- Evaluar la percepción de usabilidad y utilidad didáctica de la herramienta.
 
-  - **Operaciones con un operando (NOT, NEG, INC, DEC)**
-    - **Destino en registro (`Rx`)**
-      - **INC `Rx`** 
-        4. **`Rx`  $\leftarrow$ `Rx` + 1 | update(Flags)** - Incrementar el valor del registro y actualizar los flags.
-      - **DEC `Rx`** 
-        4. **`Rx`  $\leftarrow$ `Rx` - 1 | update(Flags)** - Decrementar el valor del registro y actualizar los flags.
-      - **NOT `Rx`** 
-        4. **`Rx`  $\leftarrow$ NOT `Rx` | update(Flags)** - Realizar la operación lógica NOT y actualizar los flags.
-      - **NEG `Rx`** 
-        4. **`Rx`  $\leftarrow$ CA2 `Rx` | update(Flags)** - Realizar la operación de complemento a dos y actualizar los flags.
-    - **Destino en memoria (`[Dirección]` o `[BL]`)**
-      - **Modo Directo (`[Dirección]`)**
-        4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
-        5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
-        6. **`MAR` $\leftarrow$ `MBR`** – Transferir dirección a MAR.
-        7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
-        8. Ejecutar la operación:
-                  - INC: **`MBR` $\leftarrow$ `MBR` + 1 | update(Flags)**
-                  - DEC: **`MBR` $\leftarrow$ `MBR` - 1 | update(Flags)**
-                  - NOT: **`MBR` $\leftarrow$ NOT `MBR` | update(Flags)**
-                  - NEG: **`MBR` $\leftarrow$ CA2 `MBR` | update(Flags)**
-        9. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
-      - **Modo Indirecto (`[BL]`)**
-        4. **`MAR` $\leftarrow$ `BL`** – Transferir dirección de destino (en BL) a MAR.
-        5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
-        6. Ejecutar la operación (igual que en el caso anterior).
-        7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+### Población de estudio
+
+La prueba piloto se realizó con un grupo de 30 estudiantes matriculados en la asignatura Arquitectura de Computadoras, pertenecientes al segundo año de la carrera de Licenciatura en Sistemas. La selección se realizó de manera voluntaria, garantizando la representatividad de los participantes en relación con el perfil típico de la asignatura.
+
+### Instrumentos de recolección de datos
+
+Para la validación se emplearon los siguientes instrumentos:
+
+- **Encuestas pre y post-uso:** Aplicadas antes y después de la utilización del simulador, orientadas a medir la autopercepción de conocimientos y habilidades.
+- **Cuestionarios de conocimiento:** Pruebas objetivas sobre conceptos específicos (ciclo de instrucción, registros, interrupciones) administradas en ambos momentos.
+- **Registro de tiempo de uso:** Análisis del tiempo dedicado por cada estudiante a la interacción con el simulador.
+- **Entrevistas semiestructuradas:** Realizadas a una muestra de participantes para profundizar en la experiencia de uso y recoger sugerencias de mejora.
+
+### Análisis de datos
+
+Los resultados se analizarán mediante técnicas cuantitativas y cualitativas:
+
+- **Comparación de puntajes pre y post-uso:** Se emplearán pruebas estadísticas (t de Student para muestras relacionadas) para determinar diferencias significativas en el nivel de conocimiento.
+- **Análisis descriptivo del tiempo de uso:** Se correlacionará el tiempo de interacción con el simulador y la mejora en los puntajes.
+- **Análisis temático de entrevistas:** Se identificarán patrones recurrentes en las percepciones y sugerencias de los estudiantes.
+
+Esta metodología permitirá validar el impacto pedagógico del simulador y orientar futuras mejoras en función de la evidencia recogida.
 
 ## Aportes y contribuciones del simulador VonSim8
 
