@@ -1696,7 +1696,7 @@ Este análisis comparativo fue publicado en el XVII Congreso de Tecnología en E
 Además, durante este proceso se estableció contacto con un desarrollador de VonSim, logrando implementar mejoras significativas, como animaciones de ejecución y documentación en línea, disponibles en su última versión publicada en agosto de 2023.
 
 \hypertarget{desarrollo}{%
-\chapter{Diseño y Construcción del Simulador}\label{desarrollo}}
+\chapter{Diseño y construcción del simulador}\label{desarrollo}}
 
 En este capítulo se describe el diseño y desarrollo de una herramienta de simulación específica para la arquitectura x86, orientada a facilitar la enseñanza de los principios de arquitectura de computadoras. Se detalla la justificación del diseño, los pasos seguidos para su construcción y los métodos utilizados para validar su funcionalidad.
 
@@ -1704,8 +1704,8 @@ En el capítulo anterior se analizaron y evaluaron las herramientas de simulaci�
 
 A partir de esta necesidad, se establecieron un conjunto de requisitos funcionales y pedagógicos que guiaron de manera integral el diseño, la implementación y la validación del simulador. Estos requisitos no solo responden a las limitaciones observadas en herramientas existentes, sino que se alinean con los objetivos educativos previamente definidos.
 
-\hypertarget{requisitos-de-la-herramienta-y-su-justificaciuxf3n}{%
-\section{Requisitos de la herramienta y su justificación}\label{requisitos-de-la-herramienta-y-su-justificaciuxf3n}}
+\hypertarget{requisitos-de-la-herramienta}{%
+\section{Requisitos de la herramienta}\label{requisitos-de-la-herramienta}}
 
 Esta sección expone los requisitos que orientaron el diseño del simulador, clasificados en dos dimensiones complementarias: pedagógica y funcional. La primera se vincula con los objetivos formativos definidos en el capítulo introductorio (\ref{intro}), mientras que la segunda refiere a las características técnicas necesarias para garantizar su implementación eficaz. La definición de los requisitos se apoyó en principios pedagógicos y técnicos, complementados con una validación empírica realizada mediante entrevistas semiestructuradas a docentes expertos (ver Anexo A \ref{anexoA}). Este proceso permitió identificar necesidades auténticas del aula y carencias específicas en las herramientas existentes, aportando una base empírica rigurosa para la formulación pedagógica y técnica de los requisitos \protect\hyperlink{ref-huberman2019qualitative}{{[}66{]}}.
 
@@ -1882,8 +1882,8 @@ En conjunto, estos requisitos constituyen la base del diseño del simulador, gar
 
 La definición de los requisitos funcionales y pedagógicos permitió identificar la necesidad de simplificar la arquitectura x86 para adaptarla a los objetivos educativos. Esta simplificación asegura que los estudiantes puedan concentrarse en los conceptos fundamentales sin verse abrumados por la complejidad técnica. A continuación, se detalla la justificación de esta decisión.
 
-\hypertarget{justificaciuxf3n-del-uso-de-una-arquitectura-simplificada-en-el-simulador}{%
-\subsection{Justificación del uso de una arquitectura simplificada en el simulador}\label{justificaciuxf3n-del-uso-de-una-arquitectura-simplificada-en-el-simulador}}
+\hypertarget{justificaciuxf3n-pedaguxf3gica-de-la-arquitectura-simplificada}{%
+\section{Justificación pedagógica de la arquitectura Simplificada}\label{justificaciuxf3n-pedaguxf3gica-de-la-arquitectura-simplificada}}
 
 A partir de los requisitos funcionales detallados anteriormente, se realizó un proceso colaborativo de análisis con docentes\footnote{Docentes: Marcelo A. Colombani y Amalia G. Delduca} de la asignatura Arquitectura de Computadoras. Su experiencia permitió identificar los elementos de la arquitectura x86 que debían representarse, simplificarse o adaptarse según los objetivos pedagógicos del simulador. Como resultado, se optó por una arquitectura simplificada de 8 bits, cuya elección se justifica por su valor didáctico: reduce la complejidad del modelo sin comprometer la enseñanza de conceptos esenciales como el ciclo de instrucciones, la manipulación de registros o la gestión de interrupciones. Esta simplificación permite representar procesos clave con mayor claridad y menor carga cognitiva, favoreciendo la comprensión de los estudiantes en las etapas iniciales del aprendizaje.
 
@@ -1919,13 +1919,8 @@ Aunque la simplificación a 8 bits reduce la fidelidad del modelo respecto a la 
 
 En síntesis, la definición de estos requisitos integra aspectos funcionales, pedagógicos y técnicos en una herramienta que no solo simula el comportamiento del sistema, sino que además facilita activamente los procesos de enseñanza y aprendizaje en arquitectura de computadoras. La combinación entre visualización, ejecución progresiva y análisis de rendimiento ofrece un entorno didáctico rico que responde tanto a las necesidades del aula como a los desafíos de la disciplina.
 
-\hypertarget{diseuxf1o-del-simulador}{%
-\section{Diseño del Simulador}\label{diseuxf1o-del-simulador}}
-
-El simulador implementado adopta la arquitectura de Von Neumann, reconocida por su simplicidad conceptual y operativa. En este modelo, los datos y las instrucciones comparten una única memoria, lo que permite tratar las instrucciones como datos \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
-
-\hypertarget{vonsim-1}{%
-\subsection{VonSim}\label{vonsim-1}}
+\hypertarget{introducciuxf3n-a-vonsim}{%
+\section{Introducción a VonSim}\label{introducciuxf3n-a-vonsim}}
 
 VonSim\footnote{VonSim: \url{https://vonsim.github.io/}} \protect\hyperlink{ref-vonsim}{{[}79{]}} es una herramienta diseñada específicamente para la enseñanza y el aprendizaje de la arquitectura y organización de computadoras, que sirvió de referencia por su enfoque educativo e interfaz intuitiva. A partir de esta herramienta se desarrolló VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}}, adaptado para operar con registros y memoria de 8\,bits, y diseñado para favorecer el aprendizaje progresivo.
 
@@ -1982,8 +1977,157 @@ La organización del código sigue la estructura de un monorepositorio, compuest
 
 Para el desarrollo y la ejecución del proyecto se utilizan herramientas modernas como Node.js v22 y el gestor de paquetes pnpm v10. Asimismo, el repositorio incluye una serie de scripts predefinidos para facilitar las tareas de instalación, compilación y despliegue: pnpm install, pnpm dev, pnpm docs:dev y pnpm build.
 
-\hypertarget{las-modificaciones-principales-de-vonsim}{%
-\subsection{Las modificaciones principales de VonSim}\label{las-modificaciones-principales-de-vonsim}}
+\hypertarget{estructura-del-vonsim8}{%
+\section{Estructura del VonSim8}\label{estructura-del-vonsim8}}
+
+En esta sección se describe la estructura del simulador VonSim8. El diseño de los registros se concibió con un propósito pedagógico: facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, elementos fundamentales en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. En la tabla \ref{tab:estructuravonsim8} se describen los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura:
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:estructuravonsim8}Estructura VonSim8: componentes principales y características}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|p{12cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{12cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
+\midrule
+\textbf{Arquitectura} & Von Neumann: memoria compartida para datos e instrucciones.\\
+\addlinespace[10pt]
+\textbf{Registros generales} & 4 registros de propósito general de 8 bits (`AL`, `BL`, `CL`, `DL`).\\
+\addlinespace[10pt]
+\textbf{Registros específicos} & 6 registros de propósito específico:\begin{itemize} \item IP (Instruction Pointer) \item IR (Instruction Register) \item SP (Stack Pointer) \item Flags (registro de estado) \item MAR (Memory Address Register) \item MBR (Memory Buffer Register)\end{itemize}\\
+\addlinespace[10pt]
+\textbf{Acceso a registros} & Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.\\
+\addlinespace[10pt]
+\textbf{Memoria} & Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición almacena un byte. La memoria se organiza en celdas de 16 bytes, con dirección inicial `0x00` y final `0xFF`.\\
+\addlinespace[10pt]
+\addlinespace
+\textbf{Puertos} & Puertos de la CPU:\begin{itemize} \item Bus de direcciones de 8 bits (MAR) \item Bus de datos de 8 bits (MBR) \item Señal de lectura (rd) y escritura (wr), cada una de 1 bit \item Señal IO/M (1 bit) para distinguir acceso a memoria o E/S \item Señal de petición de interrupción (INTR, 1 bit) \item Señal de reconocimiento de interrupción (INTA, 1 bit)\end{itemize}\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Entre los registros específicos, no accesibles directamente por el programador, se incluyen los siguientes:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\texttt{SP} (\emph{Stack Pointer})}: Responsable de la gestión de la pila, permitiendo el seguimiento de las direcciones de memoria asociadas a las operaciones de apilamiento y desapilamiento.\\
+\item
+  \textbf{\texttt{Flags} (\emph{Flags Register})}: Registro que almacena las banderas de estado, utilizadas para reflejar el resultado de operaciones aritméticas y lógicas, así como para controlar el flujo del programa.\\
+\item
+  \textbf{\texttt{IP} (\emph{Instruction Pointer})}: Contiene la dirección de memoria de la próxima instrucción a ejecutar, asegurando la secuenciación correcta del programa.\\
+\item
+  \textbf{\texttt{IR} (\emph{Instruction Register})}: Almacena el byte correspondiente a la instrucción que está siendo decodificada y ejecutada en el momento.
+\end{itemize}
+
+Adicionalmente, se disponen de dos registros esenciales para la transferencia de datos entre la CPU y la memoria principal:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\texttt{MAR} (\emph{Memory Address Register})}: Encargado de almacenar las direcciones de memoria que se desean acceder.\\
+\item
+  \textbf{\texttt{MBR} (\emph{Memory Buffer Register})}: Almacena temporalmente el byte de datos que se transfiere hacia o desde la memoria principal a través del bus de datos.
+\end{itemize}
+
+Adicionalmente, se incluyen dos registros auxiliares: \texttt{ri}, destinado al almacenamiento temporal de direcciones, e \texttt{id}, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones.
+
+\hypertarget{unidad-de-control}{%
+\subsection{Unidad de Control}\label{unidad-de-control}}
+
+La unidad de control es responsable de coordinar todas las operaciones de la CPU. Se encarga de:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Decodificación de instrucciones}: Interpreta el código de operación de cada instrucción.
+\item
+  \textbf{Generación de señales de control}: Activa las señales necesarias para ejecutar microoperaciones.
+\item
+  \textbf{Secuenciación}: Controla el orden de ejecución de las operaciones.
+\end{itemize}
+
+\hypertarget{memoria-de-control}{%
+\subsubsection{Memoria de Control}\label{memoria-de-control}}
+
+La memoria de control almacena microinstrucciones que guían la ejecución de cada instrucción en el simulador. Una representación visual de esta memoria, organizada en filas (microinstrucciones) y columnas (microoperaciones y señales de control), facilita la comprensión del papel que desempeña en la coordinación de la unidad de control \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
+
+\hypertarget{secuenciador}{%
+\subsubsection{Secuenciador}\label{secuenciador}}
+
+El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
+
+\hypertarget{unidad-aritmuxe9tico-luxf3gica-alu}{%
+\subsection{Unidad Aritmético-Lógica (ALU)}\label{unidad-aritmuxe9tico-luxf3gica-alu}}
+
+La ALU (\emph{Arithmetic Logic Unit}) realiza operaciones aritméticas y lógicas, como \texttt{ADD} y \texttt{SUB}. Durante el ciclo de instrucción, la unidad de control genera señales específicas que activan las operaciones de la ALU. Por ejemplo, al ejecutar una instrucción \texttt{ADD}, la unidad de control activa las señales necesarias para transferir los operandos desde los registros hacia la ALU y almacenar el resultado en el registro de destino. Todas estas operaciones modifican el registro \texttt{Flags}.
+
+\hypertarget{registro-de-banderas-flags}{%
+\subsubsection{Registro de Banderas (Flags)}\label{registro-de-banderas-flags}}
+
+El registro de banderas \texttt{Flags} almacena las banderas de estado que reflejan el resultado de operaciones aritméticas y lógicas. Por ejemplo, después de una operación de suma, la bandera \texttt{Z} (Zero) se activa si el resultado es cero, lo que permite al procesador tomar decisiones condicionales basadas en este estado.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:tflags}Registro Flags: descripción de las banderas}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bit N°}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Abreviatura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
+\midrule
+\textbf{0} & Z & Flag de cero (Zero)\\
+\addlinespace[10pt]
+\textbf{1} & C & Flag de acarreo (Carry)\\
+\addlinespace[10pt]
+\textbf{2} & O & Flag de desbordamiento (Overflow)\\
+\addlinespace[10pt]
+\textbf{3} & S & Flag de signo (Sign)\\
+\addlinespace[10pt]
+\textbf{4} & I & Flag de interrupción (Interrupt)\\
+\addlinespace[10pt]
+\bottomrule
+\end{tabular}}
+\end{table}
+
+Los bits restantes del registro Flags se encuentran reservados para posibles extensiones del simulador y no están en uso en la versión actual.
+
+\hypertarget{memoria-principal}{%
+\subsection{Memoria principal}\label{memoria-principal}}
+
+La memoria principal se modela como una matriz de 16×16 expresada en formato hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad resulta suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales asociados a la memoria principal en una computadora.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/memoria} 
+
+}
+
+\caption{Memoria principal}\label{fig:memoria}
+\end{figure}
+
+\hypertarget{buses-y-multiplexores}{%
+\subsection{Buses y multiplexores}\label{buses-y-multiplexores}}
+
+Los buses de datos, direcciones y control se modelan como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Estos buses resultan esenciales para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida. Además, su diseño modular favorece la posibilidad de expansión en futuras versiones del simulador.
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.85\linewidth]{images/buses} 
+
+}
+
+\caption{Buses}\label{fig:buses}
+\end{figure}
+
+Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Los multiplexores dirigen las señales hacia los registros y la ALU (Unidad Aritmético-Lógica), facilitando el flujo de datos dentro del procesador. Un multiplexor (MUX) funciona como un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una y solo una de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida \protect\hyperlink{ref-mano2017digital}{{[}81{]}}.
+
+\hypertarget{adaptaciones-y-mejoras-en-vonsim8}{%
+\section{Adaptaciones y mejoras en VonSim8}\label{adaptaciones-y-mejoras-en-vonsim8}}
 
 Si bien VonSim ofrece una base sólida para la enseñanza de arquitectura de computadoras, su complejidad funcional puede resultar abrumadora para estudiantes en etapas iniciales. Por esta razón, se implementaron modificaciones estratégicas en VonSim8, orientadas a simplificar el modelo y alinearlo con los objetivos pedagógicos de la asignatura. A continuación, se describen las principales mejoras realizadas.
 
@@ -2208,157 +2352,8 @@ A fin de sintetizar las diferencias más relevantes entre VonSim y VonSim8, se p
 \end{tabular}}
 \end{table}
 
-\hypertarget{estructura-del-vonsim8}{%
-\subsection{Estructura del VonSim8}\label{estructura-del-vonsim8}}
-
-En esta sección se describe la estructura del simulador VonSim8. El diseño de los registros se concibió con un propósito pedagógico: facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, elementos fundamentales en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. En la tabla \ref{tab:estructuravonsim8} se describen los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura:
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:estructuravonsim8}Estructura VonSim8: componentes principales y características}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|p{12cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{12cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
-\midrule
-\textbf{Arquitectura} & Von Neumann: memoria compartida para datos e instrucciones.\\
-\addlinespace[10pt]
-\textbf{Registros generales} & 4 registros de propósito general de 8 bits (`AL`, `BL`, `CL`, `DL`).\\
-\addlinespace[10pt]
-\textbf{Registros específicos} & 6 registros de propósito específico:\begin{itemize} \item IP (Instruction Pointer) \item IR (Instruction Register) \item SP (Stack Pointer) \item Flags (registro de estado) \item MAR (Memory Address Register) \item MBR (Memory Buffer Register)\end{itemize}\\
-\addlinespace[10pt]
-\textbf{Acceso a registros} & Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.\\
-\addlinespace[10pt]
-\textbf{Memoria} & Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición almacena un byte. La memoria se organiza en celdas de 16 bytes, con dirección inicial `0x00` y final `0xFF`.\\
-\addlinespace[10pt]
-\addlinespace
-\textbf{Puertos} & Puertos de la CPU:\begin{itemize} \item Bus de direcciones de 8 bits (MAR) \item Bus de datos de 8 bits (MBR) \item Señal de lectura (rd) y escritura (wr), cada una de 1 bit \item Señal IO/M (1 bit) para distinguir acceso a memoria o E/S \item Señal de petición de interrupción (INTR, 1 bit) \item Señal de reconocimiento de interrupción (INTA, 1 bit)\end{itemize}\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-Entre los registros específicos, no accesibles directamente por el programador, se incluyen los siguientes:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{\texttt{SP} (\emph{Stack Pointer})}: Responsable de la gestión de la pila, permitiendo el seguimiento de las direcciones de memoria asociadas a las operaciones de apilamiento y desapilamiento.\\
-\item
-  \textbf{\texttt{Flags} (\emph{Flags Register})}: Registro que almacena las banderas de estado, utilizadas para reflejar el resultado de operaciones aritméticas y lógicas, así como para controlar el flujo del programa.\\
-\item
-  \textbf{\texttt{IP} (\emph{Instruction Pointer})}: Contiene la dirección de memoria de la próxima instrucción a ejecutar, asegurando la secuenciación correcta del programa.\\
-\item
-  \textbf{\texttt{IR} (\emph{Instruction Register})}: Almacena el byte correspondiente a la instrucción que está siendo decodificada y ejecutada en el momento.
-\end{itemize}
-
-Adicionalmente, se disponen de dos registros esenciales para la transferencia de datos entre la CPU y la memoria principal:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{\texttt{MAR} (\emph{Memory Address Register})}: Encargado de almacenar las direcciones de memoria que se desean acceder.\\
-\item
-  \textbf{\texttt{MBR} (\emph{Memory Buffer Register})}: Almacena temporalmente el byte de datos que se transfiere hacia o desde la memoria principal a través del bus de datos.
-\end{itemize}
-
-Adicionalmente, se incluyen dos registros auxiliares: \texttt{ri}, destinado al almacenamiento temporal de direcciones, e \texttt{id}, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones.
-
-\hypertarget{unidad-de-control}{%
-\subsection{Unidad de Control}\label{unidad-de-control}}
-
-La unidad de control es responsable de coordinar todas las operaciones de la CPU. Se encarga de:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Decodificación de instrucciones}: Interpreta el código de operación de cada instrucción.
-\item
-  \textbf{Generación de señales de control}: Activa las señales necesarias para ejecutar microoperaciones.
-\item
-  \textbf{Secuenciación}: Controla el orden de ejecución de las operaciones.
-\end{itemize}
-
-\hypertarget{memoria-de-control}{%
-\subsubsection{Memoria de Control}\label{memoria-de-control}}
-
-La memoria de control almacena microinstrucciones que guían la ejecución de cada instrucción en el simulador. Una representación visual de esta memoria, organizada en filas (microinstrucciones) y columnas (microoperaciones y señales de control), facilita la comprensión del papel que desempeña en la coordinación de la unidad de control \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
-
-\hypertarget{secuenciador}{%
-\subsubsection{Secuenciador}\label{secuenciador}}
-
-El secuenciador complementa la memoria de control mostrando cómo se controla la secuencia de microoperaciones y las señales de control generadas en cada fase del ciclo de instrucción.
-
-\hypertarget{unidad-aritmuxe9tico-luxf3gica-alu}{%
-\subsection{Unidad Aritmético-Lógica (ALU)}\label{unidad-aritmuxe9tico-luxf3gica-alu}}
-
-La ALU (\emph{Arithmetic Logic Unit}) realiza operaciones aritméticas y lógicas, como \texttt{ADD} y \texttt{SUB}. Durante el ciclo de instrucción, la unidad de control genera señales específicas que activan las operaciones de la ALU. Por ejemplo, al ejecutar una instrucción \texttt{ADD}, la unidad de control activa las señales necesarias para transferir los operandos desde los registros hacia la ALU y almacenar el resultado en el registro de destino. Todas estas operaciones modifican el registro \texttt{Flags}.
-
-\hypertarget{registro-de-banderas-flags}{%
-\subsubsection{Registro de Banderas (Flags)}\label{registro-de-banderas-flags}}
-
-El registro de banderas \texttt{Flags} almacena las banderas de estado que reflejan el resultado de operaciones aritméticas y lógicas. Por ejemplo, después de una operación de suma, la bandera \texttt{Z} (Zero) se activa si el resultado es cero, lo que permite al procesador tomar decisiones condicionales basadas en este estado.
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:tflags}Registro Flags: descripción de las banderas}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bit N°}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Abreviatura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
-\midrule
-\textbf{0} & Z & Flag de cero (Zero)\\
-\addlinespace[10pt]
-\textbf{1} & C & Flag de acarreo (Carry)\\
-\addlinespace[10pt]
-\textbf{2} & O & Flag de desbordamiento (Overflow)\\
-\addlinespace[10pt]
-\textbf{3} & S & Flag de signo (Sign)\\
-\addlinespace[10pt]
-\textbf{4} & I & Flag de interrupción (Interrupt)\\
-\addlinespace[10pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-Los bits restantes del registro Flags se encuentran reservados para posibles extensiones del simulador y no están en uso en la versión actual.
-
-\hypertarget{memoria-principal}{%
-\subsection{Memoria principal}\label{memoria-principal}}
-
-La memoria principal se modela como una matriz de 16×16 expresada en formato hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad resulta suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales asociados a la memoria principal en una computadora.
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.85\linewidth]{images/memoria} 
-
-}
-
-\caption{Memoria principal}\label{fig:memoria}
-\end{figure}
-
-\hypertarget{buses-y-multiplexores}{%
-\subsection{Buses y multiplexores}\label{buses-y-multiplexores}}
-
-Los buses de datos, direcciones y control se modelan como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Estos buses resultan esenciales para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida. Además, su diseño modular favorece la posibilidad de expansión en futuras versiones del simulador.
-
-\begin{figure}
-
-{\centering \includegraphics[width=0.85\linewidth]{images/buses} 
-
-}
-
-\caption{Buses}\label{fig:buses}
-\end{figure}
-
-Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Los multiplexores dirigen las señales hacia los registros y la ALU (Unidad Aritmético-Lógica), facilitando el flujo de datos dentro del procesador. Un multiplexor (MUX) funciona como un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una y solo una de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida \protect\hyperlink{ref-mano2017digital}{{[}81{]}}.
-
 \hypertarget{repertorio-de-instrucciones-1}{%
-\subsection{Repertorio de instrucciones}\label{repertorio-de-instrucciones-1}}
+\section{Repertorio de instrucciones}\label{repertorio-de-instrucciones-1}}
 
 El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, lo que facilita que los estudiantes se familiaricen con las operaciones básicas, evitando la complejidad del repertorio completo de instrucciones x86.
 
