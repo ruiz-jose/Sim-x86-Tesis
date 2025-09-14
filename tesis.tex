@@ -3265,6 +3265,346 @@ Bajo esta implementación, las instrucciones lógicas (AND, OR y XOR) comparten 
 
 Esta solución representa un compromiso eficaz entre la simplicidad arquitectural y la capacidad funcional del simulador, permitiendo una mayor diversidad de operaciones sin comprometer la claridad pedagógica del diseño.
 
+\hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones}{%
+\subsection{Etapa de ejecución de instrucciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones}}
+
+Finalmente, se detallan los pasos correspondientes a las instrucciones restantes del repertorio de instrucciones:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Subrutinas}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{CALL \texttt{Dirección}}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
+    \item
+      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} - Guardar la dirección en ri y decrementar SP.
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{IP}} - Preparar para apilar.
+    \item
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}} - Guardar IP en la pila y saltar a la subrutina.
+    \end{enumerate}
+  \item
+    \textbf{RET}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Obtener dirección de retorno desde la pila.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer la dirección de retorno.
+    \item
+      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}\textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1} -- Restaurar IP y actualizar SP.
+    \end{enumerate}
+  \end{itemize}
+\item
+  \textbf{Interrupciones}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{INT \texttt{Dirección}}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
+    \item
+      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} -- Guardar la dirección en ri y decrementar SP.
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{Flags}} -- Preparar para apilar los registros de estado.
+    \item
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} update(Flags I=0)} -- Guardar los registros de estado y desactivar interrupciones.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{IP} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} -- Guardar IP en la pila.
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar para apilar.
+    \item
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}} - Guardar en la pila y saltar a la rutina de interrupción.
+    \end{enumerate}
+  \item
+    \textbf{IRET}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Obtener dirección de retorno desde la pil
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer la dirección de retorno.
+    \item
+      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1} -- Restaurar IP y actualizar SP.
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar para leer los registros de estado.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer los registros de estado
+    \item
+      \textbf{\texttt{Flags} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} -- Restaurar los registros de estado y actualizar SP.
+    \end{enumerate}
+  \item
+    \textbf{CLI}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{update(Flags I=1)} -- Desactivar interrupciones.
+    \end{enumerate}
+  \item
+    \textbf{STI}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{update(Flags I=0)} -- Activar interrupciones.
+    \end{enumerate}
+  \end{itemize}
+\item
+  \textbf{E/S}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{OUT}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Direccion destino en registro \textbf{OUT DL, AL}
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{3}
+      \tightlist
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{DL}} -- Obtener dirección destino.
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{AL}} -- Preparar el contenido a escribir.
+      \item
+        \textbf{\texttt{write(E-S{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en el puerto de E/S.
+      \end{enumerate}
+    \item
+      Direccion destino inmediato \textbf{OUT inmediato, AL}
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{3}
+      \tightlist
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del dato inmediato.
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer el dato e incrementar IP.
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Preparar la dirección destino.
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{AL}} -- Preparar el contenido a escribir.
+      \item
+        \textbf{\texttt{write(E-S{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en el puerto de E/S.
+      \end{enumerate}
+    \end{itemize}
+  \item
+    \textbf{IN}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Direccion destino en registro \textbf{IN AL, DL}
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{3}
+      \tightlist
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{DL}} -- Obtener dirección del puerto de entrada.
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(E-S{[}MAR{]})}} -- Leer el contenido del puerto.
+      \item
+        \textbf{\texttt{AL} \(\leftarrow\) \texttt{MBR}} -- Almacenar el contenido en AL.
+      \end{enumerate}
+    \item
+      Direccion destino inmediato \textbf{IN AL, inmediato}
+
+      \begin{enumerate}
+      \def\labelenumi{\arabic{enumi}.}
+      \setcounter{enumi}{3}
+      \tightlist
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del dato inmediato.
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer el dato e incrementar IP.
+      \item
+        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Preparar la dirección del puerto de entrada..
+      \item
+        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(E-S{[}MAR{]})}} -- Leer el contenido del puerto.
+      \item
+        \textbf{\texttt{AL} \(\leftarrow\) \texttt{MBR}} -- Almacenar el contenido en AL.
+      \end{enumerate}
+    \end{itemize}
+  \end{itemize}
+\item
+  \textbf{Pila}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{POP Rx}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Obtener dirección de la pila.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el contenido de la pila.
+    \item
+      \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1 -- Almacenar el contenido en Rx y actualizar SP.
+    \end{enumerate}
+  \item
+    \textbf{PUSH Ry}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \setcounter{enumi}{3}
+    \tightlist
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar la dirección de la pila.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1 -- Preparar el contenido a escribir y actualizar SP.
+    \item
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en la pila.
+    \end{enumerate}
+  \end{itemize}
+\item
+  \textbf{Operaciones Lógicas y Aritméticas}
+
+  \begin{itemize}
+  \item
+    \textbf{Operaciones con dos operandos (AND, OR, XOR)}
+  \item
+    Siguen los mismos pasos de ejecución que las operaciones aritméticas ADD y SUB, con la diferencia en la operación realizada por la ALU.
+  \item
+    \textbf{Operaciones con un operando (NOT, NEG, INC, DEC)}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \textbf{Destino en registro (\texttt{Rx})}
+
+      \begin{itemize}
+      \tightlist
+      \item
+        \textbf{INC \texttt{Rx}}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + 1 \textbar{} update(Flags)} - Incrementar el valor del registro y actualizar los flags.
+        \end{enumerate}
+      \item
+        \textbf{DEC \texttt{Rx}}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - 1 \textbar{} update(Flags)} - Decrementar el valor del registro y actualizar los flags.
+        \end{enumerate}
+      \item
+        \textbf{NOT \texttt{Rx}}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{Rx} \(\leftarrow\) NOT \texttt{Rx} \textbar{} update(Flags)} - Realizar la operación lógica NOT y actualizar los flags.
+        \end{enumerate}
+      \item
+        \textbf{NEG \texttt{Rx}}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{Rx} \(\leftarrow\) CA2 \texttt{Rx} \textbar{} update(Flags)} - Realizar la operación de complemento a dos y actualizar los flags.
+        \end{enumerate}
+      \end{itemize}
+    \item
+      \textbf{Destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
+
+      \begin{itemize}
+      \tightlist
+      \item
+        \textbf{Modo Directo (\texttt{{[}Dirección{]}})}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
+        \item
+          \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
+        \item
+          \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Transferir dirección a MAR.
+        \item
+          \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
+        \item
+          Ejecutar la operación:
+          - INC: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + 1 \textbar{} update(Flags)}
+          - DEC: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - 1 \textbar{} update(Flags)}
+          - NOT: \textbf{\texttt{MBR} \(\leftarrow\) NOT \texttt{MBR} \textbar{} update(Flags)}
+          - NEG: \textbf{\texttt{MBR} \(\leftarrow\) CA2 \texttt{MBR} \textbar{} update(Flags)}
+        \item
+          \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+        \end{enumerate}
+      \item
+        \textbf{Modo Indirecto (\texttt{{[}BL{]}})}
+
+        \begin{enumerate}
+        \def\labelenumi{\arabic{enumi}.}
+        \setcounter{enumi}{3}
+        \tightlist
+        \item
+          \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Transferir dirección de destino (en BL) a MAR.
+        \item
+          \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
+        \item
+          Ejecutar la operación (igual que en el caso anterior).
+        \item
+          \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
+        \end{enumerate}
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
 \hypertarget{pila-y-subrutinas}{%
 \subsection{Pila y subrutinas}\label{pila-y-subrutinas}}
 
@@ -3969,345 +4309,62 @@ imp_msj:
          out EOI, al           ; Notifica al PIC
          iret                  ; Retorna de la interrupción\end{lstlisting}
 
-\hypertarget{etapa-de-ejecuciuxf3n-de-instrucciones}{%
-\subsection{Etapa de ejecución de instrucciones}\label{etapa-de-ejecuciuxf3n-de-instrucciones}}
+\hypertarget{validaciuxf3n-pedaguxf3gica-del-simulador}{%
+\section{Validación Pedagógica del Simulador}\label{validaciuxf3n-pedaguxf3gica-del-simulador}}
 
-Finalmente, se detallan los pasos correspondientes a las instrucciones restantes del repertorio de instrucciones:
+Con el objetivo de evaluar la eficacia del simulador VonSim8 en la enseñanza de arquitectura de computadoras, se diseñó una prueba piloto con estudiantes de segundo año de la carrera de Licenciatura en Sistemas. La validación se orientó a medir la comprensión de conceptos fundamentales tales como el ciclo de instrucción, la manipulación de registros y la gestión de interrupciones.
+
+\hypertarget{objetivos-de-la-validaciuxf3n}{%
+\subsection{Objetivos de la validación}\label{objetivos-de-la-validaciuxf3n}}
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Subrutinas}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{CALL \texttt{Dirección}}
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \setcounter{enumi}{3}
-    \tightlist
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
-    \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
-    \item
-      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} - Guardar la dirección en ri y decrementar SP.
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{IP}} - Preparar para apilar.
-    \item
-      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}} - Guardar IP en la pila y saltar a la subrutina.
-    \end{enumerate}
-  \item
-    \textbf{RET}
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \setcounter{enumi}{3}
-    \tightlist
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Obtener dirección de retorno desde la pila.
-    \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer la dirección de retorno.
-    \item
-      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}\textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1} -- Restaurar IP y actualizar SP.
-    \end{enumerate}
-  \end{itemize}
+  Determinar el impacto del simulador en la comprensión de los conceptos clave de arquitectura de computadoras.
 \item
-  \textbf{Interrupciones}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{INT \texttt{Dirección}}
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \setcounter{enumi}{3}
-    \tightlist
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
-    \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
-    \item
-      \textbf{\texttt{ri} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} -- Guardar la dirección en ri y decrementar SP.
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP} \textbar{} \texttt{MBR} \(\leftarrow\) \texttt{Flags}} -- Preparar para apilar los registros de estado.
-    \item
-      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} update(Flags I=0)} -- Guardar los registros de estado y desactivar interrupciones.
-    \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{IP} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} -- Guardar IP en la pila.
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar para apilar.
-    \item
-      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}} - Guardar en la pila y saltar a la rutina de interrupción.
-    \end{enumerate}
-  \item
-    \textbf{IRET}
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \setcounter{enumi}{3}
-    \tightlist
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Obtener dirección de retorno desde la pil
-    \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer la dirección de retorno.
-    \item
-      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1} -- Restaurar IP y actualizar SP.
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar para leer los registros de estado.
-    \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer los registros de estado
-    \item
-      \textbf{\texttt{Flags} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1} -- Restaurar los registros de estado y actualizar SP.
-    \end{enumerate}
-  \item
-    \textbf{CLI}
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \setcounter{enumi}{3}
-    \tightlist
-    \item
-      \textbf{update(Flags I=1)} -- Desactivar interrupciones.
-    \end{enumerate}
-  \item
-    \textbf{STI}
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \setcounter{enumi}{3}
-    \tightlist
-    \item
-      \textbf{update(Flags I=0)} -- Activar interrupciones.
-    \end{enumerate}
-  \end{itemize}
+  Identificar mejoras en la capacidad de los estudiantes para analizar y depurar programas en ensamblador.
 \item
-  \textbf{E/S}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{OUT}
-
-    \begin{itemize}
-    \tightlist
-    \item
-      Direccion destino en registro \textbf{OUT DL, AL}
-
-      \begin{enumerate}
-      \def\labelenumi{\arabic{enumi}.}
-      \setcounter{enumi}{3}
-      \tightlist
-      \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{DL}} -- Obtener dirección destino.
-      \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{AL}} -- Preparar el contenido a escribir.
-      \item
-        \textbf{\texttt{write(E-S{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en el puerto de E/S.
-      \end{enumerate}
-    \item
-      Direccion destino inmediato \textbf{OUT inmediato, AL}
-
-      \begin{enumerate}
-      \def\labelenumi{\arabic{enumi}.}
-      \setcounter{enumi}{3}
-      \tightlist
-      \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del dato inmediato.
-      \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer el dato e incrementar IP.
-      \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Preparar la dirección destino.
-      \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{AL}} -- Preparar el contenido a escribir.
-      \item
-        \textbf{\texttt{write(E-S{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en el puerto de E/S.
-      \end{enumerate}
-    \end{itemize}
-  \item
-    \textbf{IN}
-
-    \begin{itemize}
-    \tightlist
-    \item
-      Direccion destino en registro \textbf{IN AL, DL}
-
-      \begin{enumerate}
-      \def\labelenumi{\arabic{enumi}.}
-      \setcounter{enumi}{3}
-      \tightlist
-      \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{DL}} -- Obtener dirección del puerto de entrada.
-      \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(E-S{[}MAR{]})}} -- Leer el contenido del puerto.
-      \item
-        \textbf{\texttt{AL} \(\leftarrow\) \texttt{MBR}} -- Almacenar el contenido en AL.
-      \end{enumerate}
-    \item
-      Direccion destino inmediato \textbf{IN AL, inmediato}
-
-      \begin{enumerate}
-      \def\labelenumi{\arabic{enumi}.}
-      \setcounter{enumi}{3}
-      \tightlist
-      \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección del dato inmediato.
-      \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer el dato e incrementar IP.
-      \item
-        \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Preparar la dirección del puerto de entrada..
-      \item
-        \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(E-S{[}MAR{]})}} -- Leer el contenido del puerto.
-      \item
-        \textbf{\texttt{AL} \(\leftarrow\) \texttt{MBR}} -- Almacenar el contenido en AL.
-      \end{enumerate}
-    \end{itemize}
-  \end{itemize}
-\item
-  \textbf{Pila}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    \textbf{POP Rx}
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \setcounter{enumi}{3}
-    \tightlist
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Obtener dirección de la pila.
-    \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el contenido de la pila.
-    \item
-      \textbf{\texttt{Rx} \(\leftarrow\) \texttt{MBR}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} + 1 -- Almacenar el contenido en Rx y actualizar SP.
-    \end{enumerate}
-  \item
-    \textbf{PUSH Ry}
-
-    \begin{enumerate}
-    \def\labelenumi{\arabic{enumi}.}
-    \setcounter{enumi}{3}
-    \tightlist
-    \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar la dirección de la pila.
-    \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1 -- Preparar el contenido a escribir y actualizar SP.
-    \item
-      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en la pila.
-    \end{enumerate}
-  \end{itemize}
-\item
-  \textbf{Operaciones Lógicas y Aritméticas}
-
-  \begin{itemize}
-  \item
-    \textbf{Operaciones con dos operandos (AND, OR, XOR)}
-  \item
-    Siguen los mismos pasos de ejecución que las operaciones aritméticas ADD y SUB, con la diferencia en la operación realizada por la ALU.
-  \item
-    \textbf{Operaciones con un operando (NOT, NEG, INC, DEC)}
-
-    \begin{itemize}
-    \tightlist
-    \item
-      \textbf{Destino en registro (\texttt{Rx})}
-
-      \begin{itemize}
-      \tightlist
-      \item
-        \textbf{INC \texttt{Rx}}
-
-        \begin{enumerate}
-        \def\labelenumi{\arabic{enumi}.}
-        \setcounter{enumi}{3}
-        \tightlist
-        \item
-          \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} + 1 \textbar{} update(Flags)} - Incrementar el valor del registro y actualizar los flags.
-        \end{enumerate}
-      \item
-        \textbf{DEC \texttt{Rx}}
-
-        \begin{enumerate}
-        \def\labelenumi{\arabic{enumi}.}
-        \setcounter{enumi}{3}
-        \tightlist
-        \item
-          \textbf{\texttt{Rx} \(\leftarrow\) \texttt{Rx} - 1 \textbar{} update(Flags)} - Decrementar el valor del registro y actualizar los flags.
-        \end{enumerate}
-      \item
-        \textbf{NOT \texttt{Rx}}
-
-        \begin{enumerate}
-        \def\labelenumi{\arabic{enumi}.}
-        \setcounter{enumi}{3}
-        \tightlist
-        \item
-          \textbf{\texttt{Rx} \(\leftarrow\) NOT \texttt{Rx} \textbar{} update(Flags)} - Realizar la operación lógica NOT y actualizar los flags.
-        \end{enumerate}
-      \item
-        \textbf{NEG \texttt{Rx}}
-
-        \begin{enumerate}
-        \def\labelenumi{\arabic{enumi}.}
-        \setcounter{enumi}{3}
-        \tightlist
-        \item
-          \textbf{\texttt{Rx} \(\leftarrow\) CA2 \texttt{Rx} \textbar{} update(Flags)} - Realizar la operación de complemento a dos y actualizar los flags.
-        \end{enumerate}
-      \end{itemize}
-    \item
-      \textbf{Destino en memoria (\texttt{{[}Dirección{]}} o \texttt{{[}BL{]}})}
-
-      \begin{itemize}
-      \tightlist
-      \item
-        \textbf{Modo Directo (\texttt{{[}Dirección{]}})}
-
-        \begin{enumerate}
-        \def\labelenumi{\arabic{enumi}.}
-        \setcounter{enumi}{3}
-        \tightlist
-        \item
-          \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}} -- Obtener dirección destino.
-        \item
-          \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1} -- Leer la dirección e incrementar IP.
-        \item
-          \textbf{\texttt{MAR} \(\leftarrow\) \texttt{MBR}} -- Transferir dirección a MAR.
-        \item
-          \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
-        \item
-          Ejecutar la operación:
-          - INC: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} + 1 \textbar{} update(Flags)}
-          - DEC: \textbf{\texttt{MBR} \(\leftarrow\) \texttt{MBR} - 1 \textbar{} update(Flags)}
-          - NOT: \textbf{\texttt{MBR} \(\leftarrow\) NOT \texttt{MBR} \textbar{} update(Flags)}
-          - NEG: \textbf{\texttt{MBR} \(\leftarrow\) CA2 \texttt{MBR} \textbar{} update(Flags)}
-        \item
-          \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
-        \end{enumerate}
-      \item
-        \textbf{Modo Indirecto (\texttt{{[}BL{]}})}
-
-        \begin{enumerate}
-        \def\labelenumi{\arabic{enumi}.}
-        \setcounter{enumi}{3}
-        \tightlist
-        \item
-          \textbf{\texttt{MAR} \(\leftarrow\) \texttt{BL}} -- Transferir dirección de destino (en BL) a MAR.
-        \item
-          \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer el dato.
-        \item
-          Ejecutar la operación (igual que en el caso anterior).
-        \item
-          \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir en memoria.
-        \end{enumerate}
-      \end{itemize}
-    \end{itemize}
-  \end{itemize}
+  Evaluar la percepción de usabilidad y utilidad didáctica de la herramienta.
 \end{itemize}
+
+\hypertarget{poblaciuxf3n-de-estudio}{%
+\subsection{Población de estudio}\label{poblaciuxf3n-de-estudio}}
+
+La prueba piloto se realizó con un grupo de 30 estudiantes matriculados en la asignatura Arquitectura de Computadoras, pertenecientes al segundo año de la carrera de Licenciatura en Sistemas. La selección se realizó de manera voluntaria, garantizando la representatividad de los participantes en relación con el perfil típico de la asignatura.
+
+\hypertarget{instrumentos-de-recolecciuxf3n-de-datos}{%
+\subsection{Instrumentos de recolección de datos}\label{instrumentos-de-recolecciuxf3n-de-datos}}
+
+Para la validación se emplearon los siguientes instrumentos:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Encuestas pre y post-uso:} Aplicadas antes y después de la utilización del simulador, orientadas a medir la autopercepción de conocimientos y habilidades.
+\item
+  \textbf{Cuestionarios de conocimiento:} Pruebas objetivas sobre conceptos específicos (ciclo de instrucción, registros, interrupciones) administradas en ambos momentos.
+\item
+  \textbf{Registro de tiempo de uso:} Análisis del tiempo dedicado por cada estudiante a la interacción con el simulador.
+\item
+  \textbf{Entrevistas semiestructuradas:} Realizadas a una muestra de participantes para profundizar en la experiencia de uso y recoger sugerencias de mejora.
+\end{itemize}
+
+\hypertarget{anuxe1lisis-de-datos}{%
+\subsection{Análisis de datos}\label{anuxe1lisis-de-datos}}
+
+Los resultados se analizarán mediante técnicas cuantitativas y cualitativas:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Comparación de puntajes pre y post-uso:} Se emplearán pruebas estadísticas (t de Student para muestras relacionadas) para determinar diferencias significativas en el nivel de conocimiento.
+\item
+  \textbf{Análisis descriptivo del tiempo de uso:} Se correlacionará el tiempo de interacción con el simulador y la mejora en los puntajes.
+\item
+  \textbf{Análisis temático de entrevistas:} Se identificarán patrones recurrentes en las percepciones y sugerencias de los estudiantes.
+\end{itemize}
+
+Esta metodología permitirá validar el impacto pedagógico del simulador y orientar futuras mejoras en función de la evidencia recogida.
 
 \hypertarget{aportes-y-contribuciones-del-simulador-vonsim8}{%
 \section{Aportes y contribuciones del simulador VonSim8}\label{aportes-y-contribuciones-del-simulador-vonsim8}}
