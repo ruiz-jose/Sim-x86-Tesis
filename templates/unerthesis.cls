@@ -208,6 +208,13 @@
 \newif\if@altadvisor
 \@altadvisorfalse
 
+% Codirector
+\def\coadvisor#1{\gdef \@coadvisor{#1} \@coadvisortrue}
+\global\let\@coadvisor\@empty
+\newif\if@coadvisor
+\@coadvisorfalse
+\def\@coadvisor{\@latex@warning@no@line{No \noexpand\coadvisor given}}
+
 % \renewcommand\l@chapter[2]{%
 %   \ifnum \c@tocdepth >\m@ne
 %     \addpenalty{-\@highpenalty}%
@@ -307,6 +314,10 @@
     \centerline{\hbox to \wd0 {\hbox{}\hrulefill\hbox{}}}
     \vfil
     \@advisor
+      \if@coadvisor
+        \vfil
+        \@coadvisor
+      \fi
     \vfil
     \@date
     \vfil

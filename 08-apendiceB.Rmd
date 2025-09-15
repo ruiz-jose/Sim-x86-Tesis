@@ -1,0 +1,123 @@
+# Apéndices B {-}
+
+## Anexo B: Instrumentos de recolección de datos  {#anexoB}
+
+
+En este anexo se presentan los instrumentos empleados para la validación pedagógica del simulador VonSim8. Se incluyen encuestas, pruebas objetivas, guía de entrevistas y plantilla de registro de uso, con sus respectivos ítems, escalas y pautas de codificación. Las encuestas y pruebas se aplican en dos momentos (pre y post) para medir la ganancia de aprendizaje.
+
+#### 1) Encuesta a estudiantes (pre y post)
+
+**Formato:** Escala Likert 1-5 (1 = Totalmente en desacuerdo; 5 = Totalmente de acuerdo).
+**Población:** Estudiantes de 2.º año de Licenciatura en Sistemas.
+**Tiempo estimado:** 6-8 minutos.
+**Codificación:** Registrar como "1 a 5". Valores faltantes como "NA".
+
+**Pre (percepción inicial y autoeficacia):**
+
+  - E1_pre: Comprendo el ciclo de instrucción (captación y ejecución).
+  - E2_pre: Puedo explicar la función de los registros principales (AL, BL, IP, SP, MAR, MBR, IR, Flags).
+  - E3_pre: Entiendo el manejo básico de interrupciones (INT/IRET, vector, bandera I).
+  - E4_pre: Me siento capaz de analizar y depurar programas en ensamblador.
+  - E5_pre: Tengo experiencia previa usando simuladores de arquitectura.
+  - E6_pre: Considero útil aprender con soporte de simuladores.
+  - E7_pre (abierta): ¿Qué esperas aprender con el simulador? (respuesta abierta)
+
+**Post (percepción, usabilidad y utilidad didáctica):**
+
+  - E1_post: Comprendo el ciclo de instrucción (captación y ejecución).
+  - E2_post: Puedo explicar la función de los registros principales (AL, BL, IP, SP, MAR, MBR, IR, Flags).
+  - E3_post: Entiendo el manejo básico de interrupciones (INT/IRET, vector, bandera I).
+  - E4_post: Me siento capaz de analizar y depurar programas en ensamblador.
+  - U1: El simulador es fácil de usar.
+  - U2: La visualización de componentes y micropasos (RTL) facilitó mi comprensión.
+  - U3: La activación progresiva del repertorio evitó sobrecarga cognitiva.
+  - U4: El editor de ensamblador facilitó la escritura y ejecución de programas.
+  - U5: Las métricas (CPI, ciclos, tiempo de CPU) ayudaron a comparar implementaciones.
+  - U6: La documentación/tutoriales resolvieron dudas y apoyaron el trabajo autónomo.
+  - U7: Recomendaría usar este simulador en la asignatura.
+  - NPS: En una escala de 0 a 10, ¿qué probabilidad hay de que recomiendes el simulador a un compañero? (0-10)
+  - O1_post (abierta): ¿Qué fue lo más útil para tu aprendizaje?
+  - O2_post (abierta): ¿Qué mejorarías del simulador?
+
+
+**Notas:**
+  - Para análisis pre-post, comparar E1..E4 (Delta = post - pre).
+  - Usabilidad (U1..U7): se puede calcular un índice promedio.
+  - NPS: clasificar 9-10 promotores, 7-8 pasivos, 0-6 detractores.
+
+#### 2) Prueba objetiva de conocimientos (10 ítems, opción múltiple)
+
+**Formato:** 10 preguntas, 4 opciones (A-D), una correcta.
+**Administración:** Pre y post.
+**Codificación:** Correcta = 1, incorrecta = 0. Puntaje total 0-10.
+
+**Ejemplo de ítems:**
+
+| Ítem | Pregunta | Opciones | Respuesta |
+|------|----------|----------|-----------|
+| K1 | En la etapa de captación (fetch), ¿qué transferencia es correcta? | A) MBR <- AL <br> B) IR <- SP <br> C) MAR <- IP; MBR <- read(Mem[MAR]) <br> D) IP <- MBR | C |
+| K2 | ¿Qué registro contiene la próxima dirección de instrucción a ejecutar? | A) IR <br> B) IP <br> C) SP <br> D) MAR | B |
+| K3 | ¿Cuál es la función principal de "MBR"? | A) Guardar banderas de estado <br> B) Almacenar temporalmente el dato leído/escrito de memoria <br> C) Apilar la dirección de retorno <br> D) Apuntar a la próxima instrucción | B |
+| K4 | En VonSim8, el vector de interrupciones ocupa: | A) 16 posiciones (0x00-0x0F) con 2 bytes por rutina <br> B) 8 posiciones (0x00-0x07) con 1 byte por rutina <br> C) 4 posiciones (0x00-0x03) con 4 bytes por rutina <br> D) 256 posiciones (0x00-0xFF) con 1 byte por rutina | B |
+| K5 | ¿Qué instrucción restaura IP y las banderas desde la pila tras una interrupción? | A) RET <br> B) CALL <br> C) IRET <br> D) HLT | C |
+| K6 | En el PIO, para que los LEDs (PB) funcionen como salida, ¿qué configuración es necesaria? | A) Escribir 1 en CB para cada bit de PB que sea salida <br> B) Escribir 0 en CB para cada bit de PB que sea salida <br> C) Escribir 1 en PB para habilitar salida <br> D) Escribir 0 en PB para habilitar salida | B |
+| K7 | ¿Qué hace la instrucción "OUT 31h, AL"? | A) Lee del puerto 31h y coloca el dato en AL <br> B) Escribe el contenido de AL en el puerto 31h <br> C) Escribe 31h en AL <br> D) Configura el puerto 31h como entrada | B |
+| K8 | ¿Qué debe enviar la CPU al PIC para finalizar la atención de una interrupción? | A) STI <br> B) CLI <br> C) EOI a 20h <br> D) INT 0 | C |
+| K9 | Si "COMP = 0" en el timer, entonces: | A) El timer queda deshabilitado y no genera interrupciones <br> B) Se dispara una interrupción inmediatamente <br> C) El contador "CONT" decrece hasta 0 <br> D) El timer se configura en modo periódico | A |
+| K10 | En direccionamiento indirecto con registro, "MOV AL, [BL]": | A) Copia el valor de BL en AL <br> B) Intercambia AL y BL <br> C) Carga en AL el byte almacenado en Mem[BL] <br> D) Carga en BL el byte almacenado en Mem[AL] | C |
+
+**Sugerencia:** Calcular ganancia normalizada $g = \frac{\text{post} - \text{pre}}{10 - \text{pre}}$.
+
+#### 3) Guía de entrevistas semiestructuradas a docentes
+
+**Perfil:** Docentes de Arquitectura de Computadoras con experiencia en prácticas con simuladores.
+**Modalidad:** 20-30 min, grabación/audio con consentimiento.
+
+**Ejes y preguntas:**
+
+1. **Usabilidad y experiencia**
+    - D1. ¿Qué tan intuitiva resultó la interfaz y el flujo de trabajo?
+    - D2. ¿Qué barreras de uso observó en estudiantes?
+2. **Claridad conceptual**
+    - D3. ¿Qué elementos del simulador mejor apoyan la enseñanza del ciclo de instrucción y modos de direccionamiento?
+    - D4. ¿Cómo impacta la visualización RTL y la representación de buses/multiplexores?
+3. **Progresividad y carga cognitiva**
+    - D5. ¿La activación progresiva de instrucciones resultó adecuada para el nivel de la cátedra?
+4. **Interrupciones y periféricos**
+    - D6. ¿El tratamiento de interrupciones (vector, PIC, IRET) y los módulos PIO/Handshake facilitan la comprensión?
+5. **Recursos y evaluación**
+    - D7. ¿La documentación/tutoriales fueron suficientes? ¿Qué faltaría?
+    - D8. ¿Qué mejoras priorizaría (editor, métricas, visualización, ejemplos)?
+6. **Cierre:** Recomendaciones y escenarios de uso en la asignatura.
+
+#### 4) Registro de uso del simulador (plantilla)
+
+**Objetivo:** Asociar tiempo de interacción y características usadas con resultados pre-post.
+**Campos sugeridos:**
+  - RU_id (auto)
+  - estudiante_id
+  - fecha
+  - sesion (1..n)
+  - duracion_min
+  - modo_ejecucion (paso_a_paso/continuo/mixto)
+  - caracteristicas_usadas (editor/RTL/metricas/PIO/PIC/timer/handshake)
+  - programa_cargado (archivo/etiqueta)
+  - errores_detectados (si/no)
+  - comentarios
+
+**Ejemplo de tabla:**
+
+| RU_id | estudiante_id | fecha       | sesion | duracion_min | modo_ejecucion | caracteristicas_usadas      | programa_cargado | errores_detectados | comentarios                |
+|-------|---------------|-------------|--------|--------------|----------------|----------------------------|------------------|--------------------|----------------------------|
+| 1     | 2025-ES-014   | 2025-09-20  | 1      | 35           | paso_a_paso    | editor, RTL, metricas      | suma.asm         | si                 | Problema con JZ            |
+| 2     | 2025-ES-014   | 2025-09-22  | 2      | 28           | mixto          | RTL, PIO                   | leds.asm         | no                 | -                          |
+
+#### 5) Pautas de codificación y análisis
+
+**Escalas Likert:** 1-5. Recomendar invertir ítems solo si formularas alguno en negativo (no aplica en este caso).
+**Índices:**
+  - Conocimientos percibidos (E1..E4): promedio y delta pre-post.
+  - Usabilidad (U1..U7): promedio.
+  - NPS: a partir de 0-10 (promotores-detractores).
+**Prueba objetiva:** Puntaje total 0-10; prueba t pareada pre-post; correlación con duracion_min.
+**Cualitativo:** Análisis temático de O1_post, O2_post y entrevistas (D1..D8).
