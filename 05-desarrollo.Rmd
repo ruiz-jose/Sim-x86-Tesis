@@ -1194,7 +1194,7 @@ tisaredu <- data.frame(
     "0"
   ),
   Acción = c(
-    "Copiar entre registros, cargar a registro, almacenar en memoria",
+    "Copiar entre registros, cargar de memoria a registro, almacenar en memoria",
     "Operación aritmética: operando1 ← operando1 + operando2",
     "Operación aritmética: operando1 ← operando1 - operando2",
     "Comparación: operando1 - operando2 (no actualiza el destino)",
@@ -1262,8 +1262,8 @@ instcodif <- data.frame(
     "1", "Idem", "Idem", "1", "1", "1"
   ),
   Codificación = c(
-    "`0000 RxRy`", "`0001 Rx00 MMMMMMMM`", "`0001 Rx01`", "`0001 Rx10 MMMMMMMM`",
-    "`0010 00Ry MMMMMMMM`", "`0010 01Ry`", "`0010 1100 MMMMMMMM dddddddd`", "`0010 1101 MMMMMMMM`",
+    "`0000 RxRy`", "`0001 Rx00 MMMMMMMM`", "`0001 Rx01`", "`0001 Rx10 DDDDDDDD`",
+    "`0010 00Ry MMMMMMMM`", "`0010 01Ry`", "`0010 1100 MMMMMMMM DDDDDDDD`", "`0010 1101 DDDDDDDD`",
     "`0011 RxRy`", "`0100 ---- --------`", "`0101 ---- -------- --------`", "`0110 RxRy`", "`0111 ---- --------`",
     "`1000 ---- -------- --------`", "`1001 RxRy`", "`1010 ---- --------`", "`1011 ---- -------- --------`",
     "`1100 0000 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1101 0000`"
@@ -1303,10 +1303,8 @@ if (knitr::is_latex_output()) {
         "____: Código de operación de la instrucción, 4 bits.",
         "Rx o Ry: Índices de registros de propósito general, 0 a 3, 2 bits cada uno.",
         "M: Dirección de memoria 8 bits.",
-        "ffff: representa el comportamiento de la instrucción 4 bits.",
-        "d: Dato inmediato 8 bits.",
-        "MMMMMMMM: Dirección de memoria 8 bits.",
-        "dddddddd: Dato inmediato 8 bits."
+        "D: Dato inmediato 8 bits.",
+        "ffff: representa el comportamiento de la instrucción 4 bits."
       ),
       general_title = "Nota: ",
       threeparttable = TRUE
@@ -1550,8 +1548,8 @@ tisa <- data.frame(
     "MOV",
     "ADD", "SUB", "CMP",
     "JMP / Jxx / CALL / INT",
-    "RET / IRET / CLI / STI / HLT",
-    "PUSH / POP / OUT / IN",
+    "HLT / RET / IRET / CLI / STI",
+    "OUT / IN / PUSH / POP",
     "AND / OR / XOR / NOT / NEG / INC / DEC"
   ),
   `Código operación` = c(
@@ -1567,9 +1565,9 @@ tisa <- data.frame(
     "Operación aritmética: operando1 ← operando1 + operando2",
     "Operación aritmética: operando1 ← operando1 - operando2",
     "Comparación: operando1 - operando2 (no actualiza el destino)",
-    "Salto incondicional JMP, condicionales Jxx, subrutina CALL, llamar rutina de interrupción INT",
-    "Retorno subrutina RET, retornar de interrupción IRET,  deshabilita interrupciones CLI, habilita interrupciones STI, detener CPU HLT",
-    "Poner en la pila PUSH, retirar de la pila POP, enviar a puerto OUT, recibir desde puerto IN",
+    "Salto incondicional JMP, salto condicionales Jxx, subrutina CALL, llamar rutina de interrupción INT",
+    "Detener CPU HLT, retorno subrutina RET, retornar de interrupción IRET,  deshabilita interrupciones CLI, habilita interrupciones STI",
+    "Enviar a puerto OUT, recibir desde puerto IN, poner en la pila PUSH, retirar de la pila POP",
     "Operaciones lógicas y aritméticas"
   ),
   stringsAsFactors = FALSE
@@ -1615,7 +1613,6 @@ El simulador utiliza un código de operación de 4 bits para las instrucciones, 
 Bajo esta implementación, las instrucciones lógicas (AND, OR y XOR) comparten el código de operación 15 con las instrucciones aritméticas de un operando (INC, DEC, NEG y NOT). Esta decisión de diseño permite mantener la compatibilidad con los modos de direccionamiento establecidos para las instrucciones aritméticas de dos operandos (ADD, SUB y CMP), garantizando consistencia en la interfaz del simulador mientras se maximiza la funcionalidad dentro de las limitaciones impuestas por el esquema de codificación de 4 bits.
 
 Esta solución representa un compromiso eficaz entre la simplicidad arquitectural y la capacidad funcional del simulador, permitiendo una mayor diversidad de operaciones sin comprometer la claridad pedagógica del diseño.
-
 
 ### Etapa de ejecución de instrucciones
 Finalmente, se detallan los pasos correspondientes a las instrucciones restantes del repertorio de instrucciones:
