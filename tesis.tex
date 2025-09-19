@@ -2700,7 +2700,7 @@ Las instrucciones del simulador VonSim8 se agrupan en dos categorías principale
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
 \midrule
-\textbf{Transferencia de datos} & MOV & {0, 1, 2} & 2 & Copiar entre registros, cargar a registro, almacenar en memoria\\
+\textbf{Transferencia de datos} & MOV & {0, 1, 2} & 2 & Copiar entre registros, cargar de memoria a registro, almacenar en memoria\\
 \addlinespace[10pt]
 \textbf{Procesamiento de datos} & ADD & {3, 4, 5} & 2 & Operación aritmética: operando1 ← operando1 + operando2\\
 \addlinespace[10pt]
@@ -2736,16 +2736,16 @@ Cada instrucción se codifica en un formato binario específico, que incluye un 
 \addlinespace[10pt]
 \textbf{1} & \texttt{MOV Rx, [BL]} & 1 & \texttt{0001 Rx01}\\
 \addlinespace[10pt]
-\textbf{1} & \texttt{MOV Rx, D} & 2 & \texttt{0001 Rx10 MMMMMMMM}\\
+\textbf{1} & \texttt{MOV Rx, D} & 2 & \texttt{0001 Rx10 DDDDDDDD}\\
 \addlinespace[10pt]
 \textbf{2} & \texttt{MOV [M], Ry} & 2 & \texttt{0010 00Ry MMMMMMMM}\\
 \addlinespace[10pt]
 \addlinespace
 \textbf{2} & \texttt{MOV [BL], Ry} & 2 & \texttt{0010 01Ry}\\
 \addlinespace[10pt]
-\textbf{2} & \texttt{MOV [M], D} & 3 & \texttt{0010 1100 MMMMMMMM dddddddd}\\
+\textbf{2} & \texttt{MOV [M], D} & 3 & \texttt{0010 1100 MMMMMMMM DDDDDDDD}\\
 \addlinespace[10pt]
-\textbf{2} & \texttt{MOV [BL], D} & 2 & \texttt{0010 1101 MMMMMMMM}\\
+\textbf{2} & \texttt{MOV [BL], D} & 2 & \texttt{0010 1101 DDDDDDDD}\\
 \addlinespace[10pt]
 \textbf{3} & \texttt{ADD Rx, Ry} & 1 & \texttt{0011 RxRy}\\
 \addlinespace[10pt]
@@ -2782,10 +2782,8 @@ Cada instrucción se codifica en un formato binario específico, que incluye un 
 \item \_\_\_\_: Código de operación de la instrucción, 4 bits.
 \item Rx o Ry: Índices de registros de propósito general, 0 a 3, 2 bits cada uno.
 \item M: Dirección de memoria 8 bits.
+\item D: Dato inmediato 8 bits.
 \item ffff: representa el comportamiento de la instrucción 4 bits.
-\item d: Dato inmediato 8 bits.
-\item MMMMMMMM: Dirección de memoria 8 bits.
-\item dddddddd: Dato inmediato 8 bits.
 \end{tablenotes}
 \end{threeparttable}}
 \end{table}
@@ -3265,12 +3263,12 @@ Para interactuar con los módulos de entrada y salida, es necesario incorporar n
 \addlinespace[10pt]
 \textbf{} & CMP & {9, 10, 11} & Comparación: operando1 - operando2 (no actualiza el destino)\\
 \addlinespace[10pt]
-\textbf{Control de flujo} & JMP / Jxx / CALL / INT & {12} & Salto incondicional JMP, condicionales Jxx, subrutina CALL, llamar rutina de interrupción INT\\
+\textbf{Control de flujo} & JMP / Jxx / CALL / INT & {12} & Salto incondicional JMP, salto condicionales Jxx, subrutina CALL, llamar rutina de interrupción INT\\
 \addlinespace[10pt]
 \addlinespace
-\textbf{Gestión de flujo} & RET / IRET / CLI / STI / HLT & {13} & Retorno subrutina RET, retornar de interrupción IRET,  deshabilita interrupciones CLI, habilita interrupciones STI, detener CPU HLT\\
+\textbf{Gestión de flujo} & HLT / RET / IRET / CLI / STI & {13} & Detener CPU HLT, retorno subrutina RET, retornar de interrupción IRET,  deshabilita interrupciones CLI, habilita interrupciones STI\\
 \addlinespace[10pt]
-\textbf{Manejo de pila y E/S} & PUSH / POP / OUT / IN & {14} & Poner en la pila PUSH, retirar de la pila POP, enviar a puerto OUT, recibir desde puerto IN\\
+\textbf{Manejo de pila y E/S} & OUT / IN / PUSH / POP & {14} & Enviar a puerto OUT, recibir desde puerto IN, poner en la pila PUSH, retirar de la pila POP\\
 \addlinespace[10pt]
 \textbf{Miscelánea} & AND / OR / XOR / NOT / NEG / INC / DEC & {15} & Operaciones lógicas y aritméticas\\
 \addlinespace[10pt]
