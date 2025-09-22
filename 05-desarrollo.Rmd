@@ -412,7 +412,7 @@ knitr::include_graphics(path = "images/memoria.png")
 ### Buses y multiplexores
 Los buses de datos, direcciones y control se modelan como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Estos buses resultan esenciales para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida. Además, su diseño modular favorece la posibilidad de expansión en futuras versiones del simulador.
 
-```{r buses, echo=FALSE, fig.cap="Buses", fig.align = 'center', out.width = "85%"}
+```{r buses, echo=FALSE, fig.cap="Buses", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/buses.png")
 ```
 
@@ -432,54 +432,54 @@ A continuacion se detallan los cambios más relevantes implementados en VonSim8,
 
 En el registro Flags de VonSim se ocultaron inicialmente las banderas O (overflow) y S (signo), dado que en los primeros ejercicios de ensamblador solo se emplean números enteros positivos. No obstante, estas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, conforme se abordan ejercicios de mayor complejidad.
 
-```{r banderas, echo=FALSE, fig.cap="Registro Flags", fig.align = 'center', out.width = "85%"}
+```{r banderas, echo=FALSE, fig.cap="Registro Flags", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/flags.png")
 ```
 
 El flag de interrupcion I solo se muestra cuando el programa lo requiere, por ejemplo, al ejecutar una instrucción de interrupción como `INT` o `IRET`. Esto permite a los estudiantes observar cómo se activa y desactiva este flag en función de las operaciones realizadas.
 
-```{r banderaI, echo=FALSE, fig.cap="Registro de estado I", fig.align = 'center', out.width = "85%"}
+```{r banderaI, echo=FALSE, fig.cap="Registro de estado I", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/flagi.png")
 ```
 
 Se modificó el menú de los controles del simulador.
 
-```{r controles, echo=FALSE, fig.cap="Controles del simulador", fig.align = 'center', out.width = "85%"}    
+```{r controles, echo=FALSE, fig.cap="Controles del simulador", fig.align = 'center', out.width = "100%"}    
 knitr::include_graphics(path = "images/controles.png")
 ```
 En lugar de utilizar registros de 16 bits completos, se emplea únicamente la parte baja de cada registro, lo que simplifica tanto la representación como la manipulación de los datos. Esta decisión responde a la necesidad de reducir la complejidad del modelo, facilitando así la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Además, se ha unificado el criterio de diseño de los registros: todos cuentan ahora con una entrada y una salida independientes, lo que permite visualizar de manera más clara la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación resulta esencial para comprender el flujo de datos durante el ciclo de instrucción y la interacción entre los distintos componentes del procesador.
 
-```{r registros, echo=FALSE, fig.cap="Registro de 8 bits", fig.align = 'center', out.width = "85%"}    
+```{r registros, echo=FALSE, fig.cap="Registro de 8 bits", fig.align = 'center', out.width = "100%"}    
 knitr::include_graphics(path = "images/registros.png")
 ```
 
 La eliminación de los registros temporales `left`, `right` y `result` en la ALU responde a la necesidad de simplificar el flujo de datos y reducir la carga cognitiva de los estudiantes. En lugar de utilizar registros intermedios, el simulador muestra directamente las operaciones realizadas en los operandos, lo que facilita la comprensión del proceso aritmético y lógico.
 
-```{r leftrigth, echo=FALSE, fig.cap="Eliminación registro temporales left, right y result", fig.align = 'center', out.width = "85%"}    
+```{r leftrigth, echo=FALSE, fig.cap="Eliminación registro temporales left, right y result", fig.align = 'center', out.width = "100%"}    
 knitr::include_graphics(path = "images/leftrigth.png")
 ```
 
 Los registros `SP`, `ri` e `id` se mantienen ocultos y solo se habilitan automáticamente cuando una instrucción requiere su utilización.
 
-```{r idrisp, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "85%"}    
+```{r idrisp, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "100%"}    
 knitr::include_graphics(path = "images/idrisp.png")
 ```
 
 La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos.
 
-```{r memoriacomp, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "85%"}
+```{r memoriacomp, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/memoriacomp.png")
 ```
 
 Resalto de la direccion de memoria apuntada por el registro IP en memoria y también resalta la dirección de memoria apuntada por el registro SP.
 
-```{r resaltadoip, echo=FALSE, fig.cap="Resaltado registro IP y registro SP", fig.align = 'center', out.width = "85%"}
+```{r resaltadoip, echo=FALSE, fig.cap="Resaltado registro IP y registro SP", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/resaltadoipsp.png")
 ```
 
 Se resalta en color violeta en la memoria principal el espacio destinado al vector de interrupciones en el VonSim8 es de 8 posiciones de memoria desde `0x00` a `0x07`:
 
-```{r resaltadointsp, echo=FALSE, fig.cap="Resaltado vector de interrupciones", fig.align = 'center', out.width = "85%"}
+```{r resaltadointsp, echo=FALSE, fig.cap="Resaltado vector de interrupciones", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/resaltadoint.png")
 ```
 
@@ -487,7 +487,7 @@ Para determinar la dirección de la rutina de tratamiento de interrupción en Vo
 
 Se incorporó un visor de instrucciones y datos del programa en memoria, que permite visualizar la instrucción, el tamaño en bytes que ocupa en memoria y la etiqueta asociada a los datos.
 
-```{r visorprog, echo=FALSE, fig.cap="Visor de instrucciones y datos del programa en memoria", fig.align = 'center', out.width = "85%"}
+```{r visorprog, echo=FALSE, fig.cap="Visor de instrucciones y datos del programa en memoria", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/visorprog.png")
 ```
 
@@ -497,25 +497,25 @@ En VonSim8, el uso de la directiva `ORG` para definir la dirección inicial es o
 
 Por una cuestion de compatibilidad se permite cargar programas de manera similar a VonSim, pero en lugar de cargar el programa en la direccion `0x2000h` se debe cargar en la `0x20h`. En este caso, el simulador comienza a ejecutar las instrucciones a partir de la dirección `0x20h`. Para mantener compatibilidad con VonSim, se conserva esta directiva, permitiendo a los usuarios establecer direcciones personalizadas.
 
-```{r org, echo=FALSE, fig.cap="Compatibilitad directiva ORG y END", fig.align = 'center', out.width = "85%"}
+```{r org, echo=FALSE, fig.cap="Compatibilitad directiva ORG y END", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/org.png")
 ```
 
 Además, en VonSim8 se incorporó la opción de abrir ejemplos prácticos para que el estudiante pueda experimentar directamente con el simulador. También se desarrolló un tour de aprendizaje que guía al usuario a través de las principales funcionalidades, junto con un centro de aprendizaje que ofrece explicaciones y ejemplos básicos.
 
-```{r editorvonsim, echo=FALSE, fig.cap="Editor con ampliación de fuente y ejemplos", fig.align = 'center', out.width = "85%"}
+```{r editorvonsim, echo=FALSE, fig.cap="Editor con ampliación de fuente y ejemplos", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/editorfuenteejemplo.png")
 ```
 
 Se ha mejorado el diseño de la unidad de control incorporando, dentro del decodificador, una memoria de control y un secuenciador. Estos componentes permiten representar el ciclo de instrucción de manera detallada, mostrando las microoperaciones y las señales de control generadas en cada etapa del proceso.
 
-```{r decodificador, echo=FALSE, fig.cap="Decodificador en VonSim8", fig.align = 'center', out.width = "85%"}
+```{r decodificador, echo=FALSE, fig.cap="Decodificador en VonSim8", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/decodificador.png")
 ```
 
 Con el fin de facilitar el aprendizaje del simulador VonSim8 se implementó un tour de aprendizaje que guía a los usuarios a través de las características y funcionalidades del simulador. También se incluye un centro de aprendizaje con explicación de ejemplos básicos.
 
-```{r tour, echo=FALSE, fig.cap="Tour de aprendizaje en VonSim8", fig.align = 'center', out.width = "85%"}
+```{r tour, echo=FALSE, fig.cap="Tour de aprendizaje en VonSim8", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/tour.png")
 ```
 
