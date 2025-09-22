@@ -24,7 +24,8 @@ knitr::include_graphics("images/editor.png")
 ```
 
 3. **Repertorio reducido de instrucciones con activación progresiva:**
-Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita en etapas secuenciales del proceso de enseñanza, en correspondencia con el avance de los contenidos curriculares. Esta decisión se fundamenta en principios de la psicología cognitiva que sugieren que la introducción escalonada de contenidos técnicos mejora la retención y reduce la sobrecarga cognitiva [@nationalacademies2018how]. Esta estrategia también se encuentra respaldada por autores como Hasan [@hasan_survey_2012], Null y Lobur [@null_essentials_2023], y Stallings [@stallings_computer_2021], quienes proponen abordajes similares en la enseñanza de arquitecturas complejas.
+Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita de manera secuencial a lo largo del proceso de enseñanza, en estrecha correspondencia con el avance de los contenidos curriculares. Esta decisión responde a principios de la psicología cognitiva, que sostienen que la introducción gradual de contenidos técnicos favorece la retención y disminuye la sobrecarga cognitiva [@nationalacademies2018how]. Diversos autores, como Hasan [@hasan_survey_2012], Null y Lobur [@null_essentials_2023], y Stallings [@stallings_computer_2021], respaldan este enfoque, recomendando la incorporación escalonada de conceptos en la enseñanza de arquitecturas complejas.
+La activación progresiva del repertorio de instrucciones promueve el desarrollo paulatino de competencias, evitando que los estudiantes se enfrenten prematuramente a la totalidad del conjunto instruccional. Este método se fundamenta en teorías de aprendizaje que destacan los beneficios de la exposición gradual a nuevos conceptos para mejorar la comprensión y la retención [@sweller2010cognitive]. En la siguiente tabla \@ref(tab:activacionprogresiva) se resume la activación progresiva de instrucciones y sus objetivos didácticos asociados.
 
 ```{r activacionprogresiva, echo=FALSE, message=FALSE, warning=FALSE}
     library(knitr)
@@ -79,8 +80,6 @@ Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual
     }
 ```
 
-Este enfoque promueve el desarrollo progresivo de competencias, al mitigar la sobrecarga cognitiva que implicaría abordar de forma prematura el repertorio completo de instrucciones. La activación progresiva del repertorio se fundamenta en teorías de aprendizaje que sugieren que la exposición gradual a nuevos conceptos mejora la comprensión y retención [@sweller2010cognitive]. Además, esta estrategia se alinea con las recomendaciones de autores como Null y Lobur [@null_essentials_2023], quienes destacan la importancia de introducir los conceptos de forma escalonada para facilitar el aprendizaje efectivo.
-
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
 Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción [@ASMVisualizer2025; @harris2015digital]. Stallings [@stallings_computer_2021] propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y señales de control en cada etapa del proceso.
 Como complemento a la descripción anterior, la Figura \@ref(fig:cicloinstruccion) muestra un ciclo de instrucción típico utilizando la operación `MOV AL, BL`. En la etapa de captación (*fetch*), la dirección de la instrucción se carga desde el registro `IP` al `MAR`, y el contenido de la memoria se transfiere al `MBR` y luego al `IR` . En la etapa de ejecución (*execute*), los datos se mueven desde el registro `BL` al registro `AL`.
@@ -92,7 +91,7 @@ knitr::include_graphics(path = "images/cicloinstruccion.png")
 5. **Gestión básica de interrupciones y periféricos:**
 Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. El vector de interrupciones predefinido permite simular eventos externos, como la entrada de datos mediante teclado. Por ejemplo, al recibir una interrupción de teclado, el simulador activa la señal `INTR`, detiene la ejecución actual y transfiere el control a la rutina de tratamiento de interrupciones correspondiente. Desde el punto de vista pedagógico, esta funcionalidad ofrece al estudiante la posibilidad de explorar de manera interactiva conceptos clave como la asincronía, el manejo de eventos y la interrupción del flujo secuencial, todos ellos característicos del diseño de arquitecturas modernas y fundamentales para el entendimiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur [@null_essentials_2023], quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Además, se incorpora un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo permite simular operaciones mediante instrucciones como IN y OUT, facilitando la interacción del estudiante con dispositivos representados gráficamente, como interruptores y teclas. De esta forma, se promueve una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
 
-```{r perifericos, echo=FALSE, fig.cap="Módulo genérico de entrada/salida programada", fig.align = 'center', out.width = "85%"}
+```{r perifericos, echo=FALSE, fig.cap="Módulo genérico de entrada/salida programada", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/perifericos.png")
 ```
 
@@ -406,7 +405,7 @@ Los bits restantes del registro Flags se encuentran reservados para posibles ext
 ### Memoria principal
 La memoria principal se modela como una matriz de 16×16 expresada en formato hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad resulta suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales asociados a la memoria principal en una computadora.
 
-```{r memoria, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "85%"}
+```{r memoria, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/memoria.png")
 ```
 
