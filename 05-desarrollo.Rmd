@@ -1637,7 +1637,10 @@ Finalmente, se detallan los pasos correspondientes a las instrucciones restantes
     8. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | update(Flags I=0)** – Guardar los registros de estado y desactivar interrupciones.
     9. **`MBR` $\leftarrow$ `IP` | `SP` $\leftarrow$ `SP` - 1** – Guardar IP en la pila.
     10. **`MAR` $\leftarrow$ `SP`** – Preparar para apilar.
-    11. **`write(Memoria[MAR])` $\leftarrow$ `MBR` | `IP` $\leftarrow$ `ri`** - Guardar en la pila y saltar a la rutina de interrupción.
+    11. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** - Guardar en la pila.
+    12. **`MAR` $\leftarrow$ `ri`** - Obtener dirección rutina.
+    13. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer la dirección.
+    14. **`IP` $\leftarrow$ `MBR`** – Asigno dirección de la rutina de interrupción.
   - **IRET**
     4. **`MAR` $\leftarrow$ `SP`** – Obtener dirección de retorno desde la pila
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer la dirección de retorno.
