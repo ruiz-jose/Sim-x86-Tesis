@@ -3351,7 +3351,13 @@ Finalmente, se detallan los pasos correspondientes a las instrucciones restantes
     \item
       \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar para apilar.
     \item
-      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{ri}} - Guardar en la pila y saltar a la rutina de interrupción.
+      \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} - Guardar en la pila.
+    \item
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{ri}} - Obtener dirección rutina.
+    \item
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})}} -- Leer la dirección.
+    \item
+      \textbf{\texttt{IP} \(\leftarrow\) \texttt{MBR}} -- Asigno dirección de la rutina de interrupción.
     \end{enumerate}
   \item
     \textbf{IRET}

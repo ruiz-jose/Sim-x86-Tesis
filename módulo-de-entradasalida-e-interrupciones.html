@@ -526,7 +526,10 @@ Operaciones lógicas y aritméticas
 <li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | update(Flags I=0)</strong> – Guardar los registros de estado y desactivar interrupciones.</li>
 <li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>IP</code> | <code>SP</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code> - 1</strong> – Guardar IP en la pila.</li>
 <li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>SP</code></strong> – Preparar para apilar.</li>
-<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code> | <code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong> - Guardar en la pila y saltar a la rutina de interrupción.</li>
+<li><strong><code>write(Memoria[MAR])</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> - Guardar en la pila.</li>
+<li><strong><code>MAR</code> <span class="math inline">\(\leftarrow\)</span> <code>ri</code></strong> - Obtener dirección rutina.</li>
+<li><strong><code>MBR</code> <span class="math inline">\(\leftarrow\)</span> <code>read(Memoria[MAR])</code></strong> – Leer la dirección.</li>
+<li><strong><code>IP</code> <span class="math inline">\(\leftarrow\)</span> <code>MBR</code></strong> – Asigno dirección de la rutina de interrupción.</li>
 </ol></li>
 <li><strong>IRET</strong>
 <ol start="4" style="list-style-type: decimal">
