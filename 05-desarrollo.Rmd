@@ -1647,7 +1647,7 @@ Finalmente, se detallan los pasos correspondientes a las instrucciones restantes
     6. **`IP` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` + 1** – Restaurar IP y actualizar SP.
     7. **`MAR` $\leftarrow$ `SP`** – Preparar para leer los registros de estado.
     8. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer los registros de estado
-    9. **`Flags` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` - 1** – Restaurar los registros de estado y actualizar SP.
+    9. **`Flags` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` + 1** – Restaurar los registros de estado y actualizar SP.
   - **CLI**
     4. **update(Flags I=1)** – Desactivar interrupciones.
   - **STI**
