@@ -1649,9 +1649,9 @@ Finalmente, se detallan los pasos correspondientes a las instrucciones restantes
     8. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer los registros de estado
     9. **`Flags` $\leftarrow$ `MBR` | `SP` $\leftarrow$ `SP` + 1** – Restaurar los registros de estado y actualizar SP.
   - **CLI**
-    4. **update(Flags I=1)** – Desactivar interrupciones.
+    4. **update(Flags I=0)** – Desactivar interrupciones.
   - **STI**
-    4. **update(Flags I=0)** – Activar interrupciones.
+    4. **update(Flags I=1)** – Activar interrupciones.
 - **E/S**
   - **OUT**
     - Direccion destino en registro **OUT DL, AL**
