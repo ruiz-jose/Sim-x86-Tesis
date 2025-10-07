@@ -2567,11 +2567,12 @@ Tratamiento de vectores: El simulador permite trabajar con vectores y matrices, 
 
 La traducción equivalente en lenguaje ensamblador es:
 
-\begin{lstlisting}
+\begin{lstlisting}[breaklines=true]
+
 max     db 0
 vector  db 5, 2, 10, 4, 5, 0, 4, 8, 1, 9
             mov CL, 0 ; contador
-            mov BL, offset vector  ; obtiene la dirección del primer elemento del vector
+            mov BL, offset vector  ; dirección inicial del vector
 Condicion:  cmp CL, 10 
             jc Bucle          ; si x < 10  salta a etiqueta Bucle
             jmp FinBucle      ; si no salta a la etiqueta FinBucle
@@ -3868,26 +3869,27 @@ Para que los interruptores operen correctamente, es fundamental configurar previ
 Es importante destacar que la comunicación es unidireccional desde los dispositivos hacia el procesador: aunque es posible escribir valores directamente en el registro PA mediante software, estos cambios no alterarán el estado físico de los interruptores. Los dispositivos de entrada mantienen su estado independientemente de las modificaciones realizadas por programa en sus registros asociados, garantizando así la integridad de la información proveniente del mundo exterior.
 
 \begin{lstlisting}
-; Leer el valor de las llaves como una contraseña hasta que el usuario la adivine
+; Leer el valor de las llaves como una contraseña 
+; hasta que el usuario la adivine
 
-clave db 15               ; Contraseña esperada: 00001111 (en decimal 15)
-mensaje_ok db 'Bienvenido!' ; Mensaje a mostrar si la contraseña es correcta
+clave db 15            ; Contraseña esperada: 00001111 (en decimal 15)
+mensaje_ok db 'Bienvenido!' ; Mensaje si la contraseña es correcta
 
 ; Configurar PA (Puerto A) como entrada
-mov al, 15                ; 00001111b: configura los primeros 4 bits de PA como entrada
-out 32h, al               ; Escribe en CA para configurar PA
+mov al, 15   ; 00001111b: configura los primeros 4 bits de PA como entrada
+out 32h, al            ; Escribe en CA para configurar PA
 
 bucle:
-    in al, 30h            ; Lee el valor actual de las llaves desde PA
-    cmp al, clave         ; Compara el valor leído con la contraseña
-    jz Mostrar_Mensaje    ; Si coincide, salta a Mostrar_Mensaje
-    jmp bucle             ; Si no coincide, vuelve a intentar
+  in al, 30h           ; Lee el valor actual de las llaves desde PA
+  cmp al, clave        ; Compara el valor leído con la contraseña
+  jz Mostrar_Mensaje   ; Si coincide, salta a Mostrar_Mensaje
+  jmp bucle            ; Si no coincide, vuelve a intentar
 
 Mostrar_Mensaje:
-    mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
-    mov al, 11                ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
-    int 7
-    hlt                       ; Detiene la ejecución del programa\end{lstlisting}
+  mov bl, offset mensaje_ok ; BL apunta al mensaje de éxito
+  mov al, 11           ; Longitud del mensaje (Bienvenido! tiene 11 caracteres)
+  int 7
+  hlt                  ; Detiene la ejecución del programa\end{lstlisting}
 
 \hypertarget{muxf3dulo-handshake-impresora}{%
 \subsection{Módulo handshake (Impresora)}\label{muxf3dulo-handshake-impresora}}
