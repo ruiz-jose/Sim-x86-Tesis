@@ -160,63 +160,12 @@ En este capítulo se presentan los resultados de una encuesta aplicada a estudia
 - Tipo de preguntas: ítems Likert (1 a 5) y preguntas abiertas.
 
 ## Datos cuantitativos (promedios de ítems)
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-library(ggplot2)
-library(dplyr)
-library(knitr)
-```
-
-```{r data}
-# Datos extraídos de los resultados
-encuesta <- data.frame(
-  Item = c(
-    "Conocimiento previo (autopercepción)",
-    "Claridad: fetch/execute (Q3)",
-    "Ejemplos con instrucciones (Q4)",
-    "Explicación modos de direccionamiento (Q5)",
-    "Actividades (Q6)",
-    "Tablas/esquemas/imagenes (Q7)",
-    "Visualización cambios regs/mem (simulador Q8)",
-    "Conexión teoria-practica (Q9)",
-    "Intuitividad del simulador (Q10)",
-    "Visualizacion microoperaciones (Q11)",
-    "Mejora percibida del conocimiento (Q14)"
-  ),
-  Promedio = c(
-    NA, 3.86, 4.07, 4.14, 4.07, 4.21, 3.79, 4.14, 3.93, 3.57, 4.00
-  ),
-  N = 14,
-  stringsAsFactors = FALSE
-)
-
-# Nota: el primer ítem (conocimiento previo) era categórico; no se proporciona promedio.
-encuesta
-```
-
-### Tabla resumen
-```{r tabla, results="asis"}
-encuesta %>%
-  knitr::kable(digits = 2, caption = "Promedios de los ítems de la encuesta (n = 14)")
-```
 
 ## Visualizaciones
-```{r grafico, fig.height=4, fig.width=7}
-encuesta_plot <- encuesta %>% filter(!is.na(Promedio))
-ggplot(encuesta_plot, aes(x = reorder(Item, Promedio), y = Promedio)) +
-  geom_col() +
-  coord_flip() +
-  labs(
-    x = NULL,
-    y = "Promedio (1-5)",
-    title = "Promedio por ítem — Encuesta VonSim8"
-  ) +
-  theme_minimal(base_size = 12)
-```
 
 ## Interpretación y discusión (resumen)
 A partir de los promedios observados (tabla anterior), se destacan los siguientes puntos:
-- Los ítems relacionados con la **calidad del material** y las **actividades** (Q5, Q6, Q7) obtienen promedios elevados (≥ 4.1), lo que sugiere que el material y los recursos visuales fueron bien valorados por el estudiantado.
+- Los ítems relacionados con la **calidad del material** y las **actividades** (Q5, Q6, Q7) obtienen promedios elevados (mayor o igual a 4.1), lo que sugiere que el material y los recursos visuales fueron bien valorados por el estudiantado.
 - El **simulador** recibe valoraciones buenas en cuanto a conectar teoría y práctica (Q9 = 4.14) y ser útil para visualizar cambios (Q8 = 3.79), aunque la intuición/uso (Q10 = 3.93) y la visualización detallada de microoperaciones (Q11 = 3.57) muestran margen de mejora.
 - La **mejora percibida** en el conocimiento del ciclo de instrucción es alta (Q14 = 4.00), lo cual apoya la efectividad pedagógica de la unidad.
 
@@ -232,8 +181,3 @@ Los comentarios abiertos (13 respuestas en esa sección) coinciden en que lo má
 
 ## Conclusión propuesta (para incorporar en la tesis)
 La unidad y el simulador VonSim8 muestran una evaluación positiva por parte del estudiantado, especialmente en la claridad del material y la vinculación teoría-práctica. Se recomiendan mejoras en la interfaz del simulador para hacer más visibles las microoperaciones y un refuerzo específico sobre el manejo de flags y la memoria en futuras iteraciones.
-
-## Código adicional (guardar tabla de resultados)
-```{r save, eval=FALSE}
-write.csv(encuesta %>% filter(!is.na(Promedio)), "resultados_encuesta_vonsim8.csv", row.names = FALSE)
-```
