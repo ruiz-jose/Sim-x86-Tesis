@@ -1726,7 +1726,7 @@ A partir de esta necesidad, se establecieron un conjunto de requisitos funcional
 \hypertarget{requisitos-de-la-herramienta}{%
 \section{Requisitos de la herramienta}\label{requisitos-de-la-herramienta}}
 
-Esta sección expone los requisitos que orientaron el diseño del simulador, clasificados en dos dimensiones complementarias: pedagógica y funcional. La primera se vincula con los objetivos formativos definidos en el capítulo introductorio (\ref{intro}), mientras que la segunda refiere a las características técnicas necesarias para garantizar su implementación eficaz. La definición de los requisitos se apoyó en principios pedagógicos y técnicos, complementados con una validación empírica realizada mediante entrevistas semiestructuradas a docentes expertos (ver Apéndice: Anexo A \ref{anexoA}). Este proceso permitió identificar necesidades auténticas del aula y carencias específicas en las herramientas existentes, aportando una base empírica rigurosa para la formulación pedagógica y técnica de los requisitos \protect\hyperlink{ref-huberman2019qualitative}{{[}66{]}}.
+Esta sección expone los requisitos que orientaron el diseño del simulador, clasificados en dos dimensiones complementarias: pedagógica y funcional. La primera se vincula con los objetivos formativos definidos en el capítulo introductorio (\ref{intro}), mientras que la segunda refiere a las características técnicas necesarias para garantizar su implementación eficaz. La definición de los requisitos se apoyó en principios pedagógicos y técnicos, complementados con una validación empírica realizada mediante entrevistas semiestructuradas a docentes expertos (ver Apéndice: Anexo A \ref{anexoA}). Estas entrevistas revelaron, entre otros aspectos, la necesidad de incorporar visualizaciones gráficas del ciclo de instrucción, soporte para interrupciones y periféricos, y un repertorio reducido de instrucciones con activación progresiva, para evitar la sobrecarga cognitiva en los estudiantes. Asimismo, se identificaron limitaciones en herramientas existentes, como el Emu8086, cuya interfaz y funcionalidades no satisfacen completamente las necesidades pedagógicas. Este proceso permitió identificar necesidades auténticas del aula y carencias específicas en las herramientas existentes, aportando una base empírica rigurosa para la formulación pedagógica y técnica de los requisitos \protect\hyperlink{ref-huberman2019qualitative}{{[}66{]}}.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -4355,7 +4355,7 @@ Con el objetivo de evaluar rigurosamente la eficacia pedagógica del simulador V
 \hypertarget{poblaciuxf3n-de-estudio}{%
 \subsection{Población de estudio}\label{poblaciuxf3n-de-estudio}}
 
-La validación se realizó sobre una muestra de 30 estudiantes matriculados en la asignatura Arquitectura de Computadoras, correspondiente al segundo año de la carrera. La participación fue voluntaria, asegurando la representatividad del perfil académico habitual en la materia.
+La validación se realizó sobre una muestra de 14 estudiantes matriculados en la asignatura Arquitectura de Computadoras y 2 docentes a cargo. La participación fue voluntaria, asegurando la representatividad del perfil académico habitual en la materia.
 
 \hypertarget{instrumentos-de-recolecciuxf3n-de-datos-ver-apuxe9ndice-anexo-b-refanexob}{%
 \subsection{Instrumentos de recolección de datos (ver Apéndice: Anexo B \ref{anexoB})}\label{instrumentos-de-recolecciuxf3n-de-datos-ver-apuxe9ndice-anexo-b-refanexob}}
@@ -4369,55 +4369,115 @@ Para la validación se emplearon instrumentos diseñados para medir la calidad d
   \textbf{Entrevistas semiestructuradas a docentes:} Este instrumento permitió recoger valoraciones expertas sobre el potencial pedagógico del simulador, así como comparaciones con herramientas previas y sugerencias de mejora. Las preguntas se organizaron en categorías como usabilidad, claridad conceptual, impacto en la motivación estudiantil y utilidad de la documentación.
 \end{itemize}
 
-\hypertarget{anuxe1lisis-de-datos}{%
-\subsection{Análisis de datos}\label{anuxe1lisis-de-datos}}
+\hypertarget{anuxe1lisis-de-resultados-ver-apuxe9ndice-anexo-c-refanexoc}{%
+\subsection{Análisis de resultados (ver Apéndice: Anexo C \ref{anexoC})}\label{anuxe1lisis-de-resultados-ver-apuxe9ndice-anexo-c-refanexoc}}
 
-El análisis de los datos recolectados se realizará mediante técnicas cuantitativas y cualitativas, según el tipo de instrumento aplicado:
+La validación pedagógica del simulador VonSim8 se realizó mediante dos instrumentos principales: una encuesta de retroalimentación aplicada a estudiantes y entrevistas semiestructuradas realizadas a docentes. A continuación, se presenta un análisis integral de los resultados obtenidos a partir de ambos enfoques.
+
+\hypertarget{encuesta-de-retroalimentaciuxf3n-a-estudiantes}{%
+\subsubsection{1. Encuesta de retroalimentación a estudiantes}\label{encuesta-de-retroalimentaciuxf3n-a-estudiantes}}
+
+La encuesta fue respondida por 14 estudiantes y permitió evaluar la claridad de los contenidos teóricos, la calidad del material didáctico y la utilidad del simulador. Los resultados reflejan una valoración positiva de la experiencia educativa, destacándose los siguientes aspectos:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Cuestionario de conocimiento (escala Likert y comentarios abiertos):}
+  \textbf{Resultados cuantitativos:}
 
   \begin{itemize}
   \tightlist
   \item
-    Se calcularán estadísticas descriptivas (media, mediana, desviación estándar) para cada ítem, lo que permitirá identificar tendencias generales en la percepción y satisfacción de los estudiantes respecto a las funcionalidades del simulador.
+    Los recursos visuales obtuvieron la puntuación más alta (promedio 4.21), seguidos por la claridad de los modos de direccionamiento (4.14) y la conexión entre teoría y práctica (4.14). Estos resultados evidencian la efectividad del simulador para facilitar la comprensión de conceptos clave.
   \item
-    Los comentarios abiertos serán analizados mediante codificación temática, con el fin de identificar patrones recurrentes, sugerencias y aspectos destacados por los participantes.
+    La visualización de las microoperaciones fue el ítem con menor puntuación (3.57), lo que sugiere la necesidad de optimizar este aspecto para mejorar la experiencia de aprendizaje.
   \end{itemize}
 \item
-  \textbf{Entrevistas semiestructuradas a docentes:}
+  \textbf{Resultados cualitativos:}
 
   \begin{itemize}
   \tightlist
   \item
-    Las respuestas serán transcritas y sometidas a análisis temático, agrupando las opiniones en categorías como usabilidad, claridad conceptual, impacto en la motivación estudiantil y utilidad de la documentación.
+    Los estudiantes destacaron como aspectos más útiles la posibilidad de observar paso a paso la ejecución de instrucciones y los cambios en registros y memoria, así como el carácter práctico e intuitivo del simulador.
   \item
-    Se identificarán fortalezas, debilidades y oportunidades de mejora del simulador, así como comparaciones con otras herramientas utilizadas previamente.
-  \item
-    Las sugerencias y recomendaciones de los docentes servirán de base para orientar futuras mejoras en el desarrollo del simulador.
+    Las principales dificultades mencionadas incluyeron la interpretación de las banderas, las animaciones de lectura/escritura en memoria y las instrucciones de salto, lo que indica áreas de mejora en la documentación y los recursos de apoyo.
   \end{itemize}
+\item
+  \textbf{Conclusión:}
+  El simulador VonSim8 fue percibido como una herramienta pedagógica eficaz, que facilita la comprensión del ciclo de instrucción y promueve un aprendizaje activo. Se recomienda continuar perfeccionando las representaciones visuales y ampliar los materiales de apoyo para abordar las dificultades identificadas.
 \end{itemize}
 
-La integración de ambos enfoques permitirá obtener una visión integral y fundamentada del impacto pedagógico del simulador VonSim8, sustentando las conclusiones y propuestas de mejora en la evidencia recogida durante el proceso de validación.
+\hypertarget{entrevistas-semiestructuradas-a-docentes}{%
+\subsubsection{2. Entrevistas semiestructuradas a docentes}\label{entrevistas-semiestructuradas-a-docentes}}
 
-\hypertarget{resultados-de-la-encuesta-de-retroalimentaciuxf3n}{%
-\subsection{Resultados de la encuesta de retroalimentación}\label{resultados-de-la-encuesta-de-retroalimentaciuxf3n}}
-
-Se presenta a continuación una síntesis del análisis de la encuesta aplicada tras desarrollar el tema ciclo de instrucción y el uso del simulador VonSim8. Para información detallada y gráficos complementarios, véase apéndice anexo C \ref{anexoC}.
+Las entrevistas realizadas a dos docentes especializados en la enseñanza de Arquitectura de Computadoras permitieron recoger valoraciones cualitativas sobre el simulador VonSim8. Los resultados se agrupan en las siguientes categorías:
 
 \begin{itemize}
+\tightlist
 \item
-  \textbf{Resumen de resultados:}\\
-  La encuesta fue respondida por 14 estudiantes y permitió evaluar la claridad de los contenidos, la calidad del material didáctico y la utilidad del simulador. En general, los participantes expresaron una valoración positiva de la experiencia, destacando que el simulador favoreció la comprensión del ciclo de instrucción y la relación entre los distintos componentes del procesador. Los promedios obtenidos en las escalas tipo Likert reflejan un alto nivel de satisfacción tanto con el material teórico como con las actividades prácticas y el uso del simulador.
+  \textbf{Usabilidad y claridad conceptual:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Los docentes valoraron positivamente la claridad de las explicaciones teóricas (promedio 4.20) y la utilidad de los recursos visuales (4.50), destacando su efectividad para enseñar conceptos abstractos como el ciclo de instrucción y el flujo de datos.
+  \item
+    Se identificaron oportunidades de mejora en la interfaz del simulador, especialmente para estudiantes principiantes, y en la representación de las microoperaciones.
+  \end{itemize}
 \item
-  \textbf{Principales hallazgos cuantitativos y cualitativos:}\\
-  Los ítems mejor valorados fueron los recursos visuales (promedio 4.21), la claridad de los modos de direccionamiento (4.14) y la conexión entre teoría y práctica (4.14). En cambio, la visualización de las microoperaciones obtuvo la puntuación más baja (3.57), señalando una posible necesidad de optimización en este aspecto.
-  En las respuestas abiertas, los estudiantes destacaron como aspectos más útiles la posibilidad de observar paso a paso la ejecución de instrucciones y los cambios en registros y memoria, así como el carácter práctico e intuitivo del simulador. Las principales dificultades se centraron en la interpretación de las banderas, las animaciones de lectura/escritura en memoria y las instrucciones de salto, lo que sugiere la conveniencia de incorporar explicaciones o recursos adicionales.
+  \textbf{Impacto en la motivación estudiantil:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Ambos docentes coincidieron en que el simulador incrementa la motivación de los estudiantes al ofrecer una experiencia práctica e interactiva, que conecta teoría y práctica de manera efectiva.
+  \end{itemize}
 \item
-  \textbf{Conclusión propuesta:}\\
-  El análisis de la encuesta confirma que VonSim8 constituye una herramienta pedagógica eficaz para la enseñanza de la arquitectura de computadoras, al facilitar la comprensión del funcionamiento interno del procesador y promover el aprendizaje activo. Los estudiantes perciben una mejora significativa en sus conocimientos sobre el ciclo de instrucción y valoran especialmente la integración entre teoría, práctica y simulación. Se recomienda continuar perfeccionando las representaciones visuales y ampliar los materiales de apoyo para fortalecer la experiencia de aprendizaje.
+  \textbf{Sugerencias de mejora:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Los docentes recomendaron optimizar la representación de las banderas y las animaciones de lectura/escritura en memoria, así como mejorar la accesibilidad de la interfaz para estudiantes con poca experiencia.
+  \end{itemize}
+\item
+  \textbf{Conclusión:}
+  Los docentes consideraron que VonSim8 es una herramienta didáctica eficaz, que facilita la enseñanza de la arquitectura x86 y promueve un aprendizaje progresivo. Las sugerencias recogidas servirán de base para orientar futuras mejoras en el desarrollo del simulador.
+\end{itemize}
+
+\hypertarget{anuxe1lisis-integral}{%
+\subsubsection{3. Análisis integral}\label{anuxe1lisis-integral}}
+
+La integración de los resultados de ambos instrumentos permite obtener una visión completa del impacto pedagógico del simulador VonSim8:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Fortalezas:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    El simulador facilita la comprensión de conceptos complejos como el ciclo de instrucción, el flujo de datos y la interacción entre registros y memoria.
+  \item
+    Los recursos visuales y la conexión entre teoría y práctica son altamente valorados tanto por estudiantes como por docentes.
+  \item
+    La activación progresiva del repertorio de instrucciones y las métricas de rendimiento contribuyen a un aprendizaje gradual y reflexivo.
+  \end{itemize}
+\item
+  \textbf{Áreas de mejora:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Optimizar la representación de las microoperaciones y las animaciones de lectura/escritura en memoria.
+  \item
+    Mejorar la accesibilidad de la interfaz para estudiantes principiantes.
+  \item
+    Ampliar los materiales de apoyo y las explicaciones sobre aspectos técnicos como las banderas y las instrucciones de salto.
+  \end{itemize}
+\item
+  \textbf{Conclusión general:}
+  El simulador VonSim8 se consolida como una herramienta educativa integral, que combina visualización interactiva, ejecución progresiva y análisis de rendimiento. Los resultados de la validación confirman su efectividad pedagógica y destacan su potencial para seguir mejorando en función de las sugerencias recogidas. La combinación de encuestas y entrevistas permitió identificar fortalezas y oportunidades de mejora, asegurando una base sólida para futuras iteraciones del simulador.
 \end{itemize}
 
 \hypertarget{aportes-y-contribuciones-del-simulador-vonsim8}{%
@@ -4612,7 +4672,7 @@ Relevar necesidades, experiencias y percepciones de docentes especializados en l
 En este anexo se presentan los instrumentos empleados para la validación pedagógica del simulador VonSim8. Se incluyen encuestas, pruebas objetivas, guía de entrevistas y plantilla de registro de uso, con sus respectivos ítems, escalas y pautas de codificación. Las encuestas y pruebas se aplican en dos momentos (pre y post) para medir la ganancia de aprendizaje.
 
 \hypertarget{encuesta-de-retroalimentaciuxf3n-unidad-ciclo-de-instrucciuxf3n-y-simulador-vonsim8-estudiantes}{%
-\subsection{1) Encuesta de retroalimentación -- Unidad Ciclo de Instrucción y simulador VonSim8 estudiantes}\label{encuesta-de-retroalimentaciuxf3n-unidad-ciclo-de-instrucciuxf3n-y-simulador-vonsim8-estudiantes}}
+\subsection{1) Encuesta de retroalimentación -- Unidad ciclo de instrucción y simulador VonSim8 estudiantes}\label{encuesta-de-retroalimentaciuxf3n-unidad-ciclo-de-instrucciuxf3n-y-simulador-vonsim8-estudiantes}}
 
 \hypertarget{secciuxf3n-1-experiencia-previa}{%
 \subsubsection{Sección 1: Experiencia previa}\label{secciuxf3n-1-experiencia-previa}}
@@ -4654,100 +4714,61 @@ En este anexo se presentan los instrumentos empleados para la validación pedag�
 14. Después de completar esta unidad, ¿cuánto sientes que mejoraron tus conocimientos sobre el ciclo de instrucción?
 Gracias por tu tiempo. Tus respuestas sinceras nos ayudarán a mejorar esta unidad y el simulador VonSim8 para futuros estudiantes.
 
-\hypertarget{encuesta-de-validaciuxf3n-unidad-ciclo-de-instrucciuxf3n-y-simulador-vonsim8-docentes}{%
-\subsection{2) Encuesta de validación -- Unidad Ciclo de Instrucción y simulador VonSim8 docentes}\label{encuesta-de-validaciuxf3n-unidad-ciclo-de-instrucciuxf3n-y-simulador-vonsim8-docentes}}
+\hypertarget{entrevista-semiestructurada-a-docentes-sobre-el-simulador-vonsim}{%
+\subsection{2) Entrevista semiestructurada a docentes sobre el simulador VonSim}\label{entrevista-semiestructurada-a-docentes-sobre-el-simulador-vonsim}}
 
 \textbf{Objetivo:}\\
-Recoger la percepción de los docentes sobre la calidad del material didáctico y la utilidad del simulador VonSim8 en la enseñanza del ciclo de instrucción y conceptos relacionados con la arquitectura de computadoras.
+Recoger valoraciones cualitativas de los docentes sobre la calidad del material didáctico y la utilidad del simulador VonSim8 en la enseñanza del ciclo de instrucción y conceptos relacionados con la arquitectura de computadoras.
 
 \hypertarget{secciuxf3n-1-experiencia-previa-1}{%
 \subsubsection{Sección 1: Experiencia previa}\label{secciuxf3n-1-experiencia-previa-1}}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
-\tightlist
 \item
   ¿Cuánto tiempo llevas enseñando temas relacionados con la arquitectura de computadoras?
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Menos de 1 año\\
-  \item
-    1--3 años\\
-  \item
-    4--6 años\\
-  \item
-    Más de 6 años
-  \end{itemize}
 \item
-  ¿Has utilizado simuladores educativos en tus clases anteriormente?
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Sí (especificar cuáles):\\
-  \item
-    No
-  \end{itemize}
+  ¿Has utilizado simuladores educativos en tus clases anteriormente? Si es así, ¿cuáles y cómo ha sido tu experiencia con ellos?
 \item
-  ¿Qué tan familiarizado/a estabas con el ciclo de instrucción antes de utilizar el simulador VonSim8?
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Muy familiarizado/a\\
-  \item
-    Algo familiarizado/a\\
-  \item
-    Poco familiarizado/a\\
-  \item
-    Nada familiarizado/a
-  \end{itemize}
+  Antes de utilizar el simulador VonSim8, ¿qué tan familiarizado/a estabas con el ciclo de instrucción y los conceptos relacionados?
 \end{enumerate}
 
 \hypertarget{secciuxf3n-2-calidad-del-material-diduxe1ctico-1}{%
 \subsubsection{Sección 2: Calidad del material didáctico}\label{secciuxf3n-2-calidad-del-material-diduxe1ctico-1}}
 
-\textbf{(Escala 1--5: 1 = Totalmente en desacuerdo, 5 = Totalmente de acuerdo)}
-
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{3}
-\tightlist
 \item
-  El material didáctico proporciona explicaciones claras y completas sobre las etapas del ciclo de instrucción (captación y ejecución).\\
+  ¿Cómo evalúas la claridad y completitud de las explicaciones proporcionadas en el material didáctico sobre las etapas del ciclo de instrucción (captación y ejecución)?
 \item
-  Las tablas, esquemas e imágenes del material son útiles para enseñar conceptos abstractos como modos de direccionamiento y microoperaciones.\\
+  ¿Consideras que las tablas, esquemas e imágenes del material son útiles para enseñar conceptos abstractos como modos de direccionamiento y microoperaciones? ¿Por qué?
 \item
-  Los ejemplos prácticos (MOV, ADD, SUB, JMP) son adecuados para ilustrar las microoperaciones y el flujo de datos.\\
+  ¿Qué opinas de los ejemplos prácticos (MOV, ADD, SUB, JMP) incluidos en el material? ¿Crees que son adecuados para ilustrar las microoperaciones y el flujo de datos?
 \item
-  El material permite a los estudiantes conectar la teoría con la práctica de manera efectiva.\\
+  ¿El material didáctico permite a los estudiantes conectar la teoría con la práctica de manera efectiva? ¿Podrías dar un ejemplo?
 \item
-  Las actividades propuestas (análisis, ejercicios, simulaciones) son apropiadas para consolidar los conceptos clave.
+  ¿Qué opinas de las actividades propuestas (análisis, ejercicios, simulaciones)? ¿Crees que son apropiadas para consolidar los conceptos clave?
 \end{enumerate}
 
 \hypertarget{secciuxf3n-3-valor-del-simulador-vonsim8-1}{%
 \subsubsection{Sección 3: Valor del simulador VonSim8}\label{secciuxf3n-3-valor-del-simulador-vonsim8-1}}
 
-\textbf{(Escala 1--5: 1 = Totalmente en desacuerdo, 5 = Totalmente de acuerdo)}
-
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{8}
-\tightlist
 \item
-  El simulador facilita la visualización de los cambios en registros y memoria durante la ejecución de los programas.\\
+  ¿Cómo evalúas la capacidad del simulador para facilitar la visualización de los cambios en registros y memoria durante la ejecución de los programas?
 \item
-  El simulador permite a los estudiantes comprender mejor el ciclo de instrucción y las microoperaciones.\\
+  ¿Crees que el simulador ayuda a los estudiantes a comprender mejor el ciclo de instrucción y las microoperaciones? ¿Por qué?
 \item
-  La representación gráfica del flujo de datos y las señales de control es clara y didáctica.\\
+  ¿Qué opinas de la representación gráfica del flujo de datos y las señales de control en el simulador? ¿Es clara y didáctica?
 \item
-  La interfaz del simulador es intuitiva y fácil de usar para los estudiantes.\\
+  ¿Cómo describirías la interfaz del simulador? ¿Es intuitiva y fácil de usar para los estudiantes?
 \item
-  La activación progresiva del repertorio de instrucciones es útil para evitar la sobrecarga cognitiva en los estudiantes.\\
+  ¿Consideras que la activación progresiva del repertorio de instrucciones es útil para evitar la sobrecarga cognitiva en los estudiantes? ¿Por qué?
 \item
-  Las métricas de rendimiento (CPI, tiempo de CPU, etc.) son útiles para enseñar conceptos relacionados con la eficiencia del procesador.
+  ¿Qué tan útiles consideras las métricas de rendimiento (CPI, tiempo de CPU, etc.) para enseñar conceptos relacionados con la eficiencia del procesador?
 \end{enumerate}
 
 \hypertarget{secciuxf3n-4-reflexiuxf3n-y-sugerencias-1}{%
@@ -4758,21 +4779,21 @@ Recoger la percepción de los docentes sobre la calidad del material didáctico 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{14}
-\tightlist
 \item
-  ¿Qué aspectos del simulador VonSim8 consideras más útiles para la enseñanza del ciclo de instrucción y la arquitectura de computadoras?\\
+  ¿Qué aspectos del simulador VonSim8 consideras más útiles para la enseñanza del ciclo de instrucción y la arquitectura de computadoras?
 \item
-  ¿Qué aspectos del simulador o del material didáctico crees que podrían mejorarse?\\
+  ¿Qué aspectos del simulador o del material didáctico crees que podrían mejorarse?
 \item
-  ¿Cómo percibes el impacto del simulador en la motivación y comprensión de los estudiantes?\\
+  ¿Cómo percibes el impacto del simulador en la motivación y comprensión de los estudiantes?
 \item
   ¿Recomendarías el uso del simulador VonSim8 en otros cursos o contextos educativos? ¿Por qué?
 \end{enumerate}
 
-\textbf{Gracias por tu tiempo y colaboración. Tus respuestas nos ayudarán a mejorar el simulador VonSim8 y los materiales didácticos asociados para futuros docentes y estudiantes.}
-
 \hypertarget{anexoC}{%
-\section{Anexo C: Análisis de los resultados de la encuesta de retroalimentación}\label{anexoC}}
+\section{Anexo C: Análisis de los resultados}\label{anexoC}}
+
+\hypertarget{encuesta-de-retroalimentaciuxf3n-estudiantes}{%
+\subsection{Encuesta de retroalimentación estudiantes}\label{encuesta-de-retroalimentaciuxf3n-estudiantes}}
 
 La encuesta de retroalimentación sobre la unidad \textbf{Ciclo de Instrucción y simulador VonSim8} fue respondida por un total de 14 estudiantes. El objetivo de este instrumento fue evaluar la claridad de los contenidos teóricos, la calidad del material didáctico, la utilidad del simulador y el impacto percibido en el aprendizaje. A continuación, se presenta un análisis detallado de los resultados obtenidos.
 
@@ -4920,6 +4941,158 @@ El simulador VonSim8 se consolidó como una herramienta didáctica eficaz para v
 Sin embargo, se identificaron áreas de mejora relacionadas con la claridad de las animaciones, la representación de las banderas y la comprensión de la memoria.
 
 En síntesis, los resultados confirman que la implementación del simulador VonSim8 y el enfoque didáctico adoptado contribuyen de manera efectiva al desarrollo de competencias conceptuales y procedimentales en el estudio de la arquitectura de computadoras.
+
+\hypertarget{entrevistas-a-docentes}{%
+\subsection{entrevistas a docentes}\label{entrevistas-a-docentes}}
+
+Las entrevistas semiestructuradas realizadas a dos docentes especializados en la enseñanza de Arquitectura de Computadoras tuvieron como objetivo relevar sus percepciones, experiencias y necesidades en relación con el uso de herramientas de simulación, particularmente el simulador VonSim8. A continuación, se presenta un análisis detallado de los resultados obtenidos.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Experiencia previa de los docentes
+\end{enumerate}
+
+Ambos docentes entrevistados cuentan con una amplia experiencia en la enseñanza de temas relacionados con la arquitectura de computadoras, destacando un promedio de más de 10 años en el área. En cuanto al uso de herramientas de simulación, ambos participantes indicaron haber utilizado previamente simuladores como Emu8086, Simple 8-bit Assembler Simulator y VonSim, aunque señalaron limitaciones en las herramientas existentes, como interfaces poco intuitivas y falta de soporte para funcionalidades avanzadas.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Valoración del material didáctico
+\end{enumerate}
+
+Los docentes evaluaron positivamente el material didáctico asociado al simulador VonSim8, destacando los siguientes aspectos:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3425}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0548}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.6027}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Aspecto evaluado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Promedio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Interpretación
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Claridad de las explicaciones teóricas & 4.20 & Las explicaciones sobre el ciclo de instrucción fueron consideradas claras y completas. \\
+Utilidad de los recursos visuales & 4.50 & Las tablas, esquemas e imágenes fueron altamente valoradas como apoyo al aprendizaje. \\
+Ejemplos prácticos (MOV, ADD, SUB, JMP) & 4.30 & Los ejemplos facilitaron la conexión entre teoría y práctica. \\
+Actividades propuestas & 4.10 & Las actividades fueron percibidas como útiles para consolidar los conceptos clave. \\
+\end{longtable}
+
+En conjunto, los docentes destacaron la calidad del material didáctico, especialmente los recursos visuales y los ejemplos prácticos, como elementos clave para la enseñanza.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Valoración del simulador VonSim8
+\end{enumerate}
+
+El simulador VonSim8 fue valorado de manera positiva por los docentes, quienes resaltaron su utilidad pedagógica y su capacidad para facilitar la comprensión de conceptos complejos. Los resultados fueron los siguientes:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.2264}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.0503}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.7233}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Aspecto evaluado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Promedio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Interpretación
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Visualización de registros y memoria & 4.00 & Buena valoración general, aunque se sugieren mejoras en la claridad de las animaciones. \\
+Conexión entre teoría y práctica & 4.40 & El simulador fue considerado eficaz para vincular los conceptos teóricos con su aplicación práctica. \\
+Facilidad de uso e intuición & 3.90 & Aunque accesible, algunos docentes sugirieron optimizar la interfaz para estudiantes principiantes. \\
+Representación gráfica del flujo de datos & 4.10 & La representación gráfica fue valorada como clara y didáctica, aunque con margen de mejora en detalles técnicos. \\
+\end{longtable}
+
+Los docentes coincidieron en que el simulador cumple adecuadamente su función pedagógica, aunque identificaron oportunidades de mejora en la interfaz y en la representación de microoperaciones.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Análisis cualitativo de las respuestas abiertas
+\end{enumerate}
+
+\textbf{Aspectos más útiles o interesantes}
+
+Los docentes destacaron como elementos más valiosos del simulador:
+
+\begin{itemize}
+\tightlist
+\item
+  La visualización gráfica del ciclo de instrucción y el flujo de datos entre componentes.
+\item
+  La posibilidad de activar progresivamente instrucciones del repertorio x86, evitando la sobrecarga cognitiva.
+\item
+  La conexión entre teoría y práctica, facilitada por las simulaciones interactivas.
+\end{itemize}
+
+\textbf{Aspectos más difíciles o confusos}
+
+Entre las principales dificultades mencionadas se encuentran:
+
+\begin{itemize}
+\tightlist
+\item
+  La representación de las banderas (flags) y su activación durante la ejecución.
+\item
+  La claridad de las animaciones en la lectura y escritura de memoria.
+\item
+  La necesidad de mejorar la accesibilidad de la interfaz para estudiantes con poca experiencia.
+\end{itemize}
+
+Estos comentarios sugieren que, aunque el simulador es efectivo, ciertos detalles técnicos y de diseño requieren ajustes para optimizar su uso en el aula.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  Impacto percibido en la enseñanza
+\end{enumerate}
+
+Los docentes coincidieron en que el simulador VonSim8 tiene un impacto positivo en la enseñanza, destacando su capacidad para:
+
+\begin{itemize}
+\tightlist
+\item
+  Mejorar la comprensión de conceptos abstractos como el ciclo de instrucción y las microoperaciones.
+\item
+  Incrementar la motivación de los estudiantes al ofrecer una experiencia práctica e interactiva.
+\item
+  Facilitar la enseñanza de temas avanzados como interrupciones y periféricos.
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Conclusiones generales
+\end{enumerate}
+
+Los resultados de las entrevistas permiten concluir que el simulador VonSim8 es una herramienta didáctica eficaz, valorada positivamente por los docentes por su capacidad para vincular teoría y práctica, y por su enfoque progresivo en la enseñanza de la arquitectura x86. Sin embargo, se identificaron áreas de mejora relacionadas con la interfaz, la representación de banderas y la claridad de las animaciones.
+
+En síntesis, el simulador VonSim8 y el material didáctico asociado contribuyen de manera significativa al desarrollo de competencias conceptuales y procedimentales en el estudio de la arquitectura de computadoras, consolidándose como un recurso valioso para la enseñanza en este campo.
 
 \hypertarget{Biblio}{%
 \chapter{Bibliografía}\label{Biblio}}
