@@ -6,7 +6,7 @@ En el capítulo anterior se analizaron y evaluaron las herramientas de simulaci�
 A partir de esta necesidad, se establecieron un conjunto de requisitos funcionales y pedagógicos que guiaron de manera integral el diseño, la implementación y la validación del simulador. Estos requisitos no solo responden a las limitaciones observadas en herramientas existentes, sino que se alinean con los objetivos educativos previamente definidos.
 
 ## Requisitos de la herramienta
-Esta sección expone los requisitos que orientaron el diseño del simulador, clasificados en dos dimensiones complementarias: pedagógica y funcional. La primera se vincula con los objetivos formativos definidos en el capítulo introductorio (\@ref(intro)), mientras que la segunda refiere a las características técnicas necesarias para garantizar su implementación eficaz. La definición de los requisitos se apoyó en principios pedagógicos y técnicos, complementados con una validación empírica realizada mediante entrevistas semiestructuradas a docentes expertos (ver Apéndice: Anexo A \@ref(anexoA)). Este proceso permitió identificar necesidades auténticas del aula y carencias específicas en las herramientas existentes, aportando una base empírica rigurosa para la formulación pedagógica y técnica de los requisitos [@huberman2019qualitative].
+Esta sección expone los requisitos que orientaron el diseño del simulador, clasificados en dos dimensiones complementarias: pedagógica y funcional. La primera se vincula con los objetivos formativos definidos en el capítulo introductorio (\@ref(intro)), mientras que la segunda refiere a las características técnicas necesarias para garantizar su implementación eficaz. La definición de los requisitos se apoyó en principios pedagógicos y técnicos, complementados con una validación empírica realizada mediante entrevistas semiestructuradas a docentes expertos (ver Apéndice: Anexo A \@ref(anexoA)). Estas entrevistas revelaron, entre otros aspectos, la necesidad de incorporar visualizaciones gráficas del ciclo de instrucción, soporte para interrupciones y periféricos, y un repertorio reducido de instrucciones con activación progresiva, para evitar la sobrecarga cognitiva en los estudiantes. Asimismo, se identificaron limitaciones en herramientas existentes, como el Emu8086, cuya interfaz y funcionalidades no satisfacen completamente las necesidades pedagógicas. Este proceso permitió identificar necesidades auténticas del aula y carencias específicas en las herramientas existentes, aportando una base empírica rigurosa para la formulación pedagógica y técnica de los requisitos [@huberman2019qualitative].
 
 1. **Visualización de la estructura general de la computadora:**
 Representar gráficamente la CPU, los buses, la memoria y los dispositivos de entrada/salida. Esta visualización debe destacar los componentes activos en cada etapa del ciclo de ejecución, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora [@w3c_accessibility_2021]. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas [@sorva2013visualizations]. La Figura \@ref(fig:diagramasimulador) ilustra la estructura general del simulador, esta representación gráfica facilita la comprensión de cómo los componentes del simulador trabajan en conjunto durante la ejecución de un programa.
@@ -2767,7 +2767,7 @@ Con el objetivo de evaluar rigurosamente la eficacia pedagógica del simulador V
 
 ### Población de estudio
 
-La validación se realizó sobre una muestra de 30 estudiantes matriculados en la asignatura Arquitectura de Computadoras, correspondiente al segundo año de la carrera. La participación fue voluntaria, asegurando la representatividad del perfil académico habitual en la materia.
+La validación se realizó sobre una muestra de 14 estudiantes matriculados en la asignatura Arquitectura de Computadoras y 2 docentes a cargo. La participación fue voluntaria, asegurando la representatividad del perfil académico habitual en la materia.
 
 ### Instrumentos de recolección de datos (ver Apéndice: Anexo B \@ref(anexoB))
 
@@ -2777,34 +2777,54 @@ Para la validación se emplearon instrumentos diseñados para medir la calidad d
 
 - **Entrevistas semiestructuradas a docentes:** Este instrumento permitió recoger valoraciones expertas sobre el potencial pedagógico del simulador, así como comparaciones con herramientas previas y sugerencias de mejora. Las preguntas se organizaron en categorías como usabilidad, claridad conceptual, impacto en la motivación estudiantil y utilidad de la documentación.
 
-### Análisis de datos
+### Análisis de resultados (ver Apéndice: Anexo C \@ref(anexoC))
+La validación pedagógica del simulador VonSim8 se realizó mediante dos instrumentos principales: una encuesta de retroalimentación aplicada a estudiantes y entrevistas semiestructuradas realizadas a docentes. A continuación, se presenta un análisis integral de los resultados obtenidos a partir de ambos enfoques.
 
-El análisis de los datos recolectados se realizará mediante técnicas cuantitativas y cualitativas, según el tipo de instrumento aplicado:
+#### 1. Encuesta de retroalimentación a estudiantes
+La encuesta fue respondida por 14 estudiantes y permitió evaluar la claridad de los contenidos teóricos, la calidad del material didáctico y la utilidad del simulador. Los resultados reflejan una valoración positiva de la experiencia educativa, destacándose los siguientes aspectos:
 
-- **Cuestionario de conocimiento (escala Likert y comentarios abiertos):**
-  - Se calcularán estadísticas descriptivas (media, mediana, desviación estándar) para cada ítem, lo que permitirá identificar tendencias generales en la percepción y satisfacción de los estudiantes respecto a las funcionalidades del simulador.
-  - Los comentarios abiertos serán analizados mediante codificación temática, con el fin de identificar patrones recurrentes, sugerencias y aspectos destacados por los participantes.
+- **Resultados cuantitativos:**
+  - Los recursos visuales obtuvieron la puntuación más alta (promedio 4.21), seguidos por la claridad de los modos de direccionamiento (4.14) y la conexión entre teoría y práctica (4.14). Estos resultados evidencian la efectividad del simulador para facilitar la comprensión de conceptos clave.
+  - La visualización de las microoperaciones fue el ítem con menor puntuación (3.57), lo que sugiere la necesidad de optimizar este aspecto para mejorar la experiencia de aprendizaje.
 
-- **Entrevistas semiestructuradas a docentes:**
-  - Las respuestas serán transcritas y sometidas a análisis temático, agrupando las opiniones en categorías como usabilidad, claridad conceptual, impacto en la motivación estudiantil y utilidad de la documentación.
-  - Se identificarán fortalezas, debilidades y oportunidades de mejora del simulador, así como comparaciones con otras herramientas utilizadas previamente.
-  - Las sugerencias y recomendaciones de los docentes servirán de base para orientar futuras mejoras en el desarrollo del simulador.
+- **Resultados cualitativos:**
+  - Los estudiantes destacaron como aspectos más útiles la posibilidad de observar paso a paso la ejecución de instrucciones y los cambios en registros y memoria, así como el carácter práctico e intuitivo del simulador.
+  - Las principales dificultades mencionadas incluyeron la interpretación de las banderas, las animaciones de lectura/escritura en memoria y las instrucciones de salto, lo que indica áreas de mejora en la documentación y los recursos de apoyo.
 
-La integración de ambos enfoques permitirá obtener una visión integral y fundamentada del impacto pedagógico del simulador VonSim8, sustentando las conclusiones y propuestas de mejora en la evidencia recogida durante el proceso de validación.
+- **Conclusión:**
+  El simulador VonSim8 fue percibido como una herramienta pedagógica eficaz, que facilita la comprensión del ciclo de instrucción y promueve un aprendizaje activo. Se recomienda continuar perfeccionando las representaciones visuales y ampliar los materiales de apoyo para abordar las dificultades identificadas.
 
-### Resultados de la encuesta de retroalimentación
+#### 2. Entrevistas semiestructuradas a docentes
+Las entrevistas realizadas a dos docentes especializados en la enseñanza de Arquitectura de Computadoras permitieron recoger valoraciones cualitativas sobre el simulador VonSim8. Los resultados se agrupan en las siguientes categorías:
 
-Se presenta a continuación una síntesis del análisis de la encuesta aplicada tras desarrollar el tema ciclo de instrucción y el uso del simulador VonSim8. Para información detallada y gráficos complementarios, véase apéndice anexo C \@ref(anexoC).
+- **Usabilidad y claridad conceptual:**
+  - Los docentes valoraron positivamente la claridad de las explicaciones teóricas (promedio 4.20) y la utilidad de los recursos visuales (4.50), destacando su efectividad para enseñar conceptos abstractos como el ciclo de instrucción y el flujo de datos.
+  - Se identificaron oportunidades de mejora en la interfaz del simulador, especialmente para estudiantes principiantes, y en la representación de las microoperaciones.
 
-- **Resumen de resultados:**  
-La encuesta fue respondida por 14 estudiantes y permitió evaluar la claridad de los contenidos, la calidad del material didáctico y la utilidad del simulador. En general, los participantes expresaron una valoración positiva de la experiencia, destacando que el simulador favoreció la comprensión del ciclo de instrucción y la relación entre los distintos componentes del procesador. Los promedios obtenidos en las escalas tipo Likert reflejan un alto nivel de satisfacción tanto con el material teórico como con las actividades prácticas y el uso del simulador.
+- **Impacto en la motivación estudiantil:**
+  - Ambos docentes coincidieron en que el simulador incrementa la motivación de los estudiantes al ofrecer una experiencia práctica e interactiva, que conecta teoría y práctica de manera efectiva.
 
-- **Principales hallazgos cuantitativos y cualitativos:**  
-  Los ítems mejor valorados fueron los recursos visuales (promedio 4.21), la claridad de los modos de direccionamiento (4.14) y la conexión entre teoría y práctica (4.14). En cambio, la visualización de las microoperaciones obtuvo la puntuación más baja (3.57), señalando una posible necesidad de optimización en este aspecto.
-  En las respuestas abiertas, los estudiantes destacaron como aspectos más útiles la posibilidad de observar paso a paso la ejecución de instrucciones y los cambios en registros y memoria, así como el carácter práctico e intuitivo del simulador. Las principales dificultades se centraron en la interpretación de las banderas, las animaciones de lectura/escritura en memoria y las instrucciones de salto, lo que sugiere la conveniencia de incorporar explicaciones o recursos adicionales.
+- **Sugerencias de mejora:**
+  - Los docentes recomendaron optimizar la representación de las banderas y las animaciones de lectura/escritura en memoria, así como mejorar la accesibilidad de la interfaz para estudiantes con poca experiencia.
 
-- **Conclusión propuesta:**  
-El análisis de la encuesta confirma que VonSim8 constituye una herramienta pedagógica eficaz para la enseñanza de la arquitectura de computadoras, al facilitar la comprensión del funcionamiento interno del procesador y promover el aprendizaje activo. Los estudiantes perciben una mejora significativa en sus conocimientos sobre el ciclo de instrucción y valoran especialmente la integración entre teoría, práctica y simulación. Se recomienda continuar perfeccionando las representaciones visuales y ampliar los materiales de apoyo para fortalecer la experiencia de aprendizaje.
+- **Conclusión:**
+  Los docentes consideraron que VonSim8 es una herramienta didáctica eficaz, que facilita la enseñanza de la arquitectura x86 y promueve un aprendizaje progresivo. Las sugerencias recogidas servirán de base para orientar futuras mejoras en el desarrollo del simulador.
+
+#### 3. Análisis integral
+La integración de los resultados de ambos instrumentos permite obtener una visión completa del impacto pedagógico del simulador VonSim8:
+
+- **Fortalezas:**
+  - El simulador facilita la comprensión de conceptos complejos como el ciclo de instrucción, el flujo de datos y la interacción entre registros y memoria.
+  - Los recursos visuales y la conexión entre teoría y práctica son altamente valorados tanto por estudiantes como por docentes.
+  - La activación progresiva del repertorio de instrucciones y las métricas de rendimiento contribuyen a un aprendizaje gradual y reflexivo.
+
+- **Áreas de mejora:**
+  - Optimizar la representación de las microoperaciones y las animaciones de lectura/escritura en memoria.
+  - Mejorar la accesibilidad de la interfaz para estudiantes principiantes.
+  - Ampliar los materiales de apoyo y las explicaciones sobre aspectos técnicos como las banderas y las instrucciones de salto.
+
+- **Conclusión general:**
+  El simulador VonSim8 se consolida como una herramienta educativa integral, que combina visualización interactiva, ejecución progresiva y análisis de rendimiento. Los resultados de la validación confirman su efectividad pedagógica y destacan su potencial para seguir mejorando en función de las sugerencias recogidas. La combinación de encuestas y entrevistas permitió identificar fortalezas y oportunidades de mejora, asegurando una base sólida para futuras iteraciones del simulador.
 
 ## Aportes y contribuciones del simulador VonSim8
 El simulador VonSim8 constituye una valiosa contribución al ámbito educativo en la enseñanza de arquitectura de computadoras, destacándose por los siguientes aspectos:
