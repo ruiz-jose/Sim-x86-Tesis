@@ -1514,6 +1514,74 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
   - HLT: 
     4. Detiene la ejecución de la CPU.
 
+
+## Implementación del ciclo de instrucción para MOV AL, BL en xDEVS
+La instrucción MOV AL, BL realiza la transferencia del contenido del registro BL al registro AL:
+
+En VonSim8, esta operación implica una lectura del registro fuente (BL) y una escritura en el registro destino (AL), coordinadas por la Unidad de Control (UC).
+El ciclo completo se compone de dos fases generales, que se modelan como secuencia de eventos en el entorno xDEVS:
+
+Captación (Fetch) — común a todas las instrucciones.
+
+Ejecución (Execute) — específica del tipo MOV.
+
+### Fase de Captación (Fetch)
+
+Ya definida en tu texto, se conserva igual:
+
+MAR ← IP
+
+MBR ← read(Mem[MAR]) | IP ← IP + 1
+
+IR ← MBR
+
+Una vez completada esta fase, el registro IR contiene el código binario correspondiente a MOV AL, BL.
+
+### Fase de Ejecución (Execute): MOV AL, BL
+
+#### Modelos Atómicos involucrados
+
+Para simular esta instrucción, intervienen los siguientes modelos Atómicos:
+| Componente                        | Tipo                          | Descripción                                                        |
+| --------------------------------- | ----------------------------- | ------------------------------------------------------------------ |
+| **UC** (Unidad de Control)        | Atómico                       | Decodifica `IR`, genera señales de control para lectura/escritura. |
+| **IR** (Registro de Instrucción)  | Atómico                       | Contiene el código binario de la instrucción.                      |
+| **AL** (Registro Acumulador bajo) | Atómico                       | Registro destino.                                                  |
+| **BL** (Registro base bajo)       | Atómico                       | Registro fuente.                                                   |
+| **BUS** (Bus de datos)            | Atómico o variable compartida | Transporta el dato desde el origen al destino.                     |
+
+
+#### Definición DEVS simplificada de cada modelo
+
+**Modelo Atómico: Registro (ej. AL o BL)**
+
+El modelo atómico del **Registro** se define como:
+
+| Paso | Microoperación           | Descripción                                                                  | Modelos y funciones DEVS                                                                |
+| ---- | ------------------------ | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| 1    | `UC: decodificar(IR)`    | La UC lee el valor del IR y reconoce el opcode `MOV` con operandos `AL, BL`. | `/delta_ext` (UC) recibe evento del IR; actualiza su estado (`S`) con la instrucción actual. |
+| 2    | `UC → BL.enable_out = 1` | La UC activa la señal de lectura del registro fuente.                        | `/lambda` (UC) genera evento de salida hacia BL.                                              |
+| 3    | `BUS ← BL`               | El registro BL coloca su valor en el bus de datos.                           | `/lambda` (BL) emite valor actual al BUS.                                                     |
+| 4    | `UC → AL.enable_in = 1`  | La UC habilita la escritura en AL.                                           | `/lambda` (UC) envía evento de control a AL.                                                  |
+| 5    | `AL ← BUS`               | El registro AL captura el dato del bus y actualiza su estado interno.        | `/delta_ext` (AL) recibe valor del BUS y actualiza su estado `S`.                            |
+
+#### Diagrama de interacción (resumen conceptual)
+
+#### Resultados de simulación esperados (en VonSim8)
+Durante la simulación en VonSim8 (siguiendo los tiempos y funciones DEVS):
+
+| Tiempo (t) | Evento               | Registro afectado | Acción                                                |
+| ---------- | -------------------- | ----------------- | ----------------------------------------------------- |
+| t         | Captación completada | IR                | Contiene `MOV AL, BL`                                 |
+| t         | Decodificación       | UC                | Genera señales de control                             |
+| t         | Lectura de BL        | BL                | Emite valor al bus                                    |
+| t         | Escritura en AL      | AL                | Guarda el valor de BL                                 |
+| t         | Fin de instrucción   | UC                | Pasa al siguiente ciclo (fetch siguiente instrucción) |
+
+#### Conclusión
+El formalismo xDEVS permite representar de forma modular, jerárquica y temporizada el comportamiento del ciclo de instrucción.
+Para MOV AL, BL, la simulación reproduce la dinámica de señales y transferencias de datos propias del nivel RTL, mostrando cómo la Unidad de Control coordina la comunicación entre registros mediante eventos discretos.
+
 ## Módulo de entrada/salida e interrupciones
 El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal, agrupados en las siguientes categorías:
   - Teclado y pantalla.
