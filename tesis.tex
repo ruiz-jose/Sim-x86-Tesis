@@ -3219,6 +3219,119 @@ A continuación se detallan las instrucciones más comunes:
   \end{enumerate}
 \end{itemize}
 
+\hypertarget{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-para-mov-al-bl-en-xdevs}{%
+\section{Implementación del ciclo de instrucción para MOV AL, BL en xDEVS}\label{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-para-mov-al-bl-en-xdevs}}
+
+La instrucción MOV AL, BL realiza la transferencia del contenido del registro BL al registro AL:
+
+En VonSim8, esta operación implica una lectura del registro fuente (BL) y una escritura en el registro destino (AL), coordinadas por la Unidad de Control (UC).
+El ciclo completo se compone de dos fases generales, que se modelan como secuencia de eventos en el entorno xDEVS:
+
+Captación (Fetch) --- común a todas las instrucciones.
+
+Ejecución (Execute) --- específica del tipo MOV.
+
+\hypertarget{fase-de-captaciuxf3n-fetch}{%
+\subsection{Fase de Captación (Fetch)}\label{fase-de-captaciuxf3n-fetch}}
+
+Ya definida en tu texto, se conserva igual:
+
+MAR ← IP
+
+MBR ← read(Mem{[}MAR{]}) \textbar{} IP ← IP + 1
+
+IR ← MBR
+
+Una vez completada esta fase, el registro IR contiene el código binario correspondiente a MOV AL, BL.
+
+\hypertarget{fase-de-ejecuciuxf3n-execute-mov-al-bl}{%
+\subsection{Fase de Ejecución (Execute): MOV AL, BL}\label{fase-de-ejecuciuxf3n-execute-mov-al-bl}}
+
+\hypertarget{modelos-atuxf3micos-involucrados}{%
+\subsubsection{Modelos Atómicos involucrados}\label{modelos-atuxf3micos-involucrados}}
+
+Para simular esta instrucción, intervienen los siguientes modelos Atómicos:
+\textbar{} Componente \textbar{} Tipo \textbar{} Descripción \textbar{}
+\textbar{} --------------------------------- \textbar{} ----------------------------- \textbar{} ------------------------------------------------------------------ \textbar{}
+\textbar{} \textbf{UC} (Unidad de Control) \textbar{} Atómico \textbar{} Decodifica \texttt{IR}, genera señales de control para lectura/escritura. \textbar{}
+\textbar{} \textbf{IR} (Registro de Instrucción) \textbar{} Atómico \textbar{} Contiene el código binario de la instrucción. \textbar{}
+\textbar{} \textbf{AL} (Registro Acumulador bajo) \textbar{} Atómico \textbar{} Registro destino. \textbar{}
+\textbar{} \textbf{BL} (Registro base bajo) \textbar{} Atómico \textbar{} Registro fuente. \textbar{}
+\textbar{} \textbf{BUS} (Bus de datos) \textbar{} Atómico o variable compartida \textbar{} Transporta el dato desde el origen al destino. \textbar{}
+
+\hypertarget{definiciuxf3n-devs-simplificada-de-cada-modelo}{%
+\subsubsection{Definición DEVS simplificada de cada modelo}\label{definiciuxf3n-devs-simplificada-de-cada-modelo}}
+
+\textbf{Modelo Atómico: Registro (ej. AL o BL)}
+
+El modelo atómico del \textbf{Registro} se define como:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0209}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1257}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3979}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4555}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Paso
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Microoperación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Descripción
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Modelos y funciones DEVS
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & \texttt{UC:\ decodificar(IR)} & La UC lee el valor del IR y reconoce el opcode \texttt{MOV} con operandos \texttt{AL,\ BL}. & \texttt{/delta\_ext} (UC) recibe evento del IR; actualiza su estado (\texttt{S}) con la instrucción actual. \\
+2 & \texttt{UC\ →\ BL.enable\_out\ =\ 1} & La UC activa la señal de lectura del registro fuente. & \texttt{/lambda} (UC) genera evento de salida hacia BL. \\
+3 & \texttt{BUS\ ←\ BL} & El registro BL coloca su valor en el bus de datos. & \texttt{/lambda} (BL) emite valor actual al BUS. \\
+4 & \texttt{UC\ →\ AL.enable\_in\ =\ 1} & La UC habilita la escritura en AL. & \texttt{/lambda} (UC) envía evento de control a AL. \\
+5 & \texttt{AL\ ←\ BUS} & El registro AL captura el dato del bus y actualiza su estado interno. & \texttt{/delta\_ext} (AL) recibe valor del BUS y actualiza su estado \texttt{S}. \\
+\end{longtable}
+
+\hypertarget{diagrama-de-interacciuxf3n-resumen-conceptual}{%
+\subsubsection{Diagrama de interacción (resumen conceptual)}\label{diagrama-de-interacciuxf3n-resumen-conceptual}}
+
+\hypertarget{resultados-de-simulaciuxf3n-esperados-en-vonsim8}{%
+\subsubsection{Resultados de simulación esperados (en VonSim8)}\label{resultados-de-simulaciuxf3n-esperados-en-vonsim8}}
+
+Durante la simulación en VonSim8 (siguiendo los tiempos y funciones DEVS):
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1700}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5300}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tiempo (t)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evento
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Registro afectado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Acción
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+t & Captación completada & IR & Contiene \texttt{MOV\ AL,\ BL} \\
+t & Decodificación & UC & Genera señales de control \\
+t & Lectura de BL & BL & Emite valor al bus \\
+t & Escritura en AL & AL & Guarda el valor de BL \\
+t & Fin de instrucción & UC & Pasa al siguiente ciclo (fetch siguiente instrucción) \\
+\end{longtable}
+
+\hypertarget{conclusiuxf3n}{%
+\subsubsection{Conclusión}\label{conclusiuxf3n}}
+
+El formalismo xDEVS permite representar de forma modular, jerárquica y temporizada el comportamiento del ciclo de instrucción.
+Para MOV AL, BL, la simulación reproduce la dinámica de señales y transferencias de datos propias del nivel RTL, mostrando cómo la Unidad de Control coordina la comunicación entre registros mediante eventos discretos.
+
 \hypertarget{muxf3dulo-de-entradasalida-e-interrupciones}{%
 \section{Módulo de entrada/salida e interrupciones}\label{muxf3dulo-de-entradasalida-e-interrupciones}}
 
@@ -4546,8 +4659,8 @@ El desarrollo del simulador VonSim8 ha permitido establecer una base sólida par
   Finalmente, se plantea la incorporación de un módulo gráfico que permita simular una pantalla de 16x16 píxeles. Este componente ofrecería una representación visual básica para explorar conceptos como la manipulación de gráficos, la representación de datos en memoria y la interacción entre la CPU y dispositivos de salida. Además, este módulo podría integrarse con el sistema de interrupciones y el módulo DMA, proporcionando un entorno más completo y realista para la simulación.
 \end{enumerate}
 
-\hypertarget{conclusiuxf3n}{%
-\subsection{Conclusión}\label{conclusiuxf3n}}
+\hypertarget{conclusiuxf3n-1}{%
+\subsection{Conclusión}\label{conclusiuxf3n-1}}
 
 Estas líneas de trabajo futuro no solo expanden las capacidades técnicas del simulador, sino que también fortalecen su valor pedagógico al abordar temas avanzados de arquitectura de computadoras y programación de bajo nivel. La implementación de estas mejoras permitirá que el simulador evolucione hacia una herramienta más versátil y alineada con las necesidades de formación en entornos académicos y profesionales. Asimismo, estas extensiones abren la posibilidad de colaborar con la comunidad educativa y de desarrollo, promoviendo la adopción y mejora continua del simulador.
 
