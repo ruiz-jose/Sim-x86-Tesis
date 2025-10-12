@@ -3255,30 +3255,43 @@ A continuación se detallan las instrucciones más comunes:
   \end{enumerate}
 \end{itemize}
 
-\hypertarget{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-para-mov-al-bl-en-xdevs}{%
-\section{Implementación del ciclo de instrucción para MOV AL, BL en xDEVS}\label{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-para-mov-al-bl-en-xdevs}}
+\hypertarget{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-mov-al-bl-en-xdevs}{%
+\section{Implementación del ciclo de instrucción MOV AL, BL en xDEVS}\label{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-mov-al-bl-en-xdevs}}
 
-La instrucción MOV AL, BL realiza la transferencia del contenido del registro BL al registro AL:
+La instrucción \textbf{MOV AL, BL} transfiere el contenido del registro fuente \textbf{BL} al registro destino \textbf{AL}.\\
+En el simulador \textbf{VonSim8}, esta operación se modela como una secuencia de \emph{eventos discretos} coordinados por la \textbf{Unidad de Control (UC)}, que emite señales de lectura y escritura sobre los registros involucrados.
 
-En VonSim8, esta operación implica una lectura del registro fuente (BL) y una escritura en el registro destino (AL), coordinadas por la Unidad de Control (UC).
-El ciclo completo se compone de dos fases generales, que se modelan como secuencia de eventos en el entorno xDEVS:
+A continuación se describe la implementación de este ciclo en el entorno \textbf{xDEVS}, donde cada componente se representa como un \textbf{modelo atómico}, y su interacción como un \textbf{modelo acoplado jerárquico}.
 
-Captación (Fetch) --- común a todas las instrucciones.
+\hypertarget{fases-del-ciclo-de-instrucciuxf3n}{%
+\subsection{Fases del ciclo de instrucción}\label{fases-del-ciclo-de-instrucciuxf3n}}
 
-Ejecución (Execute) --- específica del tipo MOV.
+El ciclo de instrucción completo se organiza en dos fases generales, representadas como transiciones de estado dentro del formalismo xDEVS:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Fase de captación (Fetch)} --- común a todas las instrucciones.\\
+\item
+  \textbf{Fase de ejecución (Execute)} --- específica del tipo de instrucción (en este caso, MOV).
+\end{itemize}
 
 \hypertarget{fase-de-captaciuxf3n-fetch}{%
 \subsection{Fase de Captación (Fetch)}\label{fase-de-captaciuxf3n-fetch}}
 
-Ya definida en tu texto, se conserva igual:
+Esta fase, común a cualquier instrucción, se conserva tal como se detalla en la definición general del ciclo de instrucción:
 
-MAR ← IP
+\begin{itemize}
+\tightlist
+\item
+  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
+\item
+  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
+\item
+  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}
+\end{itemize}
 
-MBR ← read(Mem{[}MAR{]}) \textbar{} IP ← IP + 1
-
-IR ← MBR
-
-Una vez completada esta fase, el registro IR contiene el código binario correspondiente a MOV AL, BL.
+Al finalizar, el registro \textbf{IR} contiene el código binario correspondiente a la instrucción \texttt{MOV\ AL,\ BL}.
 
 \hypertarget{fase-de-ejecuciuxf3n-execute-mov-al-bl}{%
 \subsection{Fase de Ejecución (Execute): MOV AL, BL}\label{fase-de-ejecuciuxf3n-execute-mov-al-bl}}
@@ -3286,7 +3299,7 @@ Una vez completada esta fase, el registro IR contiene el código binario corresp
 \hypertarget{modelos-atuxf3micos-involucrados}{%
 \subsubsection{Modelos Atómicos involucrados}\label{modelos-atuxf3micos-involucrados}}
 
-Para simular esta instrucción, intervienen los siguientes modelos Atómicos:
+Durante la ejecución, intervienen los siguientes modelos atómicos del entorno xDEVS:
 
 \begin{table}[!h]
 \centering
@@ -3312,8 +3325,14 @@ Para simular esta instrucción, intervienen los siguientes modelos Atómicos:
 \end{tabular}}
 \end{table}
 
-\hypertarget{flujo-de-eventos-y-microoperaciones-rtl}{%
-\subsubsection{Flujo de eventos y microoperaciones (RTL)}\label{flujo-de-eventos-y-microoperaciones-rtl}}
+Los modelos AL y BL representan registros independientes, con su propia dinámica interna de lectura y escritura.
+El modelo UC controla la sincronización de los eventos, mientras que el BUS actúa como canal de comunicación compartido entre los registros.
+
+\hypertarget{flujo-de-eventos-y-microoperaciones-nivel-rtl}{%
+\subsubsection{Flujo de eventos y microoperaciones (nivel RTL)}\label{flujo-de-eventos-y-microoperaciones-nivel-rtl}}
+
+El proceso se descompone en microoperaciones que describen la propagación de señales y los cambios de estado en los modelos atómicos.
+Cada paso se corresponde con una transición DEVS (\(\delta_{\text{ext}}\), \(\delta_{\text{int}}\), \(\lambda\)), tal como se muestra en la tabla siguiente:
 
 \begin{table}[!h]
 \centering
@@ -3339,11 +3358,13 @@ Para simular esta instrucción, intervienen los siguientes modelos Atómicos:
 \end{tabular}}
 \end{table}
 
-\hypertarget{definiciuxf3n-devs-simplificada-de-cada-modelo}{%
-\subsection{Definición DEVS simplificada de cada modelo}\label{definiciuxf3n-devs-simplificada-de-cada-modelo}}
+Estas microoperaciones se ejecutan de forma ordenada y temporizada, de acuerdo con las funciones de transición del formalismo xDEVS, representando el flujo de control de la UC y las transferencias de datos entre registros.
 
-\hypertarget{modelo-atuxf3mico-registro-ej.-al-o-bl}{%
-\subsubsection{Modelo Atómico: Registro (ej. AL o BL)}\label{modelo-atuxf3mico-registro-ej.-al-o-bl}}
+\hypertarget{definiciuxf3n-xdevs-simplificada-de-cada-modelo}{%
+\subsection{Definición XDEVS simplificada de cada modelo}\label{definiciuxf3n-xdevs-simplificada-de-cada-modelo}}
+
+\hypertarget{modelo-atuxf3mico-registro-al-o-bl}{%
+\subsubsection{Modelo Atómico: Registro (AL o BL)}\label{modelo-atuxf3mico-registro-al-o-bl}}
 
 La definición formal del modelo atómico de registro se presenta en la ecuación \eqref{eq:modreg}:
 
@@ -3364,7 +3385,7 @@ Donde:
   \(Y\): salidas \(\{ \text{dato\_out} \}\)
 \end{itemize}
 
-\textbf{Transiciones:}
+\textbf{Transiciones DEVS:}
 
 \begin{itemize}
 \item
@@ -3433,7 +3454,7 @@ IR → UC → {[} señales de control {]}
 \hypertarget{resultados-de-simulaciuxf3n-esperados-en-vonsim8}{%
 \subsection{Resultados de simulación esperados (en VonSim8)}\label{resultados-de-simulaciuxf3n-esperados-en-vonsim8}}
 
-Durante la simulación en VonSim8 (siguiendo los tiempos y funciones DEVS):
+Durante la simulación en VonSim8, los tiempos y funciones DEVS determinan la secuencia de eventos y el intercambio de datos entre modelos:
 
 \begin{table}[!h]
 \centering
@@ -3462,17 +3483,24 @@ Durante la simulación en VonSim8 (siguiendo los tiempos y funciones DEVS):
 \hypertarget{conclusiuxf3n}{%
 \subsection{Conclusión}\label{conclusiuxf3n}}
 
-El formalismo xDEVS permite representar de forma modular, jerárquica y temporizada el comportamiento del ciclo de instrucción.
-Para MOV AL, BL, la simulación reproduce la dinámica de señales y transferencias de datos propias del nivel RTL, mostrando cómo la Unidad de Control coordina la comunicación entre registros mediante eventos discretos.
+El formalismo xDEVS permite representar con precisión el comportamiento modular, jerárquico y temporizado del ciclo de instrucción MOV AL, BL.
+La simulación reproduce la dinámica de señales y las transferencias de datos propias del nivel RTL (Register Transfer Level), evidenciando cómo la Unidad de Control coordina la comunicación entre los registros mediante eventos discretos y funciones de transición bien definidas.
 
 \hypertarget{muxf3dulo-de-entradasalida-e-interrupciones}{%
 \section{Módulo de entrada/salida e interrupciones}\label{muxf3dulo-de-entradasalida-e-interrupciones}}
 
 El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal, agrupados en las siguientes categorías:
-- Teclado y pantalla.
-- Un módulo PIO, que puede conectarse a LEDs e interruptores.
-- Módulo Handshake, con posibilidad de conexión a una impresora, con o sin controlador PIC.
-- Un controlador PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador y su reloj asociado.
+
+\begin{itemize}
+\item
+  Teclado y pantalla.
+\item
+  Un módulo PIO, que puede conectarse a LEDs e interruptores.
+\item
+  Módulo Handshake, con posibilidad de conexión a una impresora, con o sin controlador PIC.
+\item
+  Un controlador PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador y su reloj asociado.
+\end{itemize}
 
 La Figura \ref{fig:dispositivos} muestra una visión general de los dispositivos que pueden conectarse al simulador.
 
