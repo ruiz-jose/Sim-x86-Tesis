@@ -1514,33 +1514,33 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
   - HLT: 
     4. Detiene la ejecución de la CPU.
 
-## Implementación del ciclo de instrucción para MOV AL, BL en xDEVS
-La instrucción MOV AL, BL realiza la transferencia del contenido del registro BL al registro AL:
+## Implementación del ciclo de instrucción MOV AL, BL en xDEVS
 
-En VonSim8, esta operación implica una lectura del registro fuente (BL) y una escritura en el registro destino (AL), coordinadas por la Unidad de Control (UC).
-El ciclo completo se compone de dos fases generales, que se modelan como secuencia de eventos en el entorno xDEVS:
+La instrucción **MOV AL, BL** transfiere el contenido del registro fuente **BL** al registro destino **AL**.  
+En el simulador **VonSim8**, esta operación se modela como una secuencia de *eventos discretos* coordinados por la **Unidad de Control (UC)**, que emite señales de lectura y escritura sobre los registros involucrados.  
 
-Captación (Fetch) — común a todas las instrucciones.
+A continuación se describe la implementación de este ciclo en el entorno **xDEVS**, donde cada componente se representa como un **modelo atómico**, y su interacción como un **modelo acoplado jerárquico**.
 
-Ejecución (Execute) — específica del tipo MOV.
+### Fases del ciclo de instrucción
+
+El ciclo de instrucción completo se organiza en dos fases generales, representadas como transiciones de estado dentro del formalismo xDEVS:
+
+- **Fase de captación (Fetch)** — común a todas las instrucciones.  
+- **Fase de ejecución (Execute)** — específica del tipo de instrucción (en este caso, MOV).
 
 ### Fase de Captación (Fetch)
+Esta fase, común a cualquier instrucción, se conserva tal como se detalla en la definición general del ciclo de instrucción:
 
-Ya definida en tu texto, se conserva igual:
+  - **`MAR` $\leftarrow$ `IP`**
+  - **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1**
+  - **`IR` $\leftarrow$ `MBR`**
 
-MAR ← IP
-
-MBR ← read(Mem[MAR]) | IP ← IP + 1
-
-IR ← MBR
-
-Una vez completada esta fase, el registro IR contiene el código binario correspondiente a MOV AL, BL.
+Al finalizar, el registro **IR** contiene el código binario correspondiente a la instrucción `MOV AL, BL`.
 
 ### Fase de Ejecución (Execute): MOV AL, BL
 
 #### Modelos Atómicos involucrados
-
-Para simular esta instrucción, intervienen los siguientes modelos Atómicos:
+Durante la ejecución, intervienen los siguientes modelos atómicos del entorno xDEVS:
 
 ```{r componentesprincipales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1607,7 +1607,12 @@ if (knitr::is_latex_output()) {
 }
 ```               
 
-#### Flujo de eventos y microoperaciones (RTL)
+Los modelos AL y BL representan registros independientes, con su propia dinámica interna de lectura y escritura.
+El modelo UC controla la sincronización de los eventos, mientras que el BUS actúa como canal de comunicación compartido entre los registros.
+
+#### Flujo de eventos y microoperaciones (nivel RTL)
+El proceso se descompone en microoperaciones que describen la propagación de señales y los cambios de estado en los modelos atómicos.
+Cada paso se corresponde con una transición DEVS ($\delta_{\text{ext}}$, $\delta_{\text{int}}$, $\lambda$), tal como se muestra en la tabla siguiente:
 
 ```{r microoperacionesMOV, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1678,9 +1683,11 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-### Definición DEVS simplificada de cada modelo
+Estas microoperaciones se ejecutan de forma ordenada y temporizada, de acuerdo con las funciones de transición del formalismo xDEVS, representando el flujo de control de la UC y las transferencias de datos entre registros.
 
-#### Modelo Atómico: Registro (ej. AL o BL)
+### Definición XDEVS simplificada de cada modelo
+
+#### Modelo Atómico: Registro (AL o BL)
 La definición formal del modelo atómico de registro se presenta en la ecuación \@ref(eq:modreg):
 
 \begin{equation}
@@ -1694,7 +1701,7 @@ Donde:
 - $S$: estados $\{ \text{valor},\ \text{modo} \}$
 - $Y$: salidas $\{ \text{dato\_out} \}$
 
-**Transiciones:**
+**Transiciones DEVS:**
 
 - $\delta_{\text{ext}}$:  
   Si $\text{enable\_in} = 1$ y llega $\text{dato\_in}$, entonces $\text{valor} \leftarrow \text{dato\_in}$.  
@@ -1746,7 +1753,7 @@ IR → UC → [ señales de control ]
          +------------+
 
 ### Resultados de simulación esperados (en VonSim8)
-Durante la simulación en VonSim8 (siguiendo los tiempos y funciones DEVS):
+Durante la simulación en VonSim8, los tiempos y funciones DEVS determinan la secuencia de eventos y el intercambio de datos entre modelos:
 
 ```{r cicloMOV, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1818,14 +1825,18 @@ if (knitr::is_latex_output()) {
 ```
 
 ### Conclusión
-El formalismo xDEVS permite representar de forma modular, jerárquica y temporizada el comportamiento del ciclo de instrucción.
-Para MOV AL, BL, la simulación reproduce la dinámica de señales y transferencias de datos propias del nivel RTL, mostrando cómo la Unidad de Control coordina la comunicación entre registros mediante eventos discretos.
+El formalismo xDEVS permite representar con precisión el comportamiento modular, jerárquico y temporizado del ciclo de instrucción MOV AL, BL.
+La simulación reproduce la dinámica de señales y las transferencias de datos propias del nivel RTL (Register Transfer Level), evidenciando cómo la Unidad de Control coordina la comunicación entre los registros mediante eventos discretos y funciones de transición bien definidas.
 
 ## Módulo de entrada/salida e interrupciones
 El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal, agrupados en las siguientes categorías:
+
   - Teclado y pantalla.
+
   - Un módulo PIO, que puede conectarse a LEDs e interruptores.
+
   - Módulo Handshake, con posibilidad de conexión a una impresora, con o sin controlador PIC.
+  
   - Un controlador PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador y su reloj asociado.
 
 La Figura \@ref(fig:dispositivos) muestra una visión general de los dispositivos que pueden conectarse al simulador.
