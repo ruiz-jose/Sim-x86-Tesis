@@ -230,7 +230,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#estructura-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.1</b> Estructura del formalismo DEVS</a></li>
 <li class="chapter" data-level="3.3.2" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#aplicaciones-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.2</b> Aplicaciones del formalismo DEVS</a></li>
-<li class="chapter" data-level="3.3.3" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#devs-en-la-enseñanza-de-la-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.3.3</b> DEVS en la enseñanza de la Arquitectura de Computadoras</a></li>
+<li class="chapter" data-level="3.3.3" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#xdevs"><i class="fa fa-check"></i><b>3.3.3</b> xDEVS</a></li>
+<li class="chapter" data-level="3.3.4" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#xdevs-en-la-enseñanza-de-la-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.3.4</b> xDEVS en la enseñanza de la Arquitectura de Computadoras</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="comparativa.html"><a href="comparativa.html"><i class="fa fa-check"></i><b>4</b> Comparativa de simuladores</a>
@@ -281,6 +282,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.8.1" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#fase-de-captación-fetch"><i class="fa fa-check"></i><b>5.8.1</b> Fase de Captación (Fetch)</a></li>
 <li class="chapter" data-level="5.8.2" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#fase-de-ejecución-execute-mov-al-bl"><i class="fa fa-check"></i><b>5.8.2</b> Fase de Ejecución (Execute): MOV AL, BL</a></li>
+<li class="chapter" data-level="5.8.3" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#definición-devs-simplificada-de-cada-modelo"><i class="fa fa-check"></i><b>5.8.3</b> Definición DEVS simplificada de cada modelo</a></li>
+<li class="chapter" data-level="5.8.4" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#diagrama-de-interacción-resumen-conceptual"><i class="fa fa-check"></i><b>5.8.4</b> Diagrama de interacción (resumen conceptual)</a></li>
+<li class="chapter" data-level="5.8.5" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#resultados-de-simulación-esperados-en-vonsim8"><i class="fa fa-check"></i><b>5.8.5</b> Resultados de simulación esperados (en VonSim8)</a></li>
+<li class="chapter" data-level="5.8.6" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#conclusión"><i class="fa fa-check"></i><b>5.8.6</b> Conclusión</a></li>
 </ul></li>
 <li class="chapter" data-level="5.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html"><i class="fa fa-check"></i><b>5.9</b> Módulo de entrada/salida e interrupciones</a>
 <ul>
@@ -393,6 +398,9 @@ Bonwell, Charles C., and James A. Eison. 1991. <span>“Active Learning: Creatin
 Brey, Barry B. 2013. <em>The Intel Microprocessors: Architecture, Programming, and Interfacing</em>. 8th ed. Pearson Education.
 </div>
 <div class="csl-entry">
+Bryant, Randal E. 2018. <span>“Formal Verification of Pipelined Y86-64 Microprocessors with UCLID5.”</span> CMU-CS-18-122. Pittsburgh, PA 15213: School of Computer Science, Carnegie Mellon University.
+</div>
+<div class="csl-entry">
 Bryant, Randal E, and David R O’Hallaron. 2015. <em>Computer Systems: A Programmer’s Perspective</em>. Pearson.
 </div>
 <div class="csl-entry">
@@ -480,6 +488,12 @@ International, Borland. 1993. <em>Turbo Assembler User’s Guide</em>. Borland I
 Irvine, Kip R, and Lyla B Das. 2011. <em>Assembly Language for X86 Processors</em>. Prentice Hall.
 </div>
 <div class="csl-entry">
+Iscar-UCM. 2023a. <span>“xDEVS: Toolkit for Interoperable Modeling and Simulation of Formal Discrete Event Systems.”</span> <a href="https://github.com/iscar-ucm/xdevs" class="uri">https://github.com/iscar-ucm/xdevs</a>.
+</div>
+<div class="csl-entry">
+———. 2023b. <span>“Xdevs.py: Python Implementation of xDEVS for Discrete Event Simulation.”</span> <a href="https://github.com/iscar-ucm/xdevs.py/tree/main" class="uri">https://github.com/iscar-ucm/xdevs.py/tree/main</a>.
+</div>
+<div class="csl-entry">
 Jentsch, Florian, and Michael Curtis. 2017. <em>Simulation in Aviation Training</em>. Routledge.
 </div>
 <div class="csl-entry">
@@ -487,6 +501,9 @@ Law, Averill M. 2015. <em>Simulation <span>Modeling</span> &amp; <span>Analysis<
 </div>
 <div class="csl-entry">
 Lion, Carina. 2005. <span>“Los Simuladores. <span>Su</span> Potencial Para La Enseñanza Universitaria.”</span> <em>Cuadernos de Investigación Educativa</em> 2 (12): 53–66.
+</div>
+<div class="csl-entry">
+Llorente de la Cita, Guillermo, and Luis Lázaro-Carrasco Hernández. 2016. <span>“Diseño e Implementación Del Kernel de xDEVS, Versión Distribuida.”</span> Trabajo de Fin de Grado. Universidad Complutense de Madrid, Facultad de Informática.
 </div>
 <div class="csl-entry">
 Majid, Zamri. 1999. <span>“Design of SAP-1 Controller and Simulation Using Mentor Graphics.”</span> PhD thesis, Universiti Teknologi MARA (UiTM).
@@ -556,6 +573,9 @@ Prasad, PWC, Abeer Alsadoon, Azam Beg, and Anthony Chan. 2016. <span>“Using Si
 </div>
 <div class="csl-entry">
 Radivojevic, Zaharije, Milos Cvetanovic, and Jovan Ðordevic. 2011. <span>“Design of the Simulator for Teaching Computer Architecture and Organization.”</span> In <em>2011 <span>Second</span> <span>Eastern</span> <span>European</span> <span>Regional</span> <span>Conference</span> on the <span>Engineering</span> of <span>Computer</span> <span>Based</span> <span>Systems</span></em>, 124–30. IEEE.
+</div>
+<div class="csl-entry">
+Risco-Martín, José L., Saurabh Mittal, Kevin Henares, Román Cardenas, and Patricia Arroba. 2023. <span>“xDEVS: A Toolkit for Interoperable Modeling and Simulation of Formal Discrete Event Systems.”</span> <em>Software: Practice and Experience</em> 53 (3): 748–89. https://doi.org/<a href="https://doi.org/10.1002/spe.3168">https://doi.org/10.1002/spe.3168</a>.
 </div>
 <div class="csl-entry">
 Robinson, Stewart. 2014. <em>Simulation: <span>The</span> <span>Practice</span> of <span>Model</span> <span>Development</span> and <span>Use</span></em>. 2nd edition. Wiley.

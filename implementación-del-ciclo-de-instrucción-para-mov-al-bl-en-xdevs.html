@@ -230,7 +230,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#estructura-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.1</b> Estructura del formalismo DEVS</a></li>
 <li class="chapter" data-level="3.3.2" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#aplicaciones-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.2</b> Aplicaciones del formalismo DEVS</a></li>
-<li class="chapter" data-level="3.3.3" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#devs-en-la-enseñanza-de-la-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.3.3</b> DEVS en la enseñanza de la Arquitectura de Computadoras</a></li>
+<li class="chapter" data-level="3.3.3" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#xdevs"><i class="fa fa-check"></i><b>3.3.3</b> xDEVS</a></li>
+<li class="chapter" data-level="3.3.4" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#xdevs-en-la-enseñanza-de-la-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.3.4</b> xDEVS en la enseñanza de la Arquitectura de Computadoras</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="comparativa.html"><a href="comparativa.html"><i class="fa fa-check"></i><b>4</b> Comparativa de simuladores</a>
@@ -281,6 +282,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.8.1" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#fase-de-captación-fetch"><i class="fa fa-check"></i><b>5.8.1</b> Fase de Captación (Fetch)</a></li>
 <li class="chapter" data-level="5.8.2" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#fase-de-ejecución-execute-mov-al-bl"><i class="fa fa-check"></i><b>5.8.2</b> Fase de Ejecución (Execute): MOV AL, BL</a></li>
+<li class="chapter" data-level="5.8.3" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#definición-devs-simplificada-de-cada-modelo"><i class="fa fa-check"></i><b>5.8.3</b> Definición DEVS simplificada de cada modelo</a></li>
+<li class="chapter" data-level="5.8.4" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#diagrama-de-interacción-resumen-conceptual"><i class="fa fa-check"></i><b>5.8.4</b> Diagrama de interacción (resumen conceptual)</a></li>
+<li class="chapter" data-level="5.8.5" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#resultados-de-simulación-esperados-en-vonsim8"><i class="fa fa-check"></i><b>5.8.5</b> Resultados de simulación esperados (en VonSim8)</a></li>
+<li class="chapter" data-level="5.8.6" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#conclusión"><i class="fa fa-check"></i><b>5.8.6</b> Conclusión</a></li>
 </ul></li>
 <li class="chapter" data-level="5.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html"><i class="fa fa-check"></i><b>5.9</b> Módulo de entrada/salida e interrupciones</a>
 <ul>
@@ -371,128 +376,343 @@ El ciclo completo se compone de dos fases generales, que se modelan como secuenc
 <h3><span class="header-section-number">5.8.2</span> Fase de Ejecución (Execute): MOV AL, BL<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#fase-de-ejecución-execute-mov-al-bl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="modelos-atómicos-involucrados" class="section level4 hasAnchor" number="5.8.2.1">
 <h4><span class="header-section-number">5.8.2.1</span> Modelos Atómicos involucrados<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#modelos-atómicos-involucrados" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Para simular esta instrucción, intervienen los siguientes modelos Atómicos:
-| Componente | Tipo | Descripción |
-| ——————————— | —————————– | —————————————————————— |
-| <strong>UC</strong> (Unidad de Control) | Atómico | Decodifica <code>IR</code>, genera señales de control para lectura/escritura. |
-| <strong>IR</strong> (Registro de Instrucción) | Atómico | Contiene el código binario de la instrucción. |
-| <strong>AL</strong> (Registro Acumulador bajo) | Atómico | Registro destino. |
-| <strong>BL</strong> (Registro base bajo) | Atómico | Registro fuente. |
-| <strong>BUS</strong> (Bus de datos) | Atómico o variable compartida | Transporta el dato desde el origen al destino. |</p>
-</div>
-<div id="definición-devs-simplificada-de-cada-modelo" class="section level4 hasAnchor" number="5.8.2.2">
-<h4><span class="header-section-number">5.8.2.2</span> Definición DEVS simplificada de cada modelo<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#definición-devs-simplificada-de-cada-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p><strong>Modelo Atómico: Registro (ej. AL o BL)</strong></p>
-<p>El modelo atómico del <strong>Registro</strong> se define como:</p>
-<table style="width:100%;">
-<colgroup>
-<col width="2%" />
-<col width="12%" />
-<col width="39%" />
-<col width="45%" />
-</colgroup>
+<p>Para simular esta instrucción, intervienen los siguientes modelos Atómicos:</p>
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:componentesprincipales">Tabla 5.12: </span>Componentes principales del simulador VonSim8
+</caption>
 <thead>
-<tr class="header">
-<th>Paso</th>
-<th>Microoperación</th>
-<th>Descripción</th>
-<th>Modelos y funciones DEVS</th>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Componente
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Tipo
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Descripción
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>1</td>
-<td><code>UC: decodificar(IR)</code></td>
-<td>La UC lee el valor del IR y reconoce el opcode <code>MOV</code> con operandos <code>AL, BL</code>.</td>
-<td><code>/delta_ext</code> (UC) recibe evento del IR; actualiza su estado (<code>S</code>) con la instrucción actual.</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+UC (Unidad de Control)
+</td>
+<td style="text-align:left;width: 15em; ">
+Atómico
+</td>
+<td style="text-align:left;width: 35em; ">
+Decodifica IR, genera señales de control para lectura/escritura.
+</td>
 </tr>
-<tr class="even">
-<td>2</td>
-<td><code>UC → BL.enable_out = 1</code></td>
-<td>La UC activa la señal de lectura del registro fuente.</td>
-<td><code>/lambda</code> (UC) genera evento de salida hacia BL.</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+IR (Registro de Instrucción)
+</td>
+<td style="text-align:left;width: 15em; ">
+Atómico
+</td>
+<td style="text-align:left;width: 35em; ">
+Contiene el código binario de la instrucción.
+</td>
 </tr>
-<tr class="odd">
-<td>3</td>
-<td><code>BUS ← BL</code></td>
-<td>El registro BL coloca su valor en el bus de datos.</td>
-<td><code>/lambda</code> (BL) emite valor actual al BUS.</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+AL (Registro Acumulador bajo)
+</td>
+<td style="text-align:left;width: 15em; ">
+Atómico
+</td>
+<td style="text-align:left;width: 35em; ">
+Registro destino.
+</td>
 </tr>
-<tr class="even">
-<td>4</td>
-<td><code>UC → AL.enable_in = 1</code></td>
-<td>La UC habilita la escritura en AL.</td>
-<td><code>/lambda</code> (UC) envía evento de control a AL.</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+BL (Registro base bajo)
+</td>
+<td style="text-align:left;width: 15em; ">
+Atómico
+</td>
+<td style="text-align:left;width: 35em; ">
+Registro fuente.
+</td>
 </tr>
-<tr class="odd">
-<td>5</td>
-<td><code>AL ← BUS</code></td>
-<td>El registro AL captura el dato del bus y actualiza su estado interno.</td>
-<td><code>/delta_ext</code> (AL) recibe valor del BUS y actualiza su estado <code>S</code>.</td>
+<tr>
+<td style="text-align:left;width: 25em; font-weight: bold;">
+BUS (Bus de datos)
+</td>
+<td style="text-align:left;width: 15em; ">
+Atómico o variable compartida
+</td>
+<td style="text-align:left;width: 35em; ">
+Transporta el dato desde el origen al destino.
+</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="diagrama-de-interacción-resumen-conceptual" class="section level4 hasAnchor" number="5.8.2.3">
-<h4><span class="header-section-number">5.8.2.3</span> Diagrama de interacción (resumen conceptual)<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#diagrama-de-interacción-resumen-conceptual" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="flujo-de-eventos-y-microoperaciones-rtl" class="section level4 hasAnchor" number="5.8.2.2">
+<h4><span class="header-section-number">5.8.2.2</span> Flujo de eventos y microoperaciones (RTL)<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#flujo-de-eventos-y-microoperaciones-rtl" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:microoperacionesMOV">Tabla 5.13: </span>Secuencia de microoperaciones para MOV AL, BL en VonSim8
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Paso
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Microoperación
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Descripción
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Modelos y funciones DEVS
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 8em; font-weight: bold;">
+1
+</td>
+<td style="text-align:left;width: 18em; ">
+UC: decodificar(IR)
+</td>
+<td style="text-align:left;width: 32em; ">
+La UC lee el valor del IR y reconoce el opcode MOV con operandos AL, BL.
+</td>
+<td style="text-align:left;width: 32em; ">
+<span class="math inline">\(\delta_{\text{ext}}\)</span> (UC) recibe evento del IR; actualiza su estado (S) con la instrucción actual.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; font-weight: bold;">
+2
+</td>
+<td style="text-align:left;width: 18em; ">
+UC → BL.enable_out = 1
+</td>
+<td style="text-align:left;width: 32em; ">
+La UC activa la señal de lectura del registro fuente.
+</td>
+<td style="text-align:left;width: 32em; ">
+<span class="math inline">\(\lambda\)</span> (UC) genera evento de salida hacia BL.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; font-weight: bold;">
+3
+</td>
+<td style="text-align:left;width: 18em; ">
+BUS ← BL
+</td>
+<td style="text-align:left;width: 32em; ">
+El registro BL coloca su valor en el bus de datos.
+</td>
+<td style="text-align:left;width: 32em; ">
+<span class="math inline">\(\lambda\)</span> (BL) emite valor actual al BUS.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; font-weight: bold;">
+4
+</td>
+<td style="text-align:left;width: 18em; ">
+UC → AL.enable_in = 1
+</td>
+<td style="text-align:left;width: 32em; ">
+La UC habilita la escritura en AL.
+</td>
+<td style="text-align:left;width: 32em; ">
+<span class="math inline">\(\lambda\)</span> (UC) envía evento de control a AL.
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 8em; font-weight: bold;">
+5
+</td>
+<td style="text-align:left;width: 18em; ">
+AL ← BUS
+</td>
+<td style="text-align:left;width: 32em; ">
+El registro AL captura el dato del bus y actualiza su estado interno.
+</td>
+<td style="text-align:left;width: 32em; ">
+<span class="math inline">\(\delta_{\text{ext}}\)</span> (AL) recibe valor del BUS y actualiza su estado S.
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="resultados-de-simulación-esperados-en-vonsim8" class="section level4 hasAnchor" number="5.8.2.4">
-<h4><span class="header-section-number">5.8.2.4</span> Resultados de simulación esperados (en VonSim8)<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#resultados-de-simulación-esperados-en-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="definición-devs-simplificada-de-cada-modelo" class="section level3 hasAnchor" number="5.8.3">
+<h3><span class="header-section-number">5.8.3</span> Definición DEVS simplificada de cada modelo<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#definición-devs-simplificada-de-cada-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="modelo-atómico-registro-ej.-al-o-bl" class="section level4 hasAnchor" number="5.8.3.1">
+<h4><span class="header-section-number">5.8.3.1</span> Modelo Atómico: Registro (ej. AL o BL)<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#modelo-atómico-registro-ej.-al-o-bl" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>La definición formal del modelo atómico de registro se presenta en la ecuación <a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#eq:modreg">(5.1)</a>:</p>
+<p><span class="math display" id="eq:modreg">\[\begin{equation}
+M_{\text{REG}} = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
+\tag{5.1}
+\end{equation}\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(X\)</span>: entradas <span class="math inline">\(\{ \text{dato\_in},\ \text{enable\_in},\ \text{enable\_out} \}\)</span></li>
+<li><span class="math inline">\(S\)</span>: estados <span class="math inline">\(\{ \text{valor},\ \text{modo} \}\)</span></li>
+<li><span class="math inline">\(Y\)</span>: salidas <span class="math inline">\(\{ \text{dato\_out} \}\)</span></li>
+</ul>
+<p><strong>Transiciones:</strong></p>
+<ul>
+<li><p><span class="math inline">\(\delta_{\text{ext}}\)</span>:<br />
+Si <span class="math inline">\(\text{enable\_in} = 1\)</span> y llega <span class="math inline">\(\text{dato\_in}\)</span>, entonces <span class="math inline">\(\text{valor} \leftarrow \text{dato\_in}\)</span>.<br />
+Si <span class="math inline">\(\text{enable\_out} = 1\)</span>, prepara salida.</p></li>
+<li><p><span class="math inline">\(\lambda\)</span>:<br />
+Emite <span class="math inline">\(\text{dato\_out} = \text{valor}\)</span> si <span class="math inline">\(\text{enable\_out} = 1\)</span>.</p></li>
+<li><p><span class="math inline">\(\delta_{\text{int}}\)</span>:<br />
+Reinicia <span class="math inline">\(\text{enable\_in}\)</span> y <span class="math inline">\(\text{enable\_out}\)</span>.</p></li>
+<li><p><span class="math inline">\(\tau\)</span>:<br />
+Duración del micropaso (instantánea o tiempo simbólico <span class="math inline">\(t_{\text{reg}}\)</span>).</p></li>
+</ul>
+</div>
+<div id="modelo-atómico-unidad-de-control-uc" class="section level4 hasAnchor" number="5.8.3.2">
+<h4><span class="header-section-number">5.8.3.2</span> Modelo Atómico: Unidad de Control (UC)<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#modelo-atómico-unidad-de-control-uc" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>La definición formal del modelo atómico de la unidad de control se presenta en la ecuación <a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#eq:moduc">(5.2)</a>:</p>
+<p><span class="math display" id="eq:moduc">\[\begin{equation}
+M_{\text{UC}} = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
+\tag{5.2}
+\end{equation}\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(X\)</span>: entrada desde <span class="math inline">\(IR\)</span> (opcode, operandos).</li>
+<li><span class="math inline">\(S\)</span>: estados <span class="math inline">\(\{ \text{estado},\ \text{opcode},\ \text{operandos} \}\)</span></li>
+<li><span class="math inline">\(Y\)</span>: señales de control <span class="math inline">\(\{ \text{enable\_in},\ \text{enable\_out} \}\)</span></li>
+</ul>
+<p><strong>Transiciones:</strong></p>
+<ul>
+<li><p><span class="math inline">\(\delta_{\text{ext}}\)</span>:<br />
+Al recibir una instrucción, actualiza el estado decodificando opcode y operandos.</p></li>
+<li><p><span class="math inline">\(\lambda\)</span>:<br />
+Genera señales de control según el opcode (por ejemplo, para MOV: activa salida de BL y entrada de AL).</p></li>
+<li><p><span class="math inline">\(\delta_{\text{int}}\)</span>:<br />
+Pasa a estado de espera.</p></li>
+<li><p><span class="math inline">\(\tau\)</span>:<br />
+Duración del ciclo de control.</p></li>
+</ul>
+</div>
+</div>
+<div id="diagrama-de-interacción-resumen-conceptual" class="section level3 hasAnchor" number="5.8.4">
+<h3><span class="header-section-number">5.8.4</span> Diagrama de interacción (resumen conceptual)<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#diagrama-de-interacción-resumen-conceptual" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>IR → UC → [ señales de control ]
+↓
++————+
+| BL | – <span class="math inline">\(\lambda\)</span> –&gt; (dato) –&gt; BUS –&gt; (dato) –&gt; AL
++————+</p>
+</div>
+<div id="resultados-de-simulación-esperados-en-vonsim8" class="section level3 hasAnchor" number="5.8.5">
+<h3><span class="header-section-number">5.8.5</span> Resultados de simulación esperados (en VonSim8)<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#resultados-de-simulación-esperados-en-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Durante la simulación en VonSim8 (siguiendo los tiempos y funciones DEVS):</p>
-<table>
-<colgroup>
-<col width="10%" />
-<col width="20%" />
-<col width="17%" />
-<col width="53%" />
-</colgroup>
+<table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<caption>
+<span id="tab:cicloMOV">Tabla 5.14: </span>Ciclo de ejecución de la instrucción MOV AL, BL
+</caption>
 <thead>
-<tr class="header">
-<th>Tiempo (t)</th>
-<th>Evento</th>
-<th>Registro afectado</th>
-<th>Acción</th>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Tiempo (t)
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Evento
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Registro afectado
+</th>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Acción
+</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>t</td>
-<td>Captación completada</td>
-<td>IR</td>
-<td>Contiene <code>MOV AL, BL</code></td>
+<tr>
+<td style="text-align:left;width: 10em; font-weight: bold;">
+<span class="math inline">\(t_{\text{0}}\)</span>
+</td>
+<td style="text-align:left;width: 18em; ">
+Captación completada
+</td>
+<td style="text-align:left;width: 12em; ">
+IR
+</td>
+<td style="text-align:left;width: 32em; ">
+Contiene MOV AL, BL
+</td>
 </tr>
-<tr class="even">
-<td>t</td>
-<td>Decodificación</td>
-<td>UC</td>
-<td>Genera señales de control</td>
+<tr>
+<td style="text-align:left;width: 10em; font-weight: bold;">
+<span class="math inline">\(t_{\text{1}}\)</span>
+</td>
+<td style="text-align:left;width: 18em; ">
+Decodificación
+</td>
+<td style="text-align:left;width: 12em; ">
+UC
+</td>
+<td style="text-align:left;width: 32em; ">
+Genera señales de control
+</td>
 </tr>
-<tr class="odd">
-<td>t</td>
-<td>Lectura de BL</td>
-<td>BL</td>
-<td>Emite valor al bus</td>
+<tr>
+<td style="text-align:left;width: 10em; font-weight: bold;">
+<span class="math inline">\(t_{\text{2}}\)</span>
+</td>
+<td style="text-align:left;width: 18em; ">
+Lectura de BL
+</td>
+<td style="text-align:left;width: 12em; ">
+BL
+</td>
+<td style="text-align:left;width: 32em; ">
+Emite valor al bus
+</td>
 </tr>
-<tr class="even">
-<td>t</td>
-<td>Escritura en AL</td>
-<td>AL</td>
-<td>Guarda el valor de BL</td>
+<tr>
+<td style="text-align:left;width: 10em; font-weight: bold;">
+<span class="math inline">\(t_{\text{3}}\)</span>
+</td>
+<td style="text-align:left;width: 18em; ">
+Escritura en AL
+</td>
+<td style="text-align:left;width: 12em; ">
+AL
+</td>
+<td style="text-align:left;width: 32em; ">
+Guarda el valor de BL
+</td>
 </tr>
-<tr class="odd">
-<td>t</td>
-<td>Fin de instrucción</td>
-<td>UC</td>
-<td>Pasa al siguiente ciclo (fetch siguiente instrucción)</td>
+<tr>
+<td style="text-align:left;width: 10em; font-weight: bold;">
+<span class="math inline">\(t_{\text{4}}\)</span>
+</td>
+<td style="text-align:left;width: 18em; ">
+Fin de instrucción
+</td>
+<td style="text-align:left;width: 12em; ">
+UC
+</td>
+<td style="text-align:left;width: 32em; ">
+Pasa al siguiente ciclo (fetch siguiente instrucción)
+</td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="conclusión" class="section level4 hasAnchor" number="5.8.2.5">
-<h4><span class="header-section-number">5.8.2.5</span> Conclusión<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#conclusión" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="conclusión" class="section level3 hasAnchor" number="5.8.6">
+<h3><span class="header-section-number">5.8.6</span> Conclusión<a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#conclusión" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El formalismo xDEVS permite representar de forma modular, jerárquica y temporizada el comportamiento del ciclo de instrucción.
 Para MOV AL, BL, la simulación reproduce la dinámica de señales y transferencias de datos propias del nivel RTL, mostrando cómo la Unidad de Control coordina la comunicación entre registros mediante eventos discretos.</p>
-</div>
 </div>
 </div>
             </section>

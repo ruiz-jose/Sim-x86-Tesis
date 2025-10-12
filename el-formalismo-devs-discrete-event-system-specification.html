@@ -230,7 +230,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#estructura-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.1</b> Estructura del formalismo DEVS</a></li>
 <li class="chapter" data-level="3.3.2" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#aplicaciones-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.2</b> Aplicaciones del formalismo DEVS</a></li>
-<li class="chapter" data-level="3.3.3" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#devs-en-la-enseñanza-de-la-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.3.3</b> DEVS en la enseñanza de la Arquitectura de Computadoras</a></li>
+<li class="chapter" data-level="3.3.3" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#xdevs"><i class="fa fa-check"></i><b>3.3.3</b> xDEVS</a></li>
+<li class="chapter" data-level="3.3.4" data-path="el-formalismo-devs-discrete-event-system-specification.html"><a href="el-formalismo-devs-discrete-event-system-specification.html#xdevs-en-la-enseñanza-de-la-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.3.4</b> xDEVS en la enseñanza de la Arquitectura de Computadoras</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="comparativa.html"><a href="comparativa.html"><i class="fa fa-check"></i><b>4</b> Comparativa de simuladores</a>
@@ -281,6 +282,10 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.8.1" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#fase-de-captación-fetch"><i class="fa fa-check"></i><b>5.8.1</b> Fase de Captación (Fetch)</a></li>
 <li class="chapter" data-level="5.8.2" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#fase-de-ejecución-execute-mov-al-bl"><i class="fa fa-check"></i><b>5.8.2</b> Fase de Ejecución (Execute): MOV AL, BL</a></li>
+<li class="chapter" data-level="5.8.3" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#definición-devs-simplificada-de-cada-modelo"><i class="fa fa-check"></i><b>5.8.3</b> Definición DEVS simplificada de cada modelo</a></li>
+<li class="chapter" data-level="5.8.4" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#diagrama-de-interacción-resumen-conceptual"><i class="fa fa-check"></i><b>5.8.4</b> Diagrama de interacción (resumen conceptual)</a></li>
+<li class="chapter" data-level="5.8.5" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#resultados-de-simulación-esperados-en-vonsim8"><i class="fa fa-check"></i><b>5.8.5</b> Resultados de simulación esperados (en VonSim8)</a></li>
+<li class="chapter" data-level="5.8.6" data-path="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html"><a href="implementación-del-ciclo-de-instrucción-para-mov-al-bl-en-xdevs.html#conclusión"><i class="fa fa-check"></i><b>5.8.6</b> Conclusión</a></li>
 </ul></li>
 <li class="chapter" data-level="5.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html"><i class="fa fa-check"></i><b>5.9</b> Módulo de entrada/salida e interrupciones</a>
 <ul>
@@ -365,6 +370,22 @@ Esta estructura permite capturar tanto el comportamiento interno como la interac
 Figura 3.1: Relación entre modelos atómicos y modelos acoplados en DEVS
 </p>
 </div>
+<p>La estructura formal del modelo atómico DEVS se presenta en la ecuación <a href="el-formalismo-devs-discrete-event-system-specification.html#eq:devs">(3.1)</a>:</p>
+<p><span class="math display" id="eq:devs">\[\begin{equation}
+M = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
+\tag{3.1}
+\end{equation}\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(X\)</span>: entradas</li>
+<li><span class="math inline">\(S\)</span>: estados internos</li>
+<li><span class="math inline">\(Y\)</span>: salidas</li>
+<li><span class="math inline">\(\delta_{\text{int}}\)</span>: transición interna</li>
+<li><span class="math inline">\(\delta_{\text{ext}}\)</span>: transición externa</li>
+<li><span class="math inline">\(\lambda\)</span>: función de salida</li>
+<li><span class="math inline">\(\tau\)</span>: tiempo de avance del estado</li>
+</ul>
+<p>Esta estructura facilita el modelado de sistemas informáticos, permitiendo representar componentes como registros o unidades de control mediante modelos atómicos que se comunican a través de eventos discretos.</p>
 <p>DEVS describe el comportamiento de un sistema real utilizando eventos de entrada y salida, así como transiciones entre estados definidos. Un sistema en este formalismo se compone de dos tipos principales de modelos:</p>
 <ul>
 <li><strong>Modelos atómicos</strong>: representan las unidades fundamentales de comportamiento.</li>
@@ -384,16 +405,21 @@ Figura 3.2: Modelo acoplado en DEVS
 <p>“El formalismo DEVS encuentra aplicación en diversos ámbitos, como las redes de comunicación <span class="citation">(<a href="#ref-fujimoto2001parallel">Fujimoto 2001</a>)</span>, donde permite simular el enrutamiento de paquetes y la congestión de redes; en entornos de manufactura <span class="citation">(<a href="#ref-zeigler_theory_2000">B. Zeigler, Prähofer, and Kim 2000</a>)</span>, donde se modelan flujos de producción y control de calidad; y en sistemas de transporte, para la optimización de flujos vehiculares <span class="citation">(<a href="#ref-barros1997modeling">Barros 1997</a>)</span>. También se utiliza en la simulación de sistemas biológicos, como la propagación de enfermedades o el comportamiento de poblaciones <span class="citation">(<a href="#ref-zeigler2004continuity">Bernard P. Zeigler, Jammalamadaka, and Akerkar 2004</a>)</span>. En el ámbito de la educación, DEVS se ha implementado en simuladores para la enseñanza de arquitectura de computadoras, permitiendo a los estudiantes explorar y comprender conceptos complejos mediante la visualización y manipulación de modelos <span class="citation">(<a href="#ref-calvo2010simulador">Calvo Valdes, Roldan Ramirez, and San Miguel Sanchez 2010</a>)</span>.</p>
 <p>Estas aplicaciones destacan su versatilidad para optimizar sistemas complejos en escenarios del mundo real.</p>
 </div>
-<div id="devs-en-la-enseñanza-de-la-arquitectura-de-computadoras" class="section level3 hasAnchor" number="3.3.3">
-<h3><span class="header-section-number">3.3.3</span> DEVS en la enseñanza de la Arquitectura de Computadoras<a href="el-formalismo-devs-discrete-event-system-specification.html#devs-en-la-enseñanza-de-la-arquitectura-de-computadoras" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="xdevs" class="section level3 hasAnchor" number="3.3.3">
+<h3><span class="header-section-number">3.3.3</span> xDEVS<a href="el-formalismo-devs-discrete-event-system-specification.html#xdevs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>xDEVS es un framework de modelado y simulación de eventos discretos basado en DEVS/PDEVS que unifica una interfaz común entre múltiples lenguajes (C, C++, Java, Python, Rust, entre otros). Esta interoperabilidad permite reutilizar modelos y comparar motores, al tiempo que habilita ejecuciones secuenciales, paralelas y distribuidas, con énfasis en rendimiento y verificabilidad. En este trabajo se utiliza <code>xdevs.py</code>, la implementación en Python, por su equilibrio entre legibilidad, portabilidad y soporte de ejecución en tiempo virtual y real <span class="citation">(<a href="#ref-risco2023">Risco-Martín et al. 2023</a>; <a href="#ref-xdevs_github">Iscar-UCM 2023a</a>, <a href="#ref-xdevs_py_github">2023b</a>)</span>.</p>
+<p>xDEVS separa explícitamente la capa de <strong>modelado</strong> (modelos atómicos y acoplados con puertos y acoplamientos) de la capa de <strong>simulación</strong> (simuladores y coordinadores que orquestan el avance temporal y la confluencia de eventos). Esta organización refleja la estructura formal DEVS y favorece la construcción jerárquica de sistemas complejos, manteniendo claridad en el flujo de información.</p>
+</div>
+<div id="xdevs-en-la-enseñanza-de-la-arquitectura-de-computadoras" class="section level3 hasAnchor" number="3.3.4">
+<h3><span class="header-section-number">3.3.4</span> xDEVS en la enseñanza de la Arquitectura de Computadoras<a href="el-formalismo-devs-discrete-event-system-specification.html#xdevs-en-la-enseñanza-de-la-arquitectura-de-computadoras" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La implementación de entornos de simulación basados en DEVS en la enseñanza de arquitectura de computadoras aporta múltiples ventajas que enriquecen el proceso de aprendizaje:</p>
 <ul>
 <li><strong>Representación visual</strong>: ofrece diagramas y representaciones dinámicas que ayudan a los estudiantes a visualizar y comprender procesos internos, como la ejecución de instrucciones y la gestión de recursos.</li>
 <li><strong>Interactividad</strong>: permite modificar configuraciones y parámetros, fomentando la experimentación y mostrando el impacto directo de estas variables en el rendimiento del sistema.</li>
 <li><strong>Exploración de escenarios</strong>: posibilita simular escenarios hipotéticos y evaluar el comportamiento de sistemas complejos sin la necesidad de hardware físico.</li>
 </ul>
-<p>Estas funcionalidades enriquecen la experiencia educativa al integrar la teoría con la práctica y fomentar una participación activa en el análisis de los principios fundamentales de la arquitectura computacional. Al adoptar DEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras <span class="citation">(<a href="#ref-calvo_valdes_simulador_2010">Calvo Valdés, Roldán Ramírez, and San Miguel Sánchez 2010</a>)</span>.</p>
-<p>En conclusión, el formalismo DEVS no solo es una herramienta valiosa para el modelado y análisis de sistemas, sino que también representa un recurso poderoso para facilitar la enseñanza de conceptos complejos, como los que se encuentran en la arquitectura de computadoras.</p>
+<p>Estas funcionalidades enriquecen la experiencia educativa al integrar la teoría con la práctica y fomentar una participación activa en el análisis de los principios fundamentales de la arquitectura computacional. Al adoptar xDEVS como parte del entorno educativo, se potencia la capacidad de los estudiantes para abordar problemas complejos y explorar soluciones innovadoras <span class="citation">(<a href="#ref-calvo_valdes_simulador_2010">Calvo Valdés, Roldán Ramírez, and San Miguel Sánchez 2010</a>; <a href="#ref-Llorente2016xDEVS">Llorente de la Cita and Lázaro-Carrasco Hernández 2016</a>; <a href="#ref-bryant2018verification">Randal E. Bryant 2018</a>)</span>.</p>
+<p>En conclusión, el formalismo xDEVS no solo es una herramienta valiosa para el modelado y análisis de sistemas, sino que también representa un recurso poderoso para facilitar la enseñanza de conceptos complejos, como los que se encuentran en la arquitectura de computadoras.</p>
 
 </div>
 </div>
@@ -403,6 +429,9 @@ Figura 3.2: Modelo acoplado en DEVS
 <div id="ref-barros1997modeling" class="csl-entry">
 Barros, Fernando J. 1997. <span>“Modeling Formalisms for Dynamic Structure Systems.”</span> <em>ACM Transactions on Modeling and Computer Simulation (TOMACS)</em> 7 (4): 501–15.
 </div>
+<div id="ref-bryant2018verification" class="csl-entry">
+Bryant, Randal E. 2018. <span>“Formal Verification of Pipelined Y86-64 Microprocessors with UCLID5.”</span> CMU-CS-18-122. Pittsburgh, PA 15213: School of Computer Science, Carnegie Mellon University.
+</div>
 <div id="ref-calvo2010simulador" class="csl-entry">
 Calvo Valdes, Francisco Alejandro, Jose Felix Roldan Ramirez, and Alfonso San Miguel Sanchez. 2010. <span>“Simulador Del Procesador MIPS Sobre El Formalismo DEVS.”</span>
 </div>
@@ -411,6 +440,18 @@ Calvo Valdés, Francisco Alejandro, José Félix Roldán Ramírez, and Alfonso S
 </div>
 <div id="ref-fujimoto2001parallel" class="csl-entry">
 Fujimoto, Richard M. 2001. <span>“Parallel and Distributed Simulation Systems.”</span> In <em>Proceeding of the 2001 Winter Simulation Conference (Cat. No. 01CH37304)</em>, 1:147–57. IEEE.
+</div>
+<div id="ref-xdevs_github" class="csl-entry">
+Iscar-UCM. 2023a. <span>“xDEVS: Toolkit for Interoperable Modeling and Simulation of Formal Discrete Event Systems.”</span> <a href="https://github.com/iscar-ucm/xdevs" class="uri">https://github.com/iscar-ucm/xdevs</a>.
+</div>
+<div id="ref-xdevs_py_github" class="csl-entry">
+———. 2023b. <span>“Xdevs.py: Python Implementation of xDEVS for Discrete Event Simulation.”</span> <a href="https://github.com/iscar-ucm/xdevs.py/tree/main" class="uri">https://github.com/iscar-ucm/xdevs.py/tree/main</a>.
+</div>
+<div id="ref-Llorente2016xDEVS" class="csl-entry">
+Llorente de la Cita, Guillermo, and Luis Lázaro-Carrasco Hernández. 2016. <span>“Diseño e Implementación Del Kernel de xDEVS, Versión Distribuida.”</span> Trabajo de Fin de Grado. Universidad Complutense de Madrid, Facultad de Informática.
+</div>
+<div id="ref-risco2023" class="csl-entry">
+Risco-Martín, José L., Saurabh Mittal, Kevin Henares, Román Cardenas, and Patricia Arroba. 2023. <span>“xDEVS: A Toolkit for Interoperable Modeling and Simulation of Formal Discrete Event Systems.”</span> <em>Software: Practice and Experience</em> 53 (3): 748–89. https://doi.org/<a href="https://doi.org/10.1002/spe.3168">https://doi.org/10.1002/spe.3168</a>.
 </div>
 <div id="ref-zeigler2004continuity" class="csl-entry">
 Zeigler, Bernard P, Rajanikanth Jammalamadaka, and Salil R Akerkar. 2004. <span>“Continuity and Change (Activity) Are Fundamentally Related in DEVS Simulation of Continuous Systems.”</span> In <em>International Conference on AI, Simulation, and Planning in High Autonomy Systems</em>, 1–13. Springer.
