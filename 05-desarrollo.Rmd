@@ -1514,7 +1514,6 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
   - HLT: 
     4. Detiene la ejecución de la CPU.
 
-
 ## Implementación del ciclo de instrucción para MOV AL, BL en xDEVS
 La instrucción MOV AL, BL realiza la transferencia del contenido del registro BL al registro AL:
 
@@ -1542,43 +1541,283 @@ Una vez completada esta fase, el registro IR contiene el código binario corresp
 #### Modelos Atómicos involucrados
 
 Para simular esta instrucción, intervienen los siguientes modelos Atómicos:
-| Componente                        | Tipo                          | Descripción                                                        |
-| --------------------------------- | ----------------------------- | ------------------------------------------------------------------ |
-| **UC** (Unidad de Control)        | Atómico                       | Decodifica `IR`, genera señales de control para lectura/escritura. |
-| **IR** (Registro de Instrucción)  | Atómico                       | Contiene el código binario de la instrucción.                      |
-| **AL** (Registro Acumulador bajo) | Atómico                       | Registro destino.                                                  |
-| **BL** (Registro base bajo)       | Atómico                       | Registro fuente.                                                   |
-| **BUS** (Bus de datos)            | Atómico o variable compartida | Transporta el dato desde el origen al destino.                     |
 
+```{r componentesprincipales, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
 
-#### Definición DEVS simplificada de cada modelo
+# Definir los datos de la tabla
+componentes <- data.frame(
+  Componente = c(
+    "UC (Unidad de Control)",
+    "IR (Registro de Instrucción)",
+    "AL (Registro Acumulador bajo)",
+    "BL (Registro base bajo)",
+    "BUS (Bus de datos)"
+  ),
+  Tipo = c(
+    "Atómico",
+    "Atómico",
+    "Atómico",
+    "Atómico",
+    "Atómico o variable compartida"
+  ),
+  Descripción = c(
+    "Decodifica IR, genera señales de control para lectura/escritura.",
+    "Contiene el código binario de la instrucción.",
+    "Registro destino.",
+    "Registro fuente.",
+    "Transporta el dato desde el origen al destino."
+  )
+)
 
-**Modelo Atómico: Registro (ej. AL o BL)**
+# Crear la tabla con formato dinámico
+tabla_componentes <- kable(
+  componentes,
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Componentes principales del simulador VonSim8",
+  col.names = c("Componente", "Tipo", "Descripción"),
+  booktabs = TRUE,
+  escape = FALSE
+)
 
-El modelo atómico del **Registro** se define como:
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  tabla_componentes %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "4cm") %>%
+    column_spec(3, width = "8cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(componentes)), extra_latex_after = "\\addlinespace[8pt]")
+} else {
+  tabla_componentes %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "25em", bold = TRUE) %>%
+    column_spec(2, width = "15em") %>%
+    column_spec(3, width = "35em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```               
 
-| Paso | Microoperación           | Descripción                                                                  | Modelos y funciones DEVS                                                                |
-| ---- | ------------------------ | ---------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| 1    | `UC: decodificar(IR)`    | La UC lee el valor del IR y reconoce el opcode `MOV` con operandos `AL, BL`. | `/delta_ext` (UC) recibe evento del IR; actualiza su estado (`S`) con la instrucción actual. |
-| 2    | `UC → BL.enable_out = 1` | La UC activa la señal de lectura del registro fuente.                        | `/lambda` (UC) genera evento de salida hacia BL.                                              |
-| 3    | `BUS ← BL`               | El registro BL coloca su valor en el bus de datos.                           | `/lambda` (BL) emite valor actual al BUS.                                                     |
-| 4    | `UC → AL.enable_in = 1`  | La UC habilita la escritura en AL.                                           | `/lambda` (UC) envía evento de control a AL.                                                  |
-| 5    | `AL ← BUS`               | El registro AL captura el dato del bus y actualiza su estado interno.        | `/delta_ext` (AL) recibe valor del BUS y actualiza su estado `S`.                            |
+#### Flujo de eventos y microoperaciones (RTL)
 
-#### Diagrama de interacción (resumen conceptual)
+```{r microoperacionesMOV, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
 
-#### Resultados de simulación esperados (en VonSim8)
+# Definir los datos de la tabla
+microoperaciones <- data.frame(
+  Paso = c("1", "2", "3", "4", "5"),
+  Microoperación = c(
+    "UC: decodificar(IR)",
+    "UC → BL.enable\\_out = 1",
+    "BUS ← BL",
+    "UC → AL.enable\\_in = 1",
+    "AL ← BUS"
+  ),
+  Descripción = c(
+    "La UC lee el valor del IR y reconoce el opcode MOV con operandos AL, BL.",
+    "La UC activa la señal de lectura del registro fuente.",
+    "El registro BL coloca su valor en el bus de datos.",
+    "La UC habilita la escritura en AL.",
+    "El registro AL captura el dato del bus y actualiza su estado interno."
+  ),
+  `Modelos y funciones DEVS` = c(
+    "$\\delta_{\\text{ext}}$ (UC) recibe evento del IR; actualiza su estado (S) con la instrucción actual.",
+    "$\\lambda$ (UC) genera evento de salida hacia BL.",
+    "$\\lambda$ (BL) emite valor actual al BUS.",
+    "$\\lambda$ (UC) envía evento de control a AL.",
+    "$\\delta_{\\text{ext}}$ (AL) recibe valor del BUS y actualiza su estado S."
+  ),
+  stringsAsFactors = FALSE
+)
+
+# Crear la tabla con formato dinámico
+tabla_microop <- kable(
+  microoperaciones,
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Secuencia de microoperaciones para MOV AL, BL en VonSim8",
+  col.names = c("Paso", "Microoperación", "Descripción", "Modelos y funciones DEVS"),
+  booktabs = TRUE,
+  escape = FALSE
+)
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  tabla_microop %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "5cm") %>%
+    column_spec(3, width = "8cm") %>%
+    column_spec(4, width = "8cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(microoperaciones)), extra_latex_after = "\\addlinespace[8pt]")
+} else {
+  tabla_microop %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "8em", bold = TRUE) %>%
+    column_spec(2, width = "18em") %>%
+    column_spec(3, width = "32em") %>%
+    column_spec(4, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+
+### Definición DEVS simplificada de cada modelo
+
+#### Modelo Atómico: Registro (ej. AL o BL)
+La definición formal del modelo atómico de registro se presenta en la ecuación \@ref(eq:modreg):
+
+\begin{equation}
+M_{\text{REG}} = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
+(\#eq:modreg)
+\end{equation}
+
+Donde:
+
+- $X$: entradas $\{ \text{dato\_in},\ \text{enable\_in},\ \text{enable\_out} \}$
+- $S$: estados $\{ \text{valor},\ \text{modo} \}$
+- $Y$: salidas $\{ \text{dato\_out} \}$
+
+**Transiciones:**
+
+- $\delta_{\text{ext}}$:  
+  Si $\text{enable\_in} = 1$ y llega $\text{dato\_in}$, entonces $\text{valor} \leftarrow \text{dato\_in}$.  
+  Si $\text{enable\_out} = 1$, prepara salida.
+
+- $\lambda$:  
+  Emite $\text{dato\_out} = \text{valor}$ si $\text{enable\_out} = 1$.
+
+- $\delta_{\text{int}}$:  
+  Reinicia $\text{enable\_in}$ y $\text{enable\_out}$.
+
+- $\tau$:  
+  Duración del micropaso (instantánea o tiempo simbólico $t_{\text{reg}}$).
+
+#### Modelo Atómico: Unidad de Control (UC)
+La definición formal del modelo atómico de la unidad de control se presenta en la ecuación \@ref(eq:moduc):
+
+\begin{equation}
+M_{\text{UC}} = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
+(\#eq:moduc)
+\end{equation}
+
+Donde:
+
+- $X$: entrada desde $IR$ (opcode, operandos).
+- $S$: estados $\{ \text{estado},\ \text{opcode},\ \text{operandos} \}$
+- $Y$: señales de control $\{ \text{enable\_in},\ \text{enable\_out} \}$
+
+**Transiciones:**
+
+- $\delta_{\text{ext}}$:  
+  Al recibir una instrucción, actualiza el estado decodificando opcode y operandos.
+
+- $\lambda$:  
+  Genera señales de control según el opcode (por ejemplo, para MOV: activa salida de BL y entrada de AL).
+
+- $\delta_{\text{int}}$:  
+  Pasa a estado de espera.
+
+- $\tau$:  
+  Duración del ciclo de control.
+
+### Diagrama de interacción (resumen conceptual)
+
+IR → UC → [ señales de control ]
+                ↓
+         +------------+
+         |    BL      | -- $\lambda$ --> (dato) --> BUS --> (dato) --> AL
+         +------------+
+
+### Resultados de simulación esperados (en VonSim8)
 Durante la simulación en VonSim8 (siguiendo los tiempos y funciones DEVS):
 
-| Tiempo (t) | Evento               | Registro afectado | Acción                                                |
-| ---------- | -------------------- | ----------------- | ----------------------------------------------------- |
-| t         | Captación completada | IR                | Contiene `MOV AL, BL`                                 |
-| t         | Decodificación       | UC                | Genera señales de control                             |
-| t         | Lectura de BL        | BL                | Emite valor al bus                                    |
-| t         | Escritura en AL      | AL                | Guarda el valor de BL                                 |
-| t         | Fin de instrucción   | UC                | Pasa al siguiente ciclo (fetch siguiente instrucción) |
+```{r cicloMOV, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
 
-#### Conclusión
+# Definir los datos de la tabla
+ciclo_mov <- data.frame(
+  `Tiempo (t)` = c("$t_{\\text{0}}$", "$t_{\\text{1}}$", "$t_{\\text{2}}$", "$t_{\\text{3}}$", "$t_{\\text{4}}$"),
+  Evento = c(
+    "Captación completada",
+    "Decodificación",
+    "Lectura de BL",
+    "Escritura en AL",
+    "Fin de instrucción"
+  ),
+  `Registro afectado` = c(
+    "IR",
+    "UC",
+    "BL",
+    "AL",
+    "UC"
+  ),
+  Acción = c(
+    "Contiene MOV AL, BL",
+    "Genera señales de control",
+    "Emite valor al bus",
+    "Guarda el valor de BL",
+    "Pasa al siguiente ciclo (fetch siguiente instrucción)"
+  ),
+  stringsAsFactors = FALSE
+)
+
+# Crear la tabla con formato dinámico
+tabla_ciclo_mov <- kable(
+  ciclo_mov,
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Ciclo de ejecución de la instrucción MOV AL, BL",
+  col.names = c("Tiempo (t)", "Evento", "Registro afectado", "Acción"),
+  booktabs = TRUE,
+  escape = FALSE
+)
+
+# Mostrar la tabla en formato adecuado según el tipo de salida
+if (knitr::is_latex_output()) {
+  tabla_ciclo_mov %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "5cm") %>%
+    column_spec(3, width = "4cm") %>%
+    column_spec(4, width = "8cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(ciclo_mov)), extra_latex_after = "\\addlinespace[8pt]")
+} else {
+  tabla_ciclo_mov %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "10em", bold = TRUE) %>%
+    column_spec(2, width = "18em") %>%
+    column_spec(3, width = "12em") %>%
+    column_spec(4, width = "32em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+
+### Conclusión
 El formalismo xDEVS permite representar de forma modular, jerárquica y temporizada el comportamiento del ciclo de instrucción.
 Para MOV AL, BL, la simulación reproduce la dinámica de señales y transferencias de datos propias del nivel RTL, mostrando cómo la Unidad de Control coordina la comunicación entre registros mediante eventos discretos.
 
