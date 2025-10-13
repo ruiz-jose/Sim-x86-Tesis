@@ -1687,7 +1687,7 @@ Estas microoperaciones se ejecutan de forma ordenada y temporizada, de acuerdo c
 
 ### Definición XDEVS simplificada de cada modelo
 
-#### Modelo Atómico: Registro (AL o BL)
+#### Modelo Atómico: Registro (REG)
 La definición formal del modelo atómico de registro se presenta en la ecuación \@ref(eq:modreg):
 
 \begin{equation}
@@ -1745,6 +1745,25 @@ Donde:
   Duración del ciclo de control.
 
 ### Diagrama de interacción (resumen conceptual)
+
+En el entorno **xDEVS**, cada una de estas microoperaciones se modela como una **transición de estado** o un **evento** entre modelos atómicos.  
+Por ejemplo, la operación `MOV AL, BL` se descompone en:
+
+- $\delta_{\text{ext}}(UC)$ → decodifica la instrucción y genera señales de control.  
+- $\lambda(UC)$ → activa `BL.enable_out`.  
+- $\lambda(BL)$ → emite el valor sobre el bus.  
+- $\delta_{\text{ext}}(AL)$ → recibe el valor del bus y actualiza su estado interno.
+
+De esta forma, la secuencia de microoperaciones RTL se traduce directamente al formalismo DEVS.
+
+
+| Etapa     | Microoperación RTL                     | Evento o transición xDEVS                               | Modelo atómico involucrado |
+| :-------- | :------------------------------------- | :------------------------------------------------------ | :------------------------- |
+| Fetch 1   | `MAR ← IP`                             | $\delta_{\text{ext(UC)}}$ activa señal hacia MAR                      | UC, MAR, IP                |
+| Fetch 2   | `MBR ← read(Mem[MAR])` / `IP ← IP + 1` | $\lambda_{\text{(Mem)}}$ emite dato → $\delta_{\text{ext(MBR)}}$ lo recibe            | Memoria, MBR, UC           |
+| Fetch 3   | `IR ← MBR`                             | $\lambda(MBR)$ → $\delta_{\text{ext}}(IR)$                                  | MBR, IR                    |
+| Execute 1 | `AL ← BL`                              | $\lambda(UC)$ genera señal de control → $\lambda(BL)$ → $\delta_{\text{ext}}(AL)$ | UC, BL, BUS, AL            |
+
 
 IR → UC → [ señales de control ]
                 ↓
