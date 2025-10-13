@@ -3363,8 +3363,8 @@ Estas microoperaciones se ejecutan de forma ordenada y temporizada, de acuerdo c
 \hypertarget{definiciuxf3n-xdevs-simplificada-de-cada-modelo}{%
 \subsection{Definición XDEVS simplificada de cada modelo}\label{definiciuxf3n-xdevs-simplificada-de-cada-modelo}}
 
-\hypertarget{modelo-atuxf3mico-registro-al-o-bl}{%
-\subsubsection{Modelo Atómico: Registro (AL o BL)}\label{modelo-atuxf3mico-registro-al-o-bl}}
+\hypertarget{modelo-atuxf3mico-registro-reg}{%
+\subsubsection{Modelo Atómico: Registro (REG)}\label{modelo-atuxf3mico-registro-reg}}
 
 La definición formal del modelo atómico de registro se presenta en la ecuación \eqref{eq:modreg}:
 
@@ -3444,6 +3444,48 @@ Donde:
 
 \hypertarget{diagrama-de-interacciuxf3n-resumen-conceptual}{%
 \subsection{Diagrama de interacción (resumen conceptual)}\label{diagrama-de-interacciuxf3n-resumen-conceptual}}
+
+En el entorno \textbf{xDEVS}, cada una de estas microoperaciones se modela como una \textbf{transición de estado} o un \textbf{evento} entre modelos atómicos.\\
+Por ejemplo, la operación \texttt{MOV\ AL,\ BL} se descompone en:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\delta_{\text{ext}}(UC)\) → decodifica la instrucción y genera señales de control.\\
+\item
+  \(\lambda(UC)\) → activa \texttt{BL.enable\_out}.\\
+\item
+  \(\lambda(BL)\) → emite el valor sobre el bus.\\
+\item
+  \(\delta_{\text{ext}}(AL)\) → recibe el valor del bus y actualiza su estado interno.
+\end{itemize}
+
+De esta forma, la secuencia de microoperaciones RTL se traduce directamente al formalismo DEVS.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0703}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2969}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4297}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2031}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Etapa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Microoperación RTL
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Evento o transición xDEVS
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Modelo atómico involucrado
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Fetch 1 & \texttt{MAR\ ←\ IP} & \(\delta_{\text{ext(UC)}}\) activa señal hacia MAR & UC, MAR, IP \\
+Fetch 2 & \texttt{MBR\ ←\ read(Mem{[}MAR{]})} / \texttt{IP\ ←\ IP\ +\ 1} & \(\lambda_{\text{(Mem)}}\) emite dato → \(\delta_{\text{ext(MBR)}}\) lo recibe & Memoria, MBR, UC \\
+Fetch 3 & \texttt{IR\ ←\ MBR} & \(\lambda(MBR)\) → \(\delta_{\text{ext}}(IR)\) & MBR, IR \\
+Execute 1 & \texttt{AL\ ←\ BL} & \(\lambda(UC)\) genera señal de control → \(\lambda(BL)\) → \(\delta_{\text{ext}}(AL)\) & UC, BL, BUS, AL \\
+\end{longtable}
 
 IR → UC → {[} señales de control {]}
 ↓

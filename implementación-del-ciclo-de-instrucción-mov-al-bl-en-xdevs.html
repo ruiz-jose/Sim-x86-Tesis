@@ -567,8 +567,8 @@ El registro AL captura el dato del bus y actualiza su estado interno.
 </div>
 <div id="definición-xdevs-simplificada-de-cada-modelo" class="section level3 hasAnchor" number="5.8.4">
 <h3><span class="header-section-number">5.8.4</span> Definición XDEVS simplificada de cada modelo<a href="implementación-del-ciclo-de-instrucción-mov-al-bl-en-xdevs.html#definición-xdevs-simplificada-de-cada-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="modelo-atómico-registro-al-o-bl" class="section level4 hasAnchor" number="5.8.4.1">
-<h4><span class="header-section-number">5.8.4.1</span> Modelo Atómico: Registro (AL o BL)<a href="implementación-del-ciclo-de-instrucción-mov-al-bl-en-xdevs.html#modelo-atómico-registro-al-o-bl" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="modelo-atómico-registro-reg" class="section level4 hasAnchor" number="5.8.4.1">
+<h4><span class="header-section-number">5.8.4.1</span> Modelo Atómico: Registro (REG)<a href="implementación-del-ciclo-de-instrucción-mov-al-bl-en-xdevs.html#modelo-atómico-registro-reg" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>La definición formal del modelo atómico de registro se presenta en la ecuación <a href="implementación-del-ciclo-de-instrucción-mov-al-bl-en-xdevs.html#eq:modreg">(5.1)</a>:</p>
 <p><span class="math display" id="eq:modreg">\[\begin{equation}
 M_{\text{REG}} = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
@@ -621,6 +621,60 @@ Duración del ciclo de control.</p></li>
 </div>
 <div id="diagrama-de-interacción-resumen-conceptual" class="section level3 hasAnchor" number="5.8.5">
 <h3><span class="header-section-number">5.8.5</span> Diagrama de interacción (resumen conceptual)<a href="implementación-del-ciclo-de-instrucción-mov-al-bl-en-xdevs.html#diagrama-de-interacción-resumen-conceptual" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En el entorno <strong>xDEVS</strong>, cada una de estas microoperaciones se modela como una <strong>transición de estado</strong> o un <strong>evento</strong> entre modelos atómicos.<br />
+Por ejemplo, la operación <code>MOV AL, BL</code> se descompone en:</p>
+<ul>
+<li><span class="math inline">\(\delta_{\text{ext}}(UC)\)</span> → decodifica la instrucción y genera señales de control.<br />
+</li>
+<li><span class="math inline">\(\lambda(UC)\)</span> → activa <code>BL.enable_out</code>.<br />
+</li>
+<li><span class="math inline">\(\lambda(BL)\)</span> → emite el valor sobre el bus.<br />
+</li>
+<li><span class="math inline">\(\delta_{\text{ext}}(AL)\)</span> → recibe el valor del bus y actualiza su estado interno.</li>
+</ul>
+<p>De esta forma, la secuencia de microoperaciones RTL se traduce directamente al formalismo DEVS.</p>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="29%" />
+<col width="42%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Etapa</th>
+<th align="left">Microoperación RTL</th>
+<th align="left">Evento o transición xDEVS</th>
+<th align="left">Modelo atómico involucrado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Fetch 1</td>
+<td align="left"><code>MAR ← IP</code></td>
+<td align="left"><span class="math inline">\(\delta_{\text{ext(UC)}}\)</span> activa señal hacia MAR</td>
+<td align="left">UC, MAR, IP</td>
+</tr>
+<tr class="even">
+<td align="left">Fetch 2</td>
+<td align="left"><code>MBR ← read(Mem[MAR])</code> / <code>IP ← IP + 1</code></td>
+<td align="left"><span class="math inline">\(\lambda_{\text{(Mem)}}\)</span> emite dato → <span class="math inline">\(\delta_{\text{ext(MBR)}}\)</span> lo recibe</td>
+<td align="left">Memoria, MBR, UC</td>
+</tr>
+<tr class="odd">
+<td align="left">Fetch 3</td>
+<td align="left"><code>IR ← MBR</code></td>
+<td align="left"><span class="math inline">\(\lambda(MBR)\)</span> → <span class="math inline">\(\delta_{\text{ext}}(IR)\)</span></td>
+<td align="left">MBR, IR</td>
+</tr>
+<tr class="even">
+<td align="left">Execute 1</td>
+<td align="left"><code>AL ← BL</code></td>
+<td align="left"><span class="math inline">\(\lambda(UC)\)</span> genera señal de control → <span class="math inline">\(\lambda(BL)\)</span> → <span class="math inline">\(\delta_{\text{ext}}(AL)\)</span></td>
+<td align="left">UC, BL, BUS, AL</td>
+</tr>
+</tbody>
+</table>
 <p>IR → UC → [ señales de control ]
 ↓
 +————+
