@@ -1514,19 +1514,15 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
   - HLT: 
     4. Detiene la ejecución de la CPU.
 
-## Implementación del ciclo de instrucción MOV AL, BL en xDEVS
+## Implementación del ciclo de instrucción MOV AL, BL mediante el Formalismo xDEVS
 
-La instrucción **MOV AL, BL** transfiere el contenido del registro fuente **BL** al registro destino **AL**.  
-En el simulador **VonSim8**, esta operación se modela como una secuencia de *eventos discretos* coordinados por la **Unidad de Control (UC)**, que emite señales de lectura y escritura sobre los registros involucrados.  
+La simulación de la instrucción **MOV AL, BL** es esencial para validar la arquitectura de VonSim8. Esta instrucción de transferencia de registro a registro, que copia el contenido del registro fuente BL al registro destino AL, se modela como una secuencia de eventos discretos y temporizados que representan el funcionamiento a Nivel de Transferencia de Registros (RTL).
 
-A continuación se describe la implementación de este ciclo en el entorno **xDEVS**, donde cada componente se representa como un **modelo atómico**, y su interacción como un **modelo acoplado jerárquico**.
+El formalismo xDEVS (eXtended Discrete Event System Specification) se emplea para definir rigurosamente la estructura modular y la dinámica de eventos del simulador. Cada componente del microprocesador (registros, UC) se representa como un modelo atómico, y su interacción mediante el bus se define en un modelo acoplado jerárquico.
 
 ### Fases del ciclo de instrucción
 
-El ciclo de instrucción completo se organiza en dos fases generales, representadas como transiciones de estado dentro del formalismo xDEVS:
-
-- **Fase de captación (Fetch)** — común a todas las instrucciones.  
-- **Fase de ejecución (Execute)** — específica del tipo de instrucción (en este caso, MOV).
+El ciclo completo se descompone en estados bien definidos de la Unidad de Control (UC), que actúan como transiciones internas ($\delta_{\text{int}}$) en el formalismo $\text{xDEVS}$.
 
 ### Fase de Captación (Fetch)
 Esta fase, común a cualquier instrucción, se conserva tal como se detalla en la definición general del ciclo de instrucción:
@@ -1538,9 +1534,10 @@ Esta fase, común a cualquier instrucción, se conserva tal como se detalla en l
 Al finalizar, el registro **IR** contiene el código binario correspondiente a la instrucción `MOV AL, BL`.
 
 ### Fase de Ejecución (Execute): MOV AL, BL
+En esta fase, la UC decodifica el contenido del IR y genera las señales de control necesarias para realizar la transferencia de datos. 
 
-#### Modelos Atómicos involucrados
-Durante la ejecución, intervienen los siguientes modelos atómicos del entorno xDEVS:
+#### Modelos Atómicos y sus Interacciones
+La ejecución involucra la coordinación de varios modelos atómicos interconectados a través del bus de datos, que es el recurso compartido.
 
 ```{r componentesprincipales, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1550,24 +1547,21 @@ library(kableExtra)
 componentes <- data.frame(
   Componente = c(
     "UC (Unidad de Control)",
-    "IR (Registro de Instrucción)",
-    "AL (Registro Acumulador bajo)",
-    "BL (Registro base bajo)",
-    "BUS (Bus de datos)"
+    "BL (Registro Fuente)",
+    "AL (Registro Destino)",
+    "BUS de datos"
   ),
   Tipo = c(
     "Atómico",
-    "Atómico",
-    "Atómico",
-    "Atómico",
-    "Atómico o variable compartida"
+    "Atómico (Registro)",
+    "Atómico (Registro)",
+    "Modelo Acoplado (Canal)"
   ),
   Descripción = c(
-    "Decodifica IR, genera señales de control para lectura/escritura.",
-    "Contiene el código binario de la instrucción.",
-    "Registro destino.",
-    "Registro fuente.",
-    "Transporta el dato desde el origen al destino."
+    "Motor del simulador. Decodifica IR, genera señales de control para lectura/escritura.",
+    "Emite su valor al BUS tras recibir la señal de control (evento) de la UC.",
+    "Captura y actualiza su estado interno con el dato del BUS tras recibir la señal de control de la UC.",
+    "Representa el medio de comunicación. Su estado transfiere el dato desde la salida $\\lambda$ de BL hasta la entrada $\\delta_{\\text{ext}}$ de AL."
   )
 )
 
@@ -1610,9 +1604,8 @@ if (knitr::is_latex_output()) {
 Los modelos AL y BL representan registros independientes, con su propia dinámica interna de lectura y escritura.
 El modelo UC controla la sincronización de los eventos, mientras que el BUS actúa como canal de comunicación compartido entre los registros.
 
-#### Flujo de eventos y microoperaciones (nivel RTL)
-El proceso se descompone en microoperaciones que describen la propagación de señales y los cambios de estado en los modelos atómicos.
-Cada paso se corresponde con una transición DEVS ($\delta_{\text{ext}}$, $\delta_{\text{int}}$, $\lambda$), tal como se muestra en la tabla siguiente:
+#### Secuencia de Microoperaciones y Eventos xDEVS
+El proceso se descompone en microoperaciones a nivel RTL, donde cada paso es una función de transición o de salida dentro del formalismo $\text{xDEVS}$.
 
 ```{r microoperacionesMOV, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1629,9 +1622,9 @@ microoperaciones <- data.frame(
     "AL ← BUS"
   ),
   Descripción = c(
-    "La UC lee el valor del IR y reconoce el opcode MOV con operandos AL, BL.",
-    "La UC activa la señal de lectura del registro fuente.",
-    "El registro BL coloca su valor en el bus de datos.",
+    "La UC lee el valor del IR, determina el opcode $\text{MOV}$ y los operandos.",
+    "La UC activa la señal del muxregout para leer el registro fuente BL.",
+    "La UC activa la señal del muxregin para leer el registro destino AL.",
     "La UC habilita la escritura en AL.",
     "El registro AL captura el dato del bus y actualiza su estado interno."
   ),
