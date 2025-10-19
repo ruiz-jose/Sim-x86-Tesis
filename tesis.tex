@@ -3255,26 +3255,17 @@ A continuación se detallan las instrucciones más comunes:
   \end{enumerate}
 \end{itemize}
 
-\hypertarget{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-mov-al-bl-en-xdevs}{%
-\section{Implementación del ciclo de instrucción MOV AL, BL en xDEVS}\label{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-mov-al-bl-en-xdevs}}
+\hypertarget{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-mov-al-bl-mediante-el-formalismo-xdevs}{%
+\section{Implementación del ciclo de instrucción MOV AL, BL mediante el Formalismo xDEVS}\label{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-mov-al-bl-mediante-el-formalismo-xdevs}}
 
-La instrucción \textbf{MOV AL, BL} transfiere el contenido del registro fuente \textbf{BL} al registro destino \textbf{AL}.\\
-En el simulador \textbf{VonSim8}, esta operación se modela como una secuencia de \emph{eventos discretos} coordinados por la \textbf{Unidad de Control (UC)}, que emite señales de lectura y escritura sobre los registros involucrados.
+La simulación de la instrucción \textbf{MOV AL, BL} es esencial para validar la arquitectura de VonSim8. Esta instrucción de transferencia de registro a registro, que copia el contenido del registro fuente BL al registro destino AL, se modela como una secuencia de eventos discretos y temporizados que representan el funcionamiento a Nivel de Transferencia de Registros (RTL).
 
-A continuación se describe la implementación de este ciclo en el entorno \textbf{xDEVS}, donde cada componente se representa como un \textbf{modelo atómico}, y su interacción como un \textbf{modelo acoplado jerárquico}.
+El formalismo xDEVS (eXtended Discrete Event System Specification) se emplea para definir rigurosamente la estructura modular y la dinámica de eventos del simulador. Cada componente del microprocesador (registros, UC) se representa como un modelo atómico, y su interacción mediante el bus se define en un modelo acoplado jerárquico.
 
 \hypertarget{fases-del-ciclo-de-instrucciuxf3n}{%
 \subsection{Fases del ciclo de instrucción}\label{fases-del-ciclo-de-instrucciuxf3n}}
 
-El ciclo de instrucción completo se organiza en dos fases generales, representadas como transiciones de estado dentro del formalismo xDEVS:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Fase de captación (Fetch)} --- común a todas las instrucciones.\\
-\item
-  \textbf{Fase de ejecución (Execute)} --- específica del tipo de instrucción (en este caso, MOV).
-\end{itemize}
+El ciclo completo se descompone en estados bien definidos de la Unidad de Control (UC), que actúan como transiciones internas (\(\delta_{\text{int}}\)) en el formalismo \(\text{xDEVS}\).
 
 \hypertarget{fase-de-captaciuxf3n-fetch}{%
 \subsection{Fase de Captación (Fetch)}\label{fase-de-captaciuxf3n-fetch}}
@@ -3296,10 +3287,12 @@ Al finalizar, el registro \textbf{IR} contiene el código binario correspondient
 \hypertarget{fase-de-ejecuciuxf3n-execute-mov-al-bl}{%
 \subsection{Fase de Ejecución (Execute): MOV AL, BL}\label{fase-de-ejecuciuxf3n-execute-mov-al-bl}}
 
-\hypertarget{modelos-atuxf3micos-involucrados}{%
-\subsubsection{Modelos Atómicos involucrados}\label{modelos-atuxf3micos-involucrados}}
+En esta fase, la UC decodifica el contenido del IR y genera las señales de control necesarias para realizar la transferencia de datos.
 
-Durante la ejecución, intervienen los siguientes modelos atómicos del entorno xDEVS:
+\hypertarget{modelos-atuxf3micos-y-sus-interacciones}{%
+\subsubsection{Modelos Atómicos y sus Interacciones}\label{modelos-atuxf3micos-y-sus-interacciones}}
+
+La ejecución involucra la coordinación de varios modelos atómicos interconectados a través del bus de datos, que es el recurso compartido.
 
 \begin{table}[!h]
 \centering
@@ -3311,15 +3304,13 @@ Durante la ejecución, intervienen los siguientes modelos atómicos del entorno 
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
 \midrule
-\textbf{UC (Unidad de Control)} & Atómico & Decodifica IR, genera señales de control para lectura/escritura.\\
+\textbf{UC (Unidad de Control)} & Atómico & Motor del simulador. Decodifica IR, genera señales de control para lectura/escritura.\\
 \addlinespace[8pt]
-\textbf{IR (Registro de Instrucción)} & Atómico & Contiene el código binario de la instrucción.\\
+\textbf{BL (Registro Fuente)} & Atómico (Registro) & Emite su valor al BUS tras recibir la señal de control (evento) de la UC.\\
 \addlinespace[8pt]
-\textbf{AL (Registro Acumulador bajo)} & Atómico & Registro destino.\\
+\textbf{AL (Registro Destino)} & Atómico (Registro) & Captura y actualiza su estado interno con el dato del BUS tras recibir la señal de control de la UC.\\
 \addlinespace[8pt]
-\textbf{BL (Registro base bajo)} & Atómico & Registro fuente.\\
-\addlinespace[8pt]
-\textbf{BUS (Bus de datos)} & Atómico o variable compartida & Transporta el dato desde el origen al destino.\\
+\textbf{BUS de datos} & Modelo Acoplado (Canal) & Representa el medio de comunicación. Su estado transfiere el dato desde la salida $\lambda$ de BL hasta la entrada $\delta_{\text{ext}}$ de AL.\\
 \addlinespace[8pt]
 \bottomrule
 \end{tabular}}
@@ -3328,11 +3319,10 @@ Durante la ejecución, intervienen los siguientes modelos atómicos del entorno 
 Los modelos AL y BL representan registros independientes, con su propia dinámica interna de lectura y escritura.
 El modelo UC controla la sincronización de los eventos, mientras que el BUS actúa como canal de comunicación compartido entre los registros.
 
-\hypertarget{flujo-de-eventos-y-microoperaciones-nivel-rtl}{%
-\subsubsection{Flujo de eventos y microoperaciones (nivel RTL)}\label{flujo-de-eventos-y-microoperaciones-nivel-rtl}}
+\hypertarget{secuencia-de-microoperaciones-y-eventos-xdevs}{%
+\subsubsection{Secuencia de Microoperaciones y Eventos xDEVS}\label{secuencia-de-microoperaciones-y-eventos-xdevs}}
 
-El proceso se descompone en microoperaciones que describen la propagación de señales y los cambios de estado en los modelos atómicos.
-Cada paso se corresponde con una transición DEVS (\(\delta_{\text{ext}}\), \(\delta_{\text{int}}\), \(\lambda\)), tal como se muestra en la tabla siguiente:
+El proceso se descompone en microoperaciones a nivel RTL, donde cada paso es una función de transición o de salida dentro del formalismo \(\text{xDEVS}\).
 
 \begin{table}[!h]
 \centering
@@ -3344,11 +3334,11 @@ Cada paso se corresponde con una transición DEVS (\(\delta_{\text{ext}}\), \(\d
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Paso}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Microoperación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modelos y funciones DEVS}}}\\
 \midrule
-\textbf{1} & UC: decodificar(IR) & La UC lee el valor del IR y reconoce el opcode MOV con operandos AL, BL. & $\delta_{\text{ext}}$ (UC) recibe evento del IR; actualiza su estado (S) con la instrucción actual.\\
+\textbf{1} & UC: decodificar(IR) & La UC lee el valor del IR, determina el opcode $ ext{MOV}$ y los operandos. & $\delta_{\text{ext}}$ (UC) recibe evento del IR; actualiza su estado (S) con la instrucción actual.\\
 \addlinespace[8pt]
-\textbf{2} & UC → BL.enable\_out = 1 & La UC activa la señal de lectura del registro fuente. & $\lambda$ (UC) genera evento de salida hacia BL.\\
+\textbf{2} & UC → BL.enable\_out = 1 & La UC activa la señal del muxregout para leer el registro fuente BL. & $\lambda$ (UC) genera evento de salida hacia BL.\\
 \addlinespace[8pt]
-\textbf{3} & BUS ← BL & El registro BL coloca su valor en el bus de datos. & $\lambda$ (BL) emite valor actual al BUS.\\
+\textbf{3} & BUS ← BL & La UC activa la señal del muxregin para leer el registro destino AL. & $\lambda$ (BL) emite valor actual al BUS.\\
 \addlinespace[8pt]
 \textbf{4} & UC → AL.enable\_in = 1 & La UC habilita la escritura en AL. & $\lambda$ (UC) envía evento de control a AL.\\
 \addlinespace[8pt]
