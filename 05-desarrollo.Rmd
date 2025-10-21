@@ -461,7 +461,7 @@ knitr::include_graphics(path = "images/leftrigth.png")
 
 Los registros `SP`, `ri` e `id` se mantienen ocultos y solo se habilitan automáticamente cuando una instrucción requiere su utilización.
 
-```{r idrisp, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "100%"}
+```{r idrisp, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "100%"}    
 knitr::include_graphics(path = "images/idrisp.png")
 ```
 
@@ -634,7 +634,8 @@ setreducido <- data.frame(
   ),
   `Nemónico` = c(
     "MOV ",
-    "ADD", "SUB",
+    "ADD",
+    "SUB",
     "CMP",
     "JMP",
     "Jxx",
@@ -733,7 +734,7 @@ if (knitr::is_latex_output()) {
 } else {
   tabla %>%
     kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      bootstrap_options = c("striped", "hover", "condensed"),
       full_width = FALSE,
       position = "center"
     ) %>%
@@ -1043,18 +1044,13 @@ if (knitr::is_latex_output()) {
     footnote(
       general = c(
         "Las instrucciones de dos operandos, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
-        "Considerando:",
-        "____: Código de operación de la instrucción, 4 bits.",
-        "Rx o Ry: Índices de registros de propósito general, 0 a 3, 2 bits cada uno.",
-        "M: Dirección de memoria 8 bits.",
-        "D: Dato inmediato 8 bits.",
-        "ffff: representa el comportamiento de la instrucción 4 bits.",
-        "d: Dato inmediato 8 bits.",
-        "MMMMMMMM: Dirección de memoria 8 bits.",
-        "dddddddd: Dato inmediato 8 bits.",
-        sep = "<br>"
+        "Rx y Ry pueden ser un registro de propósito general: AL, BL, CL y DL."
       ),
       general_title = "Nota: ",
+      symbol = c("La notación M indica dirección de memoria."),
+      symbol_title = "Símbolos: ",
+      number = c("La notación [M] indica el contenido de la dirección de memoria.", "La notación [BL] indica el contenido de la dirección del registro BL.", "La notación d indica dato inmediato."),
+      number_title = "Notas numéricas: ",
       threeparttable = TRUE
     )
 } else {
@@ -1068,19 +1064,9 @@ if (knitr::is_latex_output()) {
     column_spec(2, width = "25em") %>%
     column_spec(3, width = "35em") %>%
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    row_spec(seq_len(nrow(modosdireccionamiento)), extra_css = "border-top: 2px solid #000;") %>%
     footnote(
-      general = paste(
-        "Las instrucciones de dos operandos, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
-        "Considerando:",
-        "____: Código de operación de la instrucción, 4 bits.",
-        "Rx o Ry: Índices de registros de propósito general, 0 a 3, 2 bits cada uno.",
-        "M: Dirección de memoria 8 bits.",
-        "ffff: representa el comportamiento de la instrucción 4 bits.",
-        "d: Dato inmediato 8 bits.",
-        "MMMMMMMM: Dirección de memoria 8 bits.",
-        "dddddddd: Dato inmediato 8 bits.",
-        sep = "<br>"
-      ),
+      general = "Las instrucciones de dos operando, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
       general_title = "Nota: ",
       threeparttable = TRUE
     )
@@ -1129,7 +1115,7 @@ mov x, 5
 ; Indirecto-Inmediato
 mov [bl], 4
 
-hlt                      ; Detiene la ejecución del programa\\end{lstlisting}
+hlt\\end{lstlisting}
   ")
 } else {
   cat("
@@ -1186,26 +1172,20 @@ tisaredu <- data.frame(
   Categoría = c(
     "Transferencia de datos",
     "Procesamiento de datos", "", "",
-    "Control de flujo",
-    "Gestión de flujo",
-    "Manejo de pila y E/S",
-    "Miscelánea"
+    "Control de flujo", ""
+
   ),
   Instrucción = c(
     "MOV",
     "ADD", "SUB", "CMP",
-    "JMP / Jxx / CALL / INT",
-    "HLT / RET / IRET / CLI / STI",
-    "OUT / IN / PUSH / POP",
-    "AND / OR / XOR / NOT / NEG / INC / DEC"
+    "JMP / Jxx",
+    "HLT"
   ),
   `Código operación` = c(
     "{0, 1, 2}",
     "{3, 4, 5}", "{6, 7, 8}", "{9, 10, 11}",
     "{12}",
-    "{13}",
-    "{14}",
-    "{15}"
+    "{13}"
   ),
   `Operandos` = c(
     "2",
@@ -1214,22 +1194,20 @@ tisaredu <- data.frame(
     "0"
   ),
   Acción = c(
-    "Copiar entre registros, cargar a registro, almacenar en memoria",
+    "Copiar entre registros, cargar de memoria a registro, almacenar en memoria",
     "Operación aritmética: operando1 ← operando1 + operando2",
     "Operación aritmética: operando1 ← operando1 - operando2",
     "Comparación: operando1 - operando2 (no actualiza el destino)",
-    "Salto incondicional JMP, salto condicionales Jxx, subrutina CALL, llamar rutina de interrupción INT",
-    "Detener CPU HLT, retorno subrutina RET, retornar de interrupción IRET,  deshabilita interrupciones CLI, habilita interrupciones STI",
-    "Enviar a puerto OUT, recibir desde puerto IN, poner en la pila PUSH, retirar de la pila POP",
-    "Operaciones lógicas y aritméticas"
+    "Salto incondicional JMP, condicionales Jxx",
+    "HLT: detiene el CPU"
   ),
   stringsAsFactors = FALSE
 )
 
-tabla_kable <- kable(tisa,
+tabla_kable <- kable(tisaredu,
                format = ifelse(knitr::is_latex_output(), "latex", "html"),
                caption = "Categoría de instrucciones y códigos de operación en VonSim8",
-               col.names = c("Categoría", "Instrucción", "Código operación", "Acción"),
+               col.names = c("Categoría", "Instrucción","Código operación", "Operandos", "Acción"),
                booktabs = TRUE,
                escape = FALSE,
                align = c("c", "c", "c", "l"))
@@ -1243,9 +1221,10 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "4cm") %>%
     column_spec(3, width = "3cm") %>%
-    column_spec(4, width = "8cm") %>%
+    column_spec(4, width = "3cm") %>%
+    column_spec(5, width = "8cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(tisa)), extra_latex_after = "\\addlinespace[10pt]")
+    row_spec(seq_len(nrow(tisaredu)), extra_latex_after = "\\addlinespace[10pt]")
 } else {
   tabla_kable %>%
     kable_styling(
@@ -1256,8 +1235,150 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "12em", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "16em") %>%
     column_spec(3, width = "8em") %>%
-    column_spec(4, width = "32em") %>%
+    column_spec(4, width = "8em") %>%
+    column_spec(5, width = "32em") %>%
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+}
+```
+
+Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \@ref(tab:instcodif) presenta una lista de las instrucciones implementadas en el simulador, junto con su codificación binaria.
+
+```{r instcodif, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+instcodif <- data.frame(
+  CodOp = c(
+    "0", "1", "1", "1", "2", "2", "2", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "C", "D"
+  ),
+  Instrucción = c(
+    "`MOV Rx, Ry`", "`MOV Rx, [M]`", "`MOV Rx, [BL]`", "`MOV Rx, D`",
+    "`MOV [M], Ry`", "`MOV [BL], Ry`", "`MOV [M], D`", "`MOV [BL], D`",
+    "`ADD Rx, Ry`", "`ADD Rx, --`", "`ADD [M], --`", "`SUB Rx, Ry`", "`SUB Rx, --`", "`SUB [M], --`",
+    "`CMP Rx, Ry`", "`CMP Rx, --`", "`CMP [M], --`", "`JMP M`", "`Jxx M`", "`HLT`"
+  ),
+  Byte = c(
+    "1", "2", "1", "2", "2", "2", "3", "2", "1", "Idem", "Idem", "1","Idem", "Idem",
+    "1", "Idem", "Idem", "1", "1", "1"
+  ),
+  Codificación = c(
+    "`0000 RxRy`", "`0001 Rx00 MMMMMMMM`", "`0001 Rx01`", "`0001 Rx10 DDDDDDDD`",
+    "`0010 00Ry MMMMMMMM`", "`0010 01Ry`", "`0010 1100 MMMMMMMM DDDDDDDD`", "`0010 1101 DDDDDDDD`",
+    "`0011 RxRy`", "`0100 ---- --------`", "`0101 ---- -------- --------`", "`0110 RxRy`", "`0111 ---- --------`",
+    "`1000 ---- -------- --------`", "`1001 RxRy`", "`1010 ---- --------`", "`1011 ---- -------- --------`",
+    "`1100 0000 MMMMMMMM`", "`1100 ffff MMMMMMMM`", "`1101 0000`"
+  ),
+  stringsAsFactors = FALSE
+)
+
+# Para monoespaciado en PDF reemplaza los backticks por \texttt{}
+if (knitr::is_latex_output()) {
+  instcodif$Instrucción <- gsub("`([^`]*)`", "\\\\texttt{\\1}", instcodif$Instrucción)
+  instcodif$Codificación <- gsub("`([^`]*)`", "\\\\texttt{\\1}", instcodif$Codificación)
+}
+
+tabla_kable <- kable(instcodif,
+               format = ifelse(knitr::is_latex_output(), "latex", "html"),
+               caption = "Tabla de codificación de instrucciones",
+               col.names = c("CodOp", "Instrucción", "Byte", "Codificación"),
+               booktabs = TRUE,
+               escape = FALSE,
+               align = c("c", "l", "l", "l"))
+
+if (knitr::is_latex_output()) {
+  tabla_kable %>%
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 10
+    ) %>%
+    column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "3.5cm") %>%
+    column_spec(3:4, width = "6cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(instcodif)), extra_latex_after = "\\addlinespace[10pt]") %>%
+    footnote(
+      general = c(
+        "Las instrucciones de dos operandos, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
+        "Considerando:",
+        "____: Código de operación de la instrucción, 4 bits.",
+        "Rx o Ry: Índices de registros de propósito general, 0 a 3, 2 bits cada uno.",
+        "M: Dirección de memoria 8 bits.",
+        "D: Dato inmediato 8 bits.",
+        "ffff: representa el comportamiento de la instrucción 4 bits."
+      ),
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
+} else {
+  tabla_kable %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
+    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "25em") %>%
+    column_spec(3:4, width = "35em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    footnote(
+      general = paste(
+        "Las instrucciones de dos operandos, tanto de transferencia y procesamiento tienen los mismos modos de direccionamiento.",
+        "Considerando:",
+        "____: Código de operación de la instrucción, 4 bits.",
+        "Rx o Ry: Índices de registros de propósito general, 0 a 3, 2 bits cada uno.",
+        "M: Dirección de memoria 8 bits.",
+        "ffff: representa el comportamiento de la instrucción 4 bits.",
+        "d: Dato inmediato 8 bits.",
+        "MMMMMMMM: Dirección de memoria 8 bits.",
+        "dddddddd: Dato inmediato 8 bits.",
+        sep = "<br>"
+      ),
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
+}
+```
+
+La tabla \@ref(tab:tablaregistros) presenta los códigos binarios y decimales correspondientes a los registros de propósito general AL, BL, CL y DL, los cuales pueden ser utilizados como Rx y Ry en las instrucciones del simulador.
+
+```{r tablaregistros, echo=FALSE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+
+tablaregistros <- data.frame(
+  Registro = c("AL", "BL", "CL", "DL"),
+  Binario = c("00", "01", "10", "11"),
+  Decimal = c(0, 1, 2, 3)
+)
+
+if (knitr::is_latex_output()) {
+  kable(tablaregistros, format = "latex", booktabs = TRUE, align = "c",
+        col.names = c("Registros R", "Binario", "Decimal"),
+        caption = "Tabla de registros del simulador") %>%
+    kable_styling(latex_options = c("hold_position", "scale_down"), position = "center") %>%
+    column_spec(1, width = "2.5cm") %>%
+    column_spec(2, width = "2.5cm") %>%
+    column_spec(3, width = "2.5cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    footnote(
+      general = "Los registros AL, BL, CL y DL corresponden a registros de propósito general de 8 bits.",
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
+} else {
+  kable(tablaregistros, format = "html", table.attr = "class='table table-striped'", align = "c",
+        col.names = c("Registros R", "Binario", "Decimal"),
+        caption = "Tabla de registros del simulador") %>%
+    kable_styling(full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "7em") %>%
+    column_spec(2, width = "7em") %>%
+    column_spec(3, width = "7em") %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    footnote(
+      general = "Los registros AL, BL, CL y DL corresponden a registros de propósito general de 8 bits.",
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
 }
 ```
 
@@ -1273,7 +1394,7 @@ knitr::include_graphics(path = "images/cicloinstruccion3.png")
 ```
 
 ### Etapa 1: Captación
-Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instrucción desde la memoria y cargarla en el **Registro de Instrucciones** (`IR`) para su posterior decodificación. Consta de tres microoperaciones:
+Esta etapa es igual para todas las instrucciones. Su objetivo es leer la instrucción desde la memoria y cargarla en el **Registro de Instrucciones** (`IR`). Consta de tres microoperaciones:
 
 1. **`MAR` $\leftarrow$ `IP`**
   La UC transfiere al **Registro de Direcciones de Memoria** (`MAR`) la dirección de la próxima instrucción, almacenada en el **Puntero de Instrucción** (`IP`) .
@@ -1325,20 +1446,30 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
     4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
     6. **`MAR` $\leftarrow$ `MBR`** – Transferir dirección a MAR.
-    7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
-    8. Ejecutar la operación:
-                  - MOV: **`Rx`  $\leftarrow$ `MBR`**
-                  - ADD: **`Rx`  $\leftarrow$ `Rx` + `MBR` | update(Flags)**
-                  - SUB: **`Rx`  $\leftarrow$ `Rx` - `MBR` | update(Flags)**
-                  - CMP: **`Rx` - `MBR` | update(Flags)**
+    Según la instrucción:
+      - MOV:
+          7. **`MBR` $\leftarrow$ `Ry`** – Copiar Ry al MBR.
+          8. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+      - ADD, SUB, CMP:
+          7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
+          8. Ejecutar la operación:
+              - ADD: **`MBR` $\leftarrow$ `MBR` + `Ry` | update(Flags)**
+              - SUB: **`MBR` $\leftarrow$ `MBR` - `Ry` | update(Flags)**
+              - CMP: **`MBR` - `Ry` | update(Flags)**
+          9. Si es `ADD` o `SUB`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
   - **Modo Indirecto (`[BL]`, `Ry`)**
     4. **`MAR` $\leftarrow$ `BL`** – Transferir dirección de destino (en BL) a MAR.
-    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
-    6. Ejecutar la operación (igual que en el caso anterior).
-    7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+    Según la instrucción:
+      - MOV:
+          5. **`MBR` $\leftarrow$ `Ry`** – Copiar Ry al MBR.
+          6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
+      - ADD, SUB, CMP:
+          5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el dato.
+          6. Ejecutar la operación (igual que en el caso anterior).
+          7. Si es `ADD` o `SUB`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
   - **Modo Directo-Inmediato (`[Dirección]`, `Dato`)**
     4. **`MAR` $\leftarrow$ `IP`** – Obtener dirección destino.
-    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer la dirección e incrementar IP.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dirección e incrementar IP.
     6. **`MAR` $\leftarrow$ `IP` | `ri` $\leftarrow$ `MBR`** – Preparar para leer el dato y guardar la dirección destino en un registro intermedio (ri).
     7. **`MBR` $\leftarrow$ `read(Memoria[MAR])` | `IP` $\leftarrow$ `IP` + 1** – Leer dato e incrementar IP.
     Según la instrucción:
@@ -1362,243 +1493,107 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
           7. **`write(Memoria[MAR])` $\leftarrow$ `MBR`**
       - ADD, SUB, CMP:
           6. **`MAR` $\leftarrow$ `BL` | `id` $\leftarrow$ `MBR`** – Cargar la dirección destino y guardar el valor inmediato en id.
-          7. **`MBR` $\leftarrow` `read(Memoria[MAR])`** – Leer el valor actual de destino.
+          7. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el valor actual de destino.
           8. Ejecutar la operación (igual que en el caso anterior).
           9. Si es `ADD` o `SUB`: **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir en memoria.
 
+#### Instrucciones con un operando `JMP` y `Jxx`:
+  - **Salto a (`Dirección`)**
+    Tanto incondicional `JMP` como condicionales `Jxx` tienen estos pasos:
+    4. **`MAR` $\leftarrow$ `IP`** – Obtener la dirección del salto.
+    5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`; `IP` $\leftarrow$ `IP` + 1** – Leer la dirección de destino e incrementar IP.
 
-###  Pila y subrutinas 
-El procesador implementa una pila como método de almacenamiento, accesible tanto por el usuario como por la CPU para su funcionamiento interno. La pila opera bajo el esquema _Last In, First Out_ (LIFO), es decir, el último elemento en ingresar es el primero en salir. Está ubicada en la memoria principal, comenzando en la dirección más alta (`FFh`) y creciendo hacia direcciones más bajas (`FEh`, `FCh`, etc.). El tope de la pila se gestiona mediante el registro `SP`, y cada elemento almacenado ocupa 8 bits.
+    Según la instrucción:
+      - JMP: 
+        6. **`IP` $\leftarrow$ `MBR`**
 
-Además, el procesador permite el uso de subrutinas, que son fragmentos de código reutilizables y pueden ser invocados desde cualquier parte del programa. Para llamar a una subrutina se utiliza la instrucción [`CALL`], que apila el valor actual de `IP` y salta a la dirección de la subrutina, modificando el `IP` para apuntar a la primera instrucción de la misma. El retorno se realiza mediante la instrucción [`RET`], que desapila la dirección previamente guardada y restaura el `IP`, permitiendo continuar la ejecución justo después de la llamada.
+      - Jxx: 
+        6. **`IP` $\leftarrow$ `MBR`** si se cumple la condición del flag `xx`; en caso contrario, continúa con la siguiente instrucción.
 
-Ejemplo de subrutina:
-```{r  codecall, results='asis', echo=FALSE}
-if (knitr::is_latex_output()) {
-  cat("
-  \\begin{lstlisting}
-      mov al, 1
-      mov bl, 2
-      mov cl, 3
-      call sum3
-      ; ax = 6
-      hlt
+#### Instrucciones sin operandos
+  - HLT: 
+    4. Detiene la ejecución de la CPU.
 
-      ; suma al, bl y cl
-      sum3: add al, bl
-            add al, cl
-            ret\\end{lstlisting}
-  ")
-} else {
-  cat("
-  ```assembly
-      mov al, 1
-      mov bl, 2
-      mov cl, 3
-      call sum3
-      ; ax = 6
-      hlt
+## Modelado con xDEVS de la instrucción MOV AL, BL
+La simulación de la instrucción MOV AL, BL constituye un caso fundamental para validar la arquitectura del simulador VonSim8, basada en el modelo Von Neumann, donde una única memoria unificada almacena tanto las instrucciones como los datos.
+En esta arquitectura, el bus principal es compartido, lo que genera el clásico cuello de botella de Von Neumann, y exige que la Unidad de Control (UC) sincronice cuidadosamente el acceso a memoria y al bus.
 
-      ; suma al, bl y cl
-      sum3: add al, bl
-            add al, cl
-            ret
-```")
-}
+La instrucción MOV AL, BL, que transfiere el contenido del registro fuente BL al registro destino AL, se modela como una secuencia de eventos discretos y temporizados que reflejan su ejecución a Nivel de Transferencia de Registros (RTL) dentro del formalismo xDEVS (eXtended Discrete Event System Specification).
+
+Cada componente funcional del procesador (registros, UC, memoria y bus) se define como un modelo atómico, mientras que sus interacciones se organizan mediante un modelo acoplado jerárquico, lo que permite simular comportamientos paralelos, asincrónicos y temporizados.
+
+### Fases del ciclo de instrucción
+El ciclo de instrucción se compone de dos fases principales, controladas por la Unidad de Control (UC) y representadas en xDEVS mediante transiciones de estado y funciones temporizadas:
+
+  1. Fase de captación (Fetch): lectura de la instrucción desde la memoria.
+
+  2. Fase de ejecución (Execute): transferencia del contenido de BL hacia AL.
+
+### Fase de captación en xDEVS
+La fase de captación (Fetch) tiene como objetivo leer la instrucción almacenada en la memoria, utilizando el valor del Instruction Pointer (IP) como dirección base, y cargarla en el Instruction Register (IR) para su posterior decodificación.
+Dado que VonSim8 utiliza una sola memoria compartida, esta fase debe modelar el acceso exclusivo al bus y a la memoria, evitando conflictos entre lectura de instrucciones y transferencia de datos.
+
+#### Modelos atómicos participantes
+
+| Modelo            | Descripción                                                                                     |                                  Entradas / Salidas                                 |     Retardo (τ)    |
+| :---------------- | :---------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------: | :----------------: |
+| **IP**            | Registro que contiene la dirección de la próxima instrucción. Emite su valor al MAR.            |               salida: `addr_out`; entrada: `ip_write`, `branch_target`              |    τ_ip = *t_ip*   |
+| **MAR**           | Almacena la dirección proveniente del IP y la envía a la memoria unificada.                     |                  entrada: `addr_in`; salida: `addr_out` (hacia MEM)                 |   τ_mar = *t_mar*  |
+| **MEM**           | Memoria unificada (instrucciones + datos). Devuelve la palabra solicitada (instrucción o dato). |            entrada: `addr`, `rw` (lectura/escritura); salida: `data_out`            |   τ_mem = *t_mem*  |
+| **MBR**           | Registro intermedio entre la memoria y los registros internos.                                  |                        entrada: `data_in`; salida: `data_out`                       |   τ_mbr = *t_mbr*  |
+| **IR**            | Registro de instrucción; recibe la instrucción desde MBR y la expone a la UC.                   |                  entrada: `inst_in`; salida: `opcode`, `operandos`                  |    τ_ir = *t_ir*   |
+| **UC**            | Unidad de Control; coordina el ciclo de captación y arbitra el uso del bus.                     | entradas: `IR`; salidas: señales `enable_out`, `enable_in`, `mem_read`, `mem_write` | τ_uc = *t_control* |
+| **BUS / Árbitro** | Canal de comunicación compartido entre IP, MAR, MEM y registros. Garantiza exclusión mutua.     |                               señales `req` / `grant`                               |   τ_bus = *t_bus*  |
+
+#### Cronología de eventos
+
+  1. UC → IP: la UC inicia el ciclo de captación activando la lectura de la dirección actual.
+  Evento: δ_ext(UC) → λ(UC) → δ_ext(IP)
+
+  2. IP → MAR: el IP coloca la dirección en el bus y la transfiere al MAR.
+  Evento: λ(IP) → δ_ext(MAR)
+
+  3. UC → MEM: la UC activa la señal mem_read y garantiza acceso exclusivo al bus.
+  Evento: λ(UC) → δ_ext(MEM)
+
+  4. MEM → MBR: la memoria unificada devuelve la palabra leída (instrucción) tras un retardo τ_mem.
+  Evento: δ_int(MEM) → λ(MEM) → δ_ext(MBR)
+
+  5. MBR → IR: el MBR transfiere la instrucción al registro IR.
+  Evento: λ(MBR) → δ_ext(IR)
+
+  6. IR → UC: el IR notifica a la UC que la instrucción está disponible para decodificación.
+  Evento: λ(IR) → δ_ext(UC)
+
+Durante este proceso, el bus permanece bloqueado para otros accesos hasta que la instrucción ha sido completamente captada.
+
+#### Modelado de retardos temporales (τ)
+Cada modelo define un retardo configurable τ_i en unidades físicas (ps o ns). La duración del micropaso resulta de la suma de los retardos de todos los componentes activos en ese instante:
+
+$$
+\tau_{\text{micropaso}} \;=\; \sum_{i \in \text{activos}} \tau_i
+$$
+
+```{r tau_micropaso, echo=TRUE}
+# Definir retardos sugeridos (en ps)
+tau <- c(ip = 30, mar = 50, mem = 200, mbr = 50, ir = 40, control = 20)
+
+# Conjunto de componentes activos en el micropaso (ajustar según el caso)
+activos <- c("ip", "mar", "mem", "mbr", "ir", "control")
+
+# Cálculo de la duración del micropaso
+tau_micropaso <- sum(tau[activos])
+
+# Mostrar resultado con unidad
+sprintf("τ_micropaso = %d ps", tau_micropaso)
 ```
 
-###  Interrupciones y llamadas al sistema
-El simulador VonSim8 incorpora un teclado y una pantalla como dispositivos de entrada y salida, permitiendo la interacción básica entre el usuario y el sistema para la entrada de datos y la visualización de resultados.
+Valores sugeridos (educativos):
 
-```{r tecladopantalla, echo=FALSE, fig.cap="Teclado y pantalla", fig.align = 'center', out.width = "100%"}
-knitr::include_graphics(path = "images/tecladopantalla.png")
-```
+  - τ_ip = 30 ps
 
-El vector de interrupciones está predefinido en posiciones reservadas de la memoria principal, donde se almacenan las direcciones de las rutinas del sistema para interactuar con el teclado y la pantalla. En el caso de las interrupciones por software, el número de interrupción se indica como operando en la instrucción `INT`. Al producirse una interrupción, el procesador ejecuta la rutina asociada al número de interrupción, cuya dirección de inicio se obtiene del vector de interrupciones. Este vector ocupa las celdas de memoria desde `00h` hasta `07h`, y cada elemento tiene 1 byte de longitud, correspondiendo cada uno a la dirección de inicio de la rutina respectiva.
+  - τ_mar = 50 ps
 
-El procesador admite interrupciones tanto por hardware como por software, generadas por el PIC o por la instrucción `INT`, respectivamente. Para que las interrupciones por hardware sean atendidas, el procesador debe tener habilitada la bandera de interrupciones (I=1). En ambos casos, se debe proporcionar un número de interrupción entre `0` y `7`.
-
-El procedimiento que sigue el procesador ante una interrupción es el siguiente:
-
-  1. obtiene el número de la interrupción (0-7),
-  2. apila el registro `Flags`,
-  3. inhabilita las interrupciones `I=0`,
-  4. apila el registro `IP`,
-  5. obtiene la dirección de la rutina de interrupción desde el vector de interrupciones,
-  6. carga en el `IP` la dirección de la rutina de interrupción.
-
-La rutina de interrupción se ejecuta como una subrutina, pero finaliza con la instrucción `IRET` en lugar de `RET`.
-
-###  Llamadas al sistema
-El simulador permite realizar llamadas al sistema (syscalls) mediante interrupciones, utilizando el número de interrupción correspondiente. Los números de interrupción reservados para llamadas al sistema son:
-
-- `INT 0`: termina la ejecución del programa (equivalente a `HLT`);
-- `INT 6`: lee un carácter del teclado;
-- `INT 7`: escribe una cadena de caracteres en pantalla.
-
-Las direcciones del vector de interrupciones asociadas a estas llamadas están protegidas por el sistema y no pueden ser modificadas por el usuario. El contenido de las rutinas correspondientes se encuentra almacenado en el monitor del sistema en las direcciones `A0h`, `B0h` y `C0h`, respectivamente.
-
-### Pantalla
-La pantalla es un dispositivo de salida que permite mostrar caracteres. La forma de comunicarse con la pantalla es mediante una llamada al sistema. Esto es así por simplicidad, ya que una pantalla real es mucho más compleja.
-
-Con la llamada INT 7 se escribe una cadena de caracteres en la pantalla. Recibe dos parámetros:
-
-AL: longitud de la cadena a imprimir
-BL: dirección de memoria donde empieza la cadena
-
-Ejemplo de hola mundo en lenguaje ensamblador para el simulador VonSim8:
-
-```{r codepantalla, results='asis', echo=FALSE}
-if (knitr::is_latex_output()) {
-  cat("
-  \\begin{lstlisting}
-cadena DB `Hola!`
-MOV BL, offset cadena
-MOV AL, 5
-INT 7
-; Se imprime Hola! (sin las comillas) en la pantalla.
-HLT                      ; Detiene la ejecución del programa\\end{lstlisting}
-  ")
-} else {
-  cat("
-  ```assembly
-cadena DB `Hola!`
-MOV BL, offset cadena
-MOV AL, 5
-INT 7
-; Se imprime Hola! (sin las comillas) en la pantalla.
-HLT                      ; Detiene la ejecución del programa
-```")
-}
-```
-
-Hay tres caracteres especiales:
-
-  - el carácter de retroceso (`BS`, 8 en decimal) borra el carácter previo;
-  - el carácter de salto de línea (`LF`, 10 en decimal) imprime, en efecto, un salto de línea — útil para no imprimir todo en una sola línea;
-  - el carácter de _form feed_ (`FF`, 12 en decimal) limpia la pantalla.
-
-### Teclado
-El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.
-
-El teclado es un dispositivo de entrada que permite al usuario ingresar caracteres al sistema. La forma de comunicarse con el teclado es mediante una llamada al sistema. Esto es así por simplicidad, ya que un teclado real es mucho más complejo.
-
-Con la llamada INT 6 se detiene la ejecución del código hasta que se presione una tecla en el teclado. El carácter que correspona será guardado en la dirección de memoria almacenada en BL según su representación en ASCII.
-
-```{r  codeteclado, results='asis', echo=FALSE}
-if (knitr::is_latex_output()) {
-  cat("
-  \\begin{lstlisting}
-car db 0
-mov bl, offset car
-int 6
-hlt
-
-; El carácter escrito se almacenó en 'car'.
-; Por ejemplo, si el usuario presionó la tecla 'a', entonces
-; se almacena el valor 61h en 'car'.\\end{lstlisting}
-  ")
-} else {
-  cat("
-  ```assembly
-car db 0
-mov bl, offset car
-int 6
-hlt
-
-; El carácter escrito se almacenó en 'car'.
-; Por ejemplo, si el usuario presionó la tecla 'a', entonces
-; se almacena el valor 61h en 'car'.
-```")
-}
-```
-
-### Puertos de E/S
-La memoria de entrada/salida está completamente separada de la memoria principal. Para interactuar con ella, se emplean exclusivamente las instrucciones [IN] y [OUT]. Cuando se requiere acceder a un módulo de entrada/salida, la [CPU] activa la señal IO/M, lo que provoca que un selector de chips (chip select) interprete la dirección presente en el bus de direcciones y envíe la señal de activación al módulo correspondiente.
-
-El rango de direcciones asignado a la memoria de entrada/salida abarca desde `00h` hasta `FFh`, lo que permite un total de 256 direcciones. A continuación, se presentan las direcciones de entrada/salida disponibles en el simulador, todas de 8 bits:
-
-```{r tpuertos, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(kableExtra)
-
-
-# Crear los datos de la tabla reorganizada
-tpuertos <- data.frame(
-  Modulo = c(
-    "Timer", "",
-    "PIC", "", "", "", "", "", "", "",
-    "PIO", "", "", "",
-    "Handshake", ""
-  ),
-  Direccion = c(
-    "10h", "11h", "20h", "21h", "22h", "23h", "24h", "25h", "26h", "27h",
-    "28h", "29h", "2Ah", "2Bh", "40h", "41h"
-  ),
-  Nombre = c(
-    "CONT", "COMP", "EOI", "IMR", "IRR", "ISR", "INT0", "INT1", "INT2", "INT3",
-    "PA", "PB", "CA", "CB", "DATA", "STATE"
-  ),
-  stringsAsFactors = FALSE
-)
-
-# Crear la tabla con el nuevo orden
-tabla_puertos <- kable(tpuertos,
-  format               = ifelse(knitr::is_latex_output(), "latex", "html"),
-  caption              = "Módulos, direcciones y nombres del simulador",
-  col.names            = c("Módulo", "Dirección", "Nombre"),
-  booktabs             = TRUE,
-  escape               = FALSE,
-  align                = c("c", "c", "c"))
-
-if (knitr::is_latex_output()) {
-  tabla_puertos %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "2cm") %>%
-    column_spec(3, width = "3cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    # Agregar espacios después de cada grupo de módulos
-    row_spec(2, extra_latex_after = "\\addlinespace[5pt]") %>%   # Después de Timer
-    row_spec(14, extra_latex_after = "\\addlinespace[5pt]") %>%  # Después de PIC
-    row_spec(18, extra_latex_after = "\\addlinespace[5pt]") %>%  # Después de PIO
-    # Resaltar las filas de inicio de cada módulo
-    row_spec(c(1, 3, 11, 15), background = "#F0F0F0")
-} else {
-  tabla_puertos %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "16em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "12em") %>%
-    column_spec(3, width = "16em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
-    # Resaltar las filas de inicio de cada módulo
-    row_spec(c(1, 3, 11, 15), background = "#F0F0F0")
-}
-```
-
-### Instrucciones IN y OUT
-La comunicación con los módulos de entrada/salida se realiza a través de puertos, que son direcciones específicas dentro del espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones fundamentales para gestionar esta comunicación:
-
-  - `OUT puerto, AL`: envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para transmitir datos a dispositivos externos, como impresoras o pantallas.
-  - `IN AL, puerto`: recibe un byte desde el puerto especificado y lo almacena en el registro `AL`.  Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
-
-### Módulo PIO (Leds e Interruptores)
-El módulo de entrada/salida programada (Programmed Input-Output, PIO) actúa como interfaz entre la CPU y los dispositivos periféricos genéricos. Su diseño está basado en el controlador PPI 8255 de Intel, específicamente en su modo `0`, pero incorpora modificaciones orientadas a simplificar su funcionamiento para fines educativos [@intel8086manual].
-
-El módulo cuenta con dos puertos bidireccionales de 8 bits (A y B) que pueden ser configurados de manera independiente. Su arquitectura incluye cuatro registros accesibles:
-
-  - PA (dirección 30h en el espacio de memoria E/S): registro de datos del puerto A
-  - PB (dirección 31h en el espacio de memoria E/S): registro de datos del puerto B
-  - CA (dirección 32h en el espacio de memoria E/S): registro de configuración del puerto A
-  - CB (dirección 33h en el espacio de memoria E/S): registro de configuración del puerto B
   - τ_mem = 200 ps
 
   - τ_mbr = 50 ps
@@ -1606,8 +1601,6 @@ El módulo cuenta con dos puertos bidireccionales de 8 bits (A y B) que pueden s
   - τ_ir = 40 ps
 
   - τ_control = 20 ps
-
-Estos valores pueden modificarse para realizar análisis de rendimiento o comparar configuraciones de memoria y control.
 
 #### Arbitraje del bus (mutua exclusión)
 En la arquitectura Von Neumann, tanto la fase de captación como la de ejecución comparten el mismo bus y memoria.
@@ -1624,8 +1617,6 @@ La UC debe garantizar el acceso exclusivo mediante una secuencia temporal contro
 Este control asegura que no se produzcan conflictos entre lectura de instrucciones y transferencia de datos, reproduciendo fielmente la restricción estructural de la arquitectura Von Neumann.
 
 #### Métricas instrumentadas
-
-
 El simulador registra eventos con marcas de tiempo para cada transición, lo que permite medir:
 
   - Ciclos totales (Σ τ)
