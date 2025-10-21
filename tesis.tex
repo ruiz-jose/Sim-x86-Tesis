@@ -3255,288 +3255,120 @@ A continuación se detallan las instrucciones más comunes:
   \end{enumerate}
 \end{itemize}
 
-\hypertarget{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-mov-al-bl-mediante-el-formalismo-xdevs}{%
-\section{Implementación del ciclo de instrucción MOV AL, BL mediante el Formalismo xDEVS}\label{implementaciuxf3n-del-ciclo-de-instrucciuxf3n-mov-al-bl-mediante-el-formalismo-xdevs}}
+\hypertarget{modelado-con-xdevs-del-ciclo-de-instrucciuxf3n-mov-al-bl}{%
+\section{Modelado con xDEVS del ciclo de instrucción MOV AL, BL}\label{modelado-con-xdevs-del-ciclo-de-instrucciuxf3n-mov-al-bl}}
 
-La simulación de la instrucción \textbf{MOV AL, BL} es esencial para validar la arquitectura de VonSim8. Esta instrucción de transferencia de registro a registro, que copia el contenido del registro fuente BL al registro destino AL, se modela como una secuencia de eventos discretos y temporizados que representan el funcionamiento a Nivel de Transferencia de Registros (RTL).
+La simulación de la instrucción MOV AL, BL constituye un caso base para validar la arquitectura del simulador VonSim8, diseñado bajo el modelo Von Neumann, en el cual una única memoria unificada almacena tanto las instrucciones como los datos.
+En este esquema, el bus principal es compartido, lo que genera el clásico cuello de botella de Von Neumann y obliga a que la Unidad de Control (UC) sincronice cuidadosamente los accesos a memoria y al bus.
 
-El formalismo xDEVS (eXtended Discrete Event System Specification) se emplea para definir rigurosamente la estructura modular y la dinámica de eventos del simulador. Cada componente del microprocesador (registros, UC) se representa como un modelo atómico, y su interacción mediante el bus se define en un modelo acoplado jerárquico.
+La instrucción MOV AL, BL, que transfiere el contenido del registro fuente BL al registro destino AL, se modela como una secuencia de eventos discretos y temporizados que representan su ejecución a nivel de Transferencia entre Registros (RTL), utilizando el formalismo xDEVS (eXtended Discrete Event System Specification).
+En este modelo, cada componente funcional del procesador ---registros, UC, memoria y bus--- se define como un modelo atómico, mientras que sus interacciones se estructuran mediante un modelo acoplado jerárquico, lo que permite simular comportamientos paralelos, asincrónicos y temporizados.
+
+\hypertarget{componentes-del-simulador-vonsim8}{%
+\subsection{Componentes del simulador VonSim8}\label{componentes-del-simulador-vonsim8}}
+
+Los componentes que intervienen en el ciclo completo de instrucción ---tanto en la fase de captación (Fetch) como en la de ejecución (Execute)--- se presentan en la siguiente tabla.\\
+Cada uno se modela como un \textbf{modelo atómico o acoplado} dentro del entorno xDEVS, con entradas, salidas y retardos propios.
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:componentesvonsim8}Modelos y componentes principales del simulador VonSim8}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{7cm}>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{2.5cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modelo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Entradas / Salidas}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Retardo}}}\\
+\midrule
+\textbf{IP (Instruction Pointer)} & Contiene la dirección de la próxima instrucción a ejecutar. Envía su valor al MAR. & \texttt{salida: addr\_out; entrada: ip\_write, branch\_target} & \textbf{$\tau_{ip} = t_{ip}$}\\
+\textbf{MAR (Memory Address Register)} & Almacena la dirección recibida desde el IP y la utiliza para acceder a la memoria unificada. & \texttt{entrada: addr\_in; salida: addr\_out (a MEM)} & \textbf{$\tau_{mar} = t_{mar}$}\\
+\textbf{MEM (Memoria unificada)} & Memoria compartida que contiene instrucciones y datos. Devuelve o almacena la palabra solicitada. & \texttt{entrada: addr, rw; salida: data\_out} & \textbf{$\tau_{mem} = t_{mem}$}\\
+\textbf{MBR (Memory Buffer Register)} & Registro intermedio que conecta la memoria con los registros internos. & \texttt{entrada: data\_in; salida: data\_out} & \textbf{$\tau_{mbr} = t_{mbr}$}\\
+\textbf{IR (Instruction Register)} & Registro de instrucción que recibe la palabra desde el MBR y la expone a la UC para su decodificación. & \texttt{entrada: inst\_in; salida: opcode, operandos} & \textbf{$\tau_{ir} = t_{ir}$}\\
+\addlinespace
+\textbf{REG\_BANK (Banco de Registros)} & Banco de registros que agrupa a AL, BL, CL y DL. Cada registro es un modelo atómico interno que puede leer o escribir a través del bus. El banco gestiona las señales de control (\texttt{enable\_in}, \texttt{enable\_out}) y coordina el acceso a los registros. & \texttt{entradas: enable\_in[n], enable\_out[n]; salida: data\_bus; (n = AL, BL, CL, DL)} & \textbf{$\tau_{regbank} = t_{regbank}$}\\
+\textbf{UC (Unidad de Control)} & Coordina el ciclo de captación y ejecución, generando las señales de control y arbitraje del bus. & \texttt{entradas: IR; salidas: enable\_out, enable\_in, mem\_read, mem\_write} & \textbf{$\tau_{control} = t_{control}$}\\
+\textbf{BUS / Árbitro} & Canal compartido de comunicación entre IP, MAR, MEM y el banco de registros. Garantiza acceso exclusivo mediante señales de control. & \texttt{señales req / grant para acceso exclusivo al bus} & \textbf{$\tau_{bus} = t_{bus}$}\\
+\bottomrule
+\end{tabular}}
+\end{table}
 
 \hypertarget{fases-del-ciclo-de-instrucciuxf3n}{%
 \subsection{Fases del ciclo de instrucción}\label{fases-del-ciclo-de-instrucciuxf3n}}
 
-El ciclo completo se descompone en estados bien definidos de la Unidad de Control (UC), que actúan como transiciones internas (\(\delta_{\text{int}}\)) en el formalismo \(\text{xDEVS}\).
+El ciclo de instrucción se compone de dos fases principales, controladas por la Unidad de Control (UC) y modeladas mediante transiciones de estado y funciones temporizadas en el entorno xDEVS:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Fase de captación (Fetch): lectura de la instrucción desde la memoria.
+\item
+  Fase de ejecución (Execute): transferencia del contenido del registro fuente BL al registro destino AL.
+\end{enumerate}
 
 \hypertarget{fase-de-captaciuxf3n-fetch}{%
-\subsection{Fase de Captación (Fetch)}\label{fase-de-captaciuxf3n-fetch}}
+\subsection{Fase de captación (Fetch)}\label{fase-de-captaciuxf3n-fetch}}
 
-Esta fase, común a cualquier instrucción, se conserva tal como se detalla en la definición general del ciclo de instrucción:
+La fase de captación (Fetch) tiene como objetivo leer la instrucción almacenada en la memoria unificada utilizando el valor del Instruction Pointer (IP) y cargarla en el Instruction Register (IR) para su posterior decodificación.
+En VonSim8, esta fase modela el uso exclusivo del bus y la memoria compartida, reproduciendo la restricción estructural característica de la arquitectura Von Neumann.
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{\texttt{MAR} \(\leftarrow\) \texttt{IP}}
-\item
-  \textbf{\texttt{MBR} \(\leftarrow\) \texttt{read(Memoria{[}MAR{]})} \textbar{} \texttt{IP} \(\leftarrow\) \texttt{IP} + 1}
-\item
-  \textbf{\texttt{IR} \(\leftarrow\) \texttt{MBR}}
-\end{itemize}
+La secuencia de eventos principales es:
 
-Al finalizar, el registro \textbf{IR} contiene el código binario correspondiente a la instrucción \texttt{MOV\ AL,\ BL}.
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  UC → IP: la UC inicia la lectura de la dirección actual del IP.
+\item
+  IP → MAR: el IP coloca la dirección en el bus y la transfiere al MAR.
+\item
+  UC → MEM: la UC activa la señal mem\_read y garantiza acceso exclusivo al bus.
+\item
+  MEM → MBR: la memoria devuelve la instrucción tras un retardo \(\tau_{mem}\).
+\item
+  MBR → IR: el MBR transfiere la instrucción al IR.
+\item
+  UC → IR → UC: el IR notifica a la UC que la instrucción está lista para decodificación.
+\end{enumerate}
+
+Durante este proceso, el bus permanece bloqueado para otros accesos hasta completar la lectura de la instrucción.
 
 \hypertarget{fase-de-ejecuciuxf3n-execute-mov-al-bl}{%
 \subsection{Fase de Ejecución (Execute): MOV AL, BL}\label{fase-de-ejecuciuxf3n-execute-mov-al-bl}}
 
-En esta fase, la UC decodifica el contenido del IR y genera las señales de control necesarias para realizar la transferencia de datos.
+Durante la fase de ejecución, la UC decodifica el contenido del IR y activa las señales necesarias para que el Banco de Registros (REG\_BANK) permita la transferencia del dato desde BL hacia AL a través del bus compartido.
 
-\hypertarget{modelos-atuxf3micos-y-sus-interacciones}{%
-\subsubsection{Modelos Atómicos y sus Interacciones}\label{modelos-atuxf3micos-y-sus-interacciones}}
+El REG\_BANK es un modelo acoplado que contiene cuatro modelos atómicos: AL, BL, CL y DL.
+Cada registro posee sus propias entradas (enable\_in, enable\_out, data\_in, data\_out), pero el banco actúa como intermediario, gestionando la habilitación del registro fuente y del registro destino según las señales de la UC.
 
-La ejecución involucra la coordinación de varios modelos atómicos interconectados a través del bus de datos, que es el recurso compartido.
+Microoperaciones del ciclo MOV AL, BL:
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:componentesprincipales}Componentes principales del simulador VonSim8}
+\caption{\label{tab:microoperacionesMOV}Secuencia de microoperaciones para MOV AL, BL utilizando el Banco de Registros}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{8cm}}
+\begin{tabular}[t]{llll}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
+Paso & Microoperación & Descripción & Modelos y funciones xDEVS\\
 \midrule
-\textbf{UC (Unidad de Control)} & Atómico & Motor del simulador. Decodifica IR, genera señales de control para lectura/escritura.\\
-\addlinespace[8pt]
-\textbf{BL (Registro Fuente)} & Atómico (Registro) & Emite su valor al BUS tras recibir la señal de control (evento) de la UC.\\
-\addlinespace[8pt]
-\textbf{AL (Registro Destino)} & Atómico (Registro) & Captura y actualiza su estado interno con el dato del BUS tras recibir la señal de control de la UC.\\
-\addlinespace[8pt]
-\textbf{BUS de datos} & Modelo Acoplado (Canal) & Representa el medio de comunicación. Su estado transfiere el dato desde la salida $\lambda$ de BL hasta la entrada $\delta_{\text{ext}}$ de AL.\\
-\addlinespace[8pt]
+1 & UC: decodificar(IR) & La UC analiza el opcode MOV y determina los operandos AL y BL. & $\delta_{\text{ext}}(UC)$ recibe evento del IR y actualiza su estado con la instrucción actual.\\
+2 & UC $\rightarrow$ REG\_BANK.enable\_out(BL) = 1 & El Banco de Registros activa la salida del registro BL. & $\lambda_{UC}$ genera evento hacia REG\_BANK(BL).\\
+3 & BUS $\leftarrow$ BL & El valor del registro BL se transmite por el bus. & $\lambda_{BL}$ emite su valor al bus.\\
+4 & UC $\rightarrow$ REG\_BANK.enable\_in(AL) = 1 & La UC habilita la entrada del registro AL dentro del Banco de Registros. & $\lambda_{UC}$ activa señal de escritura hacia REG\_BANK(AL).\\
+5 & AL $\leftarrow$ BUS & El registro AL captura el dato del bus y actualiza su valor interno. & $\delta_{\text{ext}}(AL)$ recibe el dato desde el bus y actualiza su estado $S$.\\
 \bottomrule
 \end{tabular}}
 \end{table}
 
-Los modelos AL y BL representan registros independientes, con su propia dinámica interna de lectura y escritura.
-El modelo UC controla la sincronización de los eventos, mientras que el BUS actúa como canal de comunicación compartido entre los registros.
-
-\hypertarget{secuencia-de-microoperaciones-y-eventos-xdevs}{%
-\subsubsection{Secuencia de Microoperaciones y Eventos xDEVS}\label{secuencia-de-microoperaciones-y-eventos-xdevs}}
-
-El proceso se descompone en microoperaciones a nivel RTL, donde cada paso es una función de transición o de salida dentro del formalismo \(\text{xDEVS}\).
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:microoperacionesMOV}Secuencia de microoperaciones para MOV AL, BL en VonSim8}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{8cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Paso}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Microoperación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modelos y funciones xDEVS}}}\\
-\midrule
-\textbf{1} & UC: decodificar(IR) & La UC lee el valor del IR, determina el opcode $ ext{MOV}$ y los operandos. & $\delta_{\text{ext}}$ (UC) recibe evento del IR; actualiza su estado (S) con la instrucción actual.\\
-\addlinespace[8pt]
-\textbf{2} & UC → BL.enable\_out = 1 & La UC activa la señal de lectura del registro fuente BL. & $\lambda$ (UC) genera evento de salida hacia BL.\\
-\addlinespace[8pt]
-\textbf{3} & BUS ← BL & El registro BL (modelo atómico) emite su valor al BUS. & $\lambda$ (BL) emite valor actual al BUS.\\
-\addlinespace[8pt]
-\textbf{4} & UC → AL.enable\_in = 1 & La UC habilita la escritura en el registro destino AL. & $\lambda$ (UC) envía evento de control a AL.\\
-\addlinespace[8pt]
-\textbf{5} & AL ← BUS & El registro AL captura el dato del bus y actualiza su valor. & $\delta_{\text{ext}}$ (AL) recibe valor del BUS y actualiza su estado S.\\
-\addlinespace[8pt]
-\bottomrule
-\end{tabular}}
-\end{table}
-
-Estas microoperaciones se ejecutan de forma ordenada y temporizada, de acuerdo con las funciones de transición del formalismo xDEVS, representando el flujo de control de la UC y las transferencias de datos entre registros.
-
-\hypertarget{definiciuxf3n-xdevs-simplificada-de-cada-modelo}{%
-\subsection{Definición XDEVS simplificada de cada modelo}\label{definiciuxf3n-xdevs-simplificada-de-cada-modelo}}
-
-\hypertarget{modelo-atuxf3mico-registro-reg}{%
-\subsubsection{Modelo Atómico: Registro (REG)}\label{modelo-atuxf3mico-registro-reg}}
-
-La definición formal del modelo atómico de registro se presenta en la ecuación \eqref{eq:modreg}:
-
-\begin{equation}
-M_{\text{REG}} = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
-\end{equation}
-\label{eq:modreg}
-
-Donde:
-
-\begin{itemize}
-\tightlist
-\item
-  \(X\): entradas \(\{ \text{dato\_in},\ \text{enable\_in},\ \text{enable\_out} \}\)
-\item
-  \(S\): estados \(\{ \text{valor},\ \text{modo} \}\)
-\item
-  \(Y\): salidas \(\{ \text{dato\_out} \}\)
-\end{itemize}
-
-\textbf{Transiciones xDEVS:}
-
-\begin{itemize}
-\item
-  \(\delta_{\text{ext}}\):\\
-  Si \(\text{enable\_in} = 1\) y llega \(\text{dato\_in}\), entonces \(\text{valor} \leftarrow \text{dato\_in}\).\\
-  Si \(\text{enable\_out} = 1\), prepara salida.
-\item
-  \(\lambda\):\\
-  Emite \(\text{dato\_out} = \text{valor}\) si \(\text{enable\_out} = 1\).
-\item
-  \(\delta_{\text{int}}\):\\
-  Reinicia \(\text{enable\_in}\) y \(\text{enable\_out}\).
-\item
-  \(\tau\):\\
-  Se define como retardo configurable \(t_{\text{reg}}\), medido en unidades de tiempo físico (ns o ps).
-  Este retardo puede variar para modelar diferentes tecnologías o latencias de acceso a registros.
-  La duración total del micropaso se obtiene como la suma de los retardos de los componentes activos en dicho paso.
-\end{itemize}
-
-\hypertarget{modelo-atuxf3mico-unidad-de-control-uc}{%
-\subsubsection{Modelo Atómico: Unidad de Control (UC)}\label{modelo-atuxf3mico-unidad-de-control-uc}}
-
-La definición formal del modelo atómico de la unidad de control se presenta en la ecuación \eqref{eq:moduc}:
-
-\begin{equation}
-M_{\text{UC}} = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
-\label{eq:moduc}
-\end{equation}
-
-Donde:
-
-\begin{itemize}
-\tightlist
-\item
-  \(X\): entrada desde \(IR\) (opcode, operandos).
-\item
-  \(S\): estados \(\{ \text{estado},\ \text{opcode},\ \text{operandos} \}\)
-\item
-  \(Y\): señales de control \(\{ \text{enable\_in},\ \text{enable\_out} \}\)
-\end{itemize}
-
-\textbf{Transiciones:}
-
-\begin{itemize}
-\item
-  \(\delta_{\text{ext}}\):\\
-  Al recibir una instrucción, actualiza el estado decodificando opcode y operandos.
-\item
-  \(\lambda\):\\
-  Genera señales de control según el opcode (por ejemplo, para MOV: activa salida de BL y entrada de AL).
-\item
-  \(\delta_{\text{int}}\):\\
-  Pasa a estado de espera.
-\item
-  \(\tau\):\\
-  Retardo configurable \(t_{\text{control}}\), correspondiente al tiempo del ciclo de control.
-  Este parámetro puede ajustarse para análisis de rendimiento y cálculo del CPI (Cycles Per Instruction).
-\end{itemize}
-
-\hypertarget{diagrama-de-interacciuxf3n-resumen-conceptual}{%
-\subsection{Diagrama de interacción (resumen conceptual)}\label{diagrama-de-interacciuxf3n-resumen-conceptual}}
-
-En el entorno \textbf{xDEVS}, cada una de estas microoperaciones se modela como una \textbf{transición de estado} o un \textbf{evento} entre modelos atómicos.\\
-Por ejemplo, la operación \texttt{MOV\ AL,\ BL} se descompone en:
-
-\begin{itemize}
-\tightlist
-\item
-  \(\delta_{\text{ext}}(UC)\) → decodifica la instrucción y genera señales de control.\\
-\item
-  \(\lambda(UC)\) → activa \texttt{BL.enable\_out}.\\
-\item
-  \(\lambda(BL)\) → emite el valor sobre el bus.\\
-\item
-  \(\delta_{\text{ext}}(AL)\) → recibe el valor del bus y actualiza su estado interno.
-\end{itemize}
-
-De esta forma, la secuencia de microoperaciones RTL se traduce directamente al formalismo xDEVS.
-
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0703}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2969}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4297}}
-  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2031}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Etapa
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Microoperación RTL
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Evento o transición xDEVS
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Modelo atómico involucrado
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Fetch 1 & \texttt{MAR\ ←\ IP} & \(\delta_{\text{ext(UC)}}\) activa señal hacia MAR & UC, MAR, IP \\
-Fetch 2 & \texttt{MBR\ ←\ read(Mem{[}MAR{]})} / \texttt{IP\ ←\ IP\ +\ 1} & \(\lambda_{\text{(Mem)}}\) emite dato → \(\delta_{\text{ext(MBR)}}\) lo recibe & Memoria, MBR, UC \\
-Fetch 3 & \texttt{IR\ ←\ MBR} & \(\lambda(MBR)\) → \(\delta_{\text{ext}}(IR)\) & MBR, IR \\
-Execute 1 & \texttt{AL\ ←\ BL} & \(\lambda(UC)\) genera señal de control → \(\lambda(BL)\) → \(\delta_{\text{ext}}(AL)\) & UC, BL, BUS, AL \\
-\end{longtable}
-
-IR → UC → {[} señales de control {]}
-↓
-+------------+
-\textbar{} BL \textbar{} -- \(\lambda\) --\textgreater{} (dato) --\textgreater{} BUS --\textgreater{} (dato) --\textgreater{} AL
-+------------+
-
-\emph{Nota:} La UC garantiza el acceso \textbf{mutuamente exclusivo} al bus de datos, activando las señales \texttt{enable\_out} y \texttt{enable\_in}
-en instantes discretos no superpuestos, lo que evita conflictos y simula el cuello de botella característico de la arquitectura Von Neumann.
-
-\hypertarget{resultados-de-simulaciuxf3n-esperados-en-vonsim8}{%
-\subsection{Resultados de simulación esperados (en VonSim8)}\label{resultados-de-simulaciuxf3n-esperados-en-vonsim8}}
-
-Durante la simulación en VonSim8, los tiempos y funciones xDEVS determinan la secuencia de eventos y el intercambio de datos entre modelos:
-
-\begin{table}[!h]
-\centering
-\caption{\label{tab:cicloMOV}Ciclo de ejecución de la instrucción MOV AL, BL}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{8cm}}
-\toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tiempo (t)}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Evento}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Registro afectado}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
-\midrule
-\textbf{$t_{\text{0}}$} & Captación completada & IR & Contiene MOV AL, BL\\
-\addlinespace[8pt]
-\textbf{$t_{\text{1}}$} & Decodificación & UC & Genera señales de control\\
-\addlinespace[8pt]
-\textbf{$t_{\text{2}}$} & Lectura de BL & BL & Emite valor al bus\\
-\addlinespace[8pt]
-\textbf{$t_{\text{3}}$} & Escritura en AL & AL & Guarda el valor de BL\\
-\addlinespace[8pt]
-\textbf{$t_{\text{4}}$} & Fin de instrucción & UC & Pasa al siguiente ciclo (fetch siguiente instrucción)\\
-\addlinespace[8pt]
-\bottomrule
-\end{tabular}}
-\end{table}
+Estas microoperaciones se ejecutan de manera ordenada y temporizada, según las funciones de transición del formalismo xDEVS, lo que permite representar el flujo de control y la sincronización de eventos entre modelos atómicos.
 
 \hypertarget{conclusiuxf3n}{%
 \subsection{Conclusión}\label{conclusiuxf3n}}
 
-El formalismo xDEVS permite modelar de manera precisa y extensible el comportamiento modular, jerárquico y temporizado del ciclo de instrucción MOV AL, BL.
-La simulación reproduce la dinámica de señales y las transferencias de datos propias del nivel RTL (Register Transfer Level), mostrando cómo la Unidad de Control coordina los eventos y la exclusividad del bus compartido mediante retardos configurables.
+El modelado con xDEVS permite describir de manera precisa, modular y extensible el comportamiento del ciclo de instrucción MOV AL, BL en el simulador VonSim8. La simulación refleja cómo la Unidad de Control coordina los accesos a memoria y al bus compartido, respetando la exclusividad de acceso característica de la arquitectura Von Neumann.
 
-Además, el diseño modular permite incorporar nuevas instrucciones sin alterar la estructura general del simulador.
-Por ejemplo, para implementar una instrucción ADD AL, BL, solo se requeriría:
-
-\begin{itemize}
-\item
-  Extender la lógica de decodificación en \(\delta_{\text{ext}}(\text{UC})\),
-\item
-  Incorporar un modelo atómico ALU con su propio retardo \(\tau_{\text{ALU}}\), y
-\item
-  Definir las microoperaciones de transferencia BL → ALU, AL → ALU, y ALU → AL, coordinadas por la UC.
-\end{itemize}
-
-Esto demuestra la escalabilidad del enfoque xDEVS y su utilidad para la enseñanza y validación de arquitecturas computacionales.
+Este enfoque facilita el análisis de métricas como el CPI, la latencia de memoria o el tiempo de retención del bus, reforzando el valor pedagógico y analítico de VonSim8, al vincular los conceptos teóricos de la arquitectura clásica con un entorno de simulación formal y configurable.
 
 \hypertarget{muxf3dulo-de-entradasalida-e-interrupciones}{%
 \section{Módulo de entrada/salida e interrupciones}\label{muxf3dulo-de-entradasalida-e-interrupciones}}
