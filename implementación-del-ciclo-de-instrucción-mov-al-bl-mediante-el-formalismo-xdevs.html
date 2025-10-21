@@ -468,7 +468,7 @@ Microoperación
 Descripción
 </th>
 <th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Modelos y funciones DEVS
+Modelos y funciones xDEVS
 </th>
 </tr>
 </thead>
@@ -495,7 +495,7 @@ La UC lee el valor del IR, determina el opcode $ ext{MOV}$ y los operandos.
 UC → BL.enable_out = 1
 </td>
 <td style="text-align:left;width: 32em; ">
-La UC activa la señal del muxregout para leer el registro fuente BL.
+La UC activa la señal de lectura del registro fuente BL.
 </td>
 <td style="text-align:left;width: 32em; ">
 <span class="math inline">\(\lambda\)</span> (UC) genera evento de salida hacia BL.
@@ -509,7 +509,7 @@ La UC activa la señal del muxregout para leer el registro fuente BL.
 BUS ← BL
 </td>
 <td style="text-align:left;width: 32em; ">
-La UC activa la señal del muxregin para leer el registro destino AL.
+El registro BL (modelo atómico) emite su valor al BUS.
 </td>
 <td style="text-align:left;width: 32em; ">
 <span class="math inline">\(\lambda\)</span> (BL) emite valor actual al BUS.
@@ -523,7 +523,7 @@ La UC activa la señal del muxregin para leer el registro destino AL.
 UC → AL.enable_in = 1
 </td>
 <td style="text-align:left;width: 32em; ">
-La UC habilita la escritura en AL.
+La UC habilita la escritura en el registro destino AL.
 </td>
 <td style="text-align:left;width: 32em; ">
 <span class="math inline">\(\lambda\)</span> (UC) envía evento de control a AL.
@@ -537,7 +537,7 @@ La UC habilita la escritura en AL.
 AL ← BUS
 </td>
 <td style="text-align:left;width: 32em; ">
-El registro AL captura el dato del bus y actualiza su estado interno.
+El registro AL captura el dato del bus y actualiza su valor.
 </td>
 <td style="text-align:left;width: 32em; ">
 <span class="math inline">\(\delta_{\text{ext}}\)</span> (AL) recibe valor del BUS y actualiza su estado S.
@@ -555,15 +555,15 @@ El registro AL captura el dato del bus y actualiza su estado interno.
 <p>La definición formal del modelo atómico de registro se presenta en la ecuación <a href="implementación-del-ciclo-de-instrucción-mov-al-bl-mediante-el-formalismo-xdevs.html#eq:modreg">(5.1)</a>:</p>
 <p><span class="math display" id="eq:modreg">\[\begin{equation}
 M_{\text{REG}} = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
-\tag{5.1}
-\end{equation}\]</span></p>
+\end{equation}\]</span>
+\tag{5.1}</p>
 <p>Donde:</p>
 <ul>
 <li><span class="math inline">\(X\)</span>: entradas <span class="math inline">\(\{ \text{dato\_in},\ \text{enable\_in},\ \text{enable\_out} \}\)</span></li>
 <li><span class="math inline">\(S\)</span>: estados <span class="math inline">\(\{ \text{valor},\ \text{modo} \}\)</span></li>
 <li><span class="math inline">\(Y\)</span>: salidas <span class="math inline">\(\{ \text{dato\_out} \}\)</span></li>
 </ul>
-<p><strong>Transiciones DEVS:</strong></p>
+<p><strong>Transiciones xDEVS:</strong></p>
 <ul>
 <li><p><span class="math inline">\(\delta_{\text{ext}}\)</span>:<br />
 Si <span class="math inline">\(\text{enable\_in} = 1\)</span> y llega <span class="math inline">\(\text{dato\_in}\)</span>, entonces <span class="math inline">\(\text{valor} \leftarrow \text{dato\_in}\)</span>.<br />
@@ -573,7 +573,9 @@ Emite <span class="math inline">\(\text{dato\_out} = \text{valor}\)</span> si <s
 <li><p><span class="math inline">\(\delta_{\text{int}}\)</span>:<br />
 Reinicia <span class="math inline">\(\text{enable\_in}\)</span> y <span class="math inline">\(\text{enable\_out}\)</span>.</p></li>
 <li><p><span class="math inline">\(\tau\)</span>:<br />
-Duración del micropaso (instantánea o tiempo simbólico <span class="math inline">\(t_{\text{reg}}\)</span>).</p></li>
+Se define como retardo configurable <span class="math inline">\(t_{\text{reg}}\)</span>, medido en unidades de tiempo físico (ns o ps).
+Este retardo puede variar para modelar diferentes tecnologías o latencias de acceso a registros.
+La duración total del micropaso se obtiene como la suma de los retardos de los componentes activos en dicho paso.</p></li>
 </ul>
 </div>
 <div id="modelo-atómico-unidad-de-control-uc" class="section level4 hasAnchor" number="5.8.4.2">
@@ -598,7 +600,8 @@ Genera señales de control según el opcode (por ejemplo, para MOV: activa salid
 <li><p><span class="math inline">\(\delta_{\text{int}}\)</span>:<br />
 Pasa a estado de espera.</p></li>
 <li><p><span class="math inline">\(\tau\)</span>:<br />
-Duración del ciclo de control.</p></li>
+Retardo configurable <span class="math inline">\(t_{\text{control}}\)</span>, correspondiente al tiempo del ciclo de control.
+Este parámetro puede ajustarse para análisis de rendimiento y cálculo del CPI (Cycles Per Instruction).</p></li>
 </ul>
 </div>
 </div>
@@ -615,7 +618,7 @@ Por ejemplo, la operación <code>MOV AL, BL</code> se descompone en:</p>
 </li>
 <li><span class="math inline">\(\delta_{\text{ext}}(AL)\)</span> → recibe el valor del bus y actualiza su estado interno.</li>
 </ul>
-<p>De esta forma, la secuencia de microoperaciones RTL se traduce directamente al formalismo DEVS.</p>
+<p>De esta forma, la secuencia de microoperaciones RTL se traduce directamente al formalismo xDEVS.</p>
 <table>
 <colgroup>
 <col width="7%" />
@@ -663,10 +666,12 @@ Por ejemplo, la operación <code>MOV AL, BL</code> se descompone en:</p>
 +————+
 | BL | – <span class="math inline">\(\lambda\)</span> –&gt; (dato) –&gt; BUS –&gt; (dato) –&gt; AL
 +————+</p>
+<p><em>Nota:</em> La UC garantiza el acceso <strong>mutuamente exclusivo</strong> al bus de datos, activando las señales <code>enable_out</code> y <code>enable_in</code>
+en instantes discretos no superpuestos, lo que evita conflictos y simula el cuello de botella característico de la arquitectura Von Neumann.</p>
 </div>
 <div id="resultados-de-simulación-esperados-en-vonsim8" class="section level3 hasAnchor" number="5.8.6">
 <h3><span class="header-section-number">5.8.6</span> Resultados de simulación esperados (en VonSim8)<a href="implementación-del-ciclo-de-instrucción-mov-al-bl-mediante-el-formalismo-xdevs.html#resultados-de-simulación-esperados-en-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Durante la simulación en VonSim8, los tiempos y funciones DEVS determinan la secuencia de eventos y el intercambio de datos entre modelos:</p>
+<p>Durante la simulación en VonSim8, los tiempos y funciones xDEVS determinan la secuencia de eventos y el intercambio de datos entre modelos:</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
 <span id="tab:cicloMOV">Tabla 5.14: </span>Ciclo de ejecución de la instrucción MOV AL, BL
@@ -763,8 +768,16 @@ Pasa al siguiente ciclo (fetch siguiente instrucción)
 </div>
 <div id="conclusión" class="section level3 hasAnchor" number="5.8.7">
 <h3><span class="header-section-number">5.8.7</span> Conclusión<a href="implementación-del-ciclo-de-instrucción-mov-al-bl-mediante-el-formalismo-xdevs.html#conclusión" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El formalismo xDEVS permite representar con precisión el comportamiento modular, jerárquico y temporizado del ciclo de instrucción MOV AL, BL.
-La simulación reproduce la dinámica de señales y las transferencias de datos propias del nivel RTL (Register Transfer Level), evidenciando cómo la Unidad de Control coordina la comunicación entre los registros mediante eventos discretos y funciones de transición bien definidas.</p>
+<p>El formalismo xDEVS permite modelar de manera precisa y extensible el comportamiento modular, jerárquico y temporizado del ciclo de instrucción MOV AL, BL.
+La simulación reproduce la dinámica de señales y las transferencias de datos propias del nivel RTL (Register Transfer Level), mostrando cómo la Unidad de Control coordina los eventos y la exclusividad del bus compartido mediante retardos configurables.</p>
+<p>Además, el diseño modular permite incorporar nuevas instrucciones sin alterar la estructura general del simulador.
+Por ejemplo, para implementar una instrucción ADD AL, BL, solo se requeriría:</p>
+<ul>
+<li><p>Extender la lógica de decodificación en <span class="math inline">\(\delta_{\text{ext}}(\text{UC})\)</span>,</p></li>
+<li><p>Incorporar un modelo atómico ALU con su propio retardo <span class="math inline">\(\tau_{\text{ALU}}\)</span>, y</p></li>
+<li><p>Definir las microoperaciones de transferencia BL → ALU, AL → ALU, y ALU → AL, coordinadas por la UC.</p></li>
+</ul>
+<p>Esto demuestra la escalabilidad del enfoque xDEVS y su utilidad para la enseñanza y validación de arquitecturas computacionales.</p>
 </div>
 </div>
             </section>
