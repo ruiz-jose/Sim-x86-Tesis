@@ -1623,12 +1623,12 @@ microoperaciones <- data.frame(
   ),
   Descripción = c(
     "La UC lee el valor del IR, determina el opcode $\text{MOV}$ y los operandos.",
-    "La UC activa la señal del muxregout para leer el registro fuente BL.",
-    "La UC activa la señal del muxregin para leer el registro destino AL.",
-    "La UC habilita la escritura en AL.",
-    "El registro AL captura el dato del bus y actualiza su estado interno."
+    "La UC activa la señal de lectura del registro fuente BL.",
+    "El registro BL (modelo atómico) emite su valor al BUS.",
+    "La UC habilita la escritura en el registro destino AL.",
+    "El registro AL captura el dato del bus y actualiza su valor."
   ),
-  `Modelos y funciones DEVS` = c(
+  `Modelos y funciones xDEVS` = c(
     "$\\delta_{\\text{ext}}$ (UC) recibe evento del IR; actualiza su estado (S) con la instrucción actual.",
     "$\\lambda$ (UC) genera evento de salida hacia BL.",
     "$\\lambda$ (BL) emite valor actual al BUS.",
@@ -1643,7 +1643,7 @@ tabla_microop <- kable(
   microoperaciones,
   format = ifelse(knitr::is_latex_output(), "latex", "html"),
   caption = "Secuencia de microoperaciones para MOV AL, BL en VonSim8",
-  col.names = c("Paso", "Microoperación", "Descripción", "Modelos y funciones DEVS"),
+  col.names = c("Paso", "Microoperación", "Descripción", "Modelos y funciones xDEVS"),
   booktabs = TRUE,
   escape = FALSE
 )
@@ -1685,8 +1685,8 @@ La definición formal del modelo atómico de registro se presenta en la ecuació
 
 \begin{equation}
 M_{\text{REG}} = \langle X, S, Y, \delta_{\text{int}}, \delta_{\text{ext}}, \lambda, \tau \rangle
-(\#eq:modreg)
 \end{equation}
+(\#eq:modreg)
 
 Donde:
 
@@ -1694,7 +1694,7 @@ Donde:
 - $S$: estados $\{ \text{valor},\ \text{modo} \}$
 - $Y$: salidas $\{ \text{dato\_out} \}$
 
-**Transiciones DEVS:**
+**Transiciones xDEVS:**
 
 - $\delta_{\text{ext}}$:  
   Si $\text{enable\_in} = 1$ y llega $\text{dato\_in}$, entonces $\text{valor} \leftarrow \text{dato\_in}$.  
@@ -1707,7 +1707,9 @@ Donde:
   Reinicia $\text{enable\_in}$ y $\text{enable\_out}$.
 
 - $\tau$:  
-  Duración del micropaso (instantánea o tiempo simbólico $t_{\text{reg}}$).
+  Se define como retardo configurable $t_{\text{reg}}$, medido en unidades de tiempo físico (ns o ps).
+  Este retardo puede variar para modelar diferentes tecnologías o latencias de acceso a registros.
+  La duración total del micropaso se obtiene como la suma de los retardos de los componentes activos en dicho paso.
 
 #### Modelo Atómico: Unidad de Control (UC)
 La definición formal del modelo atómico de la unidad de control se presenta en la ecuación \@ref(eq:moduc):
@@ -1735,7 +1737,8 @@ Donde:
   Pasa a estado de espera.
 
 - $\tau$:  
-  Duración del ciclo de control.
+  Retardo configurable $t_{\text{control}}$, correspondiente al tiempo del ciclo de control.
+  Este parámetro puede ajustarse para análisis de rendimiento y cálculo del CPI (Cycles Per Instruction).
 
 ### Diagrama de interacción (resumen conceptual)
 
@@ -1747,7 +1750,7 @@ Por ejemplo, la operación `MOV AL, BL` se descompone en:
 - $\lambda(BL)$ → emite el valor sobre el bus.  
 - $\delta_{\text{ext}}(AL)$ → recibe el valor del bus y actualiza su estado interno.
 
-De esta forma, la secuencia de microoperaciones RTL se traduce directamente al formalismo DEVS.
+De esta forma, la secuencia de microoperaciones RTL se traduce directamente al formalismo xDEVS.
 
 
 | Etapa     | Microoperación RTL                     | Evento o transición xDEVS                               | Modelo atómico involucrado |
@@ -1764,8 +1767,11 @@ IR → UC → [ señales de control ]
          |    BL      | -- $\lambda$ --> (dato) --> BUS --> (dato) --> AL
          +------------+
 
+*Nota:* La UC garantiza el acceso **mutuamente exclusivo** al bus de datos, activando las señales `enable_out` y `enable_in`
+en instantes discretos no superpuestos, lo que evita conflictos y simula el cuello de botella característico de la arquitectura Von Neumann.
+
 ### Resultados de simulación esperados (en VonSim8)
-Durante la simulación en VonSim8, los tiempos y funciones DEVS determinan la secuencia de eventos y el intercambio de datos entre modelos:
+Durante la simulación en VonSim8, los tiempos y funciones xDEVS determinan la secuencia de eventos y el intercambio de datos entre modelos:
 
 ```{r cicloMOV, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -1837,8 +1843,19 @@ if (knitr::is_latex_output()) {
 ```
 
 ### Conclusión
-El formalismo xDEVS permite representar con precisión el comportamiento modular, jerárquico y temporizado del ciclo de instrucción MOV AL, BL.
-La simulación reproduce la dinámica de señales y las transferencias de datos propias del nivel RTL (Register Transfer Level), evidenciando cómo la Unidad de Control coordina la comunicación entre los registros mediante eventos discretos y funciones de transición bien definidas.
+El formalismo xDEVS permite modelar de manera precisa y extensible el comportamiento modular, jerárquico y temporizado del ciclo de instrucción MOV AL, BL.
+La simulación reproduce la dinámica de señales y las transferencias de datos propias del nivel RTL (Register Transfer Level), mostrando cómo la Unidad de Control coordina los eventos y la exclusividad del bus compartido mediante retardos configurables.
+
+Además, el diseño modular permite incorporar nuevas instrucciones sin alterar la estructura general del simulador.
+Por ejemplo, para implementar una instrucción ADD AL, BL, solo se requeriría:
+
+  - Extender la lógica de decodificación en $\delta_{\text{ext}}(\text{UC})$,
+
+  - Incorporar un modelo atómico ALU con su propio retardo $\tau_{\text{ALU}}$, y
+
+  - Definir las microoperaciones de transferencia BL → ALU, AL → ALU, y ALU → AL, coordinadas por la UC.
+
+Esto demuestra la escalabilidad del enfoque xDEVS y su utilidad para la enseñanza y validación de arquitecturas computacionales.
 
 ## Módulo de entrada/salida e interrupciones
 El simulador permite configurar la conexión de diversos módulos de entrada/salida y otros dispositivos al bus principal, agrupados en las siguientes categorías:
