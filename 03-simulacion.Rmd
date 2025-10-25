@@ -96,7 +96,7 @@ En este contexto, los simuladores se configuran como mediadores didácticos que 
 
 Además, la simulación actúa como un puente entre la teoría y la práctica, facilitando que los docentes refuercen conceptos abstractos con experiencias concretas. En conjunto, estas ventajas hacen de la simulación una metodología pedagógica invaluable, promoviendo la experimentación y el aprendizaje activo en la enseñanza de Arquitectura de Computadoras [@skrien_cpu_2001; @garcia-garcia_pbbcache_2020; @nova_tool_2013].
 
-## El Formalismo DEVS (Discrete Event System Specification)
+## El Formalismo DEVS (Discrete Event System Specification) {#devs}
 El formalismo DEVS es una metodología modular y jerárquica que permite modelar y analizar sistemas representables como sistemas de eventos discretos, continuos o híbridos. Desarrollado por Bernard P. Zeigler en la década de 1970, este enfoque amplía el concepto de las máquinas de Moore al añadir una estructura que permite representar el comportamiento de sistemas mediante eventos temporizados que provocan cambios de estado, capturando así tanto la dinámica interna como las interacciones externas del sistema [@zeigler_theory_2000].
 
 ### Estructura del formalismo DEVS
@@ -139,17 +139,17 @@ La siguiente figura \@ref(fig:acoplado) ilustra la organización modular del for
 knitr::include_graphics(path = "images/acoplado.png")
 ```
 
+### xDEVS {#xdevs}
+xDEVS es un framework de modelado y simulación de eventos discretos basado en DEVS/PDEVS que unifica una interfaz común entre múltiples lenguajes (C, C++, Java, Python, Rust, entre otros). Esta interoperabilidad permite reutilizar modelos y comparar motores, al tiempo que habilita ejecuciones secuenciales, paralelas y distribuidas, con énfasis en rendimiento y verificabilidad. En este trabajo se utiliza `xdevs.py`, la implementación en Python, por su equilibrio entre legibilidad, portabilidad y soporte de ejecución en tiempo virtual y real [@risco2023; @xdevs_github; @xdevs_py_github].
+
+xDEVS separa explícitamente la capa de **modelado** (modelos atómicos y acoplados con puertos y acoplamientos) de la capa de **simulación** (simuladores y coordinadores que orquestan el avance temporal y la confluencia de eventos). Esta organización refleja la estructura formal DEVS y favorece la construcción jerárquica de sistemas complejos, manteniendo claridad en el flujo de información.
+
 ### Aplicaciones del formalismo DEVS
 "El formalismo DEVS encuentra aplicación en diversos ámbitos, como las redes de comunicación [@fujimoto2001parallel], donde permite simular el enrutamiento de paquetes y la congestión de redes; en entornos de manufactura [@zeigler_theory_2000], donde se modelan flujos de producción y control de calidad; y en sistemas de transporte, para la optimización de flujos vehiculares [@barros1997modeling]. También se utiliza en la simulación de sistemas biológicos, como la propagación de enfermedades o el comportamiento de poblaciones [@zeigler2004continuity]. En el ámbito de la educación, DEVS se ha implementado en simuladores para la enseñanza de arquitectura de computadoras, permitiendo a los estudiantes explorar y comprender conceptos complejos mediante la visualización y manipulación de modelos [@calvo2010simulador].
 
 Estas aplicaciones destacan su versatilidad para optimizar sistemas complejos en escenarios del mundo real.
 
-### xDEVS
-xDEVS es un framework de modelado y simulación de eventos discretos basado en DEVS/PDEVS que unifica una interfaz común entre múltiples lenguajes (C, C++, Java, Python, Rust, entre otros). Esta interoperabilidad permite reutilizar modelos y comparar motores, al tiempo que habilita ejecuciones secuenciales, paralelas y distribuidas, con énfasis en rendimiento y verificabilidad. En este trabajo se utiliza `xdevs.py`, la implementación en Python, por su equilibrio entre legibilidad, portabilidad y soporte de ejecución en tiempo virtual y real [@risco2023; @xdevs_github; @xdevs_py_github].
-
-xDEVS separa explícitamente la capa de **modelado** (modelos atómicos y acoplados con puertos y acoplamientos) de la capa de **simulación** (simuladores y coordinadores que orquestan el avance temporal y la confluencia de eventos). Esta organización refleja la estructura formal DEVS y favorece la construcción jerárquica de sistemas complejos, manteniendo claridad en el flujo de información.
-
-### xDEVS en la enseñanza de la Arquitectura de Computadoras
+#### xDEVS en la enseñanza de la Arquitectura de Computadoras
 La implementación de entornos de simulación basados en DEVS en la enseñanza de arquitectura de computadoras aporta múltiples ventajas que enriquecen el proceso de aprendizaje:
 
 - **Representación visual**: ofrece diagramas y representaciones dinámicas que ayudan a los estudiantes a visualizar y comprender procesos internos, como la ejecución de instrucciones y la gestión de recursos.
