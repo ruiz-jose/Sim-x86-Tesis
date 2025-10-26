@@ -1658,9 +1658,9 @@ tabla_fetch <- kable(
 if (knitr::is_latex_output()) {
   tabla_fetch %>%
     kable_styling(latex_options = c("scale_down", "hold_position"), font_size = 10) %>%
-    column_spec(1, width = "1.5cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "3.5cm") %>%
-    column_spec(3, width = "8cm") %>%
+    column_spec(1, width = "1cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "5cm") %>%
+    column_spec(3, width = "7cm") %>%
     column_spec(4, width = "7cm", bold = TRUE) %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3")
 } else {
@@ -1681,41 +1681,42 @@ Durante la fase de ejecución, la UC decodifica el contenido del IR y activa las
 
 El REG_BANK es un modelo acoplado que contiene cuatro modelos atómicos: AL, BL, CL y DL. Cada registro posee sus propias entradas (enable_in, enable_out, data_in, data_out), pero el banco actúa como intermediario, gestionando la habilitación del registro fuente y del registro destino según las señales de la UC.
 
-La tabla \@ref(tab:microoperacionesMOV) ilustra las microoperaciones que implementan esta instrucción.
+La tabla \@ref(tab:microoperacioneseje) ilustra las microoperaciones que implementan esta instrucción.
 
-```{r microoperacionesMOV, echo=FALSE, message=FALSE, warning=FALSE}
+```{r microoperacioneseje, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
-microoperaciones <- data.frame(
+microoperaciones_eje <- data.frame(
   Paso = c("1", "2", "3", "4", "5"),
   Microoperación = c(
-    "UC: decodificar(IR)",
-    "UC $\\rightarrow$ REG\\_BANK.enable\\_out(BL) = 1",
+    "UC: decodifica(IR)",
+    "UC $\\rightarrow$ REG\\_BANK.enable\\_out(BL)",
     "BUS $\\leftarrow$ BL",
-    "UC $\\rightarrow$ REG\\_BANK.enable\\_in(AL) = 1",
+    "UC $\\rightarrow$ REG\\_BANK.enable\\_in(AL)",
     "AL $\\leftarrow$ BUS"
   ),
   Descripción = c(
-    "La Unidad de Control (UC) interpreta el opcode MOV y determina los operandos AL y BL.",
-    "El Banco de Registros habilita la salida del registro BL bajo control de la UC.",
-    "El valor almacenado en BL se transfiere al bus compartido.",
-    "La UC habilita la entrada del registro AL dentro del Banco de Registros.",
-    "El registro AL captura el dato del bus y actualiza su valor interno."
+    "La UC interpreta el opcode MOV y determina los operandos AL y BL.",
+    "La UC habilita la salida del registro BL en el Banco de Registros.",
+    "El valor de BL se transfiere al bus compartido.",
+    "La UC habilita la entrada del registro AL en el Banco de Registros.",
+    "El registro AL captura el dato presente en el bus y actualiza su valor interno."
   ),
   `Funciones DEVS` = c(
-    "$\\delta_{\\text{ext}}(UC)$ recibe evento del IR y actualiza su estado con la instrucción actual.",
-    "$\\lambda_{UC}$ genera evento hacia REG\\_BANK(BL).",
-    "$\\lambda_{BL}$ emite su valor al bus.",
-    "$\\lambda_{UC}$ activa señal de escritura hacia REG\\_BANK(AL).",
-    "$\\delta_{\\text{ext}}(AL)$ recibe el dato desde el bus y actualiza su estado $S$."
-  )
+    "$\\lambda(UC) \\rightarrow \\delta_{ext}(REG\\_BANK)$",
+    "$\\lambda(REG\\_BANK) \\rightarrow \\delta_{ext}(BL)$",
+    "$\\lambda(BL) \\rightarrow \\delta_{ext}(BUS)$",
+    "$\\lambda(UC) \\rightarrow \\delta_{ext}(REG\\_BANK)$",
+    "$\\lambda(BUS) \\rightarrow \\delta_{ext}(AL)$"
+  ),
+  stringsAsFactors = FALSE
 )
 
 tabla_microop <- kable(
-  microoperaciones,
+  microoperaciones_eje,
   format = ifelse(knitr::is_latex_output(), "latex", "html"),
-  caption = "Secuencia de microoperaciones y eventos DEVS para la Fase de ejecución",
+  caption = "Secuencia de microoperaciones y eventos DEVS para la Fase de Ejecución (MOV AL, BL)",
   col.names = c("Paso", "Microoperación", "Descripción", "Funciones DEVS"),
   booktabs = TRUE,
   escape = FALSE
@@ -1723,10 +1724,20 @@ tabla_microop <- kable(
 
 if (knitr::is_latex_output()) {
   tabla_microop %>%
-    kable_styling(latex_options = c("scale_down", "hold_position"), font_size = 10)
+    kable_styling(latex_options = c("scale_down", "hold_position"), font_size = 10) %>%
+    column_spec(1, width = "1cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "6cm") %>%
+    column_spec(3, width = "6cm") %>%
+    column_spec(4, width = "5cm", bold = TRUE) %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3")
 } else {
   tabla_microop %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE)
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE, position = "center") %>%
+    column_spec(1, width = "4em", bold = TRUE) %>%
+    column_spec(2, width = "10em") %>%
+    column_spec(3, width = "30em") %>%
+    column_spec(4, width = "24em", bold = TRUE) %>%
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
 
