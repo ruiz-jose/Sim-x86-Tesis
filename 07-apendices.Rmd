@@ -490,3 +490,42 @@ Los docentes coincidieron en que el simulador VonSim8 tiene un impacto positivo 
 Los resultados de las entrevistas permiten concluir que el simulador VonSim8 es una herramienta didáctica eficaz, valorada positivamente por los docentes por su capacidad para vincular teoría y práctica, y por su enfoque progresivo en la enseñanza de la arquitectura x86. Sin embargo, se identificaron áreas de mejora relacionadas con la interfaz, la representación de banderas y la claridad de las animaciones.
 
 En síntesis, el simulador VonSim8 y el material didáctico asociado contribuyen de manera significativa al desarrollo de competencias conceptuales y procedimentales en el estudio de la arquitectura de computadoras, consolidándose como un recurso valioso para la enseñanza en este campo.
+
+
+## Anexo D: Resultados de simulación xdevs {#anexoD}
+En este anexo se presentan los resultados obtenidos al simular el comportamiento del VonSim8 utilizando la herramienta xdevs.
+Incluye el codigo y sus resultados.
+
+
+Ejemplo de subrutina:
+```{r  codexdevs, results='asis', echo=FALSE}
+if (knitr::is_latex_output()) {
+  cat("
+  \\begin{lstlisting}
+from xdevs.models import Atomic, Coupled, Port
+from xdevs.sim import Coordinator
+
+
+# ============================================================================
+# MODELOS ATÓMICOS: Registros y componentes individuales
+# ============================================================================
+
+class Register(Atomic):
+    # Modelo atómico genérico para un registro de 8 bits.
+
+
+   \\end{lstlisting}")
+} else {
+  cat("
+  ```python
+from xdevs.models import Atomic, Coupled, Port
+from xdevs.sim import Coordinator
+
+
+# ============================================================================
+# MODELOS ATÓMICOS: Registros y componentes individuales
+# ============================================================================
+
+```")
+}
+```
