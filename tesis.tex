@@ -3322,11 +3322,11 @@ La tabla \ref{tab:microcaptacionfetch} ilustra la secuencia de eventos principal
 \fontsize{10}{12}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{7cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{1.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Paso}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Microoperación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modelos y funciones DEVS}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{1.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Paso}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Microoperación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Funciones DEVS}}}\\
 \midrule
 \textbf{1} & UC $\rightarrow$ IP & La UC genera una señal de lectura hacia el Instruction Pointer. & \textbf{$\lambda(UC) \rightarrow \delta_{ext}(IP)$}\\
 \textbf{2} & IP $\rightarrow$ MAR & El IP emite la dirección actual de instrucción hacia el MAR. & \textbf{$\lambda(IP) \rightarrow \delta_{ext}(MAR)$}\\
-\textbf{3} & UC $\rightarrow$ MEM & La UC activa la señal mem\_read para iniciar la lectura de la instrucción y, de forma concurrente, genera una señal de incremento sobre el IP +1 . & \textbf{$\lambda(UC) \rightarrow \delta_{ext}(MEM);\lambda(UC) \rightarrow \delta_{ext}(IP)$}\\
+\textbf{3} & UC $\rightarrow$ MEM$\,$; $\,$IP $\leftarrow$ IP+1 & La UC activa la señal mem\_read para iniciar la lectura de la instrucción y, de forma concurrente, genera una señal de incremento sobre el IP +1 . & \textbf{$\lambda(UC) \rightarrow \delta_{ext}(MEM)$; $\lambda_{UC} \rightarrow \delta_{ext}(IP)$}\\
 \textbf{4} & MEM $\rightarrow$ MBR & La memoria unificada entrega la instrucción solicitada tras su retardo interno. & \textbf{$\delta_{int}(MEM) \rightarrow \lambda(MEM) \rightarrow \delta_{ext}(MBR)$}\\
 \textbf{5} & MBR $\rightarrow$ IR & El MBR transfiere la instrucción al registro de instrucción. & \textbf{$\lambda(MBR) \rightarrow \delta_{ext}(IR)$}\\
 \addlinespace
@@ -3348,17 +3348,17 @@ La tabla \ref{tab:microoperacionesMOV} ilustra las microoperaciones que implemen
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:microoperacionesMOV}Secuencia de microoperaciones para MOV AL, BL utilizando el Banco de Registros}
+\caption{\label{tab:microoperacionesMOV}Secuencia de microoperaciones y eventos DEVS para la Fase de ejecución}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
 \begin{tabular}[t]{llll}
 \toprule
-Paso & Microoperación & Descripción & Modelos y funciones xDEVS\\
+Paso & Microoperación & Descripción & Funciones DEVS\\
 \midrule
-1 & UC: decodificar(IR) & La UC analiza el opcode MOV y determina los operandos AL y BL. & $\delta_{\text{ext}}(UC)$ recibe evento del IR y actualiza su estado con la instrucción actual.\\
-2 & UC $\rightarrow$ REG\_BANK.enable\_out(BL) = 1 & El Banco de Registros activa la salida del registro BL. & $\lambda_{UC}$ genera evento hacia REG\_BANK(BL).\\
-3 & BUS $\leftarrow$ BL & El valor del registro BL se transmite por el bus. & $\lambda_{BL}$ emite su valor al bus.\\
+1 & UC: decodificar(IR) & La Unidad de Control (UC) interpreta el opcode MOV y determina los operandos AL y BL. & $\delta_{\text{ext}}(UC)$ recibe evento del IR y actualiza su estado con la instrucción actual.\\
+2 & UC $\rightarrow$ REG\_BANK.enable\_out(BL) = 1 & El Banco de Registros habilita la salida del registro BL bajo control de la UC. & $\lambda_{UC}$ genera evento hacia REG\_BANK(BL).\\
+3 & BUS $\leftarrow$ BL & El valor almacenado en BL se transfiere al bus compartido. & $\lambda_{BL}$ emite su valor al bus.\\
 4 & UC $\rightarrow$ REG\_BANK.enable\_in(AL) = 1 & La UC habilita la entrada del registro AL dentro del Banco de Registros. & $\lambda_{UC}$ activa señal de escritura hacia REG\_BANK(AL).\\
 5 & AL $\leftarrow$ BUS & El registro AL captura el dato del bus y actualiza su valor interno. & $\delta_{\text{ext}}(AL)$ recibe el dato desde el bus y actualiza su estado $S$.\\
 \bottomrule
