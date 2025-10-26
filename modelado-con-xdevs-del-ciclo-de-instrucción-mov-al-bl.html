@@ -625,96 +625,96 @@ El IR genera un evento indicando que la instrucción está lista para decodifica
 <h3><span class="header-section-number">5.8.4</span> Fase de Ejecución (Execute): MOV AL, BL<a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html#fase-de-ejecución-execute-mov-al-bl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Durante la fase de ejecución, la UC decodifica el contenido del IR y activa las señales necesarias para que el Banco de Registros (REG_BANK) permita la transferencia del dato desde BL hacia AL a través del bus compartido.</p>
 <p>El REG_BANK es un modelo acoplado que contiene cuatro modelos atómicos: AL, BL, CL y DL. Cada registro posee sus propias entradas (enable_in, enable_out, data_in, data_out), pero el banco actúa como intermediario, gestionando la habilitación del registro fuente y del registro destino según las señales de la UC.</p>
-<p>La tabla <a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html#tab:microoperacionesMOV">5.14</a> ilustra las microoperaciones que implementan esta instrucción.</p>
+<p>La tabla <a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html#tab:microoperacioneseje">5.14</a> ilustra las microoperaciones que implementan esta instrucción.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:microoperacionesMOV">Tabla 5.14: </span>Secuencia de microoperaciones y eventos DEVS para la Fase de ejecución
+<span id="tab:microoperacioneseje">Tabla 5.14: </span>Secuencia de microoperaciones y eventos DEVS para la Fase de Ejecución (MOV AL, BL)
 </caption>
 <thead>
 <tr>
-<th style="text-align:left;">
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Paso
 </th>
-<th style="text-align:left;">
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Microoperación
 </th>
-<th style="text-align:left;">
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Descripción
 </th>
-<th style="text-align:left;">
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Funciones DEVS
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;width: 4em; font-weight: bold;">
 1
 </td>
-<td style="text-align:left;">
-UC: decodificar(IR)
+<td style="text-align:left;width: 10em; ">
+UC: decodifica(IR)
 </td>
-<td style="text-align:left;">
-La Unidad de Control (UC) interpreta el opcode MOV y determina los operandos AL y BL.
+<td style="text-align:left;width: 30em; ">
+La UC interpreta el opcode MOV y determina los operandos AL y BL.
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(\delta_{\text{ext}}(UC)\)</span> recibe evento del IR y actualiza su estado con la instrucción actual.
+<td style="text-align:left;width: 24em; font-weight: bold;">
+<span class="math inline">\(\lambda(UC) \rightarrow \delta_{ext}(REG\_BANK)\)</span>
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;width: 4em; font-weight: bold;">
 2
 </td>
-<td style="text-align:left;">
-UC <span class="math inline">\(\rightarrow\)</span> REG_BANK.enable_out(BL) = 1
+<td style="text-align:left;width: 10em; ">
+UC <span class="math inline">\(\rightarrow\)</span> REG_BANK.enable_out(BL)
 </td>
-<td style="text-align:left;">
-El Banco de Registros habilita la salida del registro BL bajo control de la UC.
+<td style="text-align:left;width: 30em; ">
+La UC habilita la salida del registro BL en el Banco de Registros.
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(\lambda_{UC}\)</span> genera evento hacia REG_BANK(BL).
+<td style="text-align:left;width: 24em; font-weight: bold;">
+<span class="math inline">\(\lambda(REG\_BANK) \rightarrow \delta_{ext}(BL)\)</span>
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;width: 4em; font-weight: bold;">
 3
 </td>
-<td style="text-align:left;">
+<td style="text-align:left;width: 10em; ">
 BUS <span class="math inline">\(\leftarrow\)</span> BL
 </td>
-<td style="text-align:left;">
-El valor almacenado en BL se transfiere al bus compartido.
+<td style="text-align:left;width: 30em; ">
+El valor de BL se transfiere al bus compartido.
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(\lambda_{BL}\)</span> emite su valor al bus.
+<td style="text-align:left;width: 24em; font-weight: bold;">
+<span class="math inline">\(\lambda(BL) \rightarrow \delta_{ext}(BUS)\)</span>
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;width: 4em; font-weight: bold;">
 4
 </td>
-<td style="text-align:left;">
-UC <span class="math inline">\(\rightarrow\)</span> REG_BANK.enable_in(AL) = 1
+<td style="text-align:left;width: 10em; ">
+UC <span class="math inline">\(\rightarrow\)</span> REG_BANK.enable_in(AL)
 </td>
-<td style="text-align:left;">
-La UC habilita la entrada del registro AL dentro del Banco de Registros.
+<td style="text-align:left;width: 30em; ">
+La UC habilita la entrada del registro AL en el Banco de Registros.
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(\lambda_{UC}\)</span> activa señal de escritura hacia REG_BANK(AL).
+<td style="text-align:left;width: 24em; font-weight: bold;">
+<span class="math inline">\(\lambda(UC) \rightarrow \delta_{ext}(REG\_BANK)\)</span>
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
+<td style="text-align:left;width: 4em; font-weight: bold;">
 5
 </td>
-<td style="text-align:left;">
+<td style="text-align:left;width: 10em; ">
 AL <span class="math inline">\(\leftarrow\)</span> BUS
 </td>
-<td style="text-align:left;">
-El registro AL captura el dato del bus y actualiza su valor interno.
+<td style="text-align:left;width: 30em; ">
+El registro AL captura el dato presente en el bus y actualiza su valor interno.
 </td>
-<td style="text-align:left;">
-<span class="math inline">\(\delta_{\text{ext}}(AL)\)</span> recibe el dato desde el bus y actualiza su estado <span class="math inline">\(S\)</span>.
+<td style="text-align:left;width: 24em; font-weight: bold;">
+<span class="math inline">\(\lambda(BUS) \rightarrow \delta_{ext}(AL)\)</span>
 </td>
 </tr>
 </tbody>

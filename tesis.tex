@@ -3320,9 +3320,9 @@ La tabla \ref{tab:microcaptacionfetch} ilustra la secuencia de eventos principal
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{1.5cm}|>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{7cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{1cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{7cm}>{\raggedright\arraybackslash}p{7cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{1.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Paso}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Microoperación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Funciones DEVS}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{1cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Paso}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Microoperación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Funciones DEVS}}}\\
 \midrule
 \textbf{1} & UC $\rightarrow$ IP & La UC genera una señal de lectura hacia el Instruction Pointer. & \textbf{$\lambda(UC) \rightarrow \delta_{ext}(IP)$}\\
 \textbf{2} & IP $\rightarrow$ MAR & El IP emite la dirección actual de instrucción hacia el MAR. & \textbf{$\lambda(IP) \rightarrow \delta_{ext}(MAR)$}\\
@@ -3344,23 +3344,23 @@ Durante la fase de ejecución, la UC decodifica el contenido del IR y activa las
 
 El REG\_BANK es un modelo acoplado que contiene cuatro modelos atómicos: AL, BL, CL y DL. Cada registro posee sus propias entradas (enable\_in, enable\_out, data\_in, data\_out), pero el banco actúa como intermediario, gestionando la habilitación del registro fuente y del registro destino según las señales de la UC.
 
-La tabla \ref{tab:microoperacionesMOV} ilustra las microoperaciones que implementan esta instrucción.
+La tabla \ref{tab:microoperacioneseje} ilustra las microoperaciones que implementan esta instrucción.
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:microoperacionesMOV}Secuencia de microoperaciones y eventos DEVS para la Fase de ejecución}
+\caption{\label{tab:microoperacioneseje}Secuencia de microoperaciones y eventos DEVS para la Fase de Ejecución (MOV AL, BL)}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{llll}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{1cm}|>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{5cm}}
 \toprule
-Paso & Microoperación & Descripción & Funciones DEVS\\
+\multicolumn{1}{>{\centering\arraybackslash}p{1cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Paso}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Microoperación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Funciones DEVS}}}\\
 \midrule
-1 & UC: decodificar(IR) & La Unidad de Control (UC) interpreta el opcode MOV y determina los operandos AL y BL. & $\delta_{\text{ext}}(UC)$ recibe evento del IR y actualiza su estado con la instrucción actual.\\
-2 & UC $\rightarrow$ REG\_BANK.enable\_out(BL) = 1 & El Banco de Registros habilita la salida del registro BL bajo control de la UC. & $\lambda_{UC}$ genera evento hacia REG\_BANK(BL).\\
-3 & BUS $\leftarrow$ BL & El valor almacenado en BL se transfiere al bus compartido. & $\lambda_{BL}$ emite su valor al bus.\\
-4 & UC $\rightarrow$ REG\_BANK.enable\_in(AL) = 1 & La UC habilita la entrada del registro AL dentro del Banco de Registros. & $\lambda_{UC}$ activa señal de escritura hacia REG\_BANK(AL).\\
-5 & AL $\leftarrow$ BUS & El registro AL captura el dato del bus y actualiza su valor interno. & $\delta_{\text{ext}}(AL)$ recibe el dato desde el bus y actualiza su estado $S$.\\
+\textbf{1} & UC: decodifica(IR) & La UC interpreta el opcode MOV y determina los operandos AL y BL. & \textbf{$\lambda(UC) \rightarrow \delta_{ext}(REG\_BANK)$}\\
+\textbf{2} & UC $\rightarrow$ REG\_BANK.enable\_out(BL) & La UC habilita la salida del registro BL en el Banco de Registros. & \textbf{$\lambda(REG\_BANK) \rightarrow \delta_{ext}(BL)$}\\
+\textbf{3} & BUS $\leftarrow$ BL & El valor de BL se transfiere al bus compartido. & \textbf{$\lambda(BL) \rightarrow \delta_{ext}(BUS)$}\\
+\textbf{4} & UC $\rightarrow$ REG\_BANK.enable\_in(AL) & La UC habilita la entrada del registro AL en el Banco de Registros. & \textbf{$\lambda(UC) \rightarrow \delta_{ext}(REG\_BANK)$}\\
+\textbf{5} & AL $\leftarrow$ BUS & El registro AL captura el dato presente en el bus y actualiza su valor interno. & \textbf{$\lambda(BUS) \rightarrow \delta_{ext}(AL)$}\\
 \bottomrule
 \end{tabular}}
 \end{table}
