@@ -3258,11 +3258,13 @@ A continuación se detallan las instrucciones más comunes:
 \hypertarget{modelado-con-xdevs-del-ciclo-de-instrucciuxf3n-mov-al-bl}{%
 \section{Modelado con xDEVS del ciclo de instrucción MOV AL, BL}\label{modelado-con-xdevs-del-ciclo-de-instrucciuxf3n-mov-al-bl}}
 
-Con el propósito de validar la arquitectura del simulador VonSim8 y analizar su comportamiento interno, se modela la instrucción MOV AL, BL como un caso de estudio representativo del flujo básico de ejecución a nivel de hardware. VonSim8 se fundamenta en la arquitectura de Von Neumann, caracterizada por la utilización de un bus único compartido para instrucciones y datos, lo cual introduce el clásico cuello de botella estructural. En este contexto, la Unidad de Control (UC) debe sincronizar con precisión los accesos concurrentes a memoria y al bus.
+Con el propósito de validar la arquitectura del simulador VonSim8 y analizar su comportamiento interno, se modela la instrucción MOV AL, BL como un caso de estudio representativo del flujo básico de ejecución a nivel de hardware.
 
-Esta implementación aplica el formalismo DEVS (Discrete EVents System Specification), introducido en el capítulo \ref{devs}, para representar la ejecución a nivel de Transferencia entre Registros (RTL) como una secuencia de eventos discretos temporizados. La simulación se construye sobre la plataforma xDEVS, utilizando la biblioteca xdevs.py (Python), como se justificó en la sección \ref{xdevs}.
+VonSim8 se fundamenta en la arquitectura de Von Neumann, caracterizada por la utilización de un bus único compartido para instrucciones y datos, lo cual introduce el clásico cuello de botella estructural. En este contexto, la Unidad de Control (UC) debe sincronizar con precisión los accesos concurrentes a memoria y al bus.
 
-De acuerdo con el formalismo DEVS, cada componente funcional del procesador ---como los registros, la Unidad de Control (UC), la memoria y el bus--- se modela como un modelo atómico, mientras que las interacciones entre ellos se describen mediante un modelo acoplado jerárquico. Esta estructura permite capturar la dinámica de concurrencia y la propagación de eventos en distintos niveles de abstracción.
+Este modelo aplica el formalismo DEVS (Discrete EVents System Specification) ---introducido en el capítulo en el capítulo \ref{devs}--- para representar la ejecución a nivel de Transferencia entre Registros (RTL) como una secuencia de eventos discretos temporizados. La simulación se construye sobre la plataforma xDEVS, utilizando la biblioteca xdevs.py (Python), cuya elección se justificó en la sección \ref{xdevs}.
+
+De acuerdo con el formalismo DEVS, cada componente funcional del procesador ---como los registros, la Unidad de Control (UC), la memoria y el bus--- se modela como un modelo atómico, mientras que las interacciones entre ellos se describen mediante un modelo acoplado jerárquico. Esta estructura jerárquica permite capturar la concurrencia de eventos y la propagación temporal de señales entre componentes, manteniendo la trazabilidad de cada transición de estado.
 
 \hypertarget{componentes-del-simulador-vonsim8}{%
 \subsection{Componentes del simulador VonSim8}\label{componentes-del-simulador-vonsim8}}
@@ -3277,19 +3279,27 @@ La tabla \ref{tab:componentesvonsim8} resume los modelos y componentes principal
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{7cm}>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{2.5cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{5cm}|>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{3cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modelo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Entradas / Salidas}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Retardo}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modelo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Entradas / Salidas}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Retardo}}}\\
 \midrule
-\textbf{IP (Instruction Pointer)} & Contiene la dirección de la próxima instrucción a ejecutar. Envía su valor al MAR. & \texttt{salida: addr\_out; entrada: ip\_write, branch\_target} & \textbf{$\tau_{ip} = t_{ip}$}\\
+\textbf{IP (Instruction Pointer)} & Contiene la dirección de la próxima instrucción a ejecutar. Envía su valor al MAR. & \texttt{salida: addr\_out; entrada: ip\_write} & \textbf{$\tau_{ip} = t_{ip}$}\\
+\addlinespace[10pt]
 \textbf{MAR (Memory Address Register)} & Almacena la dirección recibida desde el IP y la utiliza para acceder a la memoria unificada. & \texttt{entrada: addr\_in; salida: addr\_out (a MEM)} & \textbf{$\tau_{mar} = t_{mar}$}\\
+\addlinespace[10pt]
 \textbf{MEM (Memoria unificada)} & Memoria compartida que contiene instrucciones y datos. Devuelve o almacena la palabra solicitada. & \texttt{entrada: addr, rw; salida: data\_out} & \textbf{$\tau_{mem} = t_{mem}$}\\
+\addlinespace[10pt]
 \textbf{MBR (Memory Buffer Register)} & Registro intermedio que conecta la memoria con los registros internos. & \texttt{entrada: data\_in; salida: data\_out} & \textbf{$\tau_{mbr} = t_{mbr}$}\\
+\addlinespace[10pt]
 \textbf{IR (Instruction Register)} & Registro de instrucción que recibe la palabra desde el MBR y la expone a la UC para su decodificación. & \texttt{entrada: inst\_in; salida: opcode, operandos} & \textbf{$\tau_{ir} = t_{ir}$}\\
+\addlinespace[10pt]
 \addlinespace
-\textbf{REG\_BANK (Banco de Registros)} & El REG\_BANK actúa como un modelo acoplado que agrupa los registros AL, BL, CL y DL. Cada uno se modela como un componente atómico capaz de leer o escribir datos a través del bus compartido. El banco administra las señales de control (\texttt{enable\_in}, \texttt{enable\_out}) y coordina las operaciones entre los registros bajo las órdenes de la UC. & \texttt{entradas: enable\_in[n], enable\_out[n]; salida: data\_bus; (n = AL, BL, CL, DL)} & \textbf{$\tau_{regbank} = t_{regbank}$}\\
+\textbf{REG\_BANK (Banco de Registros)} & Modelo acoplado que agrupa los registros AL, BL, CL y DL. Cada uno se modela como componente atómico capaz de leer o escribir datos a través del bus compartido. El banco administra las señales de control (\texttt{enable\_in}, \texttt{enable\_out}) y coordina las operaciones entre los registros bajo las órdenes de la UC. & \texttt{entradas: enable\_in[n], enable\_out[n]; salida: data\_bus; (n = AL, BL, CL, DL)} & \textbf{$\tau_{regbank} = t_{regbank}$}\\
+\addlinespace[10pt]
 \textbf{UC (Unidad de Control)} & Coordina el ciclo de captación y ejecución, generando las señales de control y arbitraje del bus. & \texttt{entradas: IR; salidas: enable\_out, enable\_in, mem\_read, mem\_write} & \textbf{$\tau_{control} = t_{control}$}\\
+\addlinespace[10pt]
 \textbf{BUS / Árbitro} & Canal compartido de comunicación entre IP, MAR, MEM y el banco de registros. Garantiza acceso exclusivo mediante señales de control. & \texttt{señales req / grant para acceso exclusivo al bus} & \textbf{$\tau_{bus} = t_{bus}$}\\
+\addlinespace[10pt]
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -3302,7 +3312,7 @@ El ciclo de instrucción se compone de dos fases principales, controladas por la
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \item
-  Fase de captación (Fetch): lectura de la instrucción desde la memoria.
+  Fase de captación (Fetch): lectura de la instrucción desde la memoria unificada.
 \item
   Fase de ejecución (Execute): transferencia del contenido del registro fuente BL al registro destino AL.
 \end{enumerate}
@@ -3310,9 +3320,11 @@ El ciclo de instrucción se compone de dos fases principales, controladas por la
 \hypertarget{fase-de-captaciuxf3n-fetch}{%
 \subsection{Fase de captación (Fetch)}\label{fase-de-captaciuxf3n-fetch}}
 
-La fase de captación (Fetch) tiene como objetivo obtener la instrucción almacenada en la memoria unificada, utilizando el valor del Instruction Pointer (IP) como dirección base, y transferirla al Instruction Register (IR) para su posterior decodificación. Este proceso marca el inicio del ciclo de instrucción y establece la secuencia temporal de acceso a memoria en la arquitectura Von Neumann. En el simulador VonSim8, esta fase reproduce la restricción estructural propia de la arquitectura Von Neumann, al modelar el uso exclusivo y secuencial del bus y de la memoria compartida durante la captación de la instrucción.
+La fase de captación tiene como objetivo obtener la instrucción almacenada en la memoria unificada, utilizando el valor del Instruction Pointer (IP) como dirección base, y transferirla al Instruction Register (IR) para su posterior decodificación. Este proceso marca el inicio del ciclo de instrucción y establece la secuencia temporal de acceso a memoria en la arquitectura Von Neumann.
 
-La tabla \ref{tab:microcaptacionfetch} ilustra la secuencia de eventos principales y microoperaciones que implementan esta fase.
+En el simulador VonSim8, esta fase reproduce la restricción estructural propia de la arquitectura Von Neumann, al modelar el uso exclusivo y secuencial del bus y de la memoria compartida durante la captación de la instrucción.
+
+La tabla \ref{tab:microcaptacionfetch} presenta la secuencia de microoperaciones y eventos DEVS que modelan esta fase.
 
 \begin{table}[!h]
 \centering
@@ -3326,25 +3338,25 @@ La tabla \ref{tab:microcaptacionfetch} ilustra la secuencia de eventos principal
 \midrule
 \textbf{1} & UC $\rightarrow$ IP & La UC genera una señal de lectura hacia el Instruction Pointer. & \textbf{$\lambda(UC) \rightarrow \delta_{ext}(IP)$}\\
 \textbf{2} & IP $\rightarrow$ MAR & El IP emite la dirección actual de instrucción hacia el MAR. & \textbf{$\lambda(IP) \rightarrow \delta_{ext}(MAR)$}\\
-\textbf{3} & UC $\rightarrow$ MEM$\,$; $\,$IP $\leftarrow$ IP+1 & La UC activa la señal mem\_read para iniciar la lectura de la instrucción y, de forma concurrente, genera una señal de incremento sobre el IP +1 . & \textbf{$\lambda(UC) \rightarrow \delta_{ext}(MEM)$; $\lambda_{UC} \rightarrow \delta_{ext}(IP)$}\\
-\textbf{4} & MEM $\rightarrow$ MBR & La memoria unificada entrega la instrucción solicitada tras su retardo interno. & \textbf{$\delta_{int}(MEM) \rightarrow \lambda(MEM) \rightarrow \delta_{ext}(MBR)$}\\
-\textbf{5} & MBR $\rightarrow$ IR & El MBR transfiere la instrucción al registro de instrucción. & \textbf{$\lambda(MBR) \rightarrow \delta_{ext}(IR)$}\\
+\textbf{3} & UC $\rightarrow$ MEM$\,$; $\,$IP $\leftarrow$ IP+1 & La UC activa la señal mem\_read para iniciar la lectura de la instrucción y, de forma concurrente, incrementa el valor del IP en una unidad. & \textbf{$\lambda(UC) \rightarrow \delta_{ext}(MEM)$; $\lambda_{UC} \rightarrow \delta_{ext}(IP)$}\\
+\textbf{4} & MEM $\rightarrow$ MBR & La memoria unificada devuelve la instrucción solicitada después de su retardo interno ($\tau{mem}$). & \textbf{$\delta_{int}(MEM) \rightarrow \lambda(MEM) \rightarrow \delta_{ext}(MBR)$}\\
+\textbf{5} & MBR $\rightarrow$ IR & El MBR transfiere la instrucción recibida al registro IR. & \textbf{$\lambda(MBR) \rightarrow \delta_{ext}(IR)$}\\
 \addlinespace
-\textbf{6} & IR $\rightarrow$ UC & El IR genera un evento indicando que la instrucción está lista para decodificación. & \textbf{$\lambda(IR) \rightarrow \delta_{ext}(UC)$}\\
+\textbf{6} & IR $\rightarrow$ UC & El IR genera un evento de salida notificando a la UC que la instrucción está lista para decodificación. & \textbf{$\lambda(IR) \rightarrow \delta_{ext}(UC)$}\\
 \bottomrule
 \end{tabular}}
 \end{table}
 
-Durante este proceso, el bus permanece bloqueado para otros accesos hasta completar la lectura de la instrucción.
+Durante esta fase, el bus permanece bloqueado para otros accesos hasta que finaliza la lectura completa de la instrucción, garantizando la exclusividad del recurso compartido.
 
 \hypertarget{fase-de-ejecuciuxf3n-execute-mov-al-bl}{%
 \subsection{Fase de Ejecución (Execute): MOV AL, BL}\label{fase-de-ejecuciuxf3n-execute-mov-al-bl}}
 
-Durante la fase de ejecución, la UC decodifica el contenido del IR y activa las señales necesarias para que el Banco de Registros (REG\_BANK) permita la transferencia del dato desde BL hacia AL a través del bus compartido.
+En la fase de ejecución, la UC decodifica el contenido del IR y activa las señales necesarias para que el Banco de Registros (REG\_BANK) transfiera el dato desde el registro fuente BL hacia el registro destino AL a través del bus compartido.
 
-El REG\_BANK es un modelo acoplado que contiene cuatro modelos atómicos: AL, BL, CL y DL. Cada registro posee sus propias entradas (enable\_in, enable\_out, data\_in, data\_out), pero el banco actúa como intermediario, gestionando la habilitación del registro fuente y del registro destino según las señales de la UC.
+El REG\_BANK se modela como un componente acoplado que contiene cuatro modelos atómicos: AL, BL, CL y DL. Cada registro posee sus propias entradas (enable\_in, enable\_out, data\_in, data\_out), mientras que el banco actúa como mediador, gestionando la habilitación del registro fuente y destino según las señales emitidas por la UC.
 
-La tabla \ref{tab:microoperacioneseje} ilustra las microoperaciones que implementan esta instrucción.
+La tabla \ref{tab:microoperacioneseje} muestra la secuencia de microoperaciones que implementan esta instrucción.
 
 \begin{table}[!h]
 \centering
@@ -3367,14 +3379,17 @@ La tabla \ref{tab:microoperacioneseje} ilustra las microoperaciones que implemen
 
 Las microoperaciones se ejecutan de manera secuencial y cronometrada conforme a las funciones de transición (\(\delta_{int}, \delta_{ext}\)) y de salida (\(\lambda\)) definidas en el formalismo DEVS, lo que posibilita representar con precisión el flujo de control y la sincronización de eventos entre los modelos atómicos.
 
+Los resultados de la simulación realizados en xdevs.py se presentan en el Anexo D (\ref{anexoD}), donde se incluyen las trazas temporales de los eventos generados durante la ejecución de la instrucción MOV AL, BL, evidenciando la coordinación correcta entre la UC, el bus y los registros involucrados.
+
 \hypertarget{conclusiuxf3n}{%
 \subsection{Conclusión}\label{conclusiuxf3n}}
 
-En síntesis, el modelado en la plataforma xDEVS (usando xdevs.py) permite describir de manera precisa, modular y extensible el comportamiento temporal de la instrucción MOV AL, BL en el simulador VonSim8. La simulación refleja cómo la Unidad de Control gestiona los accesos secuenciales al bus y a la memoria compartida, respetando la restricción estructural de la arquitectura de Von Neumann.
+El modelado en la plataforma xDEVS, implementado mediante xdevs.py, permite describir con precisión, modularidad y extensibilidad el comportamiento temporal de la instrucción MOV AL, BL en el simulador VonSim8.
 
-Además de representar las dependencias estructurales, este enfoque de modelado permite instrumentar métricas de rendimiento tales como el número de ciclos por instrucción (CPI), la latencia promedio de memoria y el tiempo de retención del bus, proporcionando una base cuantitativa para la validación del simulador.
+La simulación refleja cómo la UC coordina los accesos secuenciales al bus y a la memoria compartida, respetando la restricción estructural característica de la arquitectura de Von Neumann.
 
-Desde una perspectiva pedagógica, el modelo facilita la visualización explícita de las dependencias funcionales entre los componentes internos del procesador y permite comprender el impacto del bus compartido sobre el rendimiento global del sistema.
+Además, este enfoque posibilita instrumentar métricas de rendimiento ---como el número de ciclos por instrucción (CPI), la latencia media de memoria y el tiempo de retención del bus--- que sirven como base cuantitativa para la validación del simulador.
+Desde una perspectiva pedagógica, el modelo facilita la comprensión de las dependencias funcionales entre los componentes internos del procesador y permite visualizar el impacto del bus compartido sobre el rendimiento global del sistema.
 
 \hypertarget{muxf3dulo-de-entradasalida-e-interrupciones}{%
 \section{Módulo de entrada/salida e interrupciones}\label{muxf3dulo-de-entradasalida-e-interrupciones}}
@@ -5258,6 +5273,29 @@ Los docentes coincidieron en que el simulador VonSim8 tiene un impacto positivo 
 Los resultados de las entrevistas permiten concluir que el simulador VonSim8 es una herramienta didáctica eficaz, valorada positivamente por los docentes por su capacidad para vincular teoría y práctica, y por su enfoque progresivo en la enseñanza de la arquitectura x86. Sin embargo, se identificaron áreas de mejora relacionadas con la interfaz, la representación de banderas y la claridad de las animaciones.
 
 En síntesis, el simulador VonSim8 y el material didáctico asociado contribuyen de manera significativa al desarrollo de competencias conceptuales y procedimentales en el estudio de la arquitectura de computadoras, consolidándose como un recurso valioso para la enseñanza en este campo.
+
+\hypertarget{anexoD}{%
+\section{Anexo D: Resultados de simulación xdevs}\label{anexoD}}
+
+En este anexo se presentan los resultados obtenidos al simular el comportamiento del VonSim8 utilizando la herramienta xdevs.
+Incluye el codigo y sus resultados.
+
+Ejemplo de subrutina:
+
+\begin{lstlisting}
+from xdevs.models import Atomic, Coupled, Port
+from xdevs.sim import Coordinator
+
+
+# ============================================================================
+# MODELOS ATÓMICOS: Registros y componentes individuales
+# ============================================================================
+
+class Register(Atomic):
+    # Modelo atómico genérico para un registro de 8 bits.
+
+
+   \end{lstlisting}
 
 \hypertarget{Biblio}{%
 \chapter{Bibliografía}\label{Biblio}}
