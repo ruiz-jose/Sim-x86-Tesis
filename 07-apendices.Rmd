@@ -493,9 +493,12 @@ En síntesis, el simulador VonSim8 y el material didáctico asociado contribuyen
 
 
 ## Anexo D: Resultados de simulación xdevs {#anexoD}
-Este anexo documenta la implementación del modelo DEVS del simulador VonSim8 desarrollado con la biblioteca xdevs.py (Python), así como los resultados experimentales obtenidos durante la ejecución de la instrucción MOV AL, BL. El objetivo es proporcionar evidencia empírica de la validación del modelo teórico presentado en el Capítulo 5, sección "Modelado con xDEVS del ciclo de instrucción MOV AL, BL".
+Este anexo documenta la implementación del modelo DEVS del simulador VonSim8 desarrollado con la biblioteca xdevs.py (Python), así como los resultados experimentales obtenidos durante la ejecución de la instrucción MOV AL, BL.
+El objetivo es proporcionar evidencia empírica que respalde la validación del modelo teórico presentado en el Capítulo 5, sección “Modelado con xDEVS del ciclo de instrucción MOV AL, BL”.
 
-Este código está disponible en el repositorio xdevs-vonim8^[xdevs-vonim8: https://github.com/ruiz-jose/xdevs-vonsim8].
+El código fuente completo se encuentra disponible en el repositorio público:
+xdevs-vonsim8^[Repositorio: https://github.com/ruiz-jose/xdevs-vonsim8
+].
 
 ```{python, eval=FALSE, tidy=TRUE, tidy.opts=list(width.cutoff=60)}
 from xdevs.models import Atomic, Coupled, Port
@@ -520,7 +523,8 @@ class SharedBus(Atomic):
         self.requester: str = ""
         
         # Puertos de arbitraje
-        self.req = Port(str, name="req")  # Identificador del componente solicitante
+        self.req = Port(str, name="req") 
+        # Identificador del componente solicitante
         self.add_in_port(self.req)
         self.grant = Port(bool, name="grant")
         self.add_out_port(self.grant)
@@ -649,7 +653,8 @@ class Register(Atomic):
     
     def lambdaf(self):
         if self.pending_read:
-            print(f"  [{self.name}] lambda: Emitiendo dato={self.value:02X} por data_out")
+            print(f"  [{self.name}] lambda: Emitiendo dato
+            ={self.value:02X} por data_out")
             self.data_out.add(self.value)
     
     def exit(self):
@@ -778,7 +783,8 @@ class InstructionPointer(Atomic):
     
     def lambdaf(self):
         if self.pending_output:
-            print(f"  [IP] lambda: Emitiendo dirección IP={self.value:02X} por addr_out")
+            print(f"  [IP] lambda: Emitiendo dirección IP=
+            {self.value:02X} por addr_out")
             self.addr_out.add(self.value)
     
     def exit(self):
@@ -786,7 +792,8 @@ class InstructionPointer(Atomic):
 
 
 class MemoryAddressRegister(Atomic):
-    """Modelo atómico para el registro MAR (Memory Address Register)."""
+    """Modelo atómico para el registro MAR 
+    (Memory Address Register)."""
     
     def __init__(self, name: str = "MAR"):
         super().__init__(name)
@@ -811,13 +818,15 @@ class MemoryAddressRegister(Atomic):
     def deltint(self):
         if self.pending_addr is not None:
             self.address = self.pending_addr
-            print(f"  [MAR] delta_int: Dirección almacenada. MAR={self.address:02X}")
+            print(f"  [MAR] delta_int: Dirección almacenada. 
+            MAR={self.address:02X}")
             self.pending_addr = None
         self.passivate()
     
     def lambdaf(self):
         if self.pending_addr is not None:
-            print(f"  [MAR] lambda: Emitiendo dirección MAR={self.pending_addr:02X} hacia MEM")
+            print(f"  [MAR] lambda: Emitiendo dirección 
+            MAR={self.pending_addr:02X} hacia MEM")
             self.addr_out.add(self.pending_addr)
     
     def exit(self):
@@ -864,7 +873,8 @@ class Memory(Atomic):
         # Si tenemos ambos, iniciar operación
         if self.pending_addr is not None and self.pending_read:
             self.pending_operation = ("read", self.pending_addr)
-            print(f"  [MEM] delta_ext: Solicitud de lectura en dirección {self.pending_addr:02X}")
+            print(f"  [MEM] delta_ext: Solicitud de lectura en 
+            dirección {self.pending_addr:02X}")
             self.hold_in("READING", 1)  # tau_mem = 1
             self.pending_addr = None
             self.pending_read = False
@@ -873,15 +883,18 @@ class Memory(Atomic):
         if self.pending_operation:
             op_type, addr_val = self.pending_operation
             data = self.storage.get(addr_val, 0x00)
-            print(f"  [MEM] delta_int: Lectura completada. MEM[{addr_val:02X}]={data:02X}")
+            print(f"  [MEM] delta_int: Lectura completada. 
+            MEM[{addr_val:02X}]={data:02X}")
         self.pending_operation = None
         self.passivate()
     
     def lambdaf(self):
-        if self.pending_operation and self.pending_operation[0] == "read":
+        if self.pending_operation and self.pending_operation[0] 
+        == "read":
             addr_val = self.pending_operation[1]
             data = self.storage.get(addr_val, 0x00)
-            print(f"  [MEM] lambda: Emitiendo dato={data:02X} por data_out")
+            print(f"  [MEM] lambda: Emitiendo dato={data:02X} 
+            por data_out")
             self.data_out.add(data)
     
     def exit(self):
@@ -912,8 +925,10 @@ class ControlUnit(Atomic):
         self.ir_read = Port(bool, name="ir_read")
         self.add_out_port(self.ir_read)
         
-        # Salidas de control - Fase EXECUTE (señales indexadas para REG_BANK)
-        self.reg_enable_out = Port(str, name="reg_enable_out")  # Nombre del registro: "AL", "BL", etc.
+        # Salidas de control - Fase EXECUTE 
+        # (señales indexadas para REG_BANK)
+        self.reg_enable_out = Port(str, name="reg_enable_out")
+        # Nombre del registro: "AL", "BL", etc.
         self.add_out_port(self.reg_enable_out)
         self.reg_enable_in = Port(str, name="reg_enable_in")
         self.add_out_port(self.reg_enable_in)
@@ -945,7 +960,8 @@ class ControlUnit(Atomic):
         # Máquina de estados de la UC
         if self.phase == "FETCH1":  # UC → IP
             print(f"\n{'-'*78}")
-            print(f"  FASE FETCH - Paso 1/6: UC → IP (solicita dirección)")
+            print(f"  FASE FETCH - Paso 1/6: UC → IP 
+            (solicita dirección)")
             print(f"{'-'*78}")
             self.phase = "FETCH2"
             cycles = 1
@@ -954,7 +970,8 @@ class ControlUnit(Atomic):
         
         elif self.phase == "FETCH2":  # IP → MAR
             print(f"\n{'-'*78}")
-            print(f"  FASE FETCH - Paso 2/6: IP → MAR (transfiere dirección)")
+            print(f"  FASE FETCH - Paso 2/6: IP → MAR 
+            (transfiere dirección)")
             print(f"{'-'*78}")
             self.phase = "FETCH3"
             cycles = 1
@@ -964,7 +981,8 @@ class ControlUnit(Atomic):
         
         elif self.phase == "FETCH3":  # UC → MEM; IP++
             print(f"\n{'-'*78}")
-            print(f"  FASE FETCH - Paso 3/6: UC → MEM (mem_read); IP ← IP+1")
+            print(f"  FASE FETCH - Paso 3/6: UC → MEM (mem_read);
+            IP ← IP+1")
             print(f"{'-'*78}")
             self.phase = "FETCH4"
             cycles = 2
@@ -974,7 +992,8 @@ class ControlUnit(Atomic):
         
         elif self.phase == "FETCH4":  # MEM → MBR
             print(f"\n{'-'*78}")
-            print(f"  FASE FETCH - Paso 4/6: MEM → MBR (instrucción leída)")
+            print(f"  FASE FETCH - Paso 4/6: MEM → MBR 
+            (instrucción leída)")
             print(f"{'-'*78}")
             self.phase = "FETCH5"
             cycles = 1
@@ -984,7 +1003,8 @@ class ControlUnit(Atomic):
         
         elif self.phase == "FETCH5":  # MBR → IR
             print(f"\n{'-'*78}")
-            print(f"  FASE FETCH - Paso 5/6: MBR → IR (carga instrucción)")
+            print(f"  FASE FETCH - Paso 5/6: MBR → IR 
+            (carga instrucción)")
             print(f"{'-'*78}")
             self.phase = "FETCH6"
             cycles = 2
@@ -1007,9 +1027,12 @@ class ControlUnit(Atomic):
             print(f"\n{'-'*78}")
             print(f"  FASE EXECUTE - Paso 1/5: Decodificación")
             print(f"{'-'*78}")
-            decoded = self.instruction_set.get(self.instruction_code, {"opcode": "NOP", "dst": "", "src": ""})
-            print(f"  [UC] Instrucción decodificada: {decoded['opcode']} {decoded['dst']},{decoded['src']}")
-            print(f"  [UC] Microoperaciones planificadas: BL → BUS → AL")
+            decoded = self.instruction_set.get(self.instruction_code, 
+            {"opcode": "NOP", "dst": "", "src": ""})
+            print(f"  [UC] Instrucción decodificada:
+            {decoded['opcode']} {decoded['dst']},{decoded['src']}")
+            print(f"  [UC] Microoperaciones planificadas: BL → 
+            BUS → AL")
             self.phase = "EXEC2"
             cycles = 1
             self.execute_cycles += cycles
@@ -1018,7 +1041,8 @@ class ControlUnit(Atomic):
         
         elif self.phase == "EXEC2":  # AL ← BUS
             print(f"\n{'-'*78}")
-            print(f"  FASE EXECUTE - Paso 2/5: UC → REG_BANK.enable_out(BL)")
+            print(f"  FASE EXECUTE - Paso 2/5: UC → 
+            REG_BANK.enable_out(BL)")
             print(f"{'-'*78}")
             self.phase = "EXEC3"
             cycles = 1
@@ -1028,17 +1052,20 @@ class ControlUnit(Atomic):
         
         elif self.phase == "EXEC3":
             print(f"\n{'-'*78}")
-            print(f"  FASE EXECUTE - Paso 3/5: BUS ← BL (dato disponible)")
+            print(f"  FASE EXECUTE - Paso 3/5: BUS ← BL 
+            (dato disponible)")
             print(f"{'-'*78}")
             self.phase = "EXEC4"
-            cycles = 2  # 2 ciclos: 1 para propagar en bus, 1 para estabilizar
+            cycles = 2  
+            # 2 ciclos: 1 para propagar en bus, 1 para estabilizar
             self.execute_cycles += cycles
             self.total_cycles += cycles
             self.hold_in(self.phase, cycles)
         
         elif self.phase == "EXEC4":
             print(f"\n{'-'*78}")
-            print(f"  FASE EXECUTE - Paso 4/5: UC → REG_BANK.enable_in(AL)")
+            print(f"  FASE EXECUTE - Paso 4/5: UC → 
+            REG_BANK.enable_in(AL)")
             print(f"{'-'*78}")
             self.phase = "EXEC5"
             cycles = 1
@@ -1048,7 +1075,8 @@ class ControlUnit(Atomic):
         
         elif self.phase == "EXEC5":
             print(f"\n{'-'*78}")
-            print(f"  FASE EXECUTE - Paso 5/5: AL ← BUS (captura completada)")
+            print(f"  FASE EXECUTE - Paso 5/5: AL ← BUS 
+            (captura completada)")
             print(f"{'-'*78}")
             # Incrementar contador del último ciclo
             cycles = 1
@@ -1058,11 +1086,13 @@ class ControlUnit(Atomic):
             print(f"\n{'-'*78}")
             print(f"  Ciclo de instrucción MOV AL, BL completado")
             print(f"{'-'*78}")
-            # Usar hold_in para contar el último ciclo, luego passivate
+            # Usar hold_in para contar el último ciclo,
+            # luego passivate
             self.hold_in(self.phase, cycles)
         
         elif self.phase == "DONE":
-            # Finalizar después del último ciclo (ya contado en EXEC5)
+            # Finalizar después del último ciclo 
+            # (ya contado en EXEC5)
             self.passivate()
         
         else:
@@ -1101,9 +1131,9 @@ class ControlUnit(Atomic):
         pass
 
 
-# ============================================================================
+# =========================================================
 # MODELO ACOPLADO: Banco de Registros (REG_BANK)
-# ============================================================================
+# =========================================================
 
 class RegisterBank(Coupled):
     """
@@ -1128,9 +1158,11 @@ class RegisterBank(Coupled):
         self.add_component(self.dl)
         
         # Puertos de control desde UC (señales indexadas)
-        self.reg_enable_in = Port(str, name="reg_enable_in")  # Recibe nombre de registro destino
+        self.reg_enable_in = Port(str, name="reg_enable_in")
+        # Recibe nombre de registro destino
         self.add_in_port(self.reg_enable_in)
-        self.reg_enable_out = Port(str, name="reg_enable_out")  # Recibe nombre de registro fuente
+        self.reg_enable_out = Port(str, name="reg_enable_out")  
+        # Recibe nombre de registro fuente
         self.add_in_port(self.reg_enable_out)
         
         # Acoplamientos para enable_in desde UC hacia registros
@@ -1145,20 +1177,24 @@ class RegisterBank(Coupled):
         self.add_coupling(self.reg_enable_out, self.cl.enable_out)
         self.add_coupling(self.reg_enable_out, self.dl.enable_out)
         
-        # Bus interno: todos los registros pueden enviar/recibir datos
-        # Cada registro fuente puede enviar al data_in de cualquier registro destino
+        # Bus interno: todos los registros pueden 
+        # enviar/recibir datos
+        # Cada registro fuente puede enviar al data_in de cualquier
+        # registro destino
         for src_reg in [self.al, self.bl, self.cl, self.dl]:
             for dst_reg in [self.al, self.bl, self.cl, self.dl]:
                 if src_reg != dst_reg:
-                    self.add_coupling(src_reg.data_out, dst_reg.data_in)
+                    self.add_coupling(src_reg.data_out, 
+                    dst_reg.data_in)
 
 
-# ============================================================================
+# =========================================================
 # MODELO ACOPLADO: Sistema completo VonSim8
-# ============================================================================
+# =========================================================
 
 class VonSim8System(Coupled):
-    """Modelo acoplado que integra todos los componentes del simulador VonSim8."""
+    """Modelo acoplado que integra todos los componentes del
+    simulador VonSim8."""
     
     def __init__(self, name: str = "VonSim8"):
         super().__init__(name)
@@ -1171,7 +1207,8 @@ class VonSim8System(Coupled):
         self.ir = SimpleRegister("IR", 0x00)    # Usa SimpleRegister
         self.uc = ControlUnit("UC")
         
-        # Crear modelo acoplado: Banco de Registros (incluye bus interno)
+        # Crear modelo acoplado: Banco de Registros
+        # (incluye bus interno)
         self.reg_bank = RegisterBank("REG_BANK")
         
         # Contador de eventos DEVS
@@ -1186,9 +1223,9 @@ class VonSim8System(Coupled):
         self.add_component(self.uc)
         self.add_component(self.reg_bank)
         
-        # ====================================================================
+        # ==================================================
         # ACOPLAMIENTOS FASE FETCH
-        # ====================================================================
+        # ==================================================
         # UC → IP
         self.add_coupling(self.uc.ip_read, self.ip.read_request)
         # IP → MAR
@@ -1214,12 +1251,15 @@ class VonSim8System(Coupled):
         # IR data → UC
         self.add_coupling(self.ir.data_out, self.uc.ir_in)
         
-        # ====================================================================
-        # ACOPLAMIENTOS FASE EXECUTE (con REG_BANK que contiene bus interno)
-        # ====================================================================
+        # ===================================================
+        # ACOPLAMIENTOS FASE EXECUTE 
+        # (con REG_BANK que contiene bus interno)
+        # ===================================================
         # UC → REG_BANK (señales indexadas)
-        self.add_coupling(self.uc.reg_enable_out, self.reg_bank.reg_enable_out)
-        self.add_coupling(self.uc.reg_enable_in, self.reg_bank.reg_enable_in)
+        self.add_coupling(self.uc.reg_enable_out, 
+        self.reg_bank.reg_enable_out)
+        self.add_coupling(self.uc.reg_enable_in, 
+        self.reg_bank.reg_enable_in)
 
 
 class CPUSystem(Coupled):
@@ -1240,7 +1280,8 @@ if __name__ == "__main__":
             self.event_count = 0
             
         def _inject_event_counter(self, model):
-            """Inyecta contador en deltint y deltext de todos los modelos atómicos."""
+            """Inyecta contador en deltint y deltext de todos
+            los modelos atómicos."""
             if hasattr(model, 'deltint'):
                 original_deltint = model.deltint
                 def counted_deltint():
@@ -1261,23 +1302,25 @@ if __name__ == "__main__":
                     self._inject_event_counter(comp)
         
         def initialize(self):
-            """Override para inyectar contadores antes de inicializar."""
+            """Override para inyectar contadores antes de 
+            inicializar."""
             self._inject_event_counter(self.model)
             super().initialize()
     
-    # ========================================================================
+    # ===============================================
     # ENCABEZADO
-    # ========================================================================
+    # ===============================================
     print("\n" + "-" * 80)
-    print(" " * 15 + "SIMULACIÓN DEVS - VONSIM8 (Von Neumann 8-bit)" + " " * 20 )
+    print(" " * 15 + "SIMULACIÓN DEVS - VONSIM8 (Von Neumann 8-bit)"
+    + " " * 20 )
     print("-" * 80)
     print("  Instrucción: MOV AL, BL (opcode 0x01)")
     print("  Formalismo:  DEVS (Discrete Event System Specification)")
     print("-" * 80 + "\n")
     
-    # ========================================================================
+    # ================================================
     # EJECUCIÓN
-    # ========================================================================
+    # ================================================
     print("Ejecutando simulación...\n")
     
     env = CPUSystem("VonSim8Environment")
@@ -1291,9 +1334,9 @@ if __name__ == "__main__":
     
     vonsim8 = env.vonsim8
     
-    # ========================================================================
+    # ===============================================
     # RESULTADOS
-    # ========================================================================
+    # ===============================================
     print("-" * 60)
     print("  RESULTADOS DE LA SIMULACIÓN")
     print("-" * 60)
@@ -1301,7 +1344,9 @@ if __name__ == "__main__":
     # Estado de registros (compacto)
     print(f"\n  Registros:")
     print(f"    IP:  0x00 → 0x{vonsim8.ip.value:02X}  ")
-    print(f"    AL:  0x01 → 0x{vonsim8.reg_bank.al.value:02X}  {' Transferido' if vonsim8.reg_bank.al.value == 0x0A else ' Error'}")
+    print(f"    AL:  0x01 → 0x{vonsim8.reg_bank.al.value:02X} 
+    {' Transferido' if vonsim8.reg_bank.al.value == 0x0A 
+    else ' Error'}")
     print(f"    BL:  0x0A → 0x{vonsim8.reg_bank.bl.value:02X}  ")
     
     # Verificación compacta
@@ -1313,16 +1358,17 @@ if __name__ == "__main__":
     
     # Métricas compactas (valores calculados dinámicamente)
     print(f"\n  Métricas:")
-    print(f"    • CPI:         {vonsim8.uc.total_cycles} ciclos (FETCH: {vonsim8.uc.fetch_cycles} + EXECUTE: {vonsim8.uc.execute_cycles})")
-    print(f"    • Tiempo real: {simulation_time*1000:.2f} ms")
-    print(f"    • Eventos:     {coord.event_count} transiciones DEVS")
+    print(f" • CPI:         {vonsim8.uc.total_cycles} ciclos (FETCH:
+    {vonsim8.uc.fetch_cycles} + EXECUTE: {vonsim8.uc.execute_cycles})")
+    print(f" • Tiempo real: {simulation_time*1000:.2f} ms")
+    print(f" • Eventos:     {coord.event_count} transiciones DEVS")
     print()
     
-    # ========================================================================
+    # ====================================================
     # PIE DE PÁGINA
-    # ========================================================================
+    # ====================================================
     print("-" * 80)
-    print("  Simulación completada | Arquitectura Von Neumann validada")
+    print("Simulación completada | Arquitectura Von Neumann validada")
     print("-" * 80 + "\n")
 ```
 
@@ -1391,6 +1437,7 @@ Ejecutando simulación...
 **FASE EXECUTE - Paso 3/5: BUS ← BL (dato disponible)**
 
 **FASE EXECUTE - Paso 4/5: UC → REG_BANK.enable_in(AL)**
+
   - [AL] $\delta_{int}$: Escritura completada. Valor=0A
 
 **FASE EXECUTE - Paso 5/5: AL ← BUS (captura completada)**
