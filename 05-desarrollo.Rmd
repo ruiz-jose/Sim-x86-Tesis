@@ -1517,7 +1517,7 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
 ## Modelado con xDEVS del ciclo de instrucción MOV AL, BL
 Con el propósito de validar la arquitectura del simulador VonSim8 y analizar su comportamiento interno, se modela la instrucción MOV AL, BL como un caso de estudio representativo del flujo básico de ejecución a nivel de hardware.
 
-VonSim8 se fundamenta en la arquitectura de Von Neumann, caracterizada por la utilización de un bus único compartido para instrucciones y datos, lo cual introduce el clásico cuello de botella estructural. En este contexto, la Unidad de Control (UC) debe sincronizar con precisión los accesos concurrentes a memoria y al bus.
+VonSim8 adopta el modelo de Von Neumann, caracterizada por la utilización de un bus único compartido para instrucciones y datos, lo cual introduce el clásico cuello de botella estructural (limitación en el acceso concurrente a datos e instrucciones). En este contexto, la Unidad de Control (UC) debe sincronizar con precisión los accesos concurrentes a memoria y al bus.
 
 Este modelo aplica el formalismo DEVS (Discrete EVents System Specification), introducido en el capítulo \@ref(devs), para representar la ejecución a nivel de Transferencia entre Registros (RTL) como una secuencia de eventos discretos temporizados. La simulación se construye sobre la plataforma xDEVS, utilizando la biblioteca xdevs.py (Python), cuya elección se justificó en la sección \@ref(xdevs).
 
@@ -1621,7 +1621,7 @@ El ciclo de instrucción se compone de dos fases principales, controladas por la
   2. Fase de ejecución (Execute): transferencia del contenido del registro fuente BL al registro destino AL.
 
 ### Fase de captación (Fetch)
-La fase de captación tiene como objetivo obtener la instrucción almacenada en la memoria unificada, utilizando el valor del Instruction Pointer (IP) como dirección base, y transferirla al Instruction Register (IR) para su posterior decodificación. Este proceso marca el inicio del ciclo de instrucción y establece la secuencia temporal de acceso a memoria en la arquitectura Von Neumann. 
+La fase de captación tiene como objetivo obtener la instrucción almacenada en la memoria unificada, utilizando el valor del Instruction Pointer (IP) como dirección base, y transferirla al Instruction Register (IR) para su posterior decodificación. Este proceso marca el inicio del ciclo de instrucción y determina la secuenciación temporal de accesos a memoria, condicionada por el modelo Von Neumann (memoria y bus compartidos). 
 
 En VonSim8, esta fase reproduce la restricción estructural propia de la arquitectura Von Neumann (bus y memoria compartidos), modelando el acceso exclusivo durante la lectura de la instrucción.
 
@@ -1688,7 +1688,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-Durante esta fase, el bus permanece bloqueado para otros accesos hasta que finaliza la lectura completa de la instrucción, garantizando la exclusividad del recurso compartido.
+Durante esta fase, el bus se arbitra mediante un protocolo de petición-concesión (\texttt{req}/\texttt{grant}), garantizando exclusión mutua en el acceso y previniendo colisiones.
     
 ### Fase de Ejecución (Execute): MOV AL, BL
 En la fase de ejecución, la UC decodifica el contenido del IR y activa las señales necesarias para que el Banco de Registros (REG_BANK) transfiera el dato desde el registro fuente BL hacia el registro destino AL a través del bus compartido.
@@ -1755,10 +1755,10 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-Las microoperaciones se ejecutan de manera secuencial y cronometrada conforme a las funciones de transición ($\delta_{int}, \delta_{ext}$) y de salida ($\lambda$) definidas en el formalismo DEVS, lo que posibilita representar con precisión el flujo de control y la sincronización de eventos entre los modelos atómicos.
+Las microoperaciones se ejecutan conforme a las funciones DEVS de transición interna $\delta_{int}$, transición externa $\delta_{ext}$ y de salida ($\lambda$). 
 
 ### Validación experimental
-La implementación en xdevs.py reproduce fielmente las 11 microoperaciones del ciclo completo (6 en fetch y 5 en execute), generando 45 transiciones DEVS y requiriendo 14 ciclos totales. Los resultados confirman:
+La implementación en xdevs.py reproduce 11 microoperaciones (6 en Fetch y 5 en Execute) y, para este caso de estudio, produce 14 ciclos totales y 45 transiciones DEVS. Se mantiene esta métrica de forma consistente en el cuerpo del texto y el Anexo D (\@ref(anexoD)). Los resultados confirman:
 
 - **Correctitud funcional**: la transferencia AL ← BL se ejecuta correctamente (`AL: 0x01 → 0x0A`).
 - **Coherencia temporal**: cada componente respeta sus retardos $\tau$ especificados.
