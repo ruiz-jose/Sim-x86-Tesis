@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.4 Anexo D: Resultados de simulación xdevs | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</title>
+  <meta name="description" content="6.4 Anexo D: Resultados de simulación xdevs | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta name="generator" content="bookdown 0.45 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.4 Anexo D: Resultados de simulación xdevs | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta name="github-repo" content="ruiz-jose/Sim-x86-Tesis" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.4 Anexo D: Resultados de simulación xdevs | Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras" />
+  
+  
+  
+
+<meta name="author" content="Ruiz Jose Maria" />
+
+
+<meta name="date" content="2025-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="anexoC.html"/>
+<link rel="next" href="futuro.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Sim-x86</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Resumen</a></li>
+<li class="chapter" data-level="" data-path="agradecimientos.html"><a href="agradecimientos.html"><i class="fa fa-check"></i>Agradecimientos</a></li>
+<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Introducción</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="justificación.html"><a href="justificación.html"><i class="fa fa-check"></i><b>1.1</b> Justificación</a></li>
+<li class="chapter" data-level="1.2" data-path="objetivos.html"><a href="objetivos.html"><i class="fa fa-check"></i><b>1.2</b> Objetivos</a></li>
+<li class="chapter" data-level="1.3" data-path="metodología-de-desarrollo.html"><a href="metodología-de-desarrollo.html"><i class="fa fa-check"></i><b>1.3</b> Metodología de desarrollo</a></li>
+<li class="chapter" data-level="1.4" data-path="organización-del-documento.html"><a href="organización-del-documento.html"><i class="fa fa-check"></i><b>1.4</b> Organización del documento</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="arquitectura.html"><a href="arquitectura.html"><i class="fa fa-check"></i><b>2</b> Arquitectura de computadoras</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introducción-a-la-arquitectura-de-computadoras.html"><a href="introducción-a-la-arquitectura-de-computadoras.html"><i class="fa fa-check"></i><b>2.1</b> Introducción a la arquitectura de computadoras</a></li>
+<li class="chapter" data-level="2.2" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html"><i class="fa fa-check"></i><b>2.2</b> Arquitecturas Von Neumann y Harvard</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#arquitectura-von-neumann"><i class="fa fa-check"></i><b>2.2.1</b> Arquitectura Von Neumann</a></li>
+<li class="chapter" data-level="2.2.2" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#arquitectura-harvard"><i class="fa fa-check"></i><b>2.2.2</b> Arquitectura Harvard</a></li>
+<li class="chapter" data-level="2.2.3" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#comparativa-entre-von-neumann-y-harvard"><i class="fa fa-check"></i><b>2.2.3</b> Comparativa entre Von Neumann y Harvard</a></li>
+<li class="chapter" data-level="2.2.4" data-path="arquitecturas-von-neumann-y-harvard.html"><a href="arquitecturas-von-neumann-y-harvard.html#arquitecturas-híbridas"><i class="fa fa-check"></i><b>2.2.4</b> Arquitecturas híbridas</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html"><i class="fa fa-check"></i><b>2.3</b> Tipos de arquitecturas</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-x86"><i class="fa fa-check"></i><b>2.3.1</b> Arquitectura x86</a></li>
+<li class="chapter" data-level="2.3.2" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-arm"><i class="fa fa-check"></i><b>2.3.2</b> Arquitectura ARM</a></li>
+<li class="chapter" data-level="2.3.3" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#arquitectura-risc-v"><i class="fa fa-check"></i><b>2.3.3</b> Arquitectura RISC-V</a></li>
+<li class="chapter" data-level="2.3.4" data-path="tipos-de-arquitecturas.html"><a href="tipos-de-arquitecturas.html#comparativa-entre-arquitecturas"><i class="fa fa-check"></i><b>2.3.4</b> Comparativa entre arquitecturas</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html"><i class="fa fa-check"></i><b>2.4</b> Repertorio de instrucciones</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#características-clave-del-isa"><i class="fa fa-check"></i><b>2.4.1</b> Características clave del ISA</a></li>
+<li class="chapter" data-level="2.4.2" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#modos-de-direccionamiento"><i class="fa fa-check"></i><b>2.4.2</b> Modos de direccionamiento</a></li>
+<li class="chapter" data-level="2.4.3" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#formato-de-las-instrucciones"><i class="fa fa-check"></i><b>2.4.3</b> Formato de las instrucciones</a></li>
+<li class="chapter" data-level="2.4.4" data-path="repertorio-de-instrucciones.html"><a href="repertorio-de-instrucciones.html#comparativa-de-repertorios-de-instrucciones"><i class="fa fa-check"></i><b>2.4.4</b> Comparativa de repertorios de instrucciones</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html"><i class="fa fa-check"></i><b>2.5</b> Filosofías CISC y RISC</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#cisc"><i class="fa fa-check"></i><b>2.5.1</b> CISC</a></li>
+<li class="chapter" data-level="2.5.2" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#RISC"><i class="fa fa-check"></i><b>2.5.2</b> RISC</a></li>
+<li class="chapter" data-level="2.5.3" data-path="filosofías-cisc-y-risc.html"><a href="filosofías-cisc-y-risc.html#comparativa-entre-cisc-y-risc"><i class="fa fa-check"></i><b>2.5.3</b> Comparativa entre CISC y RISC</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="arquitectura-x86-1.html"><a href="arquitectura-x86-1.html"><i class="fa fa-check"></i><b>2.6</b> Arquitectura x86</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="arquitectura-x86-1.html"><a href="arquitectura-x86-1.html#evolución-de-la-arquitectura-x86"><i class="fa fa-check"></i><b>2.6.1</b> Evolución de la arquitectura x86</a></li>
+<li class="chapter" data-level="2.6.2" data-path="arquitectura-x86-1.html"><a href="arquitectura-x86-1.html#repertorio-de-instrucciones-x86"><i class="fa fa-check"></i><b>2.6.2</b> Repertorio de instrucciones x86</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="lenguaje-máquina-y-lenguaje-ensamblador.html"><a href="lenguaje-máquina-y-lenguaje-ensamblador.html"><i class="fa fa-check"></i><b>2.7</b> Lenguaje máquina y lenguaje ensamblador</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="lenguaje-máquina-y-lenguaje-ensamblador.html"><a href="lenguaje-máquina-y-lenguaje-ensamblador.html#ensamblador"><i class="fa fa-check"></i><b>2.7.1</b> Ensamblador</a></li>
+<li class="chapter" data-level="2.7.2" data-path="lenguaje-máquina-y-lenguaje-ensamblador.html"><a href="lenguaje-máquina-y-lenguaje-ensamblador.html#ensambladores-x86"><i class="fa fa-check"></i><b>2.7.2</b> Ensambladores x86</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="simulacion.html"><a href="simulacion.html"><i class="fa fa-check"></i><b>3</b> Simulación</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="introducción-a-la-simulación.html"><a href="introducción-a-la-simulación.html"><i class="fa fa-check"></i><b>3.1</b> Introducción a la simulación</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="introducción-a-la-simulación.html"><a href="introducción-a-la-simulación.html#aplicaciones-de-la-simulación-en-la-industria"><i class="fa fa-check"></i><b>3.1.1</b> Aplicaciones de la simulación en la industria</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="simulación-en-la-educación.html"><a href="simulación-en-la-educación.html"><i class="fa fa-check"></i><b>3.2</b> Simulación en la educación</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="simulación-en-la-educación.html"><a href="simulación-en-la-educación.html#el-rol-de-la-simulación-en-la-enseñanza-de-arquitectura-de-computadoras"><i class="fa fa-check"></i><b>3.2.1</b> El rol de la simulación en la enseñanza de Arquitectura de Computadoras</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="devs.html"><a href="devs.html"><i class="fa fa-check"></i><b>3.3</b> El Formalismo DEVS (Discrete Event System Specification)</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="devs.html"><a href="devs.html#estructura-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.1</b> Estructura del formalismo DEVS</a></li>
+<li class="chapter" data-level="3.3.2" data-path="devs.html"><a href="devs.html#xdevs"><i class="fa fa-check"></i><b>3.3.2</b> xDEVS</a></li>
+<li class="chapter" data-level="3.3.3" data-path="devs.html"><a href="devs.html#aplicaciones-del-formalismo-devs"><i class="fa fa-check"></i><b>3.3.3</b> Aplicaciones del formalismo DEVS</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="comparativa.html"><a href="comparativa.html"><i class="fa fa-check"></i><b>4</b> Comparativa de simuladores</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="estudios-similares.html"><a href="estudios-similares.html"><i class="fa fa-check"></i><b>4.1</b> Estudios similares</a></li>
+<li class="chapter" data-level="4.2" data-path="simuladores-bajo-análisis.html"><a href="simuladores-bajo-análisis.html"><i class="fa fa-check"></i><b>4.2</b> Simuladores bajo análisis</a></li>
+<li class="chapter" data-level="4.3" data-path="criterios-de-evaluación.html"><a href="criterios-de-evaluación.html"><i class="fa fa-check"></i><b>4.3</b> Criterios de evaluación</a></li>
+<li class="chapter" data-level="4.4" data-path="selección-de-simuladores.html"><a href="selección-de-simuladores.html"><i class="fa fa-check"></i><b>4.4</b> Selección de simuladores</a></li>
+<li class="chapter" data-level="4.5" data-path="participantes-en-la-evaluación.html"><a href="participantes-en-la-evaluación.html"><i class="fa fa-check"></i><b>4.5</b> Participantes en la evaluación</a></li>
+<li class="chapter" data-level="4.6" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html"><i class="fa fa-check"></i><b>4.6</b> Análisis comparativo</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html#simple-8-bit-assembler-simulator"><i class="fa fa-check"></i><b>4.6.1</b> Simple 8-bit Assembler Simulator</a></li>
+<li class="chapter" data-level="4.6.2" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html#vonsim"><i class="fa fa-check"></i><b>4.6.2</b> VonSim</a></li>
+<li class="chapter" data-level="4.6.3" data-path="análisis-comparativo.html"><a href="análisis-comparativo.html#emu8086"><i class="fa fa-check"></i><b>4.6.3</b> Emu8086</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="resultados.html"><a href="resultados.html"><i class="fa fa-check"></i><b>4.7</b> Resultados</a>
+<ul>
+<li class="chapter" data-level="4.7.1" data-path="resultados.html"><a href="resultados.html#publicación"><i class="fa fa-check"></i><b>4.7.1</b> Publicación</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="desarrollo.html"><a href="desarrollo.html"><i class="fa fa-check"></i><b>5</b> Diseño y construcción del simulador</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="requisitos-de-la-herramienta.html"><a href="requisitos-de-la-herramienta.html"><i class="fa fa-check"></i><b>5.1</b> Requisitos de la herramienta</a></li>
+<li class="chapter" data-level="5.2" data-path="justificación-pedagógica-de-la-arquitectura-simplificada.html"><a href="justificación-pedagógica-de-la-arquitectura-simplificada.html"><i class="fa fa-check"></i><b>5.2</b> Justificación pedagógica de la arquitectura simplificada</a></li>
+<li class="chapter" data-level="5.3" data-path="introducción-a-vonsim.html"><a href="introducción-a-vonsim.html"><i class="fa fa-check"></i><b>5.3</b> Introducción a VonSim</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="introducción-a-vonsim.html"><a href="introducción-a-vonsim.html#stack-tecnológico"><i class="fa fa-check"></i><b>5.3.1</b> Stack tecnológico</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="estructura-y-componentes-de-vonsim8.html"><a href="estructura-y-componentes-de-vonsim8.html"><i class="fa fa-check"></i><b>5.4</b> Estructura y componentes de VonSim8</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="estructura-y-componentes-de-vonsim8.html"><a href="estructura-y-componentes-de-vonsim8.html#unidad-de-control"><i class="fa fa-check"></i><b>5.4.1</b> Unidad de Control</a></li>
+<li class="chapter" data-level="5.4.2" data-path="estructura-y-componentes-de-vonsim8.html"><a href="estructura-y-componentes-de-vonsim8.html#unidad-aritmético-lógica-alu"><i class="fa fa-check"></i><b>5.4.2</b> Unidad Aritmético-Lógica (ALU)</a></li>
+<li class="chapter" data-level="5.4.3" data-path="estructura-y-componentes-de-vonsim8.html"><a href="estructura-y-componentes-de-vonsim8.html#memoria-principal"><i class="fa fa-check"></i><b>5.4.3</b> Memoria principal</a></li>
+<li class="chapter" data-level="5.4.4" data-path="estructura-y-componentes-de-vonsim8.html"><a href="estructura-y-componentes-de-vonsim8.html#buses-y-multiplexores"><i class="fa fa-check"></i><b>5.4.4</b> Buses y multiplexores</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="adaptaciones-y-mejoras-en-vonsim8.html"><a href="adaptaciones-y-mejoras-en-vonsim8.html"><i class="fa fa-check"></i><b>5.5</b> Adaptaciones y mejoras en VonSim8</a></li>
+<li class="chapter" data-level="5.6" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html"><i class="fa fa-check"></i><b>5.6</b> Repertorio de instrucciones</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.6.1</b> Modos de direccionamiento</a></li>
+<li class="chapter" data-level="5.6.2" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#formato-de-instrucciones"><i class="fa fa-check"></i><b>5.6.2</b> Formato de instrucciones</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html"><i class="fa fa-check"></i><b>5.7</b> Ciclo de la instrucción</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#etapa-1-captación"><i class="fa fa-check"></i><b>5.7.1</b> Etapa 1: Captación</a></li>
+<li class="chapter" data-level="5.7.2" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#etapa-2-ejecución"><i class="fa fa-check"></i><b>5.7.2</b> Etapa 2: Ejecución</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html"><a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html"><i class="fa fa-check"></i><b>5.8</b> Modelado con xDEVS del ciclo de instrucción MOV AL, BL</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html"><a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html#componentes-del-simulador-vonsim8"><i class="fa fa-check"></i><b>5.8.1</b> Componentes del simulador VonSim8</a></li>
+<li class="chapter" data-level="5.8.2" data-path="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html"><a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html#fases-del-ciclo-de-instrucción"><i class="fa fa-check"></i><b>5.8.2</b> Fases del ciclo de instrucción</a></li>
+<li class="chapter" data-level="5.8.3" data-path="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html"><a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html#fase-de-captación-fetch"><i class="fa fa-check"></i><b>5.8.3</b> Fase de captación (Fetch)</a></li>
+<li class="chapter" data-level="5.8.4" data-path="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html"><a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html#fase-de-ejecución-execute-mov-al-bl"><i class="fa fa-check"></i><b>5.8.4</b> Fase de Ejecución (Execute): MOV AL, BL</a></li>
+<li class="chapter" data-level="5.8.5" data-path="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html"><a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html#validación-experimental"><i class="fa fa-check"></i><b>5.8.5</b> Validación experimental</a></li>
+<li class="chapter" data-level="5.8.6" data-path="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html"><a href="modelado-con-xdevs-del-ciclo-de-instrucción-mov-al-bl.html#conclusión"><i class="fa fa-check"></i><b>5.8.6</b> Conclusión</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html"><i class="fa fa-check"></i><b>5.9</b> Módulo de entrada/salida e interrupciones</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#etapa-de-ejecución-de-instrucciones"><i class="fa fa-check"></i><b>5.9.1</b> Etapa de ejecución de instrucciones</a></li>
+<li class="chapter" data-level="5.9.2" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#pila-y-subrutinas"><i class="fa fa-check"></i><b>5.9.2</b> Pila y subrutinas</a></li>
+<li class="chapter" data-level="5.9.3" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#interrupciones-y-llamadas-al-sistema"><i class="fa fa-check"></i><b>5.9.3</b> Interrupciones y llamadas al sistema</a></li>
+<li class="chapter" data-level="5.9.4" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#llamadas-al-sistema"><i class="fa fa-check"></i><b>5.9.4</b> Llamadas al sistema</a></li>
+<li class="chapter" data-level="5.9.5" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#pantalla"><i class="fa fa-check"></i><b>5.9.5</b> Pantalla</a></li>
+<li class="chapter" data-level="5.9.6" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#teclado"><i class="fa fa-check"></i><b>5.9.6</b> Teclado</a></li>
+<li class="chapter" data-level="5.9.7" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#puertos-de-es"><i class="fa fa-check"></i><b>5.9.7</b> Puertos de E/S</a></li>
+<li class="chapter" data-level="5.9.8" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out"><i class="fa fa-check"></i><b>5.9.8</b> Instrucciones IN y OUT</a></li>
+<li class="chapter" data-level="5.9.9" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#módulo-pio-leds-e-interruptores"><i class="fa fa-check"></i><b>5.9.9</b> Módulo PIO (Leds e Interruptores)</a></li>
+<li class="chapter" data-level="5.9.10" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#módulo-handshake-impresora"><i class="fa fa-check"></i><b>5.9.10</b> Módulo handshake (Impresora)</a></li>
+<li class="chapter" data-level="5.9.11" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#módulo-pic-controlador-de-interrupciones"><i class="fa fa-check"></i><b>5.9.11</b> Módulo PIC (Controlador de Interrupciones)</a></li>
+<li class="chapter" data-level="5.9.12" data-path="módulo-de-entradasalida-e-interrupciones.html"><a href="módulo-de-entradasalida-e-interrupciones.html#módulo-timer"><i class="fa fa-check"></i><b>5.9.12</b> Módulo timer</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="validacionpedagogica.html"><a href="validacionpedagogica.html"><i class="fa fa-check"></i><b>5.10</b> Validación pedagógica del simulador</a>
+<ul>
+<li class="chapter" data-level="5.10.1" data-path="validacionpedagogica.html"><a href="validacionpedagogica.html#objetivos-de-la-validación"><i class="fa fa-check"></i><b>5.10.1</b> Objetivos de la validación</a></li>
+<li class="chapter" data-level="5.10.2" data-path="validacionpedagogica.html"><a href="validacionpedagogica.html#población-de-estudio"><i class="fa fa-check"></i><b>5.10.2</b> Población de estudio</a></li>
+<li class="chapter" data-level="5.10.3" data-path="validacionpedagogica.html"><a href="validacionpedagogica.html#instrumentos-de-recolección-de-datos-ver-apéndice-anexo-b-refanexob"><i class="fa fa-check"></i><b>5.10.3</b> Instrumentos de recolección de datos (ver Apéndice: Anexo B @ref(anexoB))</a></li>
+<li class="chapter" data-level="5.10.4" data-path="validacionpedagogica.html"><a href="validacionpedagogica.html#análisis-de-resultados-ver-apéndice-anexo-c-refanexoc"><i class="fa fa-check"></i><b>5.10.4</b> Análisis de resultados (ver Apéndice: Anexo C @ref(anexoC))</a></li>
+</ul></li>
+<li class="chapter" data-level="5.11" data-path="aportes-y-contribuciones-del-simulador-vonsim8.html"><a href="aportes-y-contribuciones-del-simulador-vonsim8.html"><i class="fa fa-check"></i><b>5.11</b> Aportes y contribuciones del simulador VonSim8</a></li>
+<li class="chapter" data-level="5.12" data-path="resumen-del-capítulo.html"><a href="resumen-del-capítulo.html"><i class="fa fa-check"></i><b>5.12</b> Resumen del capítulo</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="apendices.html"><a href="apendices.html"><i class="fa fa-check"></i><b>6</b> Apéndices</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="anexoA.html"><a href="anexoA.html"><i class="fa fa-check"></i><b>6.1</b> Anexo A: Protocolo de Entrevista Semiestructurada</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="anexoA.html"><a href="anexoA.html#introducción-a-cargo-del-entrevistador"><i class="fa fa-check"></i><b>6.1.1</b> Introducción (a cargo del entrevistador)</a></li>
+<li class="chapter" data-level="6.1.2" data-path="anexoA.html"><a href="anexoA.html#datos-generales-del-entrevistado"><i class="fa fa-check"></i><b>6.1.2</b> Datos generales del entrevistado</a></li>
+<li class="chapter" data-level="6.1.3" data-path="anexoA.html"><a href="anexoA.html#preguntas-principales"><i class="fa fa-check"></i><b>6.1.3</b> Preguntas principales</a></li>
+<li class="chapter" data-level="6.1.4" data-path="anexoA.html"><a href="anexoA.html#cierre"><i class="fa fa-check"></i><b>6.1.4</b> Cierre</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="anexoB.html"><a href="anexoB.html"><i class="fa fa-check"></i><b>6.2</b> Anexo B: Instrumentos de recolección de datos</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="anexoB.html"><a href="anexoB.html#encuesta-de-retroalimentación-unidad-ciclo-de-instrucción-y-simulador-vonsim8-estudiantes"><i class="fa fa-check"></i><b>6.2.1</b> 1) Encuesta de retroalimentación – Unidad ciclo de instrucción y simulador VonSim8 estudiantes</a></li>
+<li class="chapter" data-level="6.2.2" data-path="anexoB.html"><a href="anexoB.html#entrevista-semiestructurada-a-docentes-sobre-el-simulador-vonsim"><i class="fa fa-check"></i><b>6.2.2</b> 2) Entrevista semiestructurada a docentes sobre el simulador VonSim</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="anexoC.html"><a href="anexoC.html"><i class="fa fa-check"></i><b>6.3</b> Anexo C: Análisis de los resultados</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="anexoC.html"><a href="anexoC.html#encuesta-de-retroalimentación-estudiantes"><i class="fa fa-check"></i><b>6.3.1</b> Encuesta de retroalimentación estudiantes</a></li>
+<li class="chapter" data-level="6.3.2" data-path="anexoC.html"><a href="anexoC.html#entrevistas-a-docentes"><i class="fa fa-check"></i><b>6.3.2</b> entrevistas a docentes</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="anexoD.html"><a href="anexoD.html"><i class="fa fa-check"></i><b>6.4</b> Anexo D: Resultados de simulación xdevs</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="futuro.html"><a href="futuro.html"><i class="fa fa-check"></i><b>7</b> Trabajos futuros</a>
+<ul>
+<li class="chapter" data-level="7.0.1" data-path="futuro.html"><a href="futuro.html#conclusión-1"><i class="fa fa-check"></i><b>7.0.1</b> Conclusión</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="conclusiones.html"><a href="conclusiones.html"><i class="fa fa-check"></i><b>8</b> Conclusiones finales</a></li>
+<li class="chapter" data-level="9" data-path="Biblio.html"><a href="Biblio.html"><i class="fa fa-check"></i><b>9</b> Bibliografía</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/ruiz-jose/Sim-x86-Tesis" target="blank">Publicado con bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Herramienta de simulación para dar soporte a la enseñanza de arquitectura de computadoras</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="anexoD" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Anexo D: Resultados de simulación xdevs<a href="anexoD.html#anexoD" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este anexo documenta la implementación del modelo DEVS del simulador VonSim8 desarrollado con la biblioteca xdevs.py (Python), así como los resultados experimentales obtenidos durante la ejecución de la instrucción MOV AL, BL.
+El objetivo es proporcionar evidencia empírica que respalde la validación del modelo teórico presentado en el Capítulo 5, sección “Modelado con xDEVS del ciclo de instrucción MOV AL, BL”.</p>
+<p>El código fuente completo se encuentra disponible en el repositorio público:
+xdevs-vonsim8<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="anexoD.html#cb26-1" tabindex="-1"></a><span class="im">from</span> xdevs.models <span class="im">import</span> Atomic, Coupled, Port</span>
+<span id="cb26-2"><a href="anexoD.html#cb26-2" tabindex="-1"></a><span class="im">from</span> xdevs.sim <span class="im">import</span> Coordinator</span>
+<span id="cb26-3"><a href="anexoD.html#cb26-3" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="anexoD.html#cb26-4" tabindex="-1"></a></span>
+<span id="cb26-5"><a href="anexoD.html#cb26-5" tabindex="-1"></a><span class="co"># ======================================================</span></span>
+<span id="cb26-6"><a href="anexoD.html#cb26-6" tabindex="-1"></a><span class="co"># MODELOS ATÓMICOS: Registros y componentes individuales</span></span>
+<span id="cb26-7"><a href="anexoD.html#cb26-7" tabindex="-1"></a><span class="co"># ======================================================</span></span>
+<span id="cb26-8"><a href="anexoD.html#cb26-8" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="anexoD.html#cb26-9" tabindex="-1"></a><span class="kw">class</span> SharedBus(Atomic):</span>
+<span id="cb26-10"><a href="anexoD.html#cb26-10" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;</span></span>
+<span id="cb26-11"><a href="anexoD.html#cb26-11" tabindex="-1"></a><span class="co">    Modelo atómico para el bus compartido.</span></span>
+<span id="cb26-12"><a href="anexoD.html#cb26-12" tabindex="-1"></a><span class="co">    Garantiza acceso exclusivo mediante señales de control y </span></span>
+<span id="cb26-13"><a href="anexoD.html#cb26-13" tabindex="-1"></a><span class="co">    modela el retardo tau_bus.</span></span>
+<span id="cb26-14"><a href="anexoD.html#cb26-14" tabindex="-1"></a><span class="co">    &quot;&quot;&quot;</span></span>
+<span id="cb26-15"><a href="anexoD.html#cb26-15" tabindex="-1"></a>    </span>
+<span id="cb26-16"><a href="anexoD.html#cb26-16" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;BUS&quot;</span>):</span>
+<span id="cb26-17"><a href="anexoD.html#cb26-17" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-18"><a href="anexoD.html#cb26-18" tabindex="-1"></a>        <span class="va">self</span>.current_value: <span class="bu">int</span> <span class="op">=</span> <span class="bn">0x00</span></span>
+<span id="cb26-19"><a href="anexoD.html#cb26-19" tabindex="-1"></a>        <span class="va">self</span>.locked: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-20"><a href="anexoD.html#cb26-20" tabindex="-1"></a>        <span class="va">self</span>.requester: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb26-21"><a href="anexoD.html#cb26-21" tabindex="-1"></a>        </span>
+<span id="cb26-22"><a href="anexoD.html#cb26-22" tabindex="-1"></a>        <span class="co"># Puertos de arbitraje</span></span>
+<span id="cb26-23"><a href="anexoD.html#cb26-23" tabindex="-1"></a>        <span class="va">self</span>.req <span class="op">=</span> Port(<span class="bu">str</span>, name<span class="op">=</span><span class="st">&quot;req&quot;</span>) </span>
+<span id="cb26-24"><a href="anexoD.html#cb26-24" tabindex="-1"></a>        <span class="co"># Identificador del componente solicitante</span></span>
+<span id="cb26-25"><a href="anexoD.html#cb26-25" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.req)</span>
+<span id="cb26-26"><a href="anexoD.html#cb26-26" tabindex="-1"></a>        <span class="va">self</span>.grant <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;grant&quot;</span>)</span>
+<span id="cb26-27"><a href="anexoD.html#cb26-27" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.grant)</span>
+<span id="cb26-28"><a href="anexoD.html#cb26-28" tabindex="-1"></a>        </span>
+<span id="cb26-29"><a href="anexoD.html#cb26-29" tabindex="-1"></a>        <span class="co"># Puertos de datos</span></span>
+<span id="cb26-30"><a href="anexoD.html#cb26-30" tabindex="-1"></a>        <span class="va">self</span>.data_in <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;data_in&quot;</span>)</span>
+<span id="cb26-31"><a href="anexoD.html#cb26-31" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.data_in)</span>
+<span id="cb26-32"><a href="anexoD.html#cb26-32" tabindex="-1"></a>        <span class="va">self</span>.data_out <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;data_out&quot;</span>)</span>
+<span id="cb26-33"><a href="anexoD.html#cb26-33" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.data_out)</span>
+<span id="cb26-34"><a href="anexoD.html#cb26-34" tabindex="-1"></a>        </span>
+<span id="cb26-35"><a href="anexoD.html#cb26-35" tabindex="-1"></a>        <span class="co"># Puerto de release</span></span>
+<span id="cb26-36"><a href="anexoD.html#cb26-36" tabindex="-1"></a>        <span class="va">self</span>.release <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;release&quot;</span>)</span>
+<span id="cb26-37"><a href="anexoD.html#cb26-37" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.release)</span>
+<span id="cb26-38"><a href="anexoD.html#cb26-38" tabindex="-1"></a>        </span>
+<span id="cb26-39"><a href="anexoD.html#cb26-39" tabindex="-1"></a>        <span class="va">self</span>.pending_grant <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-40"><a href="anexoD.html#cb26-40" tabindex="-1"></a>        <span class="va">self</span>.pending_data <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-41"><a href="anexoD.html#cb26-41" tabindex="-1"></a>    </span>
+<span id="cb26-42"><a href="anexoD.html#cb26-42" tabindex="-1"></a>    <span class="kw">def</span> initialize(<span class="va">self</span>):</span>
+<span id="cb26-43"><a href="anexoD.html#cb26-43" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-44"><a href="anexoD.html#cb26-44" tabindex="-1"></a>    </span>
+<span id="cb26-45"><a href="anexoD.html#cb26-45" tabindex="-1"></a>    <span class="kw">def</span> deltext(<span class="va">self</span>, e: <span class="bu">float</span>):</span>
+<span id="cb26-46"><a href="anexoD.html#cb26-46" tabindex="-1"></a>        <span class="va">self</span>.continuef(e)</span>
+<span id="cb26-47"><a href="anexoD.html#cb26-47" tabindex="-1"></a>        </span>
+<span id="cb26-48"><a href="anexoD.html#cb26-48" tabindex="-1"></a>        <span class="co"># Solicitud de acceso al bus</span></span>
+<span id="cb26-49"><a href="anexoD.html#cb26-49" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.req <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.req.empty():</span>
+<span id="cb26-50"><a href="anexoD.html#cb26-50" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.locked:</span>
+<span id="cb26-51"><a href="anexoD.html#cb26-51" tabindex="-1"></a>                <span class="va">self</span>.requester <span class="op">=</span> <span class="va">self</span>.req.get()</span>
+<span id="cb26-52"><a href="anexoD.html#cb26-52" tabindex="-1"></a>                <span class="va">self</span>.locked <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-53"><a href="anexoD.html#cb26-53" tabindex="-1"></a>                <span class="va">self</span>.pending_grant <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-54"><a href="anexoD.html#cb26-54" tabindex="-1"></a>                <span class="va">self</span>.hold_in(<span class="st">&quot;GRANTING&quot;</span>, <span class="dv">1</span>)  <span class="co"># tau_bus = 1 ciclo</span></span>
+<span id="cb26-55"><a href="anexoD.html#cb26-55" tabindex="-1"></a>        </span>
+<span id="cb26-56"><a href="anexoD.html#cb26-56" tabindex="-1"></a>        <span class="co"># Liberación del bus</span></span>
+<span id="cb26-57"><a href="anexoD.html#cb26-57" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.release <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.release.empty():</span>
+<span id="cb26-58"><a href="anexoD.html#cb26-58" tabindex="-1"></a>            <span class="cf">if</span> <span class="va">self</span>.release.get():</span>
+<span id="cb26-59"><a href="anexoD.html#cb26-59" tabindex="-1"></a>                <span class="va">self</span>.locked <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-60"><a href="anexoD.html#cb26-60" tabindex="-1"></a>                <span class="va">self</span>.requester <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb26-61"><a href="anexoD.html#cb26-61" tabindex="-1"></a>        </span>
+<span id="cb26-62"><a href="anexoD.html#cb26-62" tabindex="-1"></a>        <span class="co"># Recepción de datos</span></span>
+<span id="cb26-63"><a href="anexoD.html#cb26-63" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.data_in <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.data_in.empty():</span>
+<span id="cb26-64"><a href="anexoD.html#cb26-64" tabindex="-1"></a>            <span class="va">self</span>.current_value <span class="op">=</span> <span class="va">self</span>.data_in.get() <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb26-65"><a href="anexoD.html#cb26-65" tabindex="-1"></a>            <span class="va">self</span>.pending_data <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-66"><a href="anexoD.html#cb26-66" tabindex="-1"></a>            <span class="va">self</span>.activate()</span>
+<span id="cb26-67"><a href="anexoD.html#cb26-67" tabindex="-1"></a>    </span>
+<span id="cb26-68"><a href="anexoD.html#cb26-68" tabindex="-1"></a>    <span class="kw">def</span> deltint(<span class="va">self</span>):</span>
+<span id="cb26-69"><a href="anexoD.html#cb26-69" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_grant:</span>
+<span id="cb26-70"><a href="anexoD.html#cb26-70" tabindex="-1"></a>            <span class="va">self</span>.pending_grant <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-71"><a href="anexoD.html#cb26-71" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_data:</span>
+<span id="cb26-72"><a href="anexoD.html#cb26-72" tabindex="-1"></a>            <span class="va">self</span>.pending_data <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-73"><a href="anexoD.html#cb26-73" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-74"><a href="anexoD.html#cb26-74" tabindex="-1"></a>    </span>
+<span id="cb26-75"><a href="anexoD.html#cb26-75" tabindex="-1"></a>    <span class="kw">def</span> lambdaf(<span class="va">self</span>):</span>
+<span id="cb26-76"><a href="anexoD.html#cb26-76" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_grant:</span>
+<span id="cb26-77"><a href="anexoD.html#cb26-77" tabindex="-1"></a>            <span class="va">self</span>.grant.add(<span class="va">True</span>)</span>
+<span id="cb26-78"><a href="anexoD.html#cb26-78" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_data:</span>
+<span id="cb26-79"><a href="anexoD.html#cb26-79" tabindex="-1"></a>            <span class="va">self</span>.data_out.add(<span class="va">self</span>.current_value)</span>
+<span id="cb26-80"><a href="anexoD.html#cb26-80" tabindex="-1"></a>    </span>
+<span id="cb26-81"><a href="anexoD.html#cb26-81" tabindex="-1"></a>    <span class="kw">def</span> exit(<span class="va">self</span>):</span>
+<span id="cb26-82"><a href="anexoD.html#cb26-82" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb26-83"><a href="anexoD.html#cb26-83" tabindex="-1"></a></span>
+<span id="cb26-84"><a href="anexoD.html#cb26-84" tabindex="-1"></a></span>
+<span id="cb26-85"><a href="anexoD.html#cb26-85" tabindex="-1"></a><span class="kw">class</span> Register(Atomic):</span>
+<span id="cb26-86"><a href="anexoD.html#cb26-86" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Modelo atómico genérico para un registro de 8 bits con</span></span>
+<span id="cb26-87"><a href="anexoD.html#cb26-87" tabindex="-1"></a><span class="co">     señales indexadas.&quot;&quot;&quot;</span></span>
+<span id="cb26-88"><a href="anexoD.html#cb26-88" tabindex="-1"></a>    </span>
+<span id="cb26-89"><a href="anexoD.html#cb26-89" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span>, initial_value: <span class="bu">int</span> <span class="op">=</span> <span class="bn">0x00</span>):</span>
+<span id="cb26-90"><a href="anexoD.html#cb26-90" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-91"><a href="anexoD.html#cb26-91" tabindex="-1"></a>        <span class="va">self</span>.value: <span class="bu">int</span> <span class="op">=</span> initial_value</span>
+<span id="cb26-92"><a href="anexoD.html#cb26-92" tabindex="-1"></a>        <span class="va">self</span>.reg_name: <span class="bu">str</span> <span class="op">=</span> name  </span>
+<span id="cb26-93"><a href="anexoD.html#cb26-93" tabindex="-1"></a>        <span class="co"># Nombre del registro (AL, BL, CL, DL)</span></span>
+<span id="cb26-94"><a href="anexoD.html#cb26-94" tabindex="-1"></a>        </span>
+<span id="cb26-95"><a href="anexoD.html#cb26-95" tabindex="-1"></a>        <span class="co"># Puertos de entrada/salida</span></span>
+<span id="cb26-96"><a href="anexoD.html#cb26-96" tabindex="-1"></a>        <span class="va">self</span>.data_in <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;data_in&quot;</span>)</span>
+<span id="cb26-97"><a href="anexoD.html#cb26-97" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.data_in)</span>
+<span id="cb26-98"><a href="anexoD.html#cb26-98" tabindex="-1"></a>        <span class="va">self</span>.enable_in <span class="op">=</span> Port(<span class="bu">str</span>, name<span class="op">=</span><span class="st">&quot;enable_in&quot;</span>)  </span>
+<span id="cb26-99"><a href="anexoD.html#cb26-99" tabindex="-1"></a>        <span class="co"># Recibe nombre de registro</span></span>
+<span id="cb26-100"><a href="anexoD.html#cb26-100" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.enable_in)</span>
+<span id="cb26-101"><a href="anexoD.html#cb26-101" tabindex="-1"></a>        <span class="va">self</span>.enable_out <span class="op">=</span> Port(<span class="bu">str</span>, name<span class="op">=</span><span class="st">&quot;enable_out&quot;</span>) </span>
+<span id="cb26-102"><a href="anexoD.html#cb26-102" tabindex="-1"></a>        <span class="co"># Recibe nombre de registro</span></span>
+<span id="cb26-103"><a href="anexoD.html#cb26-103" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.enable_out)</span>
+<span id="cb26-104"><a href="anexoD.html#cb26-104" tabindex="-1"></a>        </span>
+<span id="cb26-105"><a href="anexoD.html#cb26-105" tabindex="-1"></a>        <span class="va">self</span>.data_out <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;data_out&quot;</span>)</span>
+<span id="cb26-106"><a href="anexoD.html#cb26-106" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.data_out)</span>
+<span id="cb26-107"><a href="anexoD.html#cb26-107" tabindex="-1"></a>        </span>
+<span id="cb26-108"><a href="anexoD.html#cb26-108" tabindex="-1"></a>        <span class="va">self</span>.pending_write <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-109"><a href="anexoD.html#cb26-109" tabindex="-1"></a>        <span class="va">self</span>.pending_read <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-110"><a href="anexoD.html#cb26-110" tabindex="-1"></a>        <span class="va">self</span>.pending_value <span class="op">=</span> <span class="bn">0x00</span></span>
+<span id="cb26-111"><a href="anexoD.html#cb26-111" tabindex="-1"></a>    </span>
+<span id="cb26-112"><a href="anexoD.html#cb26-112" tabindex="-1"></a>    <span class="kw">def</span> initialize(<span class="va">self</span>):</span>
+<span id="cb26-113"><a href="anexoD.html#cb26-113" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-114"><a href="anexoD.html#cb26-114" tabindex="-1"></a>    </span>
+<span id="cb26-115"><a href="anexoD.html#cb26-115" tabindex="-1"></a>    <span class="kw">def</span> deltext(<span class="va">self</span>, e: <span class="bu">float</span>):</span>
+<span id="cb26-116"><a href="anexoD.html#cb26-116" tabindex="-1"></a>        <span class="va">self</span>.continuef(e)</span>
+<span id="cb26-117"><a href="anexoD.html#cb26-117" tabindex="-1"></a>        </span>
+<span id="cb26-118"><a href="anexoD.html#cb26-118" tabindex="-1"></a>        <span class="co"># Capturar dato entrante (puede llegar antes del enable_in)</span></span>
+<span id="cb26-119"><a href="anexoD.html#cb26-119" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.data_in <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.data_in.empty():</span>
+<span id="cb26-120"><a href="anexoD.html#cb26-120" tabindex="-1"></a>            <span class="va">self</span>.pending_value <span class="op">=</span> <span class="va">self</span>.data_in.get() <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb26-121"><a href="anexoD.html#cb26-121" tabindex="-1"></a>        </span>
+<span id="cb26-122"><a href="anexoD.html#cb26-122" tabindex="-1"></a>        <span class="co"># Procesar señales de habilitación indexadas</span></span>
+<span id="cb26-123"><a href="anexoD.html#cb26-123" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.enable_in <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.enable_in.empty():</span>
+<span id="cb26-124"><a href="anexoD.html#cb26-124" tabindex="-1"></a>            target_reg <span class="op">=</span> <span class="va">self</span>.enable_in.get()</span>
+<span id="cb26-125"><a href="anexoD.html#cb26-125" tabindex="-1"></a>            <span class="co"># Solo actuar si la señal es para este registro</span></span>
+<span id="cb26-126"><a href="anexoD.html#cb26-126" tabindex="-1"></a>            <span class="cf">if</span> target_reg <span class="op">==</span> <span class="va">self</span>.reg_name:</span>
+<span id="cb26-127"><a href="anexoD.html#cb26-127" tabindex="-1"></a>                <span class="va">self</span>.pending_write <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-128"><a href="anexoD.html#cb26-128" tabindex="-1"></a>                <span class="va">self</span>.activate()</span>
+<span id="cb26-129"><a href="anexoD.html#cb26-129" tabindex="-1"></a>        </span>
+<span id="cb26-130"><a href="anexoD.html#cb26-130" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.enable_out <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.enable_out.empty():</span>
+<span id="cb26-131"><a href="anexoD.html#cb26-131" tabindex="-1"></a>            target_reg <span class="op">=</span> <span class="va">self</span>.enable_out.get()</span>
+<span id="cb26-132"><a href="anexoD.html#cb26-132" tabindex="-1"></a>            <span class="co"># Solo actuar si la señal es para este registro</span></span>
+<span id="cb26-133"><a href="anexoD.html#cb26-133" tabindex="-1"></a>            <span class="cf">if</span> target_reg <span class="op">==</span> <span class="va">self</span>.reg_name:</span>
+<span id="cb26-134"><a href="anexoD.html#cb26-134" tabindex="-1"></a>                <span class="va">self</span>.pending_read <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-135"><a href="anexoD.html#cb26-135" tabindex="-1"></a>                <span class="va">self</span>.activate()</span>
+<span id="cb26-136"><a href="anexoD.html#cb26-136" tabindex="-1"></a>    </span>
+<span id="cb26-137"><a href="anexoD.html#cb26-137" tabindex="-1"></a>    <span class="kw">def</span> deltint(<span class="va">self</span>):</span>
+<span id="cb26-138"><a href="anexoD.html#cb26-138" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_write:</span>
+<span id="cb26-139"><a href="anexoD.html#cb26-139" tabindex="-1"></a>            <span class="va">self</span>.value <span class="op">=</span> <span class="va">self</span>.pending_value</span>
+<span id="cb26-140"><a href="anexoD.html#cb26-140" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">] delta_int: Escritura completada.</span></span>
+<span id="cb26-141"><a href="anexoD.html#cb26-141" tabindex="-1"></a><span class="er">            Valor={self.value:02X}&quot;)</span></span>
+<span id="cb26-142"><a href="anexoD.html#cb26-142" tabindex="-1"></a>            <span class="va">self</span>.pending_write <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-143"><a href="anexoD.html#cb26-143" tabindex="-1"></a>        </span>
+<span id="cb26-144"><a href="anexoD.html#cb26-144" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_read:</span>
+<span id="cb26-145"><a href="anexoD.html#cb26-145" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">] delta_int: Lectura completada.</span></span>
+<span id="cb26-146"><a href="anexoD.html#cb26-146" tabindex="-1"></a><span class="er">             Valor={self.value:02X}&quot;)</span></span>
+<span id="cb26-147"><a href="anexoD.html#cb26-147" tabindex="-1"></a>            <span class="va">self</span>.pending_read <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-148"><a href="anexoD.html#cb26-148" tabindex="-1"></a>        </span>
+<span id="cb26-149"><a href="anexoD.html#cb26-149" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-150"><a href="anexoD.html#cb26-150" tabindex="-1"></a>    </span>
+<span id="cb26-151"><a href="anexoD.html#cb26-151" tabindex="-1"></a>    <span class="kw">def</span> lambdaf(<span class="va">self</span>):</span>
+<span id="cb26-152"><a href="anexoD.html#cb26-152" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_read:</span>
+<span id="cb26-153"><a href="anexoD.html#cb26-153" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">] lambda: Emitiendo dato</span></span>
+<span id="cb26-154"><a href="anexoD.html#cb26-154" tabindex="-1"></a><span class="er">            ={self.value:02X} por data_out&quot;)</span></span>
+<span id="cb26-155"><a href="anexoD.html#cb26-155" tabindex="-1"></a>            <span class="va">self</span>.data_out.add(<span class="va">self</span>.value)</span>
+<span id="cb26-156"><a href="anexoD.html#cb26-156" tabindex="-1"></a>    </span>
+<span id="cb26-157"><a href="anexoD.html#cb26-157" tabindex="-1"></a>    <span class="kw">def</span> exit(<span class="va">self</span>):</span>
+<span id="cb26-158"><a href="anexoD.html#cb26-158" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb26-159"><a href="anexoD.html#cb26-159" tabindex="-1"></a></span>
+<span id="cb26-160"><a href="anexoD.html#cb26-160" tabindex="-1"></a></span>
+<span id="cb26-161"><a href="anexoD.html#cb26-161" tabindex="-1"></a><span class="kw">class</span> SimpleRegister(Atomic):</span>
+<span id="cb26-162"><a href="anexoD.html#cb26-162" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Modelo atómico para registros simples (MBR, IR) con señales</span></span>
+<span id="cb26-163"><a href="anexoD.html#cb26-163" tabindex="-1"></a><span class="st">     booleanas.&quot;&quot;&quot;</span></span>
+<span id="cb26-164"><a href="anexoD.html#cb26-164" tabindex="-1"></a>    </span>
+<span id="cb26-165"><a href="anexoD.html#cb26-165" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span>, initial_value: <span class="bu">int</span> <span class="op">=</span> <span class="bn">0x00</span>):</span>
+<span id="cb26-166"><a href="anexoD.html#cb26-166" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-167"><a href="anexoD.html#cb26-167" tabindex="-1"></a>        <span class="va">self</span>.value: <span class="bu">int</span> <span class="op">=</span> initial_value</span>
+<span id="cb26-168"><a href="anexoD.html#cb26-168" tabindex="-1"></a>        </span>
+<span id="cb26-169"><a href="anexoD.html#cb26-169" tabindex="-1"></a>        <span class="co"># Puertos de entrada/salida</span></span>
+<span id="cb26-170"><a href="anexoD.html#cb26-170" tabindex="-1"></a>        <span class="va">self</span>.data_in <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;data_in&quot;</span>)</span>
+<span id="cb26-171"><a href="anexoD.html#cb26-171" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.data_in)</span>
+<span id="cb26-172"><a href="anexoD.html#cb26-172" tabindex="-1"></a>        <span class="va">self</span>.enable_in <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;enable_in&quot;</span>)</span>
+<span id="cb26-173"><a href="anexoD.html#cb26-173" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.enable_in)</span>
+<span id="cb26-174"><a href="anexoD.html#cb26-174" tabindex="-1"></a>        <span class="va">self</span>.enable_out <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;enable_out&quot;</span>)</span>
+<span id="cb26-175"><a href="anexoD.html#cb26-175" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.enable_out)</span>
+<span id="cb26-176"><a href="anexoD.html#cb26-176" tabindex="-1"></a>        </span>
+<span id="cb26-177"><a href="anexoD.html#cb26-177" tabindex="-1"></a>        <span class="va">self</span>.data_out <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;data_out&quot;</span>)</span>
+<span id="cb26-178"><a href="anexoD.html#cb26-178" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.data_out)</span>
+<span id="cb26-179"><a href="anexoD.html#cb26-179" tabindex="-1"></a>        </span>
+<span id="cb26-180"><a href="anexoD.html#cb26-180" tabindex="-1"></a>        <span class="va">self</span>.pending_write <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-181"><a href="anexoD.html#cb26-181" tabindex="-1"></a>        <span class="va">self</span>.pending_read <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-182"><a href="anexoD.html#cb26-182" tabindex="-1"></a>        <span class="va">self</span>.pending_value <span class="op">=</span> <span class="bn">0x00</span></span>
+<span id="cb26-183"><a href="anexoD.html#cb26-183" tabindex="-1"></a>    </span>
+<span id="cb26-184"><a href="anexoD.html#cb26-184" tabindex="-1"></a>    <span class="kw">def</span> initialize(<span class="va">self</span>):</span>
+<span id="cb26-185"><a href="anexoD.html#cb26-185" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-186"><a href="anexoD.html#cb26-186" tabindex="-1"></a>    </span>
+<span id="cb26-187"><a href="anexoD.html#cb26-187" tabindex="-1"></a>    <span class="kw">def</span> deltext(<span class="va">self</span>, e: <span class="bu">float</span>):</span>
+<span id="cb26-188"><a href="anexoD.html#cb26-188" tabindex="-1"></a>        <span class="va">self</span>.continuef(e)</span>
+<span id="cb26-189"><a href="anexoD.html#cb26-189" tabindex="-1"></a>        </span>
+<span id="cb26-190"><a href="anexoD.html#cb26-190" tabindex="-1"></a>        <span class="co"># Procesar señales de habilitación y datos</span></span>
+<span id="cb26-191"><a href="anexoD.html#cb26-191" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.enable_in <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.enable_in.empty():</span>
+<span id="cb26-192"><a href="anexoD.html#cb26-192" tabindex="-1"></a>            enabled <span class="op">=</span> <span class="va">self</span>.enable_in.get()</span>
+<span id="cb26-193"><a href="anexoD.html#cb26-193" tabindex="-1"></a>            <span class="cf">if</span> enabled <span class="kw">and</span> <span class="va">self</span>.data_in <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.data_in.empty():</span>
+<span id="cb26-194"><a href="anexoD.html#cb26-194" tabindex="-1"></a>                <span class="va">self</span>.pending_value <span class="op">=</span> <span class="va">self</span>.data_in.get() <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb26-195"><a href="anexoD.html#cb26-195" tabindex="-1"></a>                <span class="va">self</span>.pending_write <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-196"><a href="anexoD.html#cb26-196" tabindex="-1"></a>                <span class="va">self</span>.activate()</span>
+<span id="cb26-197"><a href="anexoD.html#cb26-197" tabindex="-1"></a>        </span>
+<span id="cb26-198"><a href="anexoD.html#cb26-198" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.enable_out <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.enable_out.empty():</span>
+<span id="cb26-199"><a href="anexoD.html#cb26-199" tabindex="-1"></a>            enabled <span class="op">=</span> <span class="va">self</span>.enable_out.get()</span>
+<span id="cb26-200"><a href="anexoD.html#cb26-200" tabindex="-1"></a>            <span class="cf">if</span> enabled:</span>
+<span id="cb26-201"><a href="anexoD.html#cb26-201" tabindex="-1"></a>                <span class="va">self</span>.pending_read <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-202"><a href="anexoD.html#cb26-202" tabindex="-1"></a>                <span class="va">self</span>.activate()</span>
+<span id="cb26-203"><a href="anexoD.html#cb26-203" tabindex="-1"></a>        </span>
+<span id="cb26-204"><a href="anexoD.html#cb26-204" tabindex="-1"></a>        <span class="co"># Escritura directa sin señal enable</span></span>
+<span id="cb26-205"><a href="anexoD.html#cb26-205" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> <span class="va">self</span>.enable_in <span class="kw">and</span> <span class="va">self</span>.data_in <span class="kw">and</span> </span>
+<span id="cb26-206"><a href="anexoD.html#cb26-206" tabindex="-1"></a>        <span class="kw">not</span> <span class="va">self</span>.data_in.empty():</span>
+<span id="cb26-207"><a href="anexoD.html#cb26-207" tabindex="-1"></a>            <span class="va">self</span>.pending_value <span class="op">=</span> <span class="va">self</span>.data_in.get() <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb26-208"><a href="anexoD.html#cb26-208" tabindex="-1"></a>            <span class="va">self</span>.pending_write <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-209"><a href="anexoD.html#cb26-209" tabindex="-1"></a>            <span class="va">self</span>.activate()</span>
+<span id="cb26-210"><a href="anexoD.html#cb26-210" tabindex="-1"></a>    </span>
+<span id="cb26-211"><a href="anexoD.html#cb26-211" tabindex="-1"></a>    <span class="kw">def</span> deltint(<span class="va">self</span>):</span>
+<span id="cb26-212"><a href="anexoD.html#cb26-212" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_write:</span>
+<span id="cb26-213"><a href="anexoD.html#cb26-213" tabindex="-1"></a>            <span class="va">self</span>.value <span class="op">=</span> <span class="va">self</span>.pending_value</span>
+<span id="cb26-214"><a href="anexoD.html#cb26-214" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">] delta_int: Escritura completada.</span></span>
+<span id="cb26-215"><a href="anexoD.html#cb26-215" tabindex="-1"></a><span class="er">            Valor={self.value:02X}&quot;)</span></span>
+<span id="cb26-216"><a href="anexoD.html#cb26-216" tabindex="-1"></a>            <span class="va">self</span>.pending_write <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-217"><a href="anexoD.html#cb26-217" tabindex="-1"></a>        </span>
+<span id="cb26-218"><a href="anexoD.html#cb26-218" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_read:</span>
+<span id="cb26-219"><a href="anexoD.html#cb26-219" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">] delta_int: Lectura completada.</span></span>
+<span id="cb26-220"><a href="anexoD.html#cb26-220" tabindex="-1"></a><span class="er">            Valor={self.value:02X}&quot;)</span></span>
+<span id="cb26-221"><a href="anexoD.html#cb26-221" tabindex="-1"></a>            <span class="va">self</span>.pending_read <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-222"><a href="anexoD.html#cb26-222" tabindex="-1"></a>        </span>
+<span id="cb26-223"><a href="anexoD.html#cb26-223" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-224"><a href="anexoD.html#cb26-224" tabindex="-1"></a>    </span>
+<span id="cb26-225"><a href="anexoD.html#cb26-225" tabindex="-1"></a>    <span class="kw">def</span> lambdaf(<span class="va">self</span>):</span>
+<span id="cb26-226"><a href="anexoD.html#cb26-226" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_read:</span>
+<span id="cb26-227"><a href="anexoD.html#cb26-227" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [</span><span class="sc">{</span><span class="va">self</span><span class="sc">.</span>name<span class="sc">}</span><span class="ss">] lambda: Emitiendo </span></span>
+<span id="cb26-228"><a href="anexoD.html#cb26-228" tabindex="-1"></a><span class="er">            dato={self.value:02X} por data_out&quot;)</span></span>
+<span id="cb26-229"><a href="anexoD.html#cb26-229" tabindex="-1"></a>            <span class="va">self</span>.data_out.add(<span class="va">self</span>.value)</span>
+<span id="cb26-230"><a href="anexoD.html#cb26-230" tabindex="-1"></a>    </span>
+<span id="cb26-231"><a href="anexoD.html#cb26-231" tabindex="-1"></a>    <span class="kw">def</span> exit(<span class="va">self</span>):</span>
+<span id="cb26-232"><a href="anexoD.html#cb26-232" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb26-233"><a href="anexoD.html#cb26-233" tabindex="-1"></a></span>
+<span id="cb26-234"><a href="anexoD.html#cb26-234" tabindex="-1"></a></span>
+<span id="cb26-235"><a href="anexoD.html#cb26-235" tabindex="-1"></a><span class="kw">class</span> InstructionPointer(Atomic):</span>
+<span id="cb26-236"><a href="anexoD.html#cb26-236" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Modelo atómico para el registro IP (Instruction Pointer).&quot;&quot;&quot;</span></span>
+<span id="cb26-237"><a href="anexoD.html#cb26-237" tabindex="-1"></a>    </span>
+<span id="cb26-238"><a href="anexoD.html#cb26-238" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;IP&quot;</span>):</span>
+<span id="cb26-239"><a href="anexoD.html#cb26-239" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-240"><a href="anexoD.html#cb26-240" tabindex="-1"></a>        <span class="va">self</span>.value: <span class="bu">int</span> <span class="op">=</span> <span class="bn">0x00</span></span>
+<span id="cb26-241"><a href="anexoD.html#cb26-241" tabindex="-1"></a>        </span>
+<span id="cb26-242"><a href="anexoD.html#cb26-242" tabindex="-1"></a>        <span class="va">self</span>.addr_out <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;addr_out&quot;</span>)</span>
+<span id="cb26-243"><a href="anexoD.html#cb26-243" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.addr_out)</span>
+<span id="cb26-244"><a href="anexoD.html#cb26-244" tabindex="-1"></a>        <span class="va">self</span>.ip_write <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;ip_write&quot;</span>)</span>
+<span id="cb26-245"><a href="anexoD.html#cb26-245" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.ip_write)</span>
+<span id="cb26-246"><a href="anexoD.html#cb26-246" tabindex="-1"></a>        <span class="va">self</span>.read_request <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;read_request&quot;</span>)</span>
+<span id="cb26-247"><a href="anexoD.html#cb26-247" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.read_request)</span>
+<span id="cb26-248"><a href="anexoD.html#cb26-248" tabindex="-1"></a>        </span>
+<span id="cb26-249"><a href="anexoD.html#cb26-249" tabindex="-1"></a>        <span class="va">self</span>.pending_output <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-250"><a href="anexoD.html#cb26-250" tabindex="-1"></a>        <span class="va">self</span>.pending_increment <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-251"><a href="anexoD.html#cb26-251" tabindex="-1"></a>    </span>
+<span id="cb26-252"><a href="anexoD.html#cb26-252" tabindex="-1"></a>    <span class="kw">def</span> initialize(<span class="va">self</span>):</span>
+<span id="cb26-253"><a href="anexoD.html#cb26-253" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-254"><a href="anexoD.html#cb26-254" tabindex="-1"></a>    </span>
+<span id="cb26-255"><a href="anexoD.html#cb26-255" tabindex="-1"></a>    <span class="kw">def</span> deltext(<span class="va">self</span>, e: <span class="bu">float</span>):</span>
+<span id="cb26-256"><a href="anexoD.html#cb26-256" tabindex="-1"></a>        <span class="va">self</span>.continuef(e)</span>
+<span id="cb26-257"><a href="anexoD.html#cb26-257" tabindex="-1"></a>        </span>
+<span id="cb26-258"><a href="anexoD.html#cb26-258" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.read_request <span class="kw">and</span> <span class="va">self</span>.read_request.get():</span>
+<span id="cb26-259"><a href="anexoD.html#cb26-259" tabindex="-1"></a>            <span class="va">self</span>.pending_output <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-260"><a href="anexoD.html#cb26-260" tabindex="-1"></a>            <span class="va">self</span>.activate()</span>
+<span id="cb26-261"><a href="anexoD.html#cb26-261" tabindex="-1"></a>        </span>
+<span id="cb26-262"><a href="anexoD.html#cb26-262" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.ip_write:</span>
+<span id="cb26-263"><a href="anexoD.html#cb26-263" tabindex="-1"></a>            increment <span class="op">=</span> <span class="va">self</span>.ip_write.get()</span>
+<span id="cb26-264"><a href="anexoD.html#cb26-264" tabindex="-1"></a>            <span class="cf">if</span> increment:</span>
+<span id="cb26-265"><a href="anexoD.html#cb26-265" tabindex="-1"></a>                <span class="va">self</span>.pending_increment <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb26-266"><a href="anexoD.html#cb26-266" tabindex="-1"></a>                <span class="va">self</span>.activate()</span>
+<span id="cb26-267"><a href="anexoD.html#cb26-267" tabindex="-1"></a>    </span>
+<span id="cb26-268"><a href="anexoD.html#cb26-268" tabindex="-1"></a>    <span class="kw">def</span> deltint(<span class="va">self</span>):</span>
+<span id="cb26-269"><a href="anexoD.html#cb26-269" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_increment:</span>
+<span id="cb26-270"><a href="anexoD.html#cb26-270" tabindex="-1"></a>            old_val <span class="op">=</span> <span class="va">self</span>.value</span>
+<span id="cb26-271"><a href="anexoD.html#cb26-271" tabindex="-1"></a>            <span class="va">self</span>.value <span class="op">=</span> (<span class="va">self</span>.value <span class="op">+</span> <span class="dv">1</span>) <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb26-272"><a href="anexoD.html#cb26-272" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [IP] delta_int: Incremento IP.</span></span>
+<span id="cb26-273"><a href="anexoD.html#cb26-273" tabindex="-1"></a><span class="er">            {old_val:02X} → {self.value:02X}&quot;)</span></span>
+<span id="cb26-274"><a href="anexoD.html#cb26-274" tabindex="-1"></a>            <span class="va">self</span>.pending_increment <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-275"><a href="anexoD.html#cb26-275" tabindex="-1"></a>        </span>
+<span id="cb26-276"><a href="anexoD.html#cb26-276" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_output:</span>
+<span id="cb26-277"><a href="anexoD.html#cb26-277" tabindex="-1"></a>            <span class="va">self</span>.pending_output <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-278"><a href="anexoD.html#cb26-278" tabindex="-1"></a>        </span>
+<span id="cb26-279"><a href="anexoD.html#cb26-279" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-280"><a href="anexoD.html#cb26-280" tabindex="-1"></a>    </span>
+<span id="cb26-281"><a href="anexoD.html#cb26-281" tabindex="-1"></a>    <span class="kw">def</span> lambdaf(<span class="va">self</span>):</span>
+<span id="cb26-282"><a href="anexoD.html#cb26-282" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_output:</span>
+<span id="cb26-283"><a href="anexoD.html#cb26-283" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [IP] lambda: Emitiendo dirección IP=</span></span>
+<span id="cb26-284"><a href="anexoD.html#cb26-284" tabindex="-1"></a><span class="er">            {self.value:02X} por addr_out&quot;)</span></span>
+<span id="cb26-285"><a href="anexoD.html#cb26-285" tabindex="-1"></a>            <span class="va">self</span>.addr_out.add(<span class="va">self</span>.value)</span>
+<span id="cb26-286"><a href="anexoD.html#cb26-286" tabindex="-1"></a>    </span>
+<span id="cb26-287"><a href="anexoD.html#cb26-287" tabindex="-1"></a>    <span class="kw">def</span> exit(<span class="va">self</span>):</span>
+<span id="cb26-288"><a href="anexoD.html#cb26-288" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb26-289"><a href="anexoD.html#cb26-289" tabindex="-1"></a></span>
+<span id="cb26-290"><a href="anexoD.html#cb26-290" tabindex="-1"></a></span>
+<span id="cb26-291"><a href="anexoD.html#cb26-291" tabindex="-1"></a><span class="kw">class</span> MemoryAddressRegister(Atomic):</span>
+<span id="cb26-292"><a href="anexoD.html#cb26-292" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Modelo atómico para el registro MAR </span></span>
+<span id="cb26-293"><a href="anexoD.html#cb26-293" tabindex="-1"></a><span class="st">    (Memory Address Register).&quot;&quot;&quot;</span></span>
+<span id="cb26-294"><a href="anexoD.html#cb26-294" tabindex="-1"></a>    </span>
+<span id="cb26-295"><a href="anexoD.html#cb26-295" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;MAR&quot;</span>):</span>
+<span id="cb26-296"><a href="anexoD.html#cb26-296" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-297"><a href="anexoD.html#cb26-297" tabindex="-1"></a>        <span class="va">self</span>.address: <span class="bu">int</span> <span class="op">=</span> <span class="bn">0x00</span></span>
+<span id="cb26-298"><a href="anexoD.html#cb26-298" tabindex="-1"></a>        </span>
+<span id="cb26-299"><a href="anexoD.html#cb26-299" tabindex="-1"></a>        <span class="va">self</span>.addr_in <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;addr_in&quot;</span>)</span>
+<span id="cb26-300"><a href="anexoD.html#cb26-300" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.addr_in)</span>
+<span id="cb26-301"><a href="anexoD.html#cb26-301" tabindex="-1"></a>        <span class="va">self</span>.addr_out <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;addr_out&quot;</span>)</span>
+<span id="cb26-302"><a href="anexoD.html#cb26-302" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.addr_out)</span>
+<span id="cb26-303"><a href="anexoD.html#cb26-303" tabindex="-1"></a>        </span>
+<span id="cb26-304"><a href="anexoD.html#cb26-304" tabindex="-1"></a>        <span class="va">self</span>.pending_addr <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb26-305"><a href="anexoD.html#cb26-305" tabindex="-1"></a>    </span>
+<span id="cb26-306"><a href="anexoD.html#cb26-306" tabindex="-1"></a>    <span class="kw">def</span> initialize(<span class="va">self</span>):</span>
+<span id="cb26-307"><a href="anexoD.html#cb26-307" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-308"><a href="anexoD.html#cb26-308" tabindex="-1"></a>    </span>
+<span id="cb26-309"><a href="anexoD.html#cb26-309" tabindex="-1"></a>    <span class="kw">def</span> deltext(<span class="va">self</span>, e: <span class="bu">float</span>):</span>
+<span id="cb26-310"><a href="anexoD.html#cb26-310" tabindex="-1"></a>        <span class="va">self</span>.continuef(e)</span>
+<span id="cb26-311"><a href="anexoD.html#cb26-311" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.addr_in:</span>
+<span id="cb26-312"><a href="anexoD.html#cb26-312" tabindex="-1"></a>            <span class="va">self</span>.pending_addr <span class="op">=</span> <span class="va">self</span>.addr_in.get() <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb26-313"><a href="anexoD.html#cb26-313" tabindex="-1"></a>            <span class="va">self</span>.activate()</span>
+<span id="cb26-314"><a href="anexoD.html#cb26-314" tabindex="-1"></a>    </span>
+<span id="cb26-315"><a href="anexoD.html#cb26-315" tabindex="-1"></a>    <span class="kw">def</span> deltint(<span class="va">self</span>):</span>
+<span id="cb26-316"><a href="anexoD.html#cb26-316" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_addr <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb26-317"><a href="anexoD.html#cb26-317" tabindex="-1"></a>            <span class="va">self</span>.address <span class="op">=</span> <span class="va">self</span>.pending_addr</span>
+<span id="cb26-318"><a href="anexoD.html#cb26-318" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [MAR] delta_int: Dirección almacenada. </span></span>
+<span id="cb26-319"><a href="anexoD.html#cb26-319" tabindex="-1"></a><span class="er">            MAR={self.address:02X}&quot;)</span></span>
+<span id="cb26-320"><a href="anexoD.html#cb26-320" tabindex="-1"></a>            <span class="va">self</span>.pending_addr <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb26-321"><a href="anexoD.html#cb26-321" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-322"><a href="anexoD.html#cb26-322" tabindex="-1"></a>    </span>
+<span id="cb26-323"><a href="anexoD.html#cb26-323" tabindex="-1"></a>    <span class="kw">def</span> lambdaf(<span class="va">self</span>):</span>
+<span id="cb26-324"><a href="anexoD.html#cb26-324" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_addr <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb26-325"><a href="anexoD.html#cb26-325" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [MAR] lambda: Emitiendo dirección </span></span>
+<span id="cb26-326"><a href="anexoD.html#cb26-326" tabindex="-1"></a><span class="er">            MAR={self.pending_addr:02X} hacia MEM&quot;)</span></span>
+<span id="cb26-327"><a href="anexoD.html#cb26-327" tabindex="-1"></a>            <span class="va">self</span>.addr_out.add(<span class="va">self</span>.pending_addr)</span>
+<span id="cb26-328"><a href="anexoD.html#cb26-328" tabindex="-1"></a>    </span>
+<span id="cb26-329"><a href="anexoD.html#cb26-329" tabindex="-1"></a>    <span class="kw">def</span> exit(<span class="va">self</span>):</span>
+<span id="cb26-330"><a href="anexoD.html#cb26-330" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb26-331"><a href="anexoD.html#cb26-331" tabindex="-1"></a></span>
+<span id="cb26-332"><a href="anexoD.html#cb26-332" tabindex="-1"></a></span>
+<span id="cb26-333"><a href="anexoD.html#cb26-333" tabindex="-1"></a><span class="kw">class</span> Memory(Atomic):</span>
+<span id="cb26-334"><a href="anexoD.html#cb26-334" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Modelo atómico para la memoria unificada.&quot;&quot;&quot;</span></span>
+<span id="cb26-335"><a href="anexoD.html#cb26-335" tabindex="-1"></a>    </span>
+<span id="cb26-336"><a href="anexoD.html#cb26-336" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;MEM&quot;</span>):</span>
+<span id="cb26-337"><a href="anexoD.html#cb26-337" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-338"><a href="anexoD.html#cb26-338" tabindex="-1"></a>        <span class="va">self</span>.storage: <span class="bu">dict</span>[<span class="bu">int</span>, <span class="bu">int</span>] <span class="op">=</span> {}</span>
+<span id="cb26-339"><a href="anexoD.html#cb26-339" tabindex="-1"></a>        <span class="va">self</span>.pending_addr: <span class="bu">int</span> <span class="op">|</span> <span class="va">None</span> <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb26-340"><a href="anexoD.html#cb26-340" tabindex="-1"></a>        <span class="va">self</span>.pending_read: <span class="bu">bool</span> <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-341"><a href="anexoD.html#cb26-341" tabindex="-1"></a>        </span>
+<span id="cb26-342"><a href="anexoD.html#cb26-342" tabindex="-1"></a>        <span class="va">self</span>.addr <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;addr&quot;</span>)</span>
+<span id="cb26-343"><a href="anexoD.html#cb26-343" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.addr)</span>
+<span id="cb26-344"><a href="anexoD.html#cb26-344" tabindex="-1"></a>        <span class="va">self</span>.rw <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;rw&quot;</span>)  <span class="co"># True=read, False=write</span></span>
+<span id="cb26-345"><a href="anexoD.html#cb26-345" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.rw)</span>
+<span id="cb26-346"><a href="anexoD.html#cb26-346" tabindex="-1"></a>        <span class="va">self</span>.data_in <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;data_in&quot;</span>)</span>
+<span id="cb26-347"><a href="anexoD.html#cb26-347" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.data_in)</span>
+<span id="cb26-348"><a href="anexoD.html#cb26-348" tabindex="-1"></a>        </span>
+<span id="cb26-349"><a href="anexoD.html#cb26-349" tabindex="-1"></a>        <span class="va">self</span>.data_out <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;data_out&quot;</span>)</span>
+<span id="cb26-350"><a href="anexoD.html#cb26-350" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.data_out)</span>
+<span id="cb26-351"><a href="anexoD.html#cb26-351" tabindex="-1"></a>        </span>
+<span id="cb26-352"><a href="anexoD.html#cb26-352" tabindex="-1"></a>        <span class="va">self</span>.pending_operation <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb26-353"><a href="anexoD.html#cb26-353" tabindex="-1"></a>    </span>
+<span id="cb26-354"><a href="anexoD.html#cb26-354" tabindex="-1"></a>    <span class="kw">def</span> initialize(<span class="va">self</span>):</span>
+<span id="cb26-355"><a href="anexoD.html#cb26-355" tabindex="-1"></a>        <span class="co"># Cargar programa: MOV AL, BL (opcode 0x01)</span></span>
+<span id="cb26-356"><a href="anexoD.html#cb26-356" tabindex="-1"></a>        <span class="va">self</span>.storage[<span class="bn">0x00</span>] <span class="op">=</span> <span class="bn">0x01</span></span>
+<span id="cb26-357"><a href="anexoD.html#cb26-357" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-358"><a href="anexoD.html#cb26-358" tabindex="-1"></a>    </span>
+<span id="cb26-359"><a href="anexoD.html#cb26-359" tabindex="-1"></a>    <span class="kw">def</span> deltext(<span class="va">self</span>, e: <span class="bu">float</span>):</span>
+<span id="cb26-360"><a href="anexoD.html#cb26-360" tabindex="-1"></a>        <span class="va">self</span>.continuef(e)</span>
+<span id="cb26-361"><a href="anexoD.html#cb26-361" tabindex="-1"></a>        </span>
+<span id="cb26-362"><a href="anexoD.html#cb26-362" tabindex="-1"></a>        <span class="co"># Capturar dirección</span></span>
+<span id="cb26-363"><a href="anexoD.html#cb26-363" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.addr <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.addr.empty():</span>
+<span id="cb26-364"><a href="anexoD.html#cb26-364" tabindex="-1"></a>            <span class="va">self</span>.pending_addr <span class="op">=</span> <span class="va">self</span>.addr.get() <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb26-365"><a href="anexoD.html#cb26-365" tabindex="-1"></a>        </span>
+<span id="cb26-366"><a href="anexoD.html#cb26-366" tabindex="-1"></a>        <span class="co"># Capturar señal de lectura</span></span>
+<span id="cb26-367"><a href="anexoD.html#cb26-367" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.rw <span class="kw">and</span> <span class="kw">not</span> <span class="va">self</span>.rw.empty():</span>
+<span id="cb26-368"><a href="anexoD.html#cb26-368" tabindex="-1"></a>            <span class="va">self</span>.pending_read <span class="op">=</span> <span class="va">self</span>.rw.get()</span>
+<span id="cb26-369"><a href="anexoD.html#cb26-369" tabindex="-1"></a>        </span>
+<span id="cb26-370"><a href="anexoD.html#cb26-370" tabindex="-1"></a>        <span class="co"># Si tenemos ambos, iniciar operación</span></span>
+<span id="cb26-371"><a href="anexoD.html#cb26-371" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_addr <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> <span class="va">self</span>.pending_read:</span>
+<span id="cb26-372"><a href="anexoD.html#cb26-372" tabindex="-1"></a>            <span class="va">self</span>.pending_operation <span class="op">=</span> (<span class="st">&quot;read&quot;</span>, <span class="va">self</span>.pending_addr)</span>
+<span id="cb26-373"><a href="anexoD.html#cb26-373" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [MEM] delta_ext: Solicitud de lectura en </span></span>
+<span id="cb26-374"><a href="anexoD.html#cb26-374" tabindex="-1"></a><span class="er">            dirección {self.pending_addr:02X}&quot;)</span></span>
+<span id="cb26-375"><a href="anexoD.html#cb26-375" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="st">&quot;READING&quot;</span>, <span class="dv">1</span>)  <span class="co"># tau_mem = 1</span></span>
+<span id="cb26-376"><a href="anexoD.html#cb26-376" tabindex="-1"></a>            <span class="va">self</span>.pending_addr <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb26-377"><a href="anexoD.html#cb26-377" tabindex="-1"></a>            <span class="va">self</span>.pending_read <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb26-378"><a href="anexoD.html#cb26-378" tabindex="-1"></a>    </span>
+<span id="cb26-379"><a href="anexoD.html#cb26-379" tabindex="-1"></a>    <span class="kw">def</span> deltint(<span class="va">self</span>):</span>
+<span id="cb26-380"><a href="anexoD.html#cb26-380" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_operation:</span>
+<span id="cb26-381"><a href="anexoD.html#cb26-381" tabindex="-1"></a>            op_type, addr_val <span class="op">=</span> <span class="va">self</span>.pending_operation</span>
+<span id="cb26-382"><a href="anexoD.html#cb26-382" tabindex="-1"></a>            data <span class="op">=</span> <span class="va">self</span>.storage.get(addr_val, <span class="bn">0x00</span>)</span>
+<span id="cb26-383"><a href="anexoD.html#cb26-383" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [MEM] delta_int: Lectura completada. </span></span>
+<span id="cb26-384"><a href="anexoD.html#cb26-384" tabindex="-1"></a><span class="er">            MEM</span>[{addr_val:<span class="dv">0</span><span class="er">2X</span>}]<span class="op">=</span>{data:<span class="dv">0</span><span class="er">2X</span>}<span class="st">&quot;)</span></span>
+<span id="cb26-385"><a href="anexoD.html#cb26-385" tabindex="-1"></a><span class="er">        self.pending_operation = None</span></span>
+<span id="cb26-386"><a href="anexoD.html#cb26-386" tabindex="-1"></a>        <span class="va">self</span>.passivate()</span>
+<span id="cb26-387"><a href="anexoD.html#cb26-387" tabindex="-1"></a>    </span>
+<span id="cb26-388"><a href="anexoD.html#cb26-388" tabindex="-1"></a>    <span class="kw">def</span> lambdaf(<span class="va">self</span>):</span>
+<span id="cb26-389"><a href="anexoD.html#cb26-389" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.pending_operation <span class="kw">and</span> <span class="va">self</span>.pending_operation[<span class="dv">0</span>] </span>
+<span id="cb26-390"><a href="anexoD.html#cb26-390" tabindex="-1"></a>        <span class="op">==</span> <span class="st">&quot;read&quot;</span>:</span>
+<span id="cb26-391"><a href="anexoD.html#cb26-391" tabindex="-1"></a>            addr_val <span class="op">=</span> <span class="va">self</span>.pending_operation[<span class="dv">1</span>]</span>
+<span id="cb26-392"><a href="anexoD.html#cb26-392" tabindex="-1"></a>            data <span class="op">=</span> <span class="va">self</span>.storage.get(addr_val, <span class="bn">0x00</span>)</span>
+<span id="cb26-393"><a href="anexoD.html#cb26-393" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [MEM] lambda: Emitiendo dato=</span><span class="sc">{</span>data<span class="sc">:02X}</span><span class="ss"> </span></span>
+<span id="cb26-394"><a href="anexoD.html#cb26-394" tabindex="-1"></a><span class="er">            por data_out&quot;)</span></span>
+<span id="cb26-395"><a href="anexoD.html#cb26-395" tabindex="-1"></a>            <span class="va">self</span>.data_out.add(data)</span>
+<span id="cb26-396"><a href="anexoD.html#cb26-396" tabindex="-1"></a>    </span>
+<span id="cb26-397"><a href="anexoD.html#cb26-397" tabindex="-1"></a>    <span class="kw">def</span> exit(<span class="va">self</span>):</span>
+<span id="cb26-398"><a href="anexoD.html#cb26-398" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb26-399"><a href="anexoD.html#cb26-399" tabindex="-1"></a></span>
+<span id="cb26-400"><a href="anexoD.html#cb26-400" tabindex="-1"></a></span>
+<span id="cb26-401"><a href="anexoD.html#cb26-401" tabindex="-1"></a><span class="kw">class</span> ControlUnit(Atomic):</span>
+<span id="cb26-402"><a href="anexoD.html#cb26-402" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Modelo atómico para la Unidad de Control (UC).&quot;&quot;&quot;</span></span>
+<span id="cb26-403"><a href="anexoD.html#cb26-403" tabindex="-1"></a>    </span>
+<span id="cb26-404"><a href="anexoD.html#cb26-404" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;UC&quot;</span>):</span>
+<span id="cb26-405"><a href="anexoD.html#cb26-405" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-406"><a href="anexoD.html#cb26-406" tabindex="-1"></a>        </span>
+<span id="cb26-407"><a href="anexoD.html#cb26-407" tabindex="-1"></a>        <span class="co"># Entradas</span></span>
+<span id="cb26-408"><a href="anexoD.html#cb26-408" tabindex="-1"></a>        <span class="va">self</span>.ir_in <span class="op">=</span> Port(<span class="bu">int</span>, name<span class="op">=</span><span class="st">&quot;ir_in&quot;</span>)</span>
+<span id="cb26-409"><a href="anexoD.html#cb26-409" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.ir_in)</span>
+<span id="cb26-410"><a href="anexoD.html#cb26-410" tabindex="-1"></a>        </span>
+<span id="cb26-411"><a href="anexoD.html#cb26-411" tabindex="-1"></a>        <span class="co"># Salidas de control - Fase FETCH</span></span>
+<span id="cb26-412"><a href="anexoD.html#cb26-412" tabindex="-1"></a>        <span class="va">self</span>.ip_read <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;ip_read&quot;</span>)</span>
+<span id="cb26-413"><a href="anexoD.html#cb26-413" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.ip_read)</span>
+<span id="cb26-414"><a href="anexoD.html#cb26-414" tabindex="-1"></a>        <span class="va">self</span>.ip_inc <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;ip_inc&quot;</span>)</span>
+<span id="cb26-415"><a href="anexoD.html#cb26-415" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.ip_inc)</span>
+<span id="cb26-416"><a href="anexoD.html#cb26-416" tabindex="-1"></a>        <span class="va">self</span>.mem_read <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;mem_read&quot;</span>)</span>
+<span id="cb26-417"><a href="anexoD.html#cb26-417" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.mem_read)</span>
+<span id="cb26-418"><a href="anexoD.html#cb26-418" tabindex="-1"></a>        <span class="va">self</span>.mbr_enable <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;mbr_enable&quot;</span>)</span>
+<span id="cb26-419"><a href="anexoD.html#cb26-419" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.mbr_enable)</span>
+<span id="cb26-420"><a href="anexoD.html#cb26-420" tabindex="-1"></a>        <span class="va">self</span>.ir_enable <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;ir_enable&quot;</span>)</span>
+<span id="cb26-421"><a href="anexoD.html#cb26-421" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.ir_enable)</span>
+<span id="cb26-422"><a href="anexoD.html#cb26-422" tabindex="-1"></a>        <span class="va">self</span>.ir_read <span class="op">=</span> Port(<span class="bu">bool</span>, name<span class="op">=</span><span class="st">&quot;ir_read&quot;</span>)</span>
+<span id="cb26-423"><a href="anexoD.html#cb26-423" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.ir_read)</span>
+<span id="cb26-424"><a href="anexoD.html#cb26-424" tabindex="-1"></a>        </span>
+<span id="cb26-425"><a href="anexoD.html#cb26-425" tabindex="-1"></a>        <span class="co"># Salidas de control - Fase EXECUTE </span></span>
+<span id="cb26-426"><a href="anexoD.html#cb26-426" tabindex="-1"></a>        <span class="co"># (señales indexadas para REG_BANK)</span></span>
+<span id="cb26-427"><a href="anexoD.html#cb26-427" tabindex="-1"></a>        <span class="va">self</span>.reg_enable_out <span class="op">=</span> Port(<span class="bu">str</span>, name<span class="op">=</span><span class="st">&quot;reg_enable_out&quot;</span>)</span>
+<span id="cb26-428"><a href="anexoD.html#cb26-428" tabindex="-1"></a>        <span class="co"># Nombre del registro: &quot;AL&quot;, &quot;BL&quot;, etc.</span></span>
+<span id="cb26-429"><a href="anexoD.html#cb26-429" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.reg_enable_out)</span>
+<span id="cb26-430"><a href="anexoD.html#cb26-430" tabindex="-1"></a>        <span class="va">self</span>.reg_enable_in <span class="op">=</span> Port(<span class="bu">str</span>, name<span class="op">=</span><span class="st">&quot;reg_enable_in&quot;</span>)</span>
+<span id="cb26-431"><a href="anexoD.html#cb26-431" tabindex="-1"></a>        <span class="va">self</span>.add_out_port(<span class="va">self</span>.reg_enable_in)</span>
+<span id="cb26-432"><a href="anexoD.html#cb26-432" tabindex="-1"></a>        </span>
+<span id="cb26-433"><a href="anexoD.html#cb26-433" tabindex="-1"></a>        <span class="co"># Estado interno</span></span>
+<span id="cb26-434"><a href="anexoD.html#cb26-434" tabindex="-1"></a>        <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;IDLE&quot;</span></span>
+<span id="cb26-435"><a href="anexoD.html#cb26-435" tabindex="-1"></a>        <span class="va">self</span>.instruction_code <span class="op">=</span> <span class="bn">0x00</span></span>
+<span id="cb26-436"><a href="anexoD.html#cb26-436" tabindex="-1"></a>        <span class="va">self</span>.micro_step <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-437"><a href="anexoD.html#cb26-437" tabindex="-1"></a>        </span>
+<span id="cb26-438"><a href="anexoD.html#cb26-438" tabindex="-1"></a>        <span class="co"># Contadores para métricas</span></span>
+<span id="cb26-439"><a href="anexoD.html#cb26-439" tabindex="-1"></a>        <span class="va">self</span>.total_cycles <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-440"><a href="anexoD.html#cb26-440" tabindex="-1"></a>        <span class="va">self</span>.fetch_cycles <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-441"><a href="anexoD.html#cb26-441" tabindex="-1"></a>        <span class="va">self</span>.execute_cycles <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-442"><a href="anexoD.html#cb26-442" tabindex="-1"></a>        </span>
+<span id="cb26-443"><a href="anexoD.html#cb26-443" tabindex="-1"></a>        <span class="co"># Tabla de decodificación</span></span>
+<span id="cb26-444"><a href="anexoD.html#cb26-444" tabindex="-1"></a>        <span class="va">self</span>.instruction_set <span class="op">=</span> {</span>
+<span id="cb26-445"><a href="anexoD.html#cb26-445" tabindex="-1"></a>            <span class="bn">0x01</span>: {<span class="st">&quot;opcode&quot;</span>: <span class="st">&quot;MOV&quot;</span>, <span class="st">&quot;dst&quot;</span>: <span class="st">&quot;AL&quot;</span>, <span class="st">&quot;src&quot;</span>: <span class="st">&quot;BL&quot;</span>}</span>
+<span id="cb26-446"><a href="anexoD.html#cb26-446" tabindex="-1"></a>        }</span>
+<span id="cb26-447"><a href="anexoD.html#cb26-447" tabindex="-1"></a>    </span>
+<span id="cb26-448"><a href="anexoD.html#cb26-448" tabindex="-1"></a>    <span class="kw">def</span> initialize(<span class="va">self</span>):</span>
+<span id="cb26-449"><a href="anexoD.html#cb26-449" tabindex="-1"></a>        <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;FETCH1&quot;</span></span>
+<span id="cb26-450"><a href="anexoD.html#cb26-450" tabindex="-1"></a>        <span class="va">self</span>.micro_step <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-451"><a href="anexoD.html#cb26-451" tabindex="-1"></a>        <span class="co"># Contar el ciclo inicial</span></span>
+<span id="cb26-452"><a href="anexoD.html#cb26-452" tabindex="-1"></a>        <span class="va">self</span>.total_cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-453"><a href="anexoD.html#cb26-453" tabindex="-1"></a>        <span class="va">self</span>.fetch_cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-454"><a href="anexoD.html#cb26-454" tabindex="-1"></a>        <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, <span class="dv">1</span>)</span>
+<span id="cb26-455"><a href="anexoD.html#cb26-455" tabindex="-1"></a>    </span>
+<span id="cb26-456"><a href="anexoD.html#cb26-456" tabindex="-1"></a>    <span class="kw">def</span> deltint(<span class="va">self</span>):</span>
+<span id="cb26-457"><a href="anexoD.html#cb26-457" tabindex="-1"></a>        <span class="co"># Máquina de estados de la UC</span></span>
+<span id="cb26-458"><a href="anexoD.html#cb26-458" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH1&quot;</span>:  <span class="co"># UC → IP</span></span>
+<span id="cb26-459"><a href="anexoD.html#cb26-459" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-460"><a href="anexoD.html#cb26-460" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE FETCH - Paso 1/6: UC → IP </span></span>
+<span id="cb26-461"><a href="anexoD.html#cb26-461" tabindex="-1"></a><span class="er">            </span>(solicita dirección)<span class="st">&quot;)</span></span>
+<span id="cb26-462"><a href="anexoD.html#cb26-462" tabindex="-1"></a><span class="er">            print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-463"><a href="anexoD.html#cb26-463" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;FETCH2&quot;</span></span>
+<span id="cb26-464"><a href="anexoD.html#cb26-464" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-465"><a href="anexoD.html#cb26-465" tabindex="-1"></a>            <span class="co"># No sumar aquí porque ya se contó en initialize()</span></span>
+<span id="cb26-466"><a href="anexoD.html#cb26-466" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-467"><a href="anexoD.html#cb26-467" tabindex="-1"></a>        </span>
+<span id="cb26-468"><a href="anexoD.html#cb26-468" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH2&quot;</span>:  <span class="co"># IP → MAR</span></span>
+<span id="cb26-469"><a href="anexoD.html#cb26-469" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-470"><a href="anexoD.html#cb26-470" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE FETCH - Paso 2/6: IP → MAR </span></span>
+<span id="cb26-471"><a href="anexoD.html#cb26-471" tabindex="-1"></a><span class="er">            </span>(transfiere dirección)<span class="st">&quot;)</span></span>
+<span id="cb26-472"><a href="anexoD.html#cb26-472" tabindex="-1"></a><span class="er">            print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-473"><a href="anexoD.html#cb26-473" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;FETCH3&quot;</span></span>
+<span id="cb26-474"><a href="anexoD.html#cb26-474" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-475"><a href="anexoD.html#cb26-475" tabindex="-1"></a>            <span class="va">self</span>.fetch_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-476"><a href="anexoD.html#cb26-476" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-477"><a href="anexoD.html#cb26-477" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-478"><a href="anexoD.html#cb26-478" tabindex="-1"></a>        </span>
+<span id="cb26-479"><a href="anexoD.html#cb26-479" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH3&quot;</span>:  <span class="co"># UC → MEM; IP++</span></span>
+<span id="cb26-480"><a href="anexoD.html#cb26-480" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-481"><a href="anexoD.html#cb26-481" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE FETCH - Paso 3/6: UC → MEM (mem_read);</span></span>
+<span id="cb26-482"><a href="anexoD.html#cb26-482" tabindex="-1"></a><span class="er">            IP ← IP+1&quot;)</span></span>
+<span id="cb26-483"><a href="anexoD.html#cb26-483" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-484"><a href="anexoD.html#cb26-484" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;FETCH4&quot;</span></span>
+<span id="cb26-485"><a href="anexoD.html#cb26-485" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb26-486"><a href="anexoD.html#cb26-486" tabindex="-1"></a>            <span class="va">self</span>.fetch_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-487"><a href="anexoD.html#cb26-487" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-488"><a href="anexoD.html#cb26-488" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-489"><a href="anexoD.html#cb26-489" tabindex="-1"></a>        </span>
+<span id="cb26-490"><a href="anexoD.html#cb26-490" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH4&quot;</span>:  <span class="co"># MEM → MBR</span></span>
+<span id="cb26-491"><a href="anexoD.html#cb26-491" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-492"><a href="anexoD.html#cb26-492" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE FETCH - Paso 4/6: MEM → MBR </span></span>
+<span id="cb26-493"><a href="anexoD.html#cb26-493" tabindex="-1"></a><span class="er">            </span>(instrucción leída)<span class="st">&quot;)</span></span>
+<span id="cb26-494"><a href="anexoD.html#cb26-494" tabindex="-1"></a><span class="er">            print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-495"><a href="anexoD.html#cb26-495" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;FETCH5&quot;</span></span>
+<span id="cb26-496"><a href="anexoD.html#cb26-496" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-497"><a href="anexoD.html#cb26-497" tabindex="-1"></a>            <span class="va">self</span>.fetch_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-498"><a href="anexoD.html#cb26-498" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-499"><a href="anexoD.html#cb26-499" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-500"><a href="anexoD.html#cb26-500" tabindex="-1"></a>        </span>
+<span id="cb26-501"><a href="anexoD.html#cb26-501" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH5&quot;</span>:  <span class="co"># MBR → IR</span></span>
+<span id="cb26-502"><a href="anexoD.html#cb26-502" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-503"><a href="anexoD.html#cb26-503" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE FETCH - Paso 5/6: MBR → IR </span></span>
+<span id="cb26-504"><a href="anexoD.html#cb26-504" tabindex="-1"></a><span class="er">            </span>(carga instrucción)<span class="st">&quot;)</span></span>
+<span id="cb26-505"><a href="anexoD.html#cb26-505" tabindex="-1"></a><span class="er">            print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-506"><a href="anexoD.html#cb26-506" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;FETCH6&quot;</span></span>
+<span id="cb26-507"><a href="anexoD.html#cb26-507" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb26-508"><a href="anexoD.html#cb26-508" tabindex="-1"></a>            <span class="va">self</span>.fetch_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-509"><a href="anexoD.html#cb26-509" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-510"><a href="anexoD.html#cb26-510" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-511"><a href="anexoD.html#cb26-511" tabindex="-1"></a>        </span>
+<span id="cb26-512"><a href="anexoD.html#cb26-512" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH6&quot;</span>:  <span class="co"># IR → UC</span></span>
+<span id="cb26-513"><a href="anexoD.html#cb26-513" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-514"><a href="anexoD.html#cb26-514" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE FETCH - Paso 6/6: IR → UC (recibe opcode)&quot;</span>)</span>
+<span id="cb26-515"><a href="anexoD.html#cb26-515" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-516"><a href="anexoD.html#cb26-516" tabindex="-1"></a>            <span class="co"># Transición directa a EXEC1 sin ciclo intermedio</span></span>
+<span id="cb26-517"><a href="anexoD.html#cb26-517" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;EXEC1&quot;</span></span>
+<span id="cb26-518"><a href="anexoD.html#cb26-518" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-519"><a href="anexoD.html#cb26-519" tabindex="-1"></a>            <span class="va">self</span>.fetch_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-520"><a href="anexoD.html#cb26-520" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-521"><a href="anexoD.html#cb26-521" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-522"><a href="anexoD.html#cb26-522" tabindex="-1"></a>        </span>
+<span id="cb26-523"><a href="anexoD.html#cb26-523" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;EXEC1&quot;</span>:  <span class="co"># Decodificación</span></span>
+<span id="cb26-524"><a href="anexoD.html#cb26-524" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-525"><a href="anexoD.html#cb26-525" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE EXECUTE - Paso 1/5: Decodificación&quot;</span>)</span>
+<span id="cb26-526"><a href="anexoD.html#cb26-526" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-527"><a href="anexoD.html#cb26-527" tabindex="-1"></a>            decoded <span class="op">=</span> <span class="va">self</span>.instruction_set.get(<span class="va">self</span>.instruction_code, </span>
+<span id="cb26-528"><a href="anexoD.html#cb26-528" tabindex="-1"></a>            {<span class="st">&quot;opcode&quot;</span>: <span class="st">&quot;NOP&quot;</span>, <span class="st">&quot;dst&quot;</span>: <span class="st">&quot;&quot;</span>, <span class="st">&quot;src&quot;</span>: <span class="st">&quot;&quot;</span>})</span>
+<span id="cb26-529"><a href="anexoD.html#cb26-529" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  [UC] Instrucción decodificada:</span></span>
+<span id="cb26-530"><a href="anexoD.html#cb26-530" tabindex="-1"></a><span class="er">            {decoded</span>[<span class="st">&#39;opcode&#39;</span>]} {decoded[<span class="st">&#39;dst&#39;</span>]},{decoded[<span class="st">&#39;src&#39;</span>]}<span class="st">&quot;)</span></span>
+<span id="cb26-531"><a href="anexoD.html#cb26-531" tabindex="-1"></a><span class="er">            print</span>(<span class="ss">f&quot;  [UC] Microoperaciones planificadas: BL → </span></span>
+<span id="cb26-532"><a href="anexoD.html#cb26-532" tabindex="-1"></a><span class="er">            BUS → AL&quot;)</span></span>
+<span id="cb26-533"><a href="anexoD.html#cb26-533" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;EXEC2&quot;</span></span>
+<span id="cb26-534"><a href="anexoD.html#cb26-534" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-535"><a href="anexoD.html#cb26-535" tabindex="-1"></a>            <span class="va">self</span>.execute_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-536"><a href="anexoD.html#cb26-536" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-537"><a href="anexoD.html#cb26-537" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-538"><a href="anexoD.html#cb26-538" tabindex="-1"></a>        </span>
+<span id="cb26-539"><a href="anexoD.html#cb26-539" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;EXEC2&quot;</span>:  <span class="co"># AL ← BUS</span></span>
+<span id="cb26-540"><a href="anexoD.html#cb26-540" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-541"><a href="anexoD.html#cb26-541" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE EXECUTE - Paso 2/5: UC → </span></span>
+<span id="cb26-542"><a href="anexoD.html#cb26-542" tabindex="-1"></a><span class="er">            REG_BANK.enable_out</span>(BL)<span class="st">&quot;)</span></span>
+<span id="cb26-543"><a href="anexoD.html#cb26-543" tabindex="-1"></a><span class="er">            print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-544"><a href="anexoD.html#cb26-544" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;EXEC3&quot;</span></span>
+<span id="cb26-545"><a href="anexoD.html#cb26-545" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-546"><a href="anexoD.html#cb26-546" tabindex="-1"></a>            <span class="va">self</span>.execute_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-547"><a href="anexoD.html#cb26-547" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-548"><a href="anexoD.html#cb26-548" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-549"><a href="anexoD.html#cb26-549" tabindex="-1"></a>        </span>
+<span id="cb26-550"><a href="anexoD.html#cb26-550" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;EXEC3&quot;</span>:</span>
+<span id="cb26-551"><a href="anexoD.html#cb26-551" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-552"><a href="anexoD.html#cb26-552" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE EXECUTE - Paso 3/5: BUS ← BL </span></span>
+<span id="cb26-553"><a href="anexoD.html#cb26-553" tabindex="-1"></a><span class="er">            </span>(dato disponible)<span class="st">&quot;)</span></span>
+<span id="cb26-554"><a href="anexoD.html#cb26-554" tabindex="-1"></a><span class="er">            print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-555"><a href="anexoD.html#cb26-555" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;EXEC4&quot;</span></span>
+<span id="cb26-556"><a href="anexoD.html#cb26-556" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">2</span>  </span>
+<span id="cb26-557"><a href="anexoD.html#cb26-557" tabindex="-1"></a>            <span class="co"># 2 ciclos: 1 para propagar en bus, 1 para estabilizar</span></span>
+<span id="cb26-558"><a href="anexoD.html#cb26-558" tabindex="-1"></a>            <span class="va">self</span>.execute_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-559"><a href="anexoD.html#cb26-559" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-560"><a href="anexoD.html#cb26-560" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-561"><a href="anexoD.html#cb26-561" tabindex="-1"></a>        </span>
+<span id="cb26-562"><a href="anexoD.html#cb26-562" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;EXEC4&quot;</span>:</span>
+<span id="cb26-563"><a href="anexoD.html#cb26-563" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-564"><a href="anexoD.html#cb26-564" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE EXECUTE - Paso 4/5: UC → </span></span>
+<span id="cb26-565"><a href="anexoD.html#cb26-565" tabindex="-1"></a><span class="er">            REG_BANK.enable_in</span>(AL)<span class="st">&quot;)</span></span>
+<span id="cb26-566"><a href="anexoD.html#cb26-566" tabindex="-1"></a><span class="er">            print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-567"><a href="anexoD.html#cb26-567" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;EXEC5&quot;</span></span>
+<span id="cb26-568"><a href="anexoD.html#cb26-568" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-569"><a href="anexoD.html#cb26-569" tabindex="-1"></a>            <span class="va">self</span>.execute_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-570"><a href="anexoD.html#cb26-570" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-571"><a href="anexoD.html#cb26-571" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-572"><a href="anexoD.html#cb26-572" tabindex="-1"></a>        </span>
+<span id="cb26-573"><a href="anexoD.html#cb26-573" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;EXEC5&quot;</span>:</span>
+<span id="cb26-574"><a href="anexoD.html#cb26-574" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-575"><a href="anexoD.html#cb26-575" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  FASE EXECUTE - Paso 5/5: AL ← BUS </span></span>
+<span id="cb26-576"><a href="anexoD.html#cb26-576" tabindex="-1"></a><span class="er">            </span>(captura completada)<span class="st">&quot;)</span></span>
+<span id="cb26-577"><a href="anexoD.html#cb26-577" tabindex="-1"></a><span class="er">            print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-578"><a href="anexoD.html#cb26-578" tabindex="-1"></a>            <span class="co"># Incrementar contador del último ciclo</span></span>
+<span id="cb26-579"><a href="anexoD.html#cb26-579" tabindex="-1"></a>            cycles <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-580"><a href="anexoD.html#cb26-580" tabindex="-1"></a>            <span class="va">self</span>.execute_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-581"><a href="anexoD.html#cb26-581" tabindex="-1"></a>            <span class="va">self</span>.total_cycles <span class="op">+=</span> cycles</span>
+<span id="cb26-582"><a href="anexoD.html#cb26-582" tabindex="-1"></a>            <span class="va">self</span>.phase <span class="op">=</span> <span class="st">&quot;DONE&quot;</span></span>
+<span id="cb26-583"><a href="anexoD.html#cb26-583" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-584"><a href="anexoD.html#cb26-584" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;  Ciclo de instrucción MOV AL, BL completado&quot;</span>)</span>
+<span id="cb26-585"><a href="anexoD.html#cb26-585" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="sc">{</span><span class="st">&#39;-&#39;</span><span class="op">*</span><span class="dv">78</span><span class="sc">}</span><span class="ss">&quot;</span>)</span>
+<span id="cb26-586"><a href="anexoD.html#cb26-586" tabindex="-1"></a>            <span class="co"># Usar hold_in para contar el último ciclo,</span></span>
+<span id="cb26-587"><a href="anexoD.html#cb26-587" tabindex="-1"></a>            <span class="co"># luego passivate</span></span>
+<span id="cb26-588"><a href="anexoD.html#cb26-588" tabindex="-1"></a>            <span class="va">self</span>.hold_in(<span class="va">self</span>.phase, cycles)</span>
+<span id="cb26-589"><a href="anexoD.html#cb26-589" tabindex="-1"></a>        </span>
+<span id="cb26-590"><a href="anexoD.html#cb26-590" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;DONE&quot;</span>:</span>
+<span id="cb26-591"><a href="anexoD.html#cb26-591" tabindex="-1"></a>            <span class="co"># Finalizar después del último ciclo </span></span>
+<span id="cb26-592"><a href="anexoD.html#cb26-592" tabindex="-1"></a>            <span class="co"># (ya contado en EXEC5)</span></span>
+<span id="cb26-593"><a href="anexoD.html#cb26-593" tabindex="-1"></a>            <span class="va">self</span>.passivate()</span>
+<span id="cb26-594"><a href="anexoD.html#cb26-594" tabindex="-1"></a>        </span>
+<span id="cb26-595"><a href="anexoD.html#cb26-595" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb26-596"><a href="anexoD.html#cb26-596" tabindex="-1"></a>            <span class="va">self</span>.passivate()</span>
+<span id="cb26-597"><a href="anexoD.html#cb26-597" tabindex="-1"></a>    </span>
+<span id="cb26-598"><a href="anexoD.html#cb26-598" tabindex="-1"></a>    <span class="kw">def</span> deltext(<span class="va">self</span>, e: <span class="bu">float</span>):</span>
+<span id="cb26-599"><a href="anexoD.html#cb26-599" tabindex="-1"></a>        <span class="va">self</span>.continuef(e)</span>
+<span id="cb26-600"><a href="anexoD.html#cb26-600" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.ir_in:</span>
+<span id="cb26-601"><a href="anexoD.html#cb26-601" tabindex="-1"></a>            <span class="va">self</span>.instruction_code <span class="op">=</span> <span class="va">self</span>.ir_in.get() <span class="op">&amp;</span> <span class="bn">0xFF</span></span>
+<span id="cb26-602"><a href="anexoD.html#cb26-602" tabindex="-1"></a>    </span>
+<span id="cb26-603"><a href="anexoD.html#cb26-603" tabindex="-1"></a>    <span class="kw">def</span> lambdaf(<span class="va">self</span>):</span>
+<span id="cb26-604"><a href="anexoD.html#cb26-604" tabindex="-1"></a>        <span class="co"># Generar señales de control según la fase</span></span>
+<span id="cb26-605"><a href="anexoD.html#cb26-605" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH1&quot;</span>:</span>
+<span id="cb26-606"><a href="anexoD.html#cb26-606" tabindex="-1"></a>            <span class="va">self</span>.ip_read.add(<span class="va">True</span>)</span>
+<span id="cb26-607"><a href="anexoD.html#cb26-607" tabindex="-1"></a>        </span>
+<span id="cb26-608"><a href="anexoD.html#cb26-608" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH3&quot;</span>:</span>
+<span id="cb26-609"><a href="anexoD.html#cb26-609" tabindex="-1"></a>            <span class="va">self</span>.mem_read.add(<span class="va">True</span>)</span>
+<span id="cb26-610"><a href="anexoD.html#cb26-610" tabindex="-1"></a>            <span class="va">self</span>.ip_inc.add(<span class="va">True</span>)</span>
+<span id="cb26-611"><a href="anexoD.html#cb26-611" tabindex="-1"></a>        </span>
+<span id="cb26-612"><a href="anexoD.html#cb26-612" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH4&quot;</span>:</span>
+<span id="cb26-613"><a href="anexoD.html#cb26-613" tabindex="-1"></a>            <span class="va">self</span>.mbr_enable.add(<span class="va">True</span>)</span>
+<span id="cb26-614"><a href="anexoD.html#cb26-614" tabindex="-1"></a>        </span>
+<span id="cb26-615"><a href="anexoD.html#cb26-615" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH5&quot;</span>:</span>
+<span id="cb26-616"><a href="anexoD.html#cb26-616" tabindex="-1"></a>            <span class="va">self</span>.ir_enable.add(<span class="va">True</span>)</span>
+<span id="cb26-617"><a href="anexoD.html#cb26-617" tabindex="-1"></a>        </span>
+<span id="cb26-618"><a href="anexoD.html#cb26-618" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;FETCH6&quot;</span>:</span>
+<span id="cb26-619"><a href="anexoD.html#cb26-619" tabindex="-1"></a>            <span class="va">self</span>.ir_read.add(<span class="va">True</span>)</span>
+<span id="cb26-620"><a href="anexoD.html#cb26-620" tabindex="-1"></a>        </span>
+<span id="cb26-621"><a href="anexoD.html#cb26-621" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;EXEC2&quot;</span>:</span>
+<span id="cb26-622"><a href="anexoD.html#cb26-622" tabindex="-1"></a>            <span class="va">self</span>.reg_enable_out.add(<span class="st">&quot;BL&quot;</span>)</span>
+<span id="cb26-623"><a href="anexoD.html#cb26-623" tabindex="-1"></a>        </span>
+<span id="cb26-624"><a href="anexoD.html#cb26-624" tabindex="-1"></a>        <span class="cf">elif</span> <span class="va">self</span>.phase <span class="op">==</span> <span class="st">&quot;EXEC4&quot;</span>:</span>
+<span id="cb26-625"><a href="anexoD.html#cb26-625" tabindex="-1"></a>            <span class="va">self</span>.reg_enable_in.add(<span class="st">&quot;AL&quot;</span>)</span>
+<span id="cb26-626"><a href="anexoD.html#cb26-626" tabindex="-1"></a>    </span>
+<span id="cb26-627"><a href="anexoD.html#cb26-627" tabindex="-1"></a>    <span class="kw">def</span> exit(<span class="va">self</span>):</span>
+<span id="cb26-628"><a href="anexoD.html#cb26-628" tabindex="-1"></a>        <span class="cf">pass</span></span>
+<span id="cb26-629"><a href="anexoD.html#cb26-629" tabindex="-1"></a></span>
+<span id="cb26-630"><a href="anexoD.html#cb26-630" tabindex="-1"></a></span>
+<span id="cb26-631"><a href="anexoD.html#cb26-631" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb26-632"><a href="anexoD.html#cb26-632" tabindex="-1"></a><span class="co"># MODELO ACOPLADO: Banco de Registros (REG_BANK)</span></span>
+<span id="cb26-633"><a href="anexoD.html#cb26-633" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb26-634"><a href="anexoD.html#cb26-634" tabindex="-1"></a></span>
+<span id="cb26-635"><a href="anexoD.html#cb26-635" tabindex="-1"></a><span class="kw">class</span> RegisterBank(Coupled):</span>
+<span id="cb26-636"><a href="anexoD.html#cb26-636" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb26-637"><a href="anexoD.html#cb26-637" tabindex="-1"></a><span class="st">    Modelo acoplado para el banco de registros AL, BL, CL, DL.</span></span>
+<span id="cb26-638"><a href="anexoD.html#cb26-638" tabindex="-1"></a><span class="st">    Actúa como mediador entre la UC y los registros individuales,</span></span>
+<span id="cb26-639"><a href="anexoD.html#cb26-639" tabindex="-1"></a><span class="st">    gestionando las señales de habilitación indexadas y el bus interno.</span></span>
+<span id="cb26-640"><a href="anexoD.html#cb26-640" tabindex="-1"></a><span class="st">    &quot;&quot;&quot;</span></span>
+<span id="cb26-641"><a href="anexoD.html#cb26-641" tabindex="-1"></a>    </span>
+<span id="cb26-642"><a href="anexoD.html#cb26-642" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;REG_BANK&quot;</span>):</span>
+<span id="cb26-643"><a href="anexoD.html#cb26-643" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-644"><a href="anexoD.html#cb26-644" tabindex="-1"></a>        </span>
+<span id="cb26-645"><a href="anexoD.html#cb26-645" tabindex="-1"></a>        <span class="co"># Crear registros atómicos individuales</span></span>
+<span id="cb26-646"><a href="anexoD.html#cb26-646" tabindex="-1"></a>        <span class="va">self</span>.al <span class="op">=</span> Register(<span class="st">&quot;AL&quot;</span>, <span class="bn">0x01</span>)</span>
+<span id="cb26-647"><a href="anexoD.html#cb26-647" tabindex="-1"></a>        <span class="va">self</span>.bl <span class="op">=</span> Register(<span class="st">&quot;BL&quot;</span>, <span class="bn">0x0A</span>)</span>
+<span id="cb26-648"><a href="anexoD.html#cb26-648" tabindex="-1"></a>        <span class="va">self</span>.cl <span class="op">=</span> Register(<span class="st">&quot;CL&quot;</span>, <span class="bn">0x00</span>)</span>
+<span id="cb26-649"><a href="anexoD.html#cb26-649" tabindex="-1"></a>        <span class="va">self</span>.dl <span class="op">=</span> Register(<span class="st">&quot;DL&quot;</span>, <span class="bn">0x00</span>)</span>
+<span id="cb26-650"><a href="anexoD.html#cb26-650" tabindex="-1"></a>        </span>
+<span id="cb26-651"><a href="anexoD.html#cb26-651" tabindex="-1"></a>        <span class="co"># Agregar como componentes</span></span>
+<span id="cb26-652"><a href="anexoD.html#cb26-652" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.al)</span>
+<span id="cb26-653"><a href="anexoD.html#cb26-653" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.bl)</span>
+<span id="cb26-654"><a href="anexoD.html#cb26-654" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.cl)</span>
+<span id="cb26-655"><a href="anexoD.html#cb26-655" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.dl)</span>
+<span id="cb26-656"><a href="anexoD.html#cb26-656" tabindex="-1"></a>        </span>
+<span id="cb26-657"><a href="anexoD.html#cb26-657" tabindex="-1"></a>        <span class="co"># Puertos de control desde UC (señales indexadas)</span></span>
+<span id="cb26-658"><a href="anexoD.html#cb26-658" tabindex="-1"></a>        <span class="va">self</span>.reg_enable_in <span class="op">=</span> Port(<span class="bu">str</span>, name<span class="op">=</span><span class="st">&quot;reg_enable_in&quot;</span>)</span>
+<span id="cb26-659"><a href="anexoD.html#cb26-659" tabindex="-1"></a>        <span class="co"># Recibe nombre de registro destino</span></span>
+<span id="cb26-660"><a href="anexoD.html#cb26-660" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.reg_enable_in)</span>
+<span id="cb26-661"><a href="anexoD.html#cb26-661" tabindex="-1"></a>        <span class="va">self</span>.reg_enable_out <span class="op">=</span> Port(<span class="bu">str</span>, name<span class="op">=</span><span class="st">&quot;reg_enable_out&quot;</span>)  </span>
+<span id="cb26-662"><a href="anexoD.html#cb26-662" tabindex="-1"></a>        <span class="co"># Recibe nombre de registro fuente</span></span>
+<span id="cb26-663"><a href="anexoD.html#cb26-663" tabindex="-1"></a>        <span class="va">self</span>.add_in_port(<span class="va">self</span>.reg_enable_out)</span>
+<span id="cb26-664"><a href="anexoD.html#cb26-664" tabindex="-1"></a>        </span>
+<span id="cb26-665"><a href="anexoD.html#cb26-665" tabindex="-1"></a>        <span class="co"># Acoplamientos para enable_in desde UC hacia registros</span></span>
+<span id="cb26-666"><a href="anexoD.html#cb26-666" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.reg_enable_in, <span class="va">self</span>.al.enable_in)</span>
+<span id="cb26-667"><a href="anexoD.html#cb26-667" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.reg_enable_in, <span class="va">self</span>.bl.enable_in)</span>
+<span id="cb26-668"><a href="anexoD.html#cb26-668" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.reg_enable_in, <span class="va">self</span>.cl.enable_in)</span>
+<span id="cb26-669"><a href="anexoD.html#cb26-669" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.reg_enable_in, <span class="va">self</span>.dl.enable_in)</span>
+<span id="cb26-670"><a href="anexoD.html#cb26-670" tabindex="-1"></a>        </span>
+<span id="cb26-671"><a href="anexoD.html#cb26-671" tabindex="-1"></a>        <span class="co"># Acoplamientos para enable_out desde UC hacia registros</span></span>
+<span id="cb26-672"><a href="anexoD.html#cb26-672" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.reg_enable_out, <span class="va">self</span>.al.enable_out)</span>
+<span id="cb26-673"><a href="anexoD.html#cb26-673" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.reg_enable_out, <span class="va">self</span>.bl.enable_out)</span>
+<span id="cb26-674"><a href="anexoD.html#cb26-674" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.reg_enable_out, <span class="va">self</span>.cl.enable_out)</span>
+<span id="cb26-675"><a href="anexoD.html#cb26-675" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.reg_enable_out, <span class="va">self</span>.dl.enable_out)</span>
+<span id="cb26-676"><a href="anexoD.html#cb26-676" tabindex="-1"></a>        </span>
+<span id="cb26-677"><a href="anexoD.html#cb26-677" tabindex="-1"></a>        <span class="co"># Bus interno: todos los registros pueden </span></span>
+<span id="cb26-678"><a href="anexoD.html#cb26-678" tabindex="-1"></a>        <span class="co"># enviar/recibir datos</span></span>
+<span id="cb26-679"><a href="anexoD.html#cb26-679" tabindex="-1"></a>        <span class="co"># Cada registro fuente puede enviar al data_in de cualquier</span></span>
+<span id="cb26-680"><a href="anexoD.html#cb26-680" tabindex="-1"></a>        <span class="co"># registro destino</span></span>
+<span id="cb26-681"><a href="anexoD.html#cb26-681" tabindex="-1"></a>        <span class="cf">for</span> src_reg <span class="kw">in</span> [<span class="va">self</span>.al, <span class="va">self</span>.bl, <span class="va">self</span>.cl, <span class="va">self</span>.dl]:</span>
+<span id="cb26-682"><a href="anexoD.html#cb26-682" tabindex="-1"></a>            <span class="cf">for</span> dst_reg <span class="kw">in</span> [<span class="va">self</span>.al, <span class="va">self</span>.bl, <span class="va">self</span>.cl, <span class="va">self</span>.dl]:</span>
+<span id="cb26-683"><a href="anexoD.html#cb26-683" tabindex="-1"></a>                <span class="cf">if</span> src_reg <span class="op">!=</span> dst_reg:</span>
+<span id="cb26-684"><a href="anexoD.html#cb26-684" tabindex="-1"></a>                    <span class="va">self</span>.add_coupling(src_reg.data_out, </span>
+<span id="cb26-685"><a href="anexoD.html#cb26-685" tabindex="-1"></a>                    dst_reg.data_in)</span>
+<span id="cb26-686"><a href="anexoD.html#cb26-686" tabindex="-1"></a></span>
+<span id="cb26-687"><a href="anexoD.html#cb26-687" tabindex="-1"></a></span>
+<span id="cb26-688"><a href="anexoD.html#cb26-688" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb26-689"><a href="anexoD.html#cb26-689" tabindex="-1"></a><span class="co"># MODELO ACOPLADO: Sistema completo VonSim8</span></span>
+<span id="cb26-690"><a href="anexoD.html#cb26-690" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb26-691"><a href="anexoD.html#cb26-691" tabindex="-1"></a></span>
+<span id="cb26-692"><a href="anexoD.html#cb26-692" tabindex="-1"></a><span class="kw">class</span> VonSim8System(Coupled):</span>
+<span id="cb26-693"><a href="anexoD.html#cb26-693" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Modelo acoplado que integra todos los componentes del</span></span>
+<span id="cb26-694"><a href="anexoD.html#cb26-694" tabindex="-1"></a><span class="st">    simulador VonSim8.&quot;&quot;&quot;</span></span>
+<span id="cb26-695"><a href="anexoD.html#cb26-695" tabindex="-1"></a>    </span>
+<span id="cb26-696"><a href="anexoD.html#cb26-696" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;VonSim8&quot;</span>):</span>
+<span id="cb26-697"><a href="anexoD.html#cb26-697" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-698"><a href="anexoD.html#cb26-698" tabindex="-1"></a>        </span>
+<span id="cb26-699"><a href="anexoD.html#cb26-699" tabindex="-1"></a>        <span class="co"># Crear componentes atómicos</span></span>
+<span id="cb26-700"><a href="anexoD.html#cb26-700" tabindex="-1"></a>        <span class="va">self</span>.ip <span class="op">=</span> InstructionPointer(<span class="st">&quot;IP&quot;</span>)</span>
+<span id="cb26-701"><a href="anexoD.html#cb26-701" tabindex="-1"></a>        <span class="va">self</span>.mar <span class="op">=</span> MemoryAddressRegister(<span class="st">&quot;MAR&quot;</span>)</span>
+<span id="cb26-702"><a href="anexoD.html#cb26-702" tabindex="-1"></a>        <span class="va">self</span>.mem <span class="op">=</span> Memory(<span class="st">&quot;MEM&quot;</span>)</span>
+<span id="cb26-703"><a href="anexoD.html#cb26-703" tabindex="-1"></a>        <span class="va">self</span>.mbr <span class="op">=</span> SimpleRegister(<span class="st">&quot;MBR&quot;</span>, <span class="bn">0x00</span>)  <span class="co"># Usa SimpleRegister</span></span>
+<span id="cb26-704"><a href="anexoD.html#cb26-704" tabindex="-1"></a>        <span class="va">self</span>.ir <span class="op">=</span> SimpleRegister(<span class="st">&quot;IR&quot;</span>, <span class="bn">0x00</span>)    <span class="co"># Usa SimpleRegister</span></span>
+<span id="cb26-705"><a href="anexoD.html#cb26-705" tabindex="-1"></a>        <span class="va">self</span>.uc <span class="op">=</span> ControlUnit(<span class="st">&quot;UC&quot;</span>)</span>
+<span id="cb26-706"><a href="anexoD.html#cb26-706" tabindex="-1"></a>        </span>
+<span id="cb26-707"><a href="anexoD.html#cb26-707" tabindex="-1"></a>        <span class="co"># Crear modelo acoplado: Banco de Registros</span></span>
+<span id="cb26-708"><a href="anexoD.html#cb26-708" tabindex="-1"></a>        <span class="co"># (incluye bus interno)</span></span>
+<span id="cb26-709"><a href="anexoD.html#cb26-709" tabindex="-1"></a>        <span class="va">self</span>.reg_bank <span class="op">=</span> RegisterBank(<span class="st">&quot;REG_BANK&quot;</span>)</span>
+<span id="cb26-710"><a href="anexoD.html#cb26-710" tabindex="-1"></a>        </span>
+<span id="cb26-711"><a href="anexoD.html#cb26-711" tabindex="-1"></a>        <span class="co"># Contador de eventos DEVS</span></span>
+<span id="cb26-712"><a href="anexoD.html#cb26-712" tabindex="-1"></a>        <span class="va">self</span>.devs_events <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-713"><a href="anexoD.html#cb26-713" tabindex="-1"></a>        </span>
+<span id="cb26-714"><a href="anexoD.html#cb26-714" tabindex="-1"></a>        <span class="co"># Agregar componentes al modelo acoplado</span></span>
+<span id="cb26-715"><a href="anexoD.html#cb26-715" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.ip)</span>
+<span id="cb26-716"><a href="anexoD.html#cb26-716" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.mar)</span>
+<span id="cb26-717"><a href="anexoD.html#cb26-717" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.mem)</span>
+<span id="cb26-718"><a href="anexoD.html#cb26-718" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.mbr)</span>
+<span id="cb26-719"><a href="anexoD.html#cb26-719" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.ir)</span>
+<span id="cb26-720"><a href="anexoD.html#cb26-720" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.uc)</span>
+<span id="cb26-721"><a href="anexoD.html#cb26-721" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.reg_bank)</span>
+<span id="cb26-722"><a href="anexoD.html#cb26-722" tabindex="-1"></a>        </span>
+<span id="cb26-723"><a href="anexoD.html#cb26-723" tabindex="-1"></a>        <span class="co"># ==================================================</span></span>
+<span id="cb26-724"><a href="anexoD.html#cb26-724" tabindex="-1"></a>        <span class="co"># ACOPLAMIENTOS FASE FETCH</span></span>
+<span id="cb26-725"><a href="anexoD.html#cb26-725" tabindex="-1"></a>        <span class="co"># ==================================================</span></span>
+<span id="cb26-726"><a href="anexoD.html#cb26-726" tabindex="-1"></a>        <span class="co"># UC → IP</span></span>
+<span id="cb26-727"><a href="anexoD.html#cb26-727" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.uc.ip_read, <span class="va">self</span>.ip.read_request)</span>
+<span id="cb26-728"><a href="anexoD.html#cb26-728" tabindex="-1"></a>        <span class="co"># IP → MAR</span></span>
+<span id="cb26-729"><a href="anexoD.html#cb26-729" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.ip.addr_out, <span class="va">self</span>.mar.addr_in)</span>
+<span id="cb26-730"><a href="anexoD.html#cb26-730" tabindex="-1"></a>        <span class="co"># MAR → MEM</span></span>
+<span id="cb26-731"><a href="anexoD.html#cb26-731" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.mar.addr_out, <span class="va">self</span>.mem.addr)</span>
+<span id="cb26-732"><a href="anexoD.html#cb26-732" tabindex="-1"></a>        <span class="co"># UC → MEM (read signal)</span></span>
+<span id="cb26-733"><a href="anexoD.html#cb26-733" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.uc.mem_read, <span class="va">self</span>.mem.rw)</span>
+<span id="cb26-734"><a href="anexoD.html#cb26-734" tabindex="-1"></a>        <span class="co"># UC → IP (increment)</span></span>
+<span id="cb26-735"><a href="anexoD.html#cb26-735" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.uc.ip_inc, <span class="va">self</span>.ip.ip_write)</span>
+<span id="cb26-736"><a href="anexoD.html#cb26-736" tabindex="-1"></a>        <span class="co"># MEM → MBR</span></span>
+<span id="cb26-737"><a href="anexoD.html#cb26-737" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.mem.data_out, <span class="va">self</span>.mbr.data_in)</span>
+<span id="cb26-738"><a href="anexoD.html#cb26-738" tabindex="-1"></a>        <span class="co"># UC → MBR (enable write from MEM)</span></span>
+<span id="cb26-739"><a href="anexoD.html#cb26-739" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.uc.mbr_enable, <span class="va">self</span>.mbr.enable_in)</span>
+<span id="cb26-740"><a href="anexoD.html#cb26-740" tabindex="-1"></a>        <span class="co"># MBR → IR</span></span>
+<span id="cb26-741"><a href="anexoD.html#cb26-741" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.mbr.data_out, <span class="va">self</span>.ir.data_in)</span>
+<span id="cb26-742"><a href="anexoD.html#cb26-742" tabindex="-1"></a>        <span class="co"># UC → MBR (enable out to IR)</span></span>
+<span id="cb26-743"><a href="anexoD.html#cb26-743" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.uc.ir_enable, <span class="va">self</span>.mbr.enable_out)</span>
+<span id="cb26-744"><a href="anexoD.html#cb26-744" tabindex="-1"></a>        <span class="co"># UC → IR (enable write from MBR)</span></span>
+<span id="cb26-745"><a href="anexoD.html#cb26-745" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.uc.ir_enable, <span class="va">self</span>.ir.enable_in)</span>
+<span id="cb26-746"><a href="anexoD.html#cb26-746" tabindex="-1"></a>        <span class="co"># UC → IR (enable read to send to UC) - en FETCH6</span></span>
+<span id="cb26-747"><a href="anexoD.html#cb26-747" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.uc.ir_read, <span class="va">self</span>.ir.enable_out)</span>
+<span id="cb26-748"><a href="anexoD.html#cb26-748" tabindex="-1"></a>        <span class="co"># IR data → UC</span></span>
+<span id="cb26-749"><a href="anexoD.html#cb26-749" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.ir.data_out, <span class="va">self</span>.uc.ir_in)</span>
+<span id="cb26-750"><a href="anexoD.html#cb26-750" tabindex="-1"></a>        </span>
+<span id="cb26-751"><a href="anexoD.html#cb26-751" tabindex="-1"></a>        <span class="co"># ===================================================</span></span>
+<span id="cb26-752"><a href="anexoD.html#cb26-752" tabindex="-1"></a>        <span class="co"># ACOPLAMIENTOS FASE EXECUTE </span></span>
+<span id="cb26-753"><a href="anexoD.html#cb26-753" tabindex="-1"></a>        <span class="co"># (con REG_BANK que contiene bus interno)</span></span>
+<span id="cb26-754"><a href="anexoD.html#cb26-754" tabindex="-1"></a>        <span class="co"># ===================================================</span></span>
+<span id="cb26-755"><a href="anexoD.html#cb26-755" tabindex="-1"></a>        <span class="co"># UC → REG_BANK (señales indexadas)</span></span>
+<span id="cb26-756"><a href="anexoD.html#cb26-756" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.uc.reg_enable_out, </span>
+<span id="cb26-757"><a href="anexoD.html#cb26-757" tabindex="-1"></a>        <span class="va">self</span>.reg_bank.reg_enable_out)</span>
+<span id="cb26-758"><a href="anexoD.html#cb26-758" tabindex="-1"></a>        <span class="va">self</span>.add_coupling(<span class="va">self</span>.uc.reg_enable_in, </span>
+<span id="cb26-759"><a href="anexoD.html#cb26-759" tabindex="-1"></a>        <span class="va">self</span>.reg_bank.reg_enable_in)</span>
+<span id="cb26-760"><a href="anexoD.html#cb26-760" tabindex="-1"></a></span>
+<span id="cb26-761"><a href="anexoD.html#cb26-761" tabindex="-1"></a></span>
+<span id="cb26-762"><a href="anexoD.html#cb26-762" tabindex="-1"></a><span class="kw">class</span> CPUSystem(Coupled):</span>
+<span id="cb26-763"><a href="anexoD.html#cb26-763" tabindex="-1"></a>    <span class="st">&quot;&quot;&quot;Wrapper para compatibilidad con el main anterior.&quot;&quot;&quot;</span></span>
+<span id="cb26-764"><a href="anexoD.html#cb26-764" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name: <span class="bu">str</span> <span class="op">=</span> <span class="st">&quot;CPUEnvironment&quot;</span>):</span>
+<span id="cb26-765"><a href="anexoD.html#cb26-765" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>(name)</span>
+<span id="cb26-766"><a href="anexoD.html#cb26-766" tabindex="-1"></a>        <span class="va">self</span>.vonsim8 <span class="op">=</span> VonSim8System(<span class="st">&quot;VonSim8&quot;</span>)</span>
+<span id="cb26-767"><a href="anexoD.html#cb26-767" tabindex="-1"></a>        <span class="va">self</span>.add_component(<span class="va">self</span>.vonsim8)</span>
+<span id="cb26-768"><a href="anexoD.html#cb26-768" tabindex="-1"></a></span>
+<span id="cb26-769"><a href="anexoD.html#cb26-769" tabindex="-1"></a></span>
+<span id="cb26-770"><a href="anexoD.html#cb26-770" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&quot;__main__&quot;</span>:</span>
+<span id="cb26-771"><a href="anexoD.html#cb26-771" tabindex="-1"></a>    <span class="im">import</span> time</span>
+<span id="cb26-772"><a href="anexoD.html#cb26-772" tabindex="-1"></a>    </span>
+<span id="cb26-773"><a href="anexoD.html#cb26-773" tabindex="-1"></a>    <span class="co"># Clase para contar eventos DEVS</span></span>
+<span id="cb26-774"><a href="anexoD.html#cb26-774" tabindex="-1"></a>    <span class="kw">class</span> EventCountingCoordinator(Coordinator):</span>
+<span id="cb26-775"><a href="anexoD.html#cb26-775" tabindex="-1"></a>        <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, model):</span>
+<span id="cb26-776"><a href="anexoD.html#cb26-776" tabindex="-1"></a>            <span class="bu">super</span>().<span class="fu">__init__</span>(model)</span>
+<span id="cb26-777"><a href="anexoD.html#cb26-777" tabindex="-1"></a>            <span class="va">self</span>.event_count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-778"><a href="anexoD.html#cb26-778" tabindex="-1"></a>            </span>
+<span id="cb26-779"><a href="anexoD.html#cb26-779" tabindex="-1"></a>        <span class="kw">def</span> _inject_event_counter(<span class="va">self</span>, model):</span>
+<span id="cb26-780"><a href="anexoD.html#cb26-780" tabindex="-1"></a>            <span class="st">&quot;&quot;&quot;Inyecta contador en deltint y deltext de todos</span></span>
+<span id="cb26-781"><a href="anexoD.html#cb26-781" tabindex="-1"></a><span class="st">            los modelos atómicos.&quot;&quot;&quot;</span></span>
+<span id="cb26-782"><a href="anexoD.html#cb26-782" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">hasattr</span>(model, <span class="st">&#39;deltint&#39;</span>):</span>
+<span id="cb26-783"><a href="anexoD.html#cb26-783" tabindex="-1"></a>                original_deltint <span class="op">=</span> model.deltint</span>
+<span id="cb26-784"><a href="anexoD.html#cb26-784" tabindex="-1"></a>                <span class="kw">def</span> counted_deltint():</span>
+<span id="cb26-785"><a href="anexoD.html#cb26-785" tabindex="-1"></a>                    <span class="va">self</span>.event_count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb26-786"><a href="anexoD.html#cb26-786" tabindex="-1"></a>                    <span class="cf">return</span> original_deltint()</span>
+<span id="cb26-787"><a href="anexoD.html#cb26-787" tabindex="-1"></a>                model.deltint <span class="op">=</span> counted_deltint</span>
+<span id="cb26-788"><a href="anexoD.html#cb26-788" tabindex="-1"></a>            </span>
+<span id="cb26-789"><a href="anexoD.html#cb26-789" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">hasattr</span>(model, <span class="st">&#39;deltext&#39;</span>):</span>
+<span id="cb26-790"><a href="anexoD.html#cb26-790" tabindex="-1"></a>                original_deltext <span class="op">=</span> model.deltext</span>
+<span id="cb26-791"><a href="anexoD.html#cb26-791" tabindex="-1"></a>                <span class="kw">def</span> counted_deltext(e):</span>
+<span id="cb26-792"><a href="anexoD.html#cb26-792" tabindex="-1"></a>                    <span class="va">self</span>.event_count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb26-793"><a href="anexoD.html#cb26-793" tabindex="-1"></a>                    <span class="cf">return</span> original_deltext(e)</span>
+<span id="cb26-794"><a href="anexoD.html#cb26-794" tabindex="-1"></a>                model.deltext <span class="op">=</span> counted_deltext</span>
+<span id="cb26-795"><a href="anexoD.html#cb26-795" tabindex="-1"></a>            </span>
+<span id="cb26-796"><a href="anexoD.html#cb26-796" tabindex="-1"></a>            <span class="co"># Recursivamente para modelos acoplados</span></span>
+<span id="cb26-797"><a href="anexoD.html#cb26-797" tabindex="-1"></a>            <span class="cf">if</span> <span class="bu">hasattr</span>(model, <span class="st">&#39;components&#39;</span>):</span>
+<span id="cb26-798"><a href="anexoD.html#cb26-798" tabindex="-1"></a>                <span class="cf">for</span> comp <span class="kw">in</span> model.components:</span>
+<span id="cb26-799"><a href="anexoD.html#cb26-799" tabindex="-1"></a>                    <span class="va">self</span>._inject_event_counter(comp)</span>
+<span id="cb26-800"><a href="anexoD.html#cb26-800" tabindex="-1"></a>        </span>
+<span id="cb26-801"><a href="anexoD.html#cb26-801" tabindex="-1"></a>        <span class="kw">def</span> initialize(<span class="va">self</span>):</span>
+<span id="cb26-802"><a href="anexoD.html#cb26-802" tabindex="-1"></a>            <span class="st">&quot;&quot;&quot;Override para inyectar contadores antes de </span></span>
+<span id="cb26-803"><a href="anexoD.html#cb26-803" tabindex="-1"></a><span class="st">            inicializar.&quot;&quot;&quot;</span></span>
+<span id="cb26-804"><a href="anexoD.html#cb26-804" tabindex="-1"></a>            <span class="va">self</span>._inject_event_counter(<span class="va">self</span>.model)</span>
+<span id="cb26-805"><a href="anexoD.html#cb26-805" tabindex="-1"></a>            <span class="bu">super</span>().initialize()</span>
+<span id="cb26-806"><a href="anexoD.html#cb26-806" tabindex="-1"></a>    </span>
+<span id="cb26-807"><a href="anexoD.html#cb26-807" tabindex="-1"></a>    <span class="co"># ===============================================</span></span>
+<span id="cb26-808"><a href="anexoD.html#cb26-808" tabindex="-1"></a>    <span class="co"># ENCABEZADO</span></span>
+<span id="cb26-809"><a href="anexoD.html#cb26-809" tabindex="-1"></a>    <span class="co"># ===============================================</span></span>
+<span id="cb26-810"><a href="anexoD.html#cb26-810" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span> <span class="op">+</span> <span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">80</span>)</span>
+<span id="cb26-811"><a href="anexoD.html#cb26-811" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot; &quot;</span> <span class="op">*</span> <span class="dv">15</span> <span class="op">+</span> <span class="st">&quot;SIMULACIÓN DEVS - VONSIM8 (Von Neumann 8-bit)&quot;</span></span>
+<span id="cb26-812"><a href="anexoD.html#cb26-812" tabindex="-1"></a>    <span class="op">+</span> <span class="st">&quot; &quot;</span> <span class="op">*</span> <span class="dv">20</span> )</span>
+<span id="cb26-813"><a href="anexoD.html#cb26-813" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">80</span>)</span>
+<span id="cb26-814"><a href="anexoD.html#cb26-814" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;  Instrucción: MOV AL, BL (opcode 0x01)&quot;</span>)</span>
+<span id="cb26-815"><a href="anexoD.html#cb26-815" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;  Formalismo:  DEVS (Discrete Event System Specification)&quot;</span>)</span>
+<span id="cb26-816"><a href="anexoD.html#cb26-816" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">80</span> <span class="op">+</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb26-817"><a href="anexoD.html#cb26-817" tabindex="-1"></a>    </span>
+<span id="cb26-818"><a href="anexoD.html#cb26-818" tabindex="-1"></a>    <span class="co"># ================================================</span></span>
+<span id="cb26-819"><a href="anexoD.html#cb26-819" tabindex="-1"></a>    <span class="co"># EJECUCIÓN</span></span>
+<span id="cb26-820"><a href="anexoD.html#cb26-820" tabindex="-1"></a>    <span class="co"># ================================================</span></span>
+<span id="cb26-821"><a href="anexoD.html#cb26-821" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Ejecutando simulación...</span><span class="ch">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb26-822"><a href="anexoD.html#cb26-822" tabindex="-1"></a>    </span>
+<span id="cb26-823"><a href="anexoD.html#cb26-823" tabindex="-1"></a>    env <span class="op">=</span> CPUSystem(<span class="st">&quot;VonSim8Environment&quot;</span>)</span>
+<span id="cb26-824"><a href="anexoD.html#cb26-824" tabindex="-1"></a>    coord <span class="op">=</span> EventCountingCoordinator(env)</span>
+<span id="cb26-825"><a href="anexoD.html#cb26-825" tabindex="-1"></a>    coord.initialize()</span>
+<span id="cb26-826"><a href="anexoD.html#cb26-826" tabindex="-1"></a>    </span>
+<span id="cb26-827"><a href="anexoD.html#cb26-827" tabindex="-1"></a>    start_time <span class="op">=</span> time.time()</span>
+<span id="cb26-828"><a href="anexoD.html#cb26-828" tabindex="-1"></a>    coord.simulate(num_iters<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb26-829"><a href="anexoD.html#cb26-829" tabindex="-1"></a>    simulation_time <span class="op">=</span> time.time() <span class="op">-</span> start_time</span>
+<span id="cb26-830"><a href="anexoD.html#cb26-830" tabindex="-1"></a>    coord.exit()</span>
+<span id="cb26-831"><a href="anexoD.html#cb26-831" tabindex="-1"></a>    </span>
+<span id="cb26-832"><a href="anexoD.html#cb26-832" tabindex="-1"></a>    vonsim8 <span class="op">=</span> env.vonsim8</span>
+<span id="cb26-833"><a href="anexoD.html#cb26-833" tabindex="-1"></a>    </span>
+<span id="cb26-834"><a href="anexoD.html#cb26-834" tabindex="-1"></a>    <span class="co"># ===============================================</span></span>
+<span id="cb26-835"><a href="anexoD.html#cb26-835" tabindex="-1"></a>    <span class="co"># RESULTADOS</span></span>
+<span id="cb26-836"><a href="anexoD.html#cb26-836" tabindex="-1"></a>    <span class="co"># ===============================================</span></span>
+<span id="cb26-837"><a href="anexoD.html#cb26-837" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">60</span>)</span>
+<span id="cb26-838"><a href="anexoD.html#cb26-838" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;  RESULTADOS DE LA SIMULACIÓN&quot;</span>)</span>
+<span id="cb26-839"><a href="anexoD.html#cb26-839" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">60</span>)</span>
+<span id="cb26-840"><a href="anexoD.html#cb26-840" tabindex="-1"></a>    </span>
+<span id="cb26-841"><a href="anexoD.html#cb26-841" tabindex="-1"></a>    <span class="co"># Estado de registros (compacto)</span></span>
+<span id="cb26-842"><a href="anexoD.html#cb26-842" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="ss">  Registros:&quot;</span>)</span>
+<span id="cb26-843"><a href="anexoD.html#cb26-843" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;    IP:  0x00 → 0x</span><span class="sc">{</span>vonsim8<span class="sc">.</span>ip<span class="sc">.</span>value<span class="sc">:02X}</span><span class="ss">  &quot;</span>)</span>
+<span id="cb26-844"><a href="anexoD.html#cb26-844" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;    AL:  0x01 → 0x</span><span class="sc">{</span>vonsim8<span class="sc">.</span>reg_bank<span class="sc">.</span>al<span class="sc">.</span>value<span class="sc">:02X}</span><span class="ss"> </span></span>
+<span id="cb26-845"><a href="anexoD.html#cb26-845" tabindex="-1"></a><span class="er">    {&#39; Transferido&#39; if vonsim8.reg_bank.al.value == 0x0A </span></span>
+<span id="cb26-846"><a href="anexoD.html#cb26-846" tabindex="-1"></a>    <span class="cf">else</span> <span class="st">&#39; Error&#39;</span>}<span class="st">&quot;)</span></span>
+<span id="cb26-847"><a href="anexoD.html#cb26-847" tabindex="-1"></a><span class="er">    print</span>(<span class="ss">f&quot;    BL:  0x0A → 0x</span><span class="sc">{</span>vonsim8<span class="sc">.</span>reg_bank<span class="sc">.</span>bl<span class="sc">.</span>value<span class="sc">:02X}</span><span class="ss">  &quot;</span>)</span>
+<span id="cb26-848"><a href="anexoD.html#cb26-848" tabindex="-1"></a>    </span>
+<span id="cb26-849"><a href="anexoD.html#cb26-849" tabindex="-1"></a>    <span class="co"># Verificación compacta</span></span>
+<span id="cb26-850"><a href="anexoD.html#cb26-850" tabindex="-1"></a>    <span class="bu">print</span>()</span>
+<span id="cb26-851"><a href="anexoD.html#cb26-851" tabindex="-1"></a>    <span class="cf">if</span> vonsim8.reg_bank.al.value <span class="op">==</span> <span class="bn">0x0A</span>:</span>
+<span id="cb26-852"><a href="anexoD.html#cb26-852" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  MOV AL,BL ejecutado correctamente&quot;</span>)</span>
+<span id="cb26-853"><a href="anexoD.html#cb26-853" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb26-854"><a href="anexoD.html#cb26-854" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">&quot;  ERROR en la transferencia&quot;</span>)</span>
+<span id="cb26-855"><a href="anexoD.html#cb26-855" tabindex="-1"></a>    </span>
+<span id="cb26-856"><a href="anexoD.html#cb26-856" tabindex="-1"></a>    <span class="co"># Métricas compactas (valores calculados dinámicamente)</span></span>
+<span id="cb26-857"><a href="anexoD.html#cb26-857" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot;</span><span class="ch">\n</span><span class="ss">  Métricas:&quot;</span>)</span>
+<span id="cb26-858"><a href="anexoD.html#cb26-858" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot; • CPI:         </span><span class="sc">{</span>vonsim8<span class="sc">.</span>uc<span class="sc">.</span>total_cycles<span class="sc">}</span><span class="ss"> ciclos (FETCH:</span></span>
+<span id="cb26-859"><a href="anexoD.html#cb26-859" tabindex="-1"></a><span class="er">    {vonsim8.uc.fetch_cycles} + EXECUTE: {vonsim8.uc.execute_cycles}</span>)<span class="st">&quot;)</span></span>
+<span id="cb26-860"><a href="anexoD.html#cb26-860" tabindex="-1"></a><span class="er">    print</span>(<span class="ss">f&quot; • Tiempo real: </span><span class="sc">{</span>simulation_time<span class="op">*</span><span class="dv">1000</span><span class="sc">:.2f}</span><span class="ss"> ms&quot;</span>)</span>
+<span id="cb26-861"><a href="anexoD.html#cb26-861" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f&quot; • Eventos:     </span><span class="sc">{</span>coord<span class="sc">.</span>event_count<span class="sc">}</span><span class="ss"> transiciones DEVS&quot;</span>)</span>
+<span id="cb26-862"><a href="anexoD.html#cb26-862" tabindex="-1"></a>    <span class="bu">print</span>()</span>
+<span id="cb26-863"><a href="anexoD.html#cb26-863" tabindex="-1"></a>    </span>
+<span id="cb26-864"><a href="anexoD.html#cb26-864" tabindex="-1"></a>    <span class="co"># ====================================================</span></span>
+<span id="cb26-865"><a href="anexoD.html#cb26-865" tabindex="-1"></a>    <span class="co"># PIE DE PÁGINA</span></span>
+<span id="cb26-866"><a href="anexoD.html#cb26-866" tabindex="-1"></a>    <span class="co"># ====================================================</span></span>
+<span id="cb26-867"><a href="anexoD.html#cb26-867" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">80</span>)</span>
+<span id="cb26-868"><a href="anexoD.html#cb26-868" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;Simulación completada | Arquitectura Von Neumann validada&quot;</span>)</span>
+<span id="cb26-869"><a href="anexoD.html#cb26-869" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">&quot;-&quot;</span> <span class="op">*</span> <span class="dv">80</span> <span class="op">+</span> <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<p>Un ejemplo de resultado de la simulación es el siguiente:</p>
+<table>
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">SIMULACIÓN DEVS - VONSIM8 (Von Neumann 8-bit)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Instrucción: MOV AL, BL (opcode 0x01)
+Formalismo: DEVS (Discrete Event System Specification)</td>
+</tr>
+</tbody>
+</table>
+<p>Ejecutando simulación…</p>
+<p><strong>FASE FETCH - Paso 1/6: UC → IP (solicita dirección)</strong></p>
+<ul>
+<li><p>[IP] <span class="math inline">\(\lambda\)</span>: Emitiendo dirección IP=00 por addr_out</p></li>
+<li><p>[MAR] <span class="math inline">\(\lambda\)</span>: Emitiendo dirección MAR=00 hacia MEM</p></li>
+<li><p>[MAR] <span class="math inline">\(\delta_{int}\)</span>: Dirección almacenada. MAR=00</p></li>
+</ul>
+<p><strong>FASE FETCH - Paso 2/6: IP → MAR (transfiere dirección)</strong></p>
+<ul>
+<li>[MEM] <span class="math inline">\(\delta_{ext}\)</span>: Solicitud de lectura en dirección 00</li>
+</ul>
+<p><strong>FASE FETCH - Paso 3/6: UC → MEM (mem_read); IP ← IP+1</strong></p>
+<ul>
+<li><p>[IP] <span class="math inline">\(\delta_{int}\)</span>: Incremento IP. 00 → 01</p></li>
+<li><p>[MEM] <span class="math inline">\(\lambda\)</span>: Emitiendo dato=01 por data_out</p></li>
+<li><p>[MEM] <span class="math inline">\(\delta_{int}\)</span>: Lectura completada. MEM[00]=01</p></li>
+<li><p>[MBR] <span class="math inline">\(\delta_{int}\)</span>: Escritura completada. Valor=01</p></li>
+</ul>
+<p><strong>FASE FETCH - Paso 4/6: MEM → MBR (instrucción leída)</strong></p>
+<p><strong>FASE FETCH - Paso 5/6: MBR → IR (carga instrucción)</strong></p>
+<ul>
+<li><p>[MBR] <span class="math inline">\(\lambda\)</span>: Emitiendo dato=01 por data_out</p></li>
+<li><p>[MBR] <span class="math inline">\(\delta_{int}\)</span>: Lectura completada. Valor=01</p></li>
+<li><p>[IR] <span class="math inline">\(\delta_{int}\)</span>: Escritura completada. Valor=01</p></li>
+</ul>
+<p><strong>FASE FETCH - Paso 6/6: IR → UC (recibe opcode)</strong></p>
+<ul>
+<li><p>[IR] <span class="math inline">\(\lambda\)</span>: Emitiendo dato=01 por data_out</p></li>
+<li><p>[IR] <span class="math inline">\(\delta_{int}\)</span>: Lectura completada. Valor=01</p></li>
+</ul>
+<p><strong>FASE EXECUTE - Paso 1/5: Decodificación</strong></p>
+<ul>
+<li><p>[UC] Instrucción decodificada: MOV AL,BL</p></li>
+<li><p>[UC] Microoperaciones planificadas: BL → BUS → AL</p></li>
+</ul>
+<p><strong>FASE EXECUTE - Paso 2/5: UC → REG_BANK.enable_out(BL)</strong></p>
+<ul>
+<li><p>[BL] <span class="math inline">\(\lambda\)</span>: Emitiendo dato=0A por data_out</p></li>
+<li><p>[BL] <span class="math inline">\(\delta_{int}\)</span>: Lectura completada. Valor=0A</p></li>
+</ul>
+<p><strong>FASE EXECUTE - Paso 3/5: BUS ← BL (dato disponible)</strong></p>
+<p><strong>FASE EXECUTE - Paso 4/5: UC → REG_BANK.enable_in(AL)</strong></p>
+<ul>
+<li>[AL] <span class="math inline">\(\delta_{int}\)</span>: Escritura completada. Valor=0A</li>
+</ul>
+<p><strong>FASE EXECUTE - Paso 5/5: AL ← BUS (captura completada)</strong></p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center">Ciclo de instrucción MOV AL, BL completado</td>
+</tr>
+</tbody>
+</table>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center">RESULTADOS DE LA SIMULACIÓN</td>
+</tr>
+</tbody>
+</table>
+<p>Registros:</p>
+<pre><code>- IP:  0x00 → 0x01
+
+- AL:  0x01 → 0x0A   Transferido
+
+- BL:  0x0A → 0x0A  </code></pre>
+<p>MOV AL,BL ejecutado correctamente</p>
+<p>Métricas:</p>
+<pre><code>* CPI:         14 ciclos (FETCH: 8 + EXECUTE: 6)
+
+* Tiempo real: 2.76 ms
+
+* Eventos:     45 transiciones DEVS</code></pre>
+<table>
+<tbody>
+<tr class="odd">
+<td align="left">Simulación completada Arquitectura Von Neumann validada</td>
+</tr>
+</tbody>
+</table>
+<p>El resultado de la simulación confirma que el modelo DEVS implementado en xdevs.py reproduce correctamente el ciclo de instrucción MOV AL, BL, validando así el enfoque teórico presentado en el Capítulo 5. Los registros involucrados (IP, AL, BL) muestran los valores esperados antes y después de la ejecución, y las métricas de rendimiento (CPI, tiempo real, eventos) proporcionan información adicional sobre la eficiencia del modelo.</p>
+
+</div>
+<!-- </div> -->
+<div class="footnotes">
+<hr />
+<ol start="4">
+<li id="fn4"><p>Repositorio: <a href="https://github.com/ruiz-jose/xdevs-vonsim8" class="uri">https://github.com/ruiz-jose/xdevs-vonsim8</a><a href="anexoD.html#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="anexoC.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="futuro.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": "https://github.com/ruiz-jose/Sim-x86-Tesis",
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/edit/main/06-apendices.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/ruiz-jose/Sim-x86-Tesis/blob/main/06-apendices.Rmd",
+    "text": null
+  },
+  "download": ["tesis.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
