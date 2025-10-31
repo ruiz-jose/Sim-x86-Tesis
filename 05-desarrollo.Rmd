@@ -1519,7 +1519,7 @@ Con el propósito de validar la arquitectura del simulador VonSim8 y analizar su
 
 VonSim8 se fundamenta en la arquitectura de Von Neumann, caracterizada por la utilización de un bus único compartido para instrucciones y datos, lo cual introduce el clásico cuello de botella estructural. En este contexto, la Unidad de Control (UC) debe sincronizar con precisión los accesos concurrentes a memoria y al bus.
 
-Este modelo aplica el formalismo DEVS (Discrete EVents System Specification), introducido en el capítulo en el capítulo \@ref(devs), para representar la ejecución a nivel de Transferencia entre Registros (RTL) como una secuencia de eventos discretos temporizados. La simulación se construye sobre la plataforma xDEVS, utilizando la biblioteca xdevs.py (Python), cuya elección se justificó en la sección \@ref(xdevs).
+Este modelo aplica el formalismo DEVS (Discrete EVents System Specification), introducido en el capítulo \@ref(devs), para representar la ejecución a nivel de Transferencia entre Registros (RTL) como una secuencia de eventos discretos temporizados. La simulación se construye sobre la plataforma xDEVS, utilizando la biblioteca xdevs.py (Python), cuya elección se justificó en la sección \@ref(xdevs).
 
 De acuerdo con el formalismo DEVS, cada componente funcional del procesador —como los registros, la Unidad de Control (UC), la memoria y el bus— se modela como un modelo atómico, mientras que las interacciones entre ellos se describen mediante un modelo acoplado jerárquico. Esta estructura jerárquica permite capturar la concurrencia de eventos y la propagación temporal de señales entre componentes, manteniendo la trazabilidad de cada transición de estado.
 
