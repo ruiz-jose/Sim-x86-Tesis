@@ -1957,9 +1957,9 @@ Finalmente, se detallan los pasos correspondientes a las instrucciones restantes
     5. **`MBR` $\leftarrow$ `read(Memoria[MAR])`** – Leer el contenido de la pila.
     6. **`Rx` $\leftarrow$ `MBR`** | `SP` $\leftarrow$ `SP` + 1 – Almacenar el contenido en Rx y actualizar SP.
   - **PUSH Ry**
-    4. **`MAR` $\leftarrow$ `SP`** – Preparar la dirección de la pila.
-    5. **`MBR` $\leftarrow$ `Ry`** | `SP` $\leftarrow$ `SP` - 1 – Preparar el contenido a escribir y actualizar SP.
-    5. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir el contenido en la pila.
+    4. **`MBR` $\leftarrow$ `Ry`** | `SP` $\leftarrow$ `SP` - 1 – Preparar el contenido a escribir y actualizar SP.    
+    5. **`MAR` $\leftarrow$ `SP`** – Preparar la dirección de la pila.
+    6. **`write(Memoria[MAR])` $\leftarrow$ `MBR`** – Escribir el contenido en la pila.
 
 - **Operaciones Lógicas y Aritméticas**
   - **Operaciones con dos operandos (AND, OR, XOR)**
