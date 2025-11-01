@@ -3725,9 +3725,9 @@ Finalmente, se detallan los pasos correspondientes a las instrucciones restantes
     \setcounter{enumi}{3}
     \tightlist
     \item
-      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar la dirección de la pila.
+      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1 -- Preparar el contenido a escribir y actualizar SP.\\
     \item
-      \textbf{\texttt{MBR} \(\leftarrow\) \texttt{Ry}} \textbar{} \texttt{SP} \(\leftarrow\) \texttt{SP} - 1 -- Preparar el contenido a escribir y actualizar SP.
+      \textbf{\texttt{MAR} \(\leftarrow\) \texttt{SP}} -- Preparar la dirección de la pila.
     \item
       \textbf{\texttt{write(Memoria{[}MAR{]})} \(\leftarrow\) \texttt{MBR}} -- Escribir el contenido en la pila.
     \end{enumerate}
