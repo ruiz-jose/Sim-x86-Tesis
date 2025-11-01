@@ -37,7 +37,7 @@ La activación progresiva del repertorio de instrucciones promueve el desarrollo
       `Instrucciones activadas` = c(
         "MOV, ADD, SUB, HLT",
         "CMP, JMP, Jxx",
-        "CALL, RET, INT, IRET, CLI, STI, IN, OUT"
+        "CALL, RET, INT, IRET, CLI, STI, IN, OUT, POP, PUSH"
       ),
       `Objetivo didáctico` = c(
         "Comprensión del ciclo de instrucción básico",
@@ -77,7 +77,7 @@ La activación progresiva del repertorio de instrucciones promueve el desarrollo
         column_spec(1, width = "12em", bold = TRUE, border_right = TRUE) %>%
         column_spec(2:3, width = "28em") %>%
         row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
-    }
+  }
 ```
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
@@ -418,7 +418,7 @@ knitr::include_graphics(path = "images/buses.png")
 
 Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Los multiplexores dirigen las señales hacia los registros y la ALU (Unidad Aritmético-Lógica), facilitando el flujo de datos dentro del procesador. Un multiplexor (MUX) funciona como un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una y solo una de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida [@mano2017digital].
 
-## Adaptaciones y mejoras en VonSim8
+## Adaptaciones y mejoras en VonSim8 {#mejoras-vonsim8}
 Si bien VonSim ofrece una base sólida para la enseñanza de arquitectura de computadoras, su complejidad funcional puede resultar abrumadora para estudiantes en etapas iniciales. Por esta razón, se implementaron modificaciones estratégicas en VonSim8, orientadas a simplificar el modelo y alinearlo con los objetivos pedagógicos de la asignatura. A continuación, se describen las principales mejoras realizadas.
 
 Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo [@bonwell1991active].
@@ -426,7 +426,17 @@ Las modificaciones implementadas se alinean con los contenidos curriculares de l
   1. Simplificación del repertorio instruccional para una introducción gradual;
   2. Reducción a registros y memoria de 8 bits, coherente con la escala de enseñanza;
   3. Interfaz gráfica esquemática que muestra el flujo de ejecución;
-  4. Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.
+  4. Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes;
+  5. Ocultamiento inicial de las banderas O (overflow) y S (signo), y visualización dinámica de la bandera I (interrupciones);
+  6. Menú de controles modificado y adaptado al uso pedagógico;
+  7. Registros con entrada y salida independientes; ocultamiento automático de SP, ri e id;
+  8. Eliminación de los registros temporales left, right y result en la ALU;
+  9. Resaltado dinámico en memoria de las posiciones apuntadas por IP y SP;
+  10. Vector de interrupciones de 8 posiciones (0x00h–0x07h) y mapeo directo INT→dirección;
+  11. Visor de instrucciones y datos del programa, con tamaño en bytes y etiquetas;
+  12. Compatibilidad con directivas ORG y END (por defecto 0x00h o 0x08h; compatibilidad con org 0x20h);
+  13. Decodificador con memoria de control y secuenciador para microoperaciones y señales de control;
+  14. Tour de aprendizaje, centro de ayuda y ejemplos integrados.
 
 A continuación se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:
 
