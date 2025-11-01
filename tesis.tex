@@ -1822,7 +1822,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \addlinespace[10pt]
 \textbf{Intermedia} & CMP, JMP, Jxx & Introducción a control de flujo\\
 \addlinespace[10pt]
-\textbf{Avanzada} & CALL, RET, INT, IRET, CLI, STI, IN, OUT & Manejo de periféricos e interrupciones\\
+\textbf{Avanzada} & CALL, RET, INT, IRET, CLI, STI, IN, OUT, POP, PUSH & Manejo de periféricos e interrupciones\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
@@ -2178,8 +2178,8 @@ Los buses de datos, direcciones y control se modelan como un conjunto de líneas
 
 Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Los multiplexores dirigen las señales hacia los registros y la ALU (Unidad Aritmético-Lógica), facilitando el flujo de datos dentro del procesador. Un multiplexor (MUX) funciona como un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una y solo una de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida \protect\hyperlink{ref-mano2017digital}{{[}86{]}}.
 
-\hypertarget{adaptaciones-y-mejoras-en-vonsim8}{%
-\section{Adaptaciones y mejoras en VonSim8}\label{adaptaciones-y-mejoras-en-vonsim8}}
+\hypertarget{mejoras-vonsim8}{%
+\section{Adaptaciones y mejoras en VonSim8}\label{mejoras-vonsim8}}
 
 Si bien VonSim ofrece una base sólida para la enseñanza de arquitectura de computadoras, su complejidad funcional puede resultar abrumadora para estudiantes en etapas iniciales. Por esta razón, se implementaron modificaciones estratégicas en VonSim8, orientadas a simplificar el modelo y alinearlo con los objetivos pedagógicos de la asignatura. A continuación, se describen las principales mejoras realizadas.
 
@@ -2195,7 +2195,27 @@ Las modificaciones implementadas se alinean con los contenidos curriculares de l
 \item
   Interfaz gráfica esquemática que muestra el flujo de ejecución;
 \item
-  Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.
+  Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes;
+\item
+  Ocultamiento inicial de las banderas O (overflow) y S (signo), y visualización dinámica de la bandera I (interrupciones);
+\item
+  Menú de controles modificado y adaptado al uso pedagógico;
+\item
+  Registros con entrada y salida independientes; ocultamiento automático de SP, ri e id;
+\item
+  Eliminación de los registros temporales left, right y result en la ALU;
+\item
+  Resaltado dinámico en memoria de las posiciones apuntadas por IP y SP;
+\item
+  Vector de interrupciones de 8 posiciones (0x00h--0x07h) y mapeo directo INT→dirección;
+\item
+  Visor de instrucciones y datos del programa, con tamaño en bytes y etiquetas;
+\item
+  Compatibilidad con directivas ORG y END (por defecto 0x00h o 0x08h; compatibilidad con org 0x20h);
+\item
+  Decodificador con memoria de control y secuenciador para microoperaciones y señales de control;
+\item
+  Tour de aprendizaje, centro de ayuda y ejemplos integrados.
 \end{enumerate}
 
 A continuación se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:

@@ -266,7 +266,7 @@ div.csl-indent {
 <li class="chapter" data-level="5.4.3" data-path="estructura-y-componentes-de-vonsim8.html"><a href="estructura-y-componentes-de-vonsim8.html#memoria-principal"><i class="fa fa-check"></i><b>5.4.3</b> Memoria principal</a></li>
 <li class="chapter" data-level="5.4.4" data-path="estructura-y-componentes-de-vonsim8.html"><a href="estructura-y-componentes-de-vonsim8.html#buses-y-multiplexores"><i class="fa fa-check"></i><b>5.4.4</b> Buses y multiplexores</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="adaptaciones-y-mejoras-en-vonsim8.html"><a href="adaptaciones-y-mejoras-en-vonsim8.html"><i class="fa fa-check"></i><b>5.5</b> Adaptaciones y mejoras en VonSim8</a></li>
+<li class="chapter" data-level="5.5" data-path="mejoras-vonsim8.html"><a href="mejoras-vonsim8.html"><i class="fa fa-check"></i><b>5.5</b> Adaptaciones y mejoras en VonSim8</a></li>
 <li class="chapter" data-level="5.6" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html"><i class="fa fa-check"></i><b>5.6</b> Repertorio de instrucciones</a>
 <ul>
 <li class="chapter" data-level="5.6.1" data-path="repertorio-de-instrucciones-1.html"><a href="repertorio-de-instrucciones-1.html#modos-de-direccionamiento-1"><i class="fa fa-check"></i><b>5.6.1</b> Modos de direccionamiento</a></li>
@@ -358,15 +358,25 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="adaptaciones-y-mejoras-en-vonsim8" class="section level2 hasAnchor" number="5.5">
-<h2><span class="header-section-number">5.5</span> Adaptaciones y mejoras en VonSim8<a href="adaptaciones-y-mejoras-en-vonsim8.html#adaptaciones-y-mejoras-en-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mejoras-vonsim8" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Adaptaciones y mejoras en VonSim8<a href="mejoras-vonsim8.html#mejoras-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Si bien VonSim ofrece una base sólida para la enseñanza de arquitectura de computadoras, su complejidad funcional puede resultar abrumadora para estudiantes en etapas iniciales. Por esta razón, se implementaron modificaciones estratégicas en VonSim8, orientadas a simplificar el modelo y alinearlo con los objetivos pedagógicos de la asignatura. A continuación, se describen las principales mejoras realizadas.</p>
 <p>Las modificaciones implementadas se alinean con los contenidos curriculares de la asignatura y están fundamentadas en los principios del aprendizaje activo <span class="citation">(<a href="#ref-bonwell1991active">Bonwell and Eison 1991</a>)</span>.</p>
 <ol style="list-style-type: decimal">
 <li>Simplificación del repertorio instruccional para una introducción gradual;</li>
 <li>Reducción a registros y memoria de 8 bits, coherente con la escala de enseñanza;</li>
 <li>Interfaz gráfica esquemática que muestra el flujo de ejecución;</li>
-<li>Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.</li>
+<li>Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes;</li>
+<li>Ocultamiento inicial de las banderas O (overflow) y S (signo), y visualización dinámica de la bandera I (interrupciones);</li>
+<li>Menú de controles modificado y adaptado al uso pedagógico;</li>
+<li>Registros con entrada y salida independientes; ocultamiento automático de SP, ri e id;</li>
+<li>Eliminación de los registros temporales left, right y result en la ALU;</li>
+<li>Resaltado dinámico en memoria de las posiciones apuntadas por IP y SP;</li>
+<li>Vector de interrupciones de 8 posiciones (0x00h–0x07h) y mapeo directo INT→dirección;</li>
+<li>Visor de instrucciones y datos del programa, con tamaño en bytes y etiquetas;</li>
+<li>Compatibilidad con directivas ORG y END (por defecto 0x00h o 0x08h; compatibilidad con org 0x20h);</li>
+<li>Decodificador con memoria de control y secuenciador para microoperaciones y señales de control;</li>
+<li>Tour de aprendizaje, centro de ayuda y ejemplos integrados.</li>
 </ol>
 <p>A continuación se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:</p>
 <p>En el registro Flags de VonSim se ocultaron inicialmente las banderas O (overflow) y S (signo), dado que en los primeros ejercicios de ensamblador solo se emplean números enteros positivos. No obstante, estas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, conforme se abordan ejercicios de mayor complejidad.</p>
