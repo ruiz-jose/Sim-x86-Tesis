@@ -742,7 +742,7 @@ HLT</code></pre>
 </div>
 <div id="teclado" class="section level3 hasAnchor" number="5.9.6">
 <h3><span class="header-section-number">5.9.6</span> Teclado<a href="módulo-de-entradasalida-e-interrupciones.html#teclado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, se representa como una matriz de 16×16 que permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.</p>
+<p>El teclado se modela como un vector de 16 posiciones, cada una capaz de almacenar un carácter ASCII. La pantalla, por su parte, permite visualizar caracteres, facilitando así la comprensión del manejo de entrada y salida de datos en una arquitectura computacional simplificada.</p>
 <p>El teclado es un dispositivo de entrada que permite al usuario ingresar caracteres al sistema. La forma de comunicarse con el teclado es mediante una llamada al sistema. Esto es así por simplicidad, ya que un teclado real es mucho más complejo.</p>
 <p>Con la llamada INT 6 se detiene la ejecución del código hasta que se presione una tecla en el teclado. El carácter que correspona será guardado en la dirección de memoria almacenada en BL según su representación en ASCII.</p>
 <pre class="assembly"><code>car db 0
