@@ -2052,7 +2052,7 @@ En esta sección se describe la estructura del simulador VonSim8. El diseño de 
 \addlinespace[10pt]
 \textbf{Acceso a registros} & Los registros de propósito general pueden ser accedidos y modificados por el programador. Los específicos son gestionados por la CPU.\\
 \addlinespace[10pt]
-\textbf{Memoria} & Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición almacena un byte. La memoria se organiza en celdas de 16 bytes, con dirección inicial `0x00` y final `0xFF`.\\
+\textbf{Memoria} & Memoria principal de 256 bytes, direccionada por un bus de direcciones de 8 bits. Cada posición almacena un byte. La memoria se organiza en celdas de 16 bytes, con dirección inicial `0x00h` y final `0xFFh`.\\
 \addlinespace[10pt]
 \addlinespace
 \textbf{Puertos} & Puertos de la CPU:\begin{itemize} \item Bus de direcciones de 8 bits (MAR) \item Bus de datos de 8 bits (MBR) \item Señal de lectura (rd) y escritura (wr), cada una de 1 bit \item Señal IO/M (1 bit) para distinguir acceso a memoria o E/S \item Señal de petición de interrupción (INTR, 1 bit) \item Señal de reconocimiento de interrupción (INTA, 1 bit)\end{itemize}\\
@@ -2198,7 +2198,7 @@ Las modificaciones implementadas se alinean con los contenidos curriculares de l
   Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.
 \end{enumerate}
 
-A continuacion se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:
+A continuación se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:
 
 En el registro Flags de VonSim se ocultaron inicialmente las banderas O (overflow) y S (signo), dado que en los primeros ejercicios de ensamblador solo se emplean números enteros positivos. No obstante, estas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, conforme se abordan ejercicios de mayor complejidad.
 
@@ -2211,7 +2211,7 @@ En el registro Flags de VonSim se ocultaron inicialmente las banderas O (overflo
 \caption{Registro Flags}\label{fig:banderas}
 \end{figure}
 
-El flag de interrupcion I solo se muestra cuando el programa lo requiere, por ejemplo, al ejecutar una instrucción de interrupción como \texttt{INT} o \texttt{IRET}. Esto permite a los estudiantes observar cómo se activa y desactiva este flag en función de las operaciones realizadas.
+El flag de interrupción I solo se muestra cuando el programa lo requiere, por ejemplo, al ejecutar una instrucción de interrupción como \texttt{INT} o \texttt{IRET}. Esto permite a los estudiantes observar cómo se activa y desactiva este flag en función de las operaciones realizadas.
 
 \begin{figure}
 
@@ -2288,7 +2288,7 @@ Resalto de la direccion de memoria apuntada por el registro IP en memoria y tamb
 \caption{Resaltado registro IP y registro SP}\label{fig:resaltadoip}
 \end{figure}
 
-Se resalta en color naranja en la memoria principal el espacio destinado al vector de interrupciones en el VonSim8 es de 8 posiciones de memoria desde \texttt{0x00} a \texttt{0x07}:
+Se resalta en color naranja en la memoria principal el espacio destinado al vector de interrupciones en el VonSim8 es de 8 posiciones de memoria desde \texttt{0x00h} a \texttt{0x07h}:
 
 \begin{figure}
 
@@ -2299,7 +2299,7 @@ Se resalta en color naranja en la memoria principal el espacio destinado al vect
 \caption{Resaltado vector de interrupciones}\label{fig:resaltadointsp}
 \end{figure}
 
-Para determinar la dirección de la rutina de tratamiento de interrupción en VonSim, es necesario multiplicar el número de interrupción por 4, ya que cada dirección de rutina ocupa 4 bytes. En cambio, en VonSim8 no es necesario realizar esta multiplicación, dado que cada dirección de rutina de interrupción corresponde a un solo byte. Por lo tanto, la interrupcion \texttt{INT\ 0} se encuentra en la direccion \texttt{0x00}, la interrupcion \texttt{INT\ 6} en la direccion \texttt{0x06}, y así sucesivamente.
+Para determinar la dirección de la rutina de tratamiento de interrupción en VonSim, es necesario multiplicar el número de interrupción por 4, ya que cada dirección de rutina ocupa 4 bytes. En cambio, en VonSim8 no es necesario realizar esta multiplicación, dado que cada dirección de rutina de interrupción corresponde a un solo byte. Por lo tanto, la interrupción \texttt{INT\ 0} se encuentra en la direccion \texttt{0x00h}, la interrupción \texttt{INT\ 6} en la direccion \texttt{0x06h}, y así sucesivamente.
 
 Se incorporó un visor de instrucciones y datos del programa en memoria, que permite visualizar la instrucción, el tamaño en bytes que ocupa en memoria y la etiqueta asociada a los datos.
 
@@ -2385,7 +2385,7 @@ A fin de sintetizar las diferencias más relevantes entre VonSim y VonSim8, se p
 \addlinespace
 \textbf{Resaltado de IP y SP} & No resalta dinámicamente IP y SP en memoria. & Resalta en memoria la posición apuntada por IP y SP.\\
 \addlinespace[10pt]
-\textbf{Vector de interrupciones} & Vector de interrupciones ocupa varias posiciones, cada rutina ocupa 4 bytes. & Vector de interrupciones ocupa 8 posiciones (`0x00` a `0x07`), cada rutina ocupa 1 byte.\\
+\textbf{Vector de interrupciones} & Vector de interrupciones ocupa varias posiciones, cada rutina ocupa 4 bytes. & Vector de interrupciones ocupa 8 posiciones (`0x00h` a `0x07h`), cada rutina ocupa 1 byte.\\
 \addlinespace[10pt]
 \textbf{Dirección de rutina de interrupción} & Se multiplica el número de interrupción por 4 para obtener la dirección. & La dirección de la rutina de interrupción coincide con el número de interrupción (ej. INT 6 en `0x06`).\\
 \addlinespace[10pt]
@@ -3387,7 +3387,7 @@ La implementación en xdevs.py reproduce 11 microoperaciones (6 en Fetch y 5 en 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Correctitud funcional}: la transferencia AL ← BL se ejecuta correctamente (\texttt{AL:\ 0x01\ →\ 0x0A}).
+  \textbf{Correctitud funcional}: la transferencia AL ← BL se ejecuta correctamente (\texttt{AL:\ 0x01h\ →\ 0x0Ah}).
 \item
   \textbf{Coherencia temporal}: cada componente respeta sus retardos \(\tau\) especificados.
 \item

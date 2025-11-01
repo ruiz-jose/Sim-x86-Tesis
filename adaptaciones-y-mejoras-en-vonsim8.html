@@ -368,7 +368,7 @@ div.csl-indent {
 <li>Interfaz gráfica esquemática que muestra el flujo de ejecución;</li>
 <li>Funciones interactivas para observar explícitamente el ciclo de instrucción y la interacción de componentes.</li>
 </ol>
-<p>A continuacion se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:</p>
+<p>A continuación se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:</p>
 <p>En el registro Flags de VonSim se ocultaron inicialmente las banderas O (overflow) y S (signo), dado que en los primeros ejercicios de ensamblador solo se emplean números enteros positivos. No obstante, estas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, conforme se abordan ejercicios de mayor complejidad.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:banderas"></span>
 <img src="images/flags.png" alt="Registro Flags" width="100%" />
@@ -376,7 +376,7 @@ div.csl-indent {
 Figura 5.9: Registro Flags
 </p>
 </div>
-<p>El flag de interrupcion I solo se muestra cuando el programa lo requiere, por ejemplo, al ejecutar una instrucción de interrupción como <code>INT</code> o <code>IRET</code>. Esto permite a los estudiantes observar cómo se activa y desactiva este flag en función de las operaciones realizadas.</p>
+<p>El flag de interrupción I solo se muestra cuando el programa lo requiere, por ejemplo, al ejecutar una instrucción de interrupción como <code>INT</code> o <code>IRET</code>. Esto permite a los estudiantes observar cómo se activa y desactiva este flag en función de las operaciones realizadas.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:banderaI"></span>
 <img src="images/flagi.png" alt="Registro de estado I" width="100%" />
 <p class="caption">
@@ -425,14 +425,14 @@ Figura 5.15: Memoria principal
 Figura 5.16: Resaltado registro IP y registro SP
 </p>
 </div>
-<p>Se resalta en color naranja en la memoria principal el espacio destinado al vector de interrupciones en el VonSim8 es de 8 posiciones de memoria desde <code>0x00</code> a <code>0x07</code>:</p>
+<p>Se resalta en color naranja en la memoria principal el espacio destinado al vector de interrupciones en el VonSim8 es de 8 posiciones de memoria desde <code>0x00h</code> a <code>0x07h</code>:</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadointsp"></span>
 <img src="images/resaltadoint.png" alt="Resaltado vector de interrupciones" width="50%" />
 <p class="caption">
 Figura 5.17: Resaltado vector de interrupciones
 </p>
 </div>
-<p>Para determinar la dirección de la rutina de tratamiento de interrupción en VonSim, es necesario multiplicar el número de interrupción por 4, ya que cada dirección de rutina ocupa 4 bytes. En cambio, en VonSim8 no es necesario realizar esta multiplicación, dado que cada dirección de rutina de interrupción corresponde a un solo byte. Por lo tanto, la interrupcion <code>INT 0</code> se encuentra en la direccion <code>0x00</code>, la interrupcion <code>INT 6</code> en la direccion <code>0x06</code>, y así sucesivamente.</p>
+<p>Para determinar la dirección de la rutina de tratamiento de interrupción en VonSim, es necesario multiplicar el número de interrupción por 4, ya que cada dirección de rutina ocupa 4 bytes. En cambio, en VonSim8 no es necesario realizar esta multiplicación, dado que cada dirección de rutina de interrupción corresponde a un solo byte. Por lo tanto, la interrupción <code>INT 0</code> se encuentra en la direccion <code>0x00h</code>, la interrupción <code>INT 6</code> en la direccion <code>0x06h</code>, y así sucesivamente.</p>
 <p>Se incorporó un visor de instrucciones y datos del programa en memoria, que permite visualizar la instrucción, el tamaño en bytes que ocupa en memoria y la etiqueta asociada a los datos.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:visorprog"></span>
 <img src="images/visorprog.png" alt="Visor de instrucciones y datos del programa en memoria" width="100%" />
@@ -563,7 +563,7 @@ Vector de interrupciones
 Vector de interrupciones ocupa varias posiciones, cada rutina ocupa 4 bytes.
 </td>
 <td style="text-align:left;width: 32em; ">
-Vector de interrupciones ocupa 8 posiciones (<code>0x00</code> a <code>0x07</code>), cada rutina ocupa 1 byte.
+Vector de interrupciones ocupa 8 posiciones (<code>0x00h</code> a <code>0x07h</code>), cada rutina ocupa 1 byte.
 </td>
 </tr>
 <tr>
