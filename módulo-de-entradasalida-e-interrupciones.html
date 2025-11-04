@@ -884,7 +884,7 @@ INT3
 PIO
 </td>
 <td style="text-align:center;width: 12em; background-color: rgba(240, 240, 240, 255) !important;">
-28h
+30h
 </td>
 <td style="text-align:center;width: 16em; background-color: rgba(240, 240, 240, 255) !important;">
 PA
@@ -894,7 +894,7 @@ PA
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
 </td>
 <td style="text-align:center;width: 12em; ">
-29h
+31h
 </td>
 <td style="text-align:center;width: 16em; ">
 PB
@@ -904,7 +904,7 @@ PB
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
 </td>
 <td style="text-align:center;width: 12em; ">
-2Ah
+32h
 </td>
 <td style="text-align:center;width: 16em; ">
 CA
@@ -914,7 +914,7 @@ CA
 <td style="text-align:center;width: 16em; font-weight: bold;border-right:1px solid;">
 </td>
 <td style="text-align:center;width: 12em; ">
-2Bh
+33h
 </td>
 <td style="text-align:center;width: 16em; ">
 CB
@@ -1146,13 +1146,14 @@ INT3
 </tbody>
 </table>
 </div>
-<div id="registros-de-control" class="section level4 hasAnchor" number="5.9.11.2">
-<h4><span class="header-section-number">5.9.11.2</span> Registros de control<a href="módulo-de-entradasalida-e-interrupciones.html#registros-de-control" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>El PIC cuenta con tres registros adicionales para gestionar las interrupciones. Cada bit de estos registros corresponde a una línea de interrupción, donde el bit menos significativo representa la línea da bit corresponde con una línea de interrupción: el bit menos significativo corresponde a la línea y el más significativo la línea <code>INT3</code>.</p>
+<div id="pic-registros" class="section level4 hasAnchor" number="5.9.11.2">
+<h4><span class="header-section-number">5.9.11.2</span> Registros y puerto EOI<a href="módulo-de-entradasalida-e-interrupciones.html#pic-registros" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>El PIC cuenta con tres registros adicionales para gestionar las interrupciones y un puerto de comando para finalizar su atención. Cada bit de estos registros corresponde a una línea de interrupción; el bit menos significativo (bit 0) corresponde a la línea <code>INT0</code> y el más significativo (bit 3) a la línea <code>INT3</code>.</p>
 <ul>
 <li><p><strong>Registro IMR (Interrupt Mask Register)</strong>: Ubicado en la dirección <code>21h</code> de la memoria de E/S, este registro permite enmascarar (inhabilitar) líneas de interrupción. Si un bit está en 1, la línea correspondiente está enmascarada y no generará interrupciones en la CPU. Si el bit está en 0, la línea está habilitada. Este registro puede ser modificado por la CPU.</p></li>
-<li><p><strong>Registro IRR (Interrupt Request Register)</strong>: Ubicado en la dirección <code>22h</code>, este registro indica las interrupciones pendientes. Si un bit está en 1, la línea correspondiente tiene una interrupción pendiente. Este registro es de solo lectura para la CPU y es gestionado por el PIC.</p></li>
-<li><p><strong>Registro ISR (In-Service Register)</strong>: Ubicado en la dirección <code>23h</code>, este registro muestra qué interrupción está siendo atendida en un momento dado. Si un bit está en 1, la línea correspondiente está en servicio. Este registro también es de solo lectura para la CPU y es gestionado por el PIC.</p></li>
+<li><p><strong>Registro IRR (Interrupt Request Register)</strong>: Ubicado en la dirección <code>22h</code> de la memoria de E/S, este registro indica las interrupciones pendientes. Si un bit está en 1, la línea correspondiente tiene una interrupción pendiente. Este registro es de solo lectura para la CPU y es gestionado por el PIC.</p></li>
+<li><p><strong>Registro ISR (In-Service Register)</strong>: Ubicado en la dirección <code>23h</code> de la memoria de E/S, este registro muestra qué interrupción está siendo atendida en un momento dado. Si un bit está en 1, la línea correspondiente está en servicio. Este registro también es de solo lectura para la CPU y es gestionado por el PIC.</p></li>
+<li><p><strong>Puerto EOI (End Of Interrupt)</strong>: Ubicado en la dirección <code>20h</code> de la memoria de E/S, es un puerto de solo escritura. Cualquier byte escrito en <code>20h</code> se interpreta como señal de fin de interrupción: el PIC limpia el bit correspondiente en el <code>ISR</code> y, si existen solicitudes pendientes no enmascaradas en el <code>IRR</code>, vuelve a activar <code>INTR</code> según su política de prioridad. La lectura de <code>20h</code> no está definida.</p></li>
 </ul>
 </div>
 <div id="funcionamiento" class="section level4 hasAnchor" number="5.9.11.3">

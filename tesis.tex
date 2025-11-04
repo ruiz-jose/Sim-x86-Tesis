@@ -4000,10 +4000,10 @@ El rango de direcciones asignado a la memoria de entrada/salida abarca desde \te
 \textbf{} & 26h & INT2\\
 \textbf{} & 27h & INT3\\
 \addlinespace
-\cellcolor[HTML]{F0F0F0}{\textbf{PIO}} & \cellcolor[HTML]{F0F0F0}{28h} & \cellcolor[HTML]{F0F0F0}{PA}\\
-\textbf{} & 29h & PB\\
-\textbf{} & 2Ah & CA\\
-\textbf{} & 2Bh & CB\\
+\cellcolor[HTML]{F0F0F0}{\textbf{PIO}} & \cellcolor[HTML]{F0F0F0}{30h} & \cellcolor[HTML]{F0F0F0}{PA}\\
+\textbf{} & 31h & PB\\
+\textbf{} & 32h & CA\\
+\textbf{} & 33h & CB\\
 \addlinespace[5pt]
 \cellcolor[HTML]{F0F0F0}{\textbf{Handshake}} & \cellcolor[HTML]{F0F0F0}{40h} & \cellcolor[HTML]{F0F0F0}{DATA}\\
 \addlinespace
@@ -4252,18 +4252,20 @@ Las líneas están conectadas a los siguientes dispositivos:
 \end{tabular}}
 \end{table}
 
-\hypertarget{registros-de-control}{%
-\subsubsection{Registros de control}\label{registros-de-control}}
+\hypertarget{pic-registros}{%
+\subsubsection{Registros y puerto EOI}\label{pic-registros}}
 
-El PIC cuenta con tres registros adicionales para gestionar las interrupciones. Cada bit de estos registros corresponde a una línea de interrupción, donde el bit menos significativo representa la línea da bit corresponde con una línea de interrupción: el bit menos significativo corresponde a la línea y el más significativo la línea \texttt{INT3}.
+El PIC cuenta con tres registros adicionales para gestionar las interrupciones y un puerto de comando para finalizar su atención. Cada bit de estos registros corresponde a una línea de interrupción; el bit menos significativo (bit 0) corresponde a la línea \texttt{INT0} y el más significativo (bit 3) a la línea \texttt{INT3}.
 
 \begin{itemize}
 \item
   \textbf{Registro IMR (Interrupt Mask Register)}: Ubicado en la dirección \texttt{21h} de la memoria de E/S, este registro permite enmascarar (inhabilitar) líneas de interrupción. Si un bit está en 1, la línea correspondiente está enmascarada y no generará interrupciones en la CPU. Si el bit está en 0, la línea está habilitada. Este registro puede ser modificado por la CPU.
 \item
-  \textbf{Registro IRR (Interrupt Request Register)}: Ubicado en la dirección \texttt{22h}, este registro indica las interrupciones pendientes. Si un bit está en 1, la línea correspondiente tiene una interrupción pendiente. Este registro es de solo lectura para la CPU y es gestionado por el PIC.
+  \textbf{Registro IRR (Interrupt Request Register)}: Ubicado en la dirección \texttt{22h} de la memoria de E/S, este registro indica las interrupciones pendientes. Si un bit está en 1, la línea correspondiente tiene una interrupción pendiente. Este registro es de solo lectura para la CPU y es gestionado por el PIC.
 \item
-  \textbf{Registro ISR (In-Service Register)}: Ubicado en la dirección \texttt{23h}, este registro muestra qué interrupción está siendo atendida en un momento dado. Si un bit está en 1, la línea correspondiente está en servicio. Este registro también es de solo lectura para la CPU y es gestionado por el PIC.
+  \textbf{Registro ISR (In-Service Register)}: Ubicado en la dirección \texttt{23h} de la memoria de E/S, este registro muestra qué interrupción está siendo atendida en un momento dado. Si un bit está en 1, la línea correspondiente está en servicio. Este registro también es de solo lectura para la CPU y es gestionado por el PIC.
+\item
+  \textbf{Puerto EOI (End Of Interrupt)}: Ubicado en la dirección \texttt{20h} de la memoria de E/S, es un puerto de solo escritura. Cualquier byte escrito en \texttt{20h} se interpreta como señal de fin de interrupción: el PIC limpia el bit correspondiente en el \texttt{ISR} y, si existen solicitudes pendientes no enmascaradas en el \texttt{IRR}, vuelve a activar \texttt{INTR} según su política de prioridad. La lectura de \texttt{20h} no está definida.
 \end{itemize}
 
 \hypertarget{funcionamiento}{%
