@@ -366,10 +366,18 @@ div.csl-indent {
 </div>
 <div id="resumen" class="section level1 unnumbered hasAnchor">
 <h1>Resumen<a href="index.html#resumen" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Existe un consenso creciente en el uso de herramientas de simulación en la enseñanza para procesos dinámicos complejos, como las operaciones intrínsecas de la computadora, que permiten representar de forma visual e interactiva la organización y arquitectura interna de la computadora, facilitando así la comprensión de su funcionamiento por parte de los alumnos y el desarrollo de los temas por parte del docente. En este contexto, los simuladores juegan una pieza clave en el campo de la Arquitectura de Computadoras, permitiendo conectar fundamentos teóricos con la experiencia práctica, simpliﬁcando abstracciones y haciendo más rica la labor docente.
-La arquitectura x86 es ampliamente utilizada en computadoras de escritorio y servidores. Este documento pretende realizar una comparación de los simuladores x86 que más se adecuan en el dictado de la asignatura Arquitectura de Computadoras de la carrera Licenciatura en Sistemas, establecer los criterios de evaluación y evaluar los simuladores seleccionados de acuerdo con estos criterios.</p>
-<p>La presente investigación surge en el marco del proyecto de investigación I/D novel PID-UNER 7065: “Enseñanza/aprendizaje de asignatura Arquitectura de Computadoras con herramientas de simulación de sistemas de cómputos”. El Proyecto es llevado a cabo en la Facultad de Ciencias de la Administración de la Universidad Nacional de Entre Ríos, se vincula directamente con la asignatura Arquitectura en Computadoras que se dicta en segundo año de la carrera Licenciatura en Sistemas perteneciente a la Facultad de Ciencias de la Administración de la Universidad Nacional de Entre Ríos.</p>
-<p>Palabras clave: x86, simulador, aprendizaje, enseñanza, arquitectura de computadoras.</p>
+<p>Esta tesis describe el diseño, construcción y validación de VonSim8, un simulador educativo de arquitectura de computadoras inspirado en principios de la arquitectura x86. El trabajo se inicia con un análisis comparativo de simuladores (Emu8086, VonSim, Simple 8-bit Assembler Simulator), que evidencia carencias pedagógicas —falta de activación progresiva del repertorio, visualización limitada del ciclo de instrucción, ausencia de métricas y barreras de acceso— y fundamenta la definición de requisitos funcionales y didácticos a partir de entrevistas a docentes y percepciones estudiantiles.</p>
+<p>VonSim8 implementa una arquitectura de 8 bits con registros, 256 bytes de memoria, vector de interrupciones reducido y un repertorio inicial acotado y escalable. Incorpora visualización RTL paso a paso del ciclo fetch–execute, activación progresiva de instrucciones, gestión básica de interrupciones, métricas (CPI, ciclos por fase y tiempo de CPU), editor de ensamblador integrado, visor de memoria e instrucciones, tour guiado y centro de ayuda.</p>
+<p>La validación técnica se realiza mediante modelado DEVS (xdevs.py) del ciclo MOV AL, BL, verificando coherencia funcional y temporal, estados intermedios y trazabilidad de microoperaciones. La evaluación pedagógica (encuesta a estudiantes, N=14; entrevistas a docentes, N=2) indica mejoras percibidas en la comprensión del ciclo de instrucción, el flujo de datos y el manejo básico de interrupciones, con oportunidades de refinamiento en animaciones y representación de banderas.</p>
+<p>Las principales contribuciones son:</p>
+<ol style="list-style-type: decimal">
+<li>Un marco de requisitos didácticos para simuladores introductorios.</li>
+<li>Una arquitectura simplificada y trazable a x86 con progresión controlada de complejidad.</li>
+<li>La integración de modelado formal DEVS para una validación reproducible.</li>
+<li>La instrumentación de métricas de ejecución en contexto educativo.</li>
+<li>La propuesta de extensiones futuras (NASM, registros de 64 bits, DMA, pantalla gráfica, ampliación del modelado DEVS).</li>
+</ol>
+<p>En síntesis, VonSim8 favorece la articulación teoría–práctica, reduce la carga cognitiva inicial y ofrece una plataforma extensible alineada con la currícula. Las líneas futuras incluyen ampliar el repertorio, profundizar la evaluación cuasi‑experimental y evolucionar el modelo hacia características avanzadas (pipeline, caché, syscalls) manteniendo el enfoque pedagógico.</p>
 </div>
             </section>
 
