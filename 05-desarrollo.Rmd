@@ -1524,7 +1524,7 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
   - HLT: 
     4. Detiene la ejecución de la CPU.
 
-## Modelado con xDEVS del ciclo de instrucción MOV AL, BL
+## Modelado con xDEVS del ciclo de instrucción MOV AL, BL {#movalbl}
 Con el propósito de validar la arquitectura del simulador VonSim8 y analizar su comportamiento interno, se modela la instrucción MOV AL, BL como un caso de estudio representativo del flujo básico de ejecución a nivel de hardware.
 
 VonSim8 adopta el modelo de Von Neumann, caracterizada por la utilización de un bus único compartido para instrucciones y datos, lo cual introduce el clásico cuello de botella estructural (limitación en el acceso concurrente a datos e instrucciones). En este contexto, la Unidad de Control (UC) debe sincronizar con precisión los accesos concurrentes a memoria y al bus.
