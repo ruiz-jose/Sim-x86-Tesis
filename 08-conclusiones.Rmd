@@ -1,20 +1,31 @@
 # Conclusiones finales {#conclusiones}
 
-La evidencia obtenida sugiere que los simuladores educativos constituyen recursos didácticos pertinentes para vincular fundamentos teóricos con experiencias prácticas, facilitando la comprensión de procesos abstractos y favoreciendo un aprendizaje significativo. En este estudio, VonSim8 mostró indicios de eficacia para la enseñanza de conceptos como el ciclo de instrucción, la interacción registro–memoria y la gestión básica de interrupciones, en un contexto controlado de evaluación formativa.
+Esta tesis desarrolló y validó VonSim8, un simulador educativo orientado a introducir conceptos de arquitectura de computadoras con foco en x86 desde una arquitectura de 8 bits trazable y progresiva. La evidencia reunida indica que la simulación, cuando está diseñada con criterios pedagógicos (simplificación deliberada, activación gradual del repertorio y visualización RTL del ciclo de instrucción), constituye un recurso pertinente para articular teoría y práctica.
 
-El simulador se diseñó sobre una arquitectura de 8 bits intencionalmente simplificada, manteniendo la trazabilidad del ciclo de instrucción y de los modos de direccionamiento básicos. Esta decisión busca disminuir la carga cognitiva extrínseca y favorecer una progresión gradual de los contenidos.
+## Principales aportes técnicos y didácticos
 
-Entre las principales contribuciones técnicas y pedagógicas se destacan:
+- Progresión controlada de complejidad: repertorio inicial reducido y activación gradual, alineado con la currícula, para disminuir carga cognitiva extrínseca.
+- Visualización RTL paso a paso: trazabilidad de datos y señales de control en fetch/execute, favoreciendo la formación de modelos mentales del ciclo de instrucción.
+- Interrupciones y E/S básicas: periféricos introductorios (teclado/pantalla) y vector de interrupciones acotado que permiten abordar asincronía de manera accesible.
+- Métricas de ejecución: CPI, ciclos por fase y tiempo de CPU para promover análisis cuantitativo del desempeño.
+- Validación formal con xDEVS: modelado DEVS/PDEVS de componentes y del ciclo MOV AL, BL en xdevs.py, con medición de transiciones y coherencia temporal.
+- Apertura y sostenibilidad: distribución libre que habilita adopción, auditoría y mejoras por la comunidad académica.
 
-- Aprendizaje progresivo y simplificación conceptual: implementación de un repertorio reducido de instrucciones alineado con los contenidos curriculares, lo que favoreció la comprensión de los fundamentos del procesamiento.  
-- Visualización detallada del ciclo de instrucción: representación interactiva a nivel RTL del flujo de datos y señales de control, fortaleciendo la conexión entre teoría y práctica.  
-- Manejo de E/S e interrupciones: inclusión de periféricos básicos (teclado y pantalla) y simulación de interrupciones mediante un vector predefinido, posibilitando la comprensión del funcionamiento asincrónico de los sistemas reales.  
-- Métricas de rendimiento: incorporación de indicadores como CPI, tiempo de CPU y ciclos por instrucción, que promovieron el análisis cuantitativo del desempeño del sistema.  
-- Modelado formal con xDEVS: la validación se realizó mediante modelos atómicos y acoplados (DEVS/PDEVS) en xdevs.py, con mediciones de transiciones y ciclos por fase (Fetch/Execute).  
-- Código abierto y sostenibilidad: distribución bajo licencia libre, garantizando la accesibilidad y la posibilidad de mejora continua por parte de la comunidad académica.
+## Hallazgos pedagógicos (alcance y límites)
 
-Los resultados pedagógicos (encuesta a estudiantes, N=14; entrevistas a docentes, N=2) sugieren efectos positivos percibidos en claridad conceptual y visualización del ciclo de instrucción. Dado el tamaño muestral y el muestreo no probabilístico, estos hallazgos deben interpretarse como indicativos y requerir replicación con diseños cuasi-experimentales y muestras mayores. 
+- Encuesta a estudiantes (N=14) e entrevistas a docentes (N=2) sugieren mejoras percibidas en claridad del ciclo de instrucción, flujo de datos y comprensión de microoperaciones.
+- Las valoraciones destacan recursos visuales y conexión teoría–práctica; se observan oportunidades de mejora en la representación de banderas, microoperaciones y claridad de animaciones.
+- Dado el muestreo no probabilístico y el tamaño muestral, los resultados son indicativos; requieren replicación con diseños cuasi‑experimentales y muestras mayores.
 
-No obstante, se identificaron áreas de mejora relacionadas con la representación visual de las microoperaciones, la fluidez de las animaciones y la facilidad de uso de la interfaz para usuarios principiantes. Estas observaciones constituyen insumos valiosos para orientar futuras versiones del simulador.
+## Limitaciones y amenazas a la validez
 
-En síntesis, el desarrollo e implementación de VonSim8 aportan evidencia indicativa sobre el valor didáctico de la simulación para integrar teoría y práctica en arquitectura de computadoras. El prototipo cumplió los objetivos formativos planteados (visualización RTL, repertorio progresivo, métricas básicas, interrupciones introductorias) y habilita líneas de extensión técnica (pipeline, caché, DMA) y pedagógica (diseños cuasi-experimentales, visualización de trazas).
+- Validez externa: contexto único y muestra acotada dificultan generalización.
+- Fidelidad del modelo: la arquitectura de 8 bits prioriza claridad sobre exhaustividad; ciertos fenómenos de x86 real quedan fuera de alcance.
+
+## Síntesis
+
+El prototipo VonSim8 cumplió los objetivos formativos propuestos: visualización del ciclo de instrucción a nivel RTL, repertorio progresivo, métricas básicas e interrupciones introductorias. La validación con xDEVS aportó rigor estructural y temporal al modelo y sentó bases para instrumentación y reproducibilidad. Los resultados educativos son prometedores pero preliminares; su consolidación exige estudios con mayor potencia estadística y refinamientos de interfaz y animaciones.
+
+## Líneas futuras
+
+Las extensiones técnicas y pedagógicas delineadas (por ejemplo, compatibilidad NASM, registros de 64 bits, syscalls Linux, DMA y pantalla 16×16, así como ampliación del modelado DEVS) se detallan en el capítulo Trabajos futuros (véase \@ref(futuro)). Su abordaje permitirá mantener el enfoque pedagógico mientras se incrementa la fidelidad y el alcance del simulador.
