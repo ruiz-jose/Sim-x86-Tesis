@@ -167,57 +167,58 @@ library(kableExtra)
 
 # Crear los datos de la tabla
 aspectos <- data.frame(
-  `Aspecto evaluado` = c(
-    "Claridad de los conceptos teóricos (fetch/execute)",
-    "Ejemplos con instrucciones (MOV, ADD, SUB, JMP)",
-    "Explicación de los modos de direccionamiento",
-    "Actividades (análisis, ejercicios, simulaciones)",
-    "Tablas, esquemas e imágenes"
-  ),
-  Promedio = c(3.86, 4.07, 4.14, 4.07, 4.21),
-  Interpretación = c(
-    "Buena comprensión general, aunque con margen de mejora en la claridad conceptual.",
-    "Los ejemplos prácticos facilitaron la comprensión de las microoperaciones.",
-    "Los estudiantes valoraron positivamente la claridad en la exposición de estos conceptos.",
-    "Las actividades fueron percibidas como útiles para consolidar los aprendizajes.",
-    "Los recursos visuales fueron altamente valorados como apoyo al aprendizaje."
-  )
+    `Aspecto evaluado` = c(
+        "Claridad de los conceptos teóricos (fetch/execute)",
+        "Ejemplos con instrucciones (MOV, ADD, SUB, JMP)",
+        "Explicación de los modos de direccionamiento",
+        "Actividades (análisis, ejercicios, simulaciones)",
+        "Tablas, esquemas e imágenes"
+    ),
+    Promedio = c(3.86, 4.07, 4.14, 4.07, 4.21),
+    Interpretación = c(
+        "Buena comprensión general, aunque con margen de mejora en la claridad conceptual.",
+        "Los ejemplos prácticos facilitaron la comprensión de las microoperaciones.",
+        "Los estudiantes valoraron positivamente la claridad en la exposición de estos conceptos.",
+        "Las actividades fueron percibidas como útiles para consolidar los aprendizajes.",
+        "Los recursos visuales fueron altamente valorados como apoyo al aprendizaje."
+    )
 )
 
 # Crear la tabla con formato dinámico
 tabla <- kable(aspectos,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Valoración de aspectos clave del simulador VonSim8",
-               col.names = c("Aspecto evaluado", "Promedio", "Interpretación"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("l", "c", "l"))
+    format = ifelse(knitr::is_latex_output(), "latex", "html"),
+    caption = "Valoración de aspectos clave del simulador VonSim8",
+    col.names = c("Aspecto evaluado", "Promedio", "Interpretación"),
+    booktabs = TRUE,
+    escape = FALSE,
+    align = c("l", "c", "l")
+)
 
 # Convertir a HTML o LaTeX según el formato de salida
 if (knitr::is_latex_output()) {
-  tabla %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "2cm") %>%
-    column_spec(3, width = "8cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(aspectos)),
-             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas
-
+    tabla %>%
+        kable_styling(
+            latex_options = c("scale_down", "hold_position"),
+            font_size = 10
+        ) %>%
+        column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2, width = "2cm") %>%
+        column_spec(3, width = "8cm") %>%
+        row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+        row_spec(seq_len(nrow(aspectos)),
+            extra_latex_after = "\\addlinespace[10pt]"
+        ) # Espacio adicional entre filas
 } else {
-  tabla %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "20em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "10em") %>%
-    column_spec(3, width = "30em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+    tabla %>%
+        kable_styling(
+            bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+            full_width = FALSE,
+            position = "center"
+        ) %>%
+        column_spec(1, width = "20em", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2, width = "10em") %>%
+        column_spec(3, width = "30em") %>%
+        row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
 
@@ -233,54 +234,55 @@ library(kableExtra)
 
 # Crear los datos de la tabla
 evaluacion <- data.frame(
-  `Aspecto evaluado` = c(
-    "Visualización de registros y memoria",
-    "Conexión entre teoría y práctica",
-    "Facilidad de uso e intuición",
-    "Visualización de microoperaciones"
-  ),
-  Promedio = c(3.79, 4.14, 3.93, 3.57),
-  Interpretación = c(
-    "Buena valoración general, aunque algunos estudiantes señalaron dificultades para interpretar los cambios mostrados.",
-    "El simulador facilitó la aplicación práctica de los contenidos teóricos.",
-    "El simulador fue percibido como accesible y comprensible, aunque se sugiere optimizar la interfaz.",
-    "Aspecto menos valorado, posiblemente por la complejidad visual o falta de familiaridad inicial."
-  )
+    `Aspecto evaluado` = c(
+        "Visualización de registros y memoria",
+        "Conexión entre teoría y práctica",
+        "Facilidad de uso e intuición",
+        "Visualización de microoperaciones"
+    ),
+    Promedio = c(3.79, 4.14, 3.93, 3.57),
+    Interpretación = c(
+        "Buena valoración general, aunque algunos estudiantes señalaron dificultades para interpretar los cambios mostrados.",
+        "El simulador facilitó la aplicación práctica de los contenidos teóricos.",
+        "El simulador fue percibido como accesible y comprensible, aunque se sugiere optimizar la interfaz.",
+        "Aspecto menos valorado, posiblemente por la complejidad visual o falta de familiaridad inicial."
+    )
 )
 
 # Crear la tabla con formato dinámico
 tabla <- kable(evaluacion,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Evaluación de aspectos clave del simulador VonSim8",
-               col.names = c("Aspecto evaluado", "Promedio", "Interpretación"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "l", "l"))
+    format = ifelse(knitr::is_latex_output(), "latex", "html"),
+    caption = "Evaluación de aspectos clave del simulador VonSim8",
+    col.names = c("Aspecto evaluado", "Promedio", "Interpretación"),
+    booktabs = TRUE,
+    escape = FALSE,
+    align = c("c", "l", "l")
+)
 
 # Convertir a HTML o LaTeX según el formato de salida
 if (knitr::is_latex_output()) {
-  tabla %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "5cm") %>%
-    column_spec(3, width = "6cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(evaluacion)),
-             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas
-
+    tabla %>%
+        kable_styling(
+            latex_options = c("scale_down", "hold_position"),
+            font_size = 10
+        ) %>%
+        column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2, width = "5cm") %>%
+        column_spec(3, width = "6cm") %>%
+        row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+        row_spec(seq_len(nrow(evaluacion)),
+            extra_latex_after = "\\addlinespace[10pt]"
+        ) # Espacio adicional entre filas
 } else {
-  tabla %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "20em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:3, width = "15em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+    tabla %>%
+        kable_styling(
+            bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+            full_width = FALSE,
+            position = "center"
+        ) %>%
+        column_spec(1, width = "20em", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2:3, width = "15em") %>%
+        row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
 
@@ -344,52 +346,54 @@ library(kableExtra)
 
 # Crear los datos de la tabla
 evaluacion_docentes <- data.frame(
-  `Aspecto evaluado` = c(
-    "Claridad de las explicaciones teóricas",
-    "Utilidad de los recursos visuales",
-    "Ejemplos prácticos (MOV, ADD, SUB, JMP)",
-    "Actividades propuestas"
-  ),
-  Promedio = c(4.20, 4.50, 4.30, 4.10),
-  Interpretación = c(
-    "Las explicaciones sobre el ciclo de instrucción fueron consideradas claras y completas.",
-    "Las tablas, esquemas e imágenes fueron altamente valoradas como apoyo al aprendizaje.",
-    "Los ejemplos facilitaron la conexión entre teoría y práctica.",
-    "Las actividades fueron percibidas como útiles para consolidar los conceptos clave."
-  )
+    `Aspecto evaluado` = c(
+        "Claridad de las explicaciones teóricas",
+        "Utilidad de los recursos visuales",
+        "Ejemplos prácticos (MOV, ADD, SUB, JMP)",
+        "Actividades propuestas"
+    ),
+    Promedio = c(4.20, 4.50, 4.30, 4.10),
+    Interpretación = c(
+        "Las explicaciones sobre el ciclo de instrucción fueron consideradas claras y completas.",
+        "Las tablas, esquemas e imágenes fueron altamente valoradas como apoyo al aprendizaje.",
+        "Los ejemplos facilitaron la conexión entre teoría y práctica.",
+        "Las actividades fueron percibidas como útiles para consolidar los conceptos clave."
+    )
 )
 
 # Crear la tabla con formato dinámico
 tabla <- kable(evaluacion_docentes,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Evaluación de aspectos clave por los docentes",
-               col.names = c("Aspecto evaluado", "Promedio", "Interpretación"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c", "c"))
+    format = ifelse(knitr::is_latex_output(), "latex", "html"),
+    caption = "Evaluación de aspectos clave por los docentes",
+    col.names = c("Aspecto evaluado", "Promedio", "Interpretación"),
+    booktabs = TRUE,
+    escape = FALSE,
+    align = c("c", "c", "c")
+)
 
 # Convertir a HTML o LaTeX según el formato de salida
 if (knitr::is_latex_output()) {
-  tabla %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:3, width = "5.5cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(evaluacion_docentes)),
-             extra_latex_after = "\\addlinespace[10pt]")
+    tabla %>%
+        kable_styling(
+            latex_options = c("scale_down", "hold_position"),
+            font_size = 10
+        ) %>%
+        column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2:3, width = "5.5cm") %>%
+        row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+        row_spec(seq_len(nrow(evaluacion_docentes)),
+            extra_latex_after = "\\addlinespace[10pt]"
+        )
 } else {
-  tabla %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:3, width = "32em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+    tabla %>%
+        kable_styling(
+            bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+            full_width = FALSE,
+            position = "center"
+        ) %>%
+        column_spec(1, width = "10em", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2:3, width = "32em") %>%
+        row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
 
@@ -405,53 +409,55 @@ library(kableExtra)
 
 # Crear la tabla de datos
 tabla <- data.frame(
-  "Aspecto evaluado" = c(
-    "Visualización de registros y memoria",
-    "Conexión entre teoría y práctica",
-    "Facilidad de uso e intuición",
-    "Representación gráfica del flujo de datos"
-  ),
-  "Promedio" = c(4.00, 4.40, 3.90, 4.10),
-  "Interpretación" = c(
-    "Buena valoración general, aunque se sugieren mejoras en la claridad de las animaciones.",
-    "El simulador fue considerado eficaz para vincular los conceptos teóricos con su aplicación práctica.",
-    "Aunque accesible, algunos docentes sugirieron optimizar la interfaz para estudiantes principiantes.",
-    "La representación gráfica fue valorada como clara y didáctica, aunque con margen de mejora en detalles técnicos."
-  )
+    "Aspecto evaluado" = c(
+        "Visualización de registros y memoria",
+        "Conexión entre teoría y práctica",
+        "Facilidad de uso e intuición",
+        "Representación gráfica del flujo de datos"
+    ),
+    "Promedio" = c(4.00, 4.40, 3.90, 4.10),
+    "Interpretación" = c(
+        "Buena valoración general, aunque se sugieren mejoras en la claridad de las animaciones.",
+        "El simulador fue considerado eficaz para vincular los conceptos teóricos con su aplicación práctica.",
+        "Aunque accesible, algunos docentes sugirieron optimizar la interfaz para estudiantes principiantes.",
+        "La representación gráfica fue valorada como clara y didáctica, aunque con margen de mejora en detalles técnicos."
+    )
 )
 
 # Crear la tabla con formato dinámico
 tabla_kable <- kable(tabla,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Evaluación del simulador educativo",
-               col.names = c("Aspecto evaluado", "Promedio", "Interpretación"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("l", "c", "l"))
+    format = ifelse(knitr::is_latex_output(), "latex", "html"),
+    caption = "Evaluación del simulador educativo",
+    col.names = c("Aspecto evaluado", "Promedio", "Interpretación"),
+    booktabs = TRUE,
+    escape = FALSE,
+    align = c("l", "c", "l")
+)
 
 if (knitr::is_latex_output()) {
-  tabla_kable %>%
-    kable_styling(
-      latex_options = c("scale_down", "hold_position"),
-      font_size = 10
-    ) %>%
-    column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "2cm") %>%
-    column_spec(3, width = "8cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
-    row_spec(seq_len(nrow(tabla)),
-             extra_latex_after = "\\addlinespace[10pt]")
+    tabla_kable %>%
+        kable_styling(
+            latex_options = c("scale_down", "hold_position"),
+            font_size = 10
+        ) %>%
+        column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2, width = "2cm") %>%
+        column_spec(3, width = "8cm") %>%
+        row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+        row_spec(seq_len(nrow(tabla)),
+            extra_latex_after = "\\addlinespace[10pt]"
+        )
 } else {
-  tabla_kable %>%
-    kable_styling(
-      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
-      full_width = FALSE,
-      position = "center"
-    ) %>%
-    column_spec(1, width = "20em", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "5em") %>%
-    column_spec(3, width = "30em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+    tabla_kable %>%
+        kable_styling(
+            bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+            full_width = FALSE,
+            position = "center"
+        ) %>%
+        column_spec(1, width = "20em", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2, width = "5em") %>%
+        column_spec(3, width = "30em") %>%
+        row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
 
@@ -491,14 +497,28 @@ Los resultados de las entrevistas permiten concluir que el simulador VonSim8 es 
 
 En síntesis, el simulador VonSim8 y el material didáctico asociado contribuyen de manera significativa al desarrollo de competencias conceptuales y procedimentales en el estudio de la arquitectura de computadoras, consolidándose como un recurso valioso para la enseñanza en este campo.
 
-
 ## Anexo D: Resultados de simulación xdevs {#anexoD}
-Este anexo documenta la implementación del modelo DEVS del simulador VonSim8 desarrollado con la biblioteca xdevs.py (Python), así como los resultados experimentales obtenidos durante la ejecución de la instrucción MOV AL, BL.
-El objetivo es proporcionar evidencia empírica que respalde la validación del modelo teórico presentado en el Capítulo 5, sección “Modelado con xDEVS del ciclo de instrucción MOV AL, BL”.
+Este anexo presenta la implementación del modelo DEVS del simulador VonSim8 construida con la biblioteca xdevs.py (Python) y resume los resultados de su ejecución para la instrucción MOV AL, BL. El objetivo es aportar evidencia empírica que respalde la validación del modelo teórico descrito en el Capítulo 5, sección “Modelado con xDEVS del ciclo de instrucción MOV AL, BL” \@ref(movalbl).
 
-El código fuente completo se encuentra disponible en el repositorio público:
-xdevs-vonsim8^[Repositorio: https://github.com/ruiz-jose/xdevs-vonsim8
-].
+### Supuestos de la simulación
+- Datos y registros de 8 bits (saturación/mascarado a 0xFF).
+- Memoria unificada con latencia de lectura fija $\tau_{mem}$ = 1 ciclo; no se modelan escrituras en este escenario.
+- Bus interno del banco de registros con propagación y estabilización total 2 ciclos en la transferencia fuente→bus→destino; arbitraje sin contención (acceso exclusivo).
+- Repertorio reducido: se implementa y ejecuta únicamente MOV AL, BL; no se actualizan banderas (flags) ni estado de la ALU.
+- Memoria precargada con opcode 0x01 en dirección 0x00; IP inicial en 0x00.
+- Valores iniciales: AL=0x01, BL=0x0A (CL=0x00, DL=0x00), MBR=IR=0x00.
+- Planificador DEVS xdevs.py con avance de tiempo discreto; resolución temporal en ciclos abstractos (no tiempo físico).
+- Métricas: CPI como suma de ciclos de FETCH y EXECUTE en la UC; “Eventos DEVS” como conteo de llamadas a $\delta_{ext}$/$\delta_{int}$ a través del coordinador instrumentado.
+
+### Configuración y procedimiento de ejecución
+- Entorno recomendado: Linux x86_64, Python $\geq$ 3.10, xdevs.py instalado vía pip.
+- Semilla/aleatoriedad: no aplica (modelo determinista).
+- Parámetros de corrida: número de iteraciones del coordinador fijado en `num_iters=30`, suficiente para completar la instrucción y emitir métricas.
+
+### Repositorio y trazabilidad
+El código fuente de la simulación está disponible en:
+xdevs-vonsim8^[Repositorio: https://github.com/ruiz-jose/xdevs-vonsim8; Commit (hash abreviado): a51b371; Fecha del commit: 2025-10-26].
+
 
 ```{python, eval=FALSE, tidy=TRUE, tidy.opts=list(width.cutoff=60)}
 from xdevs.models import Atomic, Coupled, Port
