@@ -330,7 +330,12 @@ div.csl-indent {
 <li class="chapter" data-level="6.3.1" data-path="anexoC.html"><a href="anexoC.html#encuesta-de-retroalimentación-estudiantes"><i class="fa fa-check"></i><b>6.3.1</b> Encuesta de retroalimentación estudiantes</a></li>
 <li class="chapter" data-level="6.3.2" data-path="anexoC.html"><a href="anexoC.html#entrevistas-a-docentes"><i class="fa fa-check"></i><b>6.3.2</b> Entrevistas a docentes</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="anexoD.html"><a href="anexoD.html"><i class="fa fa-check"></i><b>6.4</b> Anexo D: Resultados de simulación xdevs</a></li>
+<li class="chapter" data-level="6.4" data-path="anexoD.html"><a href="anexoD.html"><i class="fa fa-check"></i><b>6.4</b> Anexo D: Resultados de simulación xdevs</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="anexoD.html"><a href="anexoD.html#supuestos-de-la-simulación"><i class="fa fa-check"></i><b>6.4.1</b> Supuestos de la simulación</a></li>
+<li class="chapter" data-level="6.4.2" data-path="anexoD.html"><a href="anexoD.html#configuración-y-procedimiento-de-ejecución"><i class="fa fa-check"></i><b>6.4.2</b> Configuración y procedimiento de ejecución</a></li>
+<li class="chapter" data-level="6.4.3" data-path="anexoD.html"><a href="anexoD.html#repositorio-y-trazabilidad"><i class="fa fa-check"></i><b>6.4.3</b> Repositorio y trazabilidad</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="futuro.html"><a href="futuro.html"><i class="fa fa-check"></i><b>7</b> Trabajos futuros</a>
 <ul>
@@ -367,9 +372,31 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="anexoD" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> Anexo D: Resultados de simulación xdevs<a href="anexoD.html#anexoD" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Este anexo documenta la implementación del modelo DEVS del simulador VonSim8 desarrollado con la biblioteca xdevs.py (Python), así como los resultados experimentales obtenidos durante la ejecución de la instrucción MOV AL, BL.
-El objetivo es proporcionar evidencia empírica que respalde la validación del modelo teórico presentado en el Capítulo 5, sección “Modelado con xDEVS del ciclo de instrucción MOV AL, BL”.</p>
-<p>El código fuente completo se encuentra disponible en el repositorio público:
+<p>Este anexo presenta la implementación del modelo DEVS del simulador VonSim8 construida con la biblioteca xdevs.py (Python) y resume los resultados de su ejecución para la instrucción MOV AL, BL. El objetivo es aportar evidencia empírica que respalde la validación del modelo teórico descrito en el Capítulo 5, sección “Modelado con xDEVS del ciclo de instrucción MOV AL, BL” <a href="movalbl.html#movalbl">5.8</a>.</p>
+<div id="supuestos-de-la-simulación" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Supuestos de la simulación<a href="anexoD.html#supuestos-de-la-simulación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Datos y registros de 8 bits (saturación/mascarado a 0xFF).</li>
+<li>Memoria unificada con latencia de lectura fija <span class="math inline">\(\tau_{mem}\)</span> = 1 ciclo; no se modelan escrituras en este escenario.</li>
+<li>Bus interno del banco de registros con propagación y estabilización total 2 ciclos en la transferencia fuente→bus→destino; arbitraje sin contención (acceso exclusivo).</li>
+<li>Repertorio reducido: se implementa y ejecuta únicamente MOV AL, BL; no se actualizan banderas (flags) ni estado de la ALU.</li>
+<li>Memoria precargada con opcode 0x01 en dirección 0x00; IP inicial en 0x00.</li>
+<li>Valores iniciales: AL=0x01, BL=0x0A (CL=0x00, DL=0x00), MBR=IR=0x00.</li>
+<li>Planificador DEVS xdevs.py con avance de tiempo discreto; resolución temporal en ciclos abstractos (no tiempo físico).</li>
+<li>Métricas: CPI como suma de ciclos de FETCH y EXECUTE en la UC; “Eventos DEVS” como conteo de llamadas a <span class="math inline">\(\delta_{ext}\)</span>/<span class="math inline">\(\delta_{int}\)</span> a través del coordinador instrumentado.</li>
+</ul>
+</div>
+<div id="configuración-y-procedimiento-de-ejecución" class="section level3 hasAnchor" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Configuración y procedimiento de ejecución<a href="anexoD.html#configuración-y-procedimiento-de-ejecución" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Entorno recomendado: Linux x86_64, Python <span class="math inline">\(\geq\)</span> 3.10, xdevs.py instalado vía pip.</li>
+<li>Semilla/aleatoriedad: no aplica (modelo determinista).</li>
+<li>Parámetros de corrida: número de iteraciones del coordinador fijado en <code>num_iters=30</code>, suficiente para completar la instrucción y emitir métricas.</li>
+</ul>
+</div>
+<div id="repositorio-y-trazabilidad" class="section level3 hasAnchor" number="6.4.3">
+<h3><span class="header-section-number">6.4.3</span> Repositorio y trazabilidad<a href="anexoD.html#repositorio-y-trazabilidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>El código fuente de la simulación está disponible en:
 xdevs-vonsim8<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb26-1"><a href="anexoD.html#cb26-1" tabindex="-1"></a><span class="im">from</span> xdevs.models <span class="im">import</span> Atomic, Coupled, Port</span>
 <span id="cb26-2"><a href="anexoD.html#cb26-2" tabindex="-1"></a><span class="im">from</span> xdevs.sim <span class="im">import</span> Coordinator</span>
@@ -1340,11 +1367,12 @@ Formalismo: DEVS (Discrete Event System Specification)</td>
 <p>El resultado de la simulación confirma que el modelo DEVS implementado en xdevs.py reproduce correctamente el ciclo de instrucción MOV AL, BL, validando así el enfoque teórico presentado en el Capítulo 5. Los registros involucrados (IP, AL, BL) muestran los valores esperados antes y después de la ejecución, y las métricas de rendimiento (CPI, tiempo real, eventos) proporcionan información adicional sobre la eficiencia del modelo.</p>
 
 </div>
+</div>
 <!-- </div> -->
 <div class="footnotes">
 <hr />
 <ol start="4">
-<li id="fn4"><p>Repositorio: <a href="https://github.com/ruiz-jose/xdevs-vonsim8" class="uri">https://github.com/ruiz-jose/xdevs-vonsim8</a><a href="anexoD.html#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Repositorio: <a href="https://github.com/ruiz-jose/xdevs-vonsim8" class="uri">https://github.com/ruiz-jose/xdevs-vonsim8</a>; Commit (hash abreviado): a51b371; Fecha del commit: 2025-10-26<a href="anexoD.html#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

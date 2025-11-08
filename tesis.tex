@@ -376,7 +376,7 @@ A mi familia, en especial a mi madre y a mis hermanos, por creer siempre en mí.
 
 A mi colega y amiga, Amalia Delduca, por su acompañamiento, el intercambio de ideas y el apoyo durante todo el desarrollo del proyecto.
 
-A mi codirector, José Luis Martín, por su colaboración, dedicación y aportes que enriquecieron este trabajo en cada etapa.
+A mi codirector, José Luis Risco Martín, por su colaboración, dedicación y aportes que enriquecieron este trabajo.
 
 A mis amistades, por escucharme, acompañarme y brindarme su apoyo incondicional durante el desarrollo de esta tesis.
 
@@ -5319,11 +5319,49 @@ En síntesis, el simulador VonSim8 y el material didáctico asociado contribuyen
 \hypertarget{anexoD}{%
 \section{Anexo D: Resultados de simulación xdevs}\label{anexoD}}
 
-Este anexo documenta la implementación del modelo DEVS del simulador VonSim8 desarrollado con la biblioteca xdevs.py (Python), así como los resultados experimentales obtenidos durante la ejecución de la instrucción MOV AL, BL.
-El objetivo es proporcionar evidencia empírica que respalde la validación del modelo teórico presentado en el Capítulo 5, sección ``Modelado con xDEVS del ciclo de instrucción MOV AL, BL''.
+Este anexo presenta la implementación del modelo DEVS del simulador VonSim8 construida con la biblioteca xdevs.py (Python) y resume los resultados de su ejecución para la instrucción MOV AL, BL. El objetivo es aportar evidencia empírica que respalde la validación del modelo teórico descrito en el Capítulo 5, sección ``Modelado con xDEVS del ciclo de instrucción MOV AL, BL'' \ref{movalbl}.
 
-El código fuente completo se encuentra disponible en el repositorio público:
-xdevs-vonsim8\footnote{Repositorio: \url{https://github.com/ruiz-jose/xdevs-vonsim8}}.
+\hypertarget{supuestos-de-la-simulaciuxf3n}{%
+\subsection{Supuestos de la simulación}\label{supuestos-de-la-simulaciuxf3n}}
+
+\begin{itemize}
+\tightlist
+\item
+  Datos y registros de 8 bits (saturación/mascarado a 0xFF).
+\item
+  Memoria unificada con latencia de lectura fija \(\tau_{mem}\) = 1 ciclo; no se modelan escrituras en este escenario.
+\item
+  Bus interno del banco de registros con propagación y estabilización total 2 ciclos en la transferencia fuente→bus→destino; arbitraje sin contención (acceso exclusivo).
+\item
+  Repertorio reducido: se implementa y ejecuta únicamente MOV AL, BL; no se actualizan banderas (flags) ni estado de la ALU.
+\item
+  Memoria precargada con opcode 0x01 en dirección 0x00; IP inicial en 0x00.
+\item
+  Valores iniciales: AL=0x01, BL=0x0A (CL=0x00, DL=0x00), MBR=IR=0x00.
+\item
+  Planificador DEVS xdevs.py con avance de tiempo discreto; resolución temporal en ciclos abstractos (no tiempo físico).
+\item
+  Métricas: CPI como suma de ciclos de FETCH y EXECUTE en la UC; ``Eventos DEVS'' como conteo de llamadas a \(\delta_{ext}\)/\(\delta_{int}\) a través del coordinador instrumentado.
+\end{itemize}
+
+\hypertarget{configuraciuxf3n-y-procedimiento-de-ejecuciuxf3n}{%
+\subsection{Configuración y procedimiento de ejecución}\label{configuraciuxf3n-y-procedimiento-de-ejecuciuxf3n}}
+
+\begin{itemize}
+\tightlist
+\item
+  Entorno recomendado: Linux x86\_64, Python \(\geq\) 3.10, xdevs.py instalado vía pip.
+\item
+  Semilla/aleatoriedad: no aplica (modelo determinista).
+\item
+  Parámetros de corrida: número de iteraciones del coordinador fijado en \texttt{num\_iters=30}, suficiente para completar la instrucción y emitir métricas.
+\end{itemize}
+
+\hypertarget{repositorio-y-trazabilidad}{%
+\subsection{Repositorio y trazabilidad}\label{repositorio-y-trazabilidad}}
+
+El código fuente de la simulación está disponible en:
+xdevs-vonsim8\footnote{Repositorio: \url{https://github.com/ruiz-jose/xdevs-vonsim8}; Commit (hash abreviado): a51b371; Fecha del commit: 2025-10-26}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
