@@ -2154,31 +2154,110 @@ La ALU (\emph{Arithmetic Logic Unit}) realiza operaciones aritméticas y lógica
 
 El registro de banderas \texttt{Flags} almacena las banderas de estado que reflejan el resultado de operaciones aritméticas y lógicas. Por ejemplo, después de una operación de suma, la bandera \texttt{Z} (Zero) se activa si el resultado es cero, lo que permite al procesador tomar decisiones condicionales basadas en este estado.
 
+El registro \texttt{Flags} almacena banderas de estado resultantes de operaciones aritméticas, lógicas, de control y de gestión del flujo. Estas banderas permiten a la Unidad de Control modificar el flujo mediante saltos condicionales o habilitar/deshabilitar servicios (interrupciones). La Tabla \ref{tab:flags} resume las banderas activas en esta versión.
+
 \begin{table}[!h]
 \centering
-\caption{\label{tab:tflags}Registro Flags: descripción de las banderas}
+\caption{\label{tab:flags}Registro Flags: descripción de las banderas}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{7cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{2cm}>{\raggedright\arraybackslash}p{10cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bit N°}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Abreviatura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{1.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bit N°}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Abreviatura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{10cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
 \midrule
-\textbf{0} & Z & Flag de cero (Zero)\\
-\addlinespace[10pt]
-\textbf{1} & C & Flag de acarreo (Carry)\\
-\addlinespace[10pt]
-\textbf{2} & O & Flag de desbordamiento (Overflow)\\
-\addlinespace[10pt]
-\textbf{3} & S & Flag de signo (Sign)\\
-\addlinespace[10pt]
-\textbf{4} & I & Flag de interrupción (Interrupt)\\
-\addlinespace[10pt]
+\textbf{0} & Z & Zero: 1 si el resultado = 0x00\\
+\textbf{1} & C & Carry: acarreo (suma) o préstamo (resta)\\
+\textbf{2} & O & Overflow: desbordamiento aritmético con signo\\
+\textbf{3} & S & Sign: copia del bit 7 del resultado\\
+\textbf{4} & I & Interrupt Enable: 1 habilita atención de interrupciones hardware\\
 \bottomrule
 \end{tabular}}
 \end{table}
 
-Los bits restantes del registro Flags se encuentran reservados para posibles extensiones del simulador y no están en uso en la versión actual.
+Los bits restantes del registro se reservan para extensiones futuras (no implementados en esta versión).
+
+\hypertarget{poluxedtica-de-actualizaciuxf3n-de-banderas}{%
+\subsubsection{Política de actualización de banderas}\label{poluxedtica-de-actualizaciuxf3n-de-banderas}}
+
+Convenciones operativas:
+
+\begin{itemize}
+\item
+  Z: 1 si el resultado = 0x00; 0 en caso contrario.
+\item
+  C:
+
+  \begin{itemize}
+  \item
+    ADD: 1 si hay acarreo desde el bit 7 (suma sin signo).
+  \item
+    SUB y CMP: 1 si destino \textless{} fuente (borrow); 0 en caso contrario.
+  \end{itemize}
+\item
+  O:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ADD/SUB/CMP: se actualiza según regla de overflow con signo.
+  \end{itemize}
+\item
+  S:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    ADD/SUB/CMP: se actualiza según el signo del resultado (bit 7).
+  \end{itemize}
+\item
+  I:
+
+  \begin{itemize}
+  \item
+    CLI/STI: CLI pone I=0; STI pone I=1.
+  \item
+    INT: apila Flags y fuerza I=0.
+  \item
+    IRET: restaura el registro Flags (todas las banderas).
+  \end{itemize}
+\end{itemize}
+
+La Tabla \ref{tab:politicasflags} detalla la política de actualización de banderas según la clase de instrucción ejecutada:
+
+\begin{table}[!h]
+\centering
+\caption{\label{tab:politicasflags}Política de actualización de banderas por clase de instrucción}
+\centering
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{10}{12}\selectfont
+\begin{threeparttable}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{5cm}|>{\centering\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.8cm}}
+\toprule
+\multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Clase}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Z}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{S}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{C}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{O}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{I}}}\\
+\midrule
+\textbf{MOV} & -- & -- & -- & -- & Preserva\\
+\textbf{ADD} & Sí & Sí & Sí (acarreo) & Sí & Preserva\\
+\textbf{SUB} & Sí & Sí & Sí (borrow) & Sí & Preserva\\
+\textbf{CMP} & Sí & Sí & Sí (borrow) & Sí & Preserva\\
+\textbf{JMP/Jxx} & -- & -- & -- & -- & Preserva\\
+\addlinespace
+\textbf{IN/OUT} & -- & -- & -- & -- & Preserva\\
+\textbf{PUSH/POP} & Preserva & Preserva & Preserva & Preserva & Preserva\\
+\textbf{CALL/RET} & Preserva & Preserva & Preserva & Preserva & Preserva\\
+\textbf{IRET} & Restaura & Restaura & Restaura & Restaura & Restaura\\
+\textbf{CLI/STI} & -- & -- & Preserva & -- & I=0/I=1\\
+\addlinespace
+\textbf{INT} & Preserva & Preserva & Preserva & Preserva & I=0\\
+\textbf{HLT} & -- & -- & -- & -- & Preserva\\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota: } 
+\item El símbolo -- indica que la instrucción no modifica la bandera.
+\end{tablenotes}
+\end{threeparttable}}
+\end{table}
 
 \hypertarget{memoria-principal}{%
 \subsection{Memoria principal}\label{memoria-principal}}

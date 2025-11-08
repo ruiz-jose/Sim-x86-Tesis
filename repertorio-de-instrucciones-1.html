@@ -373,12 +373,12 @@ div.csl-indent {
 <div id="repertorio-de-instrucciones-1" class="section level2 hasAnchor" number="5.6">
 <h2><span class="header-section-number">5.6</span> Repertorio de instrucciones<a href="repertorio-de-instrucciones-1.html#repertorio-de-instrucciones-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, lo que facilita que los estudiantes se familiaricen con las operaciones básicas, evitando la complejidad del repertorio completo de instrucciones x86.</p>
-<p>El repertorio de instrucciones del simulador fue concebido como una abstracción pedagógica basada en la arquitectura x86, orientada a optimizar los procesos de enseñanza y aprendizaje en el ámbito educativo. En las primeras etapas del curso, se seleccionan únicamente las instrucciones esenciales, lo que permite introducir de forma gradual y accesible los contenidos fundamentales de la asignatura Arquitectura de Computadoras. Este enfoque progresivo facilita la comprensión de los conceptos clave, evitando la complejidad innecesaria que podría dificultar el aprendizaje inicial <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>. La Tabla <a href="repertorio-de-instrucciones-1.html#tab:setreducido">5.6</a> presenta un conjunto reducido de instrucciones que abarca las operaciones más relevantes para una etapa introductoria, centradas en la transferencia y procesamiento de datos, así como en el control de flujo. Esta selección estratégica garantiza la accesibilidad de los conceptos básicos de la arquitectura x86 y se ajusta a los objetivos pedagógicos del curso.</p>
+<p>El repertorio de instrucciones del simulador fue concebido como una abstracción pedagógica basada en la arquitectura x86, orientada a optimizar los procesos de enseñanza y aprendizaje en el ámbito educativo. En las primeras etapas del curso, se seleccionan únicamente las instrucciones esenciales, lo que permite introducir de forma gradual y accesible los contenidos fundamentales de la asignatura Arquitectura de Computadoras. Este enfoque progresivo facilita la comprensión de los conceptos clave, evitando la complejidad innecesaria que podría dificultar el aprendizaje inicial <span class="citation">(<a href="#ref-hennessy2017computer">John L. Hennessy and Patterson 2017a</a>; <a href="#ref-tanenbaum_structured_2016">Tanenbaum 2016</a>)</span>. La Tabla <a href="repertorio-de-instrucciones-1.html#tab:setreducido">5.7</a> presenta un conjunto reducido de instrucciones que abarca las operaciones más relevantes para una etapa introductoria, centradas en la transferencia y procesamiento de datos, así como en el control de flujo. Esta selección estratégica garantiza la accesibilidad de los conceptos básicos de la arquitectura x86 y se ajusta a los objetivos pedagógicos del curso.</p>
 <p>Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.</p>
 <p>Con el objetivo de favorecer el aprendizaje de la programación en ensamblador y la comprensión del ciclo de instrucción, se presenta a continuación un repertorio de instrucciones alineado con el programa de estudio de la asignatura Arquitectura de Computadoras <span class="citation">(<a href="#ref-cd023_25_programa2025">Facultad de Ciencias de la Administración, UNER 2025</a>)</span>.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:setreducido">Tabla 5.6: </span>Tabla de instrucciones de VonSim8
+<span id="tab:setreducido">Tabla 5.7: </span>Tabla de instrucciones de VonSim8
 </caption>
 <thead>
 <tr>
@@ -472,7 +472,7 @@ Detiene CPU
 <p>El parámetro <code>xx</code> en las instrucciones <code>Jxx</code> hace referencia a diferentes combinaciones de banderas de estado (flags), tales como cero (Z), acarreo (C), signo (S) y desbordamiento (O). La negación de un flag se indica con la letra N, lo que amplía la flexibilidad de control del flujo de ejecución en programas condicionales.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:saltoscondicionales">Tabla 5.7: </span>Saltos condicionales: instrucciones y condiciones
+<span id="tab:saltoscondicionales">Tabla 5.8: </span>Saltos condicionales: instrucciones y condiciones
 </caption>
 <thead>
 <tr>
@@ -661,10 +661,10 @@ FinBucle: hlt```</p>
 <li><strong>Indirecto (<code>[BL]</code>)</strong>: la dirección del operando se encuentra almacenada en el registro <code>[BL]</code>.</li>
 <li><strong>Inmediato (<code>d</code>)</strong>: uno de los operandos es un valor inmediato incluido en la propia instrucción.</li>
 </ul>
-<p>La Tabla <a href="repertorio-de-instrucciones-1.html#tab:modosdireccionamiento">5.8</a> resume los modos de direccionamiento disponibles en el simulador para instrucciones de dos operandos e incluye ejemplos ilustrativos de su uso.</p>
+<p>La Tabla <a href="repertorio-de-instrucciones-1.html#tab:modosdireccionamiento">5.9</a> resume los modos de direccionamiento disponibles en el simulador para instrucciones de dos operandos e incluye ejemplos ilustrativos de su uso.</p>
 <table class="table table-striped table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:modosdireccionamiento">Tabla 5.8: </span>Tabla de modos de direccionamiento
+<span id="tab:modosdireccionamiento">Tabla 5.9: </span>Tabla de modos de direccionamiento
 </caption>
 <thead>
 <tr>
@@ -816,7 +816,7 @@ hlt</code></pre>
 <p>Las instrucciones del simulador VonSim8 se agrupan en dos categorías principales: instrucciones de transferencia y procesamiento de datos, e instrucciones de control de flujo.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:tisaredu">Tabla 5.9: </span>Categoría de instrucciones y códigos de operación en VonSim8
+<span id="tab:tisaredu">Tabla 5.10: </span>Categoría de instrucciones y códigos de operación en VonSim8
 </caption>
 <thead>
 <tr>
@@ -939,10 +939,10 @@ HLT: detiene el CPU
 </tr>
 </tbody>
 </table>
-<p>Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla <a href="repertorio-de-instrucciones-1.html#tab:instcodif">5.10</a> presenta una lista de las instrucciones implementadas en el simulador, junto con su codificación binaria.</p>
+<p>Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla <a href="repertorio-de-instrucciones-1.html#tab:instcodif">5.11</a> presenta una lista de las instrucciones implementadas en el simulador, junto con su codificación binaria.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:instcodif">Tabla 5.10: </span>Tabla de codificación de instrucciones
+<span id="tab:instcodif">Tabla 5.11: </span>Tabla de codificación de instrucciones
 </caption>
 <thead>
 <tr>
@@ -1255,10 +1255,10 @@ D
 </tr>
 </tfoot>
 </table>
-<p>La tabla <a href="repertorio-de-instrucciones-1.html#tab:tablaregistros">5.11</a> presenta los códigos binarios y decimales correspondientes a los registros de propósito general AL, BL, CL y DL, los cuales pueden ser utilizados como Rx y Ry en las instrucciones del simulador.</p>
+<p>La tabla <a href="repertorio-de-instrucciones-1.html#tab:tablaregistros">5.12</a> presenta los códigos binarios y decimales correspondientes a los registros de propósito general AL, BL, CL y DL, los cuales pueden ser utilizados como Rx y Ry en las instrucciones del simulador.</p>
 <table class="table table-striped table" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
 <caption>
-<span id="tab:tablaregistros">Tabla 5.11: </span>Tabla de registros del simulador
+<span id="tab:tablaregistros">Tabla 5.12: </span>Tabla de registros del simulador
 </caption>
 <thead>
 <tr>

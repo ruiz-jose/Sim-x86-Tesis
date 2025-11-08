@@ -518,9 +518,10 @@ Señal de reconocimiento de interrupción (<code>INTA</code>, 1 bit).
 <div id="registro-de-banderas-flags" class="section level4 hasAnchor" number="5.4.2.1">
 <h4><span class="header-section-number">5.4.2.1</span> Registro de Banderas (Flags)<a href="estructura-y-componentes-de-vonsim8.html#registro-de-banderas-flags" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>El registro de banderas <code>Flags</code> almacena las banderas de estado que reflejan el resultado de operaciones aritméticas y lógicas. Por ejemplo, después de una operación de suma, la bandera <code>Z</code> (Zero) se activa si el resultado es cero, lo que permite al procesador tomar decisiones condicionales basadas en este estado.</p>
+<p>El registro <code>Flags</code> almacena banderas de estado resultantes de operaciones aritméticas, lógicas, de control y de gestión del flujo. Estas banderas permiten a la Unidad de Control modificar el flujo mediante saltos condicionales o habilitar/deshabilitar servicios (interrupciones). La Tabla <a href="estructura-y-componentes-de-vonsim8.html#tab:flags">5.4</a> resume las banderas activas en esta versión.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:tflags">Tabla 5.4: </span>Registro Flags: descripción de las banderas
+<span id="tab:flags">Tabla 5.4: </span>Registro Flags: descripción de las banderas
 </caption>
 <thead>
 <tr>
@@ -540,60 +541,368 @@ Descripción
 <td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 0
 </td>
-<td style="text-align:center;width: 10em; ">
+<td style="text-align:center;width: 6em; ">
 Z
 </td>
-<td style="text-align:left;width: 22em; ">
-Flag de cero (Zero)
+<td style="text-align:left;width: 24em; ">
+Zero: 1 si el resultado = 0x00
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 1
 </td>
-<td style="text-align:center;width: 10em; ">
+<td style="text-align:center;width: 6em; ">
 C
 </td>
-<td style="text-align:left;width: 22em; ">
-Flag de acarreo (Carry)
+<td style="text-align:left;width: 24em; ">
+Carry: acarreo (suma) o préstamo (resta)
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 2
 </td>
-<td style="text-align:center;width: 10em; ">
+<td style="text-align:center;width: 6em; ">
 O
 </td>
-<td style="text-align:left;width: 22em; ">
-Flag de desbordamiento (Overflow)
+<td style="text-align:left;width: 24em; ">
+Overflow: desbordamiento aritmético con signo
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 3
 </td>
-<td style="text-align:center;width: 10em; ">
+<td style="text-align:center;width: 6em; ">
 S
 </td>
-<td style="text-align:left;width: 22em; ">
-Flag de signo (Sign)
+<td style="text-align:left;width: 24em; ">
+Sign: copia del bit 7 del resultado
 </td>
 </tr>
 <tr>
 <td style="text-align:center;width: 6em; font-weight: bold;border-right:1px solid;">
 4
 </td>
-<td style="text-align:center;width: 10em; ">
+<td style="text-align:center;width: 6em; ">
 I
 </td>
-<td style="text-align:left;width: 22em; ">
-Flag de interrupción (Interrupt)
+<td style="text-align:left;width: 24em; ">
+Interrupt Enable: 1 habilita atención de interrupciones hardware
 </td>
 </tr>
 </tbody>
 </table>
-<p>Los bits restantes del registro Flags se encuentran reservados para posibles extensiones del simulador y no están en uso en la versión actual.</p>
+<p>Los bits restantes del registro se reservan para extensiones futuras (no implementados en esta versión).</p>
+</div>
+<div id="política-de-actualización-de-banderas" class="section level4 hasAnchor" number="5.4.2.2">
+<h4><span class="header-section-number">5.4.2.2</span> Política de actualización de banderas<a href="estructura-y-componentes-de-vonsim8.html#política-de-actualización-de-banderas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Convenciones operativas:</p>
+<ul>
+<li><p>Z: 1 si el resultado = 0x00; 0 en caso contrario.</p></li>
+<li><p>C:</p>
+<ul>
+<li><p>ADD: 1 si hay acarreo desde el bit 7 (suma sin signo).</p></li>
+<li><p>SUB y CMP: 1 si destino &lt; fuente (borrow); 0 en caso contrario.</p></li>
+</ul></li>
+<li><p>O:</p>
+<ul>
+<li>ADD/SUB/CMP: se actualiza según regla de overflow con signo.</li>
+</ul></li>
+<li><p>S:</p>
+<ul>
+<li>ADD/SUB/CMP: se actualiza según el signo del resultado (bit 7).</li>
+</ul></li>
+<li><p>I:</p>
+<ul>
+<li><p>CLI/STI: CLI pone I=0; STI pone I=1.</p></li>
+<li><p>INT: apila Flags y fuerza I=0.</p></li>
+<li><p>IRET: restaura el registro Flags (todas las banderas).</p></li>
+</ul></li>
+</ul>
+<p>La Tabla <a href="estructura-y-componentes-de-vonsim8.html#tab:politicasflags">5.5</a> detalla la política de actualización de banderas según la clase de instrucción ejecutada:</p>
+<table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;border-bottom: 0;">
+<caption>
+<span id="tab:politicasflags">Tabla 5.5: </span>Política de actualización de banderas por clase de instrucción
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Clase
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+Z
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+S
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+C
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+O
+</th>
+<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+I
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+MOV
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+ADD
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí (acarreo)
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+SUB
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí (borrow)
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+CMP
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí (borrow)
+</td>
+<td style="text-align:center;width: 9em; ">
+Sí
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+JMP/Jxx
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+IN/OUT
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+PUSH/POP
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+CALL/RET
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+IRET
+</td>
+<td style="text-align:center;width: 9em; ">
+Restaura
+</td>
+<td style="text-align:center;width: 9em; ">
+Restaura
+</td>
+<td style="text-align:center;width: 9em; ">
+Restaura
+</td>
+<td style="text-align:center;width: 9em; ">
+Restaura
+</td>
+<td style="text-align:center;width: 9em; ">
+Restaura
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+CLI/STI
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+I=0/I=1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+INT
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+<td style="text-align:center;width: 9em; ">
+I=0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
+HLT
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+–
+</td>
+<td style="text-align:center;width: 9em; ">
+Preserva
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-style: italic;">Nota: </span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> El símbolo – indica que la instrucción no modifica la bandera.
+</td>
+</tr>
+</tfoot>
+</table>
 </div>
 </div>
 <div id="memoria-principal" class="section level3 hasAnchor" number="5.4.3">
