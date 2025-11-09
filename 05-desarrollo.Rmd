@@ -619,7 +619,11 @@ Se ha mejorado el diseño de la unidad de control incorporando, dentro del decod
 knitr::include_graphics(path = "images/decodificador.png")
 ```
 
-Con el fin de facilitar el aprendizaje del simulador VonSim8 se implementó un tour de aprendizaje que guía a los usuarios a través de las características y funcionalidades del simulador. También se incluye un centro de aprendizaje con explicación de ejemplos básicos.
+VonSim8 incorpora un tour guiado e interactivo que introduce didácticamente el entorno de trabajo. Este recorrido orienta al usuario en la identificación de los componentes principales —panel de registros, memoria, repertorio de instrucciones y consola de ejecución—, explicando su función y su articulación dentro del ciclo de ejecución de un programa. De este modo, el estudiante se familiariza progresivamente con la interfaz y con la representación estructural y funcional de los procesos internos del sistema.
+
+Complementariamente, la herramienta incluye una guía de aprendizaje progresiva con ejercicios y ejemplos de código ensamblador que ponen en marcha el simulador. Cada ejemplo permite observar, instrucción por instrucción, los efectos sobre registros y memoria, favoreciendo un aprendizaje exploratorio basado en la observación y la experimentación, e integrando teoría y práctica.
+
+Ambos recursos reducen la curva de aprendizaje y promueven la autonomía del usuario. Su diseño responde a enfoques constructivistas, en los que la interacción activa con el entorno es clave para la comprensión conceptual. Así, VonSim8 trasciende el rol de simulador técnico para operar como un entorno de aprendizaje guiado que integra explicaciones visuales, retroalimentación inmediata y ejemplos aplicados, reforzando la comprensión de la arquitectura de Von Neumann y de la ejecución de instrucciones a nivel de hardware.
 
 ```{r tour, echo=FALSE, fig.cap="Tour de aprendizaje en VonSim8", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/tour.png")
@@ -1802,7 +1806,7 @@ microoperaciones_fetch <- data.frame(
 tabla_fetch <- kable(
   microoperaciones_fetch,
   format = ifelse(knitr::is_latex_output(), "latex", "html"),
-  caption = "Secuencia de microoperaciones y eventos DEVS para la Fase de Captación (Fetch)",
+  caption = "Secuencia de microoperaciones y eventos DEVS fase captación",
   col.names = c("Paso", "Microoperación", "Descripción", "Funciones DEVS"),
   booktabs = TRUE,
   escape = FALSE
@@ -1869,7 +1873,7 @@ microoperaciones_eje <- data.frame(
 tabla_microop <- kable(
   microoperaciones_eje,
   format = ifelse(knitr::is_latex_output(), "latex", "html"),
-  caption = "Secuencia de microoperaciones y eventos DEVS para la Fase de Ejecución (MOV AL, BL)",
+  caption = "Secuencia de microoperaciones y eventos DEVS fase ejecución",
   col.names = c("Paso", "Microoperación", "Descripción", "Funciones DEVS"),
   booktabs = TRUE,
   escape = FALSE
