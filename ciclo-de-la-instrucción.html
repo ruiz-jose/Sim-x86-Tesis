@@ -276,6 +276,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#etapa-1-captación"><i class="fa fa-check"></i><b>5.7.1</b> Etapa 1: Captación</a></li>
 <li class="chapter" data-level="5.7.2" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#etapa-2-ejecución"><i class="fa fa-check"></i><b>5.7.2</b> Etapa 2: Ejecución</a></li>
+<li class="chapter" data-level="5.7.3" data-path="ciclo-de-la-instrucción.html"><a href="ciclo-de-la-instrucción.html#estadísticas-de-cpu-cpi-y-tiempo-de-cpu-en-vonsim8"><i class="fa fa-check"></i><b>5.7.3</b> Estadísticas de CPU (CPI y tiempo de CPU) en VonSim8</a></li>
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="movalbl.html"><a href="movalbl.html"><i class="fa fa-check"></i><b>5.8</b> Modelado con xDEVS del ciclo de instrucción MOV AL, BL</a>
 <ul>
@@ -331,9 +332,10 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6.4" data-path="anexoD.html"><a href="anexoD.html"><i class="fa fa-check"></i><b>6.4</b> Anexo D: Resultados de simulación xdevs</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="anexoD.html"><a href="anexoD.html#supuestos-de-la-simulación"><i class="fa fa-check"></i><b>6.4.1</b> Supuestos de la simulación</a></li>
-<li class="chapter" data-level="6.4.2" data-path="anexoD.html"><a href="anexoD.html#configuración-y-procedimiento-de-ejecución"><i class="fa fa-check"></i><b>6.4.2</b> Configuración y procedimiento de ejecución</a></li>
-<li class="chapter" data-level="6.4.3" data-path="anexoD.html"><a href="anexoD.html#repositorio-y-trazabilidad"><i class="fa fa-check"></i><b>6.4.3</b> Repositorio y trazabilidad</a></li>
+<li class="chapter" data-level="6.4.1" data-path="anexoD.html"><a href="anexoD.html#interpretación-de-métricas"><i class="fa fa-check"></i><b>6.4.1</b> Interpretación de métricas</a></li>
+<li class="chapter" data-level="6.4.2" data-path="anexoD.html"><a href="anexoD.html#supuestos-de-la-simulación"><i class="fa fa-check"></i><b>6.4.2</b> Supuestos de la simulación</a></li>
+<li class="chapter" data-level="6.4.3" data-path="anexoD.html"><a href="anexoD.html#configuración-y-procedimiento-de-ejecución"><i class="fa fa-check"></i><b>6.4.3</b> Configuración y procedimiento de ejecución</a></li>
+<li class="chapter" data-level="6.4.4" data-path="anexoD.html"><a href="anexoD.html#repositorio-y-trazabilidad"><i class="fa fa-check"></i><b>6.4.4</b> Repositorio y trazabilidad</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="futuro.html"><a href="futuro.html"><i class="fa fa-check"></i><b>7</b> Trabajos futuros</a>
@@ -566,6 +568,34 @@ Según la instrucción:
 </ol></li>
 </ul>
 </div>
+</div>
+<div id="estadísticas-de-cpu-cpi-y-tiempo-de-cpu-en-vonsim8" class="section level3 hasAnchor" number="5.7.3">
+<h3><span class="header-section-number">5.7.3</span> Estadísticas de CPU (CPI y tiempo de CPU) en VonSim8<a href="ciclo-de-la-instrucción.html#estadísticas-de-cpu-cpi-y-tiempo-de-cpu-en-vonsim8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>VonSim8 utiliza un modelo temporal didáctico donde cada “paso” del ciclo se contabiliza como un ciclo de CPU. En consecuencia:</p>
+<ul>
+<li>Cada paso equivale a 1 ciclo.</li>
+<li>La etapa de captación aporta <span class="math inline">\(n_{fetch}=3\)</span> ciclos (pasos 1–3).</li>
+<li>La etapa de ejecución aporta <span class="math inline">\(n_{execute}\)</span> ciclos según el modo de direccionamiento y la instrucción (pasos 4, 5, …).</li>
+</ul>
+<p>Definiciones y fórmulas:</p>
+<ul>
+<li>CPI por instrucción: <span class="math display">\[CPI_{instr} = n_{fetch} + n_{execute}\]</span></li>
+<li>Tiempo por instrucción (con frecuencia configurada <span class="math inline">\(f_{CPU}\)</span> en Hz):
+<span class="math display">\[t_{instr} = \frac{CPI_{instr}}{f_{CPU}}\]</span></li>
+<li>Para un programa de <span class="math inline">\(N\)</span> instrucciones ejecutadas:
+<span class="math display">\[CPI_{prog} = \frac{\sum_{k=1}^{N} CPI_k}{N} \quad;\quad t_{CPU} = \frac{\sum_{k=1}^{N} CPI_k}{f_{CPU}}\]</span></li>
+</ul>
+<p>Ejemplos (contabilizando pasos tal como se listan en esta sección):</p>
+<ul>
+<li><p>MOV rx, ry (entre registros): <span class="math inline">\(n_{fetch}=3\)</span>, <span class="math inline">\(n_{execute}=1\)</span> <span class="math inline">\(\implies\)</span> <span class="math inline">\(CPI=4\)</span> y <span class="math inline">\(t_{instr}=4/f_{CPU}\)</span>.</p></li>
+<li><p>MOV Rx, [Dirección] (registro ← memoria directa): pasos 4–8 <span class="math inline">\(\implies\)</span> <span class="math inline">\(n_{execute}=5\)</span> <span class="math inline">\(\implies\)</span> <span class="math inline">\(CPI=3+5=8\)</span>, <span class="math inline">\(t_{instr}=8/f_{CPU}\)</span>.</p></li>
+<li><p>JMP Dirección: pasos 4–6 <span class="math inline">\(\implies\)</span> <span class="math inline">\(n_{execute}=3\)</span> <span class="math inline">\(\implies\)</span> <span class="math inline">\(CPI=3+3=6\)</span>, <span class="math inline">\(t_{instr}=6/f_{CPU}\)</span>. En saltos condicionales Jxx solo se cuentan los pasos realmente ejecutados (si no se toma el salto, no se ejecuta la carga de IP).</p></li>
+</ul>
+<p>Notas:</p>
+<ul>
+<li><p>La frecuencia <span class="math inline">\(f_{CPU}\)</span> es configurable (1–10 Hz), por lo que el tiempo por ciclo es <span class="math inline">\(T=1/f_{CPU}\)</span>.</p></li>
+<li><p>Estas métricas son las que muestra el panel “Estadísticas CPU” del simulador (ciclos totales, CPI y tiempo de CPU).</p></li>
+</ul>
 </div>
 </div>
             </section>
