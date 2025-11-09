@@ -3974,10 +3974,10 @@ Ejemplo de subrutina:
             add al, cl
             ret\end{lstlisting}
 
-\hypertarget{interrupciones-y-llamadas-al-sistema}{%
-\subsection{Interrupciones y llamadas al sistema}\label{interrupciones-y-llamadas-al-sistema}}
+\hypertarget{interrupciones}{%
+\subsection{Interrupciones}\label{interrupciones}}
 
-El simulador VonSim8 incorpora un teclado y una pantalla como dispositivos de entrada y salida, permitiendo la interacción básica entre el usuario y el sistema para la entrada de datos y la visualización de resultados.
+VonSim8 incorpora un teclado y una pantalla como periféricos básicos de E/S, utilizados mediante rutinas de sistema invocadas por interrupciones.
 
 \begin{figure}
 
@@ -3988,35 +3988,16 @@ El simulador VonSim8 incorpora un teclado y una pantalla como dispositivos de en
 \caption{Teclado y pantalla}\label{fig:tecladopantalla}
 \end{figure}
 
-El vector de interrupciones está predefinido en posiciones reservadas de la memoria principal, donde se almacenan las direcciones de las rutinas del sistema para interactuar con el teclado y la pantalla. En el caso de las interrupciones por software, el número de interrupción se indica como operando en la instrucción \texttt{INT}. Al producirse una interrupción, el procesador ejecuta la rutina asociada al número de interrupción, cuya dirección de inicio se obtiene del vector de interrupciones. Este vector ocupa las celdas de memoria desde \texttt{00h} hasta \texttt{07h}, y cada elemento tiene 1 byte de longitud, correspondiendo cada uno a la dirección de inicio de la rutina respectiva.
+El vector de interrupciones está preasignado en memoria desde \texttt{0x00h} hasta \texttt{0x07h}. Cada entrada ocupa 1 byte y almacena la dirección de inicio de la rutina asociada al número de interrupción. Las interrupciones pueden ser:
 
-El procesador admite interrupciones tanto por hardware como por software, generadas por el PIC o por la instrucción \texttt{INT}, respectivamente. Para que las interrupciones por hardware sean atendidas, el procesador debe tener habilitada la bandera de interrupciones (I=1). En ambos casos, se debe proporcionar un número de interrupción entre \texttt{0} y \texttt{7}.
+\begin{itemize}
+\item
+  De software: instrucción \texttt{INT\ n} (n \(\in\) {[}0,7{]}).
+\item
+  De hardware: generadas por el PIC a través de la línea INTR (requieren \texttt{I\ =\ 1}) véase \ref{pic}.
+\end{itemize}
 
-El procedimiento que sigue el procesador ante una interrupción es el siguiente:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  obtiene el número de la interrupción (0-7),
-\item
-  apila el registro \texttt{Flags},
-\item
-  inhabilita las interrupciones \texttt{I=0},
-\item
-  apila el registro \texttt{IP},
-\item
-  obtiene la dirección de la rutina de interrupción desde el vector de interrupciones,
-\item
-  carga en el \texttt{IP} la dirección de la rutina de interrupción.
-\end{enumerate}
-
-La rutina de interrupción se ejecuta como una subrutina, pero finaliza con la instrucción \texttt{IRET} en lugar de \texttt{RET}.
-
-\hypertarget{llamadas-al-sistema}{%
-\subsection{Llamadas al sistema}\label{llamadas-al-sistema}}
-
-El simulador permite realizar llamadas al sistema (syscalls) mediante interrupciones, utilizando el número de interrupción correspondiente. Los números de interrupción reservados para llamadas al sistema son:
+Interrupciones de software (números reservados):
 
 \begin{itemize}
 \tightlist
@@ -4028,7 +4009,26 @@ El simulador permite realizar llamadas al sistema (syscalls) mediante interrupci
   \texttt{INT\ 7}: escribe una cadena de caracteres en pantalla.
 \end{itemize}
 
-Las direcciones del vector de interrupciones asociadas a estas llamadas están protegidas por el sistema y no pueden ser modificadas por el usuario. El contenido de las rutinas correspondientes se encuentra almacenado en el monitor del sistema en las direcciones \texttt{A0h}, \texttt{B0h} y \texttt{C0h}, respectivamente.
+Estas entradas están protegidas y no pueden modificarse por el usuario. Las rutinas residen en el monitor del sistema en \texttt{A0h}, \texttt{B0h} y \texttt{C0h}, respectivamente.
+
+Secuencia de atención de una interrupción:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  determinar el número de la interrupción (0-7);
+\item
+  apilar \texttt{Flags} y forzar \texttt{I\ =\ 0};
+\item
+  apilar \texttt{IP};
+\item
+  cargar \texttt{IP\ ←\ MEM{[}n{]}} (dirección desde el vector) y ejecutar la rutina;
+\item
+  finalizar con \texttt{IRET}, que restaura \texttt{IP} y luego \texttt{Flags}.
+\end{enumerate}
+
+No se admite anidamiento: si llega una nueva solicitud mientras otra está en servicio, queda pendiente en \texttt{IRR} hasta que se envía \texttt{EOI}.
 
 \hypertarget{pantalla}{%
 \subsection{Pantalla}\label{pantalla}}
@@ -4325,8 +4325,8 @@ fin:
 
 Para mejorar la lectura del programa se utilizan constantes en ensamblador ``EQU'' para definir las direcciones de los puertos del módulo Handshake.
 
-\hypertarget{muxf3dulo-pic-controlador-de-interrupciones}{%
-\subsection{Módulo PIC (Controlador de Interrupciones)}\label{muxf3dulo-pic-controlador-de-interrupciones}}
+\hypertarget{pic}{%
+\subsection{Módulo PIC (Controlador de Interrupciones)}\label{pic}}
 
 El Programmable Interrupt Controller (PIC) es un módulo que actúa como intermediario entre los dispositivos que generan interrupciones y la CPU. Dado que la CPU dispone de una única línea de entrada para interrupciones, el PIC se encarga de recibir solicitudes de múltiples dispositivos y multiplexarlas en esta línea única.
 
