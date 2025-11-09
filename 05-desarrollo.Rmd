@@ -2130,36 +2130,36 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-###  Interrupciones y llamadas al sistema
-El simulador VonSim8 incorpora un teclado y una pantalla como dispositivos de entrada y salida, permitiendo la interacción básica entre el usuario y el sistema para la entrada de datos y la visualización de resultados.
+###  Interrupciones 
+VonSim8 incorpora un teclado y una pantalla como periféricos básicos de E/S, utilizados mediante rutinas de sistema invocadas por interrupciones.
 
 ```{r tecladopantalla, echo=FALSE, fig.cap="Teclado y pantalla", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/tecladopantalla.png")
 ```
 
-El vector de interrupciones está predefinido en posiciones reservadas de la memoria principal, donde se almacenan las direcciones de las rutinas del sistema para interactuar con el teclado y la pantalla. En el caso de las interrupciones por software, el número de interrupción se indica como operando en la instrucción `INT`. Al producirse una interrupción, el procesador ejecuta la rutina asociada al número de interrupción, cuya dirección de inicio se obtiene del vector de interrupciones. Este vector ocupa las celdas de memoria desde `00h` hasta `07h`, y cada elemento tiene 1 byte de longitud, correspondiendo cada uno a la dirección de inicio de la rutina respectiva.
+El vector de interrupciones está preasignado en memoria desde `0x00h` hasta `0x07h`. Cada entrada ocupa 1 byte y almacena la dirección de inicio de la rutina asociada al número de interrupción. Las interrupciones pueden ser:
 
-El procesador admite interrupciones tanto por hardware como por software, generadas por el PIC o por la instrucción `INT`, respectivamente. Para que las interrupciones por hardware sean atendidas, el procesador debe tener habilitada la bandera de interrupciones (I=1). En ambos casos, se debe proporcionar un número de interrupción entre `0` y `7`.
+  - De software: instrucción `INT n` (n $\in$ [0,7]).
 
-El procedimiento que sigue el procesador ante una interrupción es el siguiente:
+  - De hardware: generadas por el PIC a través de la línea INTR (requieren `I = 1`) véase \@ref(pic).
 
-  1. obtiene el número de la interrupción (0-7),
-  2. apila el registro `Flags`,
-  3. inhabilita las interrupciones `I=0`,
-  4. apila el registro `IP`,
-  5. obtiene la dirección de la rutina de interrupción desde el vector de interrupciones,
-  6. carga en el `IP` la dirección de la rutina de interrupción.
+Interrupciones de software (números reservados):
 
-La rutina de interrupción se ejecuta como una subrutina, pero finaliza con la instrucción `IRET` en lugar de `RET`.
+  - `INT 0`: termina la ejecución del programa (equivalente a `HLT`);
+  - `INT 6`: lee un carácter del teclado;
+  - `INT 7`: escribe una cadena de caracteres en pantalla.  
 
-###  Llamadas al sistema
-El simulador permite realizar llamadas al sistema (syscalls) mediante interrupciones, utilizando el número de interrupción correspondiente. Los números de interrupción reservados para llamadas al sistema son:
+Estas entradas están protegidas y no pueden modificarse por el usuario. Las rutinas residen en el monitor del sistema en `A0h`, `B0h` y `C0h`, respectivamente.
 
-- `INT 0`: termina la ejecución del programa (equivalente a `HLT`);
-- `INT 6`: lee un carácter del teclado;
-- `INT 7`: escribe una cadena de caracteres en pantalla.
+Secuencia de atención de una interrupción:
 
-Las direcciones del vector de interrupciones asociadas a estas llamadas están protegidas por el sistema y no pueden ser modificadas por el usuario. El contenido de las rutinas correspondientes se encuentra almacenado en el monitor del sistema en las direcciones `A0h`, `B0h` y `C0h`, respectivamente.
+  1.  determinar el número de la interrupción (0-7);
+  2.  apilar `Flags` y forzar `I = 0`;
+  3.  apilar `IP`;
+  4.  cargar `IP ← MEM[n]` (dirección desde el vector) y ejecutar la rutina;
+  5.  finalizar con `IRET`, que restaura `IP` y luego `Flags`.
+
+No se admite anidamiento: si llega una nueva solicitud mientras otra está en servicio, queda pendiente en `IRR` hasta que se envía `EOI`.
 
 ### Pantalla
 La pantalla es un dispositivo de salida que permite mostrar caracteres. La forma de comunicarse con la pantalla es mediante una llamada al sistema. Esto es así por simplicidad, ya que una pantalla real es mucho más compleja.
@@ -2558,7 +2558,7 @@ fin:
 
 Para mejorar la lectura del programa se utilizan constantes en ensamblador "EQU" para definir las direcciones de los puertos del módulo Handshake.
 
-### Módulo PIC (Controlador de Interrupciones)
+### Módulo PIC (Controlador de Interrupciones) {#pic}
 El Programmable Interrupt Controller (PIC) es un módulo que actúa como intermediario entre los dispositivos que generan interrupciones y la CPU. Dado que la CPU dispone de una única línea de entrada para interrupciones, el PIC se encarga de recibir solicitudes de múltiples dispositivos y multiplexarlas en esta línea única.
 
 Este módulo está basado en el PIC 8259A de Intel, aunque se han realizado modificaciones para simplificar su funcionamiento y adaptarlo a fines educativos.
