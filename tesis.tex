@@ -2006,7 +2006,7 @@ En síntesis, la definición de estos requisitos integra aspectos funcionales, p
 \hypertarget{introducciuxf3n-a-vonsim}{%
 \section{Introducción a VonSim}\label{introducciuxf3n-a-vonsim}}
 
-VonSim\footnote{VonSim: \url{https://vonsim.github.io/}} \protect\hyperlink{ref-vonsim}{{[}84{]}} es una herramienta diseñada específicamente para la enseñanza y el aprendizaje de la arquitectura y organización de computadoras, que sirvió de referencia por su enfoque educativo e interfaz intuitiva. A partir de esta herramienta se desarrolló VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}}, adaptado para operar con registros y memoria de 8\,bits, y diseñado para favorecer el aprendizaje progresivo.
+VonSim\footnote{VonSim: \url{https://vonsim.github.io/}} \protect\hyperlink{ref-vonsim}{{[}84{]}} es una herramienta diseñada específicamente para la enseñanza y el aprendizaje de la arquitectura y organización de computadoras, que sirvió de referencia por su enfoque educativo e interfaz intuitiva. A partir de esta herramienta se desarrolló VonSim8\footnote{VonSim8: \url{https://ruiz-jose.github.io/VonSim8/}} \protect\hyperlink{ref-vonsim8}{{[}85{]}}, adaptado para operar con registros y memoria de 8\,bits, y diseñado para favorecer el aprendizaje progresivo.
 
 VonSim ofrece una arquitectura detallada con un amplio repertorio de instrucciones y componentes. Aunque esta riqueza funcional es valiosa, puede resultar abrumadora para estudiantes en etapas iniciales. Por esta razón, VonSim8 implementa una simplificación estratégica para reducir la carga cognitiva en los primeros niveles de aprendizaje, promoviendo una asimilación progresiva de los conceptos fundamentales de la arquitectura de computadoras. A partir de esta base, se introdujeron diversas modificaciones en los componentes, instrucciones y funcionalidades del simulador, priorizando aquellos aspectos conceptuales que se abordan en el programa de la asignatura.
 
@@ -2031,7 +2031,7 @@ Las siguientes características posicionan a VonSim como una solución educativa
 \item
   \textbf{Fundamento en experiencia previa:} se basa en el simulador MSX88, desarrollado en 1988 por Rubén de Diego Martínez para la Universidad Politécnica de Madrid, aprovechando décadas de experiencia acumulada en simuladores educativos.
 \item
-  \textbf{Accesibilidad y sostenibilidad:} distribuido bajo licencia GNU Affero General Public License v3.0 con código fuente disponible en GitHub, y documentación bajo licencia CC BY-SA 4.0, facilitando su estudio, modificación y mejora continua \protect\hyperlink{ref-opensource_licensing_2024}{{[}85{]}}.
+  \textbf{Accesibilidad y sostenibilidad:} distribuido bajo licencia GNU Affero General Public License v3.0 con código fuente disponible en GitHub, y documentación bajo licencia CC BY-SA 4.0, facilitando su estudio, modificación y mejora continua \protect\hyperlink{ref-opensource_licensing_2024}{{[}86{]}}.
 \end{enumerate}
 
 \hypertarget{stack-tecnoluxf3gico}{%
@@ -2287,7 +2287,7 @@ Los buses de datos, direcciones y control se modelan como un conjunto de líneas
 \caption{Buses}\label{fig:buses}
 \end{figure}
 
-Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Los multiplexores dirigen las señales hacia los registros y la ALU (Unidad Aritmético-Lógica), facilitando el flujo de datos dentro del procesador. Un multiplexor (MUX) funciona como un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una y solo una de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida \protect\hyperlink{ref-mano2017digital}{{[}86{]}}.
+Dentro de los buses internos de la CPU se incluyen representaciones gráficas de multiplexores, componentes digitales esenciales que permiten seleccionar entre múltiples fuentes de datos o direcciones durante el ciclo de instrucción. Los multiplexores dirigen las señales hacia los registros y la ALU (Unidad Aritmético-Lógica), facilitando el flujo de datos dentro del procesador. Un multiplexor (MUX) funciona como un conmutador digital que conecta datos de una de n fuentes a la salida. Están dotados de entradas de control capaces de seleccionar una y solo una de las entradas de datos para permitir su transmisión desde la entrada seleccionada hacia dicha salida \protect\hyperlink{ref-mano2017digital}{{[}87{]}}.
 
 \hypertarget{mejoras-vonsim8}{%
 \section{Adaptaciones y mejoras en VonSim8}\label{mejoras-vonsim8}}
@@ -2544,7 +2544,7 @@ El repertorio de instrucciones del simulador fue concebido como una abstracción
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
-Con el objetivo de favorecer el aprendizaje de la programación en ensamblador y la comprensión del ciclo de instrucción, se presenta a continuación un repertorio de instrucciones alineado con el programa de estudio de la asignatura Arquitectura de Computadoras \protect\hyperlink{ref-cd023_25_programa2025}{{[}87{]}}.
+Con el objetivo de favorecer el aprendizaje de la programación en ensamblador y la comprensión del ciclo de instrucción, se presenta a continuación un repertorio de instrucciones alineado con el programa de estudio de la asignatura Arquitectura de Computadoras \protect\hyperlink{ref-cd023_25_programa2025}{{[}88{]}}.
 
 \begin{table}[!h]
 \centering
@@ -4139,7 +4139,7 @@ La comunicación con los módulos de entrada/salida se realiza a través de puer
 \hypertarget{muxf3dulo-pio-leds-e-interruptores}{%
 \subsection{Módulo PIO (Leds e Interruptores)}\label{muxf3dulo-pio-leds-e-interruptores}}
 
-El módulo de entrada/salida programada (Programmed Input-Output, PIO) actúa como interfaz entre la CPU y los dispositivos periféricos genéricos. Su diseño está basado en el controlador PPI 8255 de Intel, específicamente en su modo \texttt{0}, pero incorpora modificaciones orientadas a simplificar su funcionamiento para fines educativos \protect\hyperlink{ref-intel8086manual}{{[}51{]}}, \protect\hyperlink{ref-godse2020microprocessor}{{[}88{]}}.
+El módulo de entrada/salida programada (Programmed Input-Output, PIO) actúa como interfaz entre la CPU y los dispositivos periféricos genéricos. Su diseño está basado en el controlador PPI 8255 de Intel, específicamente en su modo \texttt{0}, pero incorpora modificaciones orientadas a simplificar su funcionamiento para fines educativos \protect\hyperlink{ref-intel8086manual}{{[}51{]}}, \protect\hyperlink{ref-godse2020microprocessor}{{[}89{]}}.
 
 El módulo cuenta con dos puertos bidireccionales de 8 bits (A y B) que pueden ser configurados de manera independiente. Su arquitectura incluye cuatro registros accesibles:
 
@@ -5440,7 +5440,7 @@ Este anexo presenta la implementación del modelo DEVS del simulador VonSim8 con
 \subsection{Repositorio y trazabilidad}\label{repositorio-y-trazabilidad}}
 
 El código fuente de la simulación está disponible en:
-xdevs-vonsim8\footnote{Repositorio: \url{https://github.com/ruiz-jose/xdevs-vonsim8}; Commit (hash abreviado): a51b371; Fecha del commit: 2025-10-26}.
+xdevs-vonsim8\footnote{xdevs-vonsim8: \url{https://github.com/ruiz-jose/xdevs-vonsim8}} \protect\hyperlink{ref-ruiz2025-xdevsvonsim8}{{[}90{]}}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -6895,23 +6895,31 @@ Las extensiones técnicas y pedagógicas delineadas (por ejemplo, compatibilidad
 
 \leavevmode\vadjust pre{\hypertarget{ref-vonsim}{}}%
 \CSLLeftMargin{{[}84{]} }%
-\CSLRightInline{J. M. S. Facundo Quiroga Manuel Bustos Berrondo, {``VonSim - simulador de arquitectura de von neumann.''} \url{https://vonsim.github.io/}, 2020.}
+\CSLRightInline{J. M. S. Facundo Quiroga Manuel Bustos Berrondo, {``VonSim - simulador de arquitectura de von neumann,''} \url{https://vonsim.github.io/}, 2020.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-vonsim8}{}}%
+\CSLLeftMargin{{[}85{]} }%
+\CSLRightInline{J. Ruiz, {``VonSim8 - simulador simplificado de arquitectura von neumann de 8 bits,''} commit 60a0da4, Oct. 2025. Accessed: Nov. 09, 2025. {[}Online{]}. Available: \url{https://ruiz-jose.github.io/VonSim8/}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-opensource_licensing_2024}{}}%
-\CSLLeftMargin{{[}85{]} }%
+\CSLLeftMargin{{[}86{]} }%
 \CSLRightInline{Open Source Initiative, {``Open source licenses: Understanding {GPL}, {MIT}, and {Apache} licenses.''} 2024. Accessed: Jan. 15, 2024. {[}Online{]}. Available: \url{https://opensource.org/licenses/}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-mano2017digital}{}}%
-\CSLLeftMargin{{[}86{]} }%
+\CSLLeftMargin{{[}87{]} }%
 \CSLRightInline{M. M. Mano and M. D. Ciletti, \emph{Digital design: With an introduction to the verilog HDL, VHDL, and SystemVerilog}. Pearson, 2017.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-cd023_25_programa2025}{}}%
-\CSLLeftMargin{{[}87{]} }%
+\CSLLeftMargin{{[}88{]} }%
 \CSLRightInline{Facultad de Ciencias de la Administración, UNER, {``{Programa de la asignatura Arquitectura de Computadoras}.''} Consejo Directivo, Facultad de Ciencias de la Administración, UNER; \url{https://digesto.uner.edu.ar/documento.frame.php?cod=170316}, Mar. 2025.}
 
 \leavevmode\vadjust pre{\hypertarget{ref-godse2020microprocessor}{}}%
-\CSLLeftMargin{{[}88{]} }%
+\CSLLeftMargin{{[}89{]} }%
 \CSLRightInline{A. P. Godse and D. A. Godse, \emph{Microprocessor and interfacing}. Technical Publications, 2020.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-ruiz2025-xdevsvonsim8}{}}%
+\CSLLeftMargin{{[}90{]} }%
+\CSLRightInline{J. Ruiz, {``Xdevs-vonsim8: Modelo DEVS del simulador VonSim8,''} commit a51b371, Oct. 2025. Accessed: Nov. 09, 2025. {[}Online{]}. Available: \url{https://github.com/ruiz-jose/xdevs-vonsim8}}
 
 \end{CSLReferences}
 
