@@ -500,6 +500,9 @@ En síntesis, el simulador VonSim8 y el material didáctico asociado contribuyen
 ## Anexo D: Resultados de simulación xdevs {#anexoD}
 Este anexo presenta la implementación del modelo DEVS del simulador VonSim8 construida con la biblioteca xdevs.py (Python) y resume los resultados de su ejecución para la instrucción MOV AL, BL. El objetivo es aportar evidencia empírica que respalde la validación del modelo teórico descrito en el Capítulo 5, sección “Modelado con xDEVS del ciclo de instrucción MOV AL, BL” \@ref(movalbl).
 
+### Interpretación de métricas
+DEVS ofrece trazabilidad temporal de grano fino mediante microtransiciones ($\lambda$, $\delta_{int}$, $\delta_{ext}$). En esta traza, un único “paso” pedagógico del ciclo RTL (captación/ejecución) puede descomponerse en varias microtransiciones y, por tanto, en múltiples eventos del simulador. Por diseño, la interfaz de VonSim8 contabiliza los ciclos según esos pasos pedagógicos del ciclo de instrucción y con ellos calcula los acumulados y el CPI; en paralelo, este anexo reporta tiempo real y número de eventos de la simulación DEVS, magnitudes distintas que no deben confundirse con los ciclos pedagógicos.
+
 ### Supuestos de la simulación
 - Datos y registros de 8 bits (saturación/mascarado a 0xFF).
 - Memoria unificada con latencia de lectura fija $\tau_{mem}$ = 1 ciclo; no se modelan escrituras en este escenario.

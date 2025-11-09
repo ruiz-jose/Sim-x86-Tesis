@@ -1620,6 +1620,36 @@ En este caso, el resultado de la operación se almacena en una dirección de mem
   - HLT: 
     4. Detiene la ejecución de la CPU.
 
+### Estadísticas de CPU (CPI y tiempo de CPU) en VonSim8
+
+VonSim8 utiliza un modelo temporal didáctico donde cada “paso” del ciclo se contabiliza como un ciclo de CPU. En consecuencia:
+
+- Cada paso equivale a 1 ciclo.
+- La etapa de captación aporta $n_{fetch}=3$ ciclos (pasos 1–3).
+- La etapa de ejecución aporta $n_{execute}$ ciclos según el modo de direccionamiento y la instrucción (pasos 4, 5, …).
+
+Definiciones y fórmulas:
+
+- CPI por instrucción: $$CPI_{instr} = n_{fetch} + n_{execute}$$
+- Tiempo por instrucción (con frecuencia configurada $f_{CPU}$ en Hz): 
+  $$t_{instr} = \frac{CPI_{instr}}{f_{CPU}}$$
+- Para un programa de $N$ instrucciones ejecutadas:
+  $$CPI_{prog} = \frac{\sum_{k=1}^{N} CPI_k}{N} \quad;\quad t_{CPU} = \frac{\sum_{k=1}^{N} CPI_k}{f_{CPU}}$$
+
+Ejemplos (contabilizando pasos tal como se listan en esta sección):
+
+- MOV rx, ry (entre registros): $n_{fetch}=3$, $n_{execute}=1$ $\implies$ $CPI=4$ y $t_{instr}=4/f_{CPU}$.
+
+- MOV Rx, [Dirección] (registro ← memoria directa): pasos 4–8 $\implies$ $n_{execute}=5$ $\implies$ $CPI=3+5=8$, $t_{instr}=8/f_{CPU}$.
+
+- JMP Dirección: pasos 4–6 $\implies$ $n_{execute}=3$ $\implies$ $CPI=3+3=6$, $t_{instr}=6/f_{CPU}$. En saltos condicionales Jxx solo se cuentan los pasos realmente ejecutados (si no se toma el salto, no se ejecuta la carga de IP).
+
+Notas:
+
+- La frecuencia $f_{CPU}$ es configurable (1–10 Hz), por lo que el tiempo por ciclo es $T=1/f_{CPU}$.
+
+- Estas métricas son las que muestra el panel “Estadísticas CPU” del simulador (ciclos totales, CPI y tiempo de CPU).
+
 ## Modelado con xDEVS del ciclo de instrucción MOV AL, BL {#movalbl}
 Con el propósito de validar la arquitectura del simulador VonSim8 y analizar su comportamiento interno, se modela la instrucción MOV AL, BL como un caso de estudio representativo del flujo básico de ejecución a nivel de hardware.
 
