@@ -81,8 +81,8 @@ La activación progresiva del repertorio de instrucciones promueve el desarrollo
 ```
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
-Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción [@ASMVisualizer2025; @harris2015digital]. Stallings [@stallings_computer_2021] propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (fetch) hasta la ejecución (execute), facilitando la visualización del recorrido de datos y señales de control en cada etapa del proceso.
-Como complemento a la descripción anterior, la Figura \@ref(fig:cicloinstruccion) muestra un ciclo de instrucción típico utilizando la operación `MOV AL, BL`. En la etapa de captación (*fetch*), la dirección de la instrucción se carga desde el registro `IP` al `MAR`, y el contenido de la memoria se transfiere al `MBR` y luego al `IR` . En la etapa de ejecución (*execute*), los datos se mueven desde el registro `BL` al registro `AL`.
+Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción [@ASMVisualizer2025; @harris2015digital]. Stallings [@stallings_computer_2021] propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (*Fetch*) hasta la ejecución (*Execute*), facilitando la visualización del recorrido de datos y señales de control en cada etapa del proceso.
+Como complemento a la descripción anterior, la Figura \@ref(fig:cicloinstruccion) muestra un ciclo de instrucción típico utilizando la operación `MOV AL, BL`. En la etapa de captación (*Fetch*), la dirección de la instrucción se carga desde el registro `IP` al `MAR`, y el contenido de la memoria se transfiere al `MBR` y luego al `IR` . En la etapa de ejecución (*Execute*), los datos se mueven desde el registro `BL` al registro `AL`.
 
 ```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción: captación y ejecución", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/cicloinstruccion.png")
@@ -1497,7 +1497,7 @@ El ciclo de la instrucción es la secuencia de pasos que realiza la Unidad de Co
 
 Las microoperaciones que lo componen se expresan mediante la notación de transferencia entre registros: `destino` $\leftarrow$ `origen`.
 
-La Figura \@ref(fig:flujoCicloInstruccion) ilustra el flujo general del ciclo, el cual se divide en dos etapas principales: captación (fetch) y ejecución.
+La Figura \@ref(fig:flujoCicloInstruccion) ilustra el flujo general del ciclo, el cual se divide en dos etapas principales: captación (*Fetch*) y ejecución (*Execute*).
 
 ```{r flujoCicloInstruccion, echo=FALSE, fig.cap="Flujo del ciclo de instrucción en VonSim8", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/cicloinstruccion3.png")
@@ -1759,11 +1759,11 @@ if (knitr::is_latex_output()) {
 ### Fases del ciclo de instrucción
 El ciclo de instrucción se compone de dos fases principales, controladas por la Unidad de Control (UC) y modeladas mediante transiciones de estado y funciones temporizadas en el formalismo DEVS:
 
-  1. Fase de captación (Fetch): lectura de la instrucción desde la memoria unificada.
+  1. Fase de captación (*Fetch*): lectura de la instrucción desde la memoria unificada.
 
-  2. Fase de ejecución (Execute): transferencia del contenido del registro fuente BL al registro destino AL.
+  2. Fase de ejecución (*Execute*): transferencia del contenido del registro fuente BL al registro destino AL.
 
-### Fase de captación (Fetch)
+### Fase de captación (*Fetch*)
 La fase de captación tiene como objetivo obtener la instrucción almacenada en la memoria unificada, utilizando el valor del Instruction Pointer (IP) como dirección base, y transferirla al Instruction Register (IR) para su posterior decodificación. Este proceso marca el inicio del ciclo de instrucción y determina la secuenciación temporal de accesos a memoria, condicionada por el modelo Von Neumann (memoria y bus compartidos). 
 
 En VonSim8, esta fase reproduce la restricción estructural propia de la arquitectura Von Neumann (bus y memoria compartidos), modelando el acceso exclusivo durante la lectura de la instrucción.
@@ -1833,7 +1833,7 @@ if (knitr::is_latex_output()) {
 
 Durante esta fase, el bus se arbitra mediante un protocolo de petición-concesión (\texttt{req}/\texttt{grant}), garantizando exclusión mutua en el acceso y previniendo colisiones.
     
-### Fase de Ejecución (Execute): MOV AL, BL
+### Fase de Ejecución (*Execute*): MOV AL, BL
 En la fase de ejecución, la UC decodifica el contenido del IR y activa las señales necesarias para que el Banco de Registros (REG_BANK) transfiera el dato desde el registro fuente BL hacia el registro destino AL a través del bus compartido.
 
 El REG_BANK se modela como un componente acoplado que contiene cuatro modelos atómicos: AL, BL, CL y DL. Cada registro posee sus propias entradas (enable_in, enable_out, data_in, data_out), mientras que el banco actúa como mediador, gestionando la habilitación del registro fuente y destino según las señales emitidas por la UC.
@@ -1901,7 +1901,7 @@ if (knitr::is_latex_output()) {
 Las microoperaciones se ejecutan conforme a las funciones DEVS de transición interna $\delta_{int}$, transición externa $\delta_{ext}$ y de salida ($\lambda$). 
 
 ### Validación experimental
-La implementación en xdevs.py reproduce 11 microoperaciones (6 en Fetch y 5 en Execute) y, para este caso de estudio, produce 14 ciclos totales y 45 transiciones DEVS. Se mantiene esta métrica de forma consistente en el cuerpo del texto y el Anexo D (\@ref(anexoD)). Los resultados confirman:
+La implementación en xdevs.py reproduce 11 microoperaciones (6 en *Fetch* y 5 en *Execute*) y, para este caso de estudio, produce 14 ciclos totales y 45 transiciones DEVS. Se mantiene esta métrica de forma consistente en el cuerpo del texto y el Anexo D (\@ref(anexoD)). Los resultados confirman:
 
 - **Correctitud funcional**: la transferencia AL ← BL se ejecuta correctamente (`AL: 0x01h → 0x0Ah`).
 - **Coherencia temporal**: cada componente respeta sus retardos $\tau$ especificados.
@@ -1912,7 +1912,7 @@ La traza completa de ejecución, que incluye todos los eventos $\lambda$, $\delt
 ### Conclusión
 El modelado del ciclo de instrucción MOV AL, BL mediante el formalismo DEVS, implementado sobre la plataforma xDEVS con la biblioteca xdevs.py, demuestra la viabilidad de representar con rigor y precisión el comportamiento temporal de la arquitectura VonSim8 a nivel de transferencia entre registros (RTL). La descomposición del procesador en modelos atómicos (IP, MAR, MEM, MBR, IR, REG_BANK) y su orquestación mediante un modelo acoplado jerárquico permiten capturar tanto la concurrencia de eventos como las dependencias estructurales inherentes a la arquitectura de Von Neumann.
 
-Los resultados experimentales validan la correctitud del modelo: la ejecución de la instrucción requiere 14 ciclos distribuidos en 6 microoperaciones de captación (FETCH) y 5 de ejecución (EXECUTE), generando un total de 45 transiciones DEVS ($\lambda$, $\delta_{int}$, $\delta_{ext}$) con un tiempo real de simulación de 3.36 ms. La traza temporal evidencia cómo la Unidad de Control sincroniza el acceso exclusivo al bus compartido y a la memoria unificada, reproduciendo fielmente el cuello de botella estructural de Von Neumann.
+Los resultados experimentales validan la correctitud del modelo: la ejecución de la instrucción requiere 14 ciclos distribuidos en 6 microoperaciones de captación (*Fetch*) y 5 de ejecución (*Execute*), generando un total de 45 transiciones DEVS ($\lambda$, $\delta_{int}$, $\delta_{ext}$) con un tiempo real de simulación de 3.36 ms. La traza temporal evidencia cómo la Unidad de Control sincroniza el acceso exclusivo al bus compartido y a la memoria unificada, reproduciendo fielmente el cuello de botella estructural de Von Neumann.
 
 Desde una perspectiva de validación arquitectural, este enfoque posibilita la instrumentación de métricas cuantitativas de rendimiento —CPI (Cycles Per Instruction), latencia de acceso a memoria, tiempo de ocupación del bus— que constituyen indicadores objetivos para evaluar el comportamiento del sistema y detectar inconsistencias en el diseño. La modularidad del modelo DEVS facilita, además, la extensión futura del simulador mediante la incorporación de nuevos componentes (ALU, pipeline, cache) sin comprometer la estructura existente.
 
