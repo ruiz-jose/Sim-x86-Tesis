@@ -704,8 +704,8 @@ El análisis de diversas arquitecturas de computadoras, y particularmente de sus
 
 Aunque arquitecturas como PowerPC, SPARC o MIPS desempeñaron un papel central en la evolución de la computación, su adopción ha disminuido significativamente en contextos industriales y académicos, debido al desplazamiento por plataformas con mayor soporte comercial y vigencia tecnológica \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. Su menor vigencia actual responde al surgimiento de arquitecturas más eficientes y con mejor respaldo comercial, como x86, ARM y RISC-V, que han captado la atención tanto del mercado como del ámbito educativo \protect\hyperlink{ref-waterman_risc-v_2014}{{[}34{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}36{]}}, \protect\hyperlink{ref-hennessy2017computer_riscv}{{[}49{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}50{]}}. Por ello, esta sección se enfoca en aquellas arquitecturas que mantienen relevancia comercial o presentan un valor pedagógico significativo en el desarrollo de simuladores educativos.
 
-\hypertarget{arquitectura-x86}{%
-\subsection{Arquitectura x86}\label{arquitectura-x86}}
+\hypertarget{x86}{%
+\subsection{Arquitectura x86}\label{x86}}
 
 La arquitectura x86, desarrollada inicialmente por Intel, ha dominado el mercado de computadoras de escritorio y servidores durante décadas, gracias a su evolución constante y soporte del ecosistema de software \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}. Su conjunto de instrucciones (ISA, por sus siglas en inglés Instruction Set Architecture) incluye una amplia gama de operaciones, lo que otorga flexibilidad, aunque complica el diseño del hardware. Este equilibrio entre compatibilidad y rendimiento hace que x86 sea una opción preferida para entornos donde la capacidad de procesamiento es prioritaria, como en servidores y estaciones de trabajo \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-intel_whitepaper_2023}{{[}51{]}}.
 
@@ -947,36 +947,61 @@ Por ejemplo, en RISC, los modos de direccionamiento son simples y permiten un ac
 \hypertarget{ejemplos-de-instrucciones}{%
 \subsubsection{Ejemplos de instrucciones}\label{ejemplos-de-instrucciones}}
 
-Para ilustrar la diferencia entre ambas filosofías, se presenta el siguiente ejemplo: cargar dos valores de memoria, sumarlos y almacenar el resultado en una dirección de memoria.
+Para contrastar los enfoques RISC (RISC‑V) y CISC (x86) se resuelve la misma tarea: leer dos palabras desde memoria, sumarlas y escribir el resultado en la primera dirección.
 
-Una arquitectura bajo la filosofia RISC es RISC-V, que utiliza instrucciones simples y de longitud fija. En este caso, la instrucción para cargar un valor de memoria en un registro es \texttt{lw} (load word), y la instrucción para almacenar el resultado es \texttt{sw} (store word). La suma se realiza con la instrucción \texttt{add}.:
-
-\begin{lstlisting}
-    # Cargar el valor de mem1 en el registro t0 (R1)
-    lw t0, 0(mem1)      # t0 = MEM[mem1]
-
-    # Cargar el valor de mem2 en el registro t1 (R2)
-    lw t1, 0(mem2)      # t1 = MEM[mem2]
-
-    # Sumar los registros t0 y t1, guardar el resultado en t2 (R3)
-    add t2, t0, t1      # t2 = t0 + t1
-
-    # Guardar el resultado en mem1
-    sw t2, 0(mem1)      # MEM[mem1] = t2
-  \end{lstlisting}
-
-Una arquitectura bajo la filosofia CISC es x86, que utiliza instrucciones más complejas y de longitud variable. En este caso, la instrucción para cargar un valor de memoria en un registro es \texttt{MOV}, y la instrucción para almacenar el resultado es también \texttt{MOV}. La suma se realiza con la instrucción \texttt{ADD}:
+Ejemplo RISC‑V (longitud fija; modelo load/store con registro base y desplazamiento).
+RISC‑V emplea instrucciones simples y de longitud fija. La carga y el almacenamiento se realizan con \texttt{lw} y \texttt{sw}, respectivamente, y la suma con \texttt{add}. La dirección de una etiqueta se obtiene con \texttt{la} (pseudo‑instrucción).
 
 \begin{lstlisting}
-  ; Cargar el valor almacenado en mem1 en el registro EAX
-  MOV EAX, [mem1]
+    .data
+mem1: .word 5
+mem2: .word 7
 
-  ; Sumar el valor almacenado en mem2 al registro EAX
-  ADD EAX, [mem2]
+    .text
+    .globl _start
+_start:
+    # Cargar dirección de mem1 y leer su contenido
+    la   t0, mem1        # t0 <- &mem1
+    lw   t1, 0(t0)       # t1 <- MEM[mem1]
 
-  ; Guardar el resultado de la suma de vuelta en mem1
-  MOV [mem1], EAX
+    # Cargar dirección de mem2 y leer su contenido
+    la   t2, mem2        # t2 <- &mem2
+    lw   t3, 0(t2)       # t3 <- MEM[mem2]
+
+    # Sumar
+    add  t4, t1, t3      # t4 <- t1 + t3
+
+    # Guardar resultado en mem1
+    sw   t4, 0(t0)       # MEM[mem1] <- t4
   \end{lstlisting}
+
+Notas (RISC‑V):
+- \texttt{la} carga en un registro la dirección de una etiqueta (no el dato) y el ensamblador la expande en 1--2 instrucciones reales (p.~ej., \texttt{auipc}+\texttt{addi}).
+- \texttt{lw}/\texttt{sw} usan el formato \texttt{lw\ rd,\ offset(rs1)}. Ej.: \texttt{lw\ t1,\ 0(t0)} lee MEM{[}t0+0{]}; \texttt{sw\ t4,\ 0(t0)} escribe en esa dirección.
+
+Ejemplo x86 (longitud variable; ALU con operando en memoria).
+
+\begin{lstlisting}
+section .data
+mem1:  dd 5
+mem2:  dd 7
+
+section .text
+global _start
+_start:
+    ; Cargar mem1 en EAX
+    MOV EAX, [mem1]
+
+    ; Sumar mem2 a EAX (operando de memoria permitido)
+    ADD EAX, [mem2]
+
+    ; Guardar el resultado en mem1
+    MOV [mem1], EAX
+  \end{lstlisting}
+
+Notas (x86):
+- x86 permite operaciones ALU con un operando en memoria (reg--mem), a diferencia del paradigma load/store de RISC‑V.
+- Las instrucciones son de longitud variable (1--15 bytes), lo que incrementa la complejidad de decodificación.
 
 La tabla \ref{tab:ciscrisc} sintetiza las principales diferencias estructurales y operativas entre las filosofías CISC y RISC, destacando sus implicancias en el diseño del hardware y el rendimiento general del sistema.
 
@@ -1025,10 +1050,10 @@ La Figura \ref{fig:convergen} muestras la convergencia entre estas dos filosofí
 
 En síntesis, las filosofías CISC y RISC representan enfoques contrastantes pero complementarios en el diseño de arquitecturas de procesadores. Su comprensión no solo es esencial para analizar el rendimiento y la eficiencia energética de los sistemas modernos, sino también para formar una base sólida en la enseñanza de arquitectura de computadoras, especialmente en contextos donde se emplean simuladores didácticos.
 
-\hypertarget{arquitectura-x86-1}{%
-\section{Arquitectura x86}\label{arquitectura-x86-1}}
+\hypertarget{arquitectura-x86}{%
+\section{Arquitectura x86}\label{arquitectura-x86}}
 
-La arquitectura x86, reconocida por su amplia adopción en computadoras personales, estaciones de trabajo y servidores, se introdujo en 1978 con el procesador Intel 8086, basado en una arquitectura de 16 bits. Desde entonces, ha evolucionado en capacidad y complejidad, con hitos clave como la introducción del Intel 80386 (32 bits) en 1985 y la extensión a 64 bits con AMD64 en 2003. Esta evolución ha permitido mejoras significativas en el rendimiento, el direccionamiento de memoria y la compatibilidad con aplicaciones exigentes. \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-intel_64_2025}{{[}22{]}}, \protect\hyperlink{ref-amd_developer_2024}{{[}23{]}}, \protect\hyperlink{ref-abel_ibm_2000}{{[}24{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}53{]}}, \protect\hyperlink{ref-intel8086manual}{{[}54{]}}.
+Esta sección amplía la caracterización introductoria presentada en la Sección \ref{x86} y profundiza en su evolución y rasgos distintivos. Introducida en 1978 con el Intel 8086 (16 bits), la familia incorporó hitos como el Intel 80386 (32 bits, 1985) y la extensión AMD64 (64 bits, 2003), con mejoras sostenidas en rendimiento, direccionamiento de memoria y compatibilidad con software legado \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-intel_64_2025}{{[}22{]}}, \protect\hyperlink{ref-amd_developer_2024}{{[}23{]}}, \protect\hyperlink{ref-abel_ibm_2000}{{[}24{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}53{]}}, \protect\hyperlink{ref-intel8086manual}{{[}54{]}}.
 
 \begin{figure}
 
