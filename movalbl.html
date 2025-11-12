@@ -282,8 +282,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.8.1" data-path="movalbl.html"><a href="movalbl.html#componentes-del-simulador-vonsim8"><i class="fa fa-check"></i><b>5.8.1</b> Componentes del simulador VonSim8</a></li>
 <li class="chapter" data-level="5.8.2" data-path="movalbl.html"><a href="movalbl.html#fases-del-ciclo-de-instrucción"><i class="fa fa-check"></i><b>5.8.2</b> Fases del ciclo de instrucción</a></li>
-<li class="chapter" data-level="5.8.3" data-path="movalbl.html"><a href="movalbl.html#fase-de-captación-fetch"><i class="fa fa-check"></i><b>5.8.3</b> Fase de captación (Fetch)</a></li>
-<li class="chapter" data-level="5.8.4" data-path="movalbl.html"><a href="movalbl.html#fase-de-ejecución-execute-mov-al-bl"><i class="fa fa-check"></i><b>5.8.4</b> Fase de Ejecución (Execute): MOV AL, BL</a></li>
+<li class="chapter" data-level="5.8.3" data-path="movalbl.html"><a href="movalbl.html#fase-de-captación-fetch"><i class="fa fa-check"></i><b>5.8.3</b> Fase de captación (<em>Fetch</em>)</a></li>
+<li class="chapter" data-level="5.8.4" data-path="movalbl.html"><a href="movalbl.html#fase-de-ejecución-execute-mov-al-bl"><i class="fa fa-check"></i><b>5.8.4</b> Fase de Ejecución (<em>Execute</em>): MOV AL, BL</a></li>
 <li class="chapter" data-level="5.8.5" data-path="movalbl.html"><a href="movalbl.html#validación-experimental"><i class="fa fa-check"></i><b>5.8.5</b> Validación experimental</a></li>
 <li class="chapter" data-level="5.8.6" data-path="movalbl.html"><a href="movalbl.html#conclusión"><i class="fa fa-check"></i><b>5.8.6</b> Conclusión</a></li>
 </ul></li>
@@ -521,12 +521,12 @@ Canal compartido de comunicación entre IP, MAR, MEM y el banco de registros. Ga
 <h3><span class="header-section-number">5.8.2</span> Fases del ciclo de instrucción<a href="movalbl.html#fases-del-ciclo-de-instrucción" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El ciclo de instrucción se compone de dos fases principales, controladas por la Unidad de Control (UC) y modeladas mediante transiciones de estado y funciones temporizadas en el formalismo DEVS:</p>
 <ol style="list-style-type: decimal">
-<li><p>Fase de captación (Fetch): lectura de la instrucción desde la memoria unificada.</p></li>
-<li><p>Fase de ejecución (Execute): transferencia del contenido del registro fuente BL al registro destino AL.</p></li>
+<li><p>Fase de captación (<em>Fetch</em>): lectura de la instrucción desde la memoria unificada.</p></li>
+<li><p>Fase de ejecución (<em>Execute</em>): transferencia del contenido del registro fuente BL al registro destino AL.</p></li>
 </ol>
 </div>
 <div id="fase-de-captación-fetch" class="section level3 hasAnchor" number="5.8.3">
-<h3><span class="header-section-number">5.8.3</span> Fase de captación (Fetch)<a href="movalbl.html#fase-de-captación-fetch" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">5.8.3</span> Fase de captación (<em>Fetch</em>)<a href="movalbl.html#fase-de-captación-fetch" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La fase de captación tiene como objetivo obtener la instrucción almacenada en la memoria unificada, utilizando el valor del Instruction Pointer (IP) como dirección base, y transferirla al Instruction Register (IR) para su posterior decodificación. Este proceso marca el inicio del ciclo de instrucción y determina la secuenciación temporal de accesos a memoria, condicionada por el modelo Von Neumann (memoria y bus compartidos).</p>
 <p>En VonSim8, esta fase reproduce la restricción estructural propia de la arquitectura Von Neumann (bus y memoria compartidos), modelando el acceso exclusivo durante la lectura de la instrucción.</p>
 <p>La tabla <a href="movalbl.html#tab:microcaptacionfetch">5.14</a> presenta la secuencia de microoperaciones y eventos DEVS que modelan esta fase.</p>
@@ -640,7 +640,7 @@ El IR genera un evento de salida notificando a la UC que la instrucción está l
 <p>Durante esta fase, el bus se arbitra mediante un protocolo de petición-concesión (/), garantizando exclusión mutua en el acceso y previniendo colisiones.</p>
 </div>
 <div id="fase-de-ejecución-execute-mov-al-bl" class="section level3 hasAnchor" number="5.8.4">
-<h3><span class="header-section-number">5.8.4</span> Fase de Ejecución (Execute): MOV AL, BL<a href="movalbl.html#fase-de-ejecución-execute-mov-al-bl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">5.8.4</span> Fase de Ejecución (<em>Execute</em>): MOV AL, BL<a href="movalbl.html#fase-de-ejecución-execute-mov-al-bl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En la fase de ejecución, la UC decodifica el contenido del IR y activa las señales necesarias para que el Banco de Registros (REG_BANK) transfiera el dato desde el registro fuente BL hacia el registro destino AL a través del bus compartido.</p>
 <p>El REG_BANK se modela como un componente acoplado que contiene cuatro modelos atómicos: AL, BL, CL y DL. Cada registro posee sus propias entradas (enable_in, enable_out, data_in, data_out), mientras que el banco actúa como mediador, gestionando la habilitación del registro fuente y destino según las señales emitidas por la UC.</p>
 <p>La tabla <a href="movalbl.html#tab:microoperacioneseje">5.15</a> muestra la secuencia de microoperaciones que implementan esta instrucción.</p>
@@ -741,7 +741,7 @@ El registro AL captura el dato presente en el bus y actualiza su valor interno.
 </div>
 <div id="validación-experimental" class="section level3 hasAnchor" number="5.8.5">
 <h3><span class="header-section-number">5.8.5</span> Validación experimental<a href="movalbl.html#validación-experimental" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La implementación en xdevs.py reproduce 11 microoperaciones (6 en Fetch y 5 en Execute) y, para este caso de estudio, produce 14 ciclos totales y 45 transiciones DEVS. Se mantiene esta métrica de forma consistente en el cuerpo del texto y el Anexo D (<a href="anexoD.html#anexoD">6.4</a>). Los resultados confirman:</p>
+<p>La implementación en xdevs.py reproduce 11 microoperaciones (6 en <em>Fetch</em> y 5 en <em>Execute</em>) y, para este caso de estudio, produce 14 ciclos totales y 45 transiciones DEVS. Se mantiene esta métrica de forma consistente en el cuerpo del texto y el Anexo D (<a href="anexoD.html#anexoD">6.4</a>). Los resultados confirman:</p>
 <ul>
 <li><strong>Correctitud funcional</strong>: la transferencia AL ← BL se ejecuta correctamente (<code>AL: 0x01h → 0x0Ah</code>).</li>
 <li><strong>Coherencia temporal</strong>: cada componente respeta sus retardos <span class="math inline">\(\tau\)</span> especificados.</li>
@@ -752,7 +752,7 @@ El registro AL captura el dato presente en el bus y actualiza su valor interno.
 <div id="conclusión" class="section level3 hasAnchor" number="5.8.6">
 <h3><span class="header-section-number">5.8.6</span> Conclusión<a href="movalbl.html#conclusión" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El modelado del ciclo de instrucción MOV AL, BL mediante el formalismo DEVS, implementado sobre la plataforma xDEVS con la biblioteca xdevs.py, demuestra la viabilidad de representar con rigor y precisión el comportamiento temporal de la arquitectura VonSim8 a nivel de transferencia entre registros (RTL). La descomposición del procesador en modelos atómicos (IP, MAR, MEM, MBR, IR, REG_BANK) y su orquestación mediante un modelo acoplado jerárquico permiten capturar tanto la concurrencia de eventos como las dependencias estructurales inherentes a la arquitectura de Von Neumann.</p>
-<p>Los resultados experimentales validan la correctitud del modelo: la ejecución de la instrucción requiere 14 ciclos distribuidos en 6 microoperaciones de captación (FETCH) y 5 de ejecución (EXECUTE), generando un total de 45 transiciones DEVS (<span class="math inline">\(\lambda\)</span>, <span class="math inline">\(\delta_{int}\)</span>, <span class="math inline">\(\delta_{ext}\)</span>) con un tiempo real de simulación de 3.36 ms. La traza temporal evidencia cómo la Unidad de Control sincroniza el acceso exclusivo al bus compartido y a la memoria unificada, reproduciendo fielmente el cuello de botella estructural de Von Neumann.</p>
+<p>Los resultados experimentales validan la correctitud del modelo: la ejecución de la instrucción requiere 14 ciclos distribuidos en 6 microoperaciones de captación (<em>Fetch</em>) y 5 de ejecución (<em>Execute</em>), generando un total de 45 transiciones DEVS (<span class="math inline">\(\lambda\)</span>, <span class="math inline">\(\delta_{int}\)</span>, <span class="math inline">\(\delta_{ext}\)</span>) con un tiempo real de simulación de 3.36 ms. La traza temporal evidencia cómo la Unidad de Control sincroniza el acceso exclusivo al bus compartido y a la memoria unificada, reproduciendo fielmente el cuello de botella estructural de Von Neumann.</p>
 <p>Desde una perspectiva de validación arquitectural, este enfoque posibilita la instrumentación de métricas cuantitativas de rendimiento —CPI (Cycles Per Instruction), latencia de acceso a memoria, tiempo de ocupación del bus— que constituyen indicadores objetivos para evaluar el comportamiento del sistema y detectar inconsistencias en el diseño. La modularidad del modelo DEVS facilita, además, la extensión futura del simulador mediante la incorporación de nuevos componentes (ALU, pipeline, cache) sin comprometer la estructura existente.</p>
 <p>Desde una perspectiva pedagógica, el modelo ofrece una representación explícita y observable de las dependencias funcionales entre componentes internos del procesador, permitiendo a los estudiantes comprender cómo las restricciones arquitecturales —bus único, acceso secuencial a memoria, coordinación mediante señales de control— impactan directamente en el rendimiento del sistema. De este modo, la visualización de las transiciones de estado y la propagación temporal de eventos no solo valida el modelo, sino que refuerza el aprendizaje de conceptos fundamentales como el ciclo de instrucción, la sincronización de componentes y las limitaciones estructurales de las arquitecturas clásicas.</p>
 </div>
