@@ -976,8 +976,13 @@ _start:
   \end{lstlisting}
 
 Notas (RISC‑V):
-- \texttt{la} carga en un registro la dirección de una etiqueta (no el dato) y el ensamblador la expande en 1--2 instrucciones reales (p.~ej., \texttt{auipc}+\texttt{addi}).
-- \texttt{lw}/\texttt{sw} usan el formato \texttt{lw\ rd,\ offset(rs1)}. Ej.: \texttt{lw\ t1,\ 0(t0)} lee MEM{[}t0+0{]}; \texttt{sw\ t4,\ 0(t0)} escribe en esa dirección.
+
+\begin{itemize}
+\item
+  \texttt{la} carga en un registro la dirección de una etiqueta (no el dato) y el ensamblador la expande en 1--2 instrucciones reales (p.~ej., \texttt{auipc}+\texttt{addi}).
+\item
+  \texttt{lw}/\texttt{sw} usan el formato \texttt{lw\ rd,\ offset(rs1)}. Ej.: \texttt{lw\ t1,\ 0(t0)} lee MEM{[}t0+0{]}; \texttt{sw\ t4,\ 0(t0)} escribe en esa dirección.
+\end{itemize}
 
 Ejemplo x86 (longitud variable; ALU con operando en memoria).
 
@@ -1000,8 +1005,13 @@ _start:
   \end{lstlisting}
 
 Notas (x86):
-- x86 permite operaciones ALU con un operando en memoria (reg--mem), a diferencia del paradigma load/store de RISC‑V.
-- Las instrucciones son de longitud variable (1--15 bytes), lo que incrementa la complejidad de decodificación.
+
+\begin{itemize}
+\item
+  x86 permite operaciones ALU con un operando en memoria (reg--mem), a diferencia del paradigma load/store de RISC‑V.
+\item
+  Las instrucciones son de longitud variable (1--15 bytes), lo que incrementa la complejidad de decodificación.
+\end{itemize}
 
 La tabla \ref{tab:ciscrisc} sintetiza las principales diferencias estructurales y operativas entre las filosofías CISC y RISC, destacando sus implicancias en el diseño del hardware y el rendimiento general del sistema.
 

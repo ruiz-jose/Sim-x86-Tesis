@@ -417,9 +417,11 @@ _start:
 
   # Guardar resultado en mem1
   sw   t4, 0(t0)       # MEM[mem1] &lt;- t4</code></pre>
-<p>Notas (RISC‑V):
-- <code>la</code> carga en un registro la dirección de una etiqueta (no el dato) y el ensamblador la expande en 1–2 instrucciones reales (p. ej., <code>auipc</code>+<code>addi</code>).
-- <code>lw</code>/<code>sw</code> usan el formato <code>lw rd, offset(rs1)</code>. Ej.: <code>lw t1, 0(t0)</code> lee MEM[t0+0]; <code>sw t4, 0(t0)</code> escribe en esa dirección.</p>
+<p>Notas (RISC‑V):</p>
+<ul>
+<li><p><code>la</code> carga en un registro la dirección de una etiqueta (no el dato) y el ensamblador la expande en 1–2 instrucciones reales (p. ej., <code>auipc</code>+<code>addi</code>).</p></li>
+<li><p><code>lw</code>/<code>sw</code> usan el formato <code>lw rd, offset(rs1)</code>. Ej.: <code>lw t1, 0(t0)</code> lee MEM[t0+0]; <code>sw t4, 0(t0)</code> escribe en esa dirección.</p></li>
+</ul>
 <p>Ejemplo x86 (longitud variable; ALU con operando en memoria).</p>
 <pre class="assembly"><code>section .data
 mem1:  dd 5
@@ -436,9 +438,11 @@ _start:
 
   ; Guardar el resultado en mem1
   MOV [mem1], EAX</code></pre>
-<p>Notas (x86):
-- x86 permite operaciones ALU con un operando en memoria (reg–mem), a diferencia del paradigma load/store de RISC‑V.
-- Las instrucciones son de longitud variable (1–15 bytes), lo que incrementa la complejidad de decodificación.</p>
+<p>Notas (x86):</p>
+<ul>
+<li><p>x86 permite operaciones ALU con un operando en memoria (reg–mem), a diferencia del paradigma load/store de RISC‑V.</p></li>
+<li><p>Las instrucciones son de longitud variable (1–15 bytes), lo que incrementa la complejidad de decodificación.</p></li>
+</ul>
 <p>La tabla <a href="filosofías-cisc-y-risc.html#tab:ciscrisc">2.5</a> sintetiza las principales diferencias estructurales y operativas entre las filosofías CISC y RISC, destacando sus implicancias en el diseño del hardware y el rendimiento general del sistema.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
