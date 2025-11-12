@@ -383,11 +383,10 @@ En cambio, las arquitecturas CISC, como x86, emplean instrucciones de longitud v
 Por ejemplo, en RISC, los modos de direccionamiento son simples y permiten un acceso más rápido a los operandos, reduciendo la latencia en el pipeline [@stallings_computer_2021]. En CISC, los modos de direccionamiento más complejos proporcionan flexibilidad a costa de una mayor latencia, lo que impacta negativamente en el rendimiento general del sistema.
 
 #### Ejemplos de instrucciones
-Para contrastar RISC (RISC-V) y CISC (x86) se muestra una operación: leer dos palabras desde memoria, sumarlas y almacenar el resultado donde estaba el primer operando.
+Para contrastar los enfoques RISC (RISC‑V) y CISC (x86) se resuelve la misma tarea: leer dos palabras desde memoria, sumarlas y escribir el resultado en la primera dirección.
 
-Ejemplo RISC-V (instrucciones de longitud fija; uso explícito de registros base y desplazamientos):
-
-Una arquitectura bajo la filosofia RISC es RISC-V, que utiliza instrucciones simples y de longitud fija. En este caso, la instrucción para cargar un valor de memoria en un registro es `lw` (load word), y la instrucción para almacenar el resultado es `sw` (store word). La suma se realiza con la instrucción `add`.:
+Ejemplo RISC‑V (longitud fija; modelo load/store con registro base y desplazamiento).
+RISC‑V emplea instrucciones simples y de longitud fija. La carga y el almacenamiento se realizan con `lw` y `sw`, respectivamente, y la suma con `add`. La dirección de una etiqueta se obtiene con `la` (pseudo‑instrucción).
 
 ```{r  code0, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -442,12 +441,11 @@ _start:
 }
 ```
 
-Notas:
-- la es pseudo instrucción (ensamblador expande a auipc + lw/addi según el caso).
-- lw/sw usan formato lw rd, offset(rs1).
-- Separación clara entre obtención de direcciones y acceso a datos reduce ambigüedad respecto a 0(mem1).
+Notas (RISC‑V):
+- `la` carga en un registro la dirección de una etiqueta (no el dato) y el ensamblador la expande en 1–2 instrucciones reales (p. ej., `auipc`+`addi`).
+- `lw`/`sw` usan el formato `lw rd, offset(rs1)`. Ej.: `lw t1, 0(t0)` lee MEM[t0+0]; `sw t4, 0(t0)` escribe en esa dirección.
 
-Ejemplo x86 (instrucciones de longitud variable; ALU con operando en memoria):
+Ejemplo x86 (longitud variable; ALU con operando en memoria).
 
 ```{r  code1, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -492,10 +490,9 @@ _start:
 }
 ```
 
-Notas:
-- x86 permite ALU con un operando en memoria (reg–mem), a diferencia del load/store puro en RISC‑V.
-- Instrucciones de longitud variable; el tamaño del operando se declara con dd/dword (32 bits).
-- Sintaxis estilo NASM/Intel; en otros ensambladores pueden variar directivas y etiquetas.
+Notas (x86):
+- x86 permite operaciones ALU con un operando en memoria (reg–mem), a diferencia del paradigma load/store de RISC‑V.
+- Las instrucciones son de longitud variable (1–15 bytes), lo que incrementa la complejidad de decodificación.
 
 La tabla \@ref(tab:ciscrisc) sintetiza las principales diferencias estructurales y operativas entre las filosofías CISC y RISC, destacando sus implicancias en el diseño del hardware y el rendimiento general del sistema.
 
