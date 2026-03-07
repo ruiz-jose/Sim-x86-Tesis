@@ -9,7 +9,7 @@ A partir de esta necesidad, se establecieron un conjunto de requisitos funcional
 Esta sección expone los requisitos que orientaron el diseño del simulador, clasificados en dos dimensiones complementarias: pedagógica y funcional. La primera se vincula con los objetivos formativos definidos en el capítulo introductorio (\@ref(intro)), mientras que la segunda refiere a las características técnicas necesarias para garantizar su implementación eficaz. La definición de los requisitos se apoyó en principios pedagógicos y técnicos, complementados con una validación empírica realizada mediante entrevistas semiestructuradas a docentes expertos (ver Apéndice: Anexo A \@ref(anexoA)). Estas entrevistas revelaron, entre otros aspectos, la necesidad de incorporar visualizaciones gráficas del ciclo de instrucción, soporte para interrupciones y periféricos, y un repertorio reducido de instrucciones con activación progresiva, para evitar la sobrecarga cognitiva en los estudiantes. Asimismo, se identificaron limitaciones en herramientas existentes, como el Emu8086, cuya interfaz y funcionalidades no satisfacen completamente las necesidades pedagógicas. Este proceso permitió identificar necesidades auténticas del aula y carencias específicas en las herramientas existentes, aportando una base empírica rigurosa para la formulación pedagógica y técnica de los requisitos [@huberman2019qualitative].
 
 1. **Visualización de la estructura general de la computadora:**
-Representar gráficamente la CPU, los buses, la memoria y los dispositivos de entrada/salida. Esta visualización debe destacar los componentes activos en cada etapa del ciclo de instrucción, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora [@w3c_accessibility_2021]. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas [@sorva2013visualizations]. La Figura \@ref(fig:diagramasimulador) ilustra la estructura general del simulador, esta representación gráfica facilita la comprensión de cómo los componentes del simulador trabajan en conjunto durante la ejecución de un programa.
+La representación gráfica de la CPU, los buses, la memoria y los dispositivos de entrada/salida resulta fundamental para visualizar la interacción y el funcionamiento integrado de los componentes durante el ciclo de instrucción. La Figura \@ref(fig:diagramasimulador) muestra la estructura general del simulador VonSim8, destacando los elementos activos en cada etapa y facilitando una comprensión sistémica del proceso de ejecución. Este recurso didáctico, respaldado por estudios sobre visualización en disciplinas técnicas [@sorva2013visualizations], contribuye significativamente a la asimilación de conceptos abstractos y al desarrollo de competencias en arquitectura de computadoras.
 
 ```{r diagramasimulador, echo=FALSE, fig.cap="Estructura general del simulador VonSim8", fig.align = 'right', out.width = "93%"}
 knitr::include_graphics("images/estructurasimulador.png")
@@ -84,7 +84,8 @@ La Tabla \@ref(tab:activacionprogresiva) resume el proceso de activación progre
 
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
 Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción [@ASMVisualizer2025; @harris2015digital]. Stallings [@stallings_computer_2021] propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (*Fetch*) hasta la ejecución (*Execute*), facilitando la visualización del recorrido de datos y señales de control en cada etapa del proceso.
-Como complemento a la descripción anterior, la Figura \@ref(fig:cicloinstruccion) muestra un ciclo de instrucción típico utilizando la operación `MOV AL, BL`. En la etapa de captación (*Fetch*), la dirección de la instrucción se carga desde el registro `IP` al `MAR`, y el contenido de la memoria se transfiere al `MBR` y luego al `IR` . En la etapa de ejecución (*Execute*), los datos se mueven desde el registro `BL` al registro `AL`.
+
+La Figura \@ref(fig:cicloinstruccion) representa de manera visual y secuencial las etapas fundamentales del ciclo de instrucción, ejemplificadas mediante la operación `MOV AL, BL`. En la etapa de captación (*Fetch*), se observa cómo la dirección de la instrucción es transferida del registro `IP` al `MAR`, seguida por la lectura de la memoria hacia el `MBR` y su posterior carga en el `IR`. En la etapa de ejecución (*Execute*), el dato se mueve desde el registro `BL` al registro `AL`, ilustrando el flujo de información y el funcionamiento interno del procesador durante la ejecución de una instrucción. Esta representación facilita la comprensión didáctica de los procesos involucrados en el ciclo de instrucción.
 
 ```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción: captación y ejecución", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/cicloinstruccion.png")
@@ -1501,9 +1502,9 @@ if (knitr::is_latex_output()) {
 ## Ciclo de la instrucción
 El ciclo de la instrucción es la secuencia de pasos que realiza la Unidad de Control (UC) para ejecutar cada instrucción de un programa. Este proceso es fundamental para el funcionamiento de cualquier computadora, ya que involucra elementos clave como registros, buses de datos, direcciones y señales de control generadas por la UC.
 
-Las microoperaciones que lo componen se expresan mediante la notación de transferencia entre registros: `destino` $\leftarrow$ `origen`.
+Las microoperaciones que conforman el ciclo de instrucción se describen utilizando la notación de transferencia entre registros: `destino` $\leftarrow$ `origen`.
 
-La Figura \@ref(fig:flujoCicloInstruccion) ilustra el flujo general del ciclo, el cual se divide en dos etapas principales: captación (*Fetch*) y ejecución (*Execute*).
+La Figura \@ref(fig:flujoCicloInstruccion) esquematiza el flujo general del ciclo de instrucción en VonSim8, distinguiendo claramente las dos etapas fundamentales: captación (*Fetch*) y ejecución (*Execute*). Esta representación visual facilita la comprensión de la secuencia lógica y la interacción entre componentes durante la ejecución de cada instrucción, aportando claridad didáctica al análisis del funcionamiento interno del procesador.
 
 ```{r flujoCicloInstruccion, echo=FALSE, fig.cap="Flujo del ciclo de instrucción en VonSim8", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/cicloinstruccion3.png")
@@ -1935,7 +1936,7 @@ El simulador permite configurar la conexión de diversos módulos de entrada/sal
   
   - Un controlador PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador y su reloj asociado.
 
-La Figura \@ref(fig:dispositivos) muestra una visión general de los dispositivos que pueden conectarse al simulador.
+La Figura \@ref(fig:dispositivos) ofrece una representación integral de la arquitectura del simulador, ilustrando la disposición y conectividad de los distintos dispositivos y módulos. Esta visualización facilita la comprensión de la estructura interna y la interacción entre componentes, aportando claridad al análisis de los mecanismos de comunicación y gestión de recursos implementados en el sistema.
 
 ```{r dispositivos, echo=FALSE, fig.cap="Arquitectura general del simulador", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/esquemavonsim8.png")
