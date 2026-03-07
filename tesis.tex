@@ -1848,7 +1848,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \tightlist
 \item
   \textbf{Visualización de la estructura general de la computadora:}
-  Representar gráficamente la CPU, los buses, la memoria y los dispositivos de entrada/salida. Esta visualización debe destacar los componentes activos en cada etapa del ciclo de instrucción, facilitando una comprensión sistémica e integrada del funcionamiento de la computadora \protect\hyperlink{ref-w3c_accessibility_2021}{{[}75{]}}. El uso de representaciones gráficas como recurso didáctico está respaldado por estudios que demuestran su efectividad para facilitar la comprensión de conceptos abstractos en disciplinas técnicas \protect\hyperlink{ref-sorva2013visualizations}{{[}76{]}}. La Figura \ref{fig:diagramasimulador} ilustra la estructura general del simulador, esta representación gráfica facilita la comprensión de cómo los componentes del simulador trabajan en conjunto durante la ejecución de un programa.
+  La representación gráfica de la CPU, los buses, la memoria y los dispositivos de entrada/salida resulta fundamental para visualizar la interacción y el funcionamiento integrado de los componentes durante el ciclo de instrucción. La Figura \ref{fig:diagramasimulador} muestra la estructura general del simulador VonSim8, destacando los elementos activos en cada etapa y facilitando una comprensión sistémica del proceso de ejecución. Este recurso didáctico, respaldado por estudios sobre visualización en disciplinas técnicas \protect\hyperlink{ref-sorva2013visualizations}{{[}75{]}}, contribuye significativamente a la asimilación de conceptos abstractos y al desarrollo de competencias en arquitectura de computadoras.
 \end{enumerate}
 
 \begin{figure}
@@ -1865,7 +1865,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \item
   \textbf{Soporte para la generación y ejecución de programas en ensamblador:}
   Incorporar la posibilidad de ejecutar programas escritos en lenguaje ensamblador tanto de forma paso a paso como en ejecución continua. Esta funcionalidad posibilita el análisis detallado de cada instrucción, fortaleciendo competencias en trazado y depuración de código ensamblador, fundamentales para comprender la relación entre software y hardware.
-  Para apoyar este proceso, se propone la inclusión de un editor de ensamblador que incorpore funciones como resaltado de sintaxis y autocompletado. Estas características mejoran la experiencia del usuario y facilitan la escritura y comprensión del código, en consonancia con principios de diseño de interfaces que priorizan la usabilidad y la accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}75{]}}. El editor debe permitir al usuario escribir, editar, guardar y ejecutar programas en ensamblador dentro del simulador, además de ofrecer ejemplos predefinidos como apoyo didáctico. La incorporación de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios \protect\hyperlink{ref-mccracken2001does}{{[}77{]}}.
+  Para apoyar este proceso, se propone la inclusión de un editor de ensamblador que incorpore funciones como resaltado de sintaxis y autocompletado. Estas características mejoran la experiencia del usuario y facilitan la escritura y comprensión del código, en consonancia con principios de diseño de interfaces que priorizan la usabilidad y la accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}76{]}}. El editor debe permitir al usuario escribir, editar, guardar y ejecutar programas en ensamblador dentro del simulador, además de ofrecer ejemplos predefinidos como apoyo didáctico. La incorporación de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios \protect\hyperlink{ref-mccracken2001does}{{[}77{]}}.
 \end{enumerate}
 
 \begin{figure}
@@ -1916,8 +1916,9 @@ La Tabla \ref{tab:activacionprogresiva} resume el proceso de activación progres
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
   Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción \protect\hyperlink{ref-harris2015digital}{{[}35{]}}, \protect\hyperlink{ref-ASMVisualizer2025}{{[}79{]}}. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}} propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (\emph{Fetch}) hasta la ejecución (\emph{Execute}), facilitando la visualización del recorrido de datos y señales de control en cada etapa del proceso.
-  Como complemento a la descripción anterior, la Figura \ref{fig:cicloinstruccion} muestra un ciclo de instrucción típico utilizando la operación \texttt{MOV\ AL,\ BL}. En la etapa de captación (\emph{Fetch}), la dirección de la instrucción se carga desde el registro \texttt{IP} al \texttt{MAR}, y el contenido de la memoria se transfiere al \texttt{MBR} y luego al \texttt{IR} . En la etapa de ejecución (\emph{Execute}), los datos se mueven desde el registro \texttt{BL} al registro \texttt{AL}.
 \end{enumerate}
+
+La Figura \ref{fig:cicloinstruccion} representa de manera visual y secuencial las etapas fundamentales del ciclo de instrucción, ejemplificadas mediante la operación \texttt{MOV\ AL,\ BL}. En la etapa de captación (\emph{Fetch}), se observa cómo la dirección de la instrucción es transferida del registro \texttt{IP} al \texttt{MAR}, seguida por la lectura de la memoria hacia el \texttt{MBR} y su posterior carga en el \texttt{IR}. En la etapa de ejecución (\emph{Execute}), el dato se mueve desde el registro \texttt{BL} al registro \texttt{AL}, ilustrando el flujo de información y el funcionamiento interno del procesador durante la ejecución de una instrucción. Esta representación facilita la comprensión didáctica de los procesos involucrados en el ciclo de instrucción.
 
 \begin{figure}
 
@@ -3040,9 +3041,9 @@ DL & 11 & 3\\
 
 El ciclo de la instrucción es la secuencia de pasos que realiza la Unidad de Control (UC) para ejecutar cada instrucción de un programa. Este proceso es fundamental para el funcionamiento de cualquier computadora, ya que involucra elementos clave como registros, buses de datos, direcciones y señales de control generadas por la UC.
 
-Las microoperaciones que lo componen se expresan mediante la notación de transferencia entre registros: \texttt{destino} \(\leftarrow\) \texttt{origen}.
+Las microoperaciones que conforman el ciclo de instrucción se describen utilizando la notación de transferencia entre registros: \texttt{destino} \(\leftarrow\) \texttt{origen}.
 
-La Figura \ref{fig:flujoCicloInstruccion} ilustra el flujo general del ciclo, el cual se divide en dos etapas principales: captación (\emph{Fetch}) y ejecución (\emph{Execute}).
+La Figura \ref{fig:flujoCicloInstruccion} esquematiza el flujo general del ciclo de instrucción en VonSim8, distinguiendo claramente las dos etapas fundamentales: captación (\emph{Fetch}) y ejecución (\emph{Execute}). Esta representación visual facilita la comprensión de la secuencia lógica y la interacción entre componentes durante la ejecución de cada instrucción, aportando claridad didáctica al análisis del funcionamiento interno del procesador.
 
 \begin{figure}
 
@@ -3664,7 +3665,7 @@ El simulador permite configurar la conexión de diversos módulos de entrada/sal
   Un controlador PIC, que interactúa con la tecla F10 para generar interrupciones, junto con un temporizador y su reloj asociado.
 \end{itemize}
 
-La Figura \ref{fig:dispositivos} muestra una visión general de los dispositivos que pueden conectarse al simulador.
+La Figura \ref{fig:dispositivos} ofrece una representación integral de la arquitectura del simulador, ilustrando la disposición y conectividad de los distintos dispositivos y módulos. Esta visualización facilita la comprensión de la estructura interna y la interacción entre componentes, aportando claridad al análisis de los mecanismos de comunicación y gestión de recursos implementados en el sistema.
 
 \begin{figure}
 
@@ -6967,13 +6968,13 @@ Estas líneas de trabajo futuro no solo expanden las capacidades técnicas del s
 \CSLLeftMargin{{[}74{]} }%
 \CSLRightInline{A. Huberman \emph{et al.}, {``Qualitative data analysis a methods sourcebook,''} 2019.}
 
-\leavevmode\vadjust pre{\hypertarget{ref-w3c_accessibility_2021}{}}%
-\CSLLeftMargin{{[}75{]} }%
-\CSLRightInline{W3C Web Accessibility Initiative, {``Accessibility principles.''} 2021. Available: \url{https://www.w3.org/WAI/fundamentals/accessibility-principles/}}
-
 \leavevmode\vadjust pre{\hypertarget{ref-sorva2013visualizations}{}}%
-\CSLLeftMargin{{[}76{]} }%
+\CSLLeftMargin{{[}75{]} }%
 \CSLRightInline{J. Sorva, {``Notional machines and introductory programming education,''} \emph{ACM Transactions on Computing Education (TOCE)}, vol. 13, no. 2, pp. 1--31, 2013, doi: \href{https://doi.org/10.1145/2483710.2483713}{10.1145/2483710.2483713}.}
+
+\leavevmode\vadjust pre{\hypertarget{ref-w3c_accessibility_2021}{}}%
+\CSLLeftMargin{{[}76{]} }%
+\CSLRightInline{W3C Web Accessibility Initiative, {``Accessibility principles.''} 2021. Available: \url{https://www.w3.org/WAI/fundamentals/accessibility-principles/}}
 
 \leavevmode\vadjust pre{\hypertarget{ref-mccracken2001does}{}}%
 \CSLLeftMargin{{[}77{]} }%
