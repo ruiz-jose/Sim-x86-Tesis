@@ -50,9 +50,9 @@ knitr::include_graphics(path = "images/harvard.png")
 ### Comparativa entre Von Neumann y Harvard
 Como señalan Stallings [@stallings_computer_2021] y Hennessy [@hennessy2017computer], la arquitectura Von Neumann continúa siendo una alternativa predominante cuando se priorizan la simplicidad del diseño, la flexibilidad en la asignación de memoria y la compatibilidad con software de propósito general, como ocurre en muchas computadoras personales y servidores contemporáneos. En cambio, la arquitectura Harvard ha demostrado ventajas significativas en aplicaciones que demandan procesamiento en tiempo real y eficiencia energética, como dispositivos móviles, microcontroladores y entornos de control industrial. La elección entre ambas arquitecturas responde, en última instancia, a requerimientos específicos del sistema, ya sea por su complejidad, restricciones energéticas o necesidades de rendimiento paralelo.
 
-Para una comparación más sistemática, se pueden establecer criterios como tipo de memoria, estructura de buses, capacidad de acceso paralelo, casos de uso representativos, ventajas y limitaciones.
+Para realizar una comparación sistemática entre las arquitecturas Von Neumann y Harvard, es pertinente considerar criterios como el tipo de memoria, la estructura de buses, la capacidad de acceso paralelo, los casos de uso representativos, así como sus ventajas y limitaciones. Estos aspectos se sintetizan en la Tabla \@ref(tab:comparativavonneumannharvard), donde se analizan en detalle las características fundamentales de cada modelo.
 
-```{r, echo=FALSE, out.width = "100%", fig.cap="Comparación entre arquitecturas Von Neumann y Harvard"}
+```{r comparativavonneumannharvard, echo=FALSE, out.width = "100%", fig.cap="Comparación entre arquitecturas Von Neumann y Harvard"}
 library(knitr)
 library(kableExtra)
 
@@ -129,6 +129,8 @@ Como arquitectura de código abierto, RISC-V ofrece una alternativa personalizab
 
 ### Comparativa entre arquitecturas
 Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. Por su parte, arquitecturas como RISC-V han encontrado aplicaciones relevantes en sistemas embebidos, plataformas educativas y diseños personalizados, aunque su presencia comercial difiere notablemente. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final. Además, comprender las diferencias entre estas arquitecturas, en particular sus repertorios de instrucciones y principios de diseño, resulta fundamental en el ámbito educativo, dado que facilita el desarrollo de herramientas didácticas que simulan sus principios operativos y ayudan a los estudiantes a visualizar el funcionamiento real de los sistemas computacionales [@patterson_computer_2014; @arm_evolution_2025].
+
+Las aplicaciones de la simulación en distintos sectores se resumen en la Tabla \@ref(tab:aplicacionessimulacion), donde se detallan los ámbitos de uso, ejemplos representativos y los principales beneficios asociados a cada área.
 
 ```{r aplicacionessimulacion, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -227,7 +229,7 @@ knitr::include_graphics(path = "images/modosdireccionamiento.png")
   - R = contenido de un campo de dirección en la instrucción que referencia a un registro
   - EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
 
-La tabla \@ref(tab:tabmoddir) detalla el cálculo de la dirección para cada modo de direccionamiento.
+La Tabla \@ref(tab:tabmoddir) presenta de manera detallada el algoritmo utilizado para calcular la dirección efectiva en cada uno de los modos de direccionamiento descritos.
 
 ```{r tabmoddir, echo=FALSE, message=FALSE, warning=FALSE, table.pos='htbp'}
 library(knitr)
@@ -307,7 +309,7 @@ knitr::include_graphics(path = "images/formatoinst.png")
 
 ### Comparativa de repertorios de instrucciones
 
-La siguiente tabla \@ref(tab:comparativaISA) resume las características principales de los repertorios de instrucciones en tres arquitecturas ampliamente utilizadas: x86, ARM y RISC-V. Se consideran aspectos como la longitud de las instrucciones, la cantidad de operandos, su complejidad y los modos de direccionamiento que permiten.
+La Tabla \@ref(tab:comparativaISA) sintetiza las características fundamentales de los repertorios de instrucciones en las arquitecturas x86, ARM y RISC-V, considerando aspectos como la longitud de las instrucciones, el número y tipo de operandos, la complejidad y los modos de direccionamiento admitidos.
 
 ```{r comparativaISA, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -498,7 +500,7 @@ Notas (x86):
 
 - Las instrucciones son de longitud variable (1–15 bytes), lo que incrementa la complejidad de decodificación.
 
-La tabla \@ref(tab:ciscrisc) sintetiza las principales diferencias estructurales y operativas entre las filosofías CISC y RISC, destacando sus implicancias en el diseño del hardware y el rendimiento general del sistema.
+La Tabla \@ref(tab:ciscrisc) presenta una síntesis comparativa de las diferencias estructurales y operativas entre las filosofías CISC y RISC, resaltando sus implicancias en el diseño del hardware y el impacto sobre el rendimiento global del sistema.
 
 ```{r ciscrisc, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -578,7 +580,7 @@ knitr::include_graphics(path = "images/x86.png")
 ### Evolución de la arquitectura x86
 Uno de los pilares del éxito de la arquitectura x86 ha sido su retrocompatibilidad, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Dicha propiedad no solo ha garantizado la continuidad del ecosistema x86, sino que también ha protegido las inversiones en software y sistemas operativos, una característica fundamental en entornos empresariales y académicos.
 
-A continuación, se presenta la tabla \@ref(tab:hitosx86) que resume los hitos clave en la evolución de los procesadores x86:
+La Tabla \@ref(tab:hitosx86) sintetiza los principales hitos en la evolución de los procesadores x86, destacando las innovaciones tecnológicas que han marcado su desarrollo a lo largo del tiempo.
 
 ```{r hitosx86, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -627,7 +629,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-La tabla \@ref(tab:evolucionx86) muestra cómo la evolución de x86 ha estado marcada por avances tecnológicos que han impulsado la informática hacia nuevas fronteras:
+La Tabla \@ref(tab:evolucionx86) ilustra la progresión histórica de la arquitectura x86, destacando los avances tecnológicos que han impulsado el desarrollo de la informática y ampliado sus fronteras.
 
 ```{r evolucionx86, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -769,7 +771,7 @@ knitr::include_graphics(path = "images/ensamblador.png")
 ### Ensambladores x86
 En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) [@tasm], MASM (Microsoft Macro Assembler) [@masm] y NASM (Netwide Assembler) [@nasm]. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 [@hyde2010art].
 
-A continuación, se presenta una tabla comparativa \@ref(tab:ensambladores) que resume las principales características de tres ensambladores ampliamente utilizados en la arquitectura x86. La información compilada permite visualizar diferencias relevantes en términos de sintaxis, compatibilidad, funcionalidades adicionales y contexto de uso, lo que resulta particularmente útil al momento de seleccionar herramientas adecuadas para entornos educativos o de desarrollo de bajo nivel.
+La Tabla \@ref(tab:ensambladores) compara las características esenciales de tres ensambladores representativos de la arquitectura x86, permitiendo identificar diferencias relevantes en sintaxis, compatibilidad, funcionalidades adicionales y contexto de uso. Esta síntesis resulta especialmente útil para la selección de herramientas adecuadas en entornos educativos o de desarrollo de bajo nivel.
 
 ```{r ensambladores, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)

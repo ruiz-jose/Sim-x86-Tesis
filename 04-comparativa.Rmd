@@ -68,8 +68,7 @@ Los criterios de evaluación se definieron con el objetivo de realizar un análi
     - Profundidad en el tratamiento de los temas.
   - **Escala**: Baja - Media - Alta.
 
-
-La Tabla \@ref(tab:criterios) resume los criterios, indicadores y escalas utilizadas.
+La Tabla \@ref(tab:criterios) sintetiza los criterios de evaluación, junto con sus respectivos indicadores y escalas, empleados para analizar sistemáticamente los simuladores seleccionados.
 
 ```{r criterios, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -108,12 +107,13 @@ criterios <- data.frame(
 
 
 tabla <- kable(criterios,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Criterios e indicadores de evaluación de simuladores",
-               col.names = c("Criterio", "Indicadores", "Escala"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "l", "l"))
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Criterios e indicadores de evaluación de simuladores",
+  col.names = c("Criterio", "Indicadores", "Escala"),
+  booktabs = TRUE,
+  escape = FALSE,
+  align = c("c", "l", "l")
+)
 
 if (knitr::is_latex_output()) {
   tabla %>%
@@ -125,7 +125,8 @@ if (knitr::is_latex_output()) {
     column_spec(2:3, width = "6cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(criterios)),
-             extra_latex_after = "\\addlinespace[10pt]")
+      extra_latex_after = "\\addlinespace[10pt]"
+    )
 } else {
   tabla %>%
     kable_styling(
@@ -173,12 +174,13 @@ simuladores <- data.frame(
 
 
 tabla <- kable(simuladores,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Proceso de selección de simuladores",
-               col.names = c("Simulador", "Exploración Previa", "Evaluación Final"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c", "c"))
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Proceso de selección de simuladores",
+  col.names = c("Simulador", "Exploración Previa", "Evaluación Final"),
+  booktabs = TRUE,
+  escape = FALSE,
+  align = c("c", "c", "c")
+)
 
 
 if (knitr::is_latex_output()) {
@@ -191,7 +193,8 @@ if (knitr::is_latex_output()) {
     column_spec(2:3, width = "4cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(simuladores)),
-             extra_latex_after = "\\addlinespace[10pt]")
+      extra_latex_after = "\\addlinespace[10pt]"
+    )
 } else {
   tabla %>%
     kable_styling(
@@ -238,33 +241,39 @@ A continuación, se presenta un análisis detallado de los simuladores seleccion
 - **Desarrollo del producto**: Nivel bueno. Licencia privativa, última actualización en 2023, desarrollado para plataformas de escritorio.
 - **Cobertura de contenidos**: Nivel alto. Emula el arranque (bootstrapping) de una IBM PC desde un disco flexible (floppy disk) y soporta todos los modos de direccionamiento.
 
+La Tabla \@ref(tab:tabla-comparativa-criterios) presenta una síntesis comparativa de los simuladores seleccionados, evaluados según los criterios previamente definidos. En ella se destacan las diferencias y fortalezas de cada herramienta en relación con la usabilidad, funcionalidades del editor, calidad de la documentación, ejecución de simulación, nivel de especificación de la arquitectura x86, características técnicas y cobertura de contenidos curriculares.
+
 ```{r tabla-comparativa-criterios, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 
 tabla_comparativa <- data.frame(
-  `Criterio de Evaluación` = c("Usabilidad", "Editor", "Documentación", "Ejecución de simulación", 
-                             "Nivel de especificación x86", "Características del producto", 
-                             "Cobertura de contenidos"),
+  `Criterio de Evaluación` = c(
+    "Usabilidad", "Editor", "Documentación", "Ejecución de simulación",
+    "Nivel de especificación x86", "Características del producto",
+    "Cobertura de contenidos"
+  ),
   `Simple 8 bit` = c("Medio", "Bajo", "Mínima", "Medio", "Mínima", "Buena", "Baja"),
   VonSim = c("Medio", "Medio", "Media", "Medio", "Media", "Muy buena", "Media"),
   Emu8086 = c("Fácil", "Alto", "Completa", "Alta", "Completa", "Buena", "Alta")
 )
 
 tabla <- kable(tabla_comparativa,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Comparativa según criterios de evaluación preestablecidos",
-               col.names = c("Criterio de Evaluación", "Simple 8 bit", "VonSim", "Emu8086"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("l", "c", "c", "c"))
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Comparativa según criterios de evaluación preestablecidos",
+  col.names = c("Criterio de Evaluación", "Simple 8 bit", "VonSim", "Emu8086"),
+  booktabs = TRUE,
+  escape = FALSE,
+  align = c("l", "c", "c", "c")
+)
 
 tabla <- kable(tabla_comparativa,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Comparativa según criterios de evaluación preestablecidos",
-               col.names = c("Criterio de Evaluación", "Simple 8 bit", "VonSim", "Emu8086"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c", "c", "c"))
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Comparativa según criterios de evaluación preestablecidos",
+  col.names = c("Criterio de Evaluación", "Simple 8 bit", "VonSim", "Emu8086"),
+  booktabs = TRUE,
+  escape = FALSE,
+  align = c("c", "c", "c", "c")
+)
 
 if (knitr::is_latex_output()) {
   tabla %>%
@@ -276,7 +285,8 @@ if (knitr::is_latex_output()) {
     column_spec(2:4, width = "4cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(tabla_comparativa)),
-             extra_latex_after = "\\addlinespace[10pt]")
+      extra_latex_after = "\\addlinespace[10pt]"
+    )
 } else {
   tabla %>%
     kable_styling(

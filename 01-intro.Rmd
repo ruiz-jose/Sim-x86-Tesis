@@ -62,6 +62,8 @@ Entre sus funcionalidades clave, permitirá:
 
 Estas características facilitarán una comprensión progresiva de la arquitectura x86 y promoverán una experiencia de aprendizaje alineada con los objetivos del curso.
 
+Las funcionalidades principales del simulador propuesto se resumen en la Tabla \@ref(tab:funcionalidadessimulador), donde se detallan los componentes, sus funciones y el propósito didáctico de cada uno.
+
 ```{r funcionalidadessimulador, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
@@ -86,12 +88,13 @@ tablafuncionalidades <- data.frame(
 )
 
 tabla <- kable(tablafuncionalidades,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Funcionalidades principales del simulador propuesto",
-               col.names = c("Componente", "Funcionalidad Principal", "Propósito Didáctico"),
-               booktabs = TRUE,
-               escape = FALSE,
-               align = c("c", "c", "c"))
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Funcionalidades principales del simulador propuesto",
+  col.names = c("Componente", "Funcionalidad Principal", "Propósito Didáctico"),
+  booktabs = TRUE,
+  escape = FALSE,
+  align = c("c", "c", "c")
+)
 
 if (knitr::is_latex_output()) {
   tabla %>%
@@ -103,7 +106,8 @@ if (knitr::is_latex_output()) {
     column_spec(2:3, width = "6cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(tablafuncionalidades)),
-             extra_latex_after = "\\addlinespace[10pt]")
+      extra_latex_after = "\\addlinespace[10pt]"
+    )
 } else {
   tabla %>%
     kable_styling(

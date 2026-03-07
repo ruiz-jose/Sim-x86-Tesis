@@ -13,9 +13,9 @@ En sectores como la industria automotriz, la simulación es fundamental para el 
 
 En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad [@jentsch_simulation_2017].
 
-Estos principios generales encuentran aplicaciones concretas en diversos sectores industriales, donde la simulación cumple un papel clave tanto en el diseño como en el entrenamiento, la evaluación y la toma de decisiones.
+Estos principios generales se materializan en diversos sectores industriales, donde la simulación desempeña un papel fundamental en el diseño, el entrenamiento, la evaluación y la toma de decisiones. La Tabla \@ref(tab:aplisimu) resume las aplicaciones más relevantes de la simulación en estos ámbitos, evidenciando su impacto en la optimización de procesos y la mejora de resultados.
 
-```{r , echo=FALSE, message=FALSE, warning=FALSE}
+```{r aplisimu, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 library(kableExtra)
 
@@ -38,11 +38,12 @@ aplicaciones <- data.frame(
 
 # Crear la tabla con formato dinámico
 tabla <- kable(aplicaciones,
-               format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Aplicaciones de la simulación en distintos sectores",
-               col.names = c("Sector", "Aplicación", "Beneficio principal"),
-               booktabs = TRUE,
-               escape = FALSE)
+  format = ifelse(knitr::is_latex_output(), "latex", "html"),
+  caption = "Aplicaciones de la simulación en distintos sectores",
+  col.names = c("Sector", "Aplicación", "Beneficio principal"),
+  booktabs = TRUE,
+  escape = FALSE
+)
 
 # Convertir a HTML o LaTeX según el formato de salida
 if (knitr::is_latex_output()) {
@@ -55,8 +56,8 @@ if (knitr::is_latex_output()) {
     column_spec(2:3, width = "6cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(aplicaciones)),
-             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas
-
+      extra_latex_after = "\\addlinespace[10pt]"
+    ) # Espacio adicional entre filas
 } else {
   tabla %>%
     kable_styling(
