@@ -219,7 +219,7 @@ Los modos de direccionamiento definen los mecanismos mediante los cuales una ins
   f) **Con Desplazamiento**: combina una dirección base con un valor de desplazamiento, ideal para estructuras como arrays y matrices.
   g) **Pila**: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.
 
-Para complementar la descripción anterior, la Figura \@ref(fig:ModDir) presenta una representación esquemática de los modos de direccionamiento, mostrando gráficamente cómo se calcula la dirección efectiva (EA) en cada caso [@stallings_computer_2021].
+Para profundizar en la comprensión de los mecanismos de acceso a operandos, la Figura \@ref(fig:ModDir) ofrece una representación esquemática de los principales modos de direccionamiento implementados en arquitecturas modernas. En ella se visualiza, de manera didáctica, cómo se determina la dirección efectiva (EA) en cada caso, diferenciando entre modos inmediato, directo, indirecto, mediante registro, registro indirecto, con desplazamiento y pila. Esta ilustración facilita el análisis comparativo de las ventajas y limitaciones de cada modalidad, aportando claridad conceptual al estudio de la interacción entre instrucciones, memoria y registros [@stallings_computer_2021].
 
 ```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento ", fig.align = 'center', out.width="60%"}
 knitr::include_graphics(path = "images/modosdireccionamiento.png")
@@ -301,7 +301,7 @@ El formato de las instrucciones especifica la disposición y codificación de lo
 - **Cantidad de operandos**: las instrucciones pueden trabajar con diferentes números de operandos (de 0 a 3 o más). Una mayor cantidad de operandos incrementa la expresividad de las instrucciones, pero también puede derivar en una mayor complejidad de codificación y en un mayor uso de recursos del procesador.
 - **Campos de instrucción**: incluyen el opcode y campos adicionales como operandos, modos de direccionamiento y flags de condición. Estos campos determinan cuántas y qué tipo de operaciones puede ejecutar el procesador en un ciclo de reloj.
 
-La Figura \@ref(fig:forminst)  muestra un ejemplo representativo de formato de instrucción, donde se visualizan los campos que la componen y su disposición en el código binario.
+La Figura \@ref(fig:forminst) representa un esquema conceptual del formato de las instrucciones, donde se detallan los principales elementos que las componen: longitud de la instrucción, cantidad de operandos y campos de instrucción. El diagrama destaca cómo cada característica influye en la decodificación, la eficiencia del hardware y la versatilidad del repertorio de instrucciones, permitiendo visualizar las relaciones entre la estructura interna de una instrucción y su impacto en el diseño y rendimiento del procesador.
 
 ```{r forminst, echo=FALSE, fig.cap="Formato de instrucciones ", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/formatoinst.png")
@@ -562,7 +562,7 @@ if (knitr::is_latex_output()) {
 #### Convergencia de filosofías
 A pesar de sus diferencias, las arquitecturas modernas tienden a integrar características de ambas filosofías. Por ejemplo, los procesadores x86 adoptan técnicas propias de RISC para mejorar la eficiencia energética y el rendimiento. Esta convergencia refleja cómo los avances en diseño de procesadores buscan combinar lo mejor de cada enfoque, maximizando la flexibilidad y la eficiencia para adaptarse a las necesidades actuales y futuras del mercado.
 
-La Figura \@ref(fig:convergen) muestras la convergencia entre estas dos filosofías:
+La Figura \@ref(fig:convergen) ilustra de manera conceptual la convergencia entre las filosofías CISC y RISC en el diseño de procesadores modernos. Este esquema destaca cómo la integración de ambos enfoques permite alcanzar un rendimiento optimizado, combinando la flexibilidad y expresividad de CISC con la eficiencia y simplicidad de RISC. La representación gráfica facilita la comprensión de las tendencias actuales en arquitectura, donde la complementariedad de ambos paradigmas resulta clave para satisfacer las demandas de desempeño y eficiencia energética.
 
 ```{r convergen, echo=FALSE, fig.cap="Convergencia de filosofías", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/convergen.png")
@@ -762,7 +762,7 @@ Estas líneas indican que el valor 5 se mueve al registro AX y luego se suma el 
 ### Ensamblador
 El ensamblador es un programa que traduce las instrucciones simbólicas escritas en lenguaje ensamblador a lenguaje máquina, es decir, las convierte en las secuencias binarias que el procesador puede interpretar y ejecutar. Este proceso de traducción es prácticamente directo, ya que existe una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina [@stallings_computer_2021; @tanenbaum_structured_2016]. En contraste, los lenguajes de programación de alto nivel, como C o Python, suelen generar múltiples instrucciones máquina por cada línea de código fuente, lo que los distancia más de la arquitectura subyacente [@hennessy2017computer].
 
-La Figura \@ref(fig:ensambla) muestra el proceso de traducción de un programa en lenguaje ensamblador a lenguaje máquina. En este proceso, el ensamblador toma cada línea de código en ensamblador y la convierte en su representación binaria correspondiente, generando así un archivo ejecutable que puede ser cargado y ejecutado por el procesador.
+La Figura \@ref(fig:ensambla) esquematiza el proceso de ensamblado, destacando las etapas fundamentales desde la escritura del código ensamblador por el programador, la traducción simbólica realizada por el ensamblador, hasta la ejecución de instrucciones binarias por el procesador. Esta representación visual permite comprender cómo se transforma el código fuente en lenguaje ensamblador en instrucciones máquina ejecutables, evidenciando la relación directa entre el software de bajo nivel y el hardware.
 
 ```{r ensambla, echo=FALSE, fig.cap="Proceso de ensamblado", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/ensamblador.png")

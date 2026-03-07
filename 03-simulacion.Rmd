@@ -101,8 +101,7 @@ Además, la simulación actúa como un puente entre la teoría y la práctica, f
 El formalismo DEVS es una metodología modular y jerárquica que permite modelar y analizar sistemas representables como sistemas de eventos discretos, continuos o híbridos. Desarrollado por Bernard P. Zeigler en la década de 1970, este enfoque amplía el concepto de las máquinas de Moore al añadir una estructura que permite representar el comportamiento de sistemas mediante eventos temporizados que provocan cambios de estado, capturando así tanto la dinámica interna como las interacciones externas del sistema [@zeigler_theory_2000].
 
 ### Estructura del formalismo DEVS
-El formalismo DEVS se basa en la representación de sistemas como una colección de componentes que interactúan entre sí a través de eventos. Cada componente tiene un estado interno y puede recibir eventos externos que provocan cambios en su estado. Estos eventos pueden ser temporizados, lo que significa que el sistema puede reaccionar a eventos en momentos específicos, o pueden ser desencadenados por condiciones específicas.
-Esta estructura permite capturar tanto el comportamiento interno como la interacción externa del sistema modelado, ver figura \@ref(fig:devs). 
+El formalismo DEVS se fundamenta en la modelización de sistemas como conjuntos de componentes que interactúan mediante eventos discretos. Cada componente posee un estado interno y puede recibir eventos externos que desencadenan transiciones de estado, ya sea en instantes temporizados o ante condiciones específicas. Esta estructura modular permite representar tanto la dinámica interna como la interacción externa del sistema modelado. La Figura \@ref(fig:devs) ilustra la relación entre modelos atómicos y modelos acoplados en DEVS, evidenciando cómo se integran y comunican los distintos elementos para capturar el comportamiento global del sistema.
 
 ```{r devs, echo=FALSE, fig.cap="Relación entre modelos atómicos y modelos acoplados en DEVS", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/devs.png")
@@ -132,9 +131,7 @@ DEVS describe el comportamiento de un sistema real utilizando eventos de entrada
 - **Modelos atómicos**: representan las unidades fundamentales de comportamiento.
 - **Modelos acoplados**: integran modelos atómicos y/o otros modelos acoplados, permitiendo la construcción jerárquica de sistemas más complejos.
 
-Esta organización modular facilita el análisis y la gestión de sistemas, permitiendo probar subsistemas de manera aislada antes de integrarlos en un modelo completo.
-
-La siguiente figura \@ref(fig:acoplado) ilustra la organización modular del formalismo DEVS, mostrando cómo se integran modelos atómicos dentro de modelos acoplados:
+La organización modular del formalismo DEVS facilita el análisis y la gestión de sistemas complejos, permitiendo la validación de subsistemas de manera independiente antes de su integración en un modelo global. La Figura \@ref(fig:acoplado) ejemplifica cómo los modelos atómicos se agrupan y conectan dentro de modelos acoplados, reflejando la estructura jerárquica y la flexibilidad del enfoque DEVS para construir sistemas escalables y fácilmente gestionables.
 
 ```{r acoplado, echo=FALSE, fig.cap="Modelo acoplado en DEVS", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics(path = "images/acoplado.png")
