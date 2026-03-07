@@ -453,6 +453,8 @@ Entre sus funcionalidades clave, permitirá:
 
 Estas características facilitarán una comprensión progresiva de la arquitectura x86 y promoverán una experiencia de aprendizaje alineada con los objetivos del curso.
 
+Las funcionalidades principales del simulador propuesto se resumen en la Tabla \ref{tab:funcionalidadessimulador}, donde se detallan los componentes, sus funciones y el propósito didáctico de cada uno.
+
 \begin{table}[!h]
 \centering
 \caption{\label{tab:funcionalidadessimulador}Funcionalidades principales del simulador propuesto}
@@ -644,11 +646,11 @@ Mientras la arquitectura Von Neumann se convertía en el paradigma dominante, pa
 
 Como señalan Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}} y Hennessy \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, la arquitectura Von Neumann continúa siendo una alternativa predominante cuando se priorizan la simplicidad del diseño, la flexibilidad en la asignación de memoria y la compatibilidad con software de propósito general, como ocurre en muchas computadoras personales y servidores contemporáneos. En cambio, la arquitectura Harvard ha demostrado ventajas significativas en aplicaciones que demandan procesamiento en tiempo real y eficiencia energética, como dispositivos móviles, microcontroladores y entornos de control industrial. La elección entre ambas arquitecturas responde, en última instancia, a requerimientos específicos del sistema, ya sea por su complejidad, restricciones energéticas o necesidades de rendimiento paralelo.
 
-Para una comparación más sistemática, se pueden establecer criterios como tipo de memoria, estructura de buses, capacidad de acceso paralelo, casos de uso representativos, ventajas y limitaciones.
+Para realizar una comparación sistemática entre las arquitecturas Von Neumann y Harvard, es pertinente considerar criterios como el tipo de memoria, la estructura de buses, la capacidad de acceso paralelo, los casos de uso representativos, así como sus ventajas y limitaciones. Estos aspectos se sintetizan en la Tabla \ref{tab:comparativavonneumannharvard}, donde se analizan en detalle las características fundamentales de cada modelo.
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:unnamed-chunk-1}Cuadro comparativo entre arquitecturas Von Neumann y Harvard}
+\caption{\label{tab:comparativavonneumannharvard}Cuadro comparativo entre arquitecturas Von Neumann y Harvard}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
@@ -723,6 +725,8 @@ Como arquitectura de código abierto, RISC-V ofrece una alternativa personalizab
 \subsection{Comparativa entre arquitecturas}\label{comparativa-entre-arquitecturas}}
 
 Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. Por su parte, arquitecturas como RISC-V han encontrado aplicaciones relevantes en sistemas embebidos, plataformas educativas y diseños personalizados, aunque su presencia comercial difiere notablemente. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final. Además, comprender las diferencias entre estas arquitecturas, en particular sus repertorios de instrucciones y principios de diseño, resulta fundamental en el ámbito educativo, dado que facilita el desarrollo de herramientas didácticas que simulan sus principios operativos y ayudan a los estudiantes a visualizar el funcionamiento real de los sistemas computacionales \protect\hyperlink{ref-patterson_computer_2014}{{[}37{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}50{]}}.
+
+Las aplicaciones de la simulación en distintos sectores se resumen en la Tabla \ref{tab:aplicacionessimulacion}, donde se detallan los ámbitos de uso, ejemplos representativos y los principales beneficios asociados a cada área.
 
 \begin{table}[!h]
 \centering
@@ -826,7 +830,7 @@ Para complementar la descripción anterior, la Figura \ref{fig:ModDir} presenta 
   EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
 \end{itemize}
 
-La tabla \ref{tab:tabmoddir} detalla el cálculo de la dirección para cada modo de direccionamiento.
+La Tabla \ref{tab:tabmoddir} presenta de manera detallada el algoritmo utilizado para calcular la dirección efectiva en cada uno de los modos de direccionamiento descritos.
 
 \begin{table}[!h]
 \centering
@@ -886,7 +890,7 @@ La Figura \ref{fig:forminst} muestra un ejemplo representativo de formato de ins
 \hypertarget{comparativa-de-repertorios-de-instrucciones}{%
 \subsection{Comparativa de repertorios de instrucciones}\label{comparativa-de-repertorios-de-instrucciones}}
 
-La siguiente tabla \ref{tab:comparativaISA} resume las características principales de los repertorios de instrucciones en tres arquitecturas ampliamente utilizadas: x86, ARM y RISC-V. Se consideran aspectos como la longitud de las instrucciones, la cantidad de operandos, su complejidad y los modos de direccionamiento que permiten.
+La Tabla \ref{tab:comparativaISA} sintetiza las características fundamentales de los repertorios de instrucciones en las arquitecturas x86, ARM y RISC-V, considerando aspectos como la longitud de las instrucciones, el número y tipo de operandos, la complejidad y los modos de direccionamiento admitidos.
 
 \begin{table}[!h]
 \centering
@@ -1013,7 +1017,7 @@ Notas (x86):
   Las instrucciones son de longitud variable (1--15 bytes), lo que incrementa la complejidad de decodificación.
 \end{itemize}
 
-La tabla \ref{tab:ciscrisc} sintetiza las principales diferencias estructurales y operativas entre las filosofías CISC y RISC, destacando sus implicancias en el diseño del hardware y el rendimiento general del sistema.
+La Tabla \ref{tab:ciscrisc} presenta una síntesis comparativa de las diferencias estructurales y operativas entre las filosofías CISC y RISC, resaltando sus implicancias en el diseño del hardware y el impacto sobre el rendimiento global del sistema.
 
 \begin{table}[!h]
 \centering
@@ -1079,7 +1083,7 @@ Esta sección amplía la caracterización introductoria presentada en la Secció
 
 Uno de los pilares del éxito de la arquitectura x86 ha sido su retrocompatibilidad, permitiendo la ejecución de aplicaciones de 16, 32 y 64 bits en un mismo sistema. Dicha propiedad no solo ha garantizado la continuidad del ecosistema x86, sino que también ha protegido las inversiones en software y sistemas operativos, una característica fundamental en entornos empresariales y académicos.
 
-A continuación, se presenta la tabla \ref{tab:hitosx86} que resume los hitos clave en la evolución de los procesadores x86:
+La Tabla \ref{tab:hitosx86} sintetiza los principales hitos en la evolución de los procesadores x86, destacando las innovaciones tecnológicas que han marcado su desarrollo a lo largo del tiempo.
 
 \begin{table}[!h]
 \centering
@@ -1101,7 +1105,7 @@ A continuación, se presenta la tabla \ref{tab:hitosx86} que resume los hitos cl
 \end{tabular}}
 \end{table}
 
-La tabla \ref{tab:evolucionx86} muestra cómo la evolución de x86 ha estado marcada por avances tecnológicos que han impulsado la informática hacia nuevas fronteras:
+La Tabla \ref{tab:evolucionx86} ilustra la progresión histórica de la arquitectura x86, destacando los avances tecnológicos que han impulsado el desarrollo de la informática y ampliado sus fronteras.
 
 \begin{table}[!h]
 \centering
@@ -1223,7 +1227,7 @@ La Figura \ref{fig:ensambla} muestra el proceso de traducción de un programa en
 
 En el caso de la arquitectura x86, los programadores pueden elegir entre diversos ensambladores, como TASM (Turbo Assembler) \protect\hyperlink{ref-tasm}{{[}56{]}}, MASM (Microsoft Macro Assembler) \protect\hyperlink{ref-masm}{{[}57{]}} y NASM (Netwide Assembler) \protect\hyperlink{ref-nasm}{{[}58{]}}. Aunque cada ensamblador tiene características y sintaxis particulares, todos comparten el objetivo fundamental de convertir las instrucciones ensamblador en código binario ejecutable por los procesadores x86 \protect\hyperlink{ref-hyde2010art}{{[}59{]}}.
 
-A continuación, se presenta una tabla comparativa \ref{tab:ensambladores} que resume las principales características de tres ensambladores ampliamente utilizados en la arquitectura x86. La información compilada permite visualizar diferencias relevantes en términos de sintaxis, compatibilidad, funcionalidades adicionales y contexto de uso, lo que resulta particularmente útil al momento de seleccionar herramientas adecuadas para entornos educativos o de desarrollo de bajo nivel.
+La Tabla \ref{tab:ensambladores} compara las características esenciales de tres ensambladores representativos de la arquitectura x86, permitiendo identificar diferencias relevantes en sintaxis, compatibilidad, funcionalidades adicionales y contexto de uso. Esta síntesis resulta especialmente útil para la selección de herramientas adecuadas en entornos educativos o de desarrollo de bajo nivel.
 
 \begin{table}[!h]
 \centering
@@ -1279,11 +1283,11 @@ En sectores como la industria automotriz, la simulación es fundamental para el 
 
 En la aviación, los simuladores de vuelo son esenciales para entrenar pilotos, replicando condiciones reales de vuelo sin riesgos. Durante el diseño de aeronaves, estas herramientas permiten evaluar la aerodinámica y el rendimiento en diversos entornos, reduciendo significativamente el tiempo y los costos de desarrollo mientras incrementan la seguridad \protect\hyperlink{ref-jentsch_simulation_2017}{{[}61{]}}.
 
-Estos principios generales encuentran aplicaciones concretas en diversos sectores industriales, donde la simulación cumple un papel clave tanto en el diseño como en el entrenamiento, la evaluación y la toma de decisiones.
+Estos principios generales se materializan en diversos sectores industriales, donde la simulación desempeña un papel fundamental en el diseño, el entrenamiento, la evaluación y la toma de decisiones. La Tabla \ref{tab:aplisimu} resume las aplicaciones más relevantes de la simulación en estos ámbitos, evidenciando su impacto en la optimización de procesos y la mejora de resultados.
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:unnamed-chunk-2}Aplicaciones de la simulación en distintos sectores}
+\caption{\label{tab:aplisimu}Aplicaciones de la simulación en distintos sectores}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
@@ -1613,7 +1617,7 @@ Los criterios de evaluación se definieron con el objetivo de realizar un análi
   \end{itemize}
 \end{itemize}
 
-La Tabla \ref{tab:criterios} resume los criterios, indicadores y escalas utilizadas.
+La Tabla \ref{tab:criterios} sintetiza los criterios de evaluación, junto con sus respectivos indicadores y escalas, empleados para analizar sistemáticamente los simuladores seleccionados.
 
 \begin{table}[!h]
 \centering
@@ -1755,6 +1759,8 @@ A continuación, se presenta un análisis detallado de los simuladores seleccion
   \textbf{Cobertura de contenidos}: Nivel alto. Emula el arranque (bootstrapping) de una IBM PC desde un disco flexible (floppy disk) y soporta todos los modos de direccionamiento.
 \end{itemize}
 
+La Tabla \ref{tab:tabla-comparativa-criterios} presenta una síntesis comparativa de los simuladores seleccionados, evaluados según los criterios previamente definidos. En ella se destacan las diferencias y fortalezas de cada herramienta en relación con la usabilidad, funcionalidades del editor, calidad de la documentación, ejecución de simulación, nivel de especificación de la arquitectura x86, características técnicas y cobertura de contenidos curriculares.
+
 \begin{table}[!h]
 \centering
 \caption{\label{tab:tabla-comparativa-criterios}Comparativa según criterios de evaluación preestablecidos}
@@ -1881,8 +1887,10 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \item
   \textbf{Repertorio reducido de instrucciones con activación progresiva:}
   Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita de manera secuencial a lo largo del proceso de enseñanza, en estrecha correspondencia con el avance de los contenidos curriculares. Esta decisión responde a principios de la psicología cognitiva, que sostienen que la introducción gradual de contenidos técnicos favorece la retención y disminuye la sobrecarga cognitiva \protect\hyperlink{ref-nationalacademies2018how}{{[}78{]}}. Diversos autores, como Hasan \protect\hyperlink{ref-hasan_survey_2012}{{[}18{]}}, Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}36{]}}, y Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, respaldan este enfoque, recomendando la incorporación escalonada de conceptos en la enseñanza de arquitecturas complejas.
-  La activación progresiva del repertorio de instrucciones promueve el desarrollo paulatino de competencias, evitando que los estudiantes se enfrenten prematuramente a la totalidad del conjunto instruccional. Este método se fundamenta en teorías de aprendizaje que destacan los beneficios de la exposición gradual a nuevos conceptos para mejorar la comprensión y la retención \protect\hyperlink{ref-sweller2010cognitive}{{[}21{]}}. En la siguiente tabla \ref{tab:activacionprogresiva} se resume la activación progresiva de instrucciones y sus objetivos didácticos asociados.
+  La activación progresiva del repertorio de instrucciones promueve el desarrollo paulatino de competencias, evitando que los estudiantes se enfrenten prematuramente a la totalidad del conjunto instruccional. Este método se fundamenta en teorías de aprendizaje que destacan los beneficios de la exposición gradual a nuevos conceptos para mejorar la comprensión y la retención \protect\hyperlink{ref-sweller2010cognitive}{{[}21{]}}.
 \end{enumerate}
+
+La Tabla \ref{tab:activacionprogresiva} resume el proceso de activación progresiva del repertorio de instrucciones, especificando las fases de incorporación y los objetivos didácticos correspondientes a cada etapa. Esta representación facilita la comprensión de cómo la introducción gradual de instrucciones contribuye al desarrollo de competencias específicas y potencia el aprendizaje en arquitectura de computadoras.
 
 \begin{table}[!h]
 \centering
@@ -1977,7 +1985,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \caption{Documentación on line}\label{fig:documentacion}
 \end{figure}
 
-En conjunto, estos requisitos constituyen la base del diseño del simulador, garantizando tanto su pertinencia pedagógica como su viabilidad técnica. Su formulación responde a la necesidad de contar con un recurso didáctico que facilite la enseñanza y el aprendizaje de la arquitectura x86, integrando aspectos visuales, interactivos y de análisis del rendimiento. La Tabla \ref{tab:requisitosresumen} presenta un resumen de los principales requisitos funcionales, junto con su fundamentación pedagógica y técnica.
+La Tabla \ref{tab:requisitosresumen} sintetiza los requisitos funcionales que sustentan el diseño del simulador, junto con su fundamentación pedagógica y técnica. Este resumen permite valorar cómo cada requisito aporta a la pertinencia educativa y a la viabilidad tecnológica de la herramienta, integrando criterios de diseño orientados a optimizar el proceso de enseñanza y aprendizaje en arquitectura x86 mediante recursos visuales, interactivos y métricos.
 
 \begin{table}[!h]
 \centering
@@ -2108,7 +2116,9 @@ Para el desarrollo y la ejecución del proyecto se utilizan herramientas moderna
 \hypertarget{estructura-y-componentes-de-vonsim8}{%
 \section{Estructura y componentes de VonSim8}\label{estructura-y-componentes-de-vonsim8}}
 
-En esta sección se describe la estructura del simulador VonSim8. El diseño de los registros se concibió con un propósito pedagógico: facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, elementos fundamentales en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}. En la tabla \ref{tab:estructuravonsim8} se describen los componentes principales del simulador, junto con sus características y funcionalidades específicas. Esta tabla proporciona una visión general de la arquitectura del simulador, destacando los elementos clave que componen su estructura:
+En esta sección se describe la estructura del simulador VonSim8. El diseño de los registros se concibió con un propósito pedagógico: facilitar la comprensión de los modos de direccionamiento y del ciclo de instrucción, elementos fundamentales en el estudio de la Arquitectura de Computadoras \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
+
+La Tabla \ref{tab:estructuravonsim8} ofrece una descripción detallada de los componentes principales del simulador, especificando sus características y funcionalidades. Este panorama estructural permite identificar los elementos esenciales de la arquitectura implementada, facilitando la comprensión integral del diseño y su correspondencia con los objetivos pedagógicos del proyecto.
 
 \begin{table}[!h]
 \centering
@@ -2198,7 +2208,9 @@ La ALU (\emph{Arithmetic Logic Unit}) realiza operaciones aritméticas y lógica
 
 El registro de banderas \texttt{Flags} almacena las banderas de estado que reflejan el resultado de operaciones aritméticas y lógicas. Por ejemplo, después de una operación de suma, la bandera \texttt{Z} (Zero) se activa si el resultado es cero, lo que permite al procesador tomar decisiones condicionales basadas en este estado.
 
-El registro \texttt{Flags} almacena banderas de estado resultantes de operaciones aritméticas, lógicas, de control y de gestión del flujo. Estas banderas permiten a la Unidad de Control modificar el flujo mediante saltos condicionales o habilitar/deshabilitar servicios (interrupciones). La Tabla \ref{tab:flags} resume las banderas activas en esta versión.
+El registro \texttt{Flags} almacena banderas de estado resultantes de operaciones aritméticas, lógicas, de control y de gestión del flujo. Estas banderas permiten a la Unidad de Control modificar el flujo mediante saltos condicionales o habilitar/deshabilitar servicios (interrupciones).
+
+La Tabla \ref{tab:flags} presenta una síntesis de las banderas de estado implementadas en esta versión del simulador, detallando su función y relevancia en el procesamiento de instrucciones. Esta información resulta fundamental para comprender el mecanismo de control y la gestión de eventos internos durante la ejecución de programas en arquitectura x86.
 
 \begin{table}[!h]
 \centering
@@ -2267,7 +2279,7 @@ Convenciones operativas:
   \end{itemize}
 \end{itemize}
 
-La Tabla \ref{tab:politicasflags} detalla la política de actualización de banderas según la clase de instrucción ejecutada:
+La Tabla \ref{tab:politicasflags} expone de manera sistemática la política de actualización de las banderas de estado, diferenciando el comportamiento de cada clase de instrucción. Este detalle resulta esencial para comprender cómo se gestionan las condiciones internas del procesador durante la ejecución de instrucciones, aportando rigor al análisis funcional del simulador.
 
 \begin{table}[!h]
 \centering
@@ -2539,7 +2551,7 @@ Ambos recursos reducen la curva de aprendizaje y promueven la autonomía del usu
 \caption{Tour de aprendizaje en VonSim8}\label{fig:tour}
 \end{figure}
 
-A fin de sintetizar las diferencias más relevantes entre VonSim y VonSim8, se presenta la siguiente tabla comparativa. Esta permite visualizar de manera inmediata los cambios introducidos en el diseño y su impacto en la enseñanza de los conceptos fundamentales de arquitectura de computadoras.
+Por motivos de claridad y síntesis, la Tabla \ref{tab:comparativavonsim} resume las diferencias más significativas entre VonSim y VonSim8, destacando las modificaciones implementadas en el diseño y su repercusión en la enseñanza de los conceptos esenciales de arquitectura de computadoras. Esta presentación comparativa facilita la identificación de los aspectos pedagógicos y técnicos que distinguen a cada simulador, permitiendo apreciar el impacto de las mejoras realizadas en el proceso formativo.
 
 \begin{table}[!h]
 \centering
@@ -2588,7 +2600,7 @@ A fin de sintetizar las diferencias más relevantes entre VonSim y VonSim8, se p
 
 El simulador VonSim8 implementa un repertorio reducido de instrucciones, diseñado para facilitar la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Este repertorio incluye instrucciones aritméticas, lógicas, de transferencia de datos y control de flujo, lo que facilita que los estudiantes se familiaricen con las operaciones básicas, evitando la complejidad del repertorio completo de instrucciones x86.
 
-El repertorio de instrucciones del simulador fue concebido como una abstracción pedagógica basada en la arquitectura x86, orientada a optimizar los procesos de enseñanza y aprendizaje en el ámbito educativo. En las primeras etapas del curso, se seleccionan únicamente las instrucciones esenciales, lo que permite introducir de forma gradual y accesible los contenidos fundamentales de la asignatura Arquitectura de Computadoras. Este enfoque progresivo facilita la comprensión de los conceptos clave, evitando la complejidad innecesaria que podría dificultar el aprendizaje inicial \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}31{]}}. La Tabla \ref{tab:setreducido} presenta un conjunto reducido de instrucciones que abarca las operaciones más relevantes para una etapa introductoria, centradas en la transferencia y procesamiento de datos, así como en el control de flujo. Esta selección estratégica garantiza la accesibilidad de los conceptos básicos de la arquitectura x86 y se ajusta a los objetivos pedagógicos del curso.
+El repertorio de instrucciones del simulador fue concebido como una abstracción pedagógica basada en la arquitectura x86, orientada a optimizar los procesos de enseñanza y aprendizaje en el ámbito educativo. En las primeras etapas del curso, se seleccionan únicamente las instrucciones esenciales, lo que permite introducir de forma gradual y accesible los contenidos fundamentales de la asignatura Arquitectura de Computadoras. Este enfoque progresivo facilita la comprensión de los conceptos clave, evitando la complejidad innecesaria que podría dificultar el aprendizaje inicial \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}31{]}}. La Tabla \ref{tab:setreducido} expone un repertorio acotado de instrucciones, seleccionado para abordar las operaciones fundamentales en una etapa inicial de aprendizaje. Este conjunto, enfocado en la transferencia y el procesamiento de datos, así como en el control de flujo, constituye una estrategia pedagógica que facilita la comprensión de los principios básicos de la arquitectura x86 y responde a los objetivos formativos del curso.
 
 Las instrucciones del simulador VonSim8 se dividen en dos categorías principales: las instrucciones de transferencia y procesamiento de datos, y las instrucciones de control de flujo. Las primeras permiten mover datos entre registros y memoria, realizar operaciones aritméticas y lógicas, y manipular el contenido de los registros. Las segundas permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador.
 
@@ -2822,7 +2834,7 @@ Los modos de direccionamiento especifican cómo el procesador determina la ubica
   \textbf{Inmediato (\texttt{d})}: uno de los operandos es un valor inmediato incluido en la propia instrucción.
 \end{itemize}
 
-La Tabla \ref{tab:modosdireccionamiento} resume los modos de direccionamiento disponibles en el simulador para instrucciones de dos operandos e incluye ejemplos ilustrativos de su uso.
+La Tabla \ref{tab:modosdireccionamiento} sintetiza los modos de direccionamiento implementados en el simulador para instrucciones que requieren dos operandos, acompañando cada modalidad con ejemplos representativos. Esta presentación facilita la comprensión de las distintas formas de acceso a datos y su aplicación práctica en el contexto de la arquitectura simulada.
 
 \begin{table}[!h]
 \centering
@@ -2930,7 +2942,7 @@ Las instrucciones del simulador VonSim8 se agrupan en dos categorías principale
 \end{tabular}}
 \end{table}
 
-Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \ref{tab:instcodif} presenta una lista de las instrucciones implementadas en el simulador, junto con su codificación binaria.
+Cada instrucción se codifica en un formato binario específico, que incluye un código de operación (opcode) y, en algunos casos, operandos adicionales. La Tabla \ref{tab:instcodif} ofrece una relación detallada de las instrucciones implementadas en el simulador, acompañadas de su correspondiente codificación binaria. Esta información resulta esencial para comprender el proceso de traducción entre el lenguaje ensamblador y la representación interna utilizada por el sistema.
 
 \begin{table}[!h]
 \centering
@@ -3001,7 +3013,7 @@ Cada instrucción se codifica en un formato binario específico, que incluye un 
 \end{threeparttable}}
 \end{table}
 
-La tabla \ref{tab:tablaregistros} presenta los códigos binarios y decimales correspondientes a los registros de propósito general AL, BL, CL y DL, los cuales pueden ser utilizados como Rx y Ry en las instrucciones del simulador.
+La Tabla \ref{tab:tablaregistros} muestra los códigos binarios y decimales asignados a los registros de propósito general AL, BL, CL y DL, habilitados para su uso como Rx y Ry en las instrucciones del simulador.
 
 \begin{table}[!h]
 \centering
@@ -3503,7 +3515,7 @@ De acuerdo con el formalismo DEVS, cada componente funcional del procesador ---c
 
 Los componentes que intervienen en el ciclo completo de instrucción (Fases de Captación y Ejecución) se modelan como modelos atómicos o acoplados dentro de la plataforma xDEVS, cada uno con sus puertos de entrada, salida y retardos (tiempos de avance \(\tau\)) definidos.
 
-La tabla \ref{tab:componentesvonsim8} resume los modelos y componentes principales del simulador VonSim8, detallando sus funciones, señales de entradas/salidas y retardos asociados.
+La Tabla \ref{tab:componentesvonsim8} sintetiza los modelos y componentes fundamentales del simulador VonSim8, especificando para cada uno sus funciones, señales de entrada y salida, así como los retardos asociados. Esta presentación estructurada permite comprender la organización interna del sistema y el comportamiento de sus elementos durante la simulación.
 
 \begin{table}[!h]
 \centering
@@ -3556,7 +3568,7 @@ La fase de captación tiene como objetivo obtener la instrucción almacenada en 
 
 En VonSim8, esta fase reproduce la restricción estructural propia de la arquitectura Von Neumann (bus y memoria compartidos), modelando el acceso exclusivo durante la lectura de la instrucción.
 
-La tabla \ref{tab:microcaptacionfetch} presenta la secuencia de microoperaciones y eventos DEVS que modelan esta fase.
+La Tabla \ref{tab:microcaptacionfetch} expone la secuencia de microoperaciones y eventos DEVS que modelan la fase de captación (Fetch) en el simulador. Esta representación permite analizar en detalle el flujo de acciones internas durante la obtención de instrucciones, aportando rigor al estudio del ciclo de ejecución.
 
 \begin{table}[!h]
 \centering
@@ -3588,7 +3600,7 @@ En la fase de ejecución, la UC decodifica el contenido del IR y activa las señ
 
 El REG\_BANK se modela como un componente acoplado que contiene cuatro modelos atómicos: AL, BL, CL y DL. Cada registro posee sus propias entradas (enable\_in, enable\_out, data\_in, data\_out), mientras que el banco actúa como mediador, gestionando la habilitación del registro fuente y destino según las señales emitidas por la UC.
 
-La tabla \ref{tab:microoperacioneseje} muestra la secuencia de microoperaciones que implementan esta instrucción.
+La Tabla \ref{tab:microoperacioneseje} detalla la secuencia de microoperaciones que conforman la ejecución de la instrucción modelada en el simulador. Esta información permite analizar el proceso interno paso a paso, facilitando la comprensión de la dinámica operativa durante la fase de ejecución.
 
 \begin{table}[!h]
 \centering
@@ -3668,7 +3680,7 @@ La Figura \ref{fig:dispositivos} muestra una visión general de los dispositivos
 
 El componente chipSelect se encarga de activar el dispositivo correspondiente en cada momento. Para ello, recibe las señales de control del CPU junto con el bus de direcciones, y genera las señales de selección de chip (CS) necesarias para habilitar el dispositivo adecuado.
 
-Para interactuar con los módulos de entrada y salida, es necesario incorporar nuevas instrucciones al repertorio del procesador. Estas instrucciones permiten la comunicación con los puertos de E/S y la gestión de interrupciones. La Tabla \ref{tab:tisa} detalla las categorías de instrucciones, sus códigos de operación y las acciones que realizan.
+La Tabla \ref{tab:tisa} presenta las categorías de instrucciones diseñadas para la interacción con los módulos de entrada y salida, junto con sus códigos de operación y las acciones correspondientes. Esta síntesis facilita la comprensión de los mecanismos de comunicación y gestión de interrupciones implementados en el simulador.
 
 \begin{table}[!h]
 \centering
@@ -5217,7 +5229,7 @@ Respecto al uso de simuladores educativos, el 64,3 \% de los estudiantes indicó
   Valoración del material didáctico
 \end{enumerate}
 
-Los resultados obtenidos muestran una valoración positiva del material teórico y de las actividades propuestas. Los promedios de calificación fueron los siguientes:
+La Tabla \ref{tab:tablaaspectos} presenta los promedios de calificación obtenidos en la evaluación del material teórico y de las actividades propuestas, evidenciando una valoración positiva por parte de los estudiantes. Esta síntesis permite identificar los aspectos más destacados y las áreas de mejora en el proceso de enseñanza.
 
 \begin{table}[!h]
 \centering
@@ -5253,7 +5265,7 @@ En conjunto, estos resultados evidencian un alto grado de satisfacción con el m
   Valoración del simulador VonSim8
 \end{enumerate}
 
-El uso del simulador VonSim8 fue valorado de manera positiva, aunque con ciertos aspectos a mejorar. Los resultados fueron los siguientes:
+La Tabla \ref{tab:tablaevaluacion} sintetiza los resultados obtenidos en la evaluación del simulador VonSim8, reflejando una valoración positiva por parte de los estudiantes y señalando áreas de mejora. Esta presentación permite identificar los aspectos más destacados y las oportunidades de optimización en el uso pedagógico del simulador.
 
 \begin{table}[!h]
 \centering
@@ -5366,7 +5378,7 @@ Ambos docentes entrevistados cuentan con una amplia experiencia en la enseñanza
   Valoración del material didáctico
 \end{enumerate}
 
-Los docentes evaluaron positivamente el material didáctico asociado al simulador VonSim8, destacando los siguientes aspectos:
+La Tabla \ref{tab:tablaevaluaciondocentes} sintetiza la valoración realizada por los docentes sobre el material didáctico vinculado al simulador VonSim8, destacando los aspectos considerados más relevantes para la enseñanza. Esta presentación permite identificar los elementos que contribuyen a la calidad pedagógica y a la efectividad del recurso educativo.
 
 \begin{table}[!h]
 \centering
@@ -5400,11 +5412,11 @@ En conjunto, los docentes destacaron la calidad del material didáctico, especia
   Valoración del simulador VonSim8
 \end{enumerate}
 
-El simulador VonSim8 fue valorado de manera positiva por los docentes, quienes resaltaron su utilidad pedagógica y su capacidad para facilitar la comprensión de conceptos complejos. Los resultados fueron los siguientes:
+La Tabla \ref{tab:evasimuedu} presenta la evaluación realizada por los docentes sobre el simulador educativo VonSim8, destacando su impacto positivo en la enseñanza de arquitectura de computadoras. Los resultados evidencian que el simulador facilita la comprensión de conceptos complejos y aporta valor pedagógico, aunque se identifican oportunidades de mejora en aspectos técnicos y de interfaz.
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:unnamed-chunk-3}Evaluación del simulador educativo}
+\caption{\label{tab:evasimuedu}Evaluación del simulador educativo}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
