@@ -402,7 +402,7 @@ Figura 2.4: Características repertorio de instrucciones
 <li><strong>Con Desplazamiento</strong>: combina una dirección base con un valor de desplazamiento, ideal para estructuras como arrays y matrices.</li>
 <li><strong>Pila</strong>: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.</li>
 </ol>
-<p>Para complementar la descripción anterior, la Figura <a href="repertorio-de-instrucciones.html#fig:ModDir">2.5</a> presenta una representación esquemática de los modos de direccionamiento, mostrando gráficamente cómo se calcula la dirección efectiva (EA) en cada caso <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
+<p>Para profundizar en la comprensión de los mecanismos de acceso a operandos, la Figura <a href="repertorio-de-instrucciones.html#fig:ModDir">2.5</a> ofrece una representación esquemática de los principales modos de direccionamiento implementados en arquitecturas modernas. En ella se visualiza, de manera didáctica, cómo se determina la dirección efectiva (EA) en cada caso, diferenciando entre modos inmediato, directo, indirecto, mediante registro, registro indirecto, con desplazamiento y pila. Esta ilustración facilita el análisis comparativo de las ventajas y limitaciones de cada modalidad, aportando claridad conceptual al estudio de la interacción entre instrucciones, memoria y registros <span class="citation">(<a href="#ref-stallings_computer_2021">Stallings 2021</a>)</span>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:ModDir"></span>
 <img src="images/modosdireccionamiento.png" alt="Modos de direccionamiento " width="60%" />
 <p class="caption">
@@ -545,7 +545,7 @@ Aplicabilidad limitada
 <li><strong>Cantidad de operandos</strong>: las instrucciones pueden trabajar con diferentes números de operandos (de 0 a 3 o más). Una mayor cantidad de operandos incrementa la expresividad de las instrucciones, pero también puede derivar en una mayor complejidad de codificación y en un mayor uso de recursos del procesador.</li>
 <li><strong>Campos de instrucción</strong>: incluyen el opcode y campos adicionales como operandos, modos de direccionamiento y flags de condición. Estos campos determinan cuántas y qué tipo de operaciones puede ejecutar el procesador en un ciclo de reloj.</li>
 </ul>
-<p>La Figura <a href="repertorio-de-instrucciones.html#fig:forminst">2.6</a> muestra un ejemplo representativo de formato de instrucción, donde se visualizan los campos que la componen y su disposición en el código binario.</p>
+<p>La Figura <a href="repertorio-de-instrucciones.html#fig:forminst">2.6</a> representa un esquema conceptual del formato de las instrucciones, donde se detallan los principales elementos que las componen: longitud de la instrucción, cantidad de operandos y campos de instrucción. El diagrama destaca cómo cada característica influye en la decodificación, la eficiencia del hardware y la versatilidad del repertorio de instrucciones, permitiendo visualizar las relaciones entre la estructura interna de una instrucción y su impacto en el diseño y rendimiento del procesador.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:forminst"></span>
 <img src="images/formatoinst.png" alt="Formato de instrucciones " width="100%" />
 <p class="caption">

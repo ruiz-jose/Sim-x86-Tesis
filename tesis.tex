@@ -809,7 +809,7 @@ Los modos de direccionamiento definen los mecanismos mediante los cuales una ins
   \textbf{Pila}: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.
 \end{enumerate}
 
-Para complementar la descripción anterior, la Figura \ref{fig:ModDir} presenta una representación esquemática de los modos de direccionamiento, mostrando gráficamente cómo se calcula la dirección efectiva (EA) en cada caso \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
+Para profundizar en la comprensión de los mecanismos de acceso a operandos, la Figura \ref{fig:ModDir} ofrece una representación esquemática de los principales modos de direccionamiento implementados en arquitecturas modernas. En ella se visualiza, de manera didáctica, cómo se determina la dirección efectiva (EA) en cada caso, diferenciando entre modos inmediato, directo, indirecto, mediante registro, registro indirecto, con desplazamiento y pila. Esta ilustración facilita el análisis comparativo de las ventajas y limitaciones de cada modalidad, aportando claridad conceptual al estudio de la interacción entre instrucciones, memoria y registros \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
 
 \begin{figure}
 
@@ -876,7 +876,7 @@ El formato de las instrucciones especifica la disposición y codificación de lo
   \textbf{Campos de instrucción}: incluyen el opcode y campos adicionales como operandos, modos de direccionamiento y flags de condición. Estos campos determinan cuántas y qué tipo de operaciones puede ejecutar el procesador en un ciclo de reloj.
 \end{itemize}
 
-La Figura \ref{fig:forminst} muestra un ejemplo representativo de formato de instrucción, donde se visualizan los campos que la componen y su disposición en el código binario.
+La Figura \ref{fig:forminst} representa un esquema conceptual del formato de las instrucciones, donde se detallan los principales elementos que las componen: longitud de la instrucción, cantidad de operandos y campos de instrucción. El diagrama destaca cómo cada característica influye en la decodificación, la eficiencia del hardware y la versatilidad del repertorio de instrucciones, permitiendo visualizar las relaciones entre la estructura interna de una instrucción y su impacto en el diseño y rendimiento del procesador.
 
 \begin{figure}
 
@@ -1051,7 +1051,7 @@ La Tabla \ref{tab:ciscrisc} presenta una síntesis comparativa de las diferencia
 
 A pesar de sus diferencias, las arquitecturas modernas tienden a integrar características de ambas filosofías. Por ejemplo, los procesadores x86 adoptan técnicas propias de RISC para mejorar la eficiencia energética y el rendimiento. Esta convergencia refleja cómo los avances en diseño de procesadores buscan combinar lo mejor de cada enfoque, maximizando la flexibilidad y la eficiencia para adaptarse a las necesidades actuales y futuras del mercado.
 
-La Figura \ref{fig:convergen} muestras la convergencia entre estas dos filosofías:
+La Figura \ref{fig:convergen} ilustra de manera conceptual la convergencia entre las filosofías CISC y RISC en el diseño de procesadores modernos. Este esquema destaca cómo la integración de ambos enfoques permite alcanzar un rendimiento optimizado, combinando la flexibilidad y expresividad de CISC con la eficiencia y simplicidad de RISC. La representación gráfica facilita la comprensión de las tendencias actuales en arquitectura, donde la complementariedad de ambos paradigmas resulta clave para satisfacer las demandas de desempeño y eficiencia energética.
 
 \begin{figure}
 
@@ -1211,7 +1211,7 @@ Estas líneas indican que el valor 5 se mueve al registro AX y luego se suma el 
 
 El ensamblador es un programa que traduce las instrucciones simbólicas escritas en lenguaje ensamblador a lenguaje máquina, es decir, las convierte en las secuencias binarias que el procesador puede interpretar y ejecutar. Este proceso de traducción es prácticamente directo, ya que existe una correspondencia uno a uno entre las instrucciones en ensamblador y las instrucciones en lenguaje máquina \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}31{]}}. En contraste, los lenguajes de programación de alto nivel, como C o Python, suelen generar múltiples instrucciones máquina por cada línea de código fuente, lo que los distancia más de la arquitectura subyacente \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}.
 
-La Figura \ref{fig:ensambla} muestra el proceso de traducción de un programa en lenguaje ensamblador a lenguaje máquina. En este proceso, el ensamblador toma cada línea de código en ensamblador y la convierte en su representación binaria correspondiente, generando así un archivo ejecutable que puede ser cargado y ejecutado por el procesador.
+La Figura \ref{fig:ensambla} esquematiza el proceso de ensamblado, destacando las etapas fundamentales desde la escritura del código ensamblador por el programador, la traducción simbólica realizada por el ensamblador, hasta la ejecución de instrucciones binarias por el procesador. Esta representación visual permite comprender cómo se transforma el código fuente en lenguaje ensamblador en instrucciones máquina ejecutables, evidenciando la relación directa entre el software de bajo nivel y el hardware.
 
 \begin{figure}
 
@@ -1348,8 +1348,7 @@ El formalismo DEVS es una metodología modular y jerárquica que permite modelar
 \hypertarget{estructura-del-formalismo-devs}{%
 \subsection{Estructura del formalismo DEVS}\label{estructura-del-formalismo-devs}}
 
-El formalismo DEVS se basa en la representación de sistemas como una colección de componentes que interactúan entre sí a través de eventos. Cada componente tiene un estado interno y puede recibir eventos externos que provocan cambios en su estado. Estos eventos pueden ser temporizados, lo que significa que el sistema puede reaccionar a eventos en momentos específicos, o pueden ser desencadenados por condiciones específicas.
-Esta estructura permite capturar tanto el comportamiento interno como la interacción externa del sistema modelado, ver figura \ref{fig:devs}.
+El formalismo DEVS se fundamenta en la modelización de sistemas como conjuntos de componentes que interactúan mediante eventos discretos. Cada componente posee un estado interno y puede recibir eventos externos que desencadenan transiciones de estado, ya sea en instantes temporizados o ante condiciones específicas. Esta estructura modular permite representar tanto la dinámica interna como la interacción externa del sistema modelado. La Figura \ref{fig:devs} ilustra la relación entre modelos atómicos y modelos acoplados en DEVS, evidenciando cómo se integran y comunican los distintos elementos para capturar el comportamiento global del sistema.
 
 \begin{figure}
 
@@ -1399,9 +1398,7 @@ DEVS describe el comportamiento de un sistema real utilizando eventos de entrada
   \textbf{Modelos acoplados}: integran modelos atómicos y/o otros modelos acoplados, permitiendo la construcción jerárquica de sistemas más complejos.
 \end{itemize}
 
-Esta organización modular facilita el análisis y la gestión de sistemas, permitiendo probar subsistemas de manera aislada antes de integrarlos en un modelo completo.
-
-La siguiente figura \ref{fig:acoplado} ilustra la organización modular del formalismo DEVS, mostrando cómo se integran modelos atómicos dentro de modelos acoplados:
+La organización modular del formalismo DEVS facilita el análisis y la gestión de sistemas complejos, permitiendo la validación de subsistemas de manera independiente antes de su integración en un modelo global. La Figura \ref{fig:acoplado} ejemplifica cómo los modelos atómicos se agrupan y conectan dentro de modelos acoplados, reflejando la estructura jerárquica y la flexibilidad del enfoque DEVS para construir sistemas escalables y fácilmente gestionables.
 
 \begin{figure}
 
