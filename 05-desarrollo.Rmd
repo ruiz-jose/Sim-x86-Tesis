@@ -16,8 +16,10 @@ knitr::include_graphics("images/estructurasimulador.png")
 ```
 
 2. **Soporte para la generación y ejecución de programas en ensamblador:**
-Incorporar la posibilidad de ejecutar programas escritos en lenguaje ensamblador tanto de forma paso a paso como en ejecución continua. Esta funcionalidad posibilita el análisis detallado de cada instrucción, fortaleciendo competencias en trazado y depuración de código ensamblador, fundamentales para comprender la relación entre software y hardware.
-Para apoyar este proceso, se propone la inclusión de un editor de ensamblador que incorpore funciones como resaltado de sintaxis y autocompletado. Estas características mejoran la experiencia del usuario y facilitan la escritura y comprensión del código, en consonancia con principios de diseño de interfaces que priorizan la usabilidad y la accesibilidad [@w3c_accessibility_2021]. El editor debe permitir al usuario escribir, editar, guardar y ejecutar programas en ensamblador dentro del simulador, además de ofrecer ejemplos predefinidos como apoyo didáctico. La incorporación de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios [@mccracken2001does].
+La posibilidad de ejecutar programas escritos en lenguaje ensamblador, tanto de manera paso a paso como en ejecución continua, constituye un recurso esencial para el análisis detallado de cada instrucción. Esta funcionalidad fortalece las competencias en trazado y depuración de código ensamblador, aspectos fundamentales para comprender la interacción entre software y hardware.
+Para facilitar este proceso, se incorpora un editor de ensamblador dotado de funciones avanzadas, como el resaltado de sintaxis y el autocompletado. Estas características, alineadas con los principios de diseño de interfaces orientados a la usabilidad y accesibilidad [@w3c_accessibility_2021], optimizan la experiencia del usuario y favorecen la escritura y comprensión del código. El editor permite al usuario escribir, editar, guardar y ejecutar programas en ensamblador directamente dentro del simulador, además de ofrecer ejemplos predefinidos como apoyo didáctico. La integración de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios [@mccracken2001does].
+
+La Figura \@ref(fig:editor) ilustra la interfaz del editor ensamblador implementado en el simulador, evidenciando las funcionalidades mencionadas y su aporte al proceso de aprendizaje.
 
 ```{r editor, echo=FALSE, fig.cap="Editor ensamblador", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics("images/editor.png")
@@ -1277,9 +1279,11 @@ hlt
 ```
 
 ### Formato de instrucciones
-El formato de las instrucciones en VonSim8 se fundamenta en una codificación binaria de longitud variable (1, 2 o 3 bytes). Los 4 bits de mayor peso del primer byte corresponden al código de operación (opcode), mientras que los 4 bits restantes pueden contener información adicional sobre los operandos, dependiendo del modo de direccionamiento utilizado. El opcode determina la operación a ejecutar, y los operandos especifican los datos o registros implicados en la instrucción.
+El formato de las instrucciones en VonSim8 se basa en una codificación binaria de longitud variable (1, 2 o 3 bytes). Los 4 bits de mayor peso del primer byte corresponden al código de operación (opcode), mientras que los 4 bits restantes pueden contener información adicional sobre los operandos, según el modo de direccionamiento empleado. El opcode determina la operación a ejecutar, y los operandos especifican los datos o registros implicados en la instrucción.
 
-Las instrucciones del simulador VonSim8 se agrupan en dos categorías principales: instrucciones de transferencia y procesamiento de datos, e instrucciones de control de flujo.
+El repertorio de instrucciones implementado en el simulador VonSim8 se organiza en dos grandes categorías: instrucciones de transferencia y procesamiento de datos, e instrucciones de control de flujo. Cada categoría agrupa operaciones fundamentales para la manipulación de datos y la gestión del flujo de ejecución en programas ensamblador.
+
+La Tabla \@ref(tab:tisaredu) sintetiza las principales instrucciones disponibles en VonSim8, detallando su categoría, código de operación, cantidad de operandos y acción asociada. Esta presentación estructurada facilita la comprensión de la lógica interna del simulador y constituye una referencia esencial para el análisis y la programación en el entorno educativo.
 
 ```{r tisaredu, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
