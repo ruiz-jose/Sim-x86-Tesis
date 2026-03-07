@@ -616,7 +616,11 @@ Comprender las arquitecturas modernas requiere el análisis de dos modelos conce
 \hypertarget{arquitectura-von-neumann}{%
 \subsection{Arquitectura Von Neumann}\label{arquitectura-von-neumann}}
 
-La arquitectura Von Neumann, formalizada por John von Neumann en 1945 en su influyente documento ``First Draft of a Report on the EDVAC'' \protect\hyperlink{ref-vonneumann1945first}{{[}43{]}}, establece un modelo computacional en el cual tanto los datos como las instrucciones residen en una única memoria y comparten un mismo bus de comunicación. Esta arquitectura se caracteriza por sus cuatro componentes fundamentales: la unidad central de procesamiento (CPU), la unidad de control, la memoria y los dispositivos de entrada/salida. La unificación del espacio de memoria facilita el diseño del sistema y la programación, sin embargo, esta unificación también origina una limitación conocida como el `cuello de botella de Von Neumann', que se refiere a la imposibilidad de acceder simultáneamente a datos e instrucciones debido al uso compartido del mismo bus, lo cual reduce la eficiencia del procesamiento, particularmente en aplicaciones con uso intensivo de datos \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
+La arquitectura Von Neumann, formalizada por John von Neumann en 1945 en su influyente documento ``First Draft of a Report on the EDVAC'' \protect\hyperlink{ref-vonneumann1945first}{{[}43{]}}, constituye el modelo fundacional de los sistemas computacionales modernos. En este esquema, tanto los datos como las instrucciones se almacenan en una única memoria y comparten un mismo bus de comunicación, lo que simplifica el diseño y la programación del sistema. Sus cuatro componentes esenciales son: la unidad central de procesamiento (CPU), la unidad de control, la memoria y los dispositivos de entrada/salida.
+
+No obstante, esta unificación de memoria y bus introduce una limitación conocida como el ``cuello de botella de Von Neumann'', que impide el acceso simultáneo a datos e instrucciones, afectando la eficiencia del procesamiento, especialmente en aplicaciones con alta demanda de transferencia de información \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
+
+La Figura \ref{fig:vonneumann} ilustra de manera esquemática la organización característica de la arquitectura Von Neumann, destacando la interacción entre la CPU y la memoria compartida para datos e instrucciones. Esta representación visual facilita la comprensión de las ventajas y limitaciones inherentes a este modelo, que ha influido decisivamente en el desarrollo de la informática contemporánea.
 
 \begin{figure}
 
@@ -630,7 +634,9 @@ La arquitectura Von Neumann, formalizada por John von Neumann en 1945 en su infl
 \hypertarget{arquitectura-harvard}{%
 \subsection{Arquitectura Harvard}\label{arquitectura-harvard}}
 
-Mientras la arquitectura Von Neumann se convertía en el paradigma dominante, paralelamente se desarrollaba un enfoque alternativo. La arquitectura Harvard tiene su origen en el diseño del Harvard Mark I, una computadora electromecánica desarrollada entre 1939 y 1944 durante la Segunda Guerra Mundial en la Universidad de Harvard bajo la dirección de Howard Aiken y con el apoyo de IBM \protect\hyperlink{ref-ceruzzi_history_2003}{{[}44{]}}, \protect\hyperlink{ref-williams1998history}{{[}45{]}}. El Harvard Mark I sentó las bases para un modelo arquitectónico diferente al de Von Neumann, caracterizado por una separación física entre instrucciones y datos.En este modelo, los datos y las instrucciones residen en memorias físicamente separadas, accedidas a través de buses independientes, lo cual mejora la eficiencia del procesamiento al eliminar la competencia por el bus entre instrucciones y datos. Esta organización evita el cuello de botella característico de Von Neumann y permite un acceso paralelo que incrementa el rendimiento en escenarios críticos para la eficiencia. A continuación, se presenta una comparación sistemática entre ambos modelos, a fin de comprender mejor sus implicancias técnicas y contextos de aplicación \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}31{]}}. Debido a su eficiencia, esta arquitectura se ha adoptado ampliamente en sistemas embebidos, microcontroladores y procesadores de señal digital (DSP) \protect\hyperlink{ref-noergaard2012embedded}{{[}46{]}}.
+Mientras la arquitectura Von Neumann se consolidaba como el paradigma dominante, surgió en paralelo un enfoque alternativo: la arquitectura Harvard. Su origen se remonta al desarrollo del Harvard Mark I, una computadora electromecánica construida entre 1939 y 1944 en la Universidad de Harvard bajo la dirección de Howard Aiken y con el apoyo de IBM \protect\hyperlink{ref-ceruzzi_history_2003}{{[}44{]}}, \protect\hyperlink{ref-williams1998history}{{[}45{]}}. Este sistema sentó las bases para un modelo arquitectónico que se distingue por la separación física entre instrucciones y datos, implementada mediante memorias independientes y buses dedicados para cada tipo de información. Esta organización elimina la competencia por el bus entre instrucciones y datos, lo que permite un acceso paralelo y mejora significativamente la eficiencia del procesamiento, especialmente en aplicaciones críticas para el rendimiento.
+
+La Figura \ref{fig:harvard} ilustra la estructura fundamental de la arquitectura Harvard, destacando la independencia de los canales de acceso a memoria y la disposición diferenciada de instrucciones y datos. Esta representación visual facilita la comprensión de las ventajas técnicas del modelo, que ha sido ampliamente adoptado en sistemas embebidos, microcontroladores y procesadores de señal digital (DSP) \protect\hyperlink{ref-noergaard2012embedded}{{[}46{]}}. A continuación, se presenta una comparación sistemática entre ambos modelos, con el objetivo de analizar sus implicancias técnicas y contextos de aplicación \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}31{]}}.
 
 \begin{figure}
 
@@ -682,7 +688,9 @@ El contraste entre estos dos modelos ha dado lugar a enfoques intermedios que bu
 \hypertarget{arquitecturas-huxedbridas}{%
 \subsection{Arquitecturas híbridas}\label{arquitecturas-huxedbridas}}
 
-Muchas arquitecturas contemporáneas implementan un enfoque híbrido, también conocido como arquitectura Harvard modificada. Este modelo emplea memorias separadas para datos e instrucciones a nivel microarquitectónico a menudo mediante la utilización de memorias caché de nivel 1 (L1) separadas para instrucciones y datos. No obstante, desde la perspectiva del programador, el modelo de memoria se mantiene unificado, facilitando el desarrollo de software sin exponer la complejidad del diseño interno. Esta dualidad permite optimizar la implementación física del procesador sin complicar el modelo de programación \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}36{]}}, \protect\hyperlink{ref-patterson_computer_2017}{{[}40{]}}.
+Numerosas arquitecturas contemporáneas adoptan un enfoque híbrido, también denominado arquitectura Harvard modificada. Este modelo implementa memorias separadas para datos e instrucciones a nivel microarquitectónico, frecuentemente mediante la utilización de memorias caché de nivel 1 (L1) diferenciadas para cada tipo de información. Sin embargo, desde la perspectiva del programador, el modelo de memoria se presenta como unificado, lo que facilita el desarrollo de software sin exponer la complejidad interna del diseño. Esta dualidad permite optimizar la implementación física del procesador, maximizando el rendimiento y la eficiencia energética sin comprometer la simplicidad del modelo de programación \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}36{]}}, \protect\hyperlink{ref-patterson_computer_2017}{{[}40{]}}.
+
+La Figura \ref{fig:hibrida} ilustra el esquema conceptual de una arquitectura híbrida, destacando la coexistencia de memorias separadas para datos e instrucciones a nivel interno, mientras que externamente se mantiene una interfaz unificada. Esta representación visual facilita la comprensión de cómo se integran las ventajas de los modelos Von Neumann y Harvard en arquitecturas modernas, permitiendo alcanzar un equilibrio entre flexibilidad, rendimiento y facilidad de uso.
 
 \begin{figure}
 
@@ -773,6 +781,8 @@ Entre las características fundamentales a considerar en el diseño de un repert
 \item
   \textbf{Formato de las instrucciones}: que definen las reglas para acceder a los operandos dentro de las instrucciones, se exploran con mayor detalle en la siguiente subsección.
 \end{itemize}
+
+La Figura \ref{fig:repInstCaracteristicas} sintetiza gráficamente las principales características del ISA, mostrando cómo cada dimensión ---tipos de operandos, operaciones, modos de direccionamiento y formato de instrucciones--- impacta directamente en la versatilidad, funcionalidad, eficiencia y rendimiento del sistema. Esta representación visual facilita la comprensión de la relación entre el diseño del repertorio de instrucciones y el desempeño global de la arquitectura.
 
 \begin{figure}
 
@@ -1067,7 +1077,9 @@ En síntesis, las filosofías CISC y RISC representan enfoques contrastantes per
 \hypertarget{arquitectura-x86}{%
 \section{Arquitectura x86}\label{arquitectura-x86}}
 
-Esta sección amplía la caracterización introductoria presentada en la Sección \ref{x86} y profundiza en su evolución y rasgos distintivos. Introducida en 1978 con el Intel 8086 (16 bits), la familia incorporó hitos como el Intel 80386 (32 bits, 1985) y la extensión AMD64 (64 bits, 2003), con mejoras sostenidas en rendimiento, direccionamiento de memoria y compatibilidad con software legado \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-intel_64_2025}{{[}22{]}}, \protect\hyperlink{ref-amd_developer_2024}{{[}23{]}}, \protect\hyperlink{ref-abel_ibm_2000}{{[}24{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}53{]}}, \protect\hyperlink{ref-intel8086manual}{{[}54{]}}.
+Esta sección complementa la caracterización introductoria presentada en la Sección \ref{x86}, profundizando en la evolución y los rasgos distintivos de la arquitectura x86. Introducida en 1978 con el Intel 8086 (16 bits), esta familia de procesadores incorporó hitos relevantes como el Intel 80386 (32 bits, 1985) y la extensión AMD64 (64 bits, 2003), con mejoras sostenidas en rendimiento, direccionamiento de memoria y compatibilidad con software legado \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-intel_64_2025}{{[}22{]}}, \protect\hyperlink{ref-amd_developer_2024}{{[}23{]}}, \protect\hyperlink{ref-abel_ibm_2000}{{[}24{]}}, \protect\hyperlink{ref-brey_intel_microprocessors}{{[}53{]}}, \protect\hyperlink{ref-intel8086manual}{{[}54{]}}.
+
+La Figura \ref{fig:esquemax86} muestra un diagrama esquemático del microprocesador Intel 8086, donde se visualizan los principales bloques funcionales: registros de uso general, unidad de ejecución (EU), unidad de interfaz con el bus (BIU), lógica de control, cola de instrucciones y sistema de control. Esta representación gráfica facilita la comprensión de la organización interna del procesador, destacando la interacción entre los componentes y la estructura modular que caracteriza a la arquitectura x86.
 
 \begin{figure}
 
@@ -1075,7 +1087,7 @@ Esta sección amplía la caracterización introductoria presentada en la Secció
 
 }
 
-\caption{Diagrama esquemático microprocesador Intel 8086}\label{fig:x86}
+\caption{Diagrama esquemático microprocesador Intel 8086}\label{fig:esquemax86}
 \end{figure}
 
 \hypertarget{evoluciuxf3n-de-la-arquitectura-x86}{%
@@ -1146,7 +1158,7 @@ La arquitectura x86 destaca por su complejidad y flexibilidad, reflejada en un r
 \hypertarget{estructura-de-una-instrucciuxf3n-x86}{%
 \subsubsection{Estructura de una instrucción x86}\label{estructura-de-una-instrucciuxf3n-x86}}
 
-Una instrucción típica de x86 puede incluir los siguientes componentes \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}:
+Una instrucción típica en la arquitectura x86 puede estar compuesta por diversos elementos, entre los que se destacan los siguientes \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}:
 
 \begin{itemize}
 \tightlist
@@ -1159,6 +1171,8 @@ Una instrucción típica de x86 puede incluir los siguientes componentes \protec
 \item
   \textbf{Desplazamiento e inmediato}: Agregan flexibilidad en el manejo de datos, aunque aumentan la complejidad.
 \end{itemize}
+
+La Figura \ref{fig:FormatoInst} representa esquemáticamente el formato de las instrucciones en procesadores Pentium x86, destacando la estructura interna y la disposición de los campos principales. Esta visualización facilita la comprensión de cómo se organizan los componentes de una instrucción, permitiendo analizar el impacto de cada elemento en la decodificación, la versatilidad y el rendimiento del procesador.
 
 \begin{figure}
 
@@ -1648,9 +1662,11 @@ La Tabla \ref{tab:criterios} sintetiza los criterios de evaluación, junto con s
 \hypertarget{selecciuxf3n-de-simuladores}{%
 \section{Selección de simuladores}\label{selecciuxf3n-de-simuladores}}
 
-Mediante una exploración exhaustiva de fuentes disponibles en línea, foros académicos y repositorios educativos, se identificaron los siguientes simuladores de arquitectura x86: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim. Estos simuladores fueron seleccionados por su relevancia en el ámbito educativo y su potencial para facilitar la enseñanza de la arquitectura x86.
+A partir de una revisión exhaustiva de fuentes en línea, foros académicos y repositorios educativos, se identificaron diversos simuladores de arquitectura x86 relevantes para el ámbito pedagógico: Assembly Debugger (x86), Simple 8-bit Assembler Simulator, Microprocessor Simulator, Simulador de ensamblador de 16 bits, Emu8086, VonSim, Orga1 y Qsim. La selección inicial se fundamentó en su potencial para facilitar la enseñanza de la arquitectura x86 y su pertinencia curricular.
 
-La selección se basó en una evaluación preliminar que consideró el tiempo necesario para su análisis y el grado de cumplimiento de los criterios definidos, priorizando aquellos simuladores que ofrecieran un balance adecuado entre funcionalidad, usabilidad, documentación y alineación con los contenidos curriculares de la asignatura Arquitectura de Computadoras. De esta preselección, se eligieron tres herramientas que, a priori, cumplían con la mayor cantidad de criterios evaluativos: \textbf{Emu8086}, \textbf{VonSim} y \textbf{Simple 8-bit Assembler Simulator}.
+El proceso de selección consideró una evaluación preliminar basada en el tiempo requerido para el análisis y el grado de cumplimiento de los criterios definidos, priorizando aquellos simuladores que ofrecieran un equilibrio adecuado entre funcionalidad, usabilidad, calidad de la documentación y alineación con los contenidos de la asignatura Arquitectura de Computadoras. De esta preselección, se eligieron tres herramientas que, en principio, cumplían con la mayor cantidad de criterios evaluativos: \textbf{Emu8086}, \textbf{VonSim} y \textbf{Simple 8-bit Assembler Simulator}.
+
+La Tabla \ref{tab:simuladores} sintetiza el proceso de selección, mostrando el resultado de la exploración previa y la evaluación final de cada simulador. Esta presentación estructurada permite visualizar de manera clara el criterio aplicado y la justificación de la elección de las herramientas analizadas.
 
 \begin{table}[!h]
 \centering
@@ -1864,9 +1880,11 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \tightlist
 \item
   \textbf{Soporte para la generación y ejecución de programas en ensamblador:}
-  Incorporar la posibilidad de ejecutar programas escritos en lenguaje ensamblador tanto de forma paso a paso como en ejecución continua. Esta funcionalidad posibilita el análisis detallado de cada instrucción, fortaleciendo competencias en trazado y depuración de código ensamblador, fundamentales para comprender la relación entre software y hardware.
-  Para apoyar este proceso, se propone la inclusión de un editor de ensamblador que incorpore funciones como resaltado de sintaxis y autocompletado. Estas características mejoran la experiencia del usuario y facilitan la escritura y comprensión del código, en consonancia con principios de diseño de interfaces que priorizan la usabilidad y la accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}76{]}}. El editor debe permitir al usuario escribir, editar, guardar y ejecutar programas en ensamblador dentro del simulador, además de ofrecer ejemplos predefinidos como apoyo didáctico. La incorporación de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios \protect\hyperlink{ref-mccracken2001does}{{[}77{]}}.
+  La posibilidad de ejecutar programas escritos en lenguaje ensamblador, tanto de manera paso a paso como en ejecución continua, constituye un recurso esencial para el análisis detallado de cada instrucción. Esta funcionalidad fortalece las competencias en trazado y depuración de código ensamblador, aspectos fundamentales para comprender la interacción entre software y hardware.
+  Para facilitar este proceso, se incorpora un editor de ensamblador dotado de funciones avanzadas, como el resaltado de sintaxis y el autocompletado. Estas características, alineadas con los principios de diseño de interfaces orientados a la usabilidad y accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}76{]}}, optimizan la experiencia del usuario y favorecen la escritura y comprensión del código. El editor permite al usuario escribir, editar, guardar y ejecutar programas en ensamblador directamente dentro del simulador, además de ofrecer ejemplos predefinidos como apoyo didáctico. La integración de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios \protect\hyperlink{ref-mccracken2001does}{{[}77{]}}.
 \end{enumerate}
+
+La Figura \ref{fig:editor} ilustra la interfaz del editor ensamblador implementado en el simulador, evidenciando las funcionalidades mencionadas y su aporte al proceso de aprendizaje.
 
 \begin{figure}
 
@@ -2909,9 +2927,11 @@ hlt\end{lstlisting}
 \hypertarget{formato-de-instrucciones}{%
 \subsection{Formato de instrucciones}\label{formato-de-instrucciones}}
 
-El formato de las instrucciones en VonSim8 se fundamenta en una codificación binaria de longitud variable (1, 2 o 3 bytes). Los 4 bits de mayor peso del primer byte corresponden al código de operación (opcode), mientras que los 4 bits restantes pueden contener información adicional sobre los operandos, dependiendo del modo de direccionamiento utilizado. El opcode determina la operación a ejecutar, y los operandos especifican los datos o registros implicados en la instrucción.
+El formato de las instrucciones en VonSim8 se basa en una codificación binaria de longitud variable (1, 2 o 3 bytes). Los 4 bits de mayor peso del primer byte corresponden al código de operación (opcode), mientras que los 4 bits restantes pueden contener información adicional sobre los operandos, según el modo de direccionamiento empleado. El opcode determina la operación a ejecutar, y los operandos especifican los datos o registros implicados en la instrucción.
 
-Las instrucciones del simulador VonSim8 se agrupan en dos categorías principales: instrucciones de transferencia y procesamiento de datos, e instrucciones de control de flujo.
+El repertorio de instrucciones implementado en el simulador VonSim8 se organiza en dos grandes categorías: instrucciones de transferencia y procesamiento de datos, e instrucciones de control de flujo. Cada categoría agrupa operaciones fundamentales para la manipulación de datos y la gestión del flujo de ejecución en programas ensamblador.
+
+La Tabla \ref{tab:tisaredu} sintetiza las principales instrucciones disponibles en VonSim8, detallando su categoría, código de operación, cantidad de operandos y acción asociada. Esta presentación estructurada facilita la comprensión de la lógica interna del simulador y constituye una referencia esencial para el análisis y la programación en el entorno educativo.
 
 \begin{table}[!h]
 \centering
