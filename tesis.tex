@@ -660,6 +660,7 @@ Para realizar una comparación sistemática entre las arquitecturas Von Neumann 
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
+\begin{threeparttable}
 \begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{5.5cm}>{\centering\arraybackslash}p{5.5cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Von Neumann}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Harvard}}}\\
@@ -678,7 +679,12 @@ Para realizar una comparación sistemática entre las arquitecturas Von Neumann 
 \textbf{Limitación principal} & Cuello de botella & Diseño más complejo\\
 \addlinespace[10pt]
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota: } 
+\item AVR y PIC son familias de microcontroladores ampliamente utilizadas en sistemas embebidos. AVR (Advanced Virtual RISC) es una arquitectura desarrollada por Atmel, caracterizada por su eficiencia y simplicidad. PIC (Peripheral Interface Controller) es una línea de microcontroladores de Microchip Technology, reconocida por su flexibilidad y facilidad de programación.
+\end{tablenotes}
+\end{threeparttable}}
 \end{table}
 
 Ambos modelos conceptuales han tenido una influencia decisiva en el diseño de arquitecturas contemporáneas. Mientras que el modelo Von Neumann ofrece un enfoque unificado que simplifica el desarrollo de software y hardware, la arquitectura Harvard destaca por su capacidad para mejorar el rendimiento mediante el acceso paralelo a instrucciones y datos. Esta distinción resulta crucial al analizar el diseño de arquitecturas modernas como x86, que constituye el foco de esta tesis. Comprender las implicancias de estas decisiones arquitectónicas es esencial para evaluar el impacto en el rendimiento, la eficiencia energética y la escalabilidad de los sistemas actuales.
@@ -732,27 +738,27 @@ Como arquitectura de código abierto, RISC-V ofrece una alternativa personalizab
 \hypertarget{comparativa-entre-arquitecturas}{%
 \subsection{Comparativa entre arquitecturas}\label{comparativa-entre-arquitecturas}}
 
-Las características distintivas de cada arquitectura condicionan su idoneidad para diversas aplicaciones. Por ejemplo, mientras x86 sobresale en entornos de alto rendimiento, ARM domina en dispositivos móviles gracias a su eficiencia energética. Por su parte, arquitecturas como RISC-V han encontrado aplicaciones relevantes en sistemas embebidos, plataformas educativas y diseños personalizados, aunque su presencia comercial difiere notablemente. La selección adecuada de una arquitectura impacta significativamente en el éxito de un proyecto, desde el diseño hasta su implementación final. Además, comprender las diferencias entre estas arquitecturas, en particular sus repertorios de instrucciones y principios de diseño, resulta fundamental en el ámbito educativo, dado que facilita el desarrollo de herramientas didácticas que simulan sus principios operativos y ayudan a los estudiantes a visualizar el funcionamiento real de los sistemas computacionales \protect\hyperlink{ref-patterson_computer_2014}{{[}37{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}50{]}}.
+La selección de una arquitectura de procesador depende de una serie de características técnicas que determinan su idoneidad para distintos escenarios de aplicación. Por ejemplo, la arquitectura x86 se distingue por su alto rendimiento y compatibilidad, lo que la posiciona como preferente en entornos de escritorio y servidores. ARM, en cambio, sobresale en dispositivos móviles y sistemas embebidos gracias a su eficiencia energética y simplicidad estructural. RISC-V, como alternativa de código abierto, ha ganado relevancia en investigación, educación y aplicaciones personalizadas, aunque su presencia comercial es aún limitada. Comprender las diferencias entre estas arquitecturas, especialmente en lo relativo a la eficiencia energética, la complejidad del repertorio de instrucciones y el rendimiento, resulta fundamental tanto para el diseño de sistemas como para la formación académica \protect\hyperlink{ref-patterson_computer_2014}{{[}37{]}}, \protect\hyperlink{ref-arm_evolution_2025}{{[}50{]}}.
 
-Las aplicaciones de la simulación en distintos sectores se resumen en la Tabla \ref{tab:aplicacionessimulacion}, donde se detallan los ámbitos de uso, ejemplos representativos y los principales beneficios asociados a cada área.
+La Tabla \ref{tab:comparq} sintetiza comparativamente estos aspectos clave, permitiendo visualizar de manera sistemática las ventajas, limitaciones y áreas de aplicación de las arquitecturas x86, ARM y RISC-V.
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:aplicacionessimulacion}Aplicaciones de la simulación en distintos sectores}
+\caption{\label{tab:comparq}Comparación de Arquitecturas}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{6cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}l}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Sector}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aplicación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio principal}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{x86}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{ARM}}} & \multicolumn{1}{c}{\cellcolor[HTML]{D3D3D3}{\textbf{RISC-V}}}\\
 \midrule
-\textbf{Automotriz} & Pruebas de colisión virtuales & Reducción de costos y aumento de seguridad\\
+\textbf{Eficiencia Energética} & Moderada & Alta & Alta\\
 \addlinespace[10pt]
-\textbf{Aeroespacial} & Simuladores de vuelo & Entrenamiento sin riesgo\\
+\textbf{Complejidad ISA} & Alta & Baja & Baja\\
 \addlinespace[10pt]
-\textbf{Medicina} & Simulación de cirugías & Entrenamiento sin comprometer pacientes\\
+\textbf{Rendimiento} & Alto & Moderado & Moderado\\
 \addlinespace[10pt]
-\textbf{Educación} & Simuladores para arquitectura de computadoras & Comprensión de procesos abstractos\\
+\textbf{Áreas de Aplicación} & Escritorio, servidores & Dispositivos móviles & Investigación, embebidos\\
 \addlinespace[10pt]
 \bottomrule
 \end{tabular}}
@@ -1881,10 +1887,8 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \item
   \textbf{Soporte para la generación y ejecución de programas en ensamblador:}
   La posibilidad de ejecutar programas escritos en lenguaje ensamblador, tanto de manera paso a paso como en ejecución continua, constituye un recurso esencial para el análisis detallado de cada instrucción. Esta funcionalidad fortalece las competencias en trazado y depuración de código ensamblador, aspectos fundamentales para comprender la interacción entre software y hardware.
-  Para facilitar este proceso, se incorpora un editor de ensamblador dotado de funciones avanzadas, como el resaltado de sintaxis y el autocompletado. Estas características, alineadas con los principios de diseño de interfaces orientados a la usabilidad y accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}76{]}}, optimizan la experiencia del usuario y favorecen la escritura y comprensión del código. El editor permite al usuario escribir, editar, guardar y ejecutar programas en ensamblador directamente dentro del simulador, además de ofrecer ejemplos predefinidos como apoyo didáctico. La integración de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios \protect\hyperlink{ref-mccracken2001does}{{[}77{]}}.
+  Para facilitar este proceso, se incorpora un editor de ensamblador dotado de funciones avanzadas, como el resaltado de sintaxis y el autocompletado. Estas características, alineadas con los principios de diseño de interfaces orientados a la usabilidad y accesibilidad \protect\hyperlink{ref-w3c_accessibility_2021}{{[}76{]}}, optimizan la experiencia del usuario y favorecen la escritura y comprensión del código. El editor permite al usuario escribir, editar, guardar y ejecutar programas en ensamblador directamente dentro del simulador, además de ofrecer ejemplos predefinidos como apoyo didáctico. La integración de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios \protect\hyperlink{ref-mccracken2001does}{{[}77{]}}. La Figura \ref{fig:editor} ilustra la interfaz del editor ensamblador implementado en el simulador, evidenciando las funcionalidades mencionadas y su aporte al proceso de aprendizaje.
 \end{enumerate}
-
-La Figura \ref{fig:editor} ilustra la interfaz del editor ensamblador implementado en el simulador, evidenciando las funcionalidades mencionadas y su aporte al proceso de aprendizaje.
 
 \begin{figure}
 
@@ -4473,7 +4477,7 @@ Este módulo está basado en el PIC 8259A de Intel, aunque se han realizado modi
 \hypertarget{luxedneas-de-interrupciuxf3n}{%
 \subsubsection{Líneas de interrupción}\label{luxedneas-de-interrupciuxf3n}}
 
-El PIC cuenta con cuatro líneas de interrupción, identificadas como INT0 a INT3 en la configuración actual del simulador. Cada línea está vinculada a un registro de 8 bits en la memoria de entrada/salida; por ejemplo, INT0 se asocia a la dirección 24h, INT1 a la 25h, y así sucesivamente hasta INT3 en la 26h. En estos registros se almacena el número de interrupción correspondiente, permitiendo que el PIC envíe a la CPU la identificación adecuada cuando se produce una solicitud, independizando el número de línea del número de interrupción.
+El PIC cuenta con cuatro líneas de interrupción, identificadas como INT0 a INT3 en la configuración actual del simulador. Cada línea está vinculada a un registro de 8 bits en la memoria de entrada/salida; por ejemplo, INT0 se asocia a la dirección 24h, INT1 a la 25h, y así sucesivamente hasta INT3 en la 27h. En estos registros se almacena el número de interrupción correspondiente, permitiendo que el PIC envíe a la CPU la identificación adecuada cuando se produce una solicitud, independizando el número de línea del número de interrupción.
 
 La Tabla \ref{tab:tPIC} sintetiza la relación entre las líneas de interrupción y los dispositivos o módulos asociados en el simulador VonSim8, proporcionando una visión estructurada de la asignación y gestión de recursos para la atención de eventos externos. Esta presentación facilita la comprensión del mecanismo de multiplexación y priorización implementado por el PIC.
 
