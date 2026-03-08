@@ -1902,10 +1902,8 @@ La Figura \ref{fig:editor} ilustra la interfaz del editor ensamblador implementa
 \item
   \textbf{Repertorio reducido de instrucciones con activación progresiva:}
   Se selecciona un subconjunto esencial del conjunto de instrucciones x86, el cual se habilita de manera secuencial a lo largo del proceso de enseñanza, en estrecha correspondencia con el avance de los contenidos curriculares. Esta decisión responde a principios de la psicología cognitiva, que sostienen que la introducción gradual de contenidos técnicos favorece la retención y disminuye la sobrecarga cognitiva \protect\hyperlink{ref-nationalacademies2018how}{{[}78{]}}. Diversos autores, como Hasan \protect\hyperlink{ref-hasan_survey_2012}{{[}18{]}}, Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}36{]}}, y Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, respaldan este enfoque, recomendando la incorporación escalonada de conceptos en la enseñanza de arquitecturas complejas.
-  La activación progresiva del repertorio de instrucciones promueve el desarrollo paulatino de competencias, evitando que los estudiantes se enfrenten prematuramente a la totalidad del conjunto instruccional. Este método se fundamenta en teorías de aprendizaje que destacan los beneficios de la exposición gradual a nuevos conceptos para mejorar la comprensión y la retención \protect\hyperlink{ref-sweller2010cognitive}{{[}21{]}}.
+  La activación progresiva del repertorio de instrucciones promueve el desarrollo paulatino de competencias, evitando que los estudiantes se enfrenten prematuramente a la totalidad del conjunto instruccional. Este método se fundamenta en teorías de aprendizaje que destacan los beneficios de la exposición gradual a nuevos conceptos para mejorar la comprensión y la retención \protect\hyperlink{ref-sweller2010cognitive}{{[}21{]}}. La Tabla \ref{tab:activacionprogresiva} resume el proceso de activación progresiva del repertorio de instrucciones, especificando las fases de incorporación y los objetivos didácticos correspondientes a cada etapa. Esta representación facilita la comprensión de cómo la introducción gradual de instrucciones contribuye al desarrollo de competencias específicas y potencia el aprendizaje en arquitectura de computadoras.
 \end{enumerate}
-
-La Tabla \ref{tab:activacionprogresiva} resume el proceso de activación progresiva del repertorio de instrucciones, especificando las fases de incorporación y los objetivos didácticos correspondientes a cada etapa. Esta representación facilita la comprensión de cómo la introducción gradual de instrucciones contribuye al desarrollo de competencias específicas y potencia el aprendizaje en arquitectura de computadoras.
 
 \begin{table}[!h]
 \centering
@@ -1933,10 +1931,8 @@ La Tabla \ref{tab:activacionprogresiva} resume el proceso de activación progres
 \tightlist
 \item
   \textbf{Simulación visual e interactiva de micropasos de instrucciones:}
-  Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción \protect\hyperlink{ref-harris2015digital}{{[}35{]}}, \protect\hyperlink{ref-ASMVisualizer2025}{{[}79{]}}. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}} propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (\emph{Fetch}) hasta la ejecución (\emph{Execute}), facilitando la visualización del recorrido de datos y señales de control en cada etapa del proceso.
+  Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción \protect\hyperlink{ref-harris2015digital}{{[}35{]}}, \protect\hyperlink{ref-ASMVisualizer2025}{{[}79{]}}. Stallings \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}} propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (\emph{Fetch}) hasta la ejecución (\emph{Execute}), facilitando la visualización del recorrido de datos y señales de control en cada etapa del proceso. La Figura \ref{fig:cicloinstruccion} representa de manera visual y secuencial las etapas fundamentales del ciclo de instrucción, ejemplificadas mediante la operación \texttt{MOV\ AL,\ BL}. En la etapa de captación (\emph{Fetch}), se observa cómo la dirección de la instrucción es transferida del registro \texttt{IP} al \texttt{MAR}, seguida por la lectura de la memoria hacia el \texttt{MBR} y su posterior carga en el \texttt{IR}. En la etapa de ejecución (\emph{Execute}), el dato se mueve desde el registro \texttt{BL} al registro \texttt{AL}, ilustrando el flujo de información y el funcionamiento interno del procesador durante la ejecución de una instrucción. Esta representación facilita la comprensión didáctica de los procesos involucrados en el ciclo de instrucción.
 \end{enumerate}
-
-La Figura \ref{fig:cicloinstruccion} representa de manera visual y secuencial las etapas fundamentales del ciclo de instrucción, ejemplificadas mediante la operación \texttt{MOV\ AL,\ BL}. En la etapa de captación (\emph{Fetch}), se observa cómo la dirección de la instrucción es transferida del registro \texttt{IP} al \texttt{MAR}, seguida por la lectura de la memoria hacia el \texttt{MBR} y su posterior carga en el \texttt{IR}. En la etapa de ejecución (\emph{Execute}), el dato se mueve desde el registro \texttt{BL} al registro \texttt{AL}, ilustrando el flujo de información y el funcionamiento interno del procesador durante la ejecución de una instrucción. Esta representación facilita la comprensión didáctica de los procesos involucrados en el ciclo de instrucción.
 
 \begin{figure}
 
@@ -1954,11 +1950,8 @@ La Figura \ref{fig:cicloinstruccion} representa de manera visual y secuencial la
 \item
   \textbf{Gestión básica de interrupciones y periféricos:}
   La incorporación de un vector de interrupciones predefinido permite simular eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Ante la recepción de una interrupción, el simulador activa la señal \texttt{INTR}, detiene la ejecución actual y transfiere el control a la rutina correspondiente, facilitando la exploración interactiva de conceptos clave como la asincronía, el manejo de eventos y la interrupción del flujo secuencial. Estos aspectos, característicos de arquitecturas modernas, resultan fundamentales para el entendimiento de sistemas reales y se alinean con las recomendaciones de Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}36{]}}, quienes destacan la importancia de abordar estos conceptos en etapas tempranas de la formación.
+  Adicionalmente, se implementa un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo posibilita la simulación de operaciones mediante instrucciones como IN y OUT, permitiendo al estudiante interactuar con dispositivos representados gráficamente, como interruptores y teclas. De esta manera, se favorece una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos. La Figura \ref{fig:perifericos} muestra el módulo PIO y su interacción con los periféricos, ilustrando visualmente la estructura y funcionamiento de este componente dentro del simulador.
 \end{enumerate}
-
-Adicionalmente, se implementa un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo posibilita la simulación de operaciones mediante instrucciones como IN y OUT, permitiendo al estudiante interactuar con dispositivos representados gráficamente, como interruptores y teclas. De esta manera, se favorece una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
-
-La Figura \ref{fig:perifericos} muestra el módulo PIO y su interacción con los periféricos, ilustrando visualmente la estructura y funcionamiento de este componente dentro del simulador.
 
 \begin{figure}
 
@@ -1975,10 +1968,8 @@ La Figura \ref{fig:perifericos} muestra el módulo PIO y su interacción con los
 \tightlist
 \item
   \textbf{Métricas de rendimiento:}
-  La integración de indicadores clave, como el tiempo de ciclo, el tiempo de CPU y los ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas, permite al estudiante analizar cuantitativamente la eficiencia del sistema. Además, la posibilidad de configurar la frecuencia del CPU en un rango de valores (1--10 Hz) facilita la comparación entre diferentes implementaciones y escenarios de ejecución. La disponibilidad de estas métricas contribuye a fortalecer la comprensión de aspectos fundamentales del rendimiento del procesador, promoviendo una formación integral que abarca tanto dimensiones funcionales como métricas del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}.
+  La integración de indicadores clave, como el tiempo de ciclo, el tiempo de CPU y los ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas, permite al estudiante analizar cuantitativamente la eficiencia del sistema. Además, la posibilidad de configurar la frecuencia del CPU en un rango de valores (1--10 Hz) facilita la comparación entre diferentes implementaciones y escenarios de ejecución. La disponibilidad de estas métricas contribuye a fortalecer la comprensión de aspectos fundamentales del rendimiento del procesador, promoviendo una formación integral que abarca tanto dimensiones funcionales como métricas del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}. La Figura \ref{fig:metricas} presenta el panel de métricas de rendimiento implementado en el simulador, donde se visualizan los principales indicadores y configuraciones disponibles para el análisis cuantitativo.
 \end{enumerate}
-
-La Figura \ref{fig:metricas} presenta el panel de métricas de rendimiento implementado en el simulador, donde se visualizan los principales indicadores y configuraciones disponibles para el análisis cuantitativo.
 
 \begin{figure}
 
@@ -1995,10 +1986,8 @@ La Figura \ref{fig:metricas} presenta el panel de métricas de rendimiento imple
 \tightlist
 \item
   \textbf{Documentación y recursos de apoyo:}
-  La disponibilidad de documentación clara y accesible resulta esencial para explicar el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Este recurso debe incluir ejemplos prácticos, guías de uso y materiales complementarios que faciliten la comprensión y el aprendizaje autónomo. La incorporación de tutoriales interactivos y ejemplos prácticos es fundamental para orientar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo \protect\hyperlink{ref-bonwell1991active}{{[}80{]}}.
+  La disponibilidad de documentación clara y accesible resulta esencial para explicar el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Este recurso debe incluir ejemplos prácticos, guías de uso y materiales complementarios que faciliten la comprensión y el aprendizaje autónomo. La incorporación de tutoriales interactivos y ejemplos prácticos es fundamental para orientar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo \protect\hyperlink{ref-bonwell1991active}{{[}80{]}}. La Figura \ref{fig:documentacion} muestra la interfaz de la documentación en línea, donde se presentan los contenidos organizados y los recursos de apoyo disponibles para el usuario.
 \end{enumerate}
-
-La Figura \ref{fig:documentacion} muestra la interfaz de la documentación en línea, donde se presentan los contenidos organizados y los recursos de apoyo disponibles para el usuario.
 
 \begin{figure}
 
@@ -2671,7 +2660,7 @@ Con el objetivo de favorecer el aprendizaje de la programación en ensamblador y
 \end{tabular}}
 \end{table}
 
-El parámetro \texttt{xx} en las instrucciones \texttt{Jxx} hace referencia a diferentes combinaciones de banderas de estado (flags), tales como cero (Z), acarreo (C), signo (S) y desbordamiento (O). La negación de un flag se indica con la letra N, lo que amplía la flexibilidad de control del flujo de ejecución en programas condicionales.
+En el simulador VonSim8, el parámetro \texttt{xx} de las instrucciones \texttt{Jxx} permite realizar saltos condicionales en función de distintas combinaciones de banderas de estado, como cero (Z), acarreo (C), signo (S) y desbordamiento (O). La negación de una bandera se indica mediante la letra N, lo que otorga mayor flexibilidad para controlar el flujo de ejecución en programas ensamblador. La Tabla \ref{tab:saltoscondicionales} sintetiza las instrucciones de salto condicional implementadas, detallando la condición asociada a cada bandera y su efecto sobre el flujo del programa.
 
 \begin{table}[!h]
 \centering
@@ -4235,9 +4224,7 @@ hlt
 \hypertarget{puertos-de-es}{%
 \subsection{Puertos de E/S}\label{puertos-de-es}}
 
-La memoria de entrada/salida está completamente separada de la memoria principal. Para interactuar con ella, se emplean exclusivamente las instrucciones {[}IN{]} y {[}OUT{]}. Cuando se requiere acceder a un módulo de entrada/salida, la {[}CPU{]} activa la señal IO/M, lo que provoca que un selector de chips (chip select) interprete la dirección presente en el bus de direcciones y envíe la señal de activación al módulo correspondiente.
-
-El rango de direcciones asignado a la memoria de entrada/salida abarca desde \texttt{00h} hasta \texttt{FFh}, lo que permite un total de 256 direcciones. A continuación, se presentan las direcciones de entrada/salida disponibles en el simulador, todas de 8 bits:
+En VonSim8, la memoria de entrada/salida se encuentra completamente separada de la memoria principal, y su acceso se realiza exclusivamente mediante las instrucciones IN y OUT. Cuando la CPU requiere interactuar con un módulo de E/S, activa la señal IO/M, permitiendo que el selector de chips interprete la dirección en el bus y habilite el dispositivo correspondiente. El espacio de direcciones asignado a la memoria de E/S abarca desde \texttt{0x00h} hasta \texttt{0xFFh}, proporcionando un total de 256 direcciones posibles. La Tabla \ref{tab:tpuertos} presenta las direcciones de entrada/salida disponibles en el simulador, especificando los módulos, registros y nombres asociados, lo que facilita la identificación y gestión de los recursos periféricos en la arquitectura implementada.
 
 \begin{table}[!h]
 \centering
@@ -4486,11 +4473,9 @@ Este módulo está basado en el PIC 8259A de Intel, aunque se han realizado modi
 \hypertarget{luxedneas-de-interrupciuxf3n}{%
 \subsubsection{Líneas de interrupción}\label{luxedneas-de-interrupciuxf3n}}
 
-El PIC dispone de 4 líneas de interrupción, denominadas INT0 a INT3 (aunque no todas son utilizadas). Cada línea está asociada a un registro de 8 bits en la memoria de E/S. Por ejemplo, la línea INT0 corresponde a la dirección 24h, la línea INT1 a la dirección 25h, y así sucesivamente hasta la línea INT3, que utiliza la dirección 26h. En estos registros se almacena el número de interrupción asociado a cada línea.
+El PIC cuenta con cuatro líneas de interrupción, identificadas como INT0 a INT3 en la configuración actual del simulador. Cada línea está vinculada a un registro de 8 bits en la memoria de entrada/salida; por ejemplo, INT0 se asocia a la dirección 24h, INT1 a la 25h, y así sucesivamente hasta INT3 en la 26h. En estos registros se almacena el número de interrupción correspondiente, permitiendo que el PIC envíe a la CPU la identificación adecuada cuando se produce una solicitud, independizando el número de línea del número de interrupción.
 
-Cuando un dispositivo o módulo solicita una interrupción, el PIC envía a la CPU el número de interrupción almacenado en el registro correspondiente, desacoplando así el número de línea del número de interrupción.
-
-Las líneas están conectadas a los siguientes dispositivos:
+La Tabla \ref{tab:tPIC} sintetiza la relación entre las líneas de interrupción y los dispositivos o módulos asociados en el simulador VonSim8, proporcionando una visión estructurada de la asignación y gestión de recursos para la atención de eventos externos. Esta presentación facilita la comprensión del mecanismo de multiplexación y priorización implementado por el PIC.
 
 \begin{table}[!h]
 \centering
