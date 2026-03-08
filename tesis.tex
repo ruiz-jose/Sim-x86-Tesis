@@ -825,7 +825,19 @@ Los modos de direccionamiento definen los mecanismos mediante los cuales una ins
   \textbf{Pila}: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.
 \end{enumerate}
 
-Para profundizar en la comprensión de los mecanismos de acceso a operandos, la Figura \ref{fig:ModDir} ofrece una representación esquemática de los principales modos de direccionamiento implementados en arquitecturas modernas. En ella se visualiza, de manera didáctica, cómo se determina la dirección efectiva (EA) en cada caso, diferenciando entre modos inmediato, directo, indirecto, mediante registro, registro indirecto, con desplazamiento y pila. Esta ilustración facilita el análisis comparativo de las ventajas y limitaciones de cada modalidad, aportando claridad conceptual al estudio de la interacción entre instrucciones, memoria y registros \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
+Para profundizar en la comprensión de los mecanismos de acceso a operandos, la Figura \ref{fig:ModDir} presenta una representación esquemática de los principales modos de direccionamiento implementados en arquitecturas modernas. En ella se visualiza, de manera didáctica, cómo se determina la dirección efectiva (EA) en cada caso, diferenciando entre los modos inmediato, directo, indirecto, mediante registro, registro indirecto, con desplazamiento y pila. Para interpretar correctamente el diagrama, es importante considerar las siguientes definiciones, que se utilizan en la figura:
+
+\begin{itemize}
+\tightlist
+\item
+  A: contenido de un campo de dirección en la instrucción.
+\item
+  R: contenido de un campo de dirección en la instrucción que referencia a un registro.
+\item
+  EA: dirección real (efectiva) de la posición que contiene el operando que se referencia.
+\end{itemize}
+
+Esta ilustración facilita el análisis comparativo de las ventajas y limitaciones de cada modalidad, aportando claridad conceptual al estudio de la interacción entre instrucciones, memoria y registros \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}.
 
 \begin{figure}
 
@@ -836,16 +848,6 @@ Para profundizar en la comprensión de los mecanismos de acceso a operandos, la 
 \caption{Modos de direccionamiento }\label{fig:ModDir}
 \end{figure}
 
-\begin{itemize}
-\tightlist
-\item
-  A = contenido de un campo de dirección en la instrucción
-\item
-  R = contenido de un campo de dirección en la instrucción que referencia a un registro
-\item
-  EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
-\end{itemize}
-
 La Tabla \ref{tab:tabmoddir} presenta de manera detallada el algoritmo utilizado para calcular la dirección efectiva en cada uno de los modos de direccionamiento descritos.
 
 \begin{table}[!h]
@@ -854,6 +856,7 @@ La Tabla \ref{tab:tabmoddir} presenta de manera detallada el algoritmo utilizado
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{10}{12}\selectfont
+\begin{threeparttable}
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Algoritmo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Ventaja}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Desventaja}}}\\
@@ -874,7 +877,12 @@ La Tabla \ref{tab:tabmoddir} presenta de manera detallada el algoritmo utilizado
 \textbf{Pila} & EA ← puntero de pila & No referencia a memoria & Aplicabilidad limitada\\
 \addlinespace[10pt]
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\begin{tablenotes}
+\item \textit{Nota: } 
+\item En el algoritmo de cada modo de direccionamiento, las notaciones empleadas tienen el siguiente significado: A: contenido del campo de dirección en la instrucción; (A): contenido de la posición de memoria referenciada por A; R: contenido de un registro especificado en la instrucción; (R): contenido de la posición de memoria referenciada por el registro R; EA: dirección efectiva calculada para acceder al operando.
+\end{tablenotes}
+\end{threeparttable}}
 \end{table}
 
 \hypertarget{formato-de-las-instrucciones}{%
@@ -4328,7 +4336,7 @@ out 31h, al              ; Escribe el valor en PB para actualizar las luces
 hlt                      ; Detiene la ejecución del programa\end{lstlisting}
 
 \hypertarget{interruptores}{%
-\subsubsection{interruptores}\label{interruptores}}
+\subsubsection{Interruptores}\label{interruptores}}
 
 Los interruptores (también denominados llaves) funcionan como dispositivos de entrada conectados al puerto A del módulo PIO. Su operación se gestiona mediante el registro de datos PA (dirección 30h) y el registro de configuración CA (dirección 32h).
 

@@ -995,7 +995,7 @@ out 31h, al              ; Escribe el valor en PB para actualizar las luces
 hlt                      ; Detiene la ejecución del programa</code></pre>
 </div>
 <div id="interruptores" class="section level4 hasAnchor" number="5.9.8.2">
-<h4><span class="header-section-number">5.9.8.2</span> interruptores<a href="módulo-de-entradasalida-e-interrupciones.html#interruptores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<h4><span class="header-section-number">5.9.8.2</span> Interruptores<a href="módulo-de-entradasalida-e-interrupciones.html#interruptores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Los interruptores (también denominados llaves) funcionan como dispositivos de entrada conectados al puerto A del módulo PIO. Su operación se gestiona mediante el registro de datos PA (dirección 30h) y el registro de configuración CA (dirección 32h).</p>
 <p>Para que los interruptores operen correctamente, es fundamental configurar previamente el puerto A como entrada mediante el registro CA. Una vez establecida la configuración apropiada, cualquier cambio en el estado físico de los interruptores se reflejará automáticamente en los bits correspondientes del registro PA, permitiendo al programa leer su estado actual.</p>
 <p>Es importante destacar que la comunicación es unidireccional desde los dispositivos hacia el procesador: aunque es posible escribir valores directamente en el registro PA mediante software, estos cambios no alterarán el estado físico de los interruptores. Los dispositivos de entrada mantienen su estado independientemente de las modificaciones realizadas por programa en sus registros asociados, garantizando así la integridad de la información proveniente del mundo exterior.</p>
