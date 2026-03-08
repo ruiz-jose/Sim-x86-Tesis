@@ -232,16 +232,17 @@ Los modos de direccionamiento definen los mecanismos mediante los cuales una ins
   f) **Con Desplazamiento**: combina una dirección base con un valor de desplazamiento, ideal para estructuras como arrays y matrices.
   g) **Pila**: el operando está en la parte superior de la pila, útil para gestionar subrutinas y el paso de parámetros.
 
-Para profundizar en la comprensión de los mecanismos de acceso a operandos, la Figura \@ref(fig:ModDir) ofrece una representación esquemática de los principales modos de direccionamiento implementados en arquitecturas modernas. En ella se visualiza, de manera didáctica, cómo se determina la dirección efectiva (EA) en cada caso, diferenciando entre modos inmediato, directo, indirecto, mediante registro, registro indirecto, con desplazamiento y pila. Esta ilustración facilita el análisis comparativo de las ventajas y limitaciones de cada modalidad, aportando claridad conceptual al estudio de la interacción entre instrucciones, memoria y registros [@stallings_computer_2021].
+Para profundizar en la comprensión de los mecanismos de acceso a operandos, la Figura \@ref(fig:ModDir) presenta una representación esquemática de los principales modos de direccionamiento implementados en arquitecturas modernas. En ella se visualiza, de manera didáctica, cómo se determina la dirección efectiva (EA) en cada caso, diferenciando entre los modos inmediato, directo, indirecto, mediante registro, registro indirecto, con desplazamiento y pila. Para interpretar correctamente el diagrama, es importante considerar las siguientes definiciones, que se utilizan en la figura:
+
+  - A: contenido de un campo de dirección en la instrucción.
+  - R: contenido de un campo de dirección en la instrucción que referencia a un registro.
+  - EA: dirección real (efectiva) de la posición que contiene el operando que se referencia.
+
+Esta ilustración facilita el análisis comparativo de las ventajas y limitaciones de cada modalidad, aportando claridad conceptual al estudio de la interacción entre instrucciones, memoria y registros [@stallings_computer_2021].
 
 ```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento ", fig.align = 'center', out.width="60%"}
 knitr::include_graphics(path = "images/modosdireccionamiento.png")
 ```
-
-  - A = contenido de un campo de dirección en la instrucción
-  - R = contenido de un campo de dirección en la instrucción que referencia a un registro
-  - EA = dirección real (efectiva) de la posición que contiene el operando que se referencia
-
 La Tabla \@ref(tab:tabmoddir) presenta de manera detallada el algoritmo utilizado para calcular la dirección efectiva en cada uno de los modos de direccionamiento descritos.
 
 ```{r tabmoddir, echo=FALSE, message=FALSE, warning=FALSE, table.pos='htbp'}
@@ -292,8 +293,12 @@ if (knitr::is_latex_output()) {
     column_spec(2:4, width = "4cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(tabmoddir)),
-             extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
-
+             extra_latex_after = "\\addlinespace[10pt]") %>%
+    footnote(
+      general = "En el algoritmo de cada modo de direccionamiento, las notaciones empleadas tienen el siguiente significado: A: contenido del campo de dirección en la instrucción; (A): contenido de la posición de memoria referenciada por A; R: contenido de un registro especificado en la instrucción; (R): contenido de la posición de memoria referenciada por el registro R; EA: dirección efectiva calculada para acceder al operando.",
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
 } else {
   tabla_moddir %>%
     kable_styling(
@@ -303,7 +308,12 @@ if (knitr::is_latex_output()) {
     ) %>%
     column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:4, width = "20em") %>%
-    row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
+    row_spec(0, bold = TRUE, color = "white", background = "#0073C2") %>%
+    footnote(
+      general = "En el algoritmo de cada modo de direccionamiento, las notaciones empleadas tienen el siguiente significado: A: contenido del campo de dirección en la instrucción; (A): contenido de la posición de memoria referenciada por A; R: contenido de un registro especificado en la instrucción; (R): contenido de la posición de memoria referenciada por el registro R; EA: dirección efectiva calculada para acceder al operando.",
+      general_title = "Nota: ",
+      threeparttable = TRUE
+    )
 }
 ```
 
