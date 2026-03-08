@@ -391,71 +391,76 @@ div.csl-indent {
 <li>Tour de aprendizaje, centro de ayuda y ejemplos integrados.</li>
 </ol>
 <p>A continuación se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:</p>
-<p>En el registro Flags de VonSim se ocultaron inicialmente las banderas O (overflow) y S (signo), dado que en los primeros ejercicios de ensamblador solo se emplean números enteros positivos. No obstante, estas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, conforme se abordan ejercicios de mayor complejidad.</p>
+<p>En el registro Flags del simulador VonSim8, las banderas O (overflow) y S (signo) se mantienen ocultas durante los primeros ejercicios de ensamblador, dado que inicialmente solo se emplean números enteros positivos. Esta decisión pedagógica simplifica la interfaz y reduce la carga cognitiva en las etapas iniciales del aprendizaje. Sin embargo, dichas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, a medida que se abordan ejercicios de mayor complejidad que requieren el análisis de operaciones con signo y detección de desbordamientos.</p>
+<p>La Figura <a href="mejoras-vonsim8.html#fig:banderas">5.9</a> muestra la representación visual del registro Flags, evidenciando la disposición de las banderas y su configuración dinámica según el nivel de avance del estudiante.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:banderas"></span>
 <img src="images/flags.png" alt="Registro Flags" width="100%" />
 <p class="caption">
 Figura 5.9: Registro Flags
 </p>
 </div>
-<p>El flag de interrupción I solo se muestra cuando el programa lo requiere, por ejemplo, al ejecutar una instrucción de interrupción como <code>INT</code> o <code>IRET</code>. Esto permite a los estudiantes observar cómo se activa y desactiva este flag en función de las operaciones realizadas.</p>
+<p>El flag de interrupción I se visualiza únicamente cuando el programa lo requiere, como ocurre al ejecutar instrucciones específicas de interrupción, tales como <code>INT</code> o <code>IRET</code>. Esta funcionalidad permite que los estudiantes observen de manera directa la activación y desactivación del flag, comprendiendo su impacto en el flujo de ejecución y en la gestión de eventos asincrónicos dentro del simulador</p>
+<p>La Figura <a href="mejoras-vonsim8.html#fig:banderaI">5.10</a> muestra la representación gráfica del registro de estado I, evidenciando su comportamiento dinámico y su relevancia en el manejo de interrupciones.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:banderaI"></span>
 <img src="images/flagi.png" alt="Registro de estado I" width="100%" />
 <p class="caption">
 Figura 5.10: Registro de estado I
 </p>
 </div>
-<p>Se modificó el menú de los controles del simulador.</p>
+<p>El menú de controles del simulador fue actualizado para optimizar la interacción del usuario y facilitar la ejecución de programas en diferentes modos, como ciclo, instrucción o ejecución completa. Esta mejora contribuye a una experiencia más intuitiva y eficiente, permitiendo al estudiante seleccionar el nivel de granularidad en la simulación y observar el comportamiento del sistema en cada etapa del proceso.</p>
+<p>La Figura <a href="mejoras-vonsim8.html#fig:controles">5.11</a> presenta la nueva disposición del menú de controles, destacando las opciones disponibles y su relevancia para el aprendizaje práctico en arquitectura de computadoras.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:controles"></span>
 <img src="images/controles.png" alt="Controles del simulador" width="100%" />
 <p class="caption">
 Figura 5.11: Controles del simulador
 </p>
 </div>
-<p>En lugar de utilizar registros de 16 bits completos, se emplea únicamente la parte baja de cada registro, lo que simplifica tanto la representación como la manipulación de los datos. Esta decisión responde a la necesidad de reducir la complejidad del modelo, facilitando así la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Además, se ha unificado el criterio de diseño de los registros: todos cuentan ahora con una entrada y una salida independientes, lo que permite visualizar de manera más clara la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación resulta esencial para comprender el flujo de datos durante el ciclo de instrucción y la interacción entre los distintos componentes del procesador.</p>
+<p>En el simulador, se optó por emplear únicamente la parte baja de cada registro, en lugar de utilizar registros de 16 bits completos. Esta decisión pedagógica simplifica tanto la representación como la manipulación de los datos, facilitando la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Asimismo, se ha unificado el criterio de diseño de los registros, dotándolos de una entrada y una salida independientes, lo que permite visualizar de manera más clara la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación resulta esencial para comprender el flujo de datos durante el ciclo de instrucción y la interacción entre los distintos componentes del procesador.</p>
+<p>La Figura <a href="mejoras-vonsim8.html#fig:registros">5.12</a> muestra la disposición y estructura de los registros de 8 bits implementados en el simulador, evidenciando su funcionalidad y su aporte a la didáctica del modelo.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:registros"></span>
 <img src="images/registros.png" alt="Registro de 8 bits" width="100%" />
 <p class="caption">
 Figura 5.12: Registro de 8 bits
 </p>
 </div>
-<p>La eliminación de los registros temporales <code>left</code>, <code>right</code> y <code>result</code> en la ALU responde a la necesidad de simplificar el flujo de datos y reducir la carga cognitiva de los estudiantes. En lugar de utilizar registros intermedios, el simulador muestra directamente las operaciones realizadas en los operandos, lo que facilita la comprensión del proceso aritmético y lógico.</p>
+<p>La supresión de los registros temporales <code>left</code>, <code>right</code> y <code>result</code> en la ALU responde al objetivo de simplificar el flujo de datos y disminuir la carga cognitiva de los estudiantes. En lugar de emplear registros intermedios, el simulador representa de manera directa las operaciones realizadas sobre los operandos, lo que facilita la comprensión del funcionamiento aritmético y lógico de la unidad. Esta estrategia didáctica permite al usuario observar de forma más transparente el procesamiento interno, favoreciendo el aprendizaje de los mecanismos fundamentales de la ALU.</p>
+<p>La Figura <a href="mejoras-vonsim8.html#fig:leftrigth">5.13</a> ilustra la eliminación de estos registros temporales, mostrando la simplificación lograda en la visualización y el flujo de datos dentro del simulador.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:leftrigth"></span>
 <img src="images/leftrigth.png" alt="Eliminación registro temporales left, right y result" width="100%" />
 <p class="caption">
 Figura 5.13: Eliminación registro temporales left, right y result
 </p>
 </div>
-<p>Los registros <code>SP</code>, <code>ri</code> e <code>id</code> se mantienen ocultos y solo se habilitan automáticamente cuando una instrucción requiere su utilización.</p>
+<p>Por motivos pedagógicos, los registros <code>SP</code>, <code>ri</code> e <code>id</code> permanecen ocultos en la interfaz del simulador y solo se habilitan de manera automática cuando una instrucción específica requiere su utilización. Esta estrategia contribuye a simplificar la visualización y a reducir la carga cognitiva durante las etapas iniciales del aprendizaje, permitiendo que el estudiante se enfoque en los componentes esenciales del ciclo de instrucción. La Figura <a href="mejoras-vonsim8.html#fig:idrisp">5.14</a> muestra la representación gráfica de estos registros, evidenciando su activación dinámica y su función de apoyo en la ejecución de instrucciones.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:idrisp"></span>
 <img src="images/idrisp.png" alt="Registro SP, id y ri" width="100%" />
 <p class="caption">
 Figura 5.14: Registro SP, id y ri
 </p>
 </div>
-<p>La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos.</p>
+<p>La memoria principal del simulador se representa mediante una matriz de 16×16 celdas en formato hexadecimal, lo que posibilita el almacenamiento de hasta 256 bytes de datos. Este diseño visual facilita la identificación de cada posición de memoria y promueve una comprensión intuitiva de la organización y gestión de datos en la arquitectura implementada. La Figura <a href="mejoras-vonsim8.html#fig:memoriacomp">5.15</a> ilustra la estructura matricial de la memoria, destacando su accesibilidad y utilidad para el análisis y la manipulación durante la simulación.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:memoriacomp"></span>
 <img src="images/memoriacomp.png" alt="Memoria principal" width="100%" />
 <p class="caption">
 Figura 5.15: Memoria principal
 </p>
 </div>
-<p>Resalto de la direccion de memoria apuntada por el registro IP en memoria y también resalta la dirección de memoria apuntada por el registro SP.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadoip"></span>
+<p>El simulador incorpora un mecanismo visual que destaca, dentro de la memoria principal, las posiciones apuntadas por los registros <code>IP</code> y <code>SP</code>. Esta funcionalidad permite al estudiante identificar de manera inmediata tanto la dirección de la próxima instrucción a ejecutar como la ubicación actual de la cima de la pila, facilitando el seguimiento del flujo de ejecución y la gestión de la memoria durante el ciclo de instrucción. La Figura <a href="mejoras-vonsim8.html#fig:resaltadoipsp">5.16</a> muestra el resaltado simultáneo de estas direcciones, evidenciando su importancia para la comprensión de la dinámica interna del procesador.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadoipsp"></span>
 <img src="images/resaltadoipsp.png" alt="Resaltado registro IP y registro SP" width="100%" />
 <p class="caption">
 Figura 5.16: Resaltado registro IP y registro SP
 </p>
 </div>
-<p>Se resalta en color naranja en la memoria principal el espacio destinado al vector de interrupciones en el VonSim8 es de 8 posiciones de memoria desde <code>0x00h</code> a <code>0x07h</code>:</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadointsp"></span>
+<p>El simulador VonSim8 destaca visualmente, mediante el uso de color naranja, el espacio reservado en la memoria principal para el vector de interrupciones, que abarca las ocho posiciones comprendidas entre las direcciones <code>0x00h</code> a <code>0x07h</code>. Esta representación facilita la identificación del área destinada al manejo de interrupciones, permitiendo al estudiante comprender su ubicación y relevancia dentro de la arquitectura. La Figura <a href="mejoras-vonsim8.html#fig:resaltadoint">5.17</a> muestra el resaltado específico de este segmento, evidenciando su función en la gestión de eventos externos y en la organización interna del sistema.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadoint"></span>
 <img src="images/resaltadoint.png" alt="Resaltado vector de interrupciones" width="50%" />
 <p class="caption">
 Figura 5.17: Resaltado vector de interrupciones
 </p>
 </div>
 <p>Para determinar la dirección de la rutina de tratamiento de interrupción en VonSim, es necesario multiplicar el número de interrupción por 4, ya que cada dirección de rutina ocupa 4 bytes. En cambio, en VonSim8 no es necesario realizar esta multiplicación, dado que cada dirección de rutina de interrupción corresponde a un solo byte. Por lo tanto, la interrupción <code>INT 0</code> se encuentra en la direccion <code>0x00h</code>, la interrupción <code>INT 6</code> en la direccion <code>0x06h</code>, y así sucesivamente.</p>
-<p>Se incorporó un visor de instrucciones y datos del programa en memoria, que permite visualizar la instrucción, el tamaño en bytes que ocupa en memoria y la etiqueta asociada a los datos.</p>
+<p>Con el objetivo de facilitar el análisis y la comprensión del funcionamiento interno del simulador, se incorporó un visor de instrucciones y datos del programa en memoria. Esta herramienta permite al estudiante visualizar, para cada celda de memoria, la instrucción almacenada, el tamaño en bytes que ocupa y la etiqueta asociada a los datos. De este modo, se promueve una interpretación detallada del contenido de la memoria y se favorece el seguimiento del flujo de ejecución durante la simulación. La Figura <a href="mejoras-vonsim8.html#fig:visorprog">5.18</a> muestra la interfaz del visor, evidenciando su utilidad para el estudio y la manipulación de instrucciones y datos en el entorno educativo.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:visorprog"></span>
 <img src="images/visorprog.png" alt="Visor de instrucciones y datos del programa en memoria" width="100%" />
 <p class="caption">
@@ -464,21 +469,21 @@ Figura 5.18: Visor de instrucciones y datos del programa en memoria
 </div>
 <p>En VonSim, cuando se escribe un programa en el editor del simulador, es obligatorio que la sección de código inicie con la directiva <code>ORG 0x2000h</code> y que termine con la directiva <code>END</code>. Esto se debe a que el simulador comienza a ejecutar la primera instrucción a partir de la dirección de memoria <code>0x2000h</code>. De manera complementaria, los datos del programa suelen cargarse a partir de la dirección <code>0x1000h</code> mediante la directiva <code>ORG 0x1000h</code>.</p>
 <p>En VonSim8, el uso de la directiva <code>ORG</code> para definir la dirección inicial es opcional. Por defecto, si el programa no incluye esta directiva, la primera instrucción se carga en la dirección <code>0x00h</code>. En caso de contener instrucciones de interrupción (INT), el simulador asigna automáticamente la dirección <code>0x08h</code> como punto de inicio, reservando espacio para el vector de interrupciones.</p>
-<p>Por una cuestion de compatibilidad se permite cargar programas de manera similar a VonSim, pero en lugar de cargar el programa en la direccion <code>0x2000h</code> se debe cargar en la <code>0x20h</code>. En este caso, el simulador comienza a ejecutar las instrucciones a partir de la dirección <code>0x20h</code>. Para mantener compatibilidad con VonSim, se conserva esta directiva, permitiendo a los usuarios establecer direcciones personalizadas.</p>
+<p>Con el fin de asegurar la compatibilidad con programas desarrollados para VonSim, el simulador VonSim8 permite cargar programas utilizando la directiva ORG, aunque adapta la dirección inicial de ejecución. En lugar de emplear la dirección<code>0x2000h</code>, característica de VonSim, se utiliza la dirección <code>0x20h</code> en VonSim8, lo que facilita la ejecución de programas en el entorno simplificado. Esta flexibilidad permite a los usuarios definir direcciones personalizadas y mantener la interoperabilidad entre ambos simuladores. La Figura <a href="mejoras-vonsim8.html#fig:org">5.19</a> muestra ejemplos de programas con la directiva ORG y END, evidenciando la compatibilidad y la adaptación de las direcciones de inicio en cada caso.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:org"></span>
 <img src="images/org.png" alt="Compatibilidad directiva ORG y END" width="100%" />
 <p class="caption">
 Figura 5.19: Compatibilidad directiva ORG y END
 </p>
 </div>
-<p>Además, en VonSim8 se incorporó la opción de abrir ejemplos prácticos para que el estudiante pueda experimentar directamente con el simulador. También se desarrolló un tour de aprendizaje que guía al usuario a través de las principales funcionalidades, junto con un centro de aprendizaje que ofrece explicaciones y ejemplos básicos.</p>
+<p>Con el propósito de potenciar la experiencia de aprendizaje, VonSim8 incorpora la posibilidad de abrir ejemplos prácticos directamente desde el simulador, permitiendo al estudiante experimentar con distintos programas y observar su ejecución paso a paso. Además, se ha implementado un tour de aprendizaje interactivo y un centro de ayuda con explicaciones y ejemplos básicos, que facilitan la familiarización con las principales funcionalidades de la herramienta. El editor, dotado de opciones para ampliar el tamaño de fuente y acceder a ejemplos predefinidos, contribuye a una mayor accesibilidad y personalización del entorno de trabajo. La Figura <a href="mejoras-vonsim8.html#fig:editorvonsim">5.20</a> muestra la interfaz mejorada del editor, evidenciando su aporte a la didáctica y la autonomía del usuario.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:editorvonsim"></span>
 <img src="images/editorfuenteejemplo.png" alt="Editor con ampliación de fuente y ejemplos" width="100%" />
 <p class="caption">
 Figura 5.20: Editor con ampliación de fuente y ejemplos
 </p>
 </div>
-<p>Se ha mejorado el diseño de la unidad de control incorporando, dentro del decodificador, una memoria de control y un secuenciador. Estos componentes permiten representar el ciclo de instrucción de manera detallada, mostrando las microoperaciones y las señales de control generadas en cada etapa del proceso.</p>
+<p>El diseño de la unidad de control en VonSim8 ha sido optimizado mediante la incorporación, dentro del decodificador, de una memoria de control y un secuenciador. Estos elementos permiten representar de manera precisa y detallada el ciclo de instrucción, mostrando las microoperaciones y las señales de control generadas en cada etapa. Esta mejora facilita la comprensión de la coordinación interna del procesador y el funcionamiento de la unidad de control. La Figura <a href="mejoras-vonsim8.html#fig:decodificador">5.21</a> ilustra la estructura del decodificador, destacando la integración de la memoria de control y el secuenciador como componentes clave para el modelado didáctico de la arquitectura.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:decodificador"></span>
 <img src="images/decodificador.png" alt="Decodificador en VonSim8" width="50%" />
 <p class="caption">
@@ -486,8 +491,7 @@ Figura 5.21: Decodificador en VonSim8
 </p>
 </div>
 <p>VonSim8 incorpora un tour guiado e interactivo que introduce didácticamente el entorno de trabajo. Este recorrido orienta al usuario en la identificación de los componentes principales —panel de registros, memoria, repertorio de instrucciones y consola de ejecución—, explicando su función y su articulación dentro del ciclo de ejecución de un programa. De este modo, el estudiante se familiariza progresivamente con la interfaz y con la representación estructural y funcional de los procesos internos del sistema.</p>
-<p>Complementariamente, la herramienta incluye una guía de aprendizaje progresiva con ejercicios y ejemplos de código ensamblador que ponen en marcha el simulador. Cada ejemplo permite observar, instrucción por instrucción, los efectos sobre registros y memoria, favoreciendo un aprendizaje exploratorio basado en la observación y la experimentación, e integrando teoría y práctica.</p>
-<p>Ambos recursos reducen la curva de aprendizaje y promueven la autonomía del usuario. Su diseño responde a enfoques constructivistas, en los que la interacción activa con el entorno es clave para la comprensión conceptual. Así, VonSim8 trasciende el rol de simulador técnico para operar como un entorno de aprendizaje guiado que integra explicaciones visuales, retroalimentación inmediata y ejemplos aplicados, reforzando la comprensión de la arquitectura de Von Neumann y de la ejecución de instrucciones a nivel de hardware.</p>
+<p>Para fortalecer el aprendizaje autónomo y progresivo, VonSim8 incorpora una guía de ejercicios y ejemplos de código ensamblador que permiten al estudiante poner en marcha el simulador y observar, paso a paso, los efectos sobre registros y memoria. Este enfoque exploratorio, basado en la experimentación y la integración de teoría y práctica, se complementa con un tour interactivo y un centro de aprendizaje que ofrecen explicaciones visuales y retroalimentación inmediata. Ambos recursos contribuyen a reducir la curva de aprendizaje y promueven la autonomía del usuario, alineándose con principios constructivistas que privilegian la interacción activa con el entorno. La Figura <a href="mejoras-vonsim8.html#fig:tour">5.22</a> muestra la interfaz del tour de aprendizaje, evidenciando su aporte a la comprensión conceptual y a la familiarización con la arquitectura y el funcionamiento interno del simulador.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:tour"></span>
 <img src="images/tour.png" alt="Tour de aprendizaje en VonSim8" width="100%" />
 <p class="caption">

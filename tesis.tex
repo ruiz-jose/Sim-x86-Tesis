@@ -1953,8 +1953,12 @@ La Figura \ref{fig:cicloinstruccion} representa de manera visual y secuencial la
 \tightlist
 \item
   \textbf{Gestión básica de interrupciones y periféricos:}
-  Incluir un vector de interrupciones predefinido que simule eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. El vector de interrupciones predefinido permite simular eventos externos, como la entrada de datos mediante teclado. Por ejemplo, al recibir una interrupción de teclado, el simulador activa la señal \texttt{INTR}, detiene la ejecución actual y transfiere el control a la rutina de tratamiento de interrupciones correspondiente. Desde el punto de vista pedagógico, esta funcionalidad ofrece al estudiante la posibilidad de explorar de manera interactiva conceptos clave como la asincronía, el manejo de eventos y la interrupción del flujo secuencial, todos ellos característicos del diseño de arquitecturas modernas y fundamentales para el entendimiento de sistemas reales. Su inclusión se alinea con las recomendaciones de autores como Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}36{]}}, quienes destacan el valor de abordar estos conceptos en etapas tempranas de la formación. Además, se incorpora un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo permite simular operaciones mediante instrucciones como IN y OUT, facilitando la interacción del estudiante con dispositivos representados gráficamente, como interruptores y teclas. De esta forma, se promueve una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
+  La incorporación de un vector de interrupciones predefinido permite simular eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Ante la recepción de una interrupción, el simulador activa la señal \texttt{INTR}, detiene la ejecución actual y transfiere el control a la rutina correspondiente, facilitando la exploración interactiva de conceptos clave como la asincronía, el manejo de eventos y la interrupción del flujo secuencial. Estos aspectos, característicos de arquitecturas modernas, resultan fundamentales para el entendimiento de sistemas reales y se alinean con las recomendaciones de Null y Lobur \protect\hyperlink{ref-null_essentials_2023}{{[}36{]}}, quienes destacan la importancia de abordar estos conceptos en etapas tempranas de la formación.
 \end{enumerate}
+
+Adicionalmente, se implementa un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo posibilita la simulación de operaciones mediante instrucciones como IN y OUT, permitiendo al estudiante interactuar con dispositivos representados gráficamente, como interruptores y teclas. De esta manera, se favorece una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos.
+
+La Figura \ref{fig:perifericos} muestra el módulo PIO y su interacción con los periféricos, ilustrando visualmente la estructura y funcionamiento de este componente dentro del simulador.
 
 \begin{figure}
 
@@ -1971,8 +1975,10 @@ La Figura \ref{fig:cicloinstruccion} representa de manera visual y secuencial la
 \tightlist
 \item
   \textbf{Métricas de rendimiento:}
-  Incluir indicadores clave como tiempo de ciclo, tiempo de CPU y ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas. Asimismo, se permite configurar la frecuencia del CPU dentro de un rango de valores (1--10 Hz). Estos indicadores permiten al estudiante analizar cuantitativamente la eficiencia en la ejecución de un programa, facilitando comparaciones entre diferentes implementaciones. Su inclusión apunta a fortalecer la comprensión de aspectos clave del rendimiento del procesador, promoviendo una formación integral que contemple tanto aspectos funcionales como métricos del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}.
+  La integración de indicadores clave, como el tiempo de ciclo, el tiempo de CPU y los ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas, permite al estudiante analizar cuantitativamente la eficiencia del sistema. Además, la posibilidad de configurar la frecuencia del CPU en un rango de valores (1--10 Hz) facilita la comparación entre diferentes implementaciones y escenarios de ejecución. La disponibilidad de estas métricas contribuye a fortalecer la comprensión de aspectos fundamentales del rendimiento del procesador, promoviendo una formación integral que abarca tanto dimensiones funcionales como métricas del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}.
 \end{enumerate}
+
+La Figura \ref{fig:metricas} presenta el panel de métricas de rendimiento implementado en el simulador, donde se visualizan los principales indicadores y configuraciones disponibles para el análisis cuantitativo.
 
 \begin{figure}
 
@@ -1989,8 +1995,10 @@ La Figura \ref{fig:cicloinstruccion} representa de manera visual y secuencial la
 \tightlist
 \item
   \textbf{Documentación y recursos de apoyo:}
-  Proporcionar documentación clara y accesible que explique el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Esta documentación debe incluir ejemplos prácticos, guías de uso y recursos adicionales para facilitar la comprensión y el aprendizaje autónomo. La inclusión de tutoriales interactivos y ejemplos prácticos es fundamental para guiar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo \protect\hyperlink{ref-bonwell1991active}{{[}80{]}}.
+  La disponibilidad de documentación clara y accesible resulta esencial para explicar el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Este recurso debe incluir ejemplos prácticos, guías de uso y materiales complementarios que faciliten la comprensión y el aprendizaje autónomo. La incorporación de tutoriales interactivos y ejemplos prácticos es fundamental para orientar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo \protect\hyperlink{ref-bonwell1991active}{{[}80{]}}.
 \end{enumerate}
+
+La Figura \ref{fig:documentacion} muestra la interfaz de la documentación en línea, donde se presentan los contenidos organizados y los recursos de apoyo disponibles para el usuario.
 
 \begin{figure}
 
@@ -2334,7 +2342,9 @@ La Tabla \ref{tab:politicasflags} expone de manera sistemática la política de 
 \hypertarget{memoria-principal}{%
 \subsection{Memoria principal}\label{memoria-principal}}
 
-La memoria principal se modela como una matriz de 16×16 expresada en formato hexadecimal, lo que permite almacenar hasta 256 bytes de datos. Esta capacidad resulta suficiente para la mayoría de los programas de ejemplo utilizados en el curso, y su diseño simplificado facilita la comprensión de los conceptos fundamentales asociados a la memoria principal en una computadora.
+La memoria principal del simulador se representa mediante una matriz de 16×16 en formato hexadecimal, permitiendo almacenar hasta 256 bytes de datos. Esta capacidad resulta adecuada para los programas de ejemplo utilizados en el curso y, gracias a su diseño simplificado, facilita la comprensión de los conceptos fundamentales asociados a la gestión y organización de la memoria en una computadora.
+
+La Figura \ref{fig:memoria} muestra la estructura visual de la memoria principal, destacando su disposición matricial y la accesibilidad de cada celda para el análisis y la manipulación de datos durante la simulación.
 
 \begin{figure}
 
@@ -2348,7 +2358,9 @@ La memoria principal se modela como una matriz de 16×16 expresada en formato he
 \hypertarget{buses-y-multiplexores}{%
 \subsection{Buses y multiplexores}\label{buses-y-multiplexores}}
 
-Los buses de datos, direcciones y control se modelan como un conjunto de líneas que permiten la comunicación entre los distintos componentes del sistema. Estos buses resultan esenciales para el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida. Además, su diseño modular favorece la posibilidad de expansión en futuras versiones del simulador.
+Los buses de datos, direcciones y control se representan como un conjunto de líneas que facilitan la comunicación entre los distintos componentes del sistema. Estos buses desempeñan un papel fundamental en el intercambio de información entre la CPU, la memoria y los dispositivos de entrada/salida, asegurando la correcta coordinación y transferencia de datos durante la ejecución de programas. Además, su diseño modular permite la expansión y adaptación del simulador en futuras versiones, favoreciendo la incorporación de nuevas funcionalidades y componentes.
+
+La Figura \ref{fig:buses} ilustra la estructura y disposición de los buses en el simulador, evidenciando su función como elementos clave para la interconexión y el flujo de información en la arquitectura implementada.
 
 \begin{figure}
 
@@ -2403,7 +2415,9 @@ Las modificaciones implementadas se alinean con los contenidos curriculares de l
 
 A continuación se detallan los cambios más relevantes implementados en VonSim8, junto con capturas de pantalla que ilustran las modificaciones realizadas:
 
-En el registro Flags de VonSim se ocultaron inicialmente las banderas O (overflow) y S (signo), dado que en los primeros ejercicios de ensamblador solo se emplean números enteros positivos. No obstante, estas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, conforme se abordan ejercicios de mayor complejidad.
+En el registro Flags del simulador VonSim8, las banderas O (overflow) y S (signo) se mantienen ocultas durante los primeros ejercicios de ensamblador, dado que inicialmente solo se emplean números enteros positivos. Esta decisión pedagógica simplifica la interfaz y reduce la carga cognitiva en las etapas iniciales del aprendizaje. Sin embargo, dichas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, a medida que se abordan ejercicios de mayor complejidad que requieren el análisis de operaciones con signo y detección de desbordamientos.
+
+La Figura \ref{fig:banderas} muestra la representación visual del registro Flags, evidenciando la disposición de las banderas y su configuración dinámica según el nivel de avance del estudiante.
 
 \begin{figure}
 
@@ -2414,7 +2428,9 @@ En el registro Flags de VonSim se ocultaron inicialmente las banderas O (overflo
 \caption{Registro Flags}\label{fig:banderas}
 \end{figure}
 
-El flag de interrupción I solo se muestra cuando el programa lo requiere, por ejemplo, al ejecutar una instrucción de interrupción como \texttt{INT} o \texttt{IRET}. Esto permite a los estudiantes observar cómo se activa y desactiva este flag en función de las operaciones realizadas.
+El flag de interrupción I se visualiza únicamente cuando el programa lo requiere, como ocurre al ejecutar instrucciones específicas de interrupción, tales como \texttt{INT} o \texttt{IRET}. Esta funcionalidad permite que los estudiantes observen de manera directa la activación y desactivación del flag, comprendiendo su impacto en el flujo de ejecución y en la gestión de eventos asincrónicos dentro del simulador
+
+La Figura \ref{fig:banderaI} muestra la representación gráfica del registro de estado I, evidenciando su comportamiento dinámico y su relevancia en el manejo de interrupciones.
 
 \begin{figure}
 
@@ -2425,7 +2441,9 @@ El flag de interrupción I solo se muestra cuando el programa lo requiere, por e
 \caption{Registro de estado I}\label{fig:banderaI}
 \end{figure}
 
-Se modificó el menú de los controles del simulador.
+El menú de controles del simulador fue actualizado para optimizar la interacción del usuario y facilitar la ejecución de programas en diferentes modos, como ciclo, instrucción o ejecución completa. Esta mejora contribuye a una experiencia más intuitiva y eficiente, permitiendo al estudiante seleccionar el nivel de granularidad en la simulación y observar el comportamiento del sistema en cada etapa del proceso.
+
+La Figura \ref{fig:controles} presenta la nueva disposición del menú de controles, destacando las opciones disponibles y su relevancia para el aprendizaje práctico en arquitectura de computadoras.
 
 \begin{figure}
 
@@ -2436,7 +2454,9 @@ Se modificó el menú de los controles del simulador.
 \caption{Controles del simulador}\label{fig:controles}
 \end{figure}
 
-En lugar de utilizar registros de 16 bits completos, se emplea únicamente la parte baja de cada registro, lo que simplifica tanto la representación como la manipulación de los datos. Esta decisión responde a la necesidad de reducir la complejidad del modelo, facilitando así la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Además, se ha unificado el criterio de diseño de los registros: todos cuentan ahora con una entrada y una salida independientes, lo que permite visualizar de manera más clara la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación resulta esencial para comprender el flujo de datos durante el ciclo de instrucción y la interacción entre los distintos componentes del procesador.
+En el simulador, se optó por emplear únicamente la parte baja de cada registro, en lugar de utilizar registros de 16 bits completos. Esta decisión pedagógica simplifica tanto la representación como la manipulación de los datos, facilitando la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Asimismo, se ha unificado el criterio de diseño de los registros, dotándolos de una entrada y una salida independientes, lo que permite visualizar de manera más clara la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación resulta esencial para comprender el flujo de datos durante el ciclo de instrucción y la interacción entre los distintos componentes del procesador.
+
+La Figura \ref{fig:registros} muestra la disposición y estructura de los registros de 8 bits implementados en el simulador, evidenciando su funcionalidad y su aporte a la didáctica del modelo.
 
 \begin{figure}
 
@@ -2447,7 +2467,9 @@ En lugar de utilizar registros de 16 bits completos, se emplea únicamente la pa
 \caption{Registro de 8 bits}\label{fig:registros}
 \end{figure}
 
-La eliminación de los registros temporales \texttt{left}, \texttt{right} y \texttt{result} en la ALU responde a la necesidad de simplificar el flujo de datos y reducir la carga cognitiva de los estudiantes. En lugar de utilizar registros intermedios, el simulador muestra directamente las operaciones realizadas en los operandos, lo que facilita la comprensión del proceso aritmético y lógico.
+La supresión de los registros temporales \texttt{left}, \texttt{right} y \texttt{result} en la ALU responde al objetivo de simplificar el flujo de datos y disminuir la carga cognitiva de los estudiantes. En lugar de emplear registros intermedios, el simulador representa de manera directa las operaciones realizadas sobre los operandos, lo que facilita la comprensión del funcionamiento aritmético y lógico de la unidad. Esta estrategia didáctica permite al usuario observar de forma más transparente el procesamiento interno, favoreciendo el aprendizaje de los mecanismos fundamentales de la ALU.
+
+La Figura \ref{fig:leftrigth} ilustra la eliminación de estos registros temporales, mostrando la simplificación lograda en la visualización y el flujo de datos dentro del simulador.
 
 \begin{figure}
 
@@ -2458,7 +2480,7 @@ La eliminación de los registros temporales \texttt{left}, \texttt{right} y \tex
 \caption{Eliminación registro temporales left, right y result}\label{fig:leftrigth}
 \end{figure}
 
-Los registros \texttt{SP}, \texttt{ri} e \texttt{id} se mantienen ocultos y solo se habilitan automáticamente cuando una instrucción requiere su utilización.
+Por motivos pedagógicos, los registros \texttt{SP}, \texttt{ri} e \texttt{id} permanecen ocultos en la interfaz del simulador y solo se habilitan de manera automática cuando una instrucción específica requiere su utilización. Esta estrategia contribuye a simplificar la visualización y a reducir la carga cognitiva durante las etapas iniciales del aprendizaje, permitiendo que el estudiante se enfoque en los componentes esenciales del ciclo de instrucción. La Figura \ref{fig:idrisp} muestra la representación gráfica de estos registros, evidenciando su activación dinámica y su función de apoyo en la ejecución de instrucciones.
 
 \begin{figure}
 
@@ -2469,7 +2491,7 @@ Los registros \texttt{SP}, \texttt{ri} e \texttt{id} se mantienen ocultos y solo
 \caption{Registro SP, id y ri}\label{fig:idrisp}
 \end{figure}
 
-La memoria principal se modela como una matriz de 16×16 expresada en hexadecimal, lo que permite almacenar hasta 256 bytes de datos.
+La memoria principal del simulador se representa mediante una matriz de 16×16 celdas en formato hexadecimal, lo que posibilita el almacenamiento de hasta 256 bytes de datos. Este diseño visual facilita la identificación de cada posición de memoria y promueve una comprensión intuitiva de la organización y gestión de datos en la arquitectura implementada. La Figura \ref{fig:memoriacomp} ilustra la estructura matricial de la memoria, destacando su accesibilidad y utilidad para el análisis y la manipulación durante la simulación.
 
 \begin{figure}
 
@@ -2480,7 +2502,7 @@ La memoria principal se modela como una matriz de 16×16 expresada en hexadecima
 \caption{Memoria principal}\label{fig:memoriacomp}
 \end{figure}
 
-Resalto de la direccion de memoria apuntada por el registro IP en memoria y también resalta la dirección de memoria apuntada por el registro SP.
+El simulador incorpora un mecanismo visual que destaca, dentro de la memoria principal, las posiciones apuntadas por los registros \texttt{IP} y \texttt{SP}. Esta funcionalidad permite al estudiante identificar de manera inmediata tanto la dirección de la próxima instrucción a ejecutar como la ubicación actual de la cima de la pila, facilitando el seguimiento del flujo de ejecución y la gestión de la memoria durante el ciclo de instrucción. La Figura \ref{fig:resaltadoipsp} muestra el resaltado simultáneo de estas direcciones, evidenciando su importancia para la comprensión de la dinámica interna del procesador.
 
 \begin{figure}
 
@@ -2488,10 +2510,10 @@ Resalto de la direccion de memoria apuntada por el registro IP en memoria y tamb
 
 }
 
-\caption{Resaltado registro IP y registro SP}\label{fig:resaltadoip}
+\caption{Resaltado registro IP y registro SP}\label{fig:resaltadoipsp}
 \end{figure}
 
-Se resalta en color naranja en la memoria principal el espacio destinado al vector de interrupciones en el VonSim8 es de 8 posiciones de memoria desde \texttt{0x00h} a \texttt{0x07h}:
+El simulador VonSim8 destaca visualmente, mediante el uso de color naranja, el espacio reservado en la memoria principal para el vector de interrupciones, que abarca las ocho posiciones comprendidas entre las direcciones \texttt{0x00h} a \texttt{0x07h}. Esta representación facilita la identificación del área destinada al manejo de interrupciones, permitiendo al estudiante comprender su ubicación y relevancia dentro de la arquitectura. La Figura \ref{fig:resaltadoint} muestra el resaltado específico de este segmento, evidenciando su función en la gestión de eventos externos y en la organización interna del sistema.
 
 \begin{figure}
 
@@ -2499,12 +2521,12 @@ Se resalta en color naranja en la memoria principal el espacio destinado al vect
 
 }
 
-\caption{Resaltado vector de interrupciones}\label{fig:resaltadointsp}
+\caption{Resaltado vector de interrupciones}\label{fig:resaltadoint}
 \end{figure}
 
 Para determinar la dirección de la rutina de tratamiento de interrupción en VonSim, es necesario multiplicar el número de interrupción por 4, ya que cada dirección de rutina ocupa 4 bytes. En cambio, en VonSim8 no es necesario realizar esta multiplicación, dado que cada dirección de rutina de interrupción corresponde a un solo byte. Por lo tanto, la interrupción \texttt{INT\ 0} se encuentra en la direccion \texttt{0x00h}, la interrupción \texttt{INT\ 6} en la direccion \texttt{0x06h}, y así sucesivamente.
 
-Se incorporó un visor de instrucciones y datos del programa en memoria, que permite visualizar la instrucción, el tamaño en bytes que ocupa en memoria y la etiqueta asociada a los datos.
+Con el objetivo de facilitar el análisis y la comprensión del funcionamiento interno del simulador, se incorporó un visor de instrucciones y datos del programa en memoria. Esta herramienta permite al estudiante visualizar, para cada celda de memoria, la instrucción almacenada, el tamaño en bytes que ocupa y la etiqueta asociada a los datos. De este modo, se promueve una interpretación detallada del contenido de la memoria y se favorece el seguimiento del flujo de ejecución durante la simulación. La Figura \ref{fig:visorprog} muestra la interfaz del visor, evidenciando su utilidad para el estudio y la manipulación de instrucciones y datos en el entorno educativo.
 
 \begin{figure}
 
@@ -2519,7 +2541,7 @@ En VonSim, cuando se escribe un programa en el editor del simulador, es obligato
 
 En VonSim8, el uso de la directiva \texttt{ORG} para definir la dirección inicial es opcional. Por defecto, si el programa no incluye esta directiva, la primera instrucción se carga en la dirección \texttt{0x00h}. En caso de contener instrucciones de interrupción (INT), el simulador asigna automáticamente la dirección \texttt{0x08h} como punto de inicio, reservando espacio para el vector de interrupciones.
 
-Por una cuestion de compatibilidad se permite cargar programas de manera similar a VonSim, pero en lugar de cargar el programa en la direccion \texttt{0x2000h} se debe cargar en la \texttt{0x20h}. En este caso, el simulador comienza a ejecutar las instrucciones a partir de la dirección \texttt{0x20h}. Para mantener compatibilidad con VonSim, se conserva esta directiva, permitiendo a los usuarios establecer direcciones personalizadas.
+Con el fin de asegurar la compatibilidad con programas desarrollados para VonSim, el simulador VonSim8 permite cargar programas utilizando la directiva ORG, aunque adapta la dirección inicial de ejecución. En lugar de emplear la dirección\texttt{0x2000h}, característica de VonSim, se utiliza la dirección \texttt{0x20h} en VonSim8, lo que facilita la ejecución de programas en el entorno simplificado. Esta flexibilidad permite a los usuarios definir direcciones personalizadas y mantener la interoperabilidad entre ambos simuladores. La Figura \ref{fig:org} muestra ejemplos de programas con la directiva ORG y END, evidenciando la compatibilidad y la adaptación de las direcciones de inicio en cada caso.
 
 \begin{figure}
 
@@ -2530,7 +2552,7 @@ Por una cuestion de compatibilidad se permite cargar programas de manera similar
 \caption{Compatibilidad directiva ORG y END}\label{fig:org}
 \end{figure}
 
-Además, en VonSim8 se incorporó la opción de abrir ejemplos prácticos para que el estudiante pueda experimentar directamente con el simulador. También se desarrolló un tour de aprendizaje que guía al usuario a través de las principales funcionalidades, junto con un centro de aprendizaje que ofrece explicaciones y ejemplos básicos.
+Con el propósito de potenciar la experiencia de aprendizaje, VonSim8 incorpora la posibilidad de abrir ejemplos prácticos directamente desde el simulador, permitiendo al estudiante experimentar con distintos programas y observar su ejecución paso a paso. Además, se ha implementado un tour de aprendizaje interactivo y un centro de ayuda con explicaciones y ejemplos básicos, que facilitan la familiarización con las principales funcionalidades de la herramienta. El editor, dotado de opciones para ampliar el tamaño de fuente y acceder a ejemplos predefinidos, contribuye a una mayor accesibilidad y personalización del entorno de trabajo. La Figura \ref{fig:editorvonsim} muestra la interfaz mejorada del editor, evidenciando su aporte a la didáctica y la autonomía del usuario.
 
 \begin{figure}
 
@@ -2541,7 +2563,7 @@ Además, en VonSim8 se incorporó la opción de abrir ejemplos prácticos para q
 \caption{Editor con ampliación de fuente y ejemplos}\label{fig:editorvonsim}
 \end{figure}
 
-Se ha mejorado el diseño de la unidad de control incorporando, dentro del decodificador, una memoria de control y un secuenciador. Estos componentes permiten representar el ciclo de instrucción de manera detallada, mostrando las microoperaciones y las señales de control generadas en cada etapa del proceso.
+El diseño de la unidad de control en VonSim8 ha sido optimizado mediante la incorporación, dentro del decodificador, de una memoria de control y un secuenciador. Estos elementos permiten representar de manera precisa y detallada el ciclo de instrucción, mostrando las microoperaciones y las señales de control generadas en cada etapa. Esta mejora facilita la comprensión de la coordinación interna del procesador y el funcionamiento de la unidad de control. La Figura \ref{fig:decodificador} ilustra la estructura del decodificador, destacando la integración de la memoria de control y el secuenciador como componentes clave para el modelado didáctico de la arquitectura.
 
 \begin{figure}
 
@@ -2554,9 +2576,7 @@ Se ha mejorado el diseño de la unidad de control incorporando, dentro del decod
 
 VonSim8 incorpora un tour guiado e interactivo que introduce didácticamente el entorno de trabajo. Este recorrido orienta al usuario en la identificación de los componentes principales ---panel de registros, memoria, repertorio de instrucciones y consola de ejecución---, explicando su función y su articulación dentro del ciclo de ejecución de un programa. De este modo, el estudiante se familiariza progresivamente con la interfaz y con la representación estructural y funcional de los procesos internos del sistema.
 
-Complementariamente, la herramienta incluye una guía de aprendizaje progresiva con ejercicios y ejemplos de código ensamblador que ponen en marcha el simulador. Cada ejemplo permite observar, instrucción por instrucción, los efectos sobre registros y memoria, favoreciendo un aprendizaje exploratorio basado en la observación y la experimentación, e integrando teoría y práctica.
-
-Ambos recursos reducen la curva de aprendizaje y promueven la autonomía del usuario. Su diseño responde a enfoques constructivistas, en los que la interacción activa con el entorno es clave para la comprensión conceptual. Así, VonSim8 trasciende el rol de simulador técnico para operar como un entorno de aprendizaje guiado que integra explicaciones visuales, retroalimentación inmediata y ejemplos aplicados, reforzando la comprensión de la arquitectura de Von Neumann y de la ejecución de instrucciones a nivel de hardware.
+Para fortalecer el aprendizaje autónomo y progresivo, VonSim8 incorpora una guía de ejercicios y ejemplos de código ensamblador que permiten al estudiante poner en marcha el simulador y observar, paso a paso, los efectos sobre registros y memoria. Este enfoque exploratorio, basado en la experimentación y la integración de teoría y práctica, se complementa con un tour interactivo y un centro de aprendizaje que ofrecen explicaciones visuales y retroalimentación inmediata. Ambos recursos contribuyen a reducir la curva de aprendizaje y promueven la autonomía del usuario, alineándose con principios constructivistas que privilegian la interacción activa con el entorno. La Figura \ref{fig:tour} muestra la interfaz del tour de aprendizaje, evidenciando su aporte a la comprensión conceptual y a la familiarización con la arquitectura y el funcionamiento interno del simulador.
 
 \begin{figure}
 
@@ -4108,7 +4128,7 @@ Ejemplo de subrutina:
 \hypertarget{interrupciones}{%
 \subsection{Interrupciones}\label{interrupciones}}
 
-VonSim8 incorpora un teclado y una pantalla como periféricos básicos de E/S, utilizados mediante rutinas de sistema invocadas por interrupciones.
+El simulador VonSim8 integra un teclado y una pantalla como periféricos básicos de entrada y salida, cuya interacción se realiza a través de rutinas de sistema invocadas mediante interrupciones. Esta implementación permite al estudiante experimentar con la gestión de datos y la comunicación entre el procesador y los dispositivos externos, facilitando la comprensión de los mecanismos fundamentales de E/S en una arquitectura computacional. La Figura \ref{fig:tecladopantalla} muestra la representación visual de estos periféricos, evidenciando su funcionalidad y su integración en el entorno de simulación.
 
 \begin{figure}
 
