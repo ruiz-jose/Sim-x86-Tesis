@@ -1156,6 +1156,7 @@ tabla <- kable(
 )
 
 if (knitr::is_latex_output()) {
+  cat("\\FloatBarrier\n")
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
@@ -1205,7 +1206,7 @@ A continuación se muestra un ejemplo representativo de cómo se implementan los
 ```{r codemoddir, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
   cat("
-  \\begin{lstlisting}
+  \\begin{lstlisting}[float]
 x db 2 
 y db 3
 
