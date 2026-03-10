@@ -390,10 +390,10 @@ div.csl-indent {
 <div id="comparativa-entre-arquitecturas" class="section level3 hasAnchor" number="2.3.4">
 <h3><span class="header-section-number">2.3.4</span> Comparativa entre arquitecturas<a href="tipos-de-arquitecturas.html#comparativa-entre-arquitecturas" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La selección de una arquitectura de procesador depende de una serie de características técnicas que determinan su idoneidad para distintos escenarios de aplicación. Por ejemplo, la arquitectura x86 se distingue por su alto rendimiento y compatibilidad, lo que la posiciona como preferente en entornos de escritorio y servidores. ARM, en cambio, sobresale en dispositivos móviles y sistemas embebidos gracias a su eficiencia energética y simplicidad estructural. RISC-V, como alternativa de código abierto, ha ganado relevancia en investigación, educación y aplicaciones personalizadas, aunque su presencia comercial es aún limitada. Comprender las diferencias entre estas arquitecturas, especialmente en lo relativo a la eficiencia energética, la complejidad del repertorio de instrucciones y el rendimiento, resulta fundamental tanto para el diseño de sistemas como para la formación académica <span class="citation">(<a href="#ref-patterson_computer_2014">Patterson et al. 2014</a>; <a href="#ref-arm_evolution_2025">ARM Holdings 2025</a>)</span>.</p>
-<p>La Tabla <a href="tipos-de-arquitecturas.html#tab:comparq">2.2</a> sintetiza comparativamente estos aspectos clave, permitiendo visualizar de manera sistemática las ventajas, limitaciones y áreas de aplicación de las arquitecturas x86, ARM y RISC-V.</p>
+<p>La Tabla <a href="tipos-de-arquitecturas.html#tab:comparq">2.2</a> presenta una síntesis comparativa de las características fundamentales de las arquitecturas x86, ARM y RISC-V, facilitando la identificación de sus ventajas, limitaciones y ámbitos de aplicación relevantes en el contexto educativo y tecnológico.</p>
 <table class="table table-striped table-hover table-condensed table-responsive" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
-<span id="tab:comparq">Tabla 2.2: </span>Comparación pedagógica de arquitecturas
+<span id="tab:comparq">Tabla 2.2: </span>Comparación de arquitecturas x86, ARM y RISC-V
 </caption>
 <thead>
 <tr>
@@ -407,131 +407,65 @@ x86
 ARM
 </th>
 <th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-RISC‑V
-</th>
-<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
-Implicación pedagógica
+RISC-V
 </th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Eficiencia Energética
+Eficiencia energética
 </td>
 <td style="text-align:left;width: 15em; ">
-Moderada-alta según microarquitectura
+Moderada-alta, depende de la microarquitectura
 </td>
 <td style="text-align:left;width: 15em; ">
-Alta (diseñada para eficiencia)
+Alta, optimizada para dispositivos móviles
 </td>
 <td style="text-align:left;width: 15em; ">
-Alta (diseño RISC abierto)
-</td>
-<td style="text-align:left;width: 28em; ">
-Permite comparar consumo y trade‑offs; útil para labs de medición de energía.
+Alta, diseño abierto y eficiente
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Complejidad ISA
+Complejidad del repertorio de instrucciones (ISA)
 </td>
 <td style="text-align:left;width: 15em; ">
-Alta (ISA extensa, longitud variable)
+Alta (ISA extensa, instrucciones de longitud variable)
 </td>
 <td style="text-align:left;width: 15em; ">
-Baja (RISC, instrucciones simples)
+Baja (ISA reducida, instrucciones simples y de longitud fija)
 </td>
 <td style="text-align:left;width: 15em; ">
-Baja (ISA reducida y extensible)
-</td>
-<td style="text-align:left;width: 28em; ">
-x86 exige más tiempo en decodificación/formatos; enseñar en módulos. RISC facilita introducción al pipeline.
+Baja (ISA modular, extensible y de longitud fija)
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Rendimiento (típico)
+Rendimiento típico
 </td>
 <td style="text-align:left;width: 15em; ">
-Alto en desktops/servidores
+Elevado en entornos de escritorio y servidores
 </td>
 <td style="text-align:left;width: 15em; ">
-Moderado/alto en móviles
+Moderado/alto en sistemas embebidos y móviles
 </td>
 <td style="text-align:left;width: 15em; ">
-Moderado, escalable según extensión
-</td>
-<td style="text-align:left;width: 28em; ">
-Diseñar ejercicios que midan CPI y tiempo real para cada ISA.
+Moderado, escalable según extensiones implementadas
 </td>
 </tr>
 <tr>
 <td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Modos de direccionamiento
+Ámbito de aplicación principal
 </td>
 <td style="text-align:left;width: 15em; ">
-Muy variados (SIB, ModR/M, desplazamientos)
+Computadoras personales, servidores, software legado
 </td>
 <td style="text-align:left;width: 15em; ">
-Más simple (load/store)
+Dispositivos móviles, sistemas embebidos, IoT
 </td>
 <td style="text-align:left;width: 15em; ">
-Simple y extensible (load/store)
-</td>
-<td style="text-align:left;width: 28em; ">
-Usar ejemplos prácticos de EA para mostrar complejidad en x86 vs simplicidad en RISC.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Flexibilidad de operandos
-</td>
-<td style="text-align:left;width: 15em; ">
-Alta (reg-mem, mem-mem en algunos casos)
-</td>
-<td style="text-align:left;width: 15em; ">
-Moderada (load/store, registros)
-</td>
-<td style="text-align:left;width: 15em; ">
-Moderada (diseñable por extensiones)
-</td>
-<td style="text-align:left;width: 28em; ">
-Mostrar cómo operaciones reg‑mem reducen instrucciones pero aumentan complejidad de decodificación.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Coste de aprendizaje
-</td>
-<td style="text-align:left;width: 15em; ">
-Alta (gran cantidad de conceptos)
-</td>
-<td style="text-align:left;width: 15em; ">
-Moderada (más sencillo que x86)
-</td>
-<td style="text-align:left;width: 15em; ">
-Baja-moderada (buena para enseñanza)
-</td>
-<td style="text-align:left;width: 28em; ">
-Secuenciar contenido: empezar por RISC (conceptos básicos), luego introducir x86 con ejemplos concretos.
-</td>
-</tr>
-<tr>
-<td style="text-align:left;width: 18em; font-weight: bold;border-right:1px solid;">
-Relevancia docente
-</td>
-<td style="text-align:left;width: 15em; ">
-Muy alta (ecosistema y software legado)
-</td>
-<td style="text-align:left;width: 15em; ">
-Alta en móviles/embebidos
-</td>
-<td style="text-align:left;width: 15em; ">
-Alta en investigación y docencia
-</td>
-<td style="text-align:left;width: 28em; ">
-Seleccionar ejemplos y herramientas: simuladores básicos para RISC-V; VonSim para x86 con repertorio limitado.
+Investigación, docencia, aplicaciones personalizadas
 </td>
 </tr>
 </tbody>
