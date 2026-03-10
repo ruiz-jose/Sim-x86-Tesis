@@ -40,7 +40,7 @@ No obstante, esta unificación de memoria y bus introduce una limitación conoci
 
 La Figura \@ref(fig:vonneumann) ilustra de manera esquemática la organización característica de la arquitectura Von Neumann, destacando la interacción entre la CPU y la memoria compartida para datos e instrucciones. Esta representación visual facilita la comprensión de las ventajas y limitaciones inherentes a este modelo, que ha influido decisivamente en el desarrollo de la informática contemporánea.
 
-```{r vonneumann, echo=FALSE, fig.cap="Arquitectura Von Neumann", fig.align = 'center', out.width = "85%"}
+```{r vonneumann, echo=FALSE, fig.cap="Arquitectura Von Neumann", fig.align = 'center', out.width = "75%"}
 knitr::include_graphics(path = "images/vonneumann.png")
 ```
 
@@ -49,7 +49,7 @@ Mientras la arquitectura Von Neumann se consolidaba como el paradigma dominante,
 
 La Figura \@ref(fig:harvard) ilustra la estructura fundamental de la arquitectura Harvard, destacando la independencia de los canales de acceso a memoria y la disposición diferenciada de instrucciones y datos. Esta representación visual facilita la comprensión de las ventajas técnicas del modelo, que ha sido ampliamente adoptado en sistemas embebidos, microcontroladores y procesadores de señal digital (DSP) [@noergaard2012embedded]. A continuación, se presenta una comparación sistemática entre ambos modelos, con el objetivo de analizar sus implicancias técnicas y contextos de aplicación [@tanenbaum_structured_2016].
 
-```{r harvard, echo=FALSE, fig.cap="Arquitectura Harvard", fig.align = 'center', out.width = "85%"}
+```{r harvard, echo=FALSE, fig.cap="Arquitectura Harvard", fig.align = 'center', out.width = "75%"}
 knitr::include_graphics(path = "images/harvard.png")
 ```
 
@@ -81,7 +81,7 @@ if (knitr::is_latex_output()) {
   tabla_kable %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 13
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:3, width = "5.5cm") %>%
@@ -120,7 +120,7 @@ Numerosas arquitecturas contemporáneas adoptan un enfoque híbrido, también de
 
 La Figura \@ref(fig:hibrida) ilustra el esquema conceptual de una arquitectura híbrida, destacando la coexistencia de memorias separadas para datos e instrucciones a nivel interno, mientras que externamente se mantiene una interfaz unificada. Esta representación visual facilita la comprensión de cómo se integran las ventajas de los modelos Von Neumann y Harvard en arquitecturas modernas, permitiendo alcanzar un equilibrio entre flexibilidad, rendimiento y facilidad de uso.
 
-```{r hibrida, echo=FALSE, fig.cap="Arquitectura híbridas", fig.align = 'center', out.width = "85%"}
+```{r hibrida, echo=FALSE, fig.cap="Arquitectura híbridas", fig.align = 'center', out.width = "75%"}
 knitr::include_graphics(path = "images/hibrida.png")
 ```
 
@@ -147,7 +147,7 @@ Como arquitectura de código abierto, RISC-V ofrece una alternativa personalizab
 ### Comparativa entre arquitecturas
 La selección de una arquitectura de procesador depende de una serie de características técnicas que determinan su idoneidad para distintos escenarios de aplicación. Por ejemplo, la arquitectura x86 se distingue por su alto rendimiento y compatibilidad, lo que la posiciona como preferente en entornos de escritorio y servidores. ARM, en cambio, sobresale en dispositivos móviles y sistemas embebidos gracias a su eficiencia energética y simplicidad estructural. RISC-V, como alternativa de código abierto, ha ganado relevancia en investigación, educación y aplicaciones personalizadas, aunque su presencia comercial es aún limitada. Comprender las diferencias entre estas arquitecturas, especialmente en lo relativo a la eficiencia energética, la complejidad del repertorio de instrucciones y el rendimiento, resulta fundamental tanto para el diseño de sistemas como para la formación académica [@patterson_computer_2014; @arm_evolution_2025].
 
-La Tabla \@ref(tab:comparq) sintetiza comparativamente estos aspectos clave, permitiendo visualizar de manera sistemática las ventajas, limitaciones y áreas de aplicación de las arquitecturas x86, ARM y RISC-V.
+La Tabla \@ref(tab:comparq) presenta una síntesis comparativa de las características fundamentales de las arquitecturas x86, ARM y RISC-V, facilitando la identificación de sus ventajas, limitaciones y ámbitos de aplicación relevantes en el contexto educativo y tecnológico.
 
 ```{r comparq, echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
@@ -155,75 +155,59 @@ library(kableExtra)
 
 comparq <- data.frame(
   Característica = c(
-    "Eficiencia Energética",
-    "Complejidad ISA",
-    "Rendimiento (típico)",
-    "Modos de direccionamiento",
-    "Flexibilidad de operandos",
-    "Coste de aprendizaje",
-    "Relevancia docente"
+    "Eficiencia energética",
+    "Complejidad del repertorio de instrucciones (ISA)",
+    "Rendimiento típico",
+    "Ámbito de aplicación principal"
   ),
   x86 = c(
-    "Moderada-alta según microarquitectura",
-    "Alta (ISA extensa, longitud variable)",
-    "Alto en desktops/servidores",
-    "Muy variados (SIB, ModR/M, desplazamientos)",
-    "Alta (reg-mem, mem-mem en algunos casos)",
-    "Alta (gran cantidad de conceptos)",
-    "Muy alta (ecosistema y software legado)"
+    "Moderada-alta, depende de la microarquitectura",
+    "Alta (ISA extensa, instrucciones de longitud variable)",
+    "Elevado en entornos de escritorio y servidores",
+    "Computadoras personales, servidores, software legado"
   ),
   ARM = c(
-    "Alta (diseñada para eficiencia)",
-    "Baja (RISC, instrucciones simples)",
-    "Moderado/alto en móviles",
-    "Más simple (load/store)",
-    "Moderada (load/store, registros)",
-    "Moderada (más sencillo que x86)",
-    "Alta en móviles/embebidos"
+    "Alta, optimizada para dispositivos móviles",
+    "Baja (ISA reducida, instrucciones simples y de longitud fija)",
+    "Moderado/alto en sistemas embebidos y móviles",
+    "Dispositivos móviles, sistemas embebidos, IoT"
   ),
   `RISC-V` = c(
-    "Alta (diseño RISC abierto)",
-    "Baja (ISA reducida y extensible)",
-    "Moderado, escalable según extensión",
-    "Simple y extensible (load/store)",
-    "Moderada (diseñable por extensiones)",
-    "Baja-moderada (buena para enseñanza)",
-    "Alta en investigación y docencia"
-  ),
-  `Implicación pedagógica` = c(
-    "Permite comparar consumo y trade‑offs; útil para labs de medición de energía.",
-    "x86 exige más tiempo en decodificación/formatos; enseñar en módulos. RISC facilita introducción al pipeline.",
-    "Diseñar ejercicios que midan CPI y tiempo real para cada ISA.",
-    "Usar ejemplos prácticos de EA para mostrar complejidad en x86 vs simplicidad en RISC.",
-    "Mostrar cómo operaciones reg‑mem reducen instrucciones pero aumentan complejidad de decodificación.",
-    "Secuenciar contenido: empezar por RISC (conceptos básicos), luego introducir x86 con ejemplos concretos.",
-    "Seleccionar ejemplos y herramientas: simuladores básicos para RISC-V; VonSim para x86 con repertorio limitado."
+    "Alta, diseño abierto y eficiente",
+    "Baja (ISA modular, extensible y de longitud fija)",
+    "Moderado, escalable según extensiones implementadas",
+    "Investigación, docencia, aplicaciones personalizadas"
   ),
   stringsAsFactors = FALSE
 )
 
 tabla <- kable(comparq,
                format = ifelse(knitr::is_latex_output(), "latex", "html"),
-               caption = "Comparación pedagógica de arquitecturas",
-               col.names = c("Característica", "x86", "ARM", "RISC‑V", "Implicación pedagógica"),
+               caption = "Comparación de arquitecturas x86, ARM y RISC-V",
+               col.names = c("Característica", "x86", "ARM", "RISC-V"),
                booktabs = TRUE,
                escape = FALSE,
-               align = c("l","l","l","l","l"))
+               align = c("l","l","l","l"))
 
 if (knitr::is_latex_output()) {
   tabla %>%
-    kable_styling(latex_options = c("scale_down","hold_position"), font_size = 9) %>%
-    column_spec(1, width = "3.5cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:4, width = "3.5cm") %>%
-    column_spec(5, width = "6.5cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3")
+    kable_styling(
+      latex_options = c("scale_down", "hold_position"),
+      font_size = 12
+    ) %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "4cm") %>%
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(comparq)), extra_latex_after = "\\addlinespace[16pt]")
 } else {
   tabla %>%
-    kable_styling(bootstrap_options = c("striped","hover","condensed","responsive"),
-                  full_width = FALSE, position = "center") %>%
+    kable_styling(
+      bootstrap_options = c("striped", "hover", "condensed", "responsive"),
+      full_width = FALSE,
+      position = "center"
+    ) %>%
     column_spec(1, width = "18em", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:4, width = "15em") %>%
-    column_spec(5, width = "28em") %>%
     row_spec(0, bold = TRUE, color = "white", background = "#0073C2")
 }
 ```
@@ -268,7 +252,7 @@ Para profundizar en la comprensión de los mecanismos de acceso a operandos, la 
 
 Esta ilustración facilita el análisis comparativo de las ventajas y limitaciones de cada modalidad, aportando claridad conceptual al estudio de la interacción entre instrucciones, memoria y registros [@stallings_computer_2021].
 
-```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento ", fig.align = 'center', out.width="60%"}
+```{r ModDir, echo=FALSE, fig.cap="Modos de direccionamiento ", fig.align = 'center', out.width="70%"}
 knitr::include_graphics(path = "images/modosdireccionamiento.png")
 ```
 La Tabla \@ref(tab:tabmoddir) presenta de manera detallada el algoritmo utilizado para calcular la dirección efectiva en cada uno de los modos de direccionamiento descritos.
@@ -315,7 +299,7 @@ if (knitr::is_latex_output()) {
   tabla_moddir %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 14
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:4, width = "4cm") %>%
