@@ -462,7 +462,7 @@ El procesamiento se realiza a través del procesador o CPU, y es en este compone
 
 A pesar de que es posible explicar las partes del procesador, su funcionamiento, la interacción de sus componentes y enseñar lenguaje ensamblador mediante prácticas, los estudiantes suelen tener dificultades para lograr una comprensión completa del funcionamiento.
 
-Sin embargo, la utilización de simuladores favorece la consolidación de esquemas conceptuales mediante práctica guiada y visualización progresiva en las clases teóricas, por ello, los simuladores deben ser simples, intuitivos y visualmente atractivos, para que los estudiantes puedan centrarse en los conceptos de arquitectura y no en el aprendizaje de la herramienta en sí.
+La utilización de simuladores educativos permite complementar la enseñanza teórica mediante entornos interactivos que facilitan la experimentación y la visualización de procesos internos del sistema. En este contexto, los simuladores orientados a la enseñanza deben priorizar la simplicidad conceptual, la claridad visual y la interacción guiada, de modo que los estudiantes puedan concentrarse en comprender los principios arquitectónicos sin verse sobrecargados por la complejidad de la herramienta.
 
 La simulación es un término de uso diario en muchos contextos: medicina, militar, entretenimiento, educación, etc., debido a que permite ayudar a comprender cómo funciona un sistema, responder preguntas como ``qué pasaría si'', con el fin de brindar hipótesis sobre cómo o por qué ocurren ciertos fenómenos.
 
@@ -472,7 +472,7 @@ Con los avances en el mundo digital, la simulación se ha convertido en una meto
 
 Muchas veces en el ámbito educativo, resulta difícil transmitir fundamentos teóricos de la organización y arquitectura interna de las computadoras debido a la complejidad de los procesos involucrados. Cuando se emplean exclusivamente métodos de enseñanza tradicionales ---como pizarras, libros de texto o diapositivas---, estos resultan insuficientes para representar de manera efectiva las complejidades involucradas en la arquitectura de las computadoras \protect\hyperlink{ref-lion_simuladores_2005}{{[}5{]}}, \protect\hyperlink{ref-contreras_uso_2010}{{[}6{]}}, \protect\hyperlink{ref-garcia-garcia_pbbcache_2020}{{[}7{]}}, \protect\hyperlink{ref-grossi2005simulador}{{[}8{]}}, \protect\hyperlink{ref-herruzo2002desarrollo}{{[}9{]}}, \protect\hyperlink{ref-Martinez1994}{{[}10{]}}, \protect\hyperlink{ref-concheiro2005simula3ms}{{[}11{]}}.
 
-Es evidente la necesidad de utilizar nuevas tecnologías como recursos didácticos y medios de transferencia de conocimiento, ya que ayudan a los estudiantes a relacionar conceptos abstractos con realidades concretas. Estas tecnologías permiten situar al estudiante en un contexto que imita aspectos de la realidad, posibilitando la detección y análisis de problemáticas semejantes a las que se presentan en entornos reales. Este enfoque promueve un mejor entendimiento a través del trabajo exploratorio, la inferencia, el aprendizaje por descubrimiento y el desarrollo de habilidades \protect\hyperlink{ref-nova_tool_2013}{{[}12{]}}, \protect\hyperlink{ref-mustafa_evaluating_2010}{{[}13{]}}, \protect\hyperlink{ref-garcia-carballeira_wepsim_2020}{{[}14{]}}, \protect\hyperlink{ref-prasad2016using}{{[}15{]}}.
+En este contexto, resulta pertinente incorporar tecnologías educativas que faciliten la representación interactiva de los procesos internos de los sistemas computacionales y promuevan estrategias de aprendizaje activo. Estas tecnologías permiten situar al estudiante en un contexto que imita aspectos de la realidad, posibilitando la detección y análisis de problemáticas semejantes a las que se presentan en entornos reales. Este enfoque promueve un mejor entendimiento a través del trabajo exploratorio, la inferencia, el aprendizaje por descubrimiento y el desarrollo de habilidades \protect\hyperlink{ref-nova_tool_2013}{{[}12{]}}, \protect\hyperlink{ref-mustafa_evaluating_2010}{{[}13{]}}, \protect\hyperlink{ref-garcia-carballeira_wepsim_2020}{{[}14{]}}, \protect\hyperlink{ref-prasad2016using}{{[}15{]}}.
 
 Un simulador de arquitectura es una herramienta que imita el hardware de un sistema, representando sus aspectos arquitectónicos y funciones. Permiten realizar cambios, pruebas y ejecutar programas sin riesgo de dañar componentes ni depender de equipos físicos disponibles \protect\hyperlink{ref-radivojevic_design_2011}{{[}16{]}}.
 
@@ -627,9 +627,9 @@ Este capítulo aborda los conceptos fundamentales de la arquitectura de computad
 \hypertarget{introducciuxf3n-a-la-arquitectura-de-computadoras}{%
 \section{Introducción a la arquitectura de computadoras}\label{introducciuxf3n-a-la-arquitectura-de-computadoras}}
 
-La arquitectura de computadoras es una disciplina central en el campo de la informática que estudia el diseño, la organización y la interacción entre los componentes de un sistema computacional. Esta área abarca tanto aspectos de hardware como de software que interactúan directamente con él, proporcionando principios fundamentales para construir sistemas eficientes, robustos y adaptables. Comprender su funcionamiento resulta esencial para analizar cómo se implementan, optimizan y escalan los sistemas informáticos en diversos contextos tecnológicos \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}31{]}}, \protect\hyperlink{ref-murdocca_principles_2000}{{[}32{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}33{]}}.
+La arquitectura de computadoras constituye una disciplina fundamental de la informática que estudia los principios de diseño y organización de los sistemas de cómputo, así como la interacción entre sus componentes de hardware y la interfaz que estos presentan al software. Esta área abarca tanto aspectos de hardware como de software que interactúan directamente con él, proporcionando principios fundamentales para construir sistemas eficientes, robustos y adaptables. Comprender su funcionamiento resulta esencial para analizar cómo se implementan, optimizan y escalan los sistemas informáticos en diversos contextos tecnológicos \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}31{]}}, \protect\hyperlink{ref-murdocca_principles_2000}{{[}32{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}33{]}}.
 
-Uno de los conceptos clave en esta disciplina es la distinción entre \textbf{arquitectura de computadoras} y \textbf{organización de computadoras}. La arquitectura se refiere a los elementos visibles para el programador, como el conjunto de instrucciones, los registros y los modos de direccionamiento. La organización, en cambio, se enfoca en los detalles físicos de implementación, tales como el diseño de circuitos y los ciclos de reloj necesarios para cada operación \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}31{]}}, \protect\hyperlink{ref-murdocca_principles_2000}{{[}32{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}33{]}}.
+Uno de los conceptos fundamentales en esta disciplina es la distinción entre \textbf{arquitectura} y \textbf{organización} de computadoras. Mientras que la arquitectura describe los atributos del sistema visibles para el programador ---como el conjunto de instrucciones, los registros y los modos de direccionamiento---, la organización se refiere a la implementación interna del hardware que permite ejecutar dichas especificaciones. \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}, \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-tanenbaum_structured_2016}{{[}31{]}}, \protect\hyperlink{ref-murdocca_principles_2000}{{[}32{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}33{]}}.
 
 Distinguir esta diferencia es crucial para analizar cómo los diseños arquitectónicos han evolucionado en respuesta a las crecientes demandas de rendimiento, eficiencia energética y escalabilidad. En este sentido, arquitecturas como ARM y RISC-V se han consolidado en sistemas embebidos y dispositivos móviles debido a su simplicidad estructural y bajo consumo energético \protect\hyperlink{ref-waterman_risc-v_2014}{{[}34{]}}, \protect\hyperlink{ref-harris2015digital}{{[}35{]}}, \protect\hyperlink{ref-null_essentials_2023}{{[}36{]}}. En contraste, la arquitectura x86 ha adoptado un enfoque híbrido que combina características de CISC y RISC, permitiéndole adaptarse a los exigentes requerimientos del mercado \protect\hyperlink{ref-stallings_computer_2021}{{[}20{]}}, \protect\hyperlink{ref-bryant2015computer}{{[}33{]}}, \protect\hyperlink{ref-patterson_computer_2014}{{[}37{]}}.
 
@@ -665,7 +665,7 @@ El diseño arquitectónico implica tomar decisiones que suponen compromisos (\em
   \textbf{RISC-V}, por su parte, destaca por su apertura, modularidad y flexibilidad, lo que la convierte en una alternativa atractiva para investigación, docencia y aplicaciones personalizadas \protect\hyperlink{ref-waterman_risc-v_2014}{{[}34{]}}, \protect\hyperlink{ref-patterson_computer_2017}{{[}40{]}}.
 \end{itemize}
 
-En síntesis, el estudio de la arquitectura de computadoras permite comprender el funcionamiento interno de los sistemas, optimizar el desarrollo de soluciones tecnológicas complejas y fomentar la innovación en ingeniería de sistemas. Su enseñanza resulta fundamental en la formación en ciencias de la computación y disciplinas afines.
+En síntesis, el estudio de la arquitectura de computadoras permite comprender cómo se estructuran y coordinan los distintos componentes de un sistema de cómputo para ejecutar programas de manera eficiente. Esta comprensión resulta especialmente relevante en contextos educativos, donde los estudiantes deben construir modelos mentales del funcionamiento interno del hardware.
 
 Desde una perspectiva educativa, el uso de herramientas de simulación contribuye a una comprensión progresiva de los conceptos arquitectónicos, al permitir experimentar con distintas arquitecturas y observar de forma interactiva el comportamiento del hardware \protect\hyperlink{ref-akram2019survey}{{[}41{]}}, \protect\hyperlink{ref-menchonherramientas}{{[}42{]}}. Esta dimensión didáctica adquiere especial importancia en el desarrollo de la herramienta propuesta en esta tesis, centrada en la arquitectura x86. Dicha arquitectura, ampliamente difundida en contextos académicos e industriales, también presenta desafíos significativos desde el punto de vista pedagógico, debido a su complejidad estructural y diversidad funcional.
 
@@ -765,7 +765,7 @@ La Figura \ref{fig:hibrida} ilustra el esquema conceptual de una arquitectura h�
 
 }
 
-\caption{Arquitectura Híbridas}\label{fig:hibrida}
+\caption{Arquitectura híbridas}\label{fig:hibrida}
 \end{figure}
 
 Esta aproximación híbrida se implementa en arquitecturas modernas como ARM Cortex y los procesadores Intel Core, los cuales incorporan cachés separadas para instrucciones y datos con el objetivo de optimizar el rendimiento del pipeline, lo que facilita una mayor paralelización del procesamiento y reduce los conflictos en el acceso a memoria. A pesar de que el modelo de memoria visible para el programador se presenta como unificado, a nivel interno se implementan mecanismos característicos de la arquitectura Harvard, como el uso de memorias caché separadas para instrucciones y datos \protect\hyperlink{ref-arm2021architecture}{{[}47{]}}, \protect\hyperlink{ref-intel_microarchitecture_2021}{{[}48{]}}.
@@ -805,22 +805,22 @@ La Tabla \ref{tab:comparq} sintetiza comparativamente estos aspectos clave, perm
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:comparq}Comparación de Arquitecturas}
+\caption{\label{tab:comparq}Comparación pedagógica de arquitecturas}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}l}
+\fontsize{9}{11}\selectfont
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{6.5cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{x86}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{ARM}}} & \multicolumn{1}{c}{\cellcolor[HTML]{D3D3D3}{\textbf{RISC-V}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{x86}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{ARM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{RISC‑V}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Implicación pedagógica}}}\\
 \midrule
-\textbf{Eficiencia Energética} & Moderada & Alta & Alta\\
-\addlinespace[10pt]
-\textbf{Complejidad ISA} & Alta & Baja & Baja\\
-\addlinespace[10pt]
-\textbf{Rendimiento} & Alto & Moderado & Moderado\\
-\addlinespace[10pt]
-\textbf{Áreas de Aplicación} & Escritorio, servidores & Dispositivos móviles & Investigación, embebidos\\
-\addlinespace[10pt]
+\textbf{Eficiencia Energética} & Moderada-alta según microarquitectura & Alta (diseñada para eficiencia) & Alta (diseño RISC abierto) & Permite comparar consumo y trade‑offs; útil para labs de medición de energía.\\
+\textbf{Complejidad ISA} & Alta (ISA extensa, longitud variable) & Baja (RISC, instrucciones simples) & Baja (ISA reducida y extensible) & x86 exige más tiempo en decodificación/formatos; enseñar en módulos. RISC facilita introducción al pipeline.\\
+\textbf{Rendimiento (típico)} & Alto en desktops/servidores & Moderado/alto en móviles & Moderado, escalable según extensión & Diseñar ejercicios que midan CPI y tiempo real para cada ISA.\\
+\textbf{Modos de direccionamiento} & Muy variados (SIB, ModR/M, desplazamientos) & Más simple (load/store) & Simple y extensible (load/store) & Usar ejemplos prácticos de EA para mostrar complejidad en x86 vs simplicidad en RISC.\\
+\textbf{Flexibilidad de operandos} & Alta (reg-mem, mem-mem en algunos casos) & Moderada (load/store, registros) & Moderada (diseñable por extensiones) & Mostrar cómo operaciones reg‑mem reducen instrucciones pero aumentan complejidad de decodificación.\\
+\addlinespace
+\textbf{Coste de aprendizaje} & Alta (gran cantidad de conceptos) & Moderada (más sencillo que x86) & Baja-moderada (buena para enseñanza) & Secuenciar contenido: empezar por RISC (conceptos básicos), luego introducir x86 con ejemplos concretos.\\
+\textbf{Relevancia docente} & Muy alta (ecosistema y software legado) & Alta en móviles/embebidos & Alta en investigación y docencia & Seleccionar ejemplos y herramientas: simuladores básicos para RISC-V; VonSim para x86 con repertorio limitado.\\
 \bottomrule
 \end{tabular}}
 \end{table}
