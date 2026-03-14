@@ -199,7 +199,7 @@ if (knitr::is_latex_output()) {
     tabla %>%
         kable_styling(
             latex_options = c("scale_down", "hold_position"),
-            font_size = 10
+            font_size = 12
         ) %>%
         column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
         column_spec(2, width = "2cm") %>%
@@ -256,7 +256,7 @@ tabla <- kable(evaluacion,
     col.names = c("Aspecto evaluado", "Promedio", "Interpretación"),
     booktabs = TRUE,
     escape = FALSE,
-    align = c("c", "l", "l")
+    align = c("c", "c", "l")
 )
 
 # Convertir a HTML o LaTeX según el formato de salida
@@ -264,11 +264,11 @@ if (knitr::is_latex_output()) {
     tabla %>%
         kable_styling(
             latex_options = c("scale_down", "hold_position"),
-            font_size = 10
+            font_size = 12
         ) %>%
-        column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
-        column_spec(2, width = "5cm") %>%
-        column_spec(3, width = "6cm") %>%
+        column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+        column_spec(2, width = "3cm") %>%
+        column_spec(3, width = "9cm") %>%
         row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
         row_spec(seq_len(nrow(evaluacion)),
             extra_latex_after = "\\addlinespace[10pt]"
@@ -376,7 +376,7 @@ if (knitr::is_latex_output()) {
     tabla %>%
         kable_styling(
             latex_options = c("scale_down", "hold_position"),
-            font_size = 10
+            font_size = 12
         ) %>%
         column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
         column_spec(2:3, width = "5.5cm") %>%
@@ -438,7 +438,7 @@ if (knitr::is_latex_output()) {
     tabla_kable %>%
         kable_styling(
             latex_options = c("scale_down", "hold_position"),
-            font_size = 10
+            font_size = 12
         ) %>%
         column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>%
         column_spec(2, width = "2cm") %>%
