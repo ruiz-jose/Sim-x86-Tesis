@@ -299,7 +299,7 @@ if (knitr::is_latex_output()) {
   tabla_moddir %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 14
+      font_size = 12
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:4, width = "4cm") %>%
@@ -371,10 +371,11 @@ if (knitr::is_latex_output()) {
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 14
     ) %>%
-    column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:5, width = "4cm") %>%
+    column_spec(1, width = "3.5cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:4, width = "3cm") %>%
+    column_spec(5, width = "4.5cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(isa_comparativa)),
              extra_latex_after = "\\addlinespace[10pt]")
@@ -574,7 +575,7 @@ if (knitr::is_latex_output()) {
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:3, width = "5cm") %>%
@@ -644,10 +645,12 @@ if (knitr::is_latex_output()) {
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 13
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE) %>%
-    column_spec(2:4, width = "4cm") %>%
+    column_spec(2, width = "4cm") %>%
+    column_spec(3, width = "3cm") %>%
+    column_spec(4, width = "5cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(hitosx86)),
              extra_latex_after = "\\addlinespace[10pt]")  # Espacio adicional entre filas # nolint: line_length_linter.
@@ -695,7 +698,7 @@ if (knitr::is_latex_output()) {
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "3.5cm", border_right = TRUE) %>%
@@ -802,7 +805,7 @@ El ensamblador es un programa que traduce las instrucciones simbólicas escritas
 
 La Figura \@ref(fig:ensambla) esquematiza el proceso de ensamblado, destacando las etapas fundamentales desde la escritura del código ensamblador por el programador, la traducción simbólica realizada por el ensamblador, hasta la ejecución de instrucciones binarias por el procesador. Esta representación visual permite comprender cómo se transforma el código fuente en lenguaje ensamblador en instrucciones máquina ejecutables, evidenciando la relación directa entre el software de bajo nivel y el hardware.
 
-```{r ensambla, echo=FALSE, fig.cap="Proceso de ensamblado", fig.align = 'center', out.width = "100%"}
+```{r ensambla, echo=FALSE, fig.cap="Proceso de ensamblado", fig.align = 'center', out.width = "95%"}
 knitr::include_graphics(path = "images/ensamblador.png")
 ```
 
@@ -857,7 +860,7 @@ if (knitr::is_latex_output()) {
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:4, width = "4cm") %>%

@@ -11,7 +11,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 1. **Visualización de la estructura general de la computadora:**
 La representación gráfica de la CPU, los buses, la memoria y los dispositivos de entrada/salida resulta fundamental para visualizar la interacción y el funcionamiento integrado de los componentes durante el ciclo de instrucción. La Figura \@ref(fig:diagramasimulador) muestra la estructura general del simulador VonSim8, destacando los elementos activos en cada etapa y facilitando una comprensión sistémica del proceso de ejecución. Este recurso didáctico, respaldado por estudios sobre visualización en disciplinas técnicas [@sorva2013visualizations], contribuye significativamente a la asimilación de conceptos abstractos y al desarrollo de competencias en arquitectura de computadoras.
 
-```{r diagramasimulador, echo=FALSE, fig.cap="Estructura general del simulador VonSim8", fig.align = 'right', out.width = "93%"}
+```{r diagramasimulador, echo=FALSE, fig.cap="Estructura general del simulador VonSim8", fig.align = 'right', out.width = "100%"}
 knitr::include_graphics("images/estructurasimulador.png")
 ```
 
@@ -19,7 +19,7 @@ knitr::include_graphics("images/estructurasimulador.png")
 La posibilidad de ejecutar programas escritos en lenguaje ensamblador, tanto de manera paso a paso como en ejecución continua, constituye un recurso esencial para el análisis detallado de cada instrucción. Esta funcionalidad fortalece las competencias en trazado y depuración de código ensamblador, aspectos fundamentales para comprender la interacción entre software y hardware.
 Para facilitar este proceso, se incorpora un editor de ensamblador dotado de funciones avanzadas, como el resaltado de sintaxis y el autocompletado. Estas características, alineadas con los principios de diseño de interfaces orientados a la usabilidad y accesibilidad [@w3c_accessibility_2021], optimizan la experiencia del usuario y favorecen la escritura y comprensión del código. El editor permite al usuario escribir, editar, guardar y ejecutar programas en ensamblador directamente dentro del simulador, además de ofrecer ejemplos predefinidos como apoyo didáctico. La integración de entornos de desarrollo integrados (IDEs) en contextos educativos ha demostrado ser eficaz para la enseñanza de lenguajes de programación, según diversos estudios [@mccracken2001does]. La Figura \@ref(fig:editor) ilustra la interfaz del editor ensamblador implementado en el simulador, evidenciando las funcionalidades mencionadas y su aporte al proceso de aprendizaje.
 
-```{r editor, echo=FALSE, fig.cap="Editor ensamblador", fig.align = 'center', out.width = "100%"}
+```{r editor, echo=FALSE, fig.cap="Editor ensamblador", fig.align = 'center', out.width = "40%"}
 knitr::include_graphics("images/editor.png")
 ```
 
@@ -58,7 +58,7 @@ La activación progresiva del repertorio de instrucciones promueve el desarrollo
       tabla_activacion %>%
         kable_styling(
           latex_options = c("scale_down", "hold_position"),
-          font_size = 10,
+          font_size = 11,
           position = "right"
         ) %>%
         column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
@@ -83,7 +83,7 @@ La activación progresiva del repertorio de instrucciones promueve el desarrollo
 4. **Simulación visual e interactiva de micropasos de instrucciones:**
 Se implementa una visualización interactiva del flujo de datos basada en el modelo de Nivel de Transferencia entre Registros (Register Transfer Level, RTL). Este enfoque permite representar con precisión el desplazamiento de datos entre registros, buses y unidades funcionales del procesador, así como las señales de control involucradas en cada fase del ciclo de instrucción [@ASMVisualizer2025; @harris2015digital]. Stallings [@stallings_computer_2021] propone utilizar el modelo RTL para representar el ciclo de instrucción, desde la captura (*Fetch*) hasta la ejecución (*Execute*), facilitando la visualización del recorrido de datos y señales de control en cada etapa del proceso. La Figura \@ref(fig:cicloinstruccion) representa de manera visual y secuencial las etapas fundamentales del ciclo de instrucción, ejemplificadas mediante la operación `MOV AL, BL`. En la etapa de captación (*Fetch*), se observa cómo la dirección de la instrucción es transferida del registro `IP` al `MAR`, seguida por la lectura de la memoria hacia el `MBR` y su posterior carga en el `IR`. En la etapa de ejecución (*Execute*), el dato se mueve desde el registro `BL` al registro `AL`, ilustrando el flujo de información y el funcionamiento interno del procesador durante la ejecución de una instrucción. Esta representación facilita la comprensión didáctica de los procesos involucrados en el ciclo de instrucción.
 
-```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción: captación y ejecución", fig.align = 'center', out.width = "85%"}
+```{r cicloinstruccion, echo=FALSE, fig.cap="Ciclo de instrucción: captación y ejecución", fig.align = 'center', out.width = "95%"}
 knitr::include_graphics(path = "images/cicloinstruccion.png")
 ```
 
@@ -91,12 +91,12 @@ knitr::include_graphics(path = "images/cicloinstruccion.png")
 La incorporación de un vector de interrupciones predefinido permite simular eventos externos, como la entrada de datos mediante teclado o la salida de información a través de un monitor. Ante la recepción de una interrupción, el simulador activa la señal `INTR`, detiene la ejecución actual y transfiere el control a la rutina correspondiente, facilitando la exploración interactiva de conceptos clave como la asincronía, el manejo de eventos y la interrupción del flujo secuencial. Estos aspectos, característicos de arquitecturas modernas, resultan fundamentales para el entendimiento de sistemas reales y se alinean con las recomendaciones de Null y Lobur [@null_essentials_2023], quienes destacan la importancia de abordar estos conceptos en etapas tempranas de la formación.
 Adicionalmente, se implementa un módulo genérico de entrada/salida programada (Programmed Input/Output, PIO), que actúa como interfaz entre la CPU y los dispositivos periféricos. Este módulo posibilita la simulación de operaciones mediante instrucciones como IN y OUT, permitiendo al estudiante interactuar con dispositivos representados gráficamente, como interruptores y teclas. De esta manera, se favorece una comprensión más tangible de los mecanismos subyacentes al intercambio de información entre el procesador y los dispositivos externos. La Figura \@ref(fig:perifericos) muestra el módulo PIO y su interacción con los periféricos, ilustrando visualmente la estructura y funcionamiento de este componente dentro del simulador.
 
-```{r perifericos, echo=FALSE, fig.cap="Módulo genérico de entrada/salida programada", fig.align = 'center', out.width = "100%"}
+```{r perifericos, echo=FALSE, fig.cap="Módulo genérico de entrada/salida programada (PIO)", fig.align = 'center', out.width = "90%"}
 knitr::include_graphics(path = "images/perifericos.png")
 ```
 
 6. **Métricas de rendimiento:**
-La integración de indicadores clave, como el tiempo de ciclo, el tiempo de CPU y los ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas, permite al estudiante analizar cuantitativamente la eficiencia del sistema. Además, la posibilidad de configurar la frecuencia del CPU en un rango de valores (1–10 Hz) facilita la comparación entre diferentes implementaciones y escenarios de ejecución. La disponibilidad de estas métricas contribuye a fortalecer la comprensión de aspectos fundamentales del rendimiento del procesador, promoviendo una formación integral que abarca tanto dimensiones funcionales como métricas del comportamiento del sistema [@hennessy2017computer]. La Figura \@ref(fig:metricas) presenta el panel de métricas de rendimiento implementado en el simulador, donde se visualizan los principales indicadores y configuraciones disponibles para el análisis cuantitativo.
+La integración de indicadores clave, como el tiempo de ciclo, el tiempo de CPU y los ciclos por instrucción (Cycles Per Instruction, CPI), generados automáticamente a partir de la ejecución de los programas, permite al estudiante analizar cuantitativamente la eficiencia del sistema. Además, la posibilidad de configurar la frecuencia del CPU en un rango de valores (1–10 Hz) facilita la comparación entre diferentes implementaciones y escenarios de ejecución. La disponibilidad de estas métricas contribuye a fortalecer la comprensión de aspectos fundamentales del rendimiento del procesador, promoviendo una formación integral que abarca tanto dimensiones funcionales como métricas del comportamiento del sistema [@hennessy2017computer]. La Figura \@ref(fig:metricas) presenta el panel de métricas de rendimiento implementado en el simulador, donde se visualizan los principales indicadores y configuraciones disponibles para el análisis cuantitativo.
 
 ```{r metricas, echo=FALSE, fig.cap="Métricas de rendimiento", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/metricas.png")
@@ -105,7 +105,7 @@ knitr::include_graphics(path = "images/metricas.png")
 7. **Documentación y recursos de apoyo:**
 La disponibilidad de documentación clara y accesible resulta esencial para explicar el funcionamiento del simulador, sus componentes y las instrucciones disponibles. Este recurso debe incluir ejemplos prácticos, guías de uso y materiales complementarios que faciliten la comprensión y el aprendizaje autónomo. La incorporación de tutoriales interactivos y ejemplos prácticos es fundamental para orientar al estudiante en el uso efectivo del simulador, promoviendo un aprendizaje activo y reflexivo [@bonwell1991active]. La Figura \@ref(fig:documentacion) muestra la interfaz de la documentación en línea, donde se presentan los contenidos organizados y los recursos de apoyo disponibles para el usuario.
 
-```{r documentacion, echo=FALSE, fig.cap="Documentación on line", fig.align = 'center', out.width = "90%"}
+```{r documentacion, echo=FALSE, fig.cap="Documentación on line", fig.align = 'center', out.width = "100%"}
 knitr::include_graphics("images/documentacion.png")
 ```
 
@@ -299,7 +299,7 @@ if (knitr::is_latex_output()) {
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "12cm", latex_column_spec = "p{12cm}") %>%
@@ -384,9 +384,9 @@ tabla_kable <- kable(
 
 if (knitr::is_latex_output()) {
   tabla_kable %>%
-    kable_styling(latex_options = c("scale_down","hold_position"), font_size = 10) %>%
+    kable_styling(latex_options = c("scale_down","hold_position"), font_size = 12) %>%
     column_spec(1, width = "1.5cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "2cm") %>%
+    column_spec(2, width = "2.5cm") %>%
     column_spec(3, width = "10cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3")
 } else {
@@ -472,9 +472,9 @@ tabla_kable <- kable(
 
 if (knitr::is_latex_output()) {
   tabla_kable <- tabla_kable %>%
-    kable_styling(latex_options = c("scale_down","hold_position"), font_size = 10) %>%
-    column_spec(1, width = "5cm",  bold = TRUE, border_right = TRUE) %>%
-    column_spec(2:6, width = "1.8cm") %>%
+    kable_styling(latex_options = c("scale_down","hold_position"), font_size = 12) %>%
+    column_spec(1, width = "3cm",  bold = TRUE, border_right = TRUE) %>%
+    column_spec(2:6, width = "2.3cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     footnote(
       general = "El símbolo -- indica que la instrucción no modifica la bandera.",
@@ -507,7 +507,7 @@ La memoria principal del simulador se representa mediante una matriz de 16×16 e
 
 La Figura \@ref(fig:memoria) muestra la estructura visual de la memoria principal, destacando su disposición matricial y la accesibilidad de cada celda para el análisis y la manipulación de datos durante la simulación.
 
-```{r memoria, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "100%"}
+```{r memoria, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "90%"}
 knitr::include_graphics(path = "images/memoria.png")
 ```
 
@@ -556,7 +556,7 @@ El flag de interrupción I se visualiza únicamente cuando el programa lo requie
 
 La Figura \@ref(fig:banderaI) muestra la representación gráfica del registro de estado I, evidenciando su comportamiento dinámico y su relevancia en el manejo de interrupciones.
 
-```{r banderaI, echo=FALSE, fig.cap="Registro de estado I", fig.align = 'center', out.width = "100%"}
+```{r banderaI, echo=FALSE, fig.cap="Registro de estado I", fig.align = 'center', out.width = "20%"}
 knitr::include_graphics(path = "images/flagi.png")
 ```
 
@@ -572,7 +572,7 @@ En el simulador, se optó por emplear únicamente la parte baja de cada registro
 
 La Figura \@ref(fig:registros) muestra la disposición y estructura de los registros de 8 bits implementados en el simulador, evidenciando su funcionalidad y su aporte a la didáctica del modelo.
 
-```{r registros, echo=FALSE, fig.cap="Registro de 8 bits", fig.align = 'center', out.width = "100%"}    
+```{r registros, echo=FALSE, fig.cap="Registro de 8 bits", fig.align = 'center', out.width = "90%"}    
 knitr::include_graphics(path = "images/registros.png")
 ```
 La supresión de los registros temporales `left`, `right` y `result` en la ALU responde al objetivo de simplificar el flujo de datos y disminuir la carga cognitiva de los estudiantes. En lugar de emplear registros intermedios, el simulador representa de manera directa las operaciones realizadas sobre los operandos, lo que facilita la comprensión del funcionamiento aritmético y lógico de la unidad. Esta estrategia didáctica permite al usuario observar de forma más transparente el procesamiento interno, favoreciendo el aprendizaje de los mecanismos fundamentales de la ALU.
@@ -585,7 +585,7 @@ knitr::include_graphics(path = "images/leftrigth.png")
 
 Por motivos pedagógicos, los registros `SP`, `ri` e `id` permanecen ocultos en la interfaz del simulador y solo se habilitan de manera automática cuando una instrucción específica requiere su utilización. Esta estrategia contribuye a simplificar la visualización y a reducir la carga cognitiva durante las etapas iniciales del aprendizaje, permitiendo que el estudiante se enfoque en los componentes esenciales del ciclo de instrucción. La Figura \@ref(fig:idrisp) muestra la representación gráfica de estos registros, evidenciando su activación dinámica y su función de apoyo en la ejecución de instrucciones.
 
-```{r idrisp, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "100%"}    
+```{r idrisp, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "25%"}    
 knitr::include_graphics(path = "images/idrisp.png")
 ```
 
@@ -597,13 +597,13 @@ knitr::include_graphics(path = "images/memoriacomp.png")
 
 El simulador incorpora un mecanismo visual que destaca, dentro de la memoria principal, las posiciones apuntadas por los registros `IP` y `SP`. Esta funcionalidad permite al estudiante identificar de manera inmediata tanto la dirección de la próxima instrucción a ejecutar como la ubicación actual de la cima de la pila, facilitando el seguimiento del flujo de ejecución y la gestión de la memoria durante el ciclo de instrucción. La Figura \@ref(fig:resaltadoipsp) muestra el resaltado simultáneo de estas direcciones, evidenciando su importancia para la comprensión de la dinámica interna del procesador.
 
-```{r resaltadoipsp, echo=FALSE, fig.cap="Resaltado registro IP y registro SP", fig.align = 'center', out.width = "100%"}
+```{r resaltadoipsp, echo=FALSE, fig.cap="Resaltado registro IP y registro SP", fig.align = 'center', out.width = "80%"}
 knitr::include_graphics(path = "images/resaltadoipsp.png")
 ```
 
 El simulador VonSim8 destaca visualmente, mediante el uso de color naranja, el espacio reservado en la memoria principal para el vector de interrupciones, que abarca las ocho posiciones comprendidas entre las direcciones `0x00h` a `0x07h`. Esta representación facilita la identificación del área destinada al manejo de interrupciones, permitiendo al estudiante comprender su ubicación y relevancia dentro de la arquitectura. La Figura \@ref(fig:resaltadoint) muestra el resaltado específico de este segmento, evidenciando su función en la gestión de eventos externos y en la organización interna del sistema.
 
-```{r resaltadoint, echo=FALSE, fig.cap="Resaltado vector de interrupciones", fig.align = 'center', out.width = "50%"}
+```{r resaltadoint, echo=FALSE, fig.cap="Resaltado vector de interrupciones", fig.align = 'center', out.width = "45%"}
 knitr::include_graphics(path = "images/resaltadoint.png")
 ```
 
@@ -621,7 +621,7 @@ En VonSim8, el uso de la directiva `ORG` para definir la dirección inicial es o
 
 Con el fin de asegurar la compatibilidad con programas desarrollados para VonSim, el simulador VonSim8 permite cargar programas utilizando la directiva ORG, aunque adapta la dirección inicial de ejecución. En lugar de emplear la dirección`0x2000h`, característica de VonSim, se utiliza la dirección `0x20h` en VonSim8, lo que facilita la ejecución de programas en el entorno simplificado. Esta flexibilidad permite a los usuarios definir direcciones personalizadas y mantener la interoperabilidad entre ambos simuladores. La Figura \@ref(fig:org) muestra ejemplos de programas con la directiva ORG y END, evidenciando la compatibilidad y la adaptación de las direcciones de inicio en cada caso.
 
-```{r org, echo=FALSE, fig.cap="Compatibilidad directiva ORG y END", fig.align = 'center', out.width = "100%"}
+```{r org, echo=FALSE, fig.cap="Compatibilidad directiva ORG y END", fig.align = 'center', out.width = "80%"}
 knitr::include_graphics(path = "images/org.png")
 ```
 
@@ -714,7 +714,7 @@ if (knitr::is_latex_output()) {
   tabla_comparativa %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 13
     ) %>%
     column_spec(1, width = "5cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "7cm") %>%
@@ -792,7 +792,7 @@ if (knitr::is_latex_output()) {
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "6cm", bold = TRUE, border_right = TRUE) %>% # nolint: line_length_linter.
     column_spec(2, width = "4cm") %>%
@@ -1156,11 +1156,10 @@ tabla <- kable(
 )
 
 if (knitr::is_latex_output()) {
-  cat("\\FloatBarrier\n")
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "5cm") %>%
@@ -1338,19 +1337,19 @@ tabla_kable <- kable(tisaredu,
                col.names = c("Categoría", "Instrucción","Código operación", "Operandos", "Acción"),
                booktabs = TRUE,
                escape = FALSE,
-               align = c("c", "c", "c", "l"))
+               align = c("c", "c", "c", "c", "l"))
 
 if (knitr::is_latex_output()) {
   tabla_kable %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 15
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "4cm") %>%
     column_spec(3, width = "3cm") %>%
-    column_spec(4, width = "3cm") %>%
-    column_spec(5, width = "8cm") %>%
+    column_spec(4, width = "2cm") %>%
+    column_spec(5, width = "9cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(tisaredu)), extra_latex_after = "\\addlinespace[10pt]")
 } else {
@@ -1411,17 +1410,17 @@ tabla_kable <- kable(instcodif,
                col.names = c("CodOp", "Instrucción", "Byte", "Codificación"),
                booktabs = TRUE,
                escape = FALSE,
-               align = c("c", "l", "l", "l"))
+               align = c("c", "l", "c", "l"))
 
 if (knitr::is_latex_output()) {
   tabla_kable %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "3.5cm") %>%
-    column_spec(3:4, width = "6cm") %>%
+    column_spec(2:3, width = "3.5cm") %>%
+    column_spec(4, width = "8cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(instcodif)), extra_latex_after = "\\addlinespace[10pt]") %>%
     footnote(
@@ -1751,7 +1750,7 @@ if (knitr::is_latex_output()) {
   tabla_componentes_vonsim8 %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 16
+      font_size = 17
     ) %>%
     column_spec(1, width = "5cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "8cm") %>%
@@ -1832,7 +1831,7 @@ tabla_fetch <- kable(
 
 if (knitr::is_latex_output()) {
   tabla_fetch %>%
-    kable_styling(latex_options = c("scale_down", "hold_position"), font_size = 16) %>%
+    kable_styling(latex_options = c("scale_down", "hold_position"), font_size = 12) %>%
     column_spec(1, width = "1cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "5cm") %>%
     column_spec(3, width = "7cm") %>%
@@ -2011,7 +2010,7 @@ if (knitr::is_latex_output()) {
   tabla_kable %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "4cm") %>%
@@ -2331,7 +2330,7 @@ if (knitr::is_latex_output()) {
   tabla_puertos %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10,
+      font_size = 12,
       position = "center"
     ) %>%
     column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
@@ -2644,7 +2643,7 @@ if (knitr::is_latex_output()) {
   tabla_kable %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "7cm") %>%

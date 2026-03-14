@@ -50,7 +50,7 @@ if (knitr::is_latex_output()) {
   tabla %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 10
+      font_size = 12
     ) %>%
     column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:3, width = "6cm") %>%
@@ -103,7 +103,7 @@ El formalismo DEVS es una metodología modular y jerárquica que permite modelar
 ### Estructura del formalismo DEVS
 El formalismo DEVS se fundamenta en la modelización de sistemas como conjuntos de componentes que interactúan mediante eventos discretos. Cada componente posee un estado interno y puede recibir eventos externos que desencadenan transiciones de estado, ya sea en instantes temporizados o ante condiciones específicas. Esta estructura modular permite representar tanto la dinámica interna como la interacción externa del sistema modelado. La Figura \@ref(fig:devs) ilustra la relación entre modelos atómicos y modelos acoplados en DEVS, evidenciando cómo se integran y comunican los distintos elementos para capturar el comportamiento global del sistema.
 
-```{r devs, echo=FALSE, fig.cap="Relación entre modelos atómicos y modelos acoplados en DEVS", fig.align = 'center', out.width = "100%"}
+```{r devs, echo=FALSE, fig.cap="Relación entre modelos atómicos y modelos acoplados en DEVS", fig.align = 'center', out.width = "45%"}
 knitr::include_graphics(path = "images/devs.png")
 ```
 
@@ -133,7 +133,7 @@ DEVS describe el comportamiento de un sistema real utilizando eventos de entrada
 
 La organización modular del formalismo DEVS facilita el análisis y la gestión de sistemas complejos, permitiendo la validación de subsistemas de manera independiente antes de su integración en un modelo global. La Figura \@ref(fig:acoplado) ejemplifica cómo los modelos atómicos se agrupan y conectan dentro de modelos acoplados, reflejando la estructura jerárquica y la flexibilidad del enfoque DEVS para construir sistemas escalables y fácilmente gestionables.
 
-```{r acoplado, echo=FALSE, fig.cap="Modelo acoplado en DEVS", fig.align = 'center', out.width = "100%"}
+```{r acoplado, echo=FALSE, fig.cap="Modelo acoplado en DEVS", fig.align = 'center', out.width = "65%"}
 knitr::include_graphics(path = "images/acoplado.png")
 ```
 
