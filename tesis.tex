@@ -414,6 +414,12 @@ Finalmente, a la Universidad Nacional de Entre Ríos, y en particular a la Facul
 \item
   Harvard: Arquitectura de computadoras que separa físicamente la memoria y los buses para datos e instrucciones, permitiendo acceso simultáneo.
 \item
+  Hertz (Hz): Unidad de frecuencia que indica la cantidad de ciclos de operación completados por segundo. En computación, se utiliza para expresar la velocidad de reloj de procesadores y dispositivos electrónicos.
+\item
+  Ciclos por instrucción (Cycles Per Instruction, CPI): Métrica que indica el número promedio de ciclos de reloj que el procesador requiere para ejecutar una instrucción.
+\item
+  Tiempo de CPU: Tiempo total que tarda el procesador en ejecutar un programa. Se calcula como el producto entre el número de instrucciones, el CPI y el período de reloj, o bien dividiendo el número total de ciclos de reloj por la frecuencia del procesador.
+\item
   x86: Familia de arquitecturas de procesadores desarrollada por Intel, caracterizada por su compatibilidad y amplia difusión en computadoras personales y servidores.
 \item
   RISC-V: Arquitectura de procesadores de código abierto basada en el paradigma RISC, reconocida por su flexibilidad y modularidad.
@@ -916,7 +922,7 @@ La Tabla \ref{tab:tabmoddir} presenta de manera detallada el algoritmo utilizado
 \caption{\label{tab:tabmoddir}Modos de direccionamiento básicos}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{14}{16}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{threeparttable}
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
@@ -982,10 +988,10 @@ La Tabla \ref{tab:comparativaISA} sintetiza las características fundamentales d
 \caption{\label{tab:comparativaISA}Comparativa de repertorios de instrucciones reales}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}}
+\fontsize{14}{16}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{3.5cm}|>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{4.5cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Arquitectura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Longitud instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nº operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipos de operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modos de direccionamiento}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Arquitectura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Longitud instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nº operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Tipos de operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modos de direccionamiento}}}\\
 \midrule
 \textbf{x86} & Variable & 0–3+ & Complejos & Muchos\\
 \addlinespace[10pt]
@@ -1109,7 +1115,7 @@ La Tabla \ref{tab:ciscrisc} presenta una síntesis comparativa de las diferencia
 \caption{\label{tab:ciscrisc}Comparativa entre CISC y RISC}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aspecto}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CISC}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{RISC}}}\\
@@ -1177,10 +1183,10 @@ La Tabla \ref{tab:hitosx86} sintetiza los principales hitos en la evolución de 
 \caption{\label{tab:hitosx86}Hitos en la evolución x86}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
+\fontsize{13}{15}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{5cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año de Lanzamiento}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Número de Bits}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Extensiones de 64 bits}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año de Lanzamiento}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Número de Bits}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Extensiones de 64 bits}}}\\
 \midrule
 \textbf{Intel 8086} & 1978 & 16 & Arquitectura inicial\\
 \addlinespace[10pt]
@@ -1199,7 +1205,7 @@ La Tabla \ref{tab:evolucionx86} ilustra la progresión histórica de la arquitec
 \caption{\label{tab:evolucionx86}Línea de Tiempo de la Evolución de la Arquitectura x86}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{9cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Año}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Procesador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Innovación}}}\\
@@ -1304,7 +1310,7 @@ La Figura \ref{fig:ensambla} esquematiza el proceso de ensamblado, destacando la
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/ensamblador} 
+{\centering \includegraphics[width=0.95\linewidth]{images/ensamblador} 
 
 }
 
@@ -1323,7 +1329,7 @@ La Tabla \ref{tab:ensambladores} compara las características esenciales de tres
 \caption{\label{tab:ensambladores}Comparación de ensambladores arquitectura x86}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{4cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{TASM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{MASM}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{NASM}}}\\
@@ -1379,7 +1385,7 @@ Estos principios generales se materializan en diversos sectores industriales, do
 \caption{\label{tab:aplisimu}Aplicaciones de la simulación en distintos sectores}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Sector}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Aplicación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Beneficio principal}}}\\
@@ -1441,7 +1447,7 @@ El formalismo DEVS se fundamenta en la modelización de sistemas como conjuntos 
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/devs} 
+{\centering \includegraphics[width=0.45\linewidth]{images/devs} 
 
 }
 
@@ -1491,7 +1497,7 @@ La organización modular del formalismo DEVS facilita el análisis y la gestión
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/acoplado} 
+{\centering \includegraphics[width=0.65\linewidth]{images/acoplado} 
 
 }
 
@@ -1710,7 +1716,7 @@ La Tabla \ref{tab:criterios} sintetiza los criterios de evaluación, junto con s
 \caption{\label{tab:criterios}Criterios e indicadores de evaluación de simuladores}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Criterio}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Indicadores}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Escala}}}\\
@@ -1748,7 +1754,7 @@ La Tabla \ref{tab:simuladores} sintetiza el proceso de selección, mostrando el 
 \caption{\label{tab:simuladores}Proceso de selección de simuladores}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{11}{13}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{6cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Simulador}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Exploración Previa}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Evaluación Final}}}\\
@@ -1854,7 +1860,7 @@ La Tabla \ref{tab:tabla-comparativa-criterios} presenta una síntesis comparativ
 \caption{\label{tab:tabla-comparativa-criterios}Comparativa según criterios de evaluación preestablecidos}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{4cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Criterio de Evaluación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Simple 8 bit}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{VonSim}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Emu8086}}}\\
@@ -1944,7 +1950,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 
 \begin{figure}
 
-\hfill{}\includegraphics[width=0.93\linewidth]{images/estructurasimulador} 
+\hfill{}\includegraphics[width=1\linewidth]{images/estructurasimulador} 
 
 \caption{Estructura general del simulador VonSim8}\label{fig:diagramasimulador}
 \end{figure}
@@ -1961,7 +1967,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/editor} 
+{\centering \includegraphics[width=0.4\linewidth]{images/editor} 
 
 }
 
@@ -1983,7 +1989,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \caption{\label{tab:activacionprogresiva}Activación progresiva del repertorio de instrucciones}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{11}{13}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{6cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Fase}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones activadas}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Objetivo didáctico}}}\\
@@ -2009,7 +2015,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.85\linewidth]{images/cicloinstruccion} 
+{\centering \includegraphics[width=0.95\linewidth]{images/cicloinstruccion} 
 
 }
 
@@ -2028,11 +2034,11 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/perifericos} 
+{\centering \includegraphics[width=0.9\linewidth]{images/perifericos} 
 
 }
 
-\caption{Módulo genérico de entrada/salida programada}\label{fig:perifericos}
+\caption{Módulo genérico de entrada/salida programada (PIO)}\label{fig:perifericos}
 \end{figure}
 
 \begin{enumerate}
@@ -2041,7 +2047,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 \tightlist
 \item
   \textbf{Métricas de rendimiento:}
-  La integración de indicadores clave, como el tiempo de ciclo, el tiempo de CPU y los ciclos por instrucción (CPI), generados automáticamente a partir de la ejecución de los programas, permite al estudiante analizar cuantitativamente la eficiencia del sistema. Además, la posibilidad de configurar la frecuencia del CPU en un rango de valores (1--10 Hz) facilita la comparación entre diferentes implementaciones y escenarios de ejecución. La disponibilidad de estas métricas contribuye a fortalecer la comprensión de aspectos fundamentales del rendimiento del procesador, promoviendo una formación integral que abarca tanto dimensiones funcionales como métricas del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}. La Figura \ref{fig:metricas} presenta el panel de métricas de rendimiento implementado en el simulador, donde se visualizan los principales indicadores y configuraciones disponibles para el análisis cuantitativo.
+  La integración de indicadores clave, como el tiempo de ciclo, el tiempo de CPU y los ciclos por instrucción (Cycles Per Instruction, CPI), generados automáticamente a partir de la ejecución de los programas, permite al estudiante analizar cuantitativamente la eficiencia del sistema. Además, la posibilidad de configurar la frecuencia del CPU en un rango de valores (1--10 Hz) facilita la comparación entre diferentes implementaciones y escenarios de ejecución. La disponibilidad de estas métricas contribuye a fortalecer la comprensión de aspectos fundamentales del rendimiento del procesador, promoviendo una formación integral que abarca tanto dimensiones funcionales como métricas del comportamiento del sistema \protect\hyperlink{ref-hennessy2017computer}{{[}19{]}}. La Figura \ref{fig:metricas} presenta el panel de métricas de rendimiento implementado en el simulador, donde se visualizan los principales indicadores y configuraciones disponibles para el análisis cuantitativo.
 \end{enumerate}
 
 \begin{figure}
@@ -2064,7 +2070,7 @@ Esta sección expone los requisitos que orientaron el diseño del simulador, cla
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.9\linewidth]{images/documentacion} 
+{\centering \includegraphics[width=1\linewidth]{images/documentacion} 
 
 }
 
@@ -2211,7 +2217,7 @@ La Tabla \ref{tab:estructuravonsim8} ofrece una descripción detallada de los co
 \caption{\label{tab:estructuravonsim8}Estructura VonSim8: componentes principales y características}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|p{12cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Componente}}} & \multicolumn{1}{>{\centering\arraybackslash}p{12cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Características}}}\\
@@ -2303,10 +2309,10 @@ La Tabla \ref{tab:flags} presenta una síntesis de las banderas de estado implem
 \caption{\label{tab:flags}Registro Flags: descripción de las banderas}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{2cm}>{\raggedright\arraybackslash}p{10cm}}
+\fontsize{12}{14}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{1.5cm}|>{\centering\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{10cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{1.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bit N°}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Abreviatura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{10cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{1.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Bit N°}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Abreviatura}}} & \multicolumn{1}{>{\centering\arraybackslash}p{10cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}}\\
 \midrule
 \textbf{0} & Z & Zero: 1 si el resultado = 0x00\\
 \textbf{1} & C & Carry: acarreo (suma) o préstamo (resta)\\
@@ -2372,11 +2378,11 @@ La Tabla \ref{tab:politicasflags} expone de manera sistemática la política de 
 \caption{\label{tab:politicasflags}Política de actualización de banderas por clase de instrucción}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{threeparttable}
-\begin{tabular}[t]{>{\raggedright\arraybackslash}p{5cm}|>{\centering\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.8cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{2.3cm}>{\centering\arraybackslash}p{2.3cm}>{\centering\arraybackslash}p{2.3cm}>{\centering\arraybackslash}p{2.3cm}>{\centering\arraybackslash}p{2.3cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Clase}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Z}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{S}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{C}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{O}}} & \multicolumn{1}{>{\centering\arraybackslash}p{1.8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{I}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Clase}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Z}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{S}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{C}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{O}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{I}}}\\
 \midrule
 \textbf{MOV} & -- & -- & -- & -- & Preserva\\
 \textbf{ADD} & Sí & Sí & Sí (acarreo) & Sí & Preserva\\
@@ -2410,7 +2416,7 @@ La Figura \ref{fig:memoria} muestra la estructura visual de la memoria principal
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/memoria} 
+{\centering \includegraphics[width=0.9\linewidth]{images/memoria} 
 
 }
 
@@ -2496,7 +2502,7 @@ La Figura \ref{fig:banderaI} muestra la representación gráfica del registro de
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/flagi} 
+{\centering \includegraphics[width=0.2\linewidth]{images/flagi} 
 
 }
 
@@ -2522,7 +2528,7 @@ La Figura \ref{fig:registros} muestra la disposición y estructura de los regist
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/registros} 
+{\centering \includegraphics[width=0.9\linewidth]{images/registros} 
 
 }
 
@@ -2546,7 +2552,7 @@ Por motivos pedagógicos, los registros \texttt{SP}, \texttt{ri} e \texttt{id} p
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/idrisp} 
+{\centering \includegraphics[width=0.25\linewidth]{images/idrisp} 
 
 }
 
@@ -2568,7 +2574,7 @@ El simulador incorpora un mecanismo visual que destaca, dentro de la memoria pri
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/resaltadoipsp} 
+{\centering \includegraphics[width=0.8\linewidth]{images/resaltadoipsp} 
 
 }
 
@@ -2579,7 +2585,7 @@ El simulador VonSim8 destaca visualmente, mediante el uso de color naranja, el e
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.5\linewidth]{images/resaltadoint} 
+{\centering \includegraphics[width=0.45\linewidth]{images/resaltadoint} 
 
 }
 
@@ -2607,7 +2613,7 @@ Con el fin de asegurar la compatibilidad con programas desarrollados para VonSim
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/org} 
+{\centering \includegraphics[width=0.8\linewidth]{images/org} 
 
 }
 
@@ -2656,7 +2662,7 @@ Por motivos de claridad y síntesis, la Tabla \ref{tab:comparativavonsim} resume
 \caption{\label{tab:comparativavonsim}Comparativa de características entre VonSim y VonSim8}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{13}{15}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{5cm}|>{\raggedright\arraybackslash}p{7cm}>{\raggedright\arraybackslash}p{8cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Característica}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{VonSim}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{VonSim8}}}\\
@@ -2709,7 +2715,7 @@ Con el objetivo de favorecer el aprendizaje de la programación en ensamblador y
 \caption{\label{tab:setreducido}Tabla de instrucciones de VonSim8}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{6cm}|>{\raggedright\arraybackslash}p{4cm}>{\raggedright\arraybackslash}p{6cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucciones}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{nemónico}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
@@ -2934,16 +2940,12 @@ Los modos de direccionamiento especifican cómo el procesador determina la ubica
 
 La Tabla \ref{tab:modosdireccionamiento} sintetiza los modos de direccionamiento implementados en el simulador para instrucciones que requieren dos operandos, acompañando cada modalidad con ejemplos representativos. Esta presentación facilita la comprensión de las distintas formas de acceso a datos y su aplicación práctica en el contexto de la arquitectura simulada.
 
-\begin{verbatim}
-## \FloatBarrier
-\end{verbatim}
-
 \begin{table}[!h]
 \centering
 \caption{\label{tab:modosdireccionamiento}Tabla de modos de direccionamiento}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{threeparttable}
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\raggedright\arraybackslash}p{5cm}p{8cm}}
 \toprule
@@ -3024,10 +3026,10 @@ La Tabla \ref{tab:tisaredu} sintetiza las principales instrucciones disponibles 
 \caption{\label{tab:tisaredu}Categoría de instrucciones y códigos de operación en VonSim8}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{3cm}>{\centering\arraybackslash}p{8cm}}
+\fontsize{15}{17}\selectfont
+\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{2cm}>{\raggedright\arraybackslash}p{9cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{9cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
 \midrule
 \textbf{Transferencia de datos} & MOV & {0, 1, 2} & 2 & Copiar entre registros, cargar de memoria a registro, almacenar en memoria\\
 \addlinespace[10pt]
@@ -3053,11 +3055,11 @@ Cada instrucción se codifica en un formato binario específico, que incluye un 
 \caption{\label{tab:instcodif}Tabla de codificación de instrucciones}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{threeparttable}
-\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{6cm}>{\raggedright\arraybackslash}p{6cm}}
+\begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{3.5cm}>{\centering\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{8cm}}
 \toprule
-\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CodOp}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Byte}}} & \multicolumn{1}{>{\centering\arraybackslash}p{6cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Codificación}}}\\
+\multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{CodOp}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Byte}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Codificación}}}\\
 \midrule
 \textbf{0} & \texttt{MOV Rx, Ry} & 1 & \texttt{0000 RxRy}\\
 \addlinespace[10pt]
@@ -3626,7 +3628,7 @@ La Tabla \ref{tab:componentesvonsim8} sintetiza los modelos y componentes fundam
 \caption{\label{tab:componentesvonsim8}Modelos y componentes principales del simulador VonSim8}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{16}{18}\selectfont
+\fontsize{17}{19}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{5cm}|>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{8cm}>{\raggedright\arraybackslash}p{3cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Modelo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Entradas / Salidas}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Retardo}}}\\
@@ -3679,7 +3681,7 @@ La Tabla \ref{tab:microcaptacionfetch} expone la secuencia de microoperaciones y
 \caption{\label{tab:microcaptacionfetch}Secuencia de microoperaciones y eventos DEVS fase captación}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{16}{18}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{1cm}|>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{7cm}>{\raggedright\arraybackslash}p{7cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{1cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Paso}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Microoperación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Funciones DEVS}}}\\
@@ -3791,7 +3793,7 @@ La Tabla \ref{tab:tisa} presenta las categorías de instrucciones diseñadas par
 \caption{\label{tab:tisa}Categoría de instrucciones y códigos de operación en VonSim8}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{4cm}>{\centering\arraybackslash}p{3cm}>{\raggedright\arraybackslash}p{8cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{8cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
@@ -4308,7 +4310,7 @@ En VonSim8, la memoria de entrada/salida se encuentra completamente separada de 
 \caption{\label{tab:tpuertos}Módulos, direcciones y nombres del simulador}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{3cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Módulo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Dirección}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nombre}}}\\
@@ -4559,7 +4561,7 @@ La Tabla \ref{tab:tPIC} sintetiza la relación entre las líneas de interrupció
 \caption{\label{tab:tPIC}Líneas de interrupción y dispositivos asociados}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{10}{12}\selectfont
+\fontsize{12}{14}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\raggedright\arraybackslash}p{7cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Línea}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Módulo/Disp.}}}\\

@@ -403,7 +403,7 @@ Figura 5.9: Registro Flags
 <p>El flag de interrupción I se visualiza únicamente cuando el programa lo requiere, como ocurre al ejecutar instrucciones específicas de interrupción, tales como <code>INT</code> o <code>IRET</code>. Esta funcionalidad permite que los estudiantes observen de manera directa la activación y desactivación del flag, comprendiendo su impacto en el flujo de ejecución y en la gestión de eventos asincrónicos dentro del simulador</p>
 <p>La Figura <a href="mejoras-vonsim8.html#fig:banderaI">5.10</a> muestra la representación gráfica del registro de estado I, evidenciando su comportamiento dinámico y su relevancia en el manejo de interrupciones.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:banderaI"></span>
-<img src="images/flagi.png" alt="Registro de estado I" width="100%" />
+<img src="images/flagi.png" alt="Registro de estado I" width="20%" />
 <p class="caption">
 Figura 5.10: Registro de estado I
 </p>
@@ -419,7 +419,7 @@ Figura 5.11: Controles del simulador
 <p>En el simulador, se optó por emplear únicamente la parte baja de cada registro, en lugar de utilizar registros de 16 bits completos. Esta decisión pedagógica simplifica tanto la representación como la manipulación de los datos, facilitando la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Asimismo, se ha unificado el criterio de diseño de los registros, dotándolos de una entrada y una salida independientes, lo que permite visualizar de manera más clara la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación resulta esencial para comprender el flujo de datos durante el ciclo de instrucción y la interacción entre los distintos componentes del procesador.</p>
 <p>La Figura <a href="mejoras-vonsim8.html#fig:registros">5.12</a> muestra la disposición y estructura de los registros de 8 bits implementados en el simulador, evidenciando su funcionalidad y su aporte a la didáctica del modelo.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:registros"></span>
-<img src="images/registros.png" alt="Registro de 8 bits" width="100%" />
+<img src="images/registros.png" alt="Registro de 8 bits" width="90%" />
 <p class="caption">
 Figura 5.12: Registro de 8 bits
 </p>
@@ -434,7 +434,7 @@ Figura 5.13: Eliminación registro temporales left, right y result
 </div>
 <p>Por motivos pedagógicos, los registros <code>SP</code>, <code>ri</code> e <code>id</code> permanecen ocultos en la interfaz del simulador y solo se habilitan de manera automática cuando una instrucción específica requiere su utilización. Esta estrategia contribuye a simplificar la visualización y a reducir la carga cognitiva durante las etapas iniciales del aprendizaje, permitiendo que el estudiante se enfoque en los componentes esenciales del ciclo de instrucción. La Figura <a href="mejoras-vonsim8.html#fig:idrisp">5.14</a> muestra la representación gráfica de estos registros, evidenciando su activación dinámica y su función de apoyo en la ejecución de instrucciones.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:idrisp"></span>
-<img src="images/idrisp.png" alt="Registro SP, id y ri" width="100%" />
+<img src="images/idrisp.png" alt="Registro SP, id y ri" width="25%" />
 <p class="caption">
 Figura 5.14: Registro SP, id y ri
 </p>
@@ -448,14 +448,14 @@ Figura 5.15: Memoria principal
 </div>
 <p>El simulador incorpora un mecanismo visual que destaca, dentro de la memoria principal, las posiciones apuntadas por los registros <code>IP</code> y <code>SP</code>. Esta funcionalidad permite al estudiante identificar de manera inmediata tanto la dirección de la próxima instrucción a ejecutar como la ubicación actual de la cima de la pila, facilitando el seguimiento del flujo de ejecución y la gestión de la memoria durante el ciclo de instrucción. La Figura <a href="mejoras-vonsim8.html#fig:resaltadoipsp">5.16</a> muestra el resaltado simultáneo de estas direcciones, evidenciando su importancia para la comprensión de la dinámica interna del procesador.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadoipsp"></span>
-<img src="images/resaltadoipsp.png" alt="Resaltado registro IP y registro SP" width="100%" />
+<img src="images/resaltadoipsp.png" alt="Resaltado registro IP y registro SP" width="80%" />
 <p class="caption">
 Figura 5.16: Resaltado registro IP y registro SP
 </p>
 </div>
 <p>El simulador VonSim8 destaca visualmente, mediante el uso de color naranja, el espacio reservado en la memoria principal para el vector de interrupciones, que abarca las ocho posiciones comprendidas entre las direcciones <code>0x00h</code> a <code>0x07h</code>. Esta representación facilita la identificación del área destinada al manejo de interrupciones, permitiendo al estudiante comprender su ubicación y relevancia dentro de la arquitectura. La Figura <a href="mejoras-vonsim8.html#fig:resaltadoint">5.17</a> muestra el resaltado específico de este segmento, evidenciando su función en la gestión de eventos externos y en la organización interna del sistema.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:resaltadoint"></span>
-<img src="images/resaltadoint.png" alt="Resaltado vector de interrupciones" width="50%" />
+<img src="images/resaltadoint.png" alt="Resaltado vector de interrupciones" width="45%" />
 <p class="caption">
 Figura 5.17: Resaltado vector de interrupciones
 </p>
@@ -472,7 +472,7 @@ Figura 5.18: Visor de instrucciones y datos del programa en memoria
 <p>En VonSim8, el uso de la directiva <code>ORG</code> para definir la dirección inicial es opcional. Por defecto, si el programa no incluye esta directiva, la primera instrucción se carga en la dirección <code>0x00h</code>. En caso de contener instrucciones de interrupción (INT), el simulador asigna automáticamente la dirección <code>0x08h</code> como punto de inicio, reservando espacio para el vector de interrupciones.</p>
 <p>Con el fin de asegurar la compatibilidad con programas desarrollados para VonSim, el simulador VonSim8 permite cargar programas utilizando la directiva ORG, aunque adapta la dirección inicial de ejecución. En lugar de emplear la dirección<code>0x2000h</code>, característica de VonSim, se utiliza la dirección <code>0x20h</code> en VonSim8, lo que facilita la ejecución de programas en el entorno simplificado. Esta flexibilidad permite a los usuarios definir direcciones personalizadas y mantener la interoperabilidad entre ambos simuladores. La Figura <a href="mejoras-vonsim8.html#fig:org">5.19</a> muestra ejemplos de programas con la directiva ORG y END, evidenciando la compatibilidad y la adaptación de las direcciones de inicio en cada caso.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:org"></span>
-<img src="images/org.png" alt="Compatibilidad directiva ORG y END" width="100%" />
+<img src="images/org.png" alt="Compatibilidad directiva ORG y END" width="80%" />
 <p class="caption">
 Figura 5.19: Compatibilidad directiva ORG y END
 </p>
