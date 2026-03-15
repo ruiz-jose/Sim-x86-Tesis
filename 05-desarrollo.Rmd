@@ -873,7 +873,7 @@ if (knitr::is_latex_output()) {
 
 Con base en las entrevistas realizadas a los docentes y el análisis de los contenidos del curso, a continuación se presenta el uso pedagógico esperado para cada categoría de instrucciones.
 
-- **Transferencia y procesamiento de datos**: instrucciones que permiten mover datos entre registros y memoria, así como realizar operaciones aritméticas. Estas instrucciones son fundamentales para comprender el flujo de datos en una arquitectura computacional, mostrando cómo se ejecutan operaciones aritméticas de manera análoga a las implementadas en lenguajes de alto nivel como Python:
+- **Transferencia y procesamiento de datos**: este grupo de instrucciones permite mover datos entre registros y memoria, así como realizar operaciones aritméticas. Resultan fundamentales para comprender el flujo de información en una arquitectura computacional. Por ejemplo, la siguiente operación aritmética en Python:
 
 ```python
 x=2
@@ -882,7 +882,7 @@ z=0
 z = x + y
 ```
 
-La traducción equivalente en lenguaje ensamblador es:
+Puede expresarse de forma equivalente en lenguaje ensamblador, tal como se muestra a continuación:
 
 ```{r  codearit, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -910,7 +910,7 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-- **Control de flujo**: Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa. Por ejemplo, lo que posibilita la implementación de estructuras condicionales análogas a las de lenguajes de alto nivel, como Python:
+- **Control de flujo**: este tipo de instrucciones permite modificar el orden de ejecución del programa mediante saltos condicionales e incondicionales, así como detener la ejecución del procesador. Son fundamentales para comprender cómo se toman decisiones y se gestiona el flujo de ejecución en un programa. Por ejemplo, la siguiente estructura condicional igual en lenguaje Python:
 
 ```python
 x=2
@@ -920,7 +920,7 @@ if x == y:
   z = y  + x
 ```
 
-La traducción equivalente en lenguaje ensamblador es:
+Puede representarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:
 
 ```{r  codeifZ, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -953,6 +953,8 @@ Fin:      hlt ```")
 }
 ```
 
+Otro ejemplo de estructura condicional en Python, utilizando la comparación de menor que:
+
 ```python
 x=2
 y=3
@@ -961,7 +963,7 @@ if x < y:
   z = y  + x
 ```
 
-La traducción equivalente en lenguaje ensamblador es:
+Puede representarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:
 
 ```{r  codeifC, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -1005,7 +1007,7 @@ while x < 10:
     x = x + 1
 ```
 
-La traducción equivalente en lenguaje ensamblador es:
+Puede representarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:
 
 ```{r  codewhile, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -1039,7 +1041,7 @@ FinBucle: 	hlt ```")
 }
 ```
 
-Tratamiento de vectores: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:
+Tratamiento de vectores: el simulador permite operar con vectores y matrices, lo que resulta fundamental para comprender el manejo de estructuras de datos complejas en una arquitectura computacional. Por ejemplo, el siguiente fragmento en Python ilustra cómo encontrar el valor máximo en un vector:
 
 ```python
 # Búsqueda del máximo en un vector
@@ -1051,7 +1053,7 @@ for i in range(len(vector)):
         maximo = vector[i]
 ```
 
-La traducción equivalente en lenguaje ensamblador es:
+Esta lógica puede implementarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:
 
 ```{r codevector, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
@@ -1339,7 +1341,7 @@ tabla_kable <- kable(tisaredu,
                col.names = c("Categoría", "Instrucción","Código operación", "Operandos", "Acción"),
                booktabs = TRUE,
                escape = FALSE,
-               align = c("c", "c", "c", "c", "l"))
+               align = c("l", "c", "c", "c", "l"))
 
 if (knitr::is_latex_output()) {
   tabla_kable %>%
@@ -1484,7 +1486,7 @@ if (knitr::is_latex_output()) {
   kable(tablaregistros, format = "latex", booktabs = TRUE, align = "c",
         col.names = c("Registros R", "Binario", "Decimal"),
         caption = "Tabla de registros del simulador") %>%
-    kable_styling(latex_options = c("hold_position", "scale_down"), position = "center") %>%
+    kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 11, position = "center") %>%
     column_spec(1, width = "2.5cm") %>%
     column_spec(2, width = "2.5cm") %>%
     column_spec(3, width = "2.5cm") %>%
@@ -1900,7 +1902,7 @@ tabla_microop <- kable(
 
 if (knitr::is_latex_output()) {
   tabla_microop %>%
-    kable_styling(latex_options = c("scale_down", "hold_position"), font_size = 16) %>%
+    kable_styling(latex_options = c("scale_down", "hold_position"), font_size = 14) %>%
     column_spec(1, width = "1cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "7cm") %>%
     column_spec(3, width = "5cm") %>%
@@ -2332,7 +2334,7 @@ if (knitr::is_latex_output()) {
   tabla_puertos %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 12,
+      font_size = 11,
       position = "center"
     ) %>%
     column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
@@ -2645,7 +2647,7 @@ if (knitr::is_latex_output()) {
   tabla_kable %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 12
+      font_size = 11
     ) %>%
     column_spec(1, width = "2cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "7cm") %>%
