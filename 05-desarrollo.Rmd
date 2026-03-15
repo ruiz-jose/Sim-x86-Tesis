@@ -143,16 +143,16 @@ tabla_requisitos <- kable(requisitosresumen,
                col.names = c("Requisito", "Fundamento pedagógico / técnico"),
                booktabs = TRUE,
                escape = FALSE,
-               align = c("c", "c"))
+               align = c("l", "l"))
 
 if (knitr::is_latex_output()) {
       tabla_requisitos %>%
         kable_styling(
-          latex_options = c("scale_down", "hold_position"),
-          font_size = 10
+          latex_options = c("scale_down", "H"),
+          font_size = 13
         ) %>%
         column_spec(1, width = "5cm", bold = TRUE, border_right = TRUE) %>%
-        column_spec(2, width = "8cm") %>%
+        column_spec(2, width = "12cm") %>%
         row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
         row_spec(seq_len(nrow(requisitosresumen)),
                  extra_latex_after = "\\addlinespace[10pt]")
@@ -388,7 +388,8 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "1.5cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2, width = "2.5cm") %>%
     column_spec(3, width = "10cm") %>%
-    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3")
+    row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(tflags)), extra_latex_after = "\\addlinespace[10pt]")
 } else {
   tabla_kable %>%
     kable_styling(
@@ -476,6 +477,7 @@ if (knitr::is_latex_output()) {
     column_spec(1, width = "3cm",  bold = TRUE, border_right = TRUE) %>%
     column_spec(2:6, width = "2.3cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
+    row_spec(seq_len(nrow(pol)), extra_latex_after = "\\addlinespace[1pt]") %>%
     footnote(
       general = "El símbolo -- indica que la instrucción no modifica la bandera.",
       general_title = "Nota: ",
@@ -507,7 +509,7 @@ La memoria principal del simulador se representa mediante una matriz de 16×16 e
 
 La Figura \@ref(fig:memoria) muestra la estructura visual de la memoria principal, destacando su disposición matricial y la accesibilidad de cada celda para el análisis y la manipulación de datos durante la simulación.
 
-```{r memoria, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "90%"}
+```{r memoria, echo=FALSE, fig.cap="Memoria principal", fig.align = 'center', out.width = "85%"}
 knitr::include_graphics(path = "images/memoria.png")
 ```
 
@@ -714,11 +716,11 @@ if (knitr::is_latex_output()) {
   tabla_comparativa %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 13
+      font_size = 16
     ) %>%
-    column_spec(1, width = "5cm", bold = TRUE, border_right = TRUE) %>%
-    column_spec(2, width = "7cm") %>%
-    column_spec(3, width = "8cm") %>%
+    column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
+    column_spec(2, width = "9cm") %>%
+    column_spec(3, width = "9cm") %>%
     row_spec(0, bold = TRUE, align = "c", background = "#D3D3D3") %>%
     row_spec(seq_len(nrow(comparativa_vonsim)), extra_latex_after = "\\addlinespace[10pt]")
 } else {
@@ -1205,7 +1207,7 @@ A continuación se muestra un ejemplo representativo de cómo se implementan los
 ```{r codemoddir, results='asis', echo=FALSE}
 if (knitr::is_latex_output()) {
   cat("
-  \\begin{lstlisting}[float]
+  \\begin{lstlisting}
 x db 2 
 y db 3
 
@@ -2187,7 +2189,7 @@ if (knitr::is_latex_output()) {
 ###  Interrupciones 
 El simulador VonSim8 integra un teclado y una pantalla como periféricos básicos de entrada y salida, cuya interacción se realiza a través de rutinas de sistema invocadas mediante interrupciones. Esta implementación permite al estudiante experimentar con la gestión de datos y la comunicación entre el procesador y los dispositivos externos, facilitando la comprensión de los mecanismos fundamentales de E/S en una arquitectura computacional. La Figura \@ref(fig:tecladopantalla) muestra la representación visual de estos periféricos, evidenciando su funcionalidad y su integración en el entorno de simulación.
 
-```{r tecladopantalla, echo=FALSE, fig.cap="Teclado y pantalla", fig.align = 'center', out.width = "100%"}
+```{r tecladopantalla, echo=FALSE, fig.cap="Teclado y pantalla", fig.align = 'center', out.width = "60%"}
 knitr::include_graphics(path = "images/tecladopantalla.png")
 ```
 
@@ -2636,7 +2638,7 @@ tabla_kable <- kable(
   col.names = c("Línea", "Módulo/Disp."),
   booktabs = TRUE,
   escape = FALSE,
-  align = c("c", "l")
+  align = c("c", "c")
 )
 
 if (knitr::is_latex_output()) {

@@ -81,7 +81,7 @@ if (knitr::is_latex_output()) {
   tabla_kable %>%
     kable_styling(
       latex_options = c("scale_down", "hold_position"),
-      font_size = 13
+      font_size = 12
     ) %>%
     column_spec(1, width = "4cm", bold = TRUE, border_right = TRUE) %>%
     column_spec(2:3, width = "5.5cm") %>%
@@ -365,7 +365,7 @@ tabla <- kable(isa_comparativa,
                col.names = c("Arquitectura", "Longitud instrucción", "Nº operandos", "Tipos de operandos", "Modos de direccionamiento"),
                booktabs = TRUE,
                escape = FALSE,
-               align = c("c", "c", "c", "c", "c"))
+               align = c("l", "c", "c", "c", "c"))
 
 if (knitr::is_latex_output()) {
   tabla %>%
@@ -600,7 +600,7 @@ A pesar de sus diferencias, las arquitecturas modernas tienden a integrar caract
 
 La Figura \@ref(fig:convergen) ilustra de manera conceptual la convergencia entre las filosofías CISC y RISC en el diseño de procesadores modernos. Este esquema destaca cómo la integración de ambos enfoques permite alcanzar un rendimiento optimizado, combinando la flexibilidad y expresividad de CISC con la eficiencia y simplicidad de RISC. La representación gráfica facilita la comprensión de las tendencias actuales en arquitectura, donde la complementariedad de ambos paradigmas resulta clave para satisfacer las demandas de desempeño y eficiencia energética.
 
-```{r convergen, echo=FALSE, fig.cap="Convergencia de filosofías", fig.align = 'center', out.width = "100%"}
+```{r convergen, echo=FALSE, fig.cap="Convergencia de filosofías", fig.align = 'center', out.width = "70%"}
 knitr::include_graphics(path = "images/convergen.png")
 ```
 
@@ -639,7 +639,7 @@ tabla <- kable(hitosx86,
                col.names = c("Procesador", "Año de Lanzamiento", "Número de Bits", "Extensiones de 64 bits"), # nolint
                booktabs = TRUE,
                escape = FALSE,
-               align = c("c", "c", "c", "l"))
+               align = c("l", "c", "c", "l"))
 
 if (knitr::is_latex_output()) {
   tabla %>%
@@ -859,7 +859,7 @@ tabla <- kable(ensambladores,
 if (knitr::is_latex_output()) {
   tabla %>%
     kable_styling(
-      latex_options = c("scale_down", "hold_position"),
+      latex_options = c("scale_down", "H"),
       font_size = 12
     ) %>%
     column_spec(1, width = "3cm", bold = TRUE, border_right = TRUE) %>%
