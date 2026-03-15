@@ -2794,7 +2794,7 @@ Con base en las entrevistas realizadas a los docentes y el análisis de los cont
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Transferencia y procesamiento de datos}: instrucciones que permiten mover datos entre registros y memoria, así como realizar operaciones aritméticas. Estas instrucciones son fundamentales para comprender el flujo de datos en una arquitectura computacional, mostrando cómo se ejecutan operaciones aritméticas de manera análoga a las implementadas en lenguajes de alto nivel como Python:
+  \textbf{Transferencia y procesamiento de datos}: este grupo de instrucciones permite mover datos entre registros y memoria, así como realizar operaciones aritméticas. Resultan fundamentales para comprender el flujo de información en una arquitectura computacional. Por ejemplo, la siguiente operación aritmética en Python:
 \end{itemize}
 
 \begin{Shaded}
@@ -2806,7 +2806,7 @@ Con base en las entrevistas realizadas a los docentes y el análisis de los cont
 \end{Highlighting}
 \end{Shaded}
 
-La traducción equivalente en lenguaje ensamblador es:
+Puede expresarse de forma equivalente en lenguaje ensamblador, tal como se muestra a continuación:
 
 \begin{lstlisting}
   x db 2
@@ -2820,7 +2820,7 @@ La traducción equivalente en lenguaje ensamblador es:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Control de flujo}: Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa. Por ejemplo, lo que posibilita la implementación de estructuras condicionales análogas a las de lenguajes de alto nivel, como Python:
+  \textbf{Control de flujo}: este tipo de instrucciones permite modificar el orden de ejecución del programa mediante saltos condicionales e incondicionales, así como detener la ejecución del procesador. Son fundamentales para comprender cómo se toman decisiones y se gestiona el flujo de ejecución en un programa. Por ejemplo, la siguiente estructura condicional igual en lenguaje Python:
 \end{itemize}
 
 \begin{Shaded}
@@ -2833,7 +2833,7 @@ La traducción equivalente en lenguaje ensamblador es:
 \end{Highlighting}
 \end{Shaded}
 
-La traducción equivalente en lenguaje ensamblador es:
+Puede representarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:
 
 \begin{lstlisting}
 x db 2 
@@ -2847,6 +2847,8 @@ EsIgual:  add AL, y
           mov z, AL 
 Fin:      hlt\end{lstlisting}
 
+Otro ejemplo de estructura condicional en Python, utilizando la comparación de menor que:
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{x}\OperatorTok{=}\DecValTok{2}
@@ -2857,7 +2859,7 @@ Fin:      hlt\end{lstlisting}
 \end{Highlighting}
 \end{Shaded}
 
-La traducción equivalente en lenguaje ensamblador es:
+Puede representarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:
 
 \begin{lstlisting}
 x db 2 
@@ -2884,7 +2886,7 @@ Por ejemplo, la estructura iterativa \texttt{while} en Python:
 \end{Highlighting}
 \end{Shaded}
 
-La traducción equivalente en lenguaje ensamblador es:
+Puede representarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:
 
 \begin{lstlisting}
 x     db 1   
@@ -2899,7 +2901,7 @@ Bucle:      mov BL, x
 FinBucle:   hlt
 \end{lstlisting}
 
-Tratamiento de vectores: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:
+Tratamiento de vectores: el simulador permite operar con vectores y matrices, lo que resulta fundamental para comprender el manejo de estructuras de datos complejas en una arquitectura computacional. Por ejemplo, el siguiente fragmento en Python ilustra cómo encontrar el valor máximo en un vector:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2913,7 +2915,7 @@ Tratamiento de vectores: El simulador permite trabajar con vectores y matrices, 
 \end{Highlighting}
 \end{Shaded}
 
-La traducción equivalente en lenguaje ensamblador es:
+Esta lógica puede implementarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:
 
 \begin{lstlisting}[breaklines=true]
 
@@ -3044,7 +3046,7 @@ La Tabla \ref{tab:tisaredu} sintetiza las principales instrucciones disponibles 
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{16}{18}\selectfont
-\begin{tabular}[t]{>{\centering\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{10cm}}
+\begin{tabular}[t]{>{\raggedright\arraybackslash}p{4cm}|>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{3cm}>{\centering\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{10cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{4cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Categoría}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Instrucción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Código operación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2.5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Operandos}}} & \multicolumn{1}{>{\centering\arraybackslash}p{10cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Acción}}}\\
 \midrule
@@ -3143,6 +3145,7 @@ La Tabla \ref{tab:tablaregistros} muestra los códigos binarios y decimales asig
 \caption{\label{tab:tablaregistros}Tabla de registros del simulador}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\fontsize{11}{13}\selectfont
 \begin{threeparttable}
 \begin{tabular}[t]{>{\centering\arraybackslash}p{2.5cm}>{\centering\arraybackslash}p{2.5cm}>{\centering\arraybackslash}p{2.5cm}}
 \toprule
@@ -3730,7 +3733,7 @@ La Tabla \ref{tab:microoperacioneseje} detalla la secuencia de microoperaciones 
 \caption{\label{tab:microoperacioneseje}Secuencia de microoperaciones y eventos DEVS fase ejecución}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{16}{18}\selectfont
+\fontsize{14}{16}\selectfont
 \begin{tabular}[t]{>{\raggedright\arraybackslash}p{1cm}|>{\raggedright\arraybackslash}p{7cm}>{\raggedright\arraybackslash}p{5cm}>{\raggedright\arraybackslash}p{5cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{1cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Paso}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Microoperación}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Descripción}}} & \multicolumn{1}{>{\centering\arraybackslash}p{5cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Funciones DEVS}}}\\
@@ -4327,7 +4330,7 @@ En VonSim8, la memoria de entrada/salida se encuentra completamente separada de 
 \caption{\label{tab:tpuertos}Módulos, direcciones y nombres del simulador}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{12}{14}\selectfont
+\fontsize{11}{13}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{3cm}|>{\centering\arraybackslash}p{2cm}>{\centering\arraybackslash}p{3cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Módulo}}} & \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Dirección}}} & \multicolumn{1}{>{\centering\arraybackslash}p{3cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Nombre}}}\\
@@ -4578,7 +4581,7 @@ La Tabla \ref{tab:tPIC} sintetiza la relación entre las líneas de interrupció
 \caption{\label{tab:tPIC}Líneas de interrupción y dispositivos asociados}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{12}{14}\selectfont
+\fontsize{11}{13}\selectfont
 \begin{tabular}[t]{>{\centering\arraybackslash}p{2cm}|>{\centering\arraybackslash}p{7cm}}
 \toprule
 \multicolumn{1}{>{\centering\arraybackslash}p{2cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Línea}}} & \multicolumn{1}{>{\centering\arraybackslash}p{7cm}}{\cellcolor[HTML]{D3D3D3}{\textbf{Módulo/Disp.}}}\\

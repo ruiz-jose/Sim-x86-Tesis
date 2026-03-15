@@ -554,13 +554,13 @@ Salta a <em>Dirección</em> si O = 0
 </table>
 <p>Con base en las entrevistas realizadas a los docentes y el análisis de los contenidos del curso, a continuación se presenta el uso pedagógico esperado para cada categoría de instrucciones.</p>
 <ul>
-<li><strong>Transferencia y procesamiento de datos</strong>: instrucciones que permiten mover datos entre registros y memoria, así como realizar operaciones aritméticas. Estas instrucciones son fundamentales para comprender el flujo de datos en una arquitectura computacional, mostrando cómo se ejecutan operaciones aritméticas de manera análoga a las implementadas en lenguajes de alto nivel como Python:</li>
+<li><strong>Transferencia y procesamiento de datos</strong>: este grupo de instrucciones permite mover datos entre registros y memoria, así como realizar operaciones aritméticas. Resultan fundamentales para comprender el flujo de información en una arquitectura computacional. Por ejemplo, la siguiente operación aritmética en Python:</li>
 </ul>
 <div class="sourceCode" id="cb5"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="repertorio-de-instrucciones-1.html#cb5-1" tabindex="-1"></a>x<span class="op">=</span><span class="dv">2</span></span>
 <span id="cb5-2"><a href="repertorio-de-instrucciones-1.html#cb5-2" tabindex="-1"></a>y<span class="op">=</span><span class="dv">3</span></span>
 <span id="cb5-3"><a href="repertorio-de-instrucciones-1.html#cb5-3" tabindex="-1"></a>z<span class="op">=</span><span class="dv">0</span></span>
 <span id="cb5-4"><a href="repertorio-de-instrucciones-1.html#cb5-4" tabindex="-1"></a>z <span class="op">=</span> x <span class="op">+</span> y</span></code></pre></div>
-<p>La traducción equivalente en lenguaje ensamblador es:</p>
+<p>Puede expresarse de forma equivalente en lenguaje ensamblador, tal como se muestra a continuación:</p>
 <pre><code>```assembly
 x db 2
 y db 3
@@ -571,14 +571,14 @@ mov z, AL   ;Se guarda el valor del registro AL (5) en z
 hlt
 ```</code></pre>
 <ul>
-<li><strong>Control de flujo</strong>: Instrucciones que permiten alterar el flujo de ejecución del programa mediante saltos condicionales e incondicionales, así como la detención del procesador. Estas instrucciones son esenciales para comprender cómo se controlan las decisiones y el flujo de ejecución en un programa. Por ejemplo, lo que posibilita la implementación de estructuras condicionales análogas a las de lenguajes de alto nivel, como Python:</li>
+<li><strong>Control de flujo</strong>: este tipo de instrucciones permite modificar el orden de ejecución del programa mediante saltos condicionales e incondicionales, así como detener la ejecución del procesador. Son fundamentales para comprender cómo se toman decisiones y se gestiona el flujo de ejecución en un programa. Por ejemplo, la siguiente estructura condicional igual en lenguaje Python:</li>
 </ul>
 <div class="sourceCode" id="cb7"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb7-1"><a href="repertorio-de-instrucciones-1.html#cb7-1" tabindex="-1"></a>x<span class="op">=</span><span class="dv">2</span></span>
 <span id="cb7-2"><a href="repertorio-de-instrucciones-1.html#cb7-2" tabindex="-1"></a>y<span class="op">=</span><span class="dv">3</span></span>
 <span id="cb7-3"><a href="repertorio-de-instrucciones-1.html#cb7-3" tabindex="-1"></a>z<span class="op">=</span><span class="dv">0</span></span>
 <span id="cb7-4"><a href="repertorio-de-instrucciones-1.html#cb7-4" tabindex="-1"></a><span class="cf">if</span> x <span class="op">==</span> y:</span>
 <span id="cb7-5"><a href="repertorio-de-instrucciones-1.html#cb7-5" tabindex="-1"></a>  z <span class="op">=</span> y  <span class="op">+</span> x</span></code></pre></div>
-<p>La traducción equivalente en lenguaje ensamblador es:</p>
+<p>Puede representarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:</p>
 <pre><code>```assembly</code></pre>
 <p>x db 2
 y db 3
@@ -590,12 +590,13 @@ jmp Fin
 EsIgual: add AL, y
 mov z, AL
 Fin: hlt ```</p>
+<p>Otro ejemplo de estructura condicional en Python, utilizando la comparación de menor que:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb9-1"><a href="repertorio-de-instrucciones-1.html#cb9-1" tabindex="-1"></a>x<span class="op">=</span><span class="dv">2</span></span>
 <span id="cb9-2"><a href="repertorio-de-instrucciones-1.html#cb9-2" tabindex="-1"></a>y<span class="op">=</span><span class="dv">3</span></span>
 <span id="cb9-3"><a href="repertorio-de-instrucciones-1.html#cb9-3" tabindex="-1"></a>z<span class="op">=</span><span class="dv">0</span></span>
 <span id="cb9-4"><a href="repertorio-de-instrucciones-1.html#cb9-4" tabindex="-1"></a><span class="cf">if</span> x <span class="op">&lt;</span> y:</span>
 <span id="cb9-5"><a href="repertorio-de-instrucciones-1.html#cb9-5" tabindex="-1"></a>  z <span class="op">=</span> y  <span class="op">+</span> x</span></code></pre></div>
-<p>La traducción equivalente en lenguaje ensamblador es:</p>
+<p>Puede representarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:</p>
 <pre><code>```assembly</code></pre>
 <p>x db 2
 y db 3
@@ -614,7 +615,7 @@ Fin: hlt ```</p>
 <span id="cb11-4"><a href="repertorio-de-instrucciones-1.html#cb11-4" tabindex="-1"></a><span class="cf">while</span> x <span class="op">&lt;</span> <span class="dv">10</span>:</span>
 <span id="cb11-5"><a href="repertorio-de-instrucciones-1.html#cb11-5" tabindex="-1"></a>    suma <span class="op">=</span> suma <span class="op">+</span> x</span>
 <span id="cb11-6"><a href="repertorio-de-instrucciones-1.html#cb11-6" tabindex="-1"></a>    x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
-<p>La traducción equivalente en lenguaje ensamblador es:</p>
+<p>Puede representarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:</p>
 <pre><code>```assembly</code></pre>
 <p>x db 1<br />
 suma db 0<br />
@@ -626,7 +627,7 @@ add suma, BL
 add x, 1
 jmp Condicion ; salta a Condicion:
 FinBucle: hlt ```</p>
-<p>Tratamiento de vectores: El simulador permite trabajar con vectores y matrices, lo que facilita la comprensión de cómo se manejan estructuras de datos más complejas en una arquitectura computacional. Por ejemplo, el siguiente código en Python busca el máximo de un vector:</p>
+<p>Tratamiento de vectores: el simulador permite operar con vectores y matrices, lo que resulta fundamental para comprender el manejo de estructuras de datos complejas en una arquitectura computacional. Por ejemplo, el siguiente fragmento en Python ilustra cómo encontrar el valor máximo en un vector:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="repertorio-de-instrucciones-1.html#cb13-1" tabindex="-1"></a><span class="co"># Búsqueda del máximo en un vector</span></span>
 <span id="cb13-2"><a href="repertorio-de-instrucciones-1.html#cb13-2" tabindex="-1"></a>vector <span class="op">=</span> [<span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">4</span>, <span class="dv">8</span>, <span class="dv">1</span>, <span class="dv">9</span>]</span>
 <span id="cb13-3"><a href="repertorio-de-instrucciones-1.html#cb13-3" tabindex="-1"></a>maximo <span class="op">=</span> <span class="dv">0</span></span>
@@ -634,7 +635,7 @@ FinBucle: hlt ```</p>
 <span id="cb13-5"><a href="repertorio-de-instrucciones-1.html#cb13-5" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(vector)):</span>
 <span id="cb13-6"><a href="repertorio-de-instrucciones-1.html#cb13-6" tabindex="-1"></a>    <span class="cf">if</span> vector[i] <span class="op">&gt;</span> maximo:</span>
 <span id="cb13-7"><a href="repertorio-de-instrucciones-1.html#cb13-7" tabindex="-1"></a>        maximo <span class="op">=</span> vector[i]</span></code></pre></div>
-<p>La traducción equivalente en lenguaje ensamblador es:</p>
+<p>Esta lógica puede implementarse de manera equivalente en lenguaje ensamblador, como se muestra a continuación:</p>
 <pre><code>```assembly</code></pre>
 <p>max db 0
 vector db 5, 2, 10, 4, 5, 0, 4, 8, 1, 9
@@ -822,7 +823,7 @@ hlt</code></pre>
 </caption>
 <thead>
 <tr>
-<th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
+<th style="text-align:left;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
 Categoría
 </th>
 <th style="text-align:center;font-weight: bold;color: white !important;background-color: rgba(0, 115, 194, 255) !important;">
@@ -841,7 +842,7 @@ Acción
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:left;width: 12em; font-weight: bold;border-right:1px solid;">
 Transferencia de datos
 </td>
 <td style="text-align:center;width: 16em; ">
@@ -858,7 +859,7 @@ Copiar entre registros, cargar de memoria a registro, almacenar en memoria
 </td>
 </tr>
 <tr>
-<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:left;width: 12em; font-weight: bold;border-right:1px solid;">
 Procesamiento de datos
 </td>
 <td style="text-align:center;width: 16em; ">
@@ -875,7 +876,7 @@ Operación aritmética: operando1 ← operando1 + operando2
 </td>
 </tr>
 <tr>
-<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:left;width: 12em; font-weight: bold;border-right:1px solid;">
 </td>
 <td style="text-align:center;width: 16em; ">
 SUB
@@ -891,7 +892,7 @@ Operación aritmética: operando1 ← operando1 - operando2
 </td>
 </tr>
 <tr>
-<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:left;width: 12em; font-weight: bold;border-right:1px solid;">
 </td>
 <td style="text-align:center;width: 16em; ">
 CMP
@@ -907,7 +908,7 @@ Comparación: operando1 - operando2 (no actualiza el destino)
 </td>
 </tr>
 <tr>
-<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:left;width: 12em; font-weight: bold;border-right:1px solid;">
 Control de flujo
 </td>
 <td style="text-align:center;width: 16em; ">
@@ -924,7 +925,7 @@ Salto incondicional JMP, condicionales Jxx
 </td>
 </tr>
 <tr>
-<td style="text-align:center;width: 12em; font-weight: bold;border-right:1px solid;">
+<td style="text-align:left;width: 12em; font-weight: bold;border-right:1px solid;">
 </td>
 <td style="text-align:center;width: 16em; ">
 HLT
