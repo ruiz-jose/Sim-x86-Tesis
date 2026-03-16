@@ -957,11 +957,12 @@ STATE
 </div>
 <div id="instrucciones-in-y-out" class="section level3 hasAnchor" number="5.9.7">
 <h3><span class="header-section-number">5.9.7</span> Instrucciones IN y OUT<a href="módulo-de-entradasalida-e-interrupciones.html#instrucciones-in-y-out" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>La comunicación con los módulos de entrada/salida se realiza a través de puertos, que son direcciones específicas dentro del espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones fundamentales para gestionar esta comunicación:</p>
+<p>La comunicación con los módulos de entrada/salida se realiza mediante puertos, que son direcciones específicas del procesador. En el simulador, esta interacción se gestiona con dos instrucciones principales:</p>
 <ul>
-<li><code>OUT puerto, AL</code>: envía el contenido del registro <code>AL</code> al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de <code>00h</code> a <code>FFh</code>). Esta instrucción se utiliza para transmitir datos a dispositivos externos, como impresoras o pantallas.</li>
-<li><code>IN AL, puerto</code>: recibe un byte desde el puerto especificado y lo almacena en el registro <code>AL</code>. Al igual que la instrucción <code>OUT</code>, el puerto es una dirección de 8 bits.</li>
+<li><code>OUT puerto, AL</code>: envía el contenido de <code>AL</code> al puerto indicado (dirección de 8 bits, de <code>00h</code> a <code>FFh</code>), permitiendo transmitir datos a dispositivos externos.</li>
+<li><code>IN AL, puerto</code>: recibe un byte desde el puerto especificado y lo almacena en <code>AL</code>.</li>
 </ul>
+<p>Estas instrucciones permiten al procesador interactuar con una amplia variedad de dispositivos periféricos, facilitando la entrada y salida de datos en el sistema. La correcta utilización de estas instrucciones es esencial para el funcionamiento eficiente del simulador y para la implementación de programas que requieran comunicación con el entorno externo.</p>
 </div>
 <div id="módulo-pio-leds-e-interruptores" class="section level3 hasAnchor" number="5.9.8">
 <h3><span class="header-section-number">5.9.8</span> Módulo PIO (Leds e Interruptores)<a href="módulo-de-entradasalida-e-interrupciones.html#módulo-pio-leds-e-interruptores" class="anchor-section" aria-label="Anchor link to header"></a></h3>

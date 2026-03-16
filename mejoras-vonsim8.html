@@ -395,7 +395,7 @@ div.csl-indent {
 <p>En el registro Flags del simulador VonSim8, las banderas O (overflow) y S (signo) se mantienen ocultas durante los primeros ejercicios de ensamblador, dado que inicialmente solo se emplean números enteros positivos. Esta decisión pedagógica simplifica la interfaz y reduce la carga cognitiva en las etapas iniciales del aprendizaje. Sin embargo, dichas banderas pueden habilitarse posteriormente desde el menú de configuración del simulador, a medida que se abordan ejercicios de mayor complejidad que requieren el análisis de operaciones con signo y detección de desbordamientos.</p>
 <p>La Figura <a href="mejoras-vonsim8.html#fig:banderas">5.9</a> muestra la representación visual del registro Flags, evidenciando la disposición de las banderas y su configuración dinámica según el nivel de avance del estudiante.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:banderas"></span>
-<img src="images/flags.png" alt="Registro Flags" width="100%" />
+<img src="images/flags.png" alt="Registro Flags" width="90%" />
 <p class="caption">
 Figura 5.9: Registro Flags
 </p>
@@ -411,15 +411,15 @@ Figura 5.10: Registro de estado I
 <p>El menú de controles del simulador fue actualizado para optimizar la interacción del usuario y facilitar la ejecución de programas en diferentes modos, como ciclo, instrucción o ejecución completa. Esta mejora contribuye a una experiencia más intuitiva y eficiente, permitiendo al estudiante seleccionar el nivel de granularidad en la simulación y observar el comportamiento del sistema en cada etapa del proceso.</p>
 <p>La Figura <a href="mejoras-vonsim8.html#fig:controles">5.11</a> presenta la nueva disposición del menú de controles, destacando las opciones disponibles y su relevancia para el aprendizaje práctico en arquitectura de computadoras.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:controles"></span>
-<img src="images/controles.png" alt="Controles del simulador" width="100%" />
+<img src="images/controles.png" alt="Controles del simulador" width="90%" />
 <p class="caption">
 Figura 5.11: Controles del simulador
 </p>
 </div>
-<p>En el simulador, se optó por emplear únicamente la parte baja de cada registro, en lugar de utilizar registros de 16 bits completos. Esta decisión pedagógica simplifica tanto la representación como la manipulación de los datos, facilitando la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Asimismo, se ha unificado el criterio de diseño de los registros, dotándolos de una entrada y una salida independientes, lo que permite visualizar de manera más clara la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación resulta esencial para comprender el flujo de datos durante el ciclo de instrucción y la interacción entre los distintos componentes del procesador.</p>
+<p>En el simulador se decidió utilizar solo la parte baja de cada registro, en lugar de registros de 16 bits completos. Esta simplificación pedagógica facilita la representación y manipulación de datos, permitiendo una mejor comprensión de los conceptos clave de la arquitectura de computadoras. Además, el diseño unificado de los registros, con entrada y salida independientes, favorece la visualización clara del flujo de datos entre los registros y la ALU, aspecto fundamental para entender el ciclo de instrucción y la interacción de los componentes.</p>
 <p>La Figura <a href="mejoras-vonsim8.html#fig:registros">5.12</a> muestra la disposición y estructura de los registros de 8 bits implementados en el simulador, evidenciando su funcionalidad y su aporte a la didáctica del modelo.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:registros"></span>
-<img src="images/registros.png" alt="Registro de 8 bits" width="90%" />
+<img src="images/registros.png" alt="Registro de 8 bits" width="80%" />
 <p class="caption">
 Figura 5.12: Registro de 8 bits
 </p>
@@ -427,14 +427,14 @@ Figura 5.12: Registro de 8 bits
 <p>La supresión de los registros temporales <code>left</code>, <code>right</code> y <code>result</code> en la ALU responde al objetivo de simplificar el flujo de datos y disminuir la carga cognitiva de los estudiantes. En lugar de emplear registros intermedios, el simulador representa de manera directa las operaciones realizadas sobre los operandos, lo que facilita la comprensión del funcionamiento aritmético y lógico de la unidad. Esta estrategia didáctica permite al usuario observar de forma más transparente el procesamiento interno, favoreciendo el aprendizaje de los mecanismos fundamentales de la ALU.</p>
 <p>La Figura <a href="mejoras-vonsim8.html#fig:leftrigth">5.13</a> ilustra la eliminación de estos registros temporales, mostrando la simplificación lograda en la visualización y el flujo de datos dentro del simulador.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:leftrigth"></span>
-<img src="images/leftrigth.png" alt="Eliminación registro temporales left, right y result" width="100%" />
+<img src="images/leftrigth.png" alt="Eliminación registro temporales left, right y result" width="90%" />
 <p class="caption">
 Figura 5.13: Eliminación registro temporales left, right y result
 </p>
 </div>
 <p>Por motivos pedagógicos, los registros <code>SP</code>, <code>ri</code> e <code>id</code> permanecen ocultos en la interfaz del simulador y solo se habilitan de manera automática cuando una instrucción específica requiere su utilización. Esta estrategia contribuye a simplificar la visualización y a reducir la carga cognitiva durante las etapas iniciales del aprendizaje, permitiendo que el estudiante se enfoque en los componentes esenciales del ciclo de instrucción. La Figura <a href="mejoras-vonsim8.html#fig:idrisp">5.14</a> muestra la representación gráfica de estos registros, evidenciando su activación dinámica y su función de apoyo en la ejecución de instrucciones.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:idrisp"></span>
-<img src="images/idrisp.png" alt="Registro SP, id y ri" width="25%" />
+<img src="images/idrisp.png" alt="Registro SP, id y ri" width="22%" />
 <p class="caption">
 Figura 5.14: Registro SP, id y ri
 </p>

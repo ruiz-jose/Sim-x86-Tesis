@@ -480,23 +480,22 @@ Señal de reconocimiento de interrupción (<code>INTA</code>, 1 bit).
 </tr>
 </tbody>
 </table>
-<p>Entre los registros específicos, no accesibles directamente por el programador, se incluyen los siguientes:</p>
+<p>En la arquitectura implementada por el simulador VonSim8, los registros constituyen componentes fundamentales de la CPU, ya que permiten almacenar y manipular datos de manera eficiente durante la ejecución de instrucciones. Los registros se clasifican, según su función y accesibilidad, en registros de propósito general y registros de propósito específico.</p>
+<p>Los registros de propósito general son aquellos que el programador puede utilizar libremente para operaciones aritméticas, lógicas y de transferencia de datos. En el simulador, se dispone de cuatro registros de propósito general de 8 bits: <code>AL</code>, <code>BL</code>, <code>CL</code> y <code>DL</code>. Estos registros pueden emplearse como operandos en las instrucciones del repertorio.</p>
+<p>Entre los registros de propósito específico, que no son accesibles directamente por el programador, se distinguen los siguientes:</p>
 <ul>
-<li><strong><code>SP</code> (<em>Stack Pointer</em>)</strong>: Responsable de la gestión de la pila, permitiendo el seguimiento de las direcciones de memoria asociadas a las operaciones de apilamiento y desapilamiento.<br />
-</li>
-<li><strong><code>Flags</code> (<em>Flags Register</em>)</strong>: Registro que almacena las banderas de estado, utilizadas para reflejar el resultado de operaciones aritméticas y lógicas, así como para controlar el flujo del programa.<br />
-</li>
-<li><strong><code>IP</code> (<em>Instruction Pointer</em>)</strong>: Contiene la dirección de memoria de la próxima instrucción a ejecutar, asegurando la secuenciación correcta del programa.<br />
-</li>
-<li><strong><code>IR</code> (<em>Instruction Register</em>)</strong>: Almacena el byte correspondiente a la instrucción que está siendo decodificada y ejecutada en el momento.</li>
+<li><strong><code>SP</code> (<em>Stack Pointer</em>)</strong>: Gestiona la pila, permitiendo rastrear las direcciones de memoria involucradas en las operaciones de apilamiento y desapilamiento.</li>
+<li><strong><code>Flags</code> (<em>Flags Register</em>)</strong>: Almacena las banderas de estado, que reflejan los resultados de las operaciones aritméticas y lógicas, y permiten controlar el flujo de ejecución del programa.</li>
+<li><strong><code>IP</code> (<em>Instruction Pointer</em>)</strong>: Guarda la dirección de memoria de la próxima instrucción a ejecutar, garantizando la correcta secuenciación del programa.</li>
+<li><strong><code>IR</code> (<em>Instruction Register</em>)</strong>: Contiene el byte correspondiente a la instrucción que está siendo decodificada y ejecutada en ese instante.</li>
 </ul>
-<p>Adicionalmente, se disponen de dos registros esenciales para la transferencia de datos entre la CPU y la memoria principal:</p>
+<p>Asimismo, existen dos registros fundamentales para la transferencia de datos entre la CPU y la memoria principal:</p>
 <ul>
-<li><strong><code>MAR</code> (<em>Memory Address Register</em>)</strong>: Encargado de almacenar las direcciones de memoria que se desean acceder.<br />
+<li><strong><code>MAR</code> (<em>Memory Address Register</em>)</strong>: Almacena las direcciones de memoria a las que se desea acceder.<br />
 </li>
-<li><strong><code>MBR</code> (<em>Memory Buffer Register</em>)</strong>: Almacena temporalmente el byte de datos que se transfiere hacia o desde la memoria principal a través del bus de datos.</li>
+<li><strong><code>MBR</code> (<em>Memory Buffer Register</em>)</strong>: Retiene temporalmente el byte de datos que se transfiere entre la memoria principal y la CPU a través del bus de datos.</li>
 </ul>
-<p>Adicionalmente, se incluyen dos registros auxiliares: <code>ri</code>, destinado al almacenamiento temporal de direcciones, e <code>id</code>, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones.</p>
+<p>Finalmente, se incorporan dos registros auxiliares: <code>ri</code>, utilizado para el almacenamiento temporal de direcciones, e <code>id</code>, destinado al almacenamiento temporal de datos. Ambos cumplen funciones de apoyo durante la ejecución de instrucciones, optimizando la gestión interna de la CPU.</p>
 <div id="unidad-de-control" class="section level3 hasAnchor" number="5.4.1">
 <h3><span class="header-section-number">5.4.1</span> Unidad de Control<a href="estructura-y-componentes-de-vonsim8.html#unidad-de-control" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La unidad de control es responsable de coordinar todas las operaciones de la CPU. Se encarga de:</p>

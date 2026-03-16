@@ -2239,31 +2239,35 @@ La Tabla \ref{tab:estructuravonsim8} ofrece una descripción detallada de los co
 \end{tabular}}
 \end{table}
 
-Entre los registros específicos, no accesibles directamente por el programador, se incluyen los siguientes:
+En la arquitectura implementada por el simulador VonSim8, los registros constituyen componentes fundamentales de la CPU, ya que permiten almacenar y manipular datos de manera eficiente durante la ejecución de instrucciones. Los registros se clasifican, según su función y accesibilidad, en registros de propósito general y registros de propósito específico.
+
+Los registros de propósito general son aquellos que el programador puede utilizar libremente para operaciones aritméticas, lógicas y de transferencia de datos. En el simulador, se dispone de cuatro registros de propósito general de 8 bits: \texttt{AL}, \texttt{BL}, \texttt{CL} y \texttt{DL}. Estos registros pueden emplearse como operandos en las instrucciones del repertorio.
+
+Entre los registros de propósito específico, que no son accesibles directamente por el programador, se distinguen los siguientes:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{\texttt{SP} (\emph{Stack Pointer})}: Responsable de la gestión de la pila, permitiendo el seguimiento de las direcciones de memoria asociadas a las operaciones de apilamiento y desapilamiento.\\
+  \textbf{\texttt{SP} (\emph{Stack Pointer})}: Gestiona la pila, permitiendo rastrear las direcciones de memoria involucradas en las operaciones de apilamiento y desapilamiento.
 \item
-  \textbf{\texttt{Flags} (\emph{Flags Register})}: Registro que almacena las banderas de estado, utilizadas para reflejar el resultado de operaciones aritméticas y lógicas, así como para controlar el flujo del programa.\\
+  \textbf{\texttt{Flags} (\emph{Flags Register})}: Almacena las banderas de estado, que reflejan los resultados de las operaciones aritméticas y lógicas, y permiten controlar el flujo de ejecución del programa.
 \item
-  \textbf{\texttt{IP} (\emph{Instruction Pointer})}: Contiene la dirección de memoria de la próxima instrucción a ejecutar, asegurando la secuenciación correcta del programa.\\
+  \textbf{\texttt{IP} (\emph{Instruction Pointer})}: Guarda la dirección de memoria de la próxima instrucción a ejecutar, garantizando la correcta secuenciación del programa.
 \item
-  \textbf{\texttt{IR} (\emph{Instruction Register})}: Almacena el byte correspondiente a la instrucción que está siendo decodificada y ejecutada en el momento.
+  \textbf{\texttt{IR} (\emph{Instruction Register})}: Contiene el byte correspondiente a la instrucción que está siendo decodificada y ejecutada en ese instante.
 \end{itemize}
 
-Adicionalmente, se disponen de dos registros esenciales para la transferencia de datos entre la CPU y la memoria principal:
+Asimismo, existen dos registros fundamentales para la transferencia de datos entre la CPU y la memoria principal:
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{\texttt{MAR} (\emph{Memory Address Register})}: Encargado de almacenar las direcciones de memoria que se desean acceder.\\
+  \textbf{\texttt{MAR} (\emph{Memory Address Register})}: Almacena las direcciones de memoria a las que se desea acceder.\\
 \item
-  \textbf{\texttt{MBR} (\emph{Memory Buffer Register})}: Almacena temporalmente el byte de datos que se transfiere hacia o desde la memoria principal a través del bus de datos.
+  \textbf{\texttt{MBR} (\emph{Memory Buffer Register})}: Retiene temporalmente el byte de datos que se transfiere entre la memoria principal y la CPU a través del bus de datos.
 \end{itemize}
 
-Adicionalmente, se incluyen dos registros auxiliares: \texttt{ri}, destinado al almacenamiento temporal de direcciones, e \texttt{id}, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones.
+Finalmente, se incorporan dos registros auxiliares: \texttt{ri}, utilizado para el almacenamiento temporal de direcciones, e \texttt{id}, destinado al almacenamiento temporal de datos. Ambos cumplen funciones de apoyo durante la ejecución de instrucciones, optimizando la gestión interna de la CPU.
 
 \hypertarget{unidad-de-control}{%
 \subsection{Unidad de Control}\label{unidad-de-control}}
@@ -2506,7 +2510,7 @@ La Figura \ref{fig:banderas} muestra la representación visual del registro Flag
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/flags} 
+{\centering \includegraphics[width=0.9\linewidth]{images/flags} 
 
 }
 
@@ -2532,20 +2536,20 @@ La Figura \ref{fig:controles} presenta la nueva disposición del menú de contro
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/controles} 
+{\centering \includegraphics[width=0.9\linewidth]{images/controles} 
 
 }
 
 \caption{Controles del simulador}\label{fig:controles}
 \end{figure}
 
-En el simulador, se optó por emplear únicamente la parte baja de cada registro, en lugar de utilizar registros de 16 bits completos. Esta decisión pedagógica simplifica tanto la representación como la manipulación de los datos, facilitando la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Asimismo, se ha unificado el criterio de diseño de los registros, dotándolos de una entrada y una salida independientes, lo que permite visualizar de manera más clara la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación resulta esencial para comprender el flujo de datos durante el ciclo de instrucción y la interacción entre los distintos componentes del procesador.
+En el simulador se decidió utilizar solo la parte baja de cada registro, en lugar de registros de 16 bits completos. Esta simplificación pedagógica facilita la representación y manipulación de datos, permitiendo una mejor comprensión de los conceptos clave de la arquitectura de computadoras. Además, el diseño unificado de los registros, con entrada y salida independientes, favorece la visualización clara del flujo de datos entre los registros y la ALU, aspecto fundamental para entender el ciclo de instrucción y la interacción de los componentes.
 
 La Figura \ref{fig:registros} muestra la disposición y estructura de los registros de 8 bits implementados en el simulador, evidenciando su funcionalidad y su aporte a la didáctica del modelo.
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.9\linewidth]{images/registros} 
+{\centering \includegraphics[width=0.8\linewidth]{images/registros} 
 
 }
 
@@ -2558,7 +2562,7 @@ La Figura \ref{fig:leftrigth} ilustra la eliminación de estos registros tempora
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/leftrigth} 
+{\centering \includegraphics[width=0.9\linewidth]{images/leftrigth} 
 
 }
 
@@ -2569,7 +2573,7 @@ Por motivos pedagógicos, los registros \texttt{SP}, \texttt{ri} e \texttt{id} p
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.25\linewidth]{images/idrisp} 
+{\centering \includegraphics[width=0.22\linewidth]{images/idrisp} 
 
 }
 
@@ -3142,7 +3146,7 @@ La Tabla \ref{tab:tablaregistros} muestra los códigos binarios y decimales asig
 
 \begin{table}[!h]
 \centering
-\caption{\label{tab:tablaregistros}Tabla de registros del simulador}
+\caption{\label{tab:tablaregistros}Tabla de registros de propósito general}
 \centering
 \resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
 \fontsize{11}{13}\selectfont
@@ -4363,15 +4367,17 @@ En VonSim8, la memoria de entrada/salida se encuentra completamente separada de 
 \hypertarget{instrucciones-in-y-out}{%
 \subsection{Instrucciones IN y OUT}\label{instrucciones-in-y-out}}
 
-La comunicación con los módulos de entrada/salida se realiza a través de puertos, que son direcciones específicas dentro del espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones fundamentales para gestionar esta comunicación:
+La comunicación con los módulos de entrada/salida se realiza mediante puertos, que son direcciones específicas del procesador. En el simulador, esta interacción se gestiona con dos instrucciones principales:
 
 \begin{itemize}
 \tightlist
 \item
-  \texttt{OUT\ puerto,\ AL}: envía el contenido del registro \texttt{AL} al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de \texttt{00h} a \texttt{FFh}). Esta instrucción se utiliza para transmitir datos a dispositivos externos, como impresoras o pantallas.
+  \texttt{OUT\ puerto,\ AL}: envía el contenido de \texttt{AL} al puerto indicado (dirección de 8 bits, de \texttt{00h} a \texttt{FFh}), permitiendo transmitir datos a dispositivos externos.
 \item
-  \texttt{IN\ AL,\ puerto}: recibe un byte desde el puerto especificado y lo almacena en el registro \texttt{AL}. Al igual que la instrucción \texttt{OUT}, el puerto es una dirección de 8 bits.
+  \texttt{IN\ AL,\ puerto}: recibe un byte desde el puerto especificado y lo almacena en \texttt{AL}.
 \end{itemize}
+
+Estas instrucciones permiten al procesador interactuar con una amplia variedad de dispositivos periféricos, facilitando la entrada y salida de datos en el sistema. La correcta utilización de estas instrucciones es esencial para el funcionamiento eficiente del simulador y para la implementación de programas que requieran comunicación con el entorno externo.
 
 \hypertarget{muxf3dulo-pio-leds-e-interruptores}{%
 \subsection{Módulo PIO (Leds e Interruptores)}\label{muxf3dulo-pio-leds-e-interruptores}}
@@ -6786,7 +6792,7 @@ El desarrollo del simulador VonSim8 ha permitido establecer una base sólida par
   A partir de la validación obtenida mediante el modelado DEVS del ciclo de instrucción MOV AL, BL, una línea de trabajo futuro relevante consiste en ampliar la instrumentación y el análisis de la simulación. Esto incluye la incorporación de nuevas instrucciones del repertorio x86, la modelización de componentes adicionales como la ALU, unidades de pipeline o memoria cache. Asimismo, se propone profundizar en la recolección de métricas cuantitativas (CPI, latencia, ocupación del bus) y en el desarrollo de herramientas de visualización que permitan analizar la traza temporal de eventos DEVS. Estas extensiones no solo fortalecerán la validez del simulador VonSim8 como herramienta de investigación y docencia, sino que también abrirán el camino para explorar fenómenos avanzados de arquitectura de computadoras bajo un enfoque formal y reproducible.
 \item
   \textbf{Evaluación empírica del impacto pedagógico}\\
-  Una línea de mejora fundamental consiste en complementar la evaluación basada en percepciones con estudios empíricos que permitan analizar el desempeño académico de los estudiantes de manera objetiva. Para ello, se propone diseñar y aplicar instrumentos de evaluación cuantitativa ---como pruebas específicas o ejercicios estandarizados--- antes y después del uso del simulador, así como comparar los resultados obtenidos con los de grupos de control. Este enfoque posibilitaría cuantificar el impacto de la herramienta en la adquisición de conocimientos y habilidades, aportando evidencia más sólida sobre su eficacia pedagógica y facilitando la identificación de oportunidades de mejora.
+  Se recomienda consolidar la evaluación del simulador mediante la realización de estudios empíricos que permitan analizar de manera objetiva el desempeño académico de los estudiantes. Para ello, es necesario diseñar y aplicar instrumentos de evaluación cuantitativa, como pruebas específicas o ejercicios estandarizados, tanto antes como después de la utilización de la herramienta, y comparar los resultados obtenidos con los de grupos de control. Este procedimiento permite cuantificar el impacto del simulador en la adquisición de conocimientos y habilidades, aportando evidencia sólida sobre su eficacia pedagógica y facilitando la identificación de oportunidades de mejora.
 \end{enumerate}
 
 \hypertarget{conclusiuxf3n-1}{%
