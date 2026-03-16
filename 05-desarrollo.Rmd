@@ -318,19 +318,23 @@ if (knitr::is_latex_output()) {
 }
 ```
 
-Entre los registros específicos, no accesibles directamente por el programador, se incluyen los siguientes:  
+En la arquitectura implementada por el simulador VonSim8, los registros constituyen componentes fundamentales de la CPU, ya que permiten almacenar y manipular datos de manera eficiente durante la ejecución de instrucciones. Los registros se clasifican, según su función y accesibilidad, en registros de propósito general y registros de propósito específico.
 
-- **`SP` (_Stack Pointer_)**: Responsable de la gestión de la pila, permitiendo el seguimiento de las direcciones de memoria asociadas a las operaciones de apilamiento y desapilamiento.  
-- **`Flags` (_Flags Register_)**: Registro que almacena las banderas de estado, utilizadas para reflejar el resultado de operaciones aritméticas y lógicas, así como para controlar el flujo del programa.  
-- **`IP` (_Instruction Pointer_)**: Contiene la dirección de memoria de la próxima instrucción a ejecutar, asegurando la secuenciación correcta del programa.  
-- **`IR` (_Instruction Register_)**: Almacena el byte correspondiente a la instrucción que está siendo decodificada y ejecutada en el momento.  
+Los registros de propósito general son aquellos que el programador puede utilizar libremente para operaciones aritméticas, lógicas y de transferencia de datos. En el simulador, se dispone de cuatro registros de propósito general de 8 bits: `AL`, `BL`, `CL` y `DL`. Estos registros pueden emplearse como operandos en las instrucciones del repertorio. 
 
-Adicionalmente, se disponen de dos registros esenciales para la transferencia de datos entre la CPU y la memoria principal:  
+Entre los registros de propósito específico, que no son accesibles directamente por el programador, se distinguen los siguientes:  
 
-- **`MAR` (_Memory Address Register_)**: Encargado de almacenar las direcciones de memoria que se desean acceder.  
-- **`MBR` (_Memory Buffer Register_)**: Almacena temporalmente el byte de datos que se transfiere hacia o desde la memoria principal a través del bus de datos.  
+- **`SP` (_Stack Pointer_)**: Gestiona la pila, permitiendo rastrear las direcciones de memoria involucradas en las operaciones de apilamiento y desapilamiento. 
+- **`Flags` (_Flags Register_)**: Almacena las banderas de estado, que reflejan los resultados de las operaciones aritméticas y lógicas, y permiten controlar el flujo de ejecución del programa. 
+- **`IP` (_Instruction Pointer_)**: Guarda la dirección de memoria de la próxima instrucción a ejecutar, garantizando la correcta secuenciación del programa.
+- **`IR` (_Instruction Register_)**: Contiene el byte correspondiente a la instrucción que está siendo decodificada y ejecutada en ese instante.  
 
-Adicionalmente, se incluyen dos registros auxiliares: `ri`, destinado al almacenamiento temporal de direcciones, e `id`, orientado al almacenamiento temporal de datos. Estos registros cumplen una función de apoyo en la ejecución de instrucciones. 
+Asimismo, existen dos registros fundamentales para la transferencia de datos entre la CPU y la memoria principal: 
+
+- **`MAR` (_Memory Address Register_)**: Almacena las direcciones de memoria a las que se desea acceder.  
+- **`MBR` (_Memory Buffer Register_)**: Retiene temporalmente el byte de datos que se transfiere entre la memoria principal y la CPU a través del bus de datos. 
+
+Finalmente, se incorporan dos registros auxiliares: `ri`, utilizado para el almacenamiento temporal de direcciones, e `id`, destinado al almacenamiento temporal de datos. Ambos cumplen funciones de apoyo durante la ejecución de instrucciones, optimizando la gestión interna de la CPU.
 
 ### Unidad de Control
 La unidad de control es responsable de coordinar todas las operaciones de la CPU. Se encarga de:
@@ -550,7 +554,7 @@ En el registro Flags del simulador VonSim8, las banderas O (overflow) y S (signo
 
 La Figura \@ref(fig:banderas) muestra la representación visual del registro Flags, evidenciando la disposición de las banderas y su configuración dinámica según el nivel de avance del estudiante.
 
-```{r banderas, echo=FALSE, fig.cap="Registro Flags", fig.align = 'center', out.width = "100%"}
+```{r banderas, echo=FALSE, fig.cap="Registro Flags", fig.align = 'center', out.width = "90%"}
 knitr::include_graphics(path = "images/flags.png")
 ```
 
@@ -566,28 +570,28 @@ El menú de controles del simulador fue actualizado para optimizar la interacci�
 
 La Figura \@ref(fig:controles) presenta la nueva disposición del menú de controles, destacando las opciones disponibles y su relevancia para el aprendizaje práctico en arquitectura de computadoras.
 
-```{r controles, echo=FALSE, fig.cap="Controles del simulador", fig.align = 'center', out.width = "100%"}    
+```{r controles, echo=FALSE, fig.cap="Controles del simulador", fig.align = 'center', out.width = "90%"}    
 knitr::include_graphics(path = "images/controles.png")
 ```
 
-En el simulador, se optó por emplear únicamente la parte baja de cada registro, en lugar de utilizar registros de 16 bits completos. Esta decisión pedagógica simplifica tanto la representación como la manipulación de los datos, facilitando la comprensión de los conceptos fundamentales de la arquitectura de computadoras. Asimismo, se ha unificado el criterio de diseño de los registros, dotándolos de una entrada y una salida independientes, lo que permite visualizar de manera más clara la transferencia de datos entre los registros y la Unidad Aritmético-Lógica (ALU). Esta modificación resulta esencial para comprender el flujo de datos durante el ciclo de instrucción y la interacción entre los distintos componentes del procesador.
+En el simulador se decidió utilizar solo la parte baja de cada registro, en lugar de registros de 16 bits completos. Esta simplificación pedagógica facilita la representación y manipulación de datos, permitiendo una mejor comprensión de los conceptos clave de la arquitectura de computadoras. Además, el diseño unificado de los registros, con entrada y salida independientes, favorece la visualización clara del flujo de datos entre los registros y la ALU, aspecto fundamental para entender el ciclo de instrucción y la interacción de los componentes.
 
 La Figura \@ref(fig:registros) muestra la disposición y estructura de los registros de 8 bits implementados en el simulador, evidenciando su funcionalidad y su aporte a la didáctica del modelo.
 
-```{r registros, echo=FALSE, fig.cap="Registro de 8 bits", fig.align = 'center', out.width = "90%"}    
+```{r registros, echo=FALSE, fig.cap="Registro de 8 bits", fig.align = 'center', out.width = "80%"}    
 knitr::include_graphics(path = "images/registros.png")
 ```
 La supresión de los registros temporales `left`, `right` y `result` en la ALU responde al objetivo de simplificar el flujo de datos y disminuir la carga cognitiva de los estudiantes. En lugar de emplear registros intermedios, el simulador representa de manera directa las operaciones realizadas sobre los operandos, lo que facilita la comprensión del funcionamiento aritmético y lógico de la unidad. Esta estrategia didáctica permite al usuario observar de forma más transparente el procesamiento interno, favoreciendo el aprendizaje de los mecanismos fundamentales de la ALU.
 
 La Figura \@ref(fig:leftrigth) ilustra la eliminación de estos registros temporales, mostrando la simplificación lograda en la visualización y el flujo de datos dentro del simulador.
 
-```{r leftrigth, echo=FALSE, fig.cap="Eliminación registro temporales left, right y result", fig.align = 'center', out.width = "100%"}    
+```{r leftrigth, echo=FALSE, fig.cap="Eliminación registro temporales left, right y result", fig.align = 'center', out.width = "90%"}    
 knitr::include_graphics(path = "images/leftrigth.png")
 ```
 
 Por motivos pedagógicos, los registros `SP`, `ri` e `id` permanecen ocultos en la interfaz del simulador y solo se habilitan de manera automática cuando una instrucción específica requiere su utilización. Esta estrategia contribuye a simplificar la visualización y a reducir la carga cognitiva durante las etapas iniciales del aprendizaje, permitiendo que el estudiante se enfoque en los componentes esenciales del ciclo de instrucción. La Figura \@ref(fig:idrisp) muestra la representación gráfica de estos registros, evidenciando su activación dinámica y su función de apoyo en la ejecución de instrucciones.
 
-```{r idrisp, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "25%"}    
+```{r idrisp, echo=FALSE, fig.cap="Registro SP, id y ri", fig.align = 'center', out.width = "22%"}    
 knitr::include_graphics(path = "images/idrisp.png")
 ```
 
@@ -1485,7 +1489,7 @@ tablaregistros <- data.frame(
 if (knitr::is_latex_output()) {
   kable(tablaregistros, format = "latex", booktabs = TRUE, align = "c",
         col.names = c("Registros R", "Binario", "Decimal"),
-        caption = "Tabla de registros del simulador") %>%
+        caption = "Tabla de registros de propósito general") %>%
     kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 11, position = "center") %>%
     column_spec(1, width = "2.5cm") %>%
     column_spec(2, width = "2.5cm") %>%
@@ -1499,7 +1503,7 @@ if (knitr::is_latex_output()) {
 } else {
   kable(tablaregistros, format = "html", table.attr = "class='table table-striped'", align = "c",
         col.names = c("Registros R", "Binario", "Decimal"),
-        caption = "Tabla de registros del simulador") %>%
+        caption = "Tabla de registros de propósito general") %>%
     kable_styling(full_width = FALSE, position = "center") %>%
     column_spec(1, width = "7em") %>%
     column_spec(2, width = "7em") %>%
@@ -2364,10 +2368,12 @@ if (knitr::is_latex_output()) {
 ```
 
 ### Instrucciones IN y OUT
-La comunicación con los módulos de entrada/salida se realiza a través de puertos, que son direcciones específicas dentro del espacio de direcciones del procesador. En este simulador, se implementan dos instrucciones fundamentales para gestionar esta comunicación:
+La comunicación con los módulos de entrada/salida se realiza mediante puertos, que son direcciones específicas del procesador. En el simulador, esta interacción se gestiona con dos instrucciones principales:
 
-  - `OUT puerto, AL`: envía el contenido del registro `AL` al puerto especificado. El puerto es una dirección de 8 bits, lo que permite un total de 256 puertos diferentes (de `00h` a `FFh`). Esta instrucción se utiliza para transmitir datos a dispositivos externos, como impresoras o pantallas.
-  - `IN AL, puerto`: recibe un byte desde el puerto especificado y lo almacena en el registro `AL`.  Al igual que la instrucción `OUT`, el puerto es una dirección de 8 bits.
+  - `OUT puerto, AL`: envía el contenido de `AL` al puerto indicado (dirección de 8 bits, de `00h` a `FFh`), permitiendo transmitir datos a dispositivos externos.
+  - `IN AL, puerto`: recibe un byte desde el puerto especificado y lo almacena en `AL`.
+
+Estas instrucciones permiten al procesador interactuar con una amplia variedad de dispositivos periféricos, facilitando la entrada y salida de datos en el sistema. La correcta utilización de estas instrucciones es esencial para el funcionamiento eficiente del simulador y para la implementación de programas que requieran comunicación con el entorno externo.
 
 ### Módulo PIO (Leds e Interruptores)
 El módulo de entrada/salida programada (Programmed Input-Output, PIO) actúa como interfaz entre la CPU y los dispositivos periféricos genéricos. Su diseño está basado en el controlador PPI 8255 de Intel, específicamente en su modo `0`, pero incorpora modificaciones orientadas a simplificar su funcionamiento para fines educativos [@intel8086manual; @godse2020microprocessor].
